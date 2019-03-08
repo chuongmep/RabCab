@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RabCab.Utilities.Extensions
 {
-    class CircularArc3dExtensions
+    class CircularArc3DExtensions
     {
         //TODO
     }

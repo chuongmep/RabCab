@@ -8,5 +8,6 @@ namespace RabCab.Utilities.Entities.Structure
 {
     class Assembly
     {
+        //TODO
     }
 }

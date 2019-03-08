@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RabCab.Utilities.Extensions
+namespace RabCab.Utilities.Exceptions
 {
-    class TransactionExtensions
+    class CancelException
     {
         //TODO
     }

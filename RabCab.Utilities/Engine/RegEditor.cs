@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RabCab.Utilities.Settings
+namespace RabCab.Utilities.Engine
 {
-    class AcVars
+    class RegEditor
     {
+        //TODO
     }
 }

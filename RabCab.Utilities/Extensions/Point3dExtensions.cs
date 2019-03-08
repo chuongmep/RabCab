@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace RabCab.Utilities.Extensions
 {
-    class Point3dExtensions
+    class Point3DExtensions
     {
+        //TODO
     }
 }

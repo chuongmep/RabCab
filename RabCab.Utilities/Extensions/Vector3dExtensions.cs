@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace RabCab.Utilities.Extensions
 {
-    class Vector3dExtensions
+    class Vector3DExtensions
     {
+        //TODO
     }
 }

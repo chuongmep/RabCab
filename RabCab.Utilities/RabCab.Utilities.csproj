@@ -114,8 +114,11 @@
   <ItemGroup />
   <ItemGroup>
     <Compile Include="Agents\BatchAgent.cs" />
+    <Compile Include="Agents\CadAgent.cs" />
     <Compile Include="Agents\CuiAgent.cs" />
     <Compile Include="Agents\GuiAgent.cs" />
+    <Compile Include="Agents\LicensingAgent.cs" />
+    <Compile Include="Agents\PageAgent.cs" />
     <Compile Include="Agents\ProgressAgent.cs" />
     <Compile Include="Agents\ProxyAgent.cs" />
     <Compile Include="Agents\TransientAgent.cs" />
@@ -163,7 +166,9 @@
       <DependentUpon>Dialect_Progress.resx</DependentUpon>
     </Compile>
     <Compile Include="Dialect\Language.cs" />
+    <Compile Include="Engine\AcVars.cs" />
     <Compile Include="Engine\Enums.cs" />
+    <Compile Include="Engine\RegEditor.cs" />
     <Compile Include="Entities\Cameras\ExternalViewport.cs" />
     <Compile Include="Entities\Fasteners\Biscuit.cs" />
     <Compile Include="Entities\Fasteners\Bolt.cs" />
@@ -178,6 +183,7 @@
     <Compile Include="Entities\Structure\Connection.cs" />
     <Compile Include="Entities\Structure\Frame.cs" />
     <Compile Include="Entities\Structure\Tube.cs" />
+    <Compile Include="Exceptions\CancelException.cs" />
     <Compile Include="Extensions\BlockExtensions.cs" />
     <Compile Include="Extensions\CircularArc2dExtensions.cs" />
     <Compile Include="Extensions\CircularArc3dExtensions.cs" />
@@ -205,6 +211,7 @@
     <Compile Include="External\PathFinder.cs" />
     <Compile Include="Generators\BlockGenerator.cs" />
     <Compile Include="Generators\DetailGenerator.cs" />
+    <Compile Include="Generators\FlatShotGenerator.cs" />
     <Compile Include="Generators\SolidGenerator.cs" />
     <Compile Include="Generators\SurfaceGenerator.cs" />
     <Compile Include="Handlers\DatabaseHandlers.cs" />
@@ -271,7 +278,6 @@
     <Compile Include="External\XmlAgent\XmlReader.cs" />
     <Compile Include="External\XmlAgent\XmlWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Settings\AcVars.cs" />
     <Compile Include="Settings\SettingsInternal.cs" />
     <Compile Include="Settings\SettingsUser.cs" />
   </ItemGroup>

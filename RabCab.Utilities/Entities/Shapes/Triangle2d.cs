@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RabCab.Utilities.Entities
+﻿namespace RabCab.Utilities.Entities.Shapes
 {
-    class Triangle2d
+    class Triangle2D
     {
+        //TODO
     }
 }

@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace RabCab.Utilities.Extensions
 {
-    class Solid3dExtensions
+    class Solid3DExtensions
     {
+        //TODO
     }
 }

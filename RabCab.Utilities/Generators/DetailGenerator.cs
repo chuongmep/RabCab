@@ -8,5 +8,6 @@ namespace RabCab.Utilities.Generators
 {
     class DetailGenerator
     {
+        //TODO
     }
 }

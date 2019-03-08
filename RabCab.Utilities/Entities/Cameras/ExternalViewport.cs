@@ -8,5 +8,6 @@ namespace RabCab.Utilities.Entities.Cameras
 {
     class ExternalViewport
     {
+        //TODO
     }
 }
