@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace RabCab.Utilities.Dialect {
+namespace RabCab.Utilities.Resources.Dialect {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace RabCab.Utilities.Dialect {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Dialect_Database {
+    internal class Dialect_CUI {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Dialect_Database() {
+        internal Dialect_CUI() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace RabCab.Utilities.Dialect {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("RabCab.Utilities.Dialect.Dialect_Database", typeof(Dialect_Database).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("RabCab.Utilities.Resources.Dialect.Dialect_CUI", typeof(Dialect_CUI).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RabCab.Utilities.Dialect
+namespace RabCab.Utilities.Calculators
 {
-    class Language
+    class NestCalculator
     {
     }
 }
