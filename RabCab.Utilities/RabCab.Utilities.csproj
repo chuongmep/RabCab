@@ -116,6 +116,7 @@
     <Compile Include="Agents\BatchAgent.cs" />
     <Compile Include="Agents\CadAgent.cs" />
     <Compile Include="Agents\CuiAgent.cs" />
+    <Compile Include="Agents\EnumAgnet.cs" />
     <Compile Include="Agents\GuiAgent.cs" />
     <Compile Include="Agents\LicensingAgent.cs" />
     <Compile Include="Agents\PageAgent.cs" />
@@ -248,6 +249,12 @@
     </Compile>
     <Compile Include="Interface\PaletteGui.Designer.cs">
       <DependentUpon>PaletteGui.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Interface\PlotHelperGui.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Interface\PlotHelperGui.Designer.cs">
+      <DependentUpon>PlotHelperGui.cs</DependentUpon>
     </Compile>
     <Compile Include="Interface\QuickFireGui.cs">
       <SubType>UserControl</SubType>

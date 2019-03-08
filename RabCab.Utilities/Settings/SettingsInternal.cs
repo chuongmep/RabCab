@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace RabCab.Utilities.Settings
 {
-    class SettingsInternal
+    public static class SettingsInternal
     {
-        //TODO
+        //Setting For Command Methods
+        public const string CommandGroup = "RABCAB";
     }
 }

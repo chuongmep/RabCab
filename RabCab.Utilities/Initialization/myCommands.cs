@@ -1,16 +1,17 @@
 ﻿// (C) Copyright 2019 by  
 //
-using System;
-using Autodesk.AutoCAD.Runtime;
+
 using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.DatabaseServices;
-using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.EditorInput;
+using Autodesk.AutoCAD.Runtime;
+using RabCab.Utilities.Initialization;
+using static RabCab.Utilities.Settings.SettingsInternal;
 
 // This line is not mandatory, but improves loading performances
-[assembly: CommandClass(typeof(RabCab.Utilities.MyCommands))]
+[assembly: CommandClass(typeof(MyCommands))]
 
-namespace RabCab.Utilities
+namespace RabCab.Utilities.Initialization
 {
 
     // This class is instantiated by AutoCAD for each document when
@@ -85,6 +86,16 @@ namespace RabCab.Utilities
 
         #endregion
 
+        #region Internal & Debug Commands
+
+        [CommandMethod(CommandGroup, "_LISEDXFNAME", CommandFlags.Modal)]
+        public void DebugListCmdName() // This method can have any name
+        {
+           
+        }
+
+
+        #endregion
 
     }
 
