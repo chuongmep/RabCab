@@ -8,6 +8,5 @@ namespace RabCab.Utilities.Engine
 {
     class Enums
     {
-        //TODO
     }
 }
