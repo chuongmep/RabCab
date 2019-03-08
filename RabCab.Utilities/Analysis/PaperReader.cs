@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RabCab.Utilities.Analysis
 {
-    class EntProperties
+    class PaperReader
     {
     }
 }
