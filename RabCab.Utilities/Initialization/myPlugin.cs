@@ -1,16 +1,13 @@
 ﻿// (C) Copyright 2019 by  
 //
-using System;
+
 using Autodesk.AutoCAD.Runtime;
-using Autodesk.AutoCAD.ApplicationServices;
-using Autodesk.AutoCAD.DatabaseServices;
-using Autodesk.AutoCAD.Geometry;
-using Autodesk.AutoCAD.EditorInput;
+using RabCab.Utilities.Initialization;
 
 // This line is not mandatory, but improves loading performances
-[assembly: ExtensionApplication(typeof(RabCab.Utilities.MyPlugin))]
+[assembly: ExtensionApplication(typeof(MyPlugin))]
 
-namespace RabCab.Utilities
+namespace RabCab.Utilities.Initialization
 {
 
     // This class is instantiated by AutoCAD once and kept alive for the 

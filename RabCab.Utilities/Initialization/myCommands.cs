@@ -5,6 +5,7 @@ using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Runtime;
+using RabCab.Utilities.Extensions;
 using RabCab.Utilities.Initialization;
 using static RabCab.Utilities.Settings.SettingsInternal;
 
@@ -20,6 +21,25 @@ namespace RabCab.Utilities.Initialization
     // is implicitly per-document!
     public class MyCommands
     {
+        #region Internal & Debug Commands
+
+        [CommandMethod(CommandGroup, "_CheckEditor", CommandFlags.Modal)]
+        public void DebugListCmdName() // This method can have any name
+        {
+            var acCurDoc = Autodesk.AutoCAD.ApplicationServices.Core.Application.DocumentManager.MdiActiveDocument;
+            var acCurDb = acCurDoc.Database;
+            var acCurEd = acCurDoc.Editor;
+
+            var angleRadTest = acCurEd.GetRadian("\nEnter angle to test prompt: ");
+            acCurEd.WriteMessage("\n" + angleRadTest);
+
+            var angleDegTest = acCurEd.GetDegree("\nEnter angle to test prompt: ");
+            acCurEd.WriteMessage("\n" + angleDegTest);
+        }
+
+
+        #endregion
+
 
         #region Templates
 
@@ -83,17 +103,6 @@ namespace RabCab.Utilities.Initialization
             // Return a value to the AutoCAD Lisp Interpreter
             return 1;
         }
-
-        #endregion
-
-        #region Internal & Debug Commands
-
-        [CommandMethod(CommandGroup, "_LISEDXFNAME", CommandFlags.Modal)]
-        public void DebugListCmdName() // This method can have any name
-        {
-           
-        }
-
 
         #endregion
 
