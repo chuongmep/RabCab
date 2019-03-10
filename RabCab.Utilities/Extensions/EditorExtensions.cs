@@ -343,5 +343,66 @@ namespace RabCab.Utilities.Extensions
 
         #endregion
 
+        #region Prompt Double Options
+
+        /// <summary>
+        /// Gets any double input,  Allows positive and negative values.
+        /// </summary>
+        /// <param name="acCurEd">The current working Editor.</param>
+        /// <param name="prompt">The prompt to present to the user.</param>
+        /// <param name="defaultValue">The default value to use in prompt -> pressing enter will automatically use the default distance.</param>
+        /// <returns>Returns a double from the editor in decimal format.</returns>
+        public static double GetDouble(this Editor acCurEd, string prompt, double defaultValue = 0)
+        {
+            var prDobOpts = new PromptDoubleOptions(prompt)
+            {
+                Message = prompt,
+                AllowNone = false,
+                AllowNegative = true,
+                DefaultValue = defaultValue,
+                UseDefaultValue = defaultValue != 0
+            };
+
+            //Prompt the editor to receive the distance from the user
+            var prDistRes = acCurEd.GetDouble(prDobOpts);
+
+            //If bad input -> return 0
+            if (prDistRes.Status != PromptStatus.OK) return 0;
+
+            //Return the distance entered into the editor
+            var distResult = prDistRes.Value;
+            return distResult;
+        }
+
+        /// <summary>
+        /// Gets any double input, Allows positive values.
+        /// </summary>
+        /// <param name="acCurEd">The current working Editor.</param>
+        /// <param name="prompt">The prompt to present to the user.</param>
+        /// <param name="defaultValue">The default value to use in prompt -> pressing enter will automatically use the default distance.</param>
+        /// <returns>Returns a double from the editor in decimal format.</returns>
+        public static double GetPositiveDouble(this Editor acCurEd, string prompt, double defaultValue = 0)
+        {
+            var prDobOpts = new PromptDoubleOptions(prompt)
+            {
+                Message = prompt,
+                AllowNone = false,
+                AllowNegative = false,
+                DefaultValue = defaultValue,
+                UseDefaultValue = defaultValue != 0
+            };
+
+            //Prompt the editor to receive the distance from the user
+            var prDistRes = acCurEd.GetDouble(prDobOpts);
+
+            //If bad input -> return 0
+            if (prDistRes.Status != PromptStatus.OK) return 0;
+
+            //Return the distance entered into the editor
+            var distResult = prDistRes.Value;
+            return distResult;
+        }
+
+        #endregion
     }
 }
