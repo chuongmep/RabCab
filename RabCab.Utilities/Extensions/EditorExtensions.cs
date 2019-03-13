@@ -368,15 +368,15 @@ namespace RabCab.Utilities.Extensions
                 UseDefaultValue = defaultValue != 0
             };
 
-            //Prompt the editor to receive the distance from the user
-            var prDistRes = acCurEd.GetDouble(prDobOpts);
+            //Prompt the editor to receive the double from the user
+            var prDobRes = acCurEd.GetDouble(prDobOpts);
 
             //If bad input -> return 0
-            if (prDistRes.Status != PromptStatus.OK) return 0;
+            if (prDobRes.Status != PromptStatus.OK) return 0;
 
-            //Return the distance entered into the editor
-            var distResult = prDistRes.Value;
-            return distResult;
+            //Return the double entered into the editor
+            var dobResult = prDobRes.Value;
+            return dobResult;
         }
 
         /// <summary>
@@ -397,15 +397,15 @@ namespace RabCab.Utilities.Extensions
                 UseDefaultValue = defaultValue != 0
             };
 
-            //Prompt the editor to receive the distance from the user
-            var prDistRes = acCurEd.GetDouble(prDobOpts);
+            //Prompt the editor to receive the double from the user
+            var prDobRes = acCurEd.GetDouble(prDobOpts);
 
             //If bad input -> return 0
-            if (prDistRes.Status != PromptStatus.OK) return 0;
+            if (prDobRes.Status != PromptStatus.OK) return 0;
 
-            //Return the distance entered into the editor
-            var distResult = prDistRes.Value;
-            return distResult;
+            //Return the double entered into the editor
+            var dobResult = prDobRes.Value;
+            return dobResult;
         }
 
         #endregion
@@ -519,6 +519,104 @@ namespace RabCab.Utilities.Extensions
 
             //Return the selected entities object ID
             return prEntRes.ObjectId;
+        }
+
+        #endregion
+
+        #region Prompt Integer Options
+
+        /// <summary>
+        /// Gets any integer input, Allows positive and negative values.
+        /// </summary>
+        /// <param name="acCurEd">The current working Editor.</param>
+        /// <param name="prompt">The prompt to present to the user.</param>
+        /// <param name="defaultValue">The default value to use in prompt -> pressing enter will automatically use the default distance.</param>
+        /// <returns>Returns an integer from the editor.</returns>
+        public static int GetAnyInteger(this Editor acCurEd, string prompt, int defaultValue)
+        {
+            var prIntOpts = new PromptIntegerOptions(prompt)
+            {
+                Message = prompt,
+                AllowNone = false,
+                AllowNegative = true,
+                DefaultValue = defaultValue,
+                UseDefaultValue = defaultValue != 0
+            };
+
+
+            //Prompt the editor to receive the double from the user
+            var prIntRes = acCurEd.GetInteger(prIntOpts);
+
+            //If bad input -> return 0
+            if (prIntRes.Status != PromptStatus.OK) return 0;
+
+            //Return the distance entered into the editor
+            var intResult = prIntRes.Value;
+            return intResult;
+        }
+
+        /// <summary>
+        /// Gets any integer input, Allows positive values.
+        /// </summary>
+        /// <param name="acCurEd">The current working Editor.</param>
+        /// <param name="prompt">The prompt to present to the user.</param>
+        /// <param name="defaultValue">The default value to use in prompt -> pressing enter will automatically use the default distance.</param>
+        /// <returns>Returns an integer from the editor.</returns>
+        public static int GetPositiveInteger(this Editor acCurEd, string prompt, int defaultValue = 0)
+        {
+            var prIntOpts = new PromptIntegerOptions(prompt)
+            {
+                Message = prompt,
+                AllowNone = false,
+                AllowNegative = false,
+                DefaultValue = defaultValue,
+                UseDefaultValue = defaultValue != 0
+            };
+
+
+            //Prompt the editor to receive the double from the user
+            var prIntRes = acCurEd.GetInteger(prIntOpts);
+
+            //If bad input -> return 0
+            if (prIntRes.Status != PromptStatus.OK) return 0;
+
+            //Return the distance entered into the editor
+            var intResult = prIntRes.Value;
+            return intResult;
+        }
+
+        /// <summary>
+        /// Gets any integer input, Allows any value between provided limits.
+        /// </summary>
+        /// <param name="acCurEd">The current working Editor.</param>
+        /// <param name="prompt">The prompt to present to the user.</param>
+        /// <param name="min">The minimum limit allowed to be entered by the user.</param>
+        /// <param name="max">The maximum limit allowed to be entered by the user.</param>
+        /// <param name="defaultValue">The default value to use in prompt -> pressing enter will automatically use the default distance.</param>
+        /// <returns>Returns an integer from the editor.</returns>
+        public static int GetLimitedInteger(this Editor acCurEd, string prompt, int min, int max, int defaultValue = 0)
+        {
+            var prIntOpts = new PromptIntegerOptions(prompt)
+            {
+                Message = prompt,
+                AllowNone = false,
+                AllowNegative = true,
+                LowerLimit = min,
+                UpperLimit = max,
+                DefaultValue = defaultValue,
+                UseDefaultValue = defaultValue != 0
+            };
+
+
+            //Prompt the editor to receive the double from the user
+            var prIntRes = acCurEd.GetInteger(prIntOpts);
+
+            //If bad input -> return 0
+            if (prIntRes.Status != PromptStatus.OK) return 0;
+
+            //Return the distance entered into the editor
+            var intResult = prIntRes.Value;
+            return intResult;
         }
 
         #endregion
