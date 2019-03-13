@@ -1,6 +1,9 @@
-﻿using Autodesk.AutoCAD.EditorInput;
+﻿using System;
+using Autodesk.AutoCAD.DatabaseServices;
+using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
 using RabCab.Utilities.Calculators;
+// ReSharper disable CompareOfFloatsByEqualityOperator
 
 namespace RabCab.Utilities.Extensions
 {
@@ -78,6 +81,8 @@ namespace RabCab.Utilities.Extensions
         }
 
         #endregion
+
+        //TODO Prompt Corner Options
 
         #region Prompt Distance Options
 
@@ -404,5 +409,119 @@ namespace RabCab.Utilities.Extensions
         }
 
         #endregion
+
+        //TODO Prompt Drag Options
+
+        #region Prompt Entity Options
+
+        /// <summary>
+        /// Method to prompt user to select an entity and return its ObjectId for use in other methods.
+        /// </summary>
+        /// <param name="acCurEd">The current working editor.</param>
+        /// <param name="prompt">The prompt to be presented to the user.</param>
+        /// <param name="rejectMessage">The message presented to the user if the selected item is rejected.</param>
+        /// <returns>Object ID of the selected entity</returns>
+        public static ObjectId GetEntityId(this Editor acCurEd, string prompt, string rejectMessage = "")
+        {
+            //Create a variable to hold the object ID
+            var entObjId = ObjectId.Null;
+
+            //Prompt user to select entities in autoCAD
+            var prEntOpts = new PromptEntityOptions(prompt)
+            {
+                AllowNone = false,
+                AllowObjectOnLockedLayer = false,
+            };
+
+            //Set the reject message
+            prEntOpts.SetRejectMessage(rejectMessage);
+
+            //Prompt the editor to receive the entity selected by the user
+            var prEntRes = acCurEd.GetEntity(prEntOpts);
+
+            //If bad input -> return Null
+            if (prEntRes.Status != PromptStatus.OK) return entObjId;
+
+            //Return the selected entities object ID
+            return prEntRes.ObjectId;
+        }
+
+        /// <summary>
+        /// Method to prompt user to select an entity and return its ObjectId for use in other methods.
+        /// </summary>
+        /// <param name="acCurEd">The current working editor.</param>
+        /// <param name="type">The only type of entity the editor is allowed to select.</param>
+        /// <param name="prompt">The prompt to be presented to the user.</param>
+        /// <param name="rejectMessage">The message presented to the user if the selected item is rejected.</param>
+        /// <returns>Object ID of the selected entity</returns>
+        public static ObjectId GetEntityId(this Editor acCurEd, Type type, string prompt,
+            string rejectMessage = "")
+        {
+            //Create a variable to hold the object ID
+            var entObjId = ObjectId.Null;
+
+            //Prompt user to select entities in autoCAD
+            var prEntOpts = new PromptEntityOptions(prompt)
+            {
+                AllowNone = false,
+                AllowObjectOnLockedLayer = false
+            };
+
+            //Set the reject message
+            prEntOpts.SetRejectMessage(rejectMessage);
+
+            //Add the allowed class as the only selectable type
+            prEntOpts.AddAllowedClass(type, true);
+
+            //Prompt the editor to receive the entity selected by the user
+            var prEntRes = acCurEd.GetEntity(prEntOpts);
+
+            //If bad input -> return Null
+            if (prEntRes.Status != PromptStatus.OK) return entObjId;
+
+            //Return the selected entities object ID
+            return prEntRes.ObjectId;
+        }
+
+        /// <summary>
+        /// Method to prompt user to select an entity and return its ObjectId for use in other methods.
+        /// </summary>
+        /// <param name="acCurEd">The current working editor.</param>
+        /// <param name="types">Array of allowable types that can be selected by the editor</param>
+        /// <param name="prompt">The prompt to be presented to the user.</param>
+        /// <param name="rejectMessage">The message presented to the user if the selected item is rejected.</param>
+        /// <returns>Object ID of the selected entity</returns>
+        public static ObjectId GetEntityId(this Editor acCurEd, Type[] types, string prompt,
+            string rejectMessage = "")
+        {
+            //Create a variable to hold the object ID
+            var entObjId = ObjectId.Null;
+
+            //Prompt user to select entities in autoCAD
+            var prEntOpts = new PromptEntityOptions(prompt)
+            {
+                AllowNone = false,
+                AllowObjectOnLockedLayer = false
+            };
+
+            //Set the reject message
+            prEntOpts.SetRejectMessage(rejectMessage);
+
+            //Add the allowed classes as the only selectable types
+            foreach (var type in types)
+                prEntOpts.AddAllowedClass(type, true);
+
+            //Prompt the editor to receive the entity selected by the user
+            var prEntRes = acCurEd.GetEntity(prEntOpts);
+
+            //If bad input -> return Null
+            if (prEntRes.Status != PromptStatus.OK) return entObjId;
+
+            //Return the selected entities object ID
+            return prEntRes.ObjectId;
+        }
+
+        #endregion
+
     }
 }

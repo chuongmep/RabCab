@@ -145,6 +145,7 @@
     <Compile Include="Calculators\NestCalculator.cs" />
     <Compile Include="Calculators\Tolerance.cs" />
     <Compile Include="Calculators\UnitConverter.cs" />
+    <Compile Include="Calculators\WattageCalculator.cs" />
     <Compile Include="Calculators\WeightCalculator.cs" />
     <Compile Include="Resources\Dialect\Dialect_CUI.Designer.cs">
       <AutoGen>True</AutoGen>
