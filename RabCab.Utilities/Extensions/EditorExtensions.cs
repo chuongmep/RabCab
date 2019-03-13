@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
@@ -617,6 +618,90 @@ namespace RabCab.Utilities.Extensions
             //Return the distance entered into the editor
             var intResult = prIntRes.Value;
             return intResult;
+        }
+
+        #endregion
+
+        #region Prompt Keyword Options
+
+        /// <summary>
+        /// Method to get a keyword selection from the user - supports single word input (non-arbritrary)
+        /// </summary>
+        /// <param name="acCurEd">The current working editor.</param>
+        /// <param name="prompt">The prompt to present to the user</param>
+        /// <param name="keywords">Array of keywords to present to the user to select from.</param>
+        /// <returns>Returns a string result of the keyword the user has selected -> if error occurs, returns null</returns>
+        public static string GetSimpleKeyword(this Editor acCurEd, string prompt, string[] keywords)
+        {
+            var prKeyOpts = new PromptKeywordOptions("")
+            {
+                Message = prompt,
+                AllowNone = false
+            };
+
+            //Append keywords to the message
+            foreach (var key in keywords)
+                prKeyOpts.Keywords.Add(key);
+
+            var prKeyRes = acCurEd.GetKeywords(prKeyOpts);
+            
+            // If bad input -> return null
+            if (prKeyRes.Status != PromptStatus.OK) return null;
+
+            //Return the keyword selected in the editor
+            return prKeyRes.StringResult;
+        }
+
+        /// <summary>
+        /// Method to get a keyword selection from the user - supports any keyword input.
+        /// </summary>
+        /// <param name="acCurEd">The current working editor.</param>
+        /// <param name="prompt">The prompt to present to the user</param>
+        /// <param name="keywords">Array of keywords to present to the user to select from.</param>
+        /// <returns>Returns a string result of the keyword the user has selected -> if error occurs, returns null</returns>
+        public static string GetComplexKeyword(this Editor acCurEd, string prompt, string[] keywords)
+        {
+            var prKeyOpts = new PromptKeywordOptions("")
+            {
+                Message = prompt,
+                AllowNone = false,
+                AllowArbitraryInput = true
+            };
+
+            //Create an iterator to append to the beginning of each complex keyword
+            char iterator = 'A';
+
+            //Create a dictionary to hold each iterator and the partner keyword
+            var keyDict = new Dictionary<string, string>();
+
+            //Append keywords to the message
+            foreach (var key in keywords)
+            {
+                keyDict.Add(key, iterator.ToString());
+                prKeyOpts.Keywords.Add(iterator.ToString(), iterator.ToString(),
+                                    iterator + ": " + key.ToLower());
+                iterator++;
+            }
+                      
+            var prKeyRes = acCurEd.GetKeywords(prKeyOpts);
+
+            // If bad input -> return null
+            if (prKeyRes.Status != PromptStatus.OK) return null;
+
+            var returnIterator = prKeyRes.StringResult;
+            var selectedKeyword = "";
+
+            //Loop back through the keyword dictionary and find the matching iterator - once found, exit the for loop.
+            foreach (var entry in keyDict)
+            {
+                if (entry.Value != returnIterator) continue;
+
+                selectedKeyword = entry.Key;
+                break;
+            }
+
+            //Return the keyword selected in the editor
+            return selectedKeyword;
         }
 
         #endregion
