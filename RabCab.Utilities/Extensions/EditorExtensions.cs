@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
+using System.Windows.Forms;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
@@ -533,7 +536,7 @@ namespace RabCab.Utilities.Extensions
         /// <param name="prompt">The prompt to present to the user.</param>
         /// <param name="defaultValue">The default value to use in prompt -> pressing enter will automatically use the default distance.</param>
         /// <returns>Returns an integer from the editor.</returns>
-        public static int GetAnyInteger(this Editor acCurEd, string prompt, int defaultValue)
+        public static int GetAnyInteger(this Editor acCurEd, string prompt, int defaultValue = 0)
         {
             var prIntOpts = new PromptIntegerOptions(prompt)
             {
@@ -703,6 +706,258 @@ namespace RabCab.Utilities.Extensions
             //Return the keyword selected in the editor
             return selectedKeyword;
         }
+
+        #endregion
+
+        #region  Prompt Nested Entity Options
+
+        /// <summary>
+        /// Method to get a nested entity selection from the user.
+        /// </summary>
+        /// <param name="acCurEd">The current working editor.</param>
+        /// <param name="prompt">The prompt to present to the user.</param>
+        /// <returns>Returns the ObjectID value of the selected nested entity.</returns>
+        public static ObjectId GetNestedEntity(this Editor acCurEd, string prompt)
+        {
+            var prNestOpts = new PromptNestedEntityOptions("")
+            {
+                AllowNone = false,
+                Message = prompt
+            };
+
+            //Prompt the user to select a nested entity
+            var prNestRes = acCurEd.GetNestedEntity(prNestOpts);
+
+            //If bad input -> return null
+            if (prNestRes.Status != PromptStatus.OK) return ObjectId.Null;
+
+            //Return the entity objectId selected in the editor
+            var objId = prNestRes.ObjectId;
+            return objId;
+        }
+
+        #endregion
+
+        #region Prompt Open File Options
+
+        /// <summary>
+        /// Get any file of the file type DWG, DXF, DWT, or DWS from the user.
+        /// </summary>
+        /// <param name="acCurEd">The current working editor.</param>
+        /// <param name="prompt">The prompt to present to the user.</param>
+        /// <param name="initialDir">The initial directory to open the file dialog at (no value = file will open at default location)</param>
+        /// <param name="initialFile">The initial filename to open the file dialog at (no value = file will open at default location)</param>
+        /// <returns>Returns the file path of the selected file.</returns>
+        public static string GetCadFile(this Editor acCurEd, string prompt, string initialDir = "", string initialFile = "")
+        {
+            //Prompt User To Select A File
+            var fileOpts = new PromptOpenFileOptions("")
+            {
+                Message = prompt,
+                AllowUrls = false,
+                DialogCaption = "Select an AutoCAD file type",
+                DialogName = "CAD File Selection",              
+                Filter = "Drawing (*.dwg)|*.dwg|" +
+                         "Design Interchange Format (*.dxf)|*.dxf|" +
+                         "Drawing Template (*.dwt)|*.dwt|" +
+                         "Drawing Standards (*.dws)|*.dws"
+            };
+
+            //If an initial directory is specified -> set it
+            if (initialDir != "")
+            {
+                fileOpts.InitialDirectory = initialDir;
+            }
+            
+            //If an initial filename is specified -> set it
+            if(initialFile != "")
+            {
+                fileOpts.InitialFileName = initialFile;
+            }
+
+            //Get the selected file for open
+            var fileRes = acCurEd.GetFileNameForOpen(fileOpts);
+
+            //If file is not available for open (or bad input) -> return empty string
+            if (fileRes.Status != PromptStatus.OK) return "";
+
+            //Return the selected filename & path
+            return fileRes.StringResult;
+
+        }
+
+        /// <summary>
+        /// Get any file of the file type DWG from the user.
+        /// </summary>
+        /// <param name="acCurEd">The current working editor.</param>
+        /// <param name="prompt">The prompt to present to the user.</param>
+        /// <param name="initialDir">The initial directory to open the file dialog at (no value = file will open at default location)</param>
+        /// <param name="initialFile">The initial filename to open the file dialog at (no value = file will open at default location)</param>
+        /// <returns>Returns the file path of the selected file.</returns>
+        public static string GetDwgFile(this Editor acCurEd, string prompt, string initialDir = "", string initialFile = "")
+        {
+            //Prompt User To Select A File
+            var fileOpts = new PromptOpenFileOptions("")
+            {
+                Message = prompt,
+                AllowUrls = false,
+                DialogCaption = "Select an AutoCAD DWG file type",
+                DialogName = "DWG File Selection",
+                Filter = "Drawing (*.dwg)|*.dwg|"
+            };
+
+            //If an initial directory is specified -> set it
+            if (initialDir != "")
+            {
+                fileOpts.InitialDirectory = initialDir;
+            }
+
+            //If an initial filename is specified -> set it
+            if (initialFile != "")
+            {
+                fileOpts.InitialFileName = initialFile;
+            }
+
+            //Get the selected file for open
+            var fileRes = acCurEd.GetFileNameForOpen(fileOpts);
+
+            //If file is not available for open (or bad input) -> return empty string
+            if (fileRes.Status != PromptStatus.OK) return "";
+
+            //Return the selected filename & path
+            return fileRes.StringResult;
+
+        }
+
+        /// <summary>
+        /// Get any file of the file type DXF from the user.
+        /// </summary>
+        /// <param name="acCurEd">The current working editor.</param>
+        /// <param name="prompt">The prompt to present to the user.</param>
+        /// <param name="initialDir">The initial directory to open the file dialog at (no value = file will open at default location)</param>
+        /// <param name="initialFile">The initial filename to open the file dialog at (no value = file will open at default location)</param>
+        /// <returns>Returns the file path of the selected file.</returns>
+        public static string GetDxfFile(this Editor acCurEd, string prompt, string initialDir = "", string initialFile = "")
+        {
+            //Prompt User To Select A File
+            var fileOpts = new PromptOpenFileOptions("")
+            {
+                Message = prompt,
+                AllowUrls = false,
+                DialogCaption = "Select an AutoCAD DXF file type",
+                DialogName = "DXF File Selection",
+                Filter = "Design Interchange Format (*.dxf)|*.dxf|"
+            };
+
+            //If an initial directory is specified -> set it
+            if (initialDir != "")
+            {
+                fileOpts.InitialDirectory = initialDir;
+            }
+
+            //If an initial filename is specified -> set it
+            if (initialFile != "")
+            {
+                fileOpts.InitialFileName = initialFile;
+            }
+
+            //Get the selected file for open
+            var fileRes = acCurEd.GetFileNameForOpen(fileOpts);
+
+            //If file is not available for open (or bad input) -> return empty string
+            if (fileRes.Status != PromptStatus.OK) return "";
+
+            //Return the selected filename & path
+            return fileRes.StringResult;
+
+        }
+
+        /// <summary>
+        /// Get any file of the file type DWT from the user.
+        /// </summary>
+        /// <param name="acCurEd">The current working editor.</param>
+        /// <param name="prompt">The prompt to present to the user.</param>
+        /// <param name="initialDir">The initial directory to open the file dialog at (no value = file will open at default location)</param>
+        /// <param name="initialFile">The initial filename to open the file dialog at (no value = file will open at default location)</param>
+        /// <returns>Returns the file path of the selected file.</returns>
+        public static string GetDwtFile(this Editor acCurEd, string prompt, string initialDir = "", string initialFile = "")
+        {
+            //Prompt User To Select A File
+            var fileOpts = new PromptOpenFileOptions("")
+            {
+                Message = prompt,
+                AllowUrls = false,
+                DialogCaption = "Select an AutoCAD DWT file type",
+                DialogName = "DWT File Selection",
+                Filter = "Drawing Template (*.dwt)|*.dwt|"
+            };
+
+            //If an initial directory is specified -> set it
+            if (initialDir != "")
+            {
+                fileOpts.InitialDirectory = initialDir;
+            }
+
+            //If an initial filename is specified -> set it
+            if (initialFile != "")
+            {
+                fileOpts.InitialFileName = initialFile;
+            }
+
+            //Get the selected file for open
+            var fileRes = acCurEd.GetFileNameForOpen(fileOpts);
+
+            //If file is not available for open (or bad input) -> return empty string
+            if (fileRes.Status != PromptStatus.OK) return "";
+
+            //Return the selected filename & path
+            return fileRes.StringResult;
+
+        }
+
+        /// <summary>
+        /// Get any file of the file type DWS from the user.
+        /// </summary>
+        /// <param name="acCurEd">The current working editor.</param>
+        /// <param name="prompt">The prompt to present to the user.</param>
+        /// <param name="initialDir">The initial directory to open the file dialog at (no value = file will open at default location)</param>
+        /// <param name="initialFile">The initial filename to open the file dialog at (no value = file will open at default location)</param>
+        /// <returns>Returns the file path of the selected file.</returns>
+        public static string GetDwsFile(this Editor acCurEd, string prompt, string initialDir = "", string initialFile = "")
+        {
+            //Prompt User To Select A File
+            var fileOpts = new PromptOpenFileOptions("")
+            {
+                Message = prompt,
+                AllowUrls = false,
+                DialogCaption = "Select an AutoCAD DWS file type",
+                DialogName = "DWS File Selection",
+                Filter = "Drawing Standards (*.dws)|*.dws"
+            };
+
+            //If an initial directory is specified -> set it
+            if (initialDir != "")
+            {
+                fileOpts.InitialDirectory = initialDir;
+            }
+
+            //If an initial filename is specified -> set it
+            if (initialFile != "")
+            {
+                fileOpts.InitialFileName = initialFile;
+            }
+
+            //Get the selected file for open
+            var fileRes = acCurEd.GetFileNameForOpen(fileOpts);
+
+            //If file is not available for open (or bad input) -> return empty string
+            if (fileRes.Status != PromptStatus.OK) return "";
+
+            //Return the selected filename & path
+            return fileRes.StringResult;
+
+        }
+
 
         #endregion
 
