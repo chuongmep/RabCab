@@ -957,8 +957,7 @@ namespace RabCab.Utilities.Extensions
             return fileRes.StringResult;
 
         }
-
-
+        
         #endregion
 
     }

@@ -58,57 +58,57 @@
     <Reference Include="AcCoreMgd">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
-      <HintPath>..\..\..\..\..\..\Program Files\Autodesk\AutoCAD 2019\accoremgd.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files\Autodesk\AutoCAD 2018\accoremgd.dll</HintPath>
     </Reference>
     <Reference Include="AcDbMgd">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
-      <HintPath>..\..\..\..\..\..\Program Files\Autodesk\AutoCAD 2019\acdbmgd.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files\Autodesk\AutoCAD 2018\acdbmgd.dll</HintPath>
     </Reference>
     <Reference Include="AcMgd">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
-      <HintPath>..\..\..\..\..\..\Program Files\Autodesk\AutoCAD 2019\acmgd.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files\Autodesk\AutoCAD 2018\acmgd.dll</HintPath>
     </Reference>
     <Reference Include="AdWindows">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
-      <HintPath>..\..\..\..\..\..\Program Files\Autodesk\AutoCAD 2019\AdWindows.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files\Autodesk\AutoCAD 2018\AdWindows.dll</HintPath>
     </Reference>
     <Reference Include="AcWindows">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
-      <HintPath>..\..\..\..\..\..\Program Files\Autodesk\AutoCAD 2019\AcWindows.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files\Autodesk\AutoCAD 2018\AcWindows.dll</HintPath>
     </Reference>
     <Reference Include="AcTcMgd">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
-      <HintPath>..\..\..\..\..\..\Program Files\Autodesk\AutoCAD 2019\AcTcMgd.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files\Autodesk\AutoCAD 2018\AcTcMgd.dll</HintPath>
     </Reference>
     <Reference Include="AcDx">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
-      <HintPath>..\..\..\..\..\..\Program Files\Autodesk\AutoCAD 2019\AcDx.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files\Autodesk\AutoCAD 2018\AcDx.dll</HintPath>
     </Reference>
     <Reference Include="Autodesk.AutoCAD.Interop.Common">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
-      <HintPath>..\..\..\..\..\..\Program Files\Autodesk\AutoCAD 2019\Autodesk.AutoCAD.Interop.Common.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files\Autodesk\AutoCAD 2018\Autodesk.AutoCAD.Interop.Common.dll</HintPath>
     </Reference>
     <Reference Include="Autodesk.AutoCAD.Interop">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
-      <HintPath>..\..\..\..\..\..\Program Files\Autodesk\AutoCAD 2019\Autodesk.AutoCAD.Interop.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files\Autodesk\AutoCAD 2018\Autodesk.AutoCAD.Interop.dll</HintPath>
     </Reference>
     <Reference Include="acdbmgdbrep">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
-      <HintPath>..\..\..\..\..\..\Program Files\Autodesk\AutoCAD 2019\acdbmgdbrep.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files\Autodesk\AutoCAD 2018\acdbmgdbrep.dll</HintPath>
     </Reference>
     <Reference Include="AcCui">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
-      <HintPath>..\..\..\..\..\..\Program Files\Autodesk\AutoCAD 2019\AcCui.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files\Autodesk\AutoCAD 2018\AcCui.dll</HintPath>
     </Reference>
     <!--ACA References Begin-->
     <!--ACA Refences End-->
@@ -147,6 +147,8 @@
     <Compile Include="Calculators\UnitConverter.cs" />
     <Compile Include="Calculators\WattageCalculator.cs" />
     <Compile Include="Calculators\WeightCalculator.cs" />
+    <Compile Include="External\CsvAgent\CsvReader.cs" />
+    <Compile Include="External\CsvAgent\CsvWriter.cs" />
     <Compile Include="Resources\Dialect\Dialect_CUI.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -247,46 +249,46 @@
     </Compile>
     <Compile Include="Initialization\myPlugin.cs" />
     <Compile Include="Initialization\myCommands.cs" />
-    <Compile Include="Interface\AnalyzerGui.cs">
+    <Compile Include="Gui\AnalyzerGui.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Interface\AnalyzerGui.Designer.cs">
+    <Compile Include="Gui\AnalyzerGui.Designer.cs">
       <DependentUpon>AnalyzerGui.cs</DependentUpon>
     </Compile>
-    <Compile Include="Interface\BatchActionsGui.cs">
+    <Compile Include="Gui\BatchActionsGui.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Interface\BatchActionsGui.Designer.cs">
+    <Compile Include="Gui\BatchActionsGui.Designer.cs">
       <DependentUpon>BatchActionsGui.cs</DependentUpon>
     </Compile>
-    <Compile Include="Interface\GeneratorGui.cs">
+    <Compile Include="Gui\GeneratorGui.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Interface\GeneratorGui.Designer.cs">
+    <Compile Include="Gui\GeneratorGui.Designer.cs">
       <DependentUpon>GeneratorGui.cs</DependentUpon>
     </Compile>
-    <Compile Include="Interface\PaletteGui.cs">
+    <Compile Include="Gui\PaletteGui.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Interface\PaletteGui.Designer.cs">
+    <Compile Include="Gui\PaletteGui.Designer.cs">
       <DependentUpon>PaletteGui.cs</DependentUpon>
     </Compile>
-    <Compile Include="Interface\PlotHelperGui.cs">
+    <Compile Include="Gui\PlotHelperGui.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Interface\PlotHelperGui.Designer.cs">
+    <Compile Include="Gui\PlotHelperGui.Designer.cs">
       <DependentUpon>PlotHelperGui.cs</DependentUpon>
     </Compile>
-    <Compile Include="Interface\QuickFireGui.cs">
+    <Compile Include="Gui\QuickFireGui.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Interface\QuickFireGui.Designer.cs">
+    <Compile Include="Gui\QuickFireGui.Designer.cs">
       <DependentUpon>QuickFireGui.cs</DependentUpon>
     </Compile>
-    <Compile Include="Interface\UpdaterGui.cs">
+    <Compile Include="Gui\UpdaterGui.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Interface\UpdaterGui.Designer.cs">
+    <Compile Include="Gui\UpdaterGui.Designer.cs">
       <DependentUpon>UpdaterGui.cs</DependentUpon>
     </Compile>
     <Compile Include="Network\Net.cs" />
