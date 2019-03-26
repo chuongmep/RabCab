@@ -147,6 +147,7 @@
     <Compile Include="Calculators\UnitConverter.cs" />
     <Compile Include="Calculators\WattageCalculator.cs" />
     <Compile Include="Calculators\WeightCalculator.cs" />
+    <Compile Include="External\3dsMaxAgent\3DsMaxAgent.cs" />
     <Compile Include="External\CsvAgent\CsvReader.cs" />
     <Compile Include="External\CsvAgent\CsvWriter.cs" />
     <Compile Include="Resources\Dialect\Dialect_CUI.Designer.cs">

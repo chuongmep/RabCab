@@ -7,6 +7,7 @@ using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.Runtime;
 using RabCab.Utilities.Extensions;
+using RabCab.Utilities.External._3dsMaxAgent;
 using RabCab.Utilities.Initialization;
 using static RabCab.Utilities.Settings.SettingsInternal;
 
@@ -104,6 +105,15 @@ namespace RabCab.Utilities.Initialization
             acCurEd.WriteMessage("\n" + distTest16);
 
             #endregion
+        }
+
+
+        [CommandMethod(CommandGroup, "Debug_Try3ds", CommandFlags.Modal)]
+        public void Try3ds() // This method can have any name
+        {
+            var proc = new _3DsMaxAgent();
+            proc.Start3DsMax();
+
         }
 
         #endregion
