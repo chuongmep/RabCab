@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
@@ -957,7 +958,77 @@ namespace RabCab.Utilities.Extensions
             return fileRes.StringResult;
 
         }
-        
+
+        #endregion
+
+        #region Prompt Point Options
+
+        /// <summary>
+        /// Gets any point input, Allows any 3d point selection
+        /// </summary>
+        /// <param name="acCurEd">The current working editor.</param>
+        /// <param name="prompt">The prompt to present to the user.</param>
+        /// <param name="basePt">The base point to use in the editor, if a value is passed, the editor will use this as the base point.</param>
+        /// <returns></returns>
+        public static Point3d Get3DPoint(this Editor acCurEd, string prompt, Point3d basePt = default(Point3d))
+        {
+            var prPtOpts = new PromptPointOptions("")
+            {
+                Message = prompt,
+                AllowNone = false
+            };
+
+            //Check if a base point has been passed to the method
+            if (basePt != default(Point3d))
+            {
+                prPtOpts.BasePoint = basePt;
+                prPtOpts.UseBasePoint = true;
+            }
+
+            //Prompt the editor to receive the point from the user
+            var prPtRes = acCurEd.GetPoint(prPtOpts);
+
+            //If bad input -> return 0
+            if (prPtRes.Status != PromptStatus.OK) return default(Point3d);
+
+            //Return the distance entered into the editor
+            var ptResult = prPtRes.Value;
+            return ptResult;
+        }
+
+        /// <summary>
+        /// Gets any point input, Allows any 3d point selection -> then converts the point to 2d
+        /// </summary>
+        /// <param name="acCurEd">The current working editor.</param>
+        /// <param name="prompt">The prompt to present to the user.</param>
+        /// <param name="basePt">The base point to use in the editor, if a value is passed, the editor will use this as the base point.</param>
+        /// <returns></returns>
+        public static Point2d Get2DPoint(this Editor acCurEd, string prompt, Point2d basePt = default(Point2d))
+        {
+            var prPtOpts = new PromptPointOptions("")
+            {
+                Message = prompt,
+                AllowNone = false
+            };
+
+            //Check if a base point has been passed to the method
+            if (basePt != default(Point2d))
+            {
+                prPtOpts.BasePoint = new Point3d(basePt.X, basePt.Y, 0);
+                prPtOpts.UseBasePoint = true;
+            }
+
+            //Prompt the editor to receive the point from the user
+            var prPtRes = acCurEd.GetPoint(prPtOpts);
+
+            //If bad input -> return 0
+            if (prPtRes.Status != PromptStatus.OK) return default(Point2d);
+
+            //Return the distance entered into the editor
+            var ptResult = new Point2d(prPtRes.Value.X, prPtRes.Value.Y);
+            return ptResult;
+        }
+
         #endregion
 
     }
