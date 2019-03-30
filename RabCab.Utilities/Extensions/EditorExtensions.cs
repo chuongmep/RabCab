@@ -1,31 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
-using System.Runtime.CompilerServices;
-using System.Windows.Forms;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
 using RabCab.Utilities.Calculators;
+
 // ReSharper disable CompareOfFloatsByEqualityOperator
 
 namespace RabCab.Utilities.Extensions
 {
     internal static class EditorExtensions
     {
-
         #region Prompt Angle Options
 
         /// <summary>
-        /// Method to get an angle from the user in radians
+        ///     Method to get an angle from the user in radians
         /// </summary>
         /// <param name="acCurEd">The current working editor</param>
         /// <param name="prompt">The string to be prompted to the user</param>
-        /// <param name="defaultValue">The default value to use in prompt -> pressing enter will automatically use the default distance. Default value is input in Degrees</param>
+        /// <param name="defaultValue">
+        ///     The default value to use in prompt -> pressing enter will automatically use the default
+        ///     distance. Default value is input in Degrees
+        /// </param>
         /// <returns>Returns the value input by the user as a radian</returns>
         public static double GetRadian(this Editor acCurEd, string prompt, double defaultValue = 0)
-        {//If default value, convert it from degrees to radians
+        {
+            //If default value, convert it from degrees to radians
 
             if (defaultValue != 0)
                 defaultValue = UnitConverter.ConvertToRadians(defaultValue);
@@ -37,7 +37,7 @@ namespace RabCab.Utilities.Extensions
                 AllowNone = false,
                 AllowZero = false,
                 DefaultValue = defaultValue,
-                UseDefaultValue = defaultValue != 0,
+                UseDefaultValue = defaultValue != 0
             };
 
             //Prompt the editor to receive the angle from the user
@@ -52,11 +52,14 @@ namespace RabCab.Utilities.Extensions
         }
 
         /// <summary>
-        /// Method to get an angle from the user and return it in degrees
+        ///     Method to get an angle from the user and return it in degrees
         /// </summary>
         /// <param name="acCurEd">The current working editor</param>
         /// <param name="prompt">The prompt to present to the user</param>
-        /// <param name="defaultValue">The default value to use in prompt -> pressing enter will automatically use the default distance. Default value is input in degrees</param>
+        /// <param name="defaultValue">
+        ///     The default value to use in prompt -> pressing enter will automatically use the default
+        ///     distance. Default value is input in degrees
+        /// </param>
         /// <returns>Returns the value input by the user as a degree</returns>
         public static double GetDegree(this Editor acCurEd, string prompt, double defaultValue = 0)
         {
@@ -71,7 +74,7 @@ namespace RabCab.Utilities.Extensions
                 AllowNone = false,
                 AllowZero = false,
                 DefaultValue = defaultValue,
-                UseDefaultValue = defaultValue != 0,
+                UseDefaultValue = defaultValue != 0
             };
 
             //Prompt the editor to receive the angle from the user
@@ -92,11 +95,14 @@ namespace RabCab.Utilities.Extensions
         #region Prompt Distance Options
 
         /// <summary>
-        /// Gets any 3D distance in CAD, allows positive and negative values.
+        ///     Gets any 3D distance in CAD, allows positive and negative values.
         /// </summary>
         /// <param name="acCurEd">The current working Editor.</param>
         /// <param name="prompt">The prompt to present to the user.</param>
-        /// <param name="defaultValue">The default value to use in prompt -> pressing enter will automatically use the default distance.</param>
+        /// <param name="defaultValue">
+        ///     The default value to use in prompt -> pressing enter will automatically use the default
+        ///     distance.
+        /// </param>
         /// <returns>Returns a distance from the editor in decimal format.</returns>
         public static double GetAnyDistance(this Editor acCurEd, string prompt, double defaultValue = 0)
         {
@@ -107,7 +113,7 @@ namespace RabCab.Utilities.Extensions
                 AllowNone = false,
                 AllowZero = true,
                 DefaultValue = defaultValue,
-                UseDefaultValue = defaultValue != 0,
+                UseDefaultValue = defaultValue != 0
             };
 
             //Prompt the editor to receive the distance from the user
@@ -122,12 +128,15 @@ namespace RabCab.Utilities.Extensions
         }
 
         /// <summary>
-        /// Gets any 3D distance in CAD, uses a base point and allows positive and negative values.
+        ///     Gets any 3D distance in CAD, uses a base point and allows positive and negative values.
         /// </summary>
         /// <param name="acCurEd">The current working Editor.</param>
         /// <param name="basePt">The point to start the distance from.</param>
         /// <param name="prompt">The prompt to present to the user.</param>
-        /// <param name="defaultValue">The default value to use in prompt -> pressing enter will automatically use the default distance.</param>
+        /// <param name="defaultValue">
+        ///     The default value to use in prompt -> pressing enter will automatically use the default
+        ///     distance.
+        /// </param>
         /// <returns>Returns a distance from the editor in decimal format.</returns>
         public static double GetAnyDistance(this Editor acCurEd, Point3d basePt, string prompt, double defaultValue = 0)
         {
@@ -140,7 +149,7 @@ namespace RabCab.Utilities.Extensions
                 BasePoint = basePt,
                 UseBasePoint = true,
                 DefaultValue = defaultValue,
-                UseDefaultValue = defaultValue != 0,
+                UseDefaultValue = defaultValue != 0
             };
 
             //Prompt the editor to receive the distance from the user
@@ -155,11 +164,14 @@ namespace RabCab.Utilities.Extensions
         }
 
         /// <summary>
-        /// Gets any 3D distance in CAD, allows positive values.
+        ///     Gets any 3D distance in CAD, allows positive values.
         /// </summary>
         /// <param name="acCurEd">The current working Editor.</param>
         /// <param name="prompt">The prompt to present to the user.</param>
-        /// <param name="defaultValue">The default value to use in prompt -> pressing enter will automatically use the default distance.</param>
+        /// <param name="defaultValue">
+        ///     The default value to use in prompt -> pressing enter will automatically use the default
+        ///     distance.
+        /// </param>
         /// <returns>Returns a distance from the editor in decimal format.</returns>
         public static double GetPositiveDistance(this Editor acCurEd, string prompt, double defaultValue = 0)
         {
@@ -171,7 +183,7 @@ namespace RabCab.Utilities.Extensions
                 AllowZero = true,
                 AllowNegative = false,
                 DefaultValue = defaultValue,
-                UseDefaultValue = defaultValue != 0,
+                UseDefaultValue = defaultValue != 0
             };
 
             //Prompt the editor to receive the distance from the user
@@ -186,14 +198,18 @@ namespace RabCab.Utilities.Extensions
         }
 
         /// <summary>
-        /// Gets any 3D distance in CAD, uses a base point and allows positive values.
+        ///     Gets any 3D distance in CAD, uses a base point and allows positive values.
         /// </summary>
         /// <param name="acCurEd">The current working Editor.</param>
         /// <param name="basePt">The point to start the distance from.</param>
         /// <param name="prompt">The prompt to present to the user.</param>
-        /// <param name="defaultValue">The default value to use in prompt -> pressing enter will automatically use the default distance.</param>
+        /// <param name="defaultValue">
+        ///     The default value to use in prompt -> pressing enter will automatically use the default
+        ///     distance.
+        /// </param>
         /// <returns>Returns a distance from the editor in decimal format.</returns>
-        public static double GetPositiveDistance(this Editor acCurEd, Point3d basePt, string prompt, double defaultValue = 0)
+        public static double GetPositiveDistance(this Editor acCurEd, Point3d basePt, string prompt,
+            double defaultValue = 0)
         {
             //Prompt user to enter a distance in autoCAD
             var prDistOpts = new PromptDistanceOptions(string.Empty)
@@ -205,7 +221,7 @@ namespace RabCab.Utilities.Extensions
                 BasePoint = basePt,
                 UseBasePoint = true,
                 DefaultValue = defaultValue,
-                UseDefaultValue = defaultValue != 0,
+                UseDefaultValue = defaultValue != 0
             };
 
             //Prompt the editor to receive the distance from the user
@@ -220,11 +236,15 @@ namespace RabCab.Utilities.Extensions
         }
 
         /// <summary>
-        /// Gets any 2D distance in CAD, allows positive and negative values.
+        ///     Gets any 2D distance in CAD, allows positive and negative values.
         /// </summary>
         /// <param name="acCurEd">The current working Editor.</param>
         /// <param name="prompt">The prompt to present to the user.</param>
-        /// /// <param name="defaultValue">The default value to use in prompt -> pressing enter will automatically use the default distance.</param>
+        /// ///
+        /// <param name="defaultValue">
+        ///     The default value to use in prompt -> pressing enter will automatically use the default
+        ///     distance.
+        /// </param>
         /// <returns>SReturns a distance from the editor in decimal format.</returns>
         public static double GetAny2DDistance(this Editor acCurEd, string prompt, double defaultValue = 0)
         {
@@ -236,7 +256,7 @@ namespace RabCab.Utilities.Extensions
                 AllowZero = true,
                 Only2d = true,
                 DefaultValue = defaultValue,
-                UseDefaultValue = defaultValue != 0,
+                UseDefaultValue = defaultValue != 0
             };
 
             //Prompt the editor to receive the distance from the user
@@ -251,14 +271,18 @@ namespace RabCab.Utilities.Extensions
         }
 
         /// <summary>
-        /// Gets any 2D distance in CAD, uses a base point and allows positive and negative values.
+        ///     Gets any 2D distance in CAD, uses a base point and allows positive and negative values.
         /// </summary>
         /// <param name="acCurEd">The current working Editor.</param>
         /// <param name="basePt">The point to start the distance from.</param>
         /// <param name="prompt">The prompt to present to the user.</param>
-        /// <param name="defaultValue">The default value to use in prompt -> pressing enter will automatically use the default distance.</param>
+        /// <param name="defaultValue">
+        ///     The default value to use in prompt -> pressing enter will automatically use the default
+        ///     distance.
+        /// </param>
         /// <returns>Returns a distance from the editor in decimal format.</returns>
-        public static double GetAny2DDistance(this Editor acCurEd, Point3d basePt, string prompt, double defaultValue = 0)
+        public static double GetAny2DDistance(this Editor acCurEd, Point3d basePt, string prompt,
+            double defaultValue = 0)
         {
             //Prompt user to enter a distance in autoCAD
             var prDistOpts = new PromptDistanceOptions(string.Empty)
@@ -270,7 +294,7 @@ namespace RabCab.Utilities.Extensions
                 BasePoint = basePt,
                 UseBasePoint = true,
                 DefaultValue = defaultValue,
-                UseDefaultValue = defaultValue != 0,
+                UseDefaultValue = defaultValue != 0
             };
 
             //Prompt the editor to receive the distance from the user
@@ -285,11 +309,14 @@ namespace RabCab.Utilities.Extensions
         }
 
         /// <summary>
-        /// Gets any 2D distance in CAD, allows positive values.
+        ///     Gets any 2D distance in CAD, allows positive values.
         /// </summary>
         /// <param name="acCurEd">The current working Editor.</param>
         /// <param name="prompt">The prompt to present to the user.</param>
-        /// <param name="defaultValue">The default value to use in prompt -> pressing enter will automatically use the default distance.</param>
+        /// <param name="defaultValue">
+        ///     The default value to use in prompt -> pressing enter will automatically use the default
+        ///     distance.
+        /// </param>
         /// <returns>Returns a distance from the editor in decimal format.</returns>
         public static double GetPositive2DDistance(this Editor acCurEd, string prompt, double defaultValue = 0)
         {
@@ -302,7 +329,7 @@ namespace RabCab.Utilities.Extensions
                 Only2d = true,
                 AllowNegative = false,
                 DefaultValue = defaultValue,
-                UseDefaultValue = defaultValue != 0,
+                UseDefaultValue = defaultValue != 0
             };
 
             //Prompt the editor to receive the distance from the user
@@ -317,14 +344,18 @@ namespace RabCab.Utilities.Extensions
         }
 
         /// <summary>
-        /// Gets any 2D distance in CAD, allows positive values.
+        ///     Gets any 2D distance in CAD, allows positive values.
         /// </summary>
         /// <param name="acCurEd">The current working Editor.</param>
         /// <param name="basePt">The point to start the distance from.</param>
         /// <param name="prompt">The prompt to present to the user.</param>
-        /// <param name="defaultValue">The default value to use in prompt -> pressing enter will automatically use the default distance.</param>
+        /// <param name="defaultValue">
+        ///     The default value to use in prompt -> pressing enter will automatically use the default
+        ///     distance.
+        /// </param>
         /// <returns>Returns a distance from the editor in decimal format.</returns>
-        public static double GetPositive2DDistance(this Editor acCurEd, Point3d basePt, string prompt, double defaultValue = 0)
+        public static double GetPositive2DDistance(this Editor acCurEd, Point3d basePt, string prompt,
+            double defaultValue = 0)
         {
             //Prompt user to enter a distance in autoCAD
             var prDistOpts = new PromptDistanceOptions(string.Empty)
@@ -356,11 +387,14 @@ namespace RabCab.Utilities.Extensions
         #region Prompt Double Options
 
         /// <summary>
-        /// Gets any double input,  Allows positive and negative values.
+        ///     Gets any double input,  Allows positive and negative values.
         /// </summary>
         /// <param name="acCurEd">The current working Editor.</param>
         /// <param name="prompt">The prompt to present to the user.</param>
-        /// <param name="defaultValue">The default value to use in prompt -> pressing enter will automatically use the default distance.</param>
+        /// <param name="defaultValue">
+        ///     The default value to use in prompt -> pressing enter will automatically use the default
+        ///     distance.
+        /// </param>
         /// <returns>Returns a double from the editor in decimal format.</returns>
         public static double GetDouble(this Editor acCurEd, string prompt, double defaultValue = 0)
         {
@@ -385,11 +419,14 @@ namespace RabCab.Utilities.Extensions
         }
 
         /// <summary>
-        /// Gets any double input, Allows positive values.
+        ///     Gets any double input, Allows positive values.
         /// </summary>
         /// <param name="acCurEd">The current working Editor.</param>
         /// <param name="prompt">The prompt to present to the user.</param>
-        /// <param name="defaultValue">The default value to use in prompt -> pressing enter will automatically use the default distance.</param>
+        /// <param name="defaultValue">
+        ///     The default value to use in prompt -> pressing enter will automatically use the default
+        ///     distance.
+        /// </param>
         /// <returns>Returns a double from the editor in decimal format.</returns>
         public static double GetPositiveDouble(this Editor acCurEd, string prompt, double defaultValue = 0)
         {
@@ -420,7 +457,7 @@ namespace RabCab.Utilities.Extensions
         #region Prompt Entity Options
 
         /// <summary>
-        /// Method to prompt user to select an entity and return its ObjectId for use in other methods.
+        ///     Method to prompt user to select an entity and return its ObjectId for use in other methods.
         /// </summary>
         /// <param name="acCurEd">The current working editor.</param>
         /// <param name="prompt">The prompt to be presented to the user.</param>
@@ -435,7 +472,7 @@ namespace RabCab.Utilities.Extensions
             var prEntOpts = new PromptEntityOptions(prompt)
             {
                 AllowNone = false,
-                AllowObjectOnLockedLayer = false,
+                AllowObjectOnLockedLayer = false
             };
 
             //Set the reject message
@@ -452,7 +489,7 @@ namespace RabCab.Utilities.Extensions
         }
 
         /// <summary>
-        /// Method to prompt user to select an entity and return its ObjectId for use in other methods.
+        ///     Method to prompt user to select an entity and return its ObjectId for use in other methods.
         /// </summary>
         /// <param name="acCurEd">The current working editor.</param>
         /// <param name="type">The only type of entity the editor is allowed to select.</param>
@@ -489,7 +526,7 @@ namespace RabCab.Utilities.Extensions
         }
 
         /// <summary>
-        /// Method to prompt user to select an entity and return its ObjectId for use in other methods.
+        ///     Method to prompt user to select an entity and return its ObjectId for use in other methods.
         /// </summary>
         /// <param name="acCurEd">The current working editor.</param>
         /// <param name="types">Array of allowable types that can be selected by the editor</param>
@@ -531,11 +568,14 @@ namespace RabCab.Utilities.Extensions
         #region Prompt Integer Options
 
         /// <summary>
-        /// Gets any integer input, Allows positive and negative values.
+        ///     Gets any integer input, Allows positive and negative values.
         /// </summary>
         /// <param name="acCurEd">The current working Editor.</param>
         /// <param name="prompt">The prompt to present to the user.</param>
-        /// <param name="defaultValue">The default value to use in prompt -> pressing enter will automatically use the default distance.</param>
+        /// <param name="defaultValue">
+        ///     The default value to use in prompt -> pressing enter will automatically use the default
+        ///     distance.
+        /// </param>
         /// <returns>Returns an integer from the editor.</returns>
         public static int GetAnyInteger(this Editor acCurEd, string prompt, int defaultValue = 0)
         {
@@ -561,11 +601,14 @@ namespace RabCab.Utilities.Extensions
         }
 
         /// <summary>
-        /// Gets any integer input, Allows positive values.
+        ///     Gets any integer input, Allows positive values.
         /// </summary>
         /// <param name="acCurEd">The current working Editor.</param>
         /// <param name="prompt">The prompt to present to the user.</param>
-        /// <param name="defaultValue">The default value to use in prompt -> pressing enter will automatically use the default distance.</param>
+        /// <param name="defaultValue">
+        ///     The default value to use in prompt -> pressing enter will automatically use the default
+        ///     distance.
+        /// </param>
         /// <returns>Returns an integer from the editor.</returns>
         public static int GetPositiveInteger(this Editor acCurEd, string prompt, int defaultValue = 0)
         {
@@ -591,13 +634,16 @@ namespace RabCab.Utilities.Extensions
         }
 
         /// <summary>
-        /// Gets any integer input, Allows any value between provided limits.
+        ///     Gets any integer input, Allows any value between provided limits.
         /// </summary>
         /// <param name="acCurEd">The current working Editor.</param>
         /// <param name="prompt">The prompt to present to the user.</param>
         /// <param name="min">The minimum limit allowed to be entered by the user.</param>
         /// <param name="max">The maximum limit allowed to be entered by the user.</param>
-        /// <param name="defaultValue">The default value to use in prompt -> pressing enter will automatically use the default distance.</param>
+        /// <param name="defaultValue">
+        ///     The default value to use in prompt -> pressing enter will automatically use the default
+        ///     distance.
+        /// </param>
         /// <returns>Returns an integer from the editor.</returns>
         public static int GetLimitedInteger(this Editor acCurEd, string prompt, int min, int max, int defaultValue = 0)
         {
@@ -629,7 +675,7 @@ namespace RabCab.Utilities.Extensions
         #region Prompt Keyword Options
 
         /// <summary>
-        /// Method to get a keyword selection from the user - supports single word input (non-arbritrary)
+        ///     Method to get a keyword selection from the user - supports single word input (non-arbritrary)
         /// </summary>
         /// <param name="acCurEd">The current working editor.</param>
         /// <param name="prompt">The prompt to present to the user</param>
@@ -648,7 +694,7 @@ namespace RabCab.Utilities.Extensions
                 prKeyOpts.Keywords.Add(key);
 
             var prKeyRes = acCurEd.GetKeywords(prKeyOpts);
-            
+
             // If bad input -> return null
             if (prKeyRes.Status != PromptStatus.OK) return null;
 
@@ -657,7 +703,7 @@ namespace RabCab.Utilities.Extensions
         }
 
         /// <summary>
-        /// Method to get a keyword selection from the user - supports any keyword input.
+        ///     Method to get a keyword selection from the user - supports any keyword input.
         /// </summary>
         /// <param name="acCurEd">The current working editor.</param>
         /// <param name="prompt">The prompt to present to the user</param>
@@ -673,7 +719,7 @@ namespace RabCab.Utilities.Extensions
             };
 
             //Create an iterator to append to the beginning of each complex keyword
-            char iterator = 'A';
+            var iterator = 'A';
 
             //Create a dictionary to hold each iterator and the partner keyword
             var keyDict = new Dictionary<string, string>();
@@ -683,10 +729,10 @@ namespace RabCab.Utilities.Extensions
             {
                 keyDict.Add(key, iterator.ToString());
                 prKeyOpts.Keywords.Add(iterator.ToString(), iterator.ToString(),
-                                    iterator + ": " + key.ToLower());
+                    iterator + ": " + key.ToLower());
                 iterator++;
             }
-                      
+
             var prKeyRes = acCurEd.GetKeywords(prKeyOpts);
 
             // If bad input -> return null
@@ -713,7 +759,7 @@ namespace RabCab.Utilities.Extensions
         #region  Prompt Nested Entity Options
 
         /// <summary>
-        /// Method to get a nested entity selection from the user.
+        ///     Method to get a nested entity selection from the user.
         /// </summary>
         /// <param name="acCurEd">The current working editor.</param>
         /// <param name="prompt">The prompt to present to the user.</param>
@@ -742,14 +788,21 @@ namespace RabCab.Utilities.Extensions
         #region Prompt Open File Options
 
         /// <summary>
-        /// Get any file of the file type DWG, DXF, DWT, or DWS from the user.
+        ///     Get any file of the file type DWG, DXF, DWT, or DWS from the user.
         /// </summary>
         /// <param name="acCurEd">The current working editor.</param>
         /// <param name="prompt">The prompt to present to the user.</param>
-        /// <param name="initialDir">The initial directory to open the file dialog at (no value = file will open at default location)</param>
-        /// <param name="initialFile">The initial filename to open the file dialog at (no value = file will open at default location)</param>
+        /// <param name="initialDir">
+        ///     The initial directory to open the file dialog at (no value = file will open at default
+        ///     location)
+        /// </param>
+        /// <param name="initialFile">
+        ///     The initial filename to open the file dialog at (no value = file will open at default
+        ///     location)
+        /// </param>
         /// <returns>Returns the file path of the selected file.</returns>
-        public static string GetCadFile(this Editor acCurEd, string prompt, string initialDir = "", string initialFile = "")
+        public static string GetCadFile(this Editor acCurEd, string prompt, string initialDir = "",
+            string initialFile = "")
         {
             //Prompt User To Select A File
             var fileOpts = new PromptOpenFileOptions("")
@@ -757,7 +810,7 @@ namespace RabCab.Utilities.Extensions
                 Message = prompt,
                 AllowUrls = false,
                 DialogCaption = "Select an AutoCAD file type",
-                DialogName = "CAD File Selection",              
+                DialogName = "CAD File Selection",
                 Filter = "Drawing (*.dwg)|*.dwg|" +
                          "Design Interchange Format (*.dxf)|*.dxf|" +
                          "Drawing Template (*.dwt)|*.dwt|" +
@@ -765,16 +818,10 @@ namespace RabCab.Utilities.Extensions
             };
 
             //If an initial directory is specified -> set it
-            if (initialDir != "")
-            {
-                fileOpts.InitialDirectory = initialDir;
-            }
-            
+            if (initialDir != "") fileOpts.InitialDirectory = initialDir;
+
             //If an initial filename is specified -> set it
-            if(initialFile != "")
-            {
-                fileOpts.InitialFileName = initialFile;
-            }
+            if (initialFile != "") fileOpts.InitialFileName = initialFile;
 
             //Get the selected file for open
             var fileRes = acCurEd.GetFileNameForOpen(fileOpts);
@@ -784,18 +831,24 @@ namespace RabCab.Utilities.Extensions
 
             //Return the selected filename & path
             return fileRes.StringResult;
-
         }
 
         /// <summary>
-        /// Get any file of the file type DWG from the user.
+        ///     Get any file of the file type DWG from the user.
         /// </summary>
         /// <param name="acCurEd">The current working editor.</param>
         /// <param name="prompt">The prompt to present to the user.</param>
-        /// <param name="initialDir">The initial directory to open the file dialog at (no value = file will open at default location)</param>
-        /// <param name="initialFile">The initial filename to open the file dialog at (no value = file will open at default location)</param>
+        /// <param name="initialDir">
+        ///     The initial directory to open the file dialog at (no value = file will open at default
+        ///     location)
+        /// </param>
+        /// <param name="initialFile">
+        ///     The initial filename to open the file dialog at (no value = file will open at default
+        ///     location)
+        /// </param>
         /// <returns>Returns the file path of the selected file.</returns>
-        public static string GetDwgFile(this Editor acCurEd, string prompt, string initialDir = "", string initialFile = "")
+        public static string GetDwgFile(this Editor acCurEd, string prompt, string initialDir = "",
+            string initialFile = "")
         {
             //Prompt User To Select A File
             var fileOpts = new PromptOpenFileOptions("")
@@ -808,16 +861,10 @@ namespace RabCab.Utilities.Extensions
             };
 
             //If an initial directory is specified -> set it
-            if (initialDir != "")
-            {
-                fileOpts.InitialDirectory = initialDir;
-            }
+            if (initialDir != "") fileOpts.InitialDirectory = initialDir;
 
             //If an initial filename is specified -> set it
-            if (initialFile != "")
-            {
-                fileOpts.InitialFileName = initialFile;
-            }
+            if (initialFile != "") fileOpts.InitialFileName = initialFile;
 
             //Get the selected file for open
             var fileRes = acCurEd.GetFileNameForOpen(fileOpts);
@@ -827,18 +874,24 @@ namespace RabCab.Utilities.Extensions
 
             //Return the selected filename & path
             return fileRes.StringResult;
-
         }
 
         /// <summary>
-        /// Get any file of the file type DXF from the user.
+        ///     Get any file of the file type DXF from the user.
         /// </summary>
         /// <param name="acCurEd">The current working editor.</param>
         /// <param name="prompt">The prompt to present to the user.</param>
-        /// <param name="initialDir">The initial directory to open the file dialog at (no value = file will open at default location)</param>
-        /// <param name="initialFile">The initial filename to open the file dialog at (no value = file will open at default location)</param>
+        /// <param name="initialDir">
+        ///     The initial directory to open the file dialog at (no value = file will open at default
+        ///     location)
+        /// </param>
+        /// <param name="initialFile">
+        ///     The initial filename to open the file dialog at (no value = file will open at default
+        ///     location)
+        /// </param>
         /// <returns>Returns the file path of the selected file.</returns>
-        public static string GetDxfFile(this Editor acCurEd, string prompt, string initialDir = "", string initialFile = "")
+        public static string GetDxfFile(this Editor acCurEd, string prompt, string initialDir = "",
+            string initialFile = "")
         {
             //Prompt User To Select A File
             var fileOpts = new PromptOpenFileOptions("")
@@ -851,16 +904,10 @@ namespace RabCab.Utilities.Extensions
             };
 
             //If an initial directory is specified -> set it
-            if (initialDir != "")
-            {
-                fileOpts.InitialDirectory = initialDir;
-            }
+            if (initialDir != "") fileOpts.InitialDirectory = initialDir;
 
             //If an initial filename is specified -> set it
-            if (initialFile != "")
-            {
-                fileOpts.InitialFileName = initialFile;
-            }
+            if (initialFile != "") fileOpts.InitialFileName = initialFile;
 
             //Get the selected file for open
             var fileRes = acCurEd.GetFileNameForOpen(fileOpts);
@@ -870,18 +917,24 @@ namespace RabCab.Utilities.Extensions
 
             //Return the selected filename & path
             return fileRes.StringResult;
-
         }
 
         /// <summary>
-        /// Get any file of the file type DWT from the user.
+        ///     Get any file of the file type DWT from the user.
         /// </summary>
         /// <param name="acCurEd">The current working editor.</param>
         /// <param name="prompt">The prompt to present to the user.</param>
-        /// <param name="initialDir">The initial directory to open the file dialog at (no value = file will open at default location)</param>
-        /// <param name="initialFile">The initial filename to open the file dialog at (no value = file will open at default location)</param>
+        /// <param name="initialDir">
+        ///     The initial directory to open the file dialog at (no value = file will open at default
+        ///     location)
+        /// </param>
+        /// <param name="initialFile">
+        ///     The initial filename to open the file dialog at (no value = file will open at default
+        ///     location)
+        /// </param>
         /// <returns>Returns the file path of the selected file.</returns>
-        public static string GetDwtFile(this Editor acCurEd, string prompt, string initialDir = "", string initialFile = "")
+        public static string GetDwtFile(this Editor acCurEd, string prompt, string initialDir = "",
+            string initialFile = "")
         {
             //Prompt User To Select A File
             var fileOpts = new PromptOpenFileOptions("")
@@ -894,16 +947,10 @@ namespace RabCab.Utilities.Extensions
             };
 
             //If an initial directory is specified -> set it
-            if (initialDir != "")
-            {
-                fileOpts.InitialDirectory = initialDir;
-            }
+            if (initialDir != "") fileOpts.InitialDirectory = initialDir;
 
             //If an initial filename is specified -> set it
-            if (initialFile != "")
-            {
-                fileOpts.InitialFileName = initialFile;
-            }
+            if (initialFile != "") fileOpts.InitialFileName = initialFile;
 
             //Get the selected file for open
             var fileRes = acCurEd.GetFileNameForOpen(fileOpts);
@@ -913,18 +960,24 @@ namespace RabCab.Utilities.Extensions
 
             //Return the selected filename & path
             return fileRes.StringResult;
-
         }
 
         /// <summary>
-        /// Get any file of the file type DWS from the user.
+        ///     Get any file of the file type DWS from the user.
         /// </summary>
         /// <param name="acCurEd">The current working editor.</param>
         /// <param name="prompt">The prompt to present to the user.</param>
-        /// <param name="initialDir">The initial directory to open the file dialog at (no value = file will open at default location)</param>
-        /// <param name="initialFile">The initial filename to open the file dialog at (no value = file will open at default location)</param>
+        /// <param name="initialDir">
+        ///     The initial directory to open the file dialog at (no value = file will open at default
+        ///     location)
+        /// </param>
+        /// <param name="initialFile">
+        ///     The initial filename to open the file dialog at (no value = file will open at default
+        ///     location)
+        /// </param>
         /// <returns>Returns the file path of the selected file.</returns>
-        public static string GetDwsFile(this Editor acCurEd, string prompt, string initialDir = "", string initialFile = "")
+        public static string GetDwsFile(this Editor acCurEd, string prompt, string initialDir = "",
+            string initialFile = "")
         {
             //Prompt User To Select A File
             var fileOpts = new PromptOpenFileOptions("")
@@ -937,16 +990,10 @@ namespace RabCab.Utilities.Extensions
             };
 
             //If an initial directory is specified -> set it
-            if (initialDir != "")
-            {
-                fileOpts.InitialDirectory = initialDir;
-            }
+            if (initialDir != "") fileOpts.InitialDirectory = initialDir;
 
             //If an initial filename is specified -> set it
-            if (initialFile != "")
-            {
-                fileOpts.InitialFileName = initialFile;
-            }
+            if (initialFile != "") fileOpts.InitialFileName = initialFile;
 
             //Get the selected file for open
             var fileRes = acCurEd.GetFileNameForOpen(fileOpts);
@@ -956,7 +1003,6 @@ namespace RabCab.Utilities.Extensions
 
             //Return the selected filename & path
             return fileRes.StringResult;
-
         }
 
         #endregion
@@ -964,11 +1010,14 @@ namespace RabCab.Utilities.Extensions
         #region Prompt Point Options
 
         /// <summary>
-        /// Gets any point input, Allows any 3d point selection
+        ///     Gets any point input, Allows any 3d point selection
         /// </summary>
         /// <param name="acCurEd">The current working editor.</param>
         /// <param name="prompt">The prompt to present to the user.</param>
-        /// <param name="basePt">The base point to use in the editor, if a value is passed, the editor will use this as the base point.</param>
+        /// <param name="basePt">
+        ///     The base point to use in the editor, if a value is passed, the editor will use this as the base
+        ///     point.
+        /// </param>
         /// <returns></returns>
         public static Point3d Get3DPoint(this Editor acCurEd, string prompt, Point3d basePt = default(Point3d))
         {
@@ -997,11 +1046,14 @@ namespace RabCab.Utilities.Extensions
         }
 
         /// <summary>
-        /// Gets any point input, Allows any 3d point selection -> then converts the point to 2d
+        ///     Gets any point input, Allows any 3d point selection -> then converts the point to 2d
         /// </summary>
         /// <param name="acCurEd">The current working editor.</param>
         /// <param name="prompt">The prompt to present to the user.</param>
-        /// <param name="basePt">The base point to use in the editor, if a value is passed, the editor will use this as the base point.</param>
+        /// <param name="basePt">
+        ///     The base point to use in the editor, if a value is passed, the editor will use this as the base
+        ///     point.
+        /// </param>
         /// <returns></returns>
         public static Point2d Get2DPoint(this Editor acCurEd, string prompt, Point2d basePt = default(Point2d))
         {
@@ -1031,5 +1083,226 @@ namespace RabCab.Utilities.Extensions
 
         #endregion
 
+        #region Prompt Save File Options
+
+        /// <summary>
+        ///     Get any file location to save the file of the file type DWG, DXF, DWT, or DWS from the user.
+        /// </summary>
+        /// <param name="acCurEd">The current working editor.</param>
+        /// <param name="prompt">The prompt to present to the user.</param>
+        /// <param name="initialDir">
+        ///     The initial directory to open the file dialog at (no value = file will open at default
+        ///     location)
+        /// </param>
+        /// <param name="initialFile">
+        ///     The initial filename to open the file dialog at (no value = file will open at default
+        ///     location)
+        /// </param>
+        /// <returns>Returns the file path & name to create a save file.</returns>
+        public static string SaveCadFile(this Editor acCurEd, string prompt, string initialDir = "",
+            string initialFile = "")
+        {
+            //Prompt User To Select A File
+            var fileOpts = new PromptSaveFileOptions("")
+            {
+                Message = prompt,
+                AllowUrls = false,
+                DialogCaption = "",
+                DialogName = "CAD File Save",
+                Filter = "Drawing (*.dwg)|*.dwg|" +
+                         "Design Interchange Format (*.dxf)|*.dxf|" +
+                         "Drawing Template (*.dwt)|*.dwt|" +
+                         "Drawing Standards (*.dws)|*.dws"
+            };
+
+            //If an initial directory is specified -> set it
+            if (initialDir != "") fileOpts.InitialDirectory = initialDir;
+
+            //If an initial filename is specified -> set it
+            if (initialFile != "") fileOpts.InitialFileName = initialFile;
+
+            //Get the selected file for open
+            var fileRes = acCurEd.GetFileNameForSave(fileOpts);
+
+            //If file is not available for open (or bad input) -> return empty string
+            if (fileRes.Status != PromptStatus.OK) return "";
+
+            //Return the selected filename & path
+            return fileRes.StringResult;
+        }
+
+        /// <summary>
+        ///     Get any file location to save the file of the file type DWG from the user.
+        /// </summary>
+        /// <param name="acCurEd">The current working editor.</param>
+        /// <param name="prompt">The prompt to present to the user.</param>
+        /// <param name="initialDir">
+        ///     The initial directory to open the file dialog at (no value = file will open at default
+        ///     location)
+        /// </param>
+        /// <param name="initialFile">
+        ///     The initial filename to open the file dialog at (no value = file will open at default
+        ///     location)
+        /// </param>
+        /// <returns>Returns the file path & name to create a save file.</returns>
+        public static string SaveDwgFile(this Editor acCurEd, string prompt, string initialDir = "",
+            string initialFile = "")
+        {
+            //Prompt User To Select A File
+            var fileOpts = new PromptSaveFileOptions("")
+            {
+                Message = prompt,
+                AllowUrls = false,
+                DialogCaption = "",
+                DialogName = "DWG File Save",
+                Filter = "Drawing (*.dwg)|*.dwg|"
+            };
+
+            //If an initial directory is specified -> set it
+            if (initialDir != "") fileOpts.InitialDirectory = initialDir;
+
+            //If an initial filename is specified -> set it
+            if (initialFile != "") fileOpts.InitialFileName = initialFile;
+
+            //Get the selected file for open
+            var fileRes = acCurEd.GetFileNameForSave(fileOpts);
+
+            //If file is not available for open (or bad input) -> return empty string
+            if (fileRes.Status != PromptStatus.OK) return "";
+
+            //Return the selected filename & path
+            return fileRes.StringResult;
+        }
+
+        /// <summary>
+        ///     Get any file location to save the file of the file type DXF from the user.
+        /// </summary>
+        /// <param name="acCurEd">The current working editor.</param>
+        /// <param name="prompt">The prompt to present to the user.</param>
+        /// <param name="initialDir">
+        ///     The initial directory to open the file dialog at (no value = file will open at default
+        ///     location)
+        /// </param>
+        /// <param name="initialFile">
+        ///     The initial filename to open the file dialog at (no value = file will open at default
+        ///     location)
+        /// </param>
+        /// <returns>Returns the file path & name to create a save file.</returns>
+        public static string SaveDxfFile(this Editor acCurEd, string prompt, string initialDir = "",
+            string initialFile = "")
+        {
+            //Prompt User To Select A File
+            var fileOpts = new PromptSaveFileOptions("")
+            {
+                Message = prompt,
+                AllowUrls = false,
+                DialogCaption = "",
+                DialogName = "DXF File Save",
+                Filter = "Design Interchange Format (*.dxf)|*.dxf|"
+            };
+
+            //If an initial directory is specified -> set it
+            if (initialDir != "") fileOpts.InitialDirectory = initialDir;
+
+            //If an initial filename is specified -> set it
+            if (initialFile != "") fileOpts.InitialFileName = initialFile;
+
+            //Get the selected file for open
+            var fileRes = acCurEd.GetFileNameForSave(fileOpts);
+
+            //If file is not available for open (or bad input) -> return empty string
+            if (fileRes.Status != PromptStatus.OK) return "";
+
+            //Return the selected filename & path
+            return fileRes.StringResult;
+        }
+
+        /// <summary>
+        ///     Get any file location to save the file of the file type DWT from the user.
+        /// </summary>
+        /// <param name="acCurEd">The current working editor.</param>
+        /// <param name="prompt">The prompt to present to the user.</param>
+        /// <param name="initialDir">
+        ///     The initial directory to open the file dialog at (no value = file will open at default
+        ///     location)
+        /// </param>
+        /// <param name="initialFile">
+        ///     The initial filename to open the file dialog at (no value = file will open at default
+        ///     location)
+        /// </param>
+        /// <returns>Returns the file path & name to create a save file.</returns>
+        public static string SaveDwtFile(this Editor acCurEd, string prompt, string initialDir = "",
+            string initialFile = "")
+        {
+            //Prompt User To Select A File
+            var fileOpts = new PromptSaveFileOptions("")
+            {
+                Message = prompt,
+                AllowUrls = false,
+                DialogCaption = "",
+                DialogName = "DWT File Selection",
+                Filter = "Drawing Template (*.dwt)|*.dwt|"
+            };
+
+            //If an initial directory is specified -> set it
+            if (initialDir != "") fileOpts.InitialDirectory = initialDir;
+
+            //If an initial filename is specified -> set it
+            if (initialFile != "") fileOpts.InitialFileName = initialFile;
+
+            //Get the selected file for open
+            var fileRes = acCurEd.GetFileNameForSave(fileOpts);
+
+            //If file is not available for open (or bad input) -> return empty string
+            if (fileRes.Status != PromptStatus.OK) return "";
+
+            //Return the selected filename & path
+            return fileRes.StringResult;
+        }
+
+        /// <summary>
+        ///     Get any file location to save the file of the file type DWS from the user.
+        /// </summary>
+        /// <param name="acCurEd">The current working editor.</param>
+        /// <param name="prompt">The prompt to present to the user.</param>
+        /// <param name="initialDir">
+        ///     The initial directory to open the file dialog at (no value = file will open at default
+        ///     location)
+        /// </param>
+        /// <param name="initialFile">
+        ///     The initial filename to open the file dialog at (no value = file will open at default
+        ///     location)
+        /// </param>
+        /// <returns>Returns the file path & name to create a save file.</returns>
+        public static string SaveDwsFile(this Editor acCurEd, string prompt, string initialDir = "",
+            string initialFile = "")
+        {
+            //Prompt User To Select A File
+            var fileOpts = new PromptSaveFileOptions("")
+            {
+                Message = prompt,
+                AllowUrls = false,
+                DialogCaption = "Select an AutoCAD DWS file type",
+                DialogName = "DWS File Selection",
+                Filter = "Drawing Standards (*.dws)|*.dws"
+            };
+
+            //If an initial directory is specified -> set it
+            if (initialDir != "") fileOpts.InitialDirectory = initialDir;
+
+            //If an initial filename is specified -> set it
+            if (initialFile != "") fileOpts.InitialFileName = initialFile;
+
+            //Get the selected file for open
+            var fileRes = acCurEd.GetFileNameForSave(fileOpts);
+
+            //If file is not available for open (or bad input) -> return empty string
+            if (fileRes.Status != PromptStatus.OK) return "";
+
+            //Return the selected filename & path
+            return fileRes.StringResult;
+        }
+
+        #endregion
     }
 }
