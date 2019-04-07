@@ -1,23 +1,15 @@
-﻿using Microsoft.Win32;
-using System;
-using System.Linq;
+﻿using System.Linq;
+using Microsoft.Win32;
 
 namespace RabCab.Utilities.External
 {
     /// <summary>
-    /// Internal Class to find various paths to files of different types
+    ///     Internal Class to find various paths to files of different types
     /// </summary>
     internal class PathFinder
     {
         /// <summary>
-        /// Constructor for calling class
-        /// </summary>
-        public PathFinder()
-        {
-        }
-
-        /// <summary>
-        /// Method for searching the Registry for installed software
+        ///     Method for searching the Registry for installed software
         /// </summary>
         /// <param name="productName">The product name to search for</param>
         /// <returns>The folder path to the application - if installed</returns>
@@ -38,8 +30,7 @@ namespace RabCab.Utilities.External
 
             if (subKey != null)
                 return subKey.GetValueNames().FirstOrDefault(kv => kv.Contains(productName));
-            else
-                return "ERROR";
+            return "ERROR";
         }
     }
 }

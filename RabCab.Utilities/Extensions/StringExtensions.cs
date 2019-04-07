@@ -1,13 +1,11 @@
-﻿using System;
-using System.Globalization;
-using System.Linq;
+﻿using System.Globalization;
 
 namespace RabCab.Utilities.Extensions
 {
     internal static class StringExtensions
     {
         /// <summary>
-        /// Method to convert upper and lowercase input to Title Case
+        ///     Method to convert upper and lowercase input to Title Case
         /// </summary>
         /// <param name="strInput"></param>
         /// <returns></returns>
@@ -17,7 +15,7 @@ namespace RabCab.Utilities.Extensions
             var upperCase = strInput.ToUpper();
 
             //Create the text info converter
-            TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
+            var textInfo = new CultureInfo("en-US", false).TextInfo;
 
             //Return the title case of the input text
             return textInfo.ToTitleCase(upperCase.ToLower());

@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
 using RabCab.Utilities.Calculators;
 using RabCab.Utilities.Engine.Enumerators;
 using RabCab.Utilities.Engine.System;
+using AcRx = Autodesk.AutoCAD.Runtime;
 
 // ReSharper disable CompareOfFloatsByEqualityOperator
 
@@ -13,6 +15,127 @@ namespace RabCab.Utilities.Extensions
 {
     internal static class EditorExtensions
     {
+        #region  Prompt Nested Entity Options
+
+        /// <summary>
+        ///     Method to get a nested entity selection from the user.
+        /// </summary>
+        /// <param name="acCurEd">The current working editor.</param>
+        /// <param name="prompt">The prompt to present to the user.</param>
+        /// <returns>Returns the ObjectID value of the selected nested entity.</returns>
+        public static ObjectId GetNestedEntity(this Editor acCurEd, string prompt)
+        {
+            var prNestOpts = new PromptNestedEntityOptions("")
+            {
+                AllowNone = false,
+                Message = prompt
+            };
+
+            //Prompt the user to select a nested entity
+            var prNestRes = acCurEd.GetNestedEntity(prNestOpts);
+
+            //If bad input -> return null
+            if (prNestRes.Status != PromptStatus.OK) return ObjectId.Null;
+
+            //Return the entity objectId selected in the editor
+            var objId = prNestRes.ObjectId;
+            return objId;
+        }
+
+        #endregion
+
+        #region Prompt String Options
+
+        /// <summary>
+        ///     Gets any string input.
+        /// </summary>
+        /// <param name="acCurEd">The current working Editor.</param>
+        /// <param name="prompt">The prompt to present to the user.</param>
+        /// <param name="defaultValue">
+        ///     The default value to use in prompt -> pressing enter will automatically use the default
+        ///     string.
+        /// </param>
+        /// <returns>Returns a string from the editor.</returns>
+        public static string GetString(this Editor acCurEd, string prompt, string defaultValue = "")
+        {
+            var prStrOpts = new PromptStringOptions("")
+            {
+                Message = prompt,
+                DefaultValue = defaultValue,
+                UseDefaultValue = defaultValue != ""
+            };
+
+
+            //Prompt the editor to receive the string from the user
+            var prStrRes = acCurEd.GetString(prStrOpts);
+
+            //If bad input -> return ""
+            if (prStrRes.Status != PromptStatus.OK) return "";
+
+            //Return the string entered into the editor
+            var strResult = prStrRes.StringResult;
+            return strResult;
+        }
+
+        #endregion
+
+        #region Point Parsing
+
+        /// <summary>
+        ///     Method to return a displacement vector - transformed by the current UCS
+        /// </summary>
+        /// <param name="point1">Point3d to transform from</param>
+        /// <param name="point2">Point3d to transform to</param>
+        /// <param name="acCurEd">The Current Working Editor</param>
+        /// <returns></returns>
+        public static Vector3d GetTransformedVector(this Editor acCurEd, Point3d point1, Point3d point2)
+        {
+            //Get the vector from point1 to point2
+            var acVec3D = point1.GetVectorTo(point2);
+
+            //Transform the vector by the current UCS and return it
+            return acVec3D.TransformBy(acCurEd.CurrentUserCoordinateSystem);
+        }
+
+        #endregion
+
+        #region Methods To Read/Add Data From A Selected DWG File
+
+        /// <summary>
+        ///     Method Returns The Database of a Selected DWG
+        /// </summary>
+        /// <param name="acCurEd">The Current Working Editor</param>
+        /// <returns>Returns an External aCAD Database</returns>
+        public static Database GetExternalDatabase(Editor acCurEd)
+        {
+            // Create Database Object
+            var importDb = new Database(false, true);
+
+            //Prompt User To Select A File
+            var fileOpts = new PromptOpenFileOptions("Select file to import: ")
+            {
+                Filter = "Drawing (*.dwg)|*.dwg|" +
+                         "Design Interchange Format (*.dxf)|*.dxf|" +
+                         "Drawing Template (*.dwt)|*.dwt|" +
+                         "Drawing Standards (*.dws)|*.dws"
+            };
+
+
+            var fileRes = acCurEd.GetFileNameForOpen(fileOpts);
+
+            if (fileRes.Status == PromptStatus.OK)
+            {
+                acCurEd.WriteMessage("\nParsing File: \"{0}\".", fileRes.StringResult);
+
+                //Read the import DWG file
+                importDb.ReadDwgFile(fileRes.StringResult, FileShare.Read, true, "");
+            }
+
+            return importDb;
+        }
+
+        #endregion
+
         #region Prompt Angle Options
 
         /// <summary>
@@ -758,35 +881,6 @@ namespace RabCab.Utilities.Extensions
 
         #endregion
 
-        #region  Prompt Nested Entity Options
-
-        /// <summary>
-        ///     Method to get a nested entity selection from the user.
-        /// </summary>
-        /// <param name="acCurEd">The current working editor.</param>
-        /// <param name="prompt">The prompt to present to the user.</param>
-        /// <returns>Returns the ObjectID value of the selected nested entity.</returns>
-        public static ObjectId GetNestedEntity(this Editor acCurEd, string prompt)
-        {
-            var prNestOpts = new PromptNestedEntityOptions("")
-            {
-                AllowNone = false,
-                Message = prompt
-            };
-
-            //Prompt the user to select a nested entity
-            var prNestRes = acCurEd.GetNestedEntity(prNestOpts);
-
-            //If bad input -> return null
-            if (prNestRes.Status != PromptStatus.OK) return ObjectId.Null;
-
-            //Return the entity objectId selected in the editor
-            var objId = prNestRes.ObjectId;
-            return objId;
-        }
-
-        #endregion
-
         #region Prompt Open File Options
 
         /// <summary>
@@ -1343,7 +1437,8 @@ namespace RabCab.Utilities.Extensions
         /// <param name="acCurEd">The current working editor.</param>
         /// <param name="filterArg">The DXF name to filter by.</param>
         /// <returns>Returns an objectID collection of the selected objects.</returns>
-        public static ObjectId[] GetFilteredSelection(this Editor acCurEd, Enums.DxfName filterArg, bool singleSelection)
+        public static ObjectId[] GetFilteredSelection(this Editor acCurEd, Enums.DxfNameEnum filterArg,
+            bool singleSelection)
         {
             //Convert the DXFName enum value to its string value
             var dxfName = EnumAgent.GetNameOf(filterArg);
@@ -1564,7 +1659,7 @@ namespace RabCab.Utilities.Extensions
         /// <param name="acCurEd">The current working Editor</param>
         /// <param name="filterArgs">The array of dxf Names to be filtered</param>
         /// <returns></returns>
-        public static ObjectId[] GetObjectsByType(this Editor acCurEd, Enums.DxfName[] filterArgs)
+        public static ObjectId[] GetObjectsByType(this Editor acCurEd, Enums.DxfNameEnum[] filterArgs)
         {
             SelectionSet acSSet = null;
             var curSpace = (int) AcVars.TileMode;
@@ -1601,6 +1696,122 @@ namespace RabCab.Utilities.Extensions
             if (acSsPrompt.Status == PromptStatus.OK) acSSet = acSsPrompt.Value;
 
             return acSSet != null ? acSSet.GetObjectIds() : new ObjectId[0];
+        }
+
+        #endregion
+
+        #region Coordinate Conversion
+
+        /// <summary>
+        ///     Gets the transformation matrix from the current User Coordinate System (UCS)
+        ///     to the World Coordinate System (WCS).
+        /// </summary>
+        /// <param name="ed">The instance to which this method applies.</param>
+        /// <returns>The UCS to WCS transformation matrix.</returns>
+        public static Matrix3d UCS2WCS(this Editor ed)
+        {
+            return ed.CurrentUserCoordinateSystem;
+        }
+
+        /// <summary>
+        ///     Gets the transformation matrix from the World Coordinate System (WCS)
+        ///     to the current User Coordinate System (UCS).
+        /// </summary>
+        /// <param name="ed">The instance to which this method applies.</param>
+        /// <returns>The WCS to UCS transformation matrix.</returns>
+        public static Matrix3d WCS2UCS(this Editor ed)
+        {
+            return ed.CurrentUserCoordinateSystem.Inverse();
+        }
+
+        /// <summary>
+        ///     Gets the transformation matrix from the current viewport Display Coordinate System (DCS)
+        ///     to the World Coordinate System (WCS).
+        /// </summary>
+        /// <param name="ed">The instance to which this method applies.</param>
+        /// <returns>The DCS to WCS transformation matrix.</returns>
+        public static Matrix3d DCS2WCS(this Editor ed)
+        {
+            var retVal = new Matrix3d();
+            var tilemode = ed.Document.Database.TileMode;
+            if (!tilemode)
+                ed.SwitchToModelSpace();
+            using (var vtr = ed.GetCurrentView())
+            {
+                retVal =
+                    Matrix3d.Rotation(-vtr.ViewTwist, vtr.ViewDirection, vtr.Target) *
+                    Matrix3d.Displacement(vtr.Target - Point3d.Origin) *
+                    Matrix3d.PlaneToWorld(vtr.ViewDirection);
+            }
+
+            if (!tilemode)
+                ed.SwitchToPaperSpace();
+            return retVal;
+        }
+
+        /// <summary>
+        ///     Gets the transformation matrix from the World Coordinate System (WCS)
+        ///     to the current viewport Display Coordinate System (DCS).
+        /// </summary>
+        /// <param name="ed">The instance to which this method applies.</param>
+        /// <returns>The WCS to DCS transformation matrix.</returns>
+        public static Matrix3d WCS2DCS(this Editor ed)
+        {
+            return ed.DCS2WCS().Inverse();
+        }
+
+        /// <summary>
+        ///     Gets the transformation matrix from the paper space active viewport Display Coordinate System (DCS)
+        ///     to the Paper space Display Coordinate System (PSDCS).
+        /// </summary>
+        /// <param name="ed">The instance to which this method applies.</param>
+        /// <returns>The DCS to PSDCS transformation matrix.</returns>
+        /// <exception cref=" Autodesk.AutoCAD.Runtime.Exception">
+        ///     eNotInPaperSpace is thrown if this method is called form Model Space.
+        /// </exception>
+        /// <exception cref=" Autodesk.AutoCAD.Runtime.Exception">
+        ///     eCannotChangeActiveViewport is thrown if there is none floating viewport in the current layout.
+        /// </exception>
+        public static Matrix3d DCS2PSDCS(this Editor ed)
+        {
+            var db = ed.Document.Database;
+            if (db.TileMode)
+                throw new AcRx.Exception(AcRx.ErrorStatus.NotInPaperspace);
+            using (var tr = db.TransactionManager.StartTransaction())
+            {
+                var vp =
+                    (Viewport) tr.GetObject(ed.CurrentViewportObjectId, OpenMode.ForRead);
+                if (vp.Number == 1)
+                    try
+                    {
+                        ed.SwitchToModelSpace();
+                        vp = (Viewport) tr.GetObject(ed.CurrentViewportObjectId, OpenMode.ForRead);
+                        ed.SwitchToPaperSpace();
+                    }
+                    catch
+                    {
+                        throw new AcRx.Exception(AcRx.ErrorStatus.CannotChangeActiveViewport);
+                    }
+
+                return vp.Dcs2Psdcs();
+            }
+        }
+
+        /// <summary>
+        ///     Gets the transformation matrix from the Paper space Display Coordinate System (PSDCS)
+        ///     to the paper space active viewport Display Coordinate System (DCS).
+        /// </summary>
+        /// <param name="ed">The instance to which this method applies.</param>
+        /// <returns>The PSDCS to DCS transformation matrix.</returns>
+        /// <exception cref=" Autodesk.AutoCAD.Runtime.Exception">
+        ///     eNotInPaperSpace is thrown if this method is called form Model Space.
+        /// </exception>
+        /// <exception cref=" Autodesk.AutoCAD.Runtime.Exception">
+        ///     eCannotChangeActiveViewport is thrown if there is none floating viewport in the current layout.
+        /// </exception>
+        public static Matrix3d PSDCS2DCS(this Editor ed)
+        {
+            return ed.DCS2PSDCS().Inverse();
         }
 
         #endregion

@@ -14,22 +14,15 @@ namespace RabCab.Utilities.Engine.Enumerators
         /// Method to get enumeration value from string value.
         public static T GetEnumValue<T>(string str) where T : struct, IConvertible
         {
-            if (!typeof(T).IsEnum)
-            {
-                throw new Exception("T must be an Enumeration type.");
-            }
-            var val = ((T[])Enum.GetValues(typeof(T)))[0];
+            if (!typeof(T).IsEnum) throw new Exception("T must be an Enumeration type.");
+            var val = ((T[]) Enum.GetValues(typeof(T)))[0];
             if (!string.IsNullOrEmpty(str))
-            {
-                foreach (var enumValue in (T[])Enum.GetValues(typeof(T)))
-                {
+                foreach (var enumValue in (T[]) Enum.GetValues(typeof(T)))
                     if (enumValue.ToString().ToUpper().Equals(str.ToUpper()))
                     {
                         val = enumValue;
                         break;
                     }
-                }
-            }
 
             return val;
         }
@@ -37,25 +30,21 @@ namespace RabCab.Utilities.Engine.Enumerators
         /// Method to get enumeration value from int value.
         public static T GetEnumValue<T>(int intValue) where T : struct, IConvertible
         {
-            if (!typeof(T).IsEnum)
-            {
-                throw new Exception("T must be an Enumeration type.");
-            }
-            var val = ((T[])Enum.GetValues(typeof(T)))[0];
+            if (!typeof(T).IsEnum) throw new Exception("T must be an Enumeration type.");
+            var val = ((T[]) Enum.GetValues(typeof(T)))[0];
 
-            foreach (var enumValue in (T[])Enum.GetValues(typeof(T)))
-            {
+            foreach (var enumValue in (T[]) Enum.GetValues(typeof(T)))
                 if (Convert.ToInt32(enumValue).Equals(intValue))
                 {
                     val = enumValue;
                     break;
                 }
-            }
+
             return val;
         }
 
         /// <summary>
-        /// Return the string name of the input Enum Value
+        ///     Return the string name of the input Enum Value
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>

@@ -1,6 +1,6 @@
 ﻿namespace RabCab.Utilities.External.XlsAgent
 {
-    class XlsWriter
+    internal class XlsWriter
     {
         //TODO
     }

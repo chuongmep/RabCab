@@ -1,6 +1,6 @@
 ﻿namespace RabCab.Utilities.External.XlsAgent
 {
-    class XlsReader
+    internal class XlsReader
     {
         //TODO
     }

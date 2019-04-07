@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RabCab.Utilities.Calculators
+﻿namespace RabCab.Utilities.Calculators
 {
-    class WeightCalculator
+    internal class WeightCalculator
     {
     }
 }

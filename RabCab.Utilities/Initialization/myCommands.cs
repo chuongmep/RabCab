@@ -13,7 +13,7 @@ using static RabCab.Utilities.Settings.SettingsInternal;
 
 // This line is not mandatory, but improves loading performances
 
-[assembly: CommandClass(typeof (MyCommands))]
+[assembly: CommandClass(typeof(MyCommands))]
 
 namespace RabCab.Utilities.Initialization
 {
@@ -113,7 +113,6 @@ namespace RabCab.Utilities.Initialization
         {
             var proc = new _3DsMaxAgent();
             proc.Start3DsMax();
-
         }
 
         #endregion

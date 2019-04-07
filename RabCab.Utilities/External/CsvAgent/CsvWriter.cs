@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RabCab.Utilities.External.CsvAgent
+﻿namespace RabCab.Utilities.External.CsvAgent
 {
-    class CsvWriter
+    internal class CsvWriter
     {
     }
 }

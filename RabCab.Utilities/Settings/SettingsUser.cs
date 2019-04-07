@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using RabCab.Utilities.Engine.Enumerators;
 
 namespace RabCab.Utilities.Settings
 {
-    class SettingsUser
+    public static class SettingsUser
     {
-        //TODO
+        public static Enums.RoundTolerance UserTol { set; get; } = Enums.RoundTolerance.ThreeDecimals;
     }
 }

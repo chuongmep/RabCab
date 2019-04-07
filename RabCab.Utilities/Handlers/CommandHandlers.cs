@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RabCab.Utilities.Handlers
+﻿namespace RabCab.Utilities.Handlers
 {
-    class CommandHandlers
+    internal class CommandHandlers
     {
         //TODO
     }

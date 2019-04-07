@@ -1,6 +1,6 @@
 ﻿namespace RabCab.Utilities.External.DwgAgent
 {
-    class DwgWriter
+    internal class DwgWriter
     {
         //TODO
     }

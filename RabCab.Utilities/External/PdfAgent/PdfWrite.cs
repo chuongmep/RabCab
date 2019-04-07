@@ -1,6 +1,6 @@
 ﻿namespace RabCab.Utilities.External.PdfAgent
 {
-    class PdfWrite
+    internal class PdfWrite
     {
         //TODO
     }

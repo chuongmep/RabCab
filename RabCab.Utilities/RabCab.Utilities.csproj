@@ -152,6 +152,10 @@
     <Compile Include="External\3dsMaxAgent\3DsMaxAgent.cs" />
     <Compile Include="External\CsvAgent\CsvReader.cs" />
     <Compile Include="External\CsvAgent\CsvWriter.cs" />
+    <Compile Include="Network\Algorithm.cs" />
+    <Compile Include="Network\Graph.cs" />
+    <Compile Include="Network\Network.cs" />
+    <Compile Include="Network\Node.cs" />
     <Compile Include="Resources\Dialect\Dialect_CUI.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -294,10 +298,6 @@
     <Compile Include="Gui\UpdaterGui.Designer.cs">
       <DependentUpon>UpdaterGui.cs</DependentUpon>
     </Compile>
-    <Compile Include="Network\Net.cs" />
-    <Compile Include="Network\NetAlgorithm.cs" />
-    <Compile Include="Network\NetGraph.cs" />
-    <Compile Include="Network\NetNode.cs" />
     <Compile Include="External\DsdAgent\DsdReader.cs" />
     <Compile Include="External\DsdAgent\DsdWriter.cs" />
     <Compile Include="External\DwgAgent\DwgReader.cs" />
@@ -316,6 +316,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Settings\Colors.cs" />
     <Compile Include="Settings\SettingsInternal.cs" />
     <Compile Include="Settings\SettingsUser.cs" />
   </ItemGroup>

@@ -1,6 +1,6 @@
 ﻿namespace RabCab.Utilities.External
 {
-    class Plotter
+    internal class Plotter
     {
         //TODO
     }

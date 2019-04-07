@@ -1,6 +1,6 @@
 ﻿namespace RabCab.Utilities.External.DwgAgent
 {
-    class DwgReader
+    internal class DwgReader
     {
         //TODO
     }

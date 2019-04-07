@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RabCab.Utilities.External
+﻿namespace RabCab.Utilities.External
 {
-    class Importer
+    internal class Importer
     {
         //TODO
     }

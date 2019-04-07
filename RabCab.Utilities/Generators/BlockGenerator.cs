@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RabCab.Utilities.Generators
+﻿namespace RabCab.Utilities.Generators
 {
-    class BlockGenerator
+    internal class BlockGenerator
     {
         //TODO
     }

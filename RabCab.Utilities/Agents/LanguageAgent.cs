@@ -1,6 +1,6 @@
 ﻿namespace RabCab.Utilities.Agents
 {
-    class LanguageAgent
+    internal class LanguageAgent
     {
     }
 }

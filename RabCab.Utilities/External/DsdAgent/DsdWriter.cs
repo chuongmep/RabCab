@@ -1,6 +1,6 @@
 ﻿namespace RabCab.Utilities.External.DsdAgent
 {
-    class DsdWriter
+    internal class DsdWriter
     {
         //TODO
     }

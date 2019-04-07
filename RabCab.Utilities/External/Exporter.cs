@@ -1,9 +1,6 @@
-﻿using System;
-using System.Linq;
-
-namespace RabCab.Utilities.Output
+﻿namespace RabCab.Utilities.Output
 {
-    class Exporter
+    internal class Exporter
     {
     }
 }

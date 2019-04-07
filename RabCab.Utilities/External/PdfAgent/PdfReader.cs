@@ -1,6 +1,6 @@
 ﻿namespace RabCab.Utilities.External.PdfAgent
 {
-    class PdfReader
+    internal class PdfReader
     {
         //TODO
     }

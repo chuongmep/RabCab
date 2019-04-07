@@ -1,6 +1,6 @@
 ﻿namespace RabCab.Utilities.External.XmlAgent
 {
-    class XmlWriter
+    internal class XmlWriter
     {
         //TODO
     }

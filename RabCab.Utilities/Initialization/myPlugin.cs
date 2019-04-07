@@ -9,13 +9,11 @@ using RabCab.Utilities.Initialization;
 
 namespace RabCab.Utilities.Initialization
 {
-
     // This class is instantiated by AutoCAD once and kept alive for the 
     // duration of the session. If you don't do any one time initialization 
     // then you should remove this class.
     public class MyPlugin : IExtensionApplication
     {
-
         void IExtensionApplication.Initialize()
         {
             // Add one time initialization here
@@ -42,7 +40,5 @@ namespace RabCab.Utilities.Initialization
         {
             // Do plug-in application clean up here
         }
-
     }
-
 }

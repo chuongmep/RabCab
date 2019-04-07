@@ -1,6 +1,6 @@
 ﻿namespace RabCab.Utilities.External.DsdAgent
 {
-    class DsdReader
+    internal class DsdReader
     {
         //TODO
     }

@@ -1,6 +1,6 @@
 ﻿namespace RabCab.Utilities.Engine.System
 {
-    class RegEditor
+    internal class RegEditor
     {
         //TODO
     }

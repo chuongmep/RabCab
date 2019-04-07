@@ -1,5 +1,6 @@
 ﻿using Autodesk.AutoCAD.ApplicationServices.Core;
 using RabCab.Utilities.Engine.Enumerators;
+
 // ReSharper disable StringLiteralTypo
 
 namespace RabCab.Utilities.Engine.System
@@ -13,8 +14,8 @@ namespace RabCab.Utilities.Engine.System
         /// </summary>
         public static Enums.SubObjEnum SubObjSelMode
         {
-            get { return (Enums.SubObjEnum)(short)Application.GetSystemVariable("SUBOBJSELECTIONMODE"); }
-            set { Application.SetSystemVariable("SUBOBJSELECTIONMODE", (short)value); }
+            get { return (Enums.SubObjEnum) (short) Application.GetSystemVariable("SUBOBJSELECTIONMODE"); }
+            set { Application.SetSystemVariable("SUBOBJSELECTIONMODE", (short) value); }
         }
 
         #endregion
@@ -26,11 +27,10 @@ namespace RabCab.Utilities.Engine.System
         /// </summary>
         public static Enums.TileModeEnum TileMode
         {
-            get { return (Enums.TileModeEnum)(short)Application.GetSystemVariable("TILEMODE"); }
-            set { Application.SetSystemVariable("TILEMODE", (short)value); }
+            get { return (Enums.TileModeEnum) (short) Application.GetSystemVariable("TILEMODE"); }
+            set { Application.SetSystemVariable("TILEMODE", (short) value); }
         }
 
         #endregion
-
     }
 }
