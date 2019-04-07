@@ -1,7 +1,9 @@
-﻿namespace RabCab.Utilities.Exceptions
+﻿using System;
+
+namespace RabCab.Utilities.Exceptions
 {
-    internal class CancelException
+    [Serializable]
+    public class CancelException : Exception
     {
-        //TODO
     }
 }

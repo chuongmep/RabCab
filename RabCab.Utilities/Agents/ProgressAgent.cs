@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using Autodesk.AutoCAD.Runtime;
+using RabCab.Utilities.Exceptions;
 using Exception = System.Exception;
 
 namespace RabCab.Utilities.Agents
@@ -146,8 +147,5 @@ namespace RabCab.Utilities.Agents
         }
     }
 
-    [Serializable]
-    public class CancelException : Exception
-    {
-    }
+
 }
