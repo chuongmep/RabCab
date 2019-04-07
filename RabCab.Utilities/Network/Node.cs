@@ -52,7 +52,7 @@ namespace RabCab.Utilities.Network
 
     public class GraphNode<T> : Node<T>
     {
-        private List<double> costs;
+        private List<double> _costs;
 
         public GraphNode()
         {
@@ -81,10 +81,10 @@ namespace RabCab.Utilities.Network
         {
             get
             {
-                if (costs == null)
-                    costs = new List<double>();
+                if (_costs == null)
+                    _costs = new List<double>();
 
-                return costs;
+                return _costs;
             }
         }
     }

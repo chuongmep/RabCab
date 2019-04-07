@@ -152,6 +152,7 @@
     <Compile Include="External\3dsMaxAgent\3DsMaxAgent.cs" />
     <Compile Include="External\CsvAgent\CsvReader.cs" />
     <Compile Include="External\CsvAgent\CsvWriter.cs" />
+    <Compile Include="External\InventorAgent\InventorAgent.cs" />
     <Compile Include="Network\Algorithm.cs" />
     <Compile Include="Network\Graph.cs" />
     <Compile Include="Network\Network.cs" />
