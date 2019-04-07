@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.Win32;
+using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Win32;
 
 namespace RabCab.Utilities.External
 {
@@ -38,7 +35,7 @@ namespace RabCab.Utilities.External
                 subKey = baseKey.OpenSubKey(foldersPath);
             }
 
-            
+
             if (subKey != null)
                 return subKey.GetValueNames().FirstOrDefault(kv => kv.Contains(productName));
             else

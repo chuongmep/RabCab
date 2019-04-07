@@ -4,6 +4,8 @@ using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
 using RabCab.Utilities.Calculators;
+using RabCab.Utilities.Engine.Enumerators;
+using RabCab.Utilities.Engine.System;
 
 // ReSharper disable CompareOfFloatsByEqualityOperator
 
@@ -1301,6 +1303,304 @@ namespace RabCab.Utilities.Extensions
 
             //Return the selected filename & path
             return fileRes.StringResult;
+        }
+
+        #endregion
+
+        #region Prompt Selection Options
+
+        /// <summary>
+        ///     Method to prompt the user to select any set of objects.
+        /// </summary>
+        /// <param name="acCurEd">The current working editor.</param>
+        /// <returns>Returns an objectID collection of the selected objects.</returns>
+        public static ObjectId[] GetAllSelection(this Editor acCurEd)
+        {
+            var prSelOpts = new PromptSelectionOptions
+            {
+                AllowDuplicates = false,
+                AllowSubSelections = false,
+                RejectObjectsFromNonCurrentSpace = true,
+                RejectObjectsOnLockedLayers = true,
+                MessageForAdding = "Select objects to add: ",
+                MessageForRemoval = "Select objects to remove: "
+            };
+
+            //Get the selection from the user
+            var prSelRes = acCurEd.GetSelection(prSelOpts);
+
+            //If bad input -> return empty array
+            if (prSelRes.Status != PromptStatus.OK) return new ObjectId[0];
+
+            //Get the array of object Id's and return the value;
+            var objIds = prSelRes.Value.GetObjectIds();
+            return objIds;
+        }
+
+        /// <summary>
+        ///     Method to prompt the user to select a specific type of object (by DXF name)
+        /// </summary>
+        /// <param name="acCurEd">The current working editor.</param>
+        /// <param name="filterArg">The DXF name to filter by.</param>
+        /// <returns>Returns an objectID collection of the selected objects.</returns>
+        public static ObjectId[] GetFilteredSelection(this Editor acCurEd, Enums.DxfName filterArg, bool singleSelection)
+        {
+            //Convert the DXFName enum value to its string value
+            var dxfName = EnumAgent.GetNameOf(filterArg);
+
+            //Remove underscores from the enum name
+            dxfName = dxfName.Replace("_", "");
+
+            //Convert to Upper Case
+            dxfName = dxfName.ToUpper();
+
+            var prSelOpts = new PromptSelectionOptions
+            {
+                AllowDuplicates = false,
+                AllowSubSelections = true,
+                RejectObjectsFromNonCurrentSpace = true,
+                RejectObjectsOnLockedLayers = true,
+                SingleOnly = singleSelection,
+                SinglePickInSpace = singleSelection,
+                MessageForAdding = "Select " + dxfName.ToTitleCase() + " objects to add: ",
+                MessageForRemoval = "Select " + dxfName.ToTitleCase() + " objects to remove: "
+            };
+
+            //Create a selection filter to only allow the specified object
+            var selFilter = new SelectionFilter(new[] {new TypedValue((int) DxfCode.Start, dxfName)});
+
+            //Get the selection from the user
+            var prSelRes = acCurEd.GetSelection(prSelOpts, selFilter);
+
+            //If bad input -> return empty array
+            if (prSelRes.Status != PromptStatus.OK) return new ObjectId[0];
+
+            //Get the array of object Id's and return the value;
+            var objIds = prSelRes.Value.GetObjectIds();
+            return objIds;
+        }
+
+        /// <summary>
+        ///     Method to prompt the user to select a specific type of subentity = only allows single selection.
+        /// </summary>
+        /// <param name="acCurEd">The current working editor.</param>
+        /// <param name="subEntType">The type of subentity to be selected.</param>
+        /// <returns>Returns a tuple value of the subentity id and its parent objectId.</returns>
+        public static Tuple<ObjectId, SubentityId> SelectSubentity(this Editor acCurEd, SubentityType subEntType)
+        {
+            //Set the ObjectId and SubentId to Null
+            var objId = ObjectId.Null;
+            var subId = SubentityId.Null;
+
+            //Convert the DXFName enum value to its string value
+            var subEntName = EnumAgent.GetNameOf(subEntType);
+
+            var prSelOpts = new PromptSelectionOptions
+            {
+                AllowDuplicates = false,
+                AllowSubSelections = true,
+                ForceSubSelections = true,
+                RejectObjectsFromNonCurrentSpace = true,
+                RejectObjectsOnLockedLayers = true,
+                SingleOnly = true,
+                SinglePickInSpace = true,
+                MessageForAdding = "Select " + subEntName.ToTitleCase() + " objects to add: ",
+                MessageForRemoval = "Select " + subEntName.ToTitleCase() + " objects to remove: "
+            };
+
+            PromptSelectionResult prRes;
+
+            //Set the SubObject Selection Mode
+            var userSubSelectMode = AcVars.SubObjSelMode;
+
+            try
+            {
+                switch (subEntType)
+                {
+                    case SubentityType.Vertex:
+                        AcVars.SubObjSelMode = Enums.SubObjEnum.Vertex;
+                        break;
+
+                    case SubentityType.Edge:
+                        AcVars.SubObjSelMode = Enums.SubObjEnum.Edge;
+                        break;
+
+                    case SubentityType.Face:
+                        AcVars.SubObjSelMode = Enums.SubObjEnum.Face;
+                        break;
+
+                    default:
+                        AcVars.SubObjSelMode = Enums.SubObjEnum.NoFilter;
+                        break;
+                }
+
+                //Get the selection from the User         
+                prRes = acCurEd.GetSelection(prSelOpts);
+            }
+            finally
+            {
+                //Set the Sub Select Mode back to the Users current setting
+                AcVars.SubObjSelMode = userSubSelectMode;
+            }
+
+            //If the Prompt Result is OK
+            if (prRes.Status == PromptStatus.OK)
+            {
+                //Get the selected Object and set the object Id
+                var selObj = prRes.Value[0];
+                objId = selObj.ObjectId;
+
+                if (!objId.IsNull || !objId.IsErased)
+                {
+                    //Get the entity path to the sub entity
+                    var subEnts = selObj.GetSubentities();
+                    var fsPath = subEnts[0].FullSubentityPath;
+                    var subEntId = fsPath.SubentId;
+                    var subType = subEntId.Type;
+
+                    if (subType == subEntType) subId = subEntId;
+                }
+            }
+
+            //Return the selected subentity ID and its parent object ID
+            return Tuple.Create(objId, subId);
+        }
+
+        /// <summary>
+        ///     Method to prompt the user to select a specific type of subentities = only allows single selection.
+        /// </summary>
+        /// <param name="acCurEd">The current working editor.</param>
+        /// <param name="subEntType">The type of subentities to be selected.</param>
+        /// <returns>Returns a tuple value of the subentity ids and their parent objectIds.</returns>
+        public static List<Tuple<ObjectId, SubentityId>> SelectSubentities(this Editor acCurEd,
+            SubentityType subEntType)
+        {
+            //Set the ObjectId and SubentId to Null
+
+            var entList = new List<Tuple<ObjectId, SubentityId>>();
+
+            //Convert the DXFName enum value to its string value
+            var subEntName = EnumAgent.GetNameOf(subEntType);
+
+            var prSelOpts = new PromptSelectionOptions
+            {
+                AllowDuplicates = false,
+                AllowSubSelections = true,
+                ForceSubSelections = true,
+                RejectObjectsFromNonCurrentSpace = true,
+                RejectObjectsOnLockedLayers = true,
+                SingleOnly = false,
+                SinglePickInSpace = false,
+                MessageForAdding = "Select " + subEntName.ToTitleCase() + " objects to add: ",
+                MessageForRemoval = "Select " + subEntName.ToTitleCase() + " objects to remove: "
+            };
+
+            PromptSelectionResult prRes;
+
+            //Set the SubObject Selection Mode
+            var userSubSelectMode = AcVars.SubObjSelMode;
+
+            try
+            {
+                switch (subEntType)
+                {
+                    case SubentityType.Vertex:
+                        AcVars.SubObjSelMode = Enums.SubObjEnum.Vertex;
+                        break;
+
+                    case SubentityType.Edge:
+                        AcVars.SubObjSelMode = Enums.SubObjEnum.Edge;
+                        break;
+
+                    case SubentityType.Face:
+                        AcVars.SubObjSelMode = Enums.SubObjEnum.Face;
+                        break;
+
+                    default:
+                        AcVars.SubObjSelMode = Enums.SubObjEnum.NoFilter;
+                        break;
+                }
+
+                //Get the selection from the User         
+                prRes = acCurEd.GetSelection(prSelOpts);
+            }
+            finally
+            {
+                //Set the Sub Select Mode back to the Users current setting
+                AcVars.SubObjSelMode = userSubSelectMode;
+            }
+
+            //If the Prompt Result is OK
+            if (prRes.Status == PromptStatus.OK)
+                foreach (SelectedObject selObj in prRes.Value)
+                {
+                    var objId = selObj.ObjectId;
+
+                    if (!objId.IsNull || !objId.IsErased)
+                    {
+                        //Get the entity path to the sub entity
+                        var subEnts = selObj.GetSubentities();
+                        var fsPath = subEnts[0].FullSubentityPath;
+                        var subEntId = fsPath.SubentId;
+                        var subType = subEntId.Type;
+
+                        if (subType == subEntType)
+                        {
+                            var subId = subEntId;
+
+                            //Add the new tuple value to the list
+                            entList.Add(Tuple.Create(objId, subId));
+                        }
+                    }
+                }
+
+            //Return the list of selected subentityIds and their parent object IDs
+            return entList;
+        }
+
+        /// <summary>
+        ///     Method to Programmatically select all objects of a type in the current space.
+        /// </summary>
+        /// <param name="acCurEd">The current working Editor</param>
+        /// <param name="filterArgs">The array of dxf Names to be filtered</param>
+        /// <returns></returns>
+        public static ObjectId[] GetObjectsByType(this Editor acCurEd, Enums.DxfName[] filterArgs)
+        {
+            SelectionSet acSSet = null;
+            var curSpace = (int) AcVars.TileMode;
+
+            var dxfNames = new List<string>();
+
+            foreach (var filterArg in filterArgs)
+            {
+                //Convert the DXFName enum value to its string value
+                var dxfName = EnumAgent.GetNameOf(filterArg);
+
+                //Remove underscores from the enum name
+                dxfName = dxfName.Replace("_", "");
+
+                //Convert to Upper Case
+                dxfName = dxfName.ToUpper();
+                dxfNames.Add(dxfName);
+            }
+
+            var filterValue = string.Join(",", dxfNames);
+
+            // Create a TypedValue array to define the filter criteria
+            var acTypValAr = new TypedValue[2];
+            acTypValAr.SetValue(new TypedValue((int) DxfCode.Start, filterValue), 0);
+            acTypValAr.SetValue(new TypedValue(67, curSpace), 1);
+
+            // Assign the filter criteria to a SelectionFilter object
+            var acSelFtr = new SelectionFilter(acTypValAr);
+
+            // Request for objects to be selected in the drawing area
+            var acSsPrompt = acCurEd.SelectAll(acSelFtr);
+
+            // If the prompt status is OK, objects were selected
+            if (acSsPrompt.Status == PromptStatus.OK) acSSet = acSsPrompt.Value;
+
+            return acSSet != null ? acSSet.GetObjectIds() : new ObjectId[0];
         }
 
         #endregion
