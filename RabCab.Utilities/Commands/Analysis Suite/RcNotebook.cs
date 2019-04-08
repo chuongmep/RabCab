@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RabCab.Utilities.Commands.Fastener_Suite
+namespace RabCab.Utilities.Commands.Analysis_Suite
 {
-    class RcAutoFasten
+    class RcNotebook
     {
     }
 }

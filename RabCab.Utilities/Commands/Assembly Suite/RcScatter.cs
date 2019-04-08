@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RabCab.Utilities.Commands.Fastener_Suite
+namespace RabCab.Utilities.Commands.Assembly_Suite
 {
-    class RcFastener
+    class RcScatter
     {
     }
 }

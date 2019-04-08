@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RabCab.Utilities.Commands.Fastener_Suite
+namespace RabCab.Utilities.Commands.Structural_Suite
 {
-    class RcMiter
+    class RcGenFrame
     {
     }
 }
