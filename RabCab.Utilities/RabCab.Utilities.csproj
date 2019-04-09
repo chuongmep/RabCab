@@ -322,7 +322,7 @@
     <Compile Include="Handlers\DocumentHandlers.cs" />
     <Compile Include="Handlers\EditorHandlers.cs" />
     <Compile Include="Handlers\CommandHandlers.cs" />
-    <Compile Include="Initialization\myPlugin.cs" />
+    <Compile Include="Initialization\InitPlugin.cs" />
     <Compile Include="Gui\AnalyzerGui.cs">
       <SubType>Form</SubType>
     </Compile>
