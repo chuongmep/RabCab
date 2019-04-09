@@ -181,7 +181,7 @@
     <Compile Include="Commands\Carpentry Suite\RcSlice.cs" />
     <Compile Include="Commands\CNC Suite\RcAutoPrep.cs" />
     <Compile Include="Commands\CNC Suite\RcBreakPoints.cs" />
-    <Compile Include="Commands\CNC Suite\RcSquareCut.cs" />
+    <Compile Include="Commands\CNC Suite\RcCheckWork.cs" />
     <Compile Include="Commands\CNC Suite\RcExportPaths.cs" />
     <Compile Include="Commands\CNC Suite\RcFlatten.cs" />
     <Compile Include="Commands\CNC Suite\RcInnerLoop.cs" />
@@ -219,6 +219,8 @@
     <Compile Include="Generators\FastenerGenerator.cs" />
     <Compile Include="Generators\TableGenerator.cs" />
     <Compile Include="Generators\ViewGenerator.cs" />
+    <Compile Include="Handlers\ClickHandler.cs" />
+    <Compile Include="Initialization\Debug.cs" />
     <Compile Include="Network\Algorithm.cs" />
     <Compile Include="Network\Graph.cs" />
     <Compile Include="Network\Network.cs" />

@@ -1,4 +1,5 @@
 ﻿using Autodesk.AutoCAD.Colors;
+using RabCab.Utilities.Engine.Enumerators;
 
 namespace RabCab.Utilities.Settings
 {
@@ -6,11 +7,11 @@ namespace RabCab.Utilities.Settings
     {
         #region Layer Colors
 
-        public static Color LayerColorRcAnno = Color.FromColorIndex(ColorMethod.ByAci, 7);
-        public static Color LayerColorRcVisible = Color.FromColorIndex(ColorMethod.ByAci, 7);
-        public static Color LayerColorRcHidden = Color.FromColorIndex(ColorMethod.ByAci, 2);
-        public static Color LayerColorConverge = Color.FromColorIndex(ColorMethod.ByAci, 1);
-        public static Color LayerColorDefpoints = Color.FromColorIndex(ColorMethod.ByAci, 9);
+        public static Color LayerColorRcAnno = Color.FromColorIndex(ColorMethod.ByAci, (int) Enums.CadColor.Blue);
+        public static Color LayerColorRcVisible = Color.FromColorIndex(ColorMethod.ByAci, (int)Enums.CadColor.White);
+        public static Color LayerColorRcHidden = Color.FromColorIndex(ColorMethod.ByAci, (int)Enums.CadColor.Green);
+        public static Color LayerColorConverge = Color.FromColorIndex(ColorMethod.ByAci, (int)Enums.CadColor.Red);
+        public static Color LayerColorDefpoints = Color.FromColorIndex(ColorMethod.ByAci, (int)Enums.CadColor.LightGrey);
 
         #endregion
     }
