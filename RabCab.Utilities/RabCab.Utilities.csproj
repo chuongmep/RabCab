@@ -156,19 +156,22 @@
     <Compile Include="Commands\Annotation Suite\RcDimTools.cs" />
     <Compile Include="Commands\Annotation Suite\RcGenDims.cs" />
     <Compile Include="Commands\Annotation Suite\RcGenTags.cs" />
-    <Compile Include="Commands\Annotation Suite\RcGenView.cs" />
-    <Compile Include="Commands\Annotation Suite\RcLeader.cs" />
+    <Compile Include="Commands\Annotation Suite\RcGenViews.cs" />
+    <Compile Include="Commands\Annotation Suite\RcPartFinder.cs" />
     <Compile Include="Commands\Annotation Suite\RcVpConvert.cs" />
+    <Compile Include="Commands\Assembly Suite\RcAssemble.cs" />
     <Compile Include="Commands\Assembly Suite\RcBom.cs" />
     <Compile Include="Commands\Assembly Suite\RcExplode.cs" />
     <Compile Include="Commands\Assembly Suite\RcIdentifiers.cs" />
     <Compile Include="Commands\Assembly Suite\RcLayParts.cs" />
     <Compile Include="Commands\Assembly Suite\RcNumParts.cs" />
+    <Compile Include="Commands\Assembly Suite\RcPartMark.cs" />
     <Compile Include="Commands\Assembly Suite\RcScatter.cs" />
     <Compile Include="Commands\Assembly Suite\RcSelection.cs" />
     <Compile Include="Commands\Automation Suite\RcAutoLayer.cs" />
     <Compile Include="Commands\Automation Suite\RcAutoScale.cs" />
     <Compile Include="Commands\Automation Suite\RcAutoVar.cs" />
+    <Compile Include="Commands\Automation Suite\RcBatchWork.cs" />
     <Compile Include="Commands\Automation Suite\RcPageNumber.cs" />
     <Compile Include="Commands\Automation Suite\RcTContents.cs" />
     <Compile Include="Commands\Automation Suite\RcTurbo.cs" />
@@ -217,6 +220,7 @@
     <Compile Include="External\CsvAgent\CsvWriter.cs" />
     <Compile Include="External\InventorAgent\InventorAgent.cs" />
     <Compile Include="Generators\FastenerGenerator.cs" />
+    <Compile Include="Generators\ScriptGenerator.cs" />
     <Compile Include="Generators\TableGenerator.cs" />
     <Compile Include="Generators\ViewGenerator.cs" />
     <Compile Include="Handlers\ClickHandler.cs" />
@@ -318,13 +322,7 @@
     <Compile Include="Handlers\DocumentHandlers.cs" />
     <Compile Include="Handlers\EditorHandlers.cs" />
     <Compile Include="Handlers\CommandHandlers.cs" />
-    <Compile Include="Initialization\myCommands.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>myCommands.resx</DependentUpon>
-    </Compile>
     <Compile Include="Initialization\myPlugin.cs" />
-    <Compile Include="Initialization\myCommands.cs" />
     <Compile Include="Gui\AnalyzerGui.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -421,11 +419,6 @@
     <EmbeddedResource Include="Resources\Dialect\Dialect_Progress.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Dialect_Progress.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Initialization\myCommands.resx">
-      <DependentUpon>myCommands.cs</DependentUpon>
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>myCommands.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RabCab.Utilities.Commands.Annotation_Suite
+namespace RabCab.Utilities.Commands.Automation_Suite
 {
-    class RcGenView
+    class RcBatchWork
     {
     }
 }

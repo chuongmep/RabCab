@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RabCab.Utilities.Commands.Annotation_Suite
 {
-    class RcLeader
+    class RcGenViews
     {
     }
 }
