@@ -1739,8 +1739,8 @@ namespace RabCab.Utilities.Extensions
             using (var vtr = ed.GetCurrentView())
             {
                 retVal =
-                    Matrix3d.Rotation(-vtr.ViewTwist, vtr.ViewDirection, vtr.Target) *
-                    Matrix3d.Displacement(vtr.Target - Point3d.Origin) *
+                    Matrix3d.Rotation(-vtr.ViewTwist, vtr.ViewDirection, vtr.Target)*
+                    Matrix3d.Displacement(vtr.Target - Point3d.Origin)*
                     Matrix3d.PlaneToWorld(vtr.ViewDirection);
             }
 

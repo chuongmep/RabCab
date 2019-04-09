@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RabCab.Utilities.Commands.Carpentry_Suite
+﻿namespace RabCab.Utilities.Commands.Carpentry_Suite
 {
-    class RcOffset
+    internal class RcOffset
     {
     }
 }

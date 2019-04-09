@@ -58,13 +58,13 @@ namespace RabCab.Utilities.Entities.Shapes
         ///     Gets the triangle algebraic (signed) area.
         /// </summary>
         public double AlgebricArea =>
-            ((_pt1.X - _pt0.X) * (_pt2.Y - _pt0.Y) -
-             (_pt2.X - _pt0.X) * (_pt1.Y - _pt0.Y)) / 2.0;
+            ((_pt1.X - _pt0.X)*(_pt2.Y - _pt0.Y) -
+             (_pt2.X - _pt0.X)*(_pt1.Y - _pt0.Y))/2.0;
 
         /// <summary>
         ///     Gets the triangle centroid.
         /// </summary>
-        public Point2d Centroid => (_pt0 + _pt1.GetAsVector() + _pt2.GetAsVector()) / 3.0;
+        public Point2d Centroid => (_pt0 + _pt1.GetAsVector() + _pt2.GetAsVector())/3.0;
 
         /// <summary>
         ///     Gets the circumscribed circle.
@@ -143,10 +143,10 @@ namespace RabCab.Utilities.Entities.Shapes
         {
             var pi = 3.141592653589793;
             var ang =
-                this[index].GetVectorTo(this[(index + 1) % 3]).GetAngleTo(
-                    this[index].GetVectorTo(this[(index + 2) % 3]));
-            if (ang > pi * 2)
-                return pi * 2 - ang;
+                this[index].GetVectorTo(this[(index + 1)%3]).GetAngleTo(
+                    this[index].GetVectorTo(this[(index + 2)%3]));
+            if (ang > pi*2)
+                return pi*2 - ang;
             return ang;
         }
 
@@ -162,7 +162,7 @@ namespace RabCab.Utilities.Entities.Shapes
         {
             if (index > 2)
                 throw new IndexOutOfRangeException("Index out of range");
-            return new LineSegment2d(this[index], this[(index + 1) % 3]);
+            return new LineSegment2d(this[index], this[(index + 1)%3]);
         }
 
         /// <summary>

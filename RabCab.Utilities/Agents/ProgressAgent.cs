@@ -2,7 +2,6 @@
 using System.Windows.Forms;
 using Autodesk.AutoCAD.Runtime;
 using RabCab.Utilities.Exceptions;
-using Exception = System.Exception;
 
 namespace RabCab.Utilities.Agents
 {
@@ -123,7 +122,7 @@ namespace RabCab.Utilities.Agents
                 }
                 else
                 {
-                    _pmLimit = _pmLimit * 2;
+                    _pmLimit = _pmLimit*2;
                     _pm.SetLimit(_pmLimit);
                 }
             }
@@ -146,6 +145,4 @@ namespace RabCab.Utilities.Agents
             Active.TickOrEsc();
         }
     }
-
-
 }

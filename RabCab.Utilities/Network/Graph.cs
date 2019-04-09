@@ -19,7 +19,6 @@ namespace RabCab.Utilities.Network
         }
 
         public NodeList<T> Nodes { get; }
-
         public int Count => Nodes.Count;
 
         public IEnumerator<T> GetEnumerator()

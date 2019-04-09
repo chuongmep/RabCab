@@ -1,6 +1,6 @@
 ﻿namespace RabCab.Utilities.Commands.Reference_Suite
 {
-    class RcXRefKit
+    internal class RcXRefKit
     {
     }
 }

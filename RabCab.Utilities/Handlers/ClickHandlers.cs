@@ -1,6 +1,6 @@
 ﻿namespace RabCab.Utilities.Handlers
 {
-    internal class DatabaseHandlers
+    internal class ClickHandlers
     {
     }
 }

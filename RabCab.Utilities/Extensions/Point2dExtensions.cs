@@ -106,8 +106,8 @@ namespace RabCab.Utilities.Extensions
         public static Point2d Polar(this Point2d org, double angle, double distance)
         {
             return new Point2d(
-                org.X + distance * Math.Cos(angle),
-                org.Y + distance * Math.Sin(angle));
+                org.X + distance*Math.Cos(angle),
+                org.Y + distance*Math.Sin(angle));
         }
     }
 }

@@ -5,7 +5,8 @@ using Autodesk.AutoCAD.Runtime;
 using RabCab.Utilities.Initialization;
 
 // This line is not mandatory, but improves loading performances
-[assembly: ExtensionApplication(typeof(InitPlugin))]
+
+[assembly: ExtensionApplication(typeof (InitPlugin))]
 
 namespace RabCab.Utilities.Initialization
 {

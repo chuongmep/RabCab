@@ -99,7 +99,7 @@ namespace RabCab.Utilities.Extensions
                     {
                         var arc = (Arc) crv;
                         var angle = arc.Center.GetVectorTo(start).GetAngleTo(arc.Center.GetVectorTo(end), arc.Normal);
-                        bulge = Math.Tan(angle / 4.0);
+                        bulge = Math.Tan(angle/4.0);
                     }
 
                     psc.Add(new PolylineSegment(start.Convert2d(plane), end.Convert2d(plane), bulge));

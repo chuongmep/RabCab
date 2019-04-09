@@ -168,7 +168,7 @@ namespace RabCab.Utilities.Extensions
             ObjectId[] solId = {acSol.ObjectId};
 
             //Create a handle Pointer to use to find subentity handles
-            var subentIdPe = acSol.QueryX(RXObject.GetClass(typeof(AssocPersSubentityIdPE)));
+            var subentIdPe = acSol.QueryX(RXObject.GetClass(typeof (AssocPersSubentityIdPE)));
 
             if (subentIdPe == IntPtr.Zero)
                 //Entity doesn't support the subentityPE
@@ -249,7 +249,7 @@ namespace RabCab.Utilities.Extensions
             ObjectId[] solId = {acSol.ObjectId};
 
             //Create a handle Pointer to use to find subentity handles
-            var subentIdPe = acSol.QueryX(RXObject.GetClass(typeof(AssocPersSubentityIdPE)));
+            var subentIdPe = acSol.QueryX(RXObject.GetClass(typeof (AssocPersSubentityIdPE)));
 
             if (subentIdPe == IntPtr.Zero)
                 //Entity doesn't support the subentityPE
@@ -330,7 +330,7 @@ namespace RabCab.Utilities.Extensions
             ObjectId[] solId = {acSol.ObjectId};
 
             //Create a handle Pointer to use to find subentity handles
-            var subentIdPe = acSol.QueryX(RXObject.GetClass(typeof(AssocPersSubentityIdPE)));
+            var subentIdPe = acSol.QueryX(RXObject.GetClass(typeof (AssocPersSubentityIdPE)));
 
             if (subentIdPe == IntPtr.Zero)
                 //Entity doesn't support the subentityPE

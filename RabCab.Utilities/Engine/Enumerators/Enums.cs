@@ -4,6 +4,19 @@ namespace RabCab.Utilities.Engine.Enumerators
 {
     public static class Enums
     {
+        public enum CadColor
+        {
+            Red = 1,
+            Yellow = 2,
+            Green = 3,
+            Cyan = 4,
+            Blue = 5,
+            Magenta = 6,
+            White = 7,
+            DarkGrey = 8,
+            LightGrey = 9
+        }
+
         /// <summary>
         ///     DXF Names for autoCAD entities
         /// </summary>
@@ -95,19 +108,6 @@ namespace RabCab.Utilities.Engine.Enumerators
         {
             Paperspace = 0,
             Modelspace = 1
-        }
-
-        public enum CadColor
-        {
-            Red = 1,
-            Yellow = 2,
-            Green = 3,
-            Cyan = 4,
-            Blue = 5,
-            Magenta = 6,
-            White = 7,
-            DarkGrey = 8,
-            LightGrey = 9
         }
     }
 }

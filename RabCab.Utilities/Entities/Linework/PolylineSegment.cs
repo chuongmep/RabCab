@@ -141,7 +141,7 @@ namespace RabCab.Utilities.Entities.Linework
         {
             _startPoint = arc.StartPoint;
             _endPoint = arc.EndPoint;
-            Bulge = Math.Tan((arc.EndAngle - arc.StartAngle) / 4.0);
+            Bulge = Math.Tan((arc.EndAngle - arc.StartAngle)/4.0);
             if (arc.IsClockWise) Bulge = -Bulge;
             StartWidth = 0.0;
             EndWidth = 0.0;
@@ -170,12 +170,12 @@ namespace RabCab.Utilities.Entities.Linework
             if (IsLinear)
             {
                 var line = ToLineSegment();
-                return line.IsOn(pt) ? _startPoint.GetDistanceTo(pt) / line.Length : -1.0;
+                return line.IsOn(pt) ? _startPoint.GetDistanceTo(pt)/line.Length : -1.0;
             }
 
             var arc = ToCircularArc();
             return arc.IsOn(pt)
-                ? arc.GetLength(arc.GetParameterOf(_startPoint), arc.GetParameterOf(pt)) /
+                ? arc.GetLength(arc.GetParameterOf(_startPoint), arc.GetParameterOf(pt))/
                   arc.GetLength(arc.GetParameterOf(_startPoint), arc.GetParameterOf(_endPoint))
                 : -1.0;
         }

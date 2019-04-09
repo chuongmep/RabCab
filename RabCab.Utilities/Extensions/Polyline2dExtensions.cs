@@ -158,7 +158,7 @@ namespace RabCab.Utilities.Extensions
                 tmpArea = arc.AlgebricArea();
                 tmpPt = arc.Centroid();
                 area += tmpArea;
-                cen += (new Point2d(tmpPt.X, tmpPt.Y) * tmpArea).GetAsVector();
+                cen += (new Point2d(tmpPt.X, tmpPt.Y)*tmpArea).GetAsVector();
             }
 
             for (var i = 1; i < last; i++)
@@ -168,7 +168,7 @@ namespace RabCab.Utilities.Extensions
                 tri.Set(p0, p1, p2);
                 tmpArea = tri.AlgebricArea;
                 area += tmpArea;
-                cen += (tri.Centroid * tmpArea).GetAsVector();
+                cen += (tri.Centroid*tmpArea).GetAsVector();
                 bulge = vertices[i].Bulge;
                 if (bulge != 0.0)
                 {
@@ -176,7 +176,7 @@ namespace RabCab.Utilities.Extensions
                     tmpArea = arc.AlgebricArea();
                     tmpPt = arc.Centroid();
                     area += tmpArea;
-                    cen += (new Point2d(tmpPt.X, tmpPt.Y) * tmpArea).GetAsVector();
+                    cen += (new Point2d(tmpPt.X, tmpPt.Y)*tmpArea).GetAsVector();
                 }
             }
 
@@ -187,7 +187,7 @@ namespace RabCab.Utilities.Extensions
                 tmpArea = arc.AlgebricArea();
                 tmpPt = arc.Centroid();
                 area += tmpArea;
-                cen += (new Point2d(tmpPt.X, tmpPt.Y) * tmpArea).GetAsVector();
+                cen += (new Point2d(tmpPt.X, tmpPt.Y)*tmpArea).GetAsVector();
             }
 
             cen = cen.DivideBy(area);

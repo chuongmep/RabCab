@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RabCab.Utilities.Commands.Output_Suite.Inventor_Kit
+﻿namespace RabCab.Utilities.Commands.Output_Suite.Inventor_Kit
 {
-    class RcOutputInventor
+    internal class RcOutputInventor
     {
     }
 }

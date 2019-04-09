@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RabCab.Utilities.Commands.Analysis_Suite
+﻿namespace RabCab.Utilities.Commands.Analysis_Suite
 {
-    class RcFilter
+    internal class RcFilter
     {
     }
 }

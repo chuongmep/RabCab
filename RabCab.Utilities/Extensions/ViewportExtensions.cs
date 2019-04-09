@@ -20,8 +20,8 @@ namespace RabCab.Utilities.Extensions
         public static Matrix3d Dcs2Wcs(this Viewport vp)
         {
             return
-                Matrix3d.Rotation(-vp.TwistAngle, vp.ViewDirection, vp.ViewTarget) *
-                Matrix3d.Displacement(vp.ViewTarget - Point3d.Origin) *
+                Matrix3d.Rotation(-vp.TwistAngle, vp.ViewDirection, vp.ViewTarget)*
+                Matrix3d.Displacement(vp.ViewTarget - Point3d.Origin)*
                 Matrix3d.PlaneToWorld(vp.ViewDirection);
         }
 
@@ -45,8 +45,8 @@ namespace RabCab.Utilities.Extensions
         public static Matrix3d Dcs2Psdcs(this Viewport vp)
         {
             return
-                Matrix3d.Scaling(vp.CustomScale, vp.CenterPoint) *
-                Matrix3d.Displacement(vp.CenterPoint.GetAsVector()) *
+                Matrix3d.Scaling(vp.CustomScale, vp.CenterPoint)*
+                Matrix3d.Displacement(vp.CenterPoint.GetAsVector())*
                 Matrix3d.Displacement(vp.ViewCenter.Convert3d().GetAsVector().Negate());
         }
 
@@ -99,7 +99,7 @@ namespace RabCab.Utilities.Extensions
                         var msVpPnts = new Point3dCollection();
                         foreach (Point3d pnt in psVpPnts)
                         {
-                            var xform = psVp.Dcs2Wcs() * psVp.Psdcs2Dcs();
+                            var xform = psVp.Dcs2Wcs()*psVp.Psdcs2Dcs();
                             // add the resulting point to the ms pnt array
                             msVpPnts.Add(pnt.TransformBy(xform));
                         }
@@ -147,7 +147,7 @@ namespace RabCab.Utilities.Extensions
 
             var width = vp.Width;
 
-            var scaling = viewHeight / height;
+            var scaling = viewHeight/height;
 
             var lensLength = vp.LensLength;
 
@@ -178,7 +178,7 @@ namespace RabCab.Utilities.Extensions
             }
 
             var ps2Dcs = Matrix3d.Displacement(Point3d.Origin - centerPoint);
-            ps2Dcs = ps2Dcs * Matrix3d.Scaling(scaling, centerPoint);
+            ps2Dcs = ps2Dcs*Matrix3d.Scaling(scaling, centerPoint);
             var dcs2Wcs = Matrix3d.Displacement(viewCenter - Point3d.Origin);
             var matCoords = Matrix3d.AlignCoordinateSystem(
                 Matrix3d.Identity.CoordinateSystem3d.Origin,
@@ -187,20 +187,20 @@ namespace RabCab.Utilities.Extensions
                 Matrix3d.Identity.CoordinateSystem3d.Zaxis,
                 Matrix3d.Identity.CoordinateSystem3d.Origin,
                 xAxis, yAxis, zAxis);
-            dcs2Wcs = matCoords * dcs2Wcs;
+            dcs2Wcs = matCoords*dcs2Wcs;
 
-            dcs2Wcs = Matrix3d.Displacement(viewTarget - Point3d.Origin) * dcs2Wcs;
+            dcs2Wcs = Matrix3d.Displacement(viewTarget - Point3d.Origin)*dcs2Wcs;
 
-            dcs2Wcs = Matrix3d.Rotation(twistAngle, zAxis, viewTarget) * dcs2Wcs;
+            dcs2Wcs = Matrix3d.Rotation(twistAngle, zAxis, viewTarget)*dcs2Wcs;
 
             var perspMat = Matrix3d.Identity;
             if (vp.PerspectiveOn)
             {
                 var viewsize = viewHeight;
-                var aspectRatio = width / height;
-                var adjustFactor = 1.0 / 42.0;
+                var aspectRatio = width/height;
+                var adjustFactor = 1.0/42.0;
                 var adjustedLensLength =
-                    viewsize * lensLength * Math.Sqrt(1.0 + aspectRatio * aspectRatio) * adjustFactor;
+                    viewsize*lensLength*Math.Sqrt(1.0 + aspectRatio*aspectRatio)*adjustFactor;
 
                 var eyeDistance = viewDirection.Length;
                 var lensDistance = eyeDistance - adjustedLensLength;
@@ -212,20 +212,20 @@ namespace RabCab.Utilities.Extensions
                 {
                     1, 0, 0, 0,
                     0, 1, 0, 0,
-                    0, 0, (ll - l) / ll, l * (ed - ll) / ll,
-                    0, 0, -1.0 / ll, ed / ll
+                    0, 0, (ll - l)/ll, l*(ed - ll)/ll,
+                    0, 0, -1.0/ll, ed/ll
                 });
             }
 
-            return ps2Dcs.Inverse() * perspMat * dcs2Wcs.Inverse();
+            return ps2Dcs.Inverse()*perspMat*dcs2Wcs.Inverse();
         }
 
         internal static Vector3d NormalizeVector(Vector3d vec)
         {
-            var length = Math.Sqrt(vec.X * vec.X + vec.Y * vec.Y + vec.Z * vec.Z);
-            var x = vec.X / length;
-            var y = vec.Y / length;
-            var z = vec.Z / length;
+            var length = Math.Sqrt(vec.X*vec.X + vec.Y*vec.Y + vec.Z*vec.Z);
+            var x = vec.X/length;
+            var y = vec.Y/length;
+            var z = vec.Z/length;
             return new Vector3d(x, y, z);
         }
     }

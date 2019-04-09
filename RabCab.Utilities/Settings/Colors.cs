@@ -8,10 +8,10 @@ namespace RabCab.Utilities.Settings
         #region Layer Colors
 
         public static Color LayerColorRcAnno = Color.FromColorIndex(ColorMethod.ByAci, (int) Enums.CadColor.Blue);
-        public static Color LayerColorRcVisible = Color.FromColorIndex(ColorMethod.ByAci, (int)Enums.CadColor.White);
-        public static Color LayerColorRcHidden = Color.FromColorIndex(ColorMethod.ByAci, (int)Enums.CadColor.Green);
-        public static Color LayerColorConverge = Color.FromColorIndex(ColorMethod.ByAci, (int)Enums.CadColor.Red);
-        public static Color LayerColorDefpoints = Color.FromColorIndex(ColorMethod.ByAci, (int)Enums.CadColor.LightGrey);
+        public static Color LayerColorRcVisible = Color.FromColorIndex(ColorMethod.ByAci, (int) Enums.CadColor.White);
+        public static Color LayerColorRcHidden = Color.FromColorIndex(ColorMethod.ByAci, (int) Enums.CadColor.Green);
+        public static Color LayerColorConverge = Color.FromColorIndex(ColorMethod.ByAci, (int) Enums.CadColor.Red);
+        public static Color LayerColorDefpoints = Color.FromColorIndex(ColorMethod.ByAci, (int) Enums.CadColor.LightGrey);
 
         #endregion
     }
