@@ -1,7 +1,18 @@
-﻿using System.Collections.Generic;
+﻿// -----------------------------------------------------------------------------------
+//     <copyright file="Point2dCollectionExtensions.cs" company="CraterSpace">
+//     Copyright (c) 2019 CraterSpace - All Rights Reserved 
+//     </copyright>
+//     <author>Zach Ayers</author>
+//     <date>03/08/2019</date>
+//     Description:    
+//     Notes:  
+//     References:          
+// -----------------------------------------------------------------------------------
+
+using System.Collections.Generic;
 using Autodesk.AutoCAD.Geometry;
 
-namespace RabCab.Utils.RcGeom
+namespace RabCab.Utilities.Extensions
 {
     /// <summary>
     ///     Provides extension methods for the Point2dCollection type.

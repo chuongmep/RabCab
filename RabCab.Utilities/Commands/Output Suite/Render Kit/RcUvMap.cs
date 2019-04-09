@@ -1,9 +1,9 @@
 ﻿// -----------------------------------------------------------------------------------
-//     <copyright file="RcExportPaths.cs" company="CraterSpace">
+//     <copyright file="RcUvMap.cs" company="CraterSpace">
 //     Copyright (c) 2019 CraterSpace - All Rights Reserved 
 //     </copyright>
 //     <author>Zach Ayers</author>
-//     <date>04/08/2019</date>
+//     <date>04/09/2019</date>
 //     Description:    
 //     Notes:  
 //     References:          
@@ -12,9 +12,9 @@
 using Autodesk.AutoCAD.Runtime;
 using RabCab.Utilities.Settings;
 
-namespace RabCab.Utilities.Commands.CNC_Suite
+namespace RabCab.Utilities.Commands.Output_Suite.Render_Kit
 {
-    internal class RcExportPaths
+    internal class RcUvMap
     {
         /// <summary>
         /// </summary>

@@ -189,10 +189,12 @@
     <Compile Include="Commands\CNC Suite\RcFlatten.cs" />
     <Compile Include="Commands\CNC Suite\RcInnerLoop.cs" />
     <Compile Include="Commands\CNC Suite\RcOuterLoop.cs" />
+    <Compile Include="Commands\CNC Suite\RcSimulate.cs" />
     <Compile Include="Commands\Combine Suite\RcConverge.cs" />
     <Compile Include="Commands\Combine Suite\RcFuse.cs" />
     <Compile Include="Commands\Combine Suite\RcSubtrahend.cs" />
     <Compile Include="Commands\Fastener Suite\RcGenFastener.cs" />
+    <Compile Include="Commands\Fastener Suite\RcRepository.cs" />
     <Compile Include="Commands\Mesh Suite\RcMeshConvert.cs" />
     <Compile Include="Commands\Mesh Suite\RcMeshExplode.cs" />
     <Compile Include="Commands\Output Suite\Inventor Kit\RcImportInventor.cs" />
@@ -203,6 +205,7 @@
     <Compile Include="Commands\Output Suite\Plot Kit\RcPublish.cs" />
     <Compile Include="Commands\Output Suite\Render Kit\RcMaterial.cs" />
     <Compile Include="Commands\Output Suite\Render Kit\RcRender.cs" />
+    <Compile Include="Commands\Output Suite\Render Kit\RcUvMap.cs" />
     <Compile Include="Commands\Palette Kit\RcMainPalette.cs" />
     <Compile Include="Commands\Palette Kit\RcSnapPalette.cs" />
     <Compile Include="Commands\Reference Suite\RcBlockKit.cs" />

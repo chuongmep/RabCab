@@ -1,8 +1,19 @@
-﻿using Autodesk.AutoCAD.DatabaseServices;
+﻿// -----------------------------------------------------------------------------------
+//     <copyright file="EllipseExtensions.cs" company="CraterSpace">
+//     Copyright (c) 2019 CraterSpace - All Rights Reserved 
+//     </copyright>
+//     <author>Zach Ayers</author>
+//     <date>03/08/2019</date>
+//     Description:    
+//     Notes:  
+//     References:          
+// -----------------------------------------------------------------------------------
+
+using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Geometry;
 using RabCab.Utilities.Entities.Linework;
 
-namespace RabCab.Utils.RcGeom
+namespace RabCab.Utilities.Extensions
 {
     /// <summary>
     ///     Provides extension methods for the Ellipse type.

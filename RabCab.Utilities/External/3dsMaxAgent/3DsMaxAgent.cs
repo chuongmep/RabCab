@@ -1,4 +1,15 @@
-﻿using System;
+﻿// -----------------------------------------------------------------------------------
+//     <copyright file="3DsMaxAgent.cs" company="CraterSpace">
+//     Copyright (c) 2019 CraterSpace - All Rights Reserved 
+//     </copyright>
+//     <author>Zach Ayers</author>
+//     <date>03/28/2019</date>
+//     Description:    
+//     Notes:  
+//     References:          
+// -----------------------------------------------------------------------------------
+
+using System;
 using System.Diagnostics;
 
 namespace RabCab.Utilities.External._3dsMaxAgent

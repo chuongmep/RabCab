@@ -1,5 +1,13 @@
-﻿// (C) Copyright 2019 by  
-//
+﻿// -----------------------------------------------------------------------------------
+//     <copyright file="InitPlugin.cs" company="CraterSpace">
+//     Copyright (c) 2019 CraterSpace - All Rights Reserved 
+//     </copyright>
+//     <author>Zach Ayers</author>
+//     <date>03/08/2019</date>
+//     Description:    
+//     Notes:  
+//     References:          
+// -----------------------------------------------------------------------------------
 
 using Autodesk.AutoCAD.Runtime;
 using RabCab.Utilities.Initialization;

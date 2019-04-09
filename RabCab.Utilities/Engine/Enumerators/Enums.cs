@@ -1,4 +1,15 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿// -----------------------------------------------------------------------------------
+//     <copyright file="Enums.cs" company="CraterSpace">
+//     Copyright (c) 2019 CraterSpace - All Rights Reserved 
+//     </copyright>
+//     <author>Zach Ayers</author>
+//     <date>04/08/2019</date>
+//     Description:    
+//     Notes:  
+//     References:          
+// -----------------------------------------------------------------------------------
+
+using System.Diagnostics.CodeAnalysis;
 
 namespace RabCab.Utilities.Engine.Enumerators
 {

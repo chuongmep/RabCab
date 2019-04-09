@@ -1,4 +1,15 @@
-﻿using System.Linq;
+﻿// -----------------------------------------------------------------------------------
+//     <copyright file="PathFinder.cs" company="CraterSpace">
+//     Copyright (c) 2019 CraterSpace - All Rights Reserved 
+//     </copyright>
+//     <author>Zach Ayers</author>
+//     <date>03/08/2019</date>
+//     Description:    
+//     Notes:  
+//     References:          
+// -----------------------------------------------------------------------------------
+
+using System.Linq;
 using Microsoft.Win32;
 
 namespace RabCab.Utilities.External

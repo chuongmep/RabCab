@@ -1,4 +1,15 @@
-﻿using System;
+﻿// -----------------------------------------------------------------------------------
+//     <copyright file="Tolerance.cs" company="CraterSpace">
+//     Copyright (c) 2019 CraterSpace - All Rights Reserved 
+//     </copyright>
+//     <author>Zach Ayers</author>
+//     <date>03/13/2019</date>
+//     Description:    
+//     Notes:  
+//     References:          
+// -----------------------------------------------------------------------------------
+
+using System;
 using Autodesk.AutoCAD.Geometry;
 using RabCab.Utilities.Engine.Enumerators;
 using RabCab.Utilities.Settings;

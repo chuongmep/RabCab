@@ -1,9 +1,9 @@
 ﻿// -----------------------------------------------------------------------------------
-//     <copyright file="RcExportPaths.cs" company="CraterSpace">
+//     <copyright file="RcSimulate.cs" company="CraterSpace">
 //     Copyright (c) 2019 CraterSpace - All Rights Reserved 
 //     </copyright>
 //     <author>Zach Ayers</author>
-//     <date>04/08/2019</date>
+//     <date>04/09/2019</date>
 //     Description:    
 //     Notes:  
 //     References:          
@@ -14,7 +14,7 @@ using RabCab.Utilities.Settings;
 
 namespace RabCab.Utilities.Commands.CNC_Suite
 {
-    internal class RcExportPaths
+    internal class RcSimulate
     {
         /// <summary>
         /// </summary>

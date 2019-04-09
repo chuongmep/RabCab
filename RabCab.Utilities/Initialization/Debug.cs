@@ -1,4 +1,15 @@
-﻿using Autodesk.AutoCAD.Runtime;
+﻿// -----------------------------------------------------------------------------------
+//     <copyright file="Debug.cs" company="CraterSpace">
+//     Copyright (c) 2019 CraterSpace - All Rights Reserved 
+//     </copyright>
+//     <author>Zach Ayers</author>
+//     <date>04/09/2019</date>
+//     Description:    
+//     Notes:  
+//     References:          
+// -----------------------------------------------------------------------------------
+
+using Autodesk.AutoCAD.Runtime;
 using RabCab.Utilities.Initialization;
 
 // This line is not mandatory, but improves loading performances
