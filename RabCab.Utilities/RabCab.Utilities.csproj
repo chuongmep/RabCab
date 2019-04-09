@@ -192,8 +192,12 @@
     <Compile Include="Commands\Fastener Suite\RcGenFastener.cs" />
     <Compile Include="Commands\Mesh Suite\RcMeshConvert.cs" />
     <Compile Include="Commands\Mesh Suite\RcMeshExplode.cs" />
+    <Compile Include="Commands\Output Suite\Inventor Kit\RcImportInventor.cs" />
     <Compile Include="Commands\Output Suite\Inventor Kit\RcOutputInventor.cs" />
+    <Compile Include="Commands\Output Suite\Max Kit\RcInputMax.cs" />
     <Compile Include="Commands\Output Suite\Max Kit\RcOutputMax.cs" />
+    <Compile Include="Commands\Output Suite\Plot Kit\RcPlot.cs" />
+    <Compile Include="Commands\Output Suite\Plot Kit\RcPublish.cs" />
     <Compile Include="Commands\Palette Kit\RcMainPalette.cs" />
     <Compile Include="Commands\Palette Kit\RcSnapPalette.cs" />
     <Compile Include="Commands\Reference Suite\RcBlockKit.cs" />
