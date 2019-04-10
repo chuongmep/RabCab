@@ -12,31 +12,53 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Xml;
 using System.Xml.Linq;
+using RabCab.Utilities.Initialization;
 
 namespace RabCab.Utilities.External.XmlAgent
 {
     internal class XmlAgent
     {
-        public string[] ReadXml(string xmlPath, string nodeName, string[] nodeAttributes)
+        public List<XmlAttribute[]> GetXmlAttributes(string xmlPath, string nodeName)
         {
-            XmlTextReader reader = new XmlTextReader(xmlPath);
+            //Create a list to hold all attribute groups
+            var xmlAtts = new List<XmlAttribute[]>();
 
-            XmlDocument doc = new XmlDocument();
-            XmlNode node = doc.ReadNode(reader);
+            //Tell Console we are reading the XML
+            Sandbox.WriteLine("Reading XML: " + Path.GetFileName(xmlPath));
 
-            foreach (XmlNode item in node.ChildNodes)
+            //Create a new XmlDocument for reading - and load it
+            var doc = new XmlDocument();
+            doc.Load(xmlPath);
+
+            //Iterate through all nodes of the XML to find the information we are looking for
+            doc.IterateThroughAllNodes(delegate (XmlNode node)
             {
-                Debug.WriteLine(item.Value);
+                //Check if the node has attributes - we only want nodes with attributes
+                if (node.Attributes == null) return;
+                if (node.LocalName != nodeName) return;
 
-                foreach (XmlAttribute att in item.Attributes)
+                //If we have found a node with attributes, write the nodes name to the console
+                Sandbox.WriteLine(node.LocalName);
+
+                //Create a list to hold the attribute values
+                var attributeList = new List<XmlAttribute>();
+                
+                //Iterate through the attributes - if any match the specified 'attributesToGet' - replace that att with its value
+                foreach (XmlAttribute att in node.Attributes)
                 {
-                    Debug.WriteLine(att.Value);
+                    attributeList.Add(att);
+                    Sandbox.WriteLine("  " + att.LocalName + " - " + att.Value);
                 }
-            }
 
-            return new string[0];
+                //Add the attribute collection to the returnable collection
+                xmlAtts.Add(attributeList.ToArray());
+            });
+
+            //Return the attribute collections
+            return xmlAtts;
         }
     }
 }

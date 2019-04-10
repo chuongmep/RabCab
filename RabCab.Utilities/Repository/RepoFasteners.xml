@@ -1,22 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
+<!--Xml Document To Hold Fastener Building Information-->
 <fasteners>
-  <bolts>
+
+  <!--Bolt Information-->
+  <bolts>    
     <bolt identifier="Test"
           headType=""
           headHeight=""
           headWidth=""
           threadSize=""
           threadLength=""
-          fitType="" />
+          fitType="" />  
   </bolts>
-  <nuts>
+
+  <!--Nut Information-->
+  <nuts>   
     <nut identifier="Test"
          nutType=""
          threadSize="" />
-
   </nuts>
-
 
 </fasteners>
 

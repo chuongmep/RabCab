@@ -54,6 +54,9 @@
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug_Cad|AnyCPU'">
+    <OutputPath>bin\Debug_Cad\</OutputPath>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="AcCoreMgd">
       <SpecificVersion>False</SpecificVersion>
@@ -237,6 +240,7 @@
     <Compile Include="External\CsvAgent\CsvWriter.cs" />
     <Compile Include="External\EmailAgent\MessageKit.cs" />
     <Compile Include="External\InventorAgent\InventorAgent.cs" />
+    <Compile Include="External\XmlAgent\XmlDocumentExtensions.cs" />
     <Compile Include="Generators\FastenerGenerator.cs" />
     <Compile Include="Generators\ScriptGenerator.cs" />
     <Compile Include="Generators\TableGenerator.cs" />
@@ -250,6 +254,7 @@
     <Compile Include="Handlers\ClickHandlers.cs" />
     <Compile Include="Initialization\Debugging.cs" />
     <Compile Include="Initialization\Manifest.cs" />
+    <Compile Include="Initialization\Sandbox.cs" />
     <Compile Include="Network\Algorithm.cs" />
     <Compile Include="Network\Graph.cs" />
     <Compile Include="Network\Network.cs" />
@@ -463,7 +468,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Repository\RepoFasteners.xml" />
+    <Resource Include="Repository\RepoFasteners.xml">
+      <SubType>Designer</SubType>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Repository\RepoSteelShapes.xml" />

@@ -25,13 +25,24 @@ namespace RabCab.Utilities.Initialization
     // a command is called by the user the first time in the context
     // of a given document. In other words, non static data in this class
     // is implicitly per-document!
-    internal class Debugging
-    {
-        [CommandMethod("TESTXML")]
-        public void Cmd_TestXml()
+    public static class Debugging
+    {       
+        public static void Cmd_TestXml()
         {
             var reader = new XmlAgent();
-            reader.ReadXml(@"C:\Users\zayers\Documents\GitHub\RabCab.Utilities\RabCab.Utilities\Repository\RepoFasteners.xml", "", new []{""});
+            var cols = reader.GetXmlAttributes(@"C:\Users\zayers\Documents\GitHub\RabCab.Utilities\RabCab.Utilities\Repository\RepoFasteners.xml", "bolt");
+
+            Sandbox.WriteLine("");
+            Sandbox.WriteLine("Parsing Collection...");
+
+            foreach (var attCol in cols)
+            {
+                foreach (var att in attCol)
+                {
+                    Sandbox.WriteLine("  " + att.LocalName + " - " + att.Value);
+                }
+            }
+
         }
     }
 }
