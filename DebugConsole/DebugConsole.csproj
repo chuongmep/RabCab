@@ -40,8 +40,8 @@
     <OutputPath>bin\Debug_Cad\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="RabCab.Utilities">
-      <HintPath>..\RabCab.Utilities\bin\Debug\RabCab.Utilities.dll</HintPath>
+    <Reference Include="RabCab">
+      <HintPath>..\RabCab.Utilities\bin\Debug\RabCab.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
