@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------------------
-//     <copyright file="XmlReader.cs" company="CraterSpace">
+//     <copyright file="XmlAgent.cs" company="CraterSpace">
 //     Copyright (c) 2019 CraterSpace - All Rights Reserved 
 //     </copyright>
 //     <author>Zach Ayers</author>
@@ -9,15 +9,12 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Xml;
-using System.Xml.Linq;
-using RabCab.Utilities.Initialization;
+using RabCab.Initialization;
 
-namespace RabCab.Utilities.External.XmlAgent
+namespace RabCab.External.XmlAgent
 {
     internal class XmlAgent
     {
@@ -34,7 +31,7 @@ namespace RabCab.Utilities.External.XmlAgent
             doc.Load(xmlPath);
 
             //Iterate through all nodes of the XML to find the information we are looking for
-            doc.IterateThroughAllNodes(delegate (XmlNode node)
+            doc.IterateThroughAllNodes(delegate(XmlNode node)
             {
                 //Check if the node has attributes - we only want nodes with attributes
                 if (node.Attributes == null) return;
@@ -45,7 +42,7 @@ namespace RabCab.Utilities.External.XmlAgent
 
                 //Create a list to hold the attribute values
                 var attributeList = new List<XmlAttribute>();
-                
+
                 //Iterate through the attributes - if any match the specified 'attributesToGet' - replace that att with its value
                 foreach (XmlAttribute att in node.Attributes)
                 {

@@ -13,10 +13,10 @@ using System;
 using System.Collections.Generic;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Geometry;
-using RabCab.Utilities.Entities.Shapes;
+using RabCab.Entities.Shapes;
 using AcRx = Autodesk.AutoCAD.Runtime;
 
-namespace RabCab.Utilities.Extensions
+namespace RabCab.Extensions
 {
     /// <summary>
     ///     Provides extension methods for the Polyline2d type.

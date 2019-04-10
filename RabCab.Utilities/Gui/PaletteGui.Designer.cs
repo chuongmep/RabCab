@@ -1,4 +1,4 @@
-﻿namespace RabCab.Utilities.Gui
+﻿namespace RabCab.Gui
 {
     partial class PaletteGui
     {

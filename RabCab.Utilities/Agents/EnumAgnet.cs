@@ -13,7 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace RabCab.Utilities.Agents
+namespace RabCab.Agents
 {
     /// <summary>
     ///     Static class used to get enums by their string name or int location

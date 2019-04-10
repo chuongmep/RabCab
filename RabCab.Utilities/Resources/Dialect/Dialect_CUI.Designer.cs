@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace RabCab.Utilities.Resources.Dialect {
+namespace RabCab.Resources.Dialect {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace RabCab.Utilities.Resources.Dialect {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("RabCab.Utilities.Resources.Dialect.Dialect_CUI", typeof(Dialect_CUI).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("RabCab.Resources.Dialect.Dialect_CUI", typeof(Dialect_CUI).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

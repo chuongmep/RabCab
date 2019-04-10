@@ -9,7 +9,7 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
-namespace RabCab.Utilities.Analysis
+namespace RabCab.Analysis
 {
     internal class PaperReader
     {

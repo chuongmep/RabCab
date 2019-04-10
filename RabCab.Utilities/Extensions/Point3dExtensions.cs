@@ -16,7 +16,7 @@ using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
 using AcRx = Autodesk.AutoCAD.Runtime;
 
-namespace RabCab.Utilities.Extensions
+namespace RabCab.Extensions
 {
     /// <summary>
     ///     Provides extension methods for the Point3d type.

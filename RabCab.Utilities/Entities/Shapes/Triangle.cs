@@ -13,7 +13,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace RabCab.Utilities.Entities.Shapes
+namespace RabCab.Entities.Shapes
 {
     /// <summary>
     ///     Provides methods for the derived classes.

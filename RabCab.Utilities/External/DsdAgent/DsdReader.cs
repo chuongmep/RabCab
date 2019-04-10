@@ -9,7 +9,7 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
-namespace RabCab.Utilities.External.DsdAgent
+namespace RabCab.External.DsdAgent
 {
     internal class DsdReader
     {

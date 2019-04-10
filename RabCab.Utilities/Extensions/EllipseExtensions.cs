@@ -11,9 +11,9 @@
 
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Geometry;
-using RabCab.Utilities.Entities.Linework;
+using RabCab.Entities.Linework;
 
-namespace RabCab.Utilities.Extensions
+namespace RabCab.Extensions
 {
     /// <summary>
     ///     Provides extension methods for the Ellipse type.

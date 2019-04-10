@@ -9,7 +9,7 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
-namespace RabCab.Utilities.Engine.System
+namespace RabCab.Engine.System
 {
     internal class RegEditor
     {

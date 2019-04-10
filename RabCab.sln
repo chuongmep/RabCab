@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabCab.Utilities", "RabCab.Utilities\RabCab.Utilities.csproj", "{12540A60-474B-4908-8781-F758ACF78931}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabCab", "RabCab.Utilities\RabCab.csproj", "{12540A60-474B-4908-8781-F758ACF78931}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DebugConsole", "DebugConsole\DebugConsole.csproj", "{22326B07-B7CA-43B3-A2DE-26757F37CAC4}"
 	ProjectSection(ProjectDependencies) = postProject

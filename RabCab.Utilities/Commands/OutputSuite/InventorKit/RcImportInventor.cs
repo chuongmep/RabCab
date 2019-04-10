@@ -10,9 +10,9 @@
 // -----------------------------------------------------------------------------------
 
 using Autodesk.AutoCAD.Runtime;
-using RabCab.Utilities.Settings;
+using RabCab.Settings;
 
-namespace RabCab.Utilities.Commands.OutputSuite.InventorKit
+namespace RabCab.Commands.OutputSuite.InventorKit
 {
     internal class RcImportInventor
     {

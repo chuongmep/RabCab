@@ -9,7 +9,7 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
-namespace RabCab.Utilities.Generators
+namespace RabCab.Generators
 {
     internal class TableGenerator
     {

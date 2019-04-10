@@ -10,9 +10,9 @@
 // -----------------------------------------------------------------------------------
 
 using Autodesk.AutoCAD.Runtime;
-using RabCab.Utilities.Settings;
+using RabCab.Settings;
 
-namespace RabCab.Utilities.Commands.CarpentrySuite
+namespace RabCab.Commands.CarpentrySuite
 {
     internal class RcOffset
     {

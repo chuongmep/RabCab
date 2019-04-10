@@ -15,14 +15,14 @@ using System.IO;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
-using RabCab.Utilities.Calculators;
-using RabCab.Utilities.Engine.Enumerators;
-using RabCab.Utilities.Engine.System;
+using RabCab.Calculators;
+using RabCab.Engine.Enumerators;
+using RabCab.Engine.System;
 using AcRx = Autodesk.AutoCAD.Runtime;
 
 // ReSharper disable CompareOfFloatsByEqualityOperator
 
-namespace RabCab.Utilities.Extensions
+namespace RabCab.Extensions
 {
     internal static class EditorExtensions
     {

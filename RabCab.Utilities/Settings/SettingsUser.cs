@@ -9,9 +9,9 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
-using RabCab.Utilities.Engine.Enumerators;
+using RabCab.Engine.Enumerators;
 
-namespace RabCab.Utilities.Settings
+namespace RabCab.Settings
 {
     public static class SettingsUser
     {

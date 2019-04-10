@@ -11,7 +11,7 @@
 
 using System;
 
-namespace RabCab.Utilities.Exceptions
+namespace RabCab.Exceptions
 {
     [Serializable]
     public class CancelException : Exception

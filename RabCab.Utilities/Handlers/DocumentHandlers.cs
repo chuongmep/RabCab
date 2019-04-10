@@ -9,7 +9,7 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
-namespace RabCab.Utilities.Handlers
+namespace RabCab.Handlers
 {
     internal class DocumentHandlers
     {

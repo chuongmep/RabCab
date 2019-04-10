@@ -12,7 +12,7 @@
 using System;
 using Autodesk.AutoCAD.Geometry;
 
-namespace RabCab.Utilities.Entities.Linework
+namespace RabCab.Entities.Linework
 {
     /// <summary>
     ///     Represents a Polyline segment.

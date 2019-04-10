@@ -14,9 +14,9 @@ using System.Collections;
 using System.Collections.Generic;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Geometry;
-using RabCab.Utilities.Extensions;
+using RabCab.Extensions;
 
-namespace RabCab.Utilities.Entities.Linework
+namespace RabCab.Entities.Linework
 {
     /// <summary>
     ///     Represents a PolylineSegment collection.

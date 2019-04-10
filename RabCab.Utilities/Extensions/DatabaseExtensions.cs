@@ -15,7 +15,7 @@ using Autodesk.AutoCAD.Colors;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 
-namespace RabCab.Utilities.Extensions
+namespace RabCab.Extensions
 {
     public static class DatabaseExtentions
     {

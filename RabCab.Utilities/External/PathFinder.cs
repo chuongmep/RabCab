@@ -14,7 +14,7 @@ using System.Linq;
 using System.Reflection;
 using Microsoft.Win32;
 
-namespace RabCab.Utilities.External
+namespace RabCab.External
 {
     /// <summary>
     ///     Internal Class to find various paths to files of different types
@@ -47,7 +47,7 @@ namespace RabCab.Utilities.External
         }
 
         /// <summary>
-        /// Method to return the current executing assembly location.
+        ///     Method to return the current executing assembly location.
         /// </summary>
         /// <returns></returns>
         public string GetExecutingAssembly()

@@ -11,7 +11,7 @@
 
 using System.Diagnostics.CodeAnalysis;
 
-namespace RabCab.Utilities.Engine.Enumerators
+namespace RabCab.Engine.Enumerators
 {
     public static class Enums
     {

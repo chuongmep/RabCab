@@ -10,11 +10,11 @@
 // -----------------------------------------------------------------------------------
 
 using Autodesk.AutoCAD.ApplicationServices.Core;
-using RabCab.Utilities.Engine.Enumerators;
+using RabCab.Engine.Enumerators;
 
 // ReSharper disable StringLiteralTypo
 
-namespace RabCab.Utilities.Engine.System
+namespace RabCab.Engine.System
 {
     internal static class AcVars
     {

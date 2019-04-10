@@ -11,7 +11,7 @@
 
 using System.Globalization;
 
-namespace RabCab.Utilities.Extensions
+namespace RabCab.Extensions
 {
     internal static class StringExtensions
     {

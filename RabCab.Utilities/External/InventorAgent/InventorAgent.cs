@@ -9,7 +9,7 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
-namespace RabCab.Utilities.External.InventorAgent
+namespace RabCab.External.InventorAgent
 {
     internal class InventorAgent
     {

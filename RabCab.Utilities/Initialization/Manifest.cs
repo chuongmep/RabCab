@@ -9,7 +9,7 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
-namespace RabCab.Utilities.Initialization
+namespace RabCab.Initialization
 {
     internal class Manifest
     {

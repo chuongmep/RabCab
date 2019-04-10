@@ -12,9 +12,9 @@
 using System;
 using System.Collections.Generic;
 using Autodesk.AutoCAD.Geometry;
-using RabCab.Utilities.Extensions;
+using RabCab.Extensions;
 
-namespace RabCab.Utilities.Entities.Shapes
+namespace RabCab.Entities.Shapes
 {
     /// <summary>
     ///     Represents a triangle in a 2d plane. It can be viewed as a structure consisting of three Point2d.

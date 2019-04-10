@@ -11,10 +11,10 @@
 
 using System;
 using Autodesk.AutoCAD.Geometry;
-using RabCab.Utilities.Engine.Enumerators;
-using RabCab.Utilities.Settings;
+using RabCab.Engine.Enumerators;
+using RabCab.Settings;
 
-namespace RabCab.Utilities.Calculators
+namespace RabCab.Calculators
 {
     public static class Tolerance
     {

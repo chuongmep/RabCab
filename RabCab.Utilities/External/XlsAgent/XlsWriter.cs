@@ -9,7 +9,7 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
-namespace RabCab.Utilities.External.XlsAgent
+namespace RabCab.External.XlsAgent
 {
     internal class XlsWriter
     {

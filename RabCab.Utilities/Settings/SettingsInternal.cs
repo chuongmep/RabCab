@@ -9,7 +9,7 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
-namespace RabCab.Utilities.Settings
+namespace RabCab.Settings
 {
     public static class SettingsInternal
     {

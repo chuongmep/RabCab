@@ -10,9 +10,9 @@
 // -----------------------------------------------------------------------------------
 
 using Autodesk.AutoCAD.Runtime;
-using RabCab.Utilities.Settings;
+using RabCab.Settings;
 
-namespace RabCab.Utilities.Commands.OutputSuite.RenderKit
+namespace RabCab.Commands.OutputSuite.RenderKit
 {
     internal class RcRender
     {

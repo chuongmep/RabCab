@@ -9,7 +9,7 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
-namespace RabCab.Utilities.Calculators
+namespace RabCab.Calculators
 {
     internal class NestCalculator
     {

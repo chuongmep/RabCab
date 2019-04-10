@@ -9,7 +9,7 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
-namespace RabCab.Utilities.External.DwgAgent
+namespace RabCab.External.DwgAgent
 {
     internal class DwgWriter
     {

@@ -9,7 +9,7 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
-namespace RabCab.Utilities.Extensions
+namespace RabCab.Extensions
 {
     internal class DocumentExtensions
     {

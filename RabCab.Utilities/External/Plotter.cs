@@ -9,7 +9,7 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
-namespace RabCab.Utilities.External
+namespace RabCab.External
 {
     internal class Plotter
     {

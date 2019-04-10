@@ -13,7 +13,7 @@ using System;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Runtime;
 
-namespace RabCab.Utilities.Calculators
+namespace RabCab.Calculators
 {
     public static class UnitConverter
     {

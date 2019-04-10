@@ -12,7 +12,7 @@
 using System;
 using Autodesk.AutoCAD.Geometry;
 
-namespace RabCab.Utilities.Extensions
+namespace RabCab.Extensions
 {
     /// <summary>
     ///     Provides extension methods for the CircularArc2dType

@@ -1,17 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// -----------------------------------------------------------------------------------
+//     <copyright file="XmlDocumentExtensions.cs" company="CraterSpace">
+//     Copyright (c) 2019 CraterSpace - All Rights Reserved 
+//     </copyright>
+//     <author>Zach Ayers</author>
+//     <date>04/10/2019</date>
+//     Description:    
+//     Notes:  
+//     References:          
+// -----------------------------------------------------------------------------------
+
+using System;
 using System.Xml;
 
-namespace RabCab.Utilities.External.XmlAgent
+namespace RabCab.External.XmlAgent
 {
     public static class XmlDocumentExtensions
     {
         public static void IterateThroughAllNodes(
-       this XmlDocument doc,
-       Action<XmlNode> elementVisitor)
+            this XmlDocument doc,
+            Action<XmlNode> elementVisitor)
         {
             if (doc != null && elementVisitor != null)
             {

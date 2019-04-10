@@ -10,9 +10,9 @@
 // -----------------------------------------------------------------------------------
 
 using Autodesk.AutoCAD.Runtime;
-using RabCab.Utilities.Settings;
+using RabCab.Settings;
 
-namespace RabCab.Utilities.Commands.OutputSuite.PlotKit
+namespace RabCab.Commands.OutputSuite.PlotKit
 {
     internal class RcPublish
     {

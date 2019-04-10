@@ -12,7 +12,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace RabCab.Utilities.Network
+namespace RabCab.Network
 {
     internal class Link<T>
     {

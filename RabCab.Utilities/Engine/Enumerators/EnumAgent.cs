@@ -13,7 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace RabCab.Utilities.Engine.Enumerators
+namespace RabCab.Engine.Enumerators
 {
     internal static class EnumAgent
     {

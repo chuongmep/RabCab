@@ -9,7 +9,7 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
-namespace RabCab.Utilities.External.EmailAgent
+namespace RabCab.External.EmailAgent
 {
     internal class MessageKit
     {

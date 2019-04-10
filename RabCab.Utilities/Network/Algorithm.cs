@@ -11,7 +11,7 @@
 
 using System.Collections.Generic;
 
-namespace RabCab.Utilities.Network
+namespace RabCab.Network
 {
     internal class Algorithm<T>
     {

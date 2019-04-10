@@ -12,7 +12,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace RabCab.Utilities.Network
+namespace RabCab.Network
 {
     public class Node<T>
     {

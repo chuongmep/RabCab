@@ -14,7 +14,7 @@ using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
 
-namespace RabCab.Utilities.Extensions
+namespace RabCab.Extensions
 {
     public static class BlockExtensions
     {

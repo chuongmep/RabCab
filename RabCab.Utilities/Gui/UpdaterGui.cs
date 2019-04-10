@@ -11,7 +11,7 @@
 
 using System.Windows.Forms;
 
-namespace RabCab.Utilities.Gui
+namespace RabCab.Gui
 {
     public partial class UpdaterGui : Form
     {

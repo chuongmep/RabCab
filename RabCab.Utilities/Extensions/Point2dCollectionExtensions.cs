@@ -12,7 +12,7 @@
 using System.Collections.Generic;
 using Autodesk.AutoCAD.Geometry;
 
-namespace RabCab.Utilities.Extensions
+namespace RabCab.Extensions
 {
     /// <summary>
     ///     Provides extension methods for the Point2dCollection type.

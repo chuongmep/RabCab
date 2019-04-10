@@ -14,10 +14,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Runtime;
-using RabCab.Utilities.Settings;
+using RabCab.Settings;
 using AcBr = Autodesk.AutoCAD.BoundaryRepresentation;
 
-namespace RabCab.Utilities.Extensions
+namespace RabCab.Extensions
 {
     public static class Solid3DExtensions
     {

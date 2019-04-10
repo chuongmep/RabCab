@@ -11,7 +11,7 @@
 
 using Autodesk.AutoCAD.DatabaseServices;
 
-namespace RabCab.Utilities.Extensions
+namespace RabCab.Extensions
 {
     public static class SurfaceExtensions
     {

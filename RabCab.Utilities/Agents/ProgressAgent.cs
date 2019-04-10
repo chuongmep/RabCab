@@ -12,9 +12,9 @@
 using System;
 using System.Windows.Forms;
 using Autodesk.AutoCAD.Runtime;
-using RabCab.Utilities.Exceptions;
+using RabCab.Exceptions;
 
-namespace RabCab.Utilities.Agents
+namespace RabCab.Agents
 {
     /// <summary>
     ///     Class to handle a Progress bar for CAD

@@ -10,9 +10,9 @@
 // -----------------------------------------------------------------------------------
 
 using Autodesk.AutoCAD.Runtime;
-using RabCab.Utilities.Settings;
+using RabCab.Settings;
 
-namespace RabCab.Utilities.Commands.AnalysisSuite
+namespace RabCab.Commands.AnalysisSuite
 {
     internal class RcWeight
     {

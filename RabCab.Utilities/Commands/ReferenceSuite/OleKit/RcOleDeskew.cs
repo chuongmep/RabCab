@@ -10,9 +10,9 @@
 // -----------------------------------------------------------------------------------
 
 using Autodesk.AutoCAD.Runtime;
-using RabCab.Utilities.Settings;
+using RabCab.Settings;
 
-namespace RabCab.Utilities.Commands.ReferenceSuite.OleKit
+namespace RabCab.Commands.ReferenceSuite.OleKit
 {
     internal class RcOleDeskew
     {

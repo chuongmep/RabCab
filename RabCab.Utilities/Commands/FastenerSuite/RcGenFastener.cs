@@ -10,9 +10,9 @@
 // -----------------------------------------------------------------------------------
 
 using Autodesk.AutoCAD.Runtime;
-using RabCab.Utilities.Settings;
+using RabCab.Settings;
 
-namespace RabCab.Utilities.Commands.FastenerSuite
+namespace RabCab.Commands.FastenerSuite
 {
     internal class RcGenFastener
     {

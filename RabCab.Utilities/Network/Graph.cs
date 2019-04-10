@@ -13,7 +13,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace RabCab.Utilities.Network
+namespace RabCab.Network
 {
     public class Graph<T> : IEnumerable<T>
     {

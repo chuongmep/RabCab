@@ -9,7 +9,7 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
-namespace RabCab.Utilities.Agents
+namespace RabCab.Agents
 {
     internal class LicensingAgent
     {

@@ -9,7 +9,7 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
-namespace RabCab.Utilities.External.CsvAgent
+namespace RabCab.External.CsvAgent
 {
     internal class CsvReader
     {

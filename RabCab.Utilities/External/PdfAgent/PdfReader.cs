@@ -9,7 +9,7 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
-namespace RabCab.Utilities.External.PdfAgent
+namespace RabCab.External.PdfAgent
 {
     internal class PdfReader
     {
