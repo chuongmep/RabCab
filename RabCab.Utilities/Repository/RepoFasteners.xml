@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<fasteners>
+  <bolts>
+    <bolt identifier="Test"
+          headType=""
+          headHeight=""
+          headWidth=""
+          threadSize=""
+          threadLength=""
+          fitType="" />
+  </bolts>
+  <nuts>
+    <nut identifier="Test"
+         nutType=""
+         threadSize="" />
+
+  </nuts>
+
+
+</fasteners>
+

@@ -119,6 +119,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -247,7 +248,7 @@
       <DependentUpon>CloudNotebook.cs</DependentUpon>
     </Compile>
     <Compile Include="Handlers\ClickHandlers.cs" />
-    <Compile Include="Initialization\Debug.cs" />
+    <Compile Include="Initialization\Debugging.cs" />
     <Compile Include="Initialization\Manifest.cs" />
     <Compile Include="Network\Algorithm.cs" />
     <Compile Include="Network\Graph.cs" />
@@ -297,20 +298,11 @@
     <Compile Include="Engine\System\AcVars.cs" />
     <Compile Include="Engine\Enumerators\Enums.cs" />
     <Compile Include="Engine\System\RegEditor.cs" />
-    <Compile Include="Entities\Cameras\ExternalViewport.cs" />
-    <Compile Include="Entities\Fasteners\Biscuit.cs" />
-    <Compile Include="Entities\Fasteners\Bolt.cs" />
-    <Compile Include="Entities\Fasteners\Nut.cs" />
-    <Compile Include="Entities\Fasteners\Weld.cs" />
     <Compile Include="Entities\Linework\PolylineSegment.cs" />
     <Compile Include="Entities\Linework\PolylineSegmentCollection.cs" />
     <Compile Include="Entities\Shapes\Triangle.cs" />
     <Compile Include="Entities\Shapes\Triangle2d.cs" />
     <Compile Include="Entities\Shapes\Triangle3d.cs" />
-    <Compile Include="Entities\Structure\Assembly.cs" />
-    <Compile Include="Entities\Structure\Connection.cs" />
-    <Compile Include="Entities\Structure\Frame.cs" />
-    <Compile Include="Entities\Structure\Tube.cs" />
     <Compile Include="Exceptions\CancelException.cs" />
     <Compile Include="Extensions\BlockExtensions.cs" />
     <Compile Include="Extensions\CircularArc2dExtensions.cs" />
@@ -399,8 +391,7 @@
     <Compile Include="External\Plotter.cs" />
     <Compile Include="External\XlsAgent\XlsReader.cs" />
     <Compile Include="External\XlsAgent\XlsWriter.cs" />
-    <Compile Include="External\XmlAgent\XmlReader.cs" />
-    <Compile Include="External\XmlAgent\XmlWriter.cs" />
+    <Compile Include="External\XmlAgent\XmlAgent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -470,6 +461,12 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Repository\RepoFasteners.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Repository\RepoSteelShapes.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

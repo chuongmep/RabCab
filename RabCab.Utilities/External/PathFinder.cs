@@ -9,7 +9,9 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using Microsoft.Win32;
 
 namespace RabCab.Utilities.External
@@ -42,6 +44,15 @@ namespace RabCab.Utilities.External
             if (subKey != null)
                 return subKey.GetValueNames().FirstOrDefault(kv => kv.Contains(productName));
             return "ERROR";
+        }
+
+        /// <summary>
+        /// Method to return the current executing assembly location.
+        /// </summary>
+        /// <returns></returns>
+        public string GetExecutingAssembly()
+        {
+            return Path.GetDirectoryName(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
         }
     }
 }
