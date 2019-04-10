@@ -11,7 +11,7 @@
 
 using System.Windows.Forms;
 
-namespace RabCab.Utilities.Interface
+namespace RabCab.Utilities.Gui
 {
     public partial class BatchActionsGui : Form
     {

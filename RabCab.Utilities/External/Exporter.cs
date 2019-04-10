@@ -9,7 +9,7 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
-namespace RabCab.Utilities.Output
+namespace RabCab.Utilities.External
 {
     internal class Exporter
     {

@@ -1,4 +1,4 @@
-﻿namespace RabCab.Utilities.Interface
+﻿namespace RabCab.Utilities.Gui
 {
     partial class UpdaterGui
     {
