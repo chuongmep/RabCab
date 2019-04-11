@@ -187,6 +187,7 @@
     <Compile Include="Commands\AutomationSuite\RcAutoScale.cs" />
     <Compile Include="Commands\AutomationSuite\RcAutoVar.cs" />
     <Compile Include="Commands\AutomationSuite\RcBatchWork.cs" />
+    <Compile Include="Commands\AutomationSuite\RcLayerToolbar.cs" />
     <Compile Include="Commands\AutomationSuite\RcPageNumber.cs" />
     <Compile Include="Commands\AutomationSuite\RcTContents.cs" />
     <Compile Include="Commands\AutomationSuite\RcTurbo.cs" />
