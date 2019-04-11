@@ -1,6 +1,6 @@
 ﻿namespace RabCab.Gui
 {
-    partial class GeneratorGui
+    partial class GuiAnalyze
     {
         /// <summary>
         /// Required designer variable.
@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Text = "GeneratorGui";
+            this.Text = "AnalyzerGui";
         }
 
         #endregion

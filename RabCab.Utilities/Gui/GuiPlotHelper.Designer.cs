@@ -1,6 +1,6 @@
 ﻿namespace RabCab.Gui
 {
-    partial class PlotHelperGui
+    partial class GuiPlotHelper
     {
         /// <summary>
         /// Required designer variable.

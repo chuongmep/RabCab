@@ -1,6 +1,6 @@
 ﻿namespace RabCab.Gui
 {
-    partial class QuickFireGui
+    partial class PaletteMain
     {
         /// <summary> 
         /// Required designer variable.

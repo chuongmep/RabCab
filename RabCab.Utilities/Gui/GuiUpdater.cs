@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------------------
-//     <copyright file="AnalyzerGui.cs" company="CraterSpace">
+//     <copyright file="UpdaterGui.cs" company="CraterSpace">
 //     Copyright (c) 2019 CraterSpace - All Rights Reserved 
 //     </copyright>
 //     <author>Zach Ayers</author>
@@ -13,9 +13,9 @@ using System.Windows.Forms;
 
 namespace RabCab.Gui
 {
-    public partial class AnalyzerGui : Form
+    public partial class GuiUpdater : Form
     {
-        public AnalyzerGui()
+        public GuiUpdater()
         {
             InitializeComponent();
         }

@@ -1,17 +1,23 @@
 ﻿// -----------------------------------------------------------------------------------
-//     <copyright file="SurfaceGenerator.cs" company="CraterSpace">
+//     <copyright file="AnalyzerGui.cs" company="CraterSpace">
 //     Copyright (c) 2019 CraterSpace - All Rights Reserved 
 //     </copyright>
 //     <author>Zach Ayers</author>
-//     <date>03/08/2019</date>
+//     <date>03/28/2019</date>
 //     Description:    
 //     Notes:  
 //     References:          
 // -----------------------------------------------------------------------------------
 
-namespace RabCab.Generators
+using System.Windows.Forms;
+
+namespace RabCab.Gui
 {
-    internal class SurfaceGenerator
+    public partial class GuiAnalyze : Form
     {
+        public GuiAnalyze()
+        {
+            InitializeComponent();
+        }
     }
 }

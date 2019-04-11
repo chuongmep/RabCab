@@ -147,17 +147,20 @@
     <Compile Include="Agents\XDataAgent.cs" />
     <Compile Include="Analysis\EntReader.cs" />
     <Compile Include="Analysis\PaperReader.cs" />
-    <Compile Include="Calculators\NestCalculator.cs" />
-    <Compile Include="Calculators\Tolerance.cs" />
-    <Compile Include="Calculators\UnitConverter.cs" />
-    <Compile Include="Calculators\WattageCalculator.cs" />
-    <Compile Include="Calculators\WeightCalculator.cs" />
+    <Compile Include="Calculators\CalcNest.cs" />
+    <Compile Include="Calculators\CalcTol.cs" />
+    <Compile Include="Calculators\CalcUnit.cs" />
+    <Compile Include="Calculators\CalcWatt.cs" />
+    <Compile Include="Calculators\CalcWeight.cs" />
     <Compile Include="Commands\AnalysisSuite\RcAnalyzeParts.cs" />
     <Compile Include="Commands\AnalysisSuite\RcFilter.cs" />
     <Compile Include="Commands\AnalysisSuite\RcNotebook.cs" />
     <Compile Include="Commands\AnalysisSuite\RcTraverse.cs" />
     <Compile Include="Commands\AnalysisSuite\RcWeight.cs" />
-    <Compile Include="Commands\AnnotationSuite\RcDimTools.cs" />
+    <Compile Include="Commands\AnnotationSuite\RcDimAlign.cs" />
+    <Compile Include="Commands\AnnotationSuite\RcDimArrange.cs" />
+    <Compile Include="Commands\AnnotationSuite\RcDimSnap.cs" />
+    <Compile Include="Commands\AnnotationSuite\RcDimAppend.cs" />
     <Compile Include="Commands\AnnotationSuite\RcGenDims.cs" />
     <Compile Include="Commands\AnnotationSuite\RcGenTags.cs" />
     <Compile Include="Commands\AnnotationSuite\RcGenViews.cs" />
@@ -245,11 +248,17 @@
     <Compile Include="Generators\ScriptGenerator.cs" />
     <Compile Include="Generators\TableGenerator.cs" />
     <Compile Include="Generators\ViewGenerator.cs" />
-    <Compile Include="Gui\CloudNotebook.cs">
+    <Compile Include="Gui\PaletteAssembly.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Gui\CloudNotebook.Designer.cs">
-      <DependentUpon>CloudNotebook.cs</DependentUpon>
+    <Compile Include="Gui\PaletteAssembly.Designer.cs">
+      <DependentUpon>PaletteAssembly.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\PaletteNotebook.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Gui\PaletteNotebook.Designer.cs">
+      <DependentUpon>PaletteNotebook.cs</DependentUpon>
     </Compile>
     <Compile Include="Handlers\ClickHandlers.cs" />
     <Compile Include="Initialization\Debugging.cs" />
@@ -338,53 +347,52 @@
     <Compile Include="Generators\DetailGenerator.cs" />
     <Compile Include="Generators\FlatShotGenerator.cs" />
     <Compile Include="Generators\SolidGenerator.cs" />
-    <Compile Include="Generators\SurfaceGenerator.cs" />
     <Compile Include="Handlers\DatabaseHandlers.cs" />
     <Compile Include="Handlers\DocumentHandlers.cs" />
     <Compile Include="Handlers\EditorHandlers.cs" />
     <Compile Include="Handlers\CommandHandlers.cs" />
     <Compile Include="Initialization\InitPlugin.cs" />
-    <Compile Include="Gui\AnalyzerGui.cs">
+    <Compile Include="Gui\GuiAnalyze.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Gui\AnalyzerGui.Designer.cs">
-      <DependentUpon>AnalyzerGui.cs</DependentUpon>
+    <Compile Include="Gui\GuiAnalyze.Designer.cs">
+      <DependentUpon>GuiAnalyze.cs</DependentUpon>
     </Compile>
-    <Compile Include="Gui\BatchActionsGui.cs">
+    <Compile Include="Gui\GuiBatch.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Gui\BatchActionsGui.Designer.cs">
-      <DependentUpon>BatchActionsGui.cs</DependentUpon>
+    <Compile Include="Gui\GuiBatch.Designer.cs">
+      <DependentUpon>GuiBatch.cs</DependentUpon>
     </Compile>
-    <Compile Include="Gui\GeneratorGui.cs">
+    <Compile Include="Gui\GuiGenerator.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Gui\GeneratorGui.Designer.cs">
-      <DependentUpon>GeneratorGui.cs</DependentUpon>
+    <Compile Include="Gui\GuiGenerator.Designer.cs">
+      <DependentUpon>GuiGenerator.cs</DependentUpon>
     </Compile>
-    <Compile Include="Gui\PaletteGui.cs">
+    <Compile Include="Gui\PaletteMain.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Gui\PaletteGui.Designer.cs">
-      <DependentUpon>PaletteGui.cs</DependentUpon>
+    <Compile Include="Gui\PaletteMain.Designer.cs">
+      <DependentUpon>PaletteMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="Gui\PlotHelperGui.cs">
+    <Compile Include="Gui\GuiPlotHelper.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Gui\PlotHelperGui.Designer.cs">
-      <DependentUpon>PlotHelperGui.cs</DependentUpon>
+    <Compile Include="Gui\GuiPlotHelper.Designer.cs">
+      <DependentUpon>GuiPlotHelper.cs</DependentUpon>
     </Compile>
-    <Compile Include="Gui\QuickFireGui.cs">
+    <Compile Include="Gui\PaletteQuickFire.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Gui\QuickFireGui.Designer.cs">
-      <DependentUpon>QuickFireGui.cs</DependentUpon>
+    <Compile Include="Gui\PaletteQuickFire.Designer.cs">
+      <DependentUpon>PaletteQuickFire.cs</DependentUpon>
     </Compile>
-    <Compile Include="Gui\UpdaterGui.cs">
+    <Compile Include="Gui\GuiUpdater.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Gui\UpdaterGui.Designer.cs">
-      <DependentUpon>UpdaterGui.cs</DependentUpon>
+    <Compile Include="Gui\GuiUpdater.Designer.cs">
+      <DependentUpon>GuiUpdater.cs</DependentUpon>
     </Compile>
     <Compile Include="External\DsdAgent\DsdReader.cs" />
     <Compile Include="External\DsdAgent\DsdWriter.cs" />

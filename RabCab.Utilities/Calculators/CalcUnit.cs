@@ -15,7 +15,7 @@ using Autodesk.AutoCAD.Runtime;
 
 namespace RabCab.Calculators
 {
-    public static class UnitConverter
+    public static class CalcUnit
     {
         /// <summary>
         ///     Method to convert input units to DWG units

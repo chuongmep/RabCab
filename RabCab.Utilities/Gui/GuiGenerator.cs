@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------------------
-//     <copyright file="QuickFireGui.cs" company="CraterSpace">
+//     <copyright file="GeneratorGui.cs" company="CraterSpace">
 //     Copyright (c) 2019 CraterSpace - All Rights Reserved 
 //     </copyright>
 //     <author>Zach Ayers</author>
@@ -13,9 +13,9 @@ using System.Windows.Forms;
 
 namespace RabCab.Gui
 {
-    public partial class QuickFireGui : UserControl
+    public partial class GuiGenerator : Form
     {
-        public QuickFireGui()
+        public GuiGenerator()
         {
             InitializeComponent();
         }

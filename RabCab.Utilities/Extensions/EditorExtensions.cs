@@ -164,7 +164,7 @@ namespace RabCab.Extensions
             //If default value, convert it from degrees to radians
 
             if (defaultValue != 0)
-                defaultValue = UnitConverter.ConvertToRadians(defaultValue);
+                defaultValue = CalcUnit.ConvertToRadians(defaultValue);
 
             //Prompt user to enter an angle in autoCAD
             var prAngOpts = new PromptAngleOptions(string.Empty)
@@ -201,7 +201,7 @@ namespace RabCab.Extensions
         {
             //If default value, convert it from degrees to radians
             if (defaultValue != 0)
-                defaultValue = UnitConverter.ConvertToRadians(defaultValue);
+                defaultValue = CalcUnit.ConvertToRadians(defaultValue);
 
             //Prompt user to enter an angle in autoCAD
             var prAngOpts = new PromptAngleOptions(string.Empty)
@@ -221,7 +221,7 @@ namespace RabCab.Extensions
 
             //Return the angle entered into the editor
             var doubleResult = prAngRes.Value;
-            return UnitConverter.ConvertToDegrees(doubleResult);
+            return CalcUnit.ConvertToDegrees(doubleResult);
         }
 
         #endregion

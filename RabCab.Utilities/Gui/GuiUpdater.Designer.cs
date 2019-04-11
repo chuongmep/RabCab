@@ -1,6 +1,6 @@
 ﻿namespace RabCab.Gui
 {
-    partial class UpdaterGui
+    partial class GuiUpdater
     {
         /// <summary>
         /// Required designer variable.

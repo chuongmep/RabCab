@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------------------
-//     <copyright file="PaletteGui.cs" company="CraterSpace">
+//     <copyright file="PlotHelperGui.cs" company="CraterSpace">
 //     Copyright (c) 2019 CraterSpace - All Rights Reserved 
 //     </copyright>
 //     <author>Zach Ayers</author>
@@ -13,9 +13,9 @@ using System.Windows.Forms;
 
 namespace RabCab.Gui
 {
-    public partial class PaletteGui : UserControl
+    public partial class GuiPlotHelper : Form
     {
-        public PaletteGui()
+        public GuiPlotHelper()
         {
             InitializeComponent();
         }

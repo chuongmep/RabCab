@@ -16,7 +16,7 @@ using RabCab.Settings;
 
 namespace RabCab.Calculators
 {
-    public static class Tolerance
+    public static class CalcTol
     {
         /// <summary>
         ///     Method to round an input based on the given tolerance

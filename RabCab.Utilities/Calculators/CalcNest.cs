@@ -1,23 +1,17 @@
 ﻿// -----------------------------------------------------------------------------------
-//     <copyright file="UpdaterGui.cs" company="CraterSpace">
+//     <copyright file="NestCalculator.cs" company="CraterSpace">
 //     Copyright (c) 2019 CraterSpace - All Rights Reserved 
 //     </copyright>
 //     <author>Zach Ayers</author>
-//     <date>03/28/2019</date>
+//     <date>03/08/2019</date>
 //     Description:    
 //     Notes:  
 //     References:          
 // -----------------------------------------------------------------------------------
 
-using System.Windows.Forms;
-
-namespace RabCab.Gui
+namespace RabCab.Calculators
 {
-    public partial class UpdaterGui : Form
+    internal class CalcNest
     {
-        public UpdaterGui()
-        {
-            InitializeComponent();
-        }
     }
 }
