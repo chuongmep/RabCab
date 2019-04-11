@@ -1,9 +1,9 @@
 ﻿// -----------------------------------------------------------------------------------
-//     <copyright file="RcDimAppend.cs" company="CraterSpace">
+//     <copyright file="RcSurfaceTag.cs" company="CraterSpace">
 //     Copyright (c) 2019 CraterSpace - All Rights Reserved 
 //     </copyright>
 //     <author>Zach Ayers</author>
-//     <date>04/08/2019</date>
+//     <date>04/11/2019</date>
 //     Description:    
 //     Notes:  
 //     References:          
@@ -14,7 +14,7 @@ using RabCab.Settings;
 
 namespace RabCab.Commands.AnnotationSuite
 {
-    internal class RcDimAppend
+    internal class RcSurfaceTag
     {
         /// <summary>
         /// </summary>

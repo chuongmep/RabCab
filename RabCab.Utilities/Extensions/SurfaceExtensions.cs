@@ -45,6 +45,5 @@ namespace RabCab.Extensions
 
             return retSurface;
         }
-       
     }
 }

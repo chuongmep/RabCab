@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------------------
-//     <copyright file="QuickFireGui.cs" company="CraterSpace">
+//     <copyright file="PaletteQuickFire.cs" company="CraterSpace">
 //     Copyright (c) 2019 CraterSpace - All Rights Reserved 
 //     </copyright>
 //     <author>Zach Ayers</author>

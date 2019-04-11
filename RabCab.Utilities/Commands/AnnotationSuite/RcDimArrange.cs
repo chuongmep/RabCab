@@ -1,14 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// -----------------------------------------------------------------------------------
+//     <copyright file="RcDimArrange.cs" company="CraterSpace">
+//     Copyright (c) 2019 CraterSpace - All Rights Reserved 
+//     </copyright>
+//     <author>Zach Ayers</author>
+//     <date>04/11/2019</date>
+//     Description:    
+//     Notes:  
+//     References:          
+// -----------------------------------------------------------------------------------
+
 using Autodesk.AutoCAD.Runtime;
 using RabCab.Settings;
 
 namespace RabCab.Commands.AnnotationSuite
 {
-    class RcDimArrange
+    internal class RcDimArrange
     {
         /// <summary>
         /// </summary>

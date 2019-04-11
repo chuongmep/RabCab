@@ -1,6 +1,6 @@
 ﻿namespace RabCab.Gui
 {
-    partial class PaletteAssembly
+    partial class PaletteNet
     {
         /// <summary> 
         /// Required designer variable.

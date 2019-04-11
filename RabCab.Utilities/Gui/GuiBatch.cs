@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------------------
-//     <copyright file="BatchActionsGui.cs" company="CraterSpace">
+//     <copyright file="GuiBatch.cs" company="CraterSpace">
 //     Copyright (c) 2019 CraterSpace - All Rights Reserved 
 //     </copyright>
 //     <author>Zach Ayers</author>

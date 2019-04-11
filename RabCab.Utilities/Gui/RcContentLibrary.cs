@@ -1,17 +1,23 @@
 ﻿// -----------------------------------------------------------------------------------
-//     <copyright file="CalcWeight.cs" company="CraterSpace">
+//     <copyright file="RcContentLibrary.cs" company="CraterSpace">
 //     Copyright (c) 2019 CraterSpace - All Rights Reserved 
 //     </copyright>
 //     <author>Zach Ayers</author>
-//     <date>03/08/2019</date>
+//     <date>04/11/2019</date>
 //     Description:    
 //     Notes:  
 //     References:          
 // -----------------------------------------------------------------------------------
 
-namespace RabCab.Calculators
+using System.Windows.Forms;
+
+namespace RabCab.Gui
 {
-    internal class CalcWeight
+    public partial class RcContentLibrary : UserControl
     {
+        public RcContentLibrary()
+        {
+            InitializeComponent();
+        }
     }
 }

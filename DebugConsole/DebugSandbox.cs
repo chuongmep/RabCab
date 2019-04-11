@@ -1,20 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using RabCab;
+﻿// -----------------------------------------------------------------------------------
+//     <copyright file="DebugSandbox.cs" company="CraterSpace">
+//     Copyright (c) 2019 CraterSpace - All Rights Reserved 
+//     </copyright>
+//     <author>Zach Ayers</author>
+//     <date>04/10/2019</date>
+//     Description:    
+//     Notes:  
+//     References:          
+// -----------------------------------------------------------------------------------
+
+using System;
 using RabCab.Initialization;
 
 namespace DebugConsole
 {
-    static class DebugSandbox
+    internal static class DebugSandbox
     {
         /// <summary>
-        /// Main method
+        ///     Main method
         /// </summary>
         /// <param name="args"></param>
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Console.WriteLine("-------- RabCab Debugger --------\n");
             Console.WriteLine("Please enter commands to test...");
@@ -22,7 +28,7 @@ namespace DebugConsole
         }
 
         /// <summary>
-        /// Method for recursively listening for input from debugger
+        ///     Method for recursively listening for input from debugger
         /// </summary>
         private static void ListenForInput()
         {
@@ -41,7 +47,7 @@ namespace DebugConsole
                 switch (input?.ToUpper())
                 {
                     case "XMLREAD":
-                        RabCab.Initialization.Debugging.Cmd_TestXml();
+                        Debugging.Cmd_TestXml();
                         break;
 
                     case "EXIT":

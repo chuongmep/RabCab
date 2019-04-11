@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------------------
-//     <copyright file="CloudNotebook.cs" company="CraterSpace">
+//     <copyright file="PaletteNotebook.cs" company="CraterSpace">
 //     Copyright (c) 2019 CraterSpace - All Rights Reserved 
 //     </copyright>
 //     <author>Zach Ayers</author>

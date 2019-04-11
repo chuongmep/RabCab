@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------------------
-//     <copyright file="RcDimAppend.cs" company="CraterSpace">
+//     <copyright file="RcWeldBead.cs" company="CraterSpace">
 //     Copyright (c) 2019 CraterSpace - All Rights Reserved 
 //     </copyright>
 //     <author>Zach Ayers</author>
@@ -12,9 +12,9 @@
 using Autodesk.AutoCAD.Runtime;
 using RabCab.Settings;
 
-namespace RabCab.Commands.AnnotationSuite
+namespace RabCab.Commands.StructuralSuite
 {
-    internal class RcDimAppend
+    internal class RcWeldBead
     {
         /// <summary>
         /// </summary>

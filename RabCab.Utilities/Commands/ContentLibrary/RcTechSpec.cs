@@ -1,9 +1,9 @@
 ﻿// -----------------------------------------------------------------------------------
-//     <copyright file="RcDimAppend.cs" company="CraterSpace">
+//     <copyright file="RcTechSpec.cs" company="CraterSpace">
 //     Copyright (c) 2019 CraterSpace - All Rights Reserved 
 //     </copyright>
 //     <author>Zach Ayers</author>
-//     <date>04/08/2019</date>
+//     <date>04/11/2019</date>
 //     Description:    
 //     Notes:  
 //     References:          
@@ -12,9 +12,9 @@
 using Autodesk.AutoCAD.Runtime;
 using RabCab.Settings;
 
-namespace RabCab.Commands.AnnotationSuite
+namespace RabCab.Commands.ContentLibrary
 {
-    internal class RcDimAppend
+    internal class RcTechSpec
     {
         /// <summary>
         /// </summary>
