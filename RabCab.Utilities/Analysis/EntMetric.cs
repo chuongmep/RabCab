@@ -87,7 +87,7 @@ namespace RabCab.Analysis
             Volume.ApproxEqVol(Box);
 
         /// <summary>
-        ///     Check if entity is a mirror of another
+        ///     TODO
         /// </summary>
         /// <param name="y"></param>
         /// <returns></returns>
