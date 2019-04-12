@@ -89,16 +89,16 @@ namespace RabCab.Analysis
         /// <summary>
         ///     TODO
         /// </summary>
-        /// <param name="y"></param>
+        /// <param name="mirCheck"></param>
         /// <returns></returns>
-        public bool MirrorOf(EntMetric y)
+        public bool MirrorOf(EntMetric mirCheck)
         {
-            return Asymmetry != 0.0 && y.Asymmetry != 0.0 && !AsymmetryVector.IsEqualTo(y.AsymmetryVector,
-                       CalcTol.UnitVector) && (!AsymmetryVector.X.ApproxEq(y.AsymmetryVector.X,
+            return Asymmetry != 0.0 && mirCheck.Asymmetry != 0.0 && !AsymmetryVector.IsEqualTo(mirCheck.AsymmetryVector,
+                       CalcTol.UnitVector) && (!AsymmetryVector.X.ApproxEq(mirCheck.AsymmetryVector.X,
                                                    (byte) SettingsUser.UserTol) || !AsymmetryVector.Y.ApproxEq(
-                                                   y.AsymmetryVector.Y,
+                                                   mirCheck.AsymmetryVector.Y,
                                                    (byte) SettingsUser.UserTol) || !AsymmetryVector.Z.ApproxEq(
-                                                   y.AsymmetryVector.Z,
+                                                   mirCheck.AsymmetryVector.Z,
                                                    (byte) SettingsUser.UserTol));
         }
 
@@ -136,7 +136,7 @@ namespace RabCab.Analysis
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        public static bool operator ==(EntMetric a, EntMetric b)
+        public static bool operator == (EntMetric a, EntMetric b)
         {
             return a != null && a.Equals(b);
         }
@@ -147,7 +147,7 @@ namespace RabCab.Analysis
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        public static bool operator !=(EntMetric a, EntMetric b)
+        public static bool operator != (EntMetric a, EntMetric b)
         {
             return a != null && !a.Equals(b);
         }
@@ -155,15 +155,17 @@ namespace RabCab.Analysis
         /// <summary>
         ///     TODO
         /// </summary>
-        /// <param name="v"></param>
+        /// <param name="vect"></param>
         /// <returns></returns>
-        public static string AsymVStr(Vector3d v)
+        public static string AsymVStr(Vector3d vect)
         {
-            if (v.IsZero()) return "";
-            var str = "";
-            str = !v.X.ApproxZero() ? v.X <= 0.0 ? "<" : ">" : str + "_";
-            str = !v.Y.ApproxZero() ? v.Y <= 0.0 ? str + "<" : str + ">" : str + "_";
-            return !v.Z.ApproxZero() ? v.Z <= 0.0 ? str + "<" : str + ">" : str + "_";
+            if (vect.IsZero()) return "";
+
+            var printStr = "";
+
+            printStr = !vect.X.ApproxZero() ? vect.X <= 0.0 ? "<" : ">" : printStr + "_";
+            printStr = !vect.Y.ApproxZero() ? vect.Y <= 0.0 ? printStr + "<" : printStr + ">" : printStr + "_";
+            return !vect.Z.ApproxZero() ? vect.Z <= 0.0 ? printStr + "<" : printStr + ">" : printStr + "_";
         }
 
         #endregion

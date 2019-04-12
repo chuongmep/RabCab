@@ -1,6 +1,6 @@
 ﻿namespace RabCab.Gui
 {
-    partial class RcContentLibrary
+    partial class PaletteContentLibrary
     {
         /// <summary> 
         /// Required designer variable.

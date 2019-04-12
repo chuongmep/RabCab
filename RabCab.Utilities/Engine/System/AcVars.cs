@@ -48,6 +48,7 @@ namespace RabCab.Engine.System
         #region Unit Checker
         /// <summary>
         /// Checks if current app units are in inches
+        /// ///TODO USE GET FOR THESE
         /// </summary>
         public static bool IsAppInch
         {
@@ -56,7 +57,10 @@ namespace RabCab.Engine.System
                 try
                 {
                     int systemVariable = (short)Application.GetSystemVariable("INSUNITS");
-                    return ((systemVariable == 0) ? ((Convert.ToInt16(Application.GetSystemVariable("LUNITS")) > 2) || (((short)Application.GetSystemVariable("INSUNITSDEFTARGET")) == 1)) : (systemVariable == 1));
+                    if (systemVariable == 0)
+                        return (Convert.ToInt16(Application.GetSystemVariable("LUNITS")) > 2) ||
+                               (((short) Application.GetSystemVariable("INSUNITSDEFTARGET")) == 1);
+                    else return systemVariable == 1;
                 }
                 catch
                 {
@@ -67,6 +71,7 @@ namespace RabCab.Engine.System
 
         /// <summary>
         /// Checks if current app units are in millimeters
+        /// ///TODO USE GET FOR THESE
         /// </summary>
         public static bool IsAppMm
         {
@@ -75,7 +80,10 @@ namespace RabCab.Engine.System
                 try
                 {
                     int systemVariable = (short)Application.GetSystemVariable("INSUNITS");
-                    return ((systemVariable == 0) ? ((Convert.ToInt16(Application.GetSystemVariable("LUNITS")) <= 2) && (((short)Application.GetSystemVariable("INSUNITSDEFTARGET")) == 4)) : (systemVariable == 4));
+                    if (systemVariable == 0)
+                        return (Convert.ToInt16(Application.GetSystemVariable("LUNITS")) <= 2) &&
+                               (((short) Application.GetSystemVariable("INSUNITSDEFTARGET")) == 4);
+                    else return systemVariable == 4;
                 }
                 catch
                 {

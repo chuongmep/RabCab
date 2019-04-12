@@ -15,5 +15,9 @@ namespace RabCab.Settings
     {
         //Setting For Command Methods
         public const string CommandGroup = "RABCAB";
+        
+        //Settings for Tolerance
+        public static double TolVector = 0.0017453292519943296;
+        public static double TolPoint = 0.0;
     }
 }

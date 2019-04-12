@@ -13,9 +13,9 @@ using System.Windows.Forms;
 
 namespace RabCab.Gui
 {
-    public partial class RcContentLibrary : UserControl
+    public partial class PaletteContentLibrary : UserControl
     {
-        public RcContentLibrary()
+        public PaletteContentLibrary()
         {
             InitializeComponent();
         }

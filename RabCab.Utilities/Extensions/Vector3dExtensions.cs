@@ -27,5 +27,12 @@ namespace RabCab.Extensions
         {
             return new Vector3d(vec.X, vec.Y, 0.0);
         }
+
+        /// <summary>
+        /// TODOs
+        /// </summary>
+        /// <param name="vector"></param>
+        /// <returns></returns>
+        public static Point3d ConvertToPoint(this Vector3d vector) => new Point3d(vector.X, vector.Y, vector.Z);
     }
 }
