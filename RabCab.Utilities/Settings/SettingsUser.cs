@@ -15,6 +15,6 @@ namespace RabCab.Settings
 {
     public static class SettingsUser
     {
-        public static Enums.RoundTolerance UserTol { set; get; } = Enums.RoundTolerance.ThreeDecimals;
+        public static Enums.RoundTolerance UserTol { set; get; } = Enums.RoundTolerance.SixDecimals;
     }
 }

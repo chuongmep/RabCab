@@ -145,7 +145,8 @@
     <Compile Include="Agents\ProxyAgent.cs" />
     <Compile Include="Agents\TransientAgent.cs" />
     <Compile Include="Agents\XDataAgent.cs" />
-    <Compile Include="Analysis\EntReader.cs" />
+    <Compile Include="Analysis\EntMetric.cs" />
+    <Compile Include="Analysis\EntSorter.cs" />
     <Compile Include="Analysis\PaperReader.cs" />
     <Compile Include="Calculators\CalcNest.cs" />
     <Compile Include="Calculators\CalcTol.cs" />

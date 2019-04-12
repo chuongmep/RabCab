@@ -15,6 +15,9 @@ namespace RabCab.Engine.Enumerators
 {
     public static class Enums
     {
+        /// <summary>
+        /// Color codes for use in Cad Colors
+        /// </summary>
         public enum CadColor
         {
             Red = 1,
@@ -120,5 +123,31 @@ namespace RabCab.Engine.Enumerators
             Paperspace = 0,
             Modelspace = 1
         }
+
+        /// <summary>
+        /// Enum for determining texture direction in solids
+        /// </summary>
+        public enum TextureDirection
+        {
+            Unknown = -1,
+            None = 0,
+            Horizontal = 1,
+            Vertical = 2,
+            Diagonal = 3
+        }
+
+        /// <summary>
+        /// Enum for determining production type
+        /// </summary>
+        public enum ProductionType
+        {
+            Unknown = -1,
+            Box = 0,
+            Sweep = 1,
+            S4S = 2,
+            MillingOneSide = 3,
+            MillingManySide = 4          
+        }
+
     }
 }

@@ -42,6 +42,7 @@
   <ItemGroup>
     <Reference Include="RabCab">
       <HintPath>..\RabCab.Utilities\bin\Debug\RabCab.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

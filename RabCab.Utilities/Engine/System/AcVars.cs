@@ -9,6 +9,7 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
+using System;
 using Autodesk.AutoCAD.ApplicationServices.Core;
 using RabCab.Engine.Enumerators;
 
@@ -42,6 +43,46 @@ namespace RabCab.Engine.System
             set { Application.SetSystemVariable("TILEMODE", (short) value); }
         }
 
+        #endregion
+
+        #region Unit Checker
+        /// <summary>
+        /// Checks if current app units are in inches
+        /// </summary>
+        public static bool IsAppInch
+        {
+            get
+            {
+                try
+                {
+                    int systemVariable = (short)Application.GetSystemVariable("INSUNITS");
+                    return ((systemVariable == 0) ? ((Convert.ToInt16(Application.GetSystemVariable("LUNITS")) > 2) || (((short)Application.GetSystemVariable("INSUNITSDEFTARGET")) == 1)) : (systemVariable == 1));
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Checks if current app units are in millimeters
+        /// </summary>
+        public static bool IsAppMm
+        {
+            get
+            {
+                try
+                {
+                    int systemVariable = (short)Application.GetSystemVariable("INSUNITS");
+                    return ((systemVariable == 0) ? ((Convert.ToInt16(Application.GetSystemVariable("LUNITS")) <= 2) && (((short)Application.GetSystemVariable("INSUNITSDEFTARGET")) == 4)) : (systemVariable == 4));
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+        }
         #endregion
     }
 }
