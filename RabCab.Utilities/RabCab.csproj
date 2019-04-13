@@ -238,6 +238,7 @@
     <Compile Include="Commands\OutputSuite\RenderKit\RcUvMap.cs" />
     <Compile Include="Commands\PaletteKit\RcDwgBrowser.cs" />
     <Compile Include="Commands\PaletteKit\RcLayerRepository.cs" />
+    <Compile Include="Engine\Enumerators\IEnumerables.cs" />
     <Compile Include="Entities\Linework\Axis.cs" />
     <Compile Include="Extensions\BrepExtensions.cs" />
     <Compile Include="Extensions\Curve3dExtensions.cs" />

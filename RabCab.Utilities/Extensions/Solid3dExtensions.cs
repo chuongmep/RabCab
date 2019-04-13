@@ -416,9 +416,13 @@ namespace RabCab.Extensions
         /// </summary>
         /// <param name="acSol"></param>
         /// <returns></returns>
-        public static double GetBoxVolume(this Solid3d acSol) => acSol.MassProperties.Volume.RoundToTolerance();
+        public static double GetSolVolume(this Solid3d acSol) => acSol.MassProperties.Volume.RoundToTolerance();
 
-        //TODO
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="acSol"></param>
+        /// <returns></returns>
         public static Extents3d GetBounds(this Solid3d acSol)
         {
             try

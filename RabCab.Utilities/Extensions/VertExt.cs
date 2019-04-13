@@ -165,23 +165,23 @@ namespace RabCab.Extensions
             Matrix3d matrix3d;
             Vector3d vector;
 
-            if (this._xEdge.Length < SettingsUser.TolPoint)
+            if (_xEdge.Length < SettingsUser.TolPoint)
             {
                 matrix3d = new Matrix3d();
                 return matrix3d;
             }
-            if (!this._rightAngle)
+            if (!_rightAngle)
             {
-                vector = this._xEdge.Eaxis.ToVector();
+                vector = _xEdge.Eaxis.ToVector();
                 normal = vector.GetNormal();
             }
             else
             {
-                normal = this._xEdge.Tangent.GetNormal();
+                normal = _xEdge.Tangent.GetNormal();
             }
-            if (!this._vertNormal.IsLessThanTol())
+            if (!_vertNormal.IsLessThanTol())
             {
-                normal1 = this._vertNormal.GetNormal();
+                normal1 = _vertNormal.GetNormal();
                 vector = normal1.CrossProduct(normal);
                 vector3d = vector.GetNormal();
                 vector = normal.CrossProduct(vector3d);
@@ -189,18 +189,18 @@ namespace RabCab.Extensions
             }
             else
             {
-                if (this._yEdge.Length < SettingsUser.TolPoint)
+                if (_yEdge.Length < SettingsUser.TolPoint)
                 {
                     matrix3d = new Matrix3d();
                     return matrix3d;
                 }
-                vector3d = this._yEdge.Tangent.GetNormal();
-                vector = normal.CrossProduct(this._yEdge.Tangent);
+                vector3d = _yEdge.Tangent.GetNormal();
+                vector = normal.CrossProduct(_yEdge.Tangent);
                 normal1 = vector.GetNormal();
                 vector = normal1.CrossProduct(normal);
                 vector3d = vector.GetNormal();
             }
-            return Matrix3d.AlignCoordinateSystem(this._vertPoint, normal, vector3d, normal1, Point3d.Origin, Vector3d.XAxis, Vector3d.YAxis, Vector3d.ZAxis);
+            return Matrix3d.AlignCoordinateSystem(_vertPoint, normal, vector3d, normal1, Point3d.Origin, Vector3d.XAxis, Vector3d.YAxis, Vector3d.ZAxis);
         }
     }
 }

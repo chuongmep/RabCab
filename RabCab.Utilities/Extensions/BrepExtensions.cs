@@ -115,6 +115,11 @@ namespace RabCab.Extensions
 
         }
 
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="vtx"></param>
+        /// <returns></returns>
         public static bool IsRightAngle3D(this Vertex vtx)
         {
             List<Vector3d> vList = new List<Vector3d>();
@@ -145,6 +150,12 @@ namespace RabCab.Extensions
             return (Math.Abs(vList[1].GetAngleTo(vList[2]) - 1.5707963267948966) < SettingsInternal.TolVector);
         }
 
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="acEdge"></param>
+        /// <param name="startPt"></param>
+        /// <returns></returns>
         public static Vector3d GetVectorFrom(this Edge acEdge, Point3d startPt)
         {
             Vector3d vectorTo;
@@ -304,6 +315,123 @@ namespace RabCab.Extensions
                 Console.WriteLine(e);
                 return 0;
             }
+        }
+
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="face"></param>
+        /// <returns></returns>
+        public static Matrix3d GetLayMatrix(this Face face)
+        {
+            Matrix3d matrix3d;
+            double num;
+            double num1;
+            Vector3d yVec;
+            Vector3d zVec;
+            Matrix3d matrix3d1;
+            Vector3d vector3d1;
+
+            if (face.IsNull)
+            {
+                matrix3d = new Matrix3d();
+                return matrix3d;
+            }
+
+            try
+            {
+                using (Surface surface = face.Surface)
+                {
+                    if (surface == null || !(surface is ExternalBoundedSurface))
+                    {
+                        matrix3d = new Matrix3d();                    
+                    }
+                    else
+                    {
+                        ExternalBoundedSurface externalBoundedSurface = surface as ExternalBoundedSurface;
+                        Interval[] envelope = externalBoundedSurface.GetEnvelope();
+                        double lowerBound = envelope[0].LowerBound;
+                        double lowerBound1 = envelope[1].LowerBound;
+                        Point2d point2d = new Point2d(lowerBound, lowerBound1);
+                        using (PointOnSurface pointOnSurface = new PointOnSurface(externalBoundedSurface, point2d))
+                        {
+                            Vector3d uDerivative = pointOnSurface.GetNormal();
+                            Point3d point = pointOnSurface.GetPoint();
+                            num = (!externalBoundedSurface.IsClosedInU(CalcTol.CadTolerance) ? envelope[0].UpperBound : (envelope[0].LowerBound + envelope[0].UpperBound) / 2);
+                            num1 = (!externalBoundedSurface.IsClosedInV(CalcTol.CadTolerance) ? envelope[1].UpperBound : (envelope[1].LowerBound + envelope[1].UpperBound) / 2);
+                            Point3d point3d = pointOnSurface.GetPoint(new Point2d(num, lowerBound1));
+                            Vector3d vectorTo = point.GetVectorTo(point3d);
+                            Point3d point1 = pointOnSurface.GetPoint(new Point2d(lowerBound, num1));
+                            Vector3d vectorTo1 = point.GetVectorTo(point1);
+                            if (vectorTo.Length < SettingsUser.TolPoint)
+                            {
+                                if (vectorTo1.Length >= SettingsUser.TolPoint)
+                                {
+                                    vectorTo = vectorTo1;
+                                    vectorTo1 = new Vector3d();
+                                }
+                                else
+                                {
+                                    matrix3d1 = new Matrix3d();
+                                    matrix3d = matrix3d1;
+                                    return matrix3d;
+                                }
+                            }
+                            if (vectorTo.Length < vectorTo1.Length)
+                            {
+                                Vector3d vector3d2 = vectorTo;
+                                vectorTo = vectorTo1;
+                                vectorTo1 = vector3d2;
+                            }
+                            double angleTo = vectorTo.GetAngleTo(uDerivative);
+                            if (angleTo < SettingsInternal.TolVector || Math.PI - angleTo < SettingsInternal.TolVector)
+                            {
+                                uDerivative = pointOnSurface.GetUDerivative(1, point2d);
+                            }
+                            Vector3d xVec = vectorTo.GetNormal();
+                            if (uDerivative.Length >= SettingsUser.TolPoint)
+                            {
+                                zVec = uDerivative.GetNormal();
+                                vector3d1 = uDerivative.CrossProduct(vectorTo);
+                                yVec = vector3d1.GetNormal();
+                                vector3d1 = xVec.CrossProduct(yVec);
+                                zVec = vector3d1.GetNormal();
+                            }
+                            else if (vectorTo1.Length >= SettingsUser.TolPoint)
+                            {
+                                double angleTo1 = vectorTo.GetAngleTo(uDerivative);
+                                if (angleTo1 < SettingsInternal.TolVector || Math.PI - angleTo1 < SettingsInternal.TolVector)
+                                {
+                                    matrix3d1 = new Matrix3d();
+                                    matrix3d = matrix3d1;
+                                    return matrix3d;
+                                }
+                                else
+                                {
+                                    yVec = vectorTo1.GetNormal();
+                                    vector3d1 = vectorTo.CrossProduct(vectorTo1);
+                                    zVec = vector3d1.GetNormal();
+                                    vector3d1 = zVec.CrossProduct(xVec);
+                                    yVec = vector3d1.GetNormal();
+                                }
+                            }
+                            else
+                            {
+                                matrix3d1 = new Matrix3d();
+                                matrix3d = matrix3d1;
+                                return matrix3d;
+                            }
+                            matrix3d = Matrix3d.AlignCoordinateSystem(point, xVec, yVec, zVec, Point3d.Origin, Vector3d.XAxis, Vector3d.YAxis, Vector3d.ZAxis);
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                matrix3d1 = new Matrix3d();
+                matrix3d = matrix3d1;
+            }
+            return matrix3d;
         }
     }
 }

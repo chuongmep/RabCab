@@ -12,14 +12,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Documents;
+using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.BoundaryRepresentation;
+using Autodesk.AutoCAD.Colors;
 using Autodesk.AutoCAD.DatabaseServices;
-using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
 using RabCab.Calculators;
 using RabCab.Extensions;
 using static RabCab.Engine.Enumerators.Enums;
+using static RabCab.Extensions.Solid3DExtensions;
+using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
 using Exception = System.Exception;
 
 namespace RabCab.Analysis
@@ -47,7 +49,6 @@ namespace RabCab.Analysis
         //Sizing
         public double Length;
         public double Width;
-        public double Height;
         public double Thickness;
         public double Volume;
         public double Box;
@@ -65,7 +66,7 @@ namespace RabCab.Analysis
 
         //Ent Information
         public string EntLayer;
-        public string EntColor;
+        public Color EntColor;
         public string EntMaterial;
 
         //XData Information
@@ -93,27 +94,63 @@ namespace RabCab.Analysis
             }
         }
 
+        /// <summary>
+        ///     TODO
+        /// </summary>
+        /// <param name="acSol"></param>
         public EntInfo(Solid3d acSol)
         {
             ObjId = acSol.ObjectId;
+            EntLayer = acSol.Layer;
+            EntColor = acSol.Color;
+            EntMaterial = acSol.Material;
+            TxDirection = TextureDirection.Unknown;
+            RcName = "";
+            IsSweep = false;
+            IsMirror = false;
+            RcInfo = "";
+            RcQty = "";
+            RcQtyInSelection = "";
             LayMatrix = Matrix3d.Identity;
-            GetMeasurements(acSol);
+            AsymmetryVector = new Vector3d();
+            NumberOfChanges = 0;
+            ReadEntity(acSol);
         }
 
+        /// <summary>
+        ///     TODO
+        /// </summary>
+        /// <param name="acSol"></param>
+        /// <param name="subId"></param>
         public EntInfo(Solid3d acSol, SubentityId subId)
         {
             ObjId = acSol.ObjectId;
-
+            SubId = subId;
+            EntLayer = acSol.Layer;
+            EntColor = acSol.Color;
+            EntMaterial = acSol.Material;
+            TxDirection = TextureDirection.Unknown;
+            RcName = "";
+            IsSweep = false;
+            IsMirror = false;
+            RcInfo = "";
+            RcQty = "";
+            RcQtyInSelection = "";
+            LayMatrix = Matrix3d.Identity;
+            AsymmetryVector = new Vector3d();
+            NumberOfChanges = 0;
+            ReadEntity(acSol);
         }
 
         #endregion
 
         #region Comparison Methods
+
         /// <summary>
         ///     Method for setting EntReader to Null
         /// </summary>
         public bool IsNull =>
-            Width == 0.0 && Height == 0.0 && Thickness == 0.0;
+            Width == 0.0 && Length == 0.0 && Thickness == 0.0;
 
         /// <summary>
         ///     Property for determining if Entity is Box
@@ -129,7 +166,7 @@ namespace RabCab.Analysis
         public bool IsMirrorOf(EntInfo mirCheck)
         {
             return Asymmetry != 0.0 && mirCheck.Asymmetry != 0.0 && !AsymmetryVector.IsEqualTo(mirCheck.AsymmetryVector,
-                       CalcTol.UnitVector) && (!AsymmetryVector.X.IsEqualTo(mirCheck.AsymmetryVector.X) 
+                       CalcTol.UnitVector) && (!AsymmetryVector.X.IsEqualTo(mirCheck.AsymmetryVector.X)
                                                || !AsymmetryVector.Y.IsEqualTo(mirCheck.AsymmetryVector.Y)
                                                || !AsymmetryVector.Z.IsEqualTo(mirCheck.AsymmetryVector.Z));
         }
@@ -141,7 +178,7 @@ namespace RabCab.Analysis
         /// <returns></returns>
         public bool IsEqualSize(EntInfo compEnt)
         {
-            return Height.IsEqualSize(compEnt.Height) && Width.IsEqualSize(compEnt.Width) &&
+            return Length.IsEqualSize(compEnt.Length) && Width.IsEqualSize(compEnt.Width) &&
                    Thickness.IsEqualSize(compEnt.Thickness) && Volume.IsEqualVolume(compEnt.Volume) &&
                    Asymmetry.IsEqualSize(compEnt.Asymmetry);
         }
@@ -155,10 +192,10 @@ namespace RabCab.Analysis
         {
             if (!IsEqualSize(compEnt)) return false;
             if (Asymmetry != 0.0 || compEnt.Asymmetry != 0.0)
-                return Asymmetry.IsEqualSize(compEnt.Asymmetry) 
-                       && AsymmetryVector.IsEqualTo(compEnt.AsymmetryVector, CalcTol.UnitVector) 
-                       && Math.Sign(AsymmetryVector.X) == Math.Sign(compEnt.AsymmetryVector.X) 
-                       && Math.Sign(AsymmetryVector.Y) == Math.Sign(compEnt.AsymmetryVector.Y) 
+                return Asymmetry.IsEqualSize(compEnt.Asymmetry)
+                       && AsymmetryVector.IsEqualTo(compEnt.AsymmetryVector, CalcTol.UnitVector)
+                       && Math.Sign(AsymmetryVector.X) == Math.Sign(compEnt.AsymmetryVector.X)
+                       && Math.Sign(AsymmetryVector.Y) == Math.Sign(compEnt.AsymmetryVector.Y)
                        && Math.Sign(AsymmetryVector.Z) == Math.Sign(compEnt.AsymmetryVector.Z);
             return true;
         }
@@ -169,7 +206,7 @@ namespace RabCab.Analysis
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        public static bool operator == (EntInfo a, EntInfo b)
+        public static bool operator ==(EntInfo a, EntInfo b)
         {
             return a != null && a.Equals(b);
         }
@@ -180,7 +217,7 @@ namespace RabCab.Analysis
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        public static bool operator != (EntInfo a, EntInfo b)
+        public static bool operator !=(EntInfo a, EntInfo b)
         {
             return a != null && !a.Equals(b);
         }
@@ -207,12 +244,10 @@ namespace RabCab.Analysis
         ///     TODO
         /// </summary>
         /// <returns></returns>
-        public override int GetHashCode()
-        {
-            return Height.GetHashCode() + Width.GetHashCode() + Thickness.GetHashCode() +
-                   Volume.GetHashCode() + Asymmetry.GetHashCode() +
-                   (Asymmetry == 0.0 ? 0 : AsymmetryVector.GetHashCode());
-        }
+        public override int GetHashCode() =>
+            Length.GetHashCode() + Width.GetHashCode() + Thickness.GetHashCode() +
+            Volume.GetHashCode() + Asymmetry.GetHashCode() +
+            (Asymmetry == 0.0 ? 0 : AsymmetryVector.GetHashCode());
 
         /// <summary>
         ///     TODO
@@ -225,80 +260,286 @@ namespace RabCab.Analysis
             return other != null && Equals(other);
         }
 
-        public override string ToString()
+        /// <summary>
+        ///     TODO
+        /// </summary>
+        /// <returns></returns>
+        public string PrintInfo(int count)
         {
-            return ObjId.ToString();
+            var acCurDb = Application.DocumentManager.MdiActiveDocument.Database;
+
+            //Get variables to strings
+            var countStr = count.ToString();
+            var objIdStr = ObjId.ToString();
+            var lengthStr = acCurDb.ConvertToDwgUnits(Length);
+            var widthStr = acCurDb.ConvertToDwgUnits(Width);
+            var thickStr = acCurDb.ConvertToDwgUnits(Thickness);
+            var volStr = acCurDb.ConvertToDwgUnits(Volume);
+            var asymStr = Asymmetry.RoundToTolerance();
+
+            //Remove parenthesis from ObjIds
+            objIdStr = objIdStr.Replace("(", "");
+            objIdStr = objIdStr.Replace(")", "");
+
+            if (count < 10)
+            {
+                countStr = "0" + countStr;
+            }
+
+            string prntStr;
+
+            if (RcName != "")
+            {
+                prntStr = countStr +
+                          ": " + RcName +
+                          " - L:" + lengthStr +
+                          " W:" + widthStr +
+                          " T:" + thickStr +
+                          " V:" + volStr +
+                          " A:" + asymStr + " " +
+                          AsymVStr(AsymmetryVector);
+            }
+            else
+            {
+                prntStr = countStr +
+                          ": " +
+                          " #" + objIdStr +
+                          " - L:" + lengthStr +
+                          " W:" + widthStr +
+                          " T:" + thickStr +
+                          " V:" + volStr +
+                          " A:" + asymStr + " " +
+                          AsymVStr(AsymmetryVector);
+            }
+
+            //Print to the current editor
+            return prntStr;
         }
 
         #endregion
 
         #region Parsing Methods
 
-        private void GetMeasurements(Solid3d acSol)
+        private void ReadEntity(Solid3d acSol)
         {
             GetLayMatrix(acSol);
-            
-           //Get Volume & Extents
-           Extents = acSol.GetBounds();
-           MinExt = Extents.MinPoint;
-           MaxExt = Extents.MaxPoint;
-           Centroid = acSol.MassProperties.Centroid;
-           Box = acSol.GetBoxVolume();
-           Volume = acSol.Volume();
+
+            if (LayMatrix == new Matrix3d()) return;
+
+            using (var solCopy = acSol.Clone() as Solid3d)
+            {
+                if (solCopy != null)
+                {
+                    if (LayMatrix != Matrix3d.Identity)
+                    {
+                        solCopy.TransformBy(LayMatrix);
+                    }
+                   
+
+                    //Get Volume & Extents
+                    Extents = solCopy.GetBounds();
+                    MinExt = Extents.MinPoint;
+                    MaxExt = Extents.MaxPoint;
+                    Centroid = solCopy.MassProperties.Centroid;
+                    Box = Extents.Volume();
+                    Volume = acSol.Volume();
+                }
+            }
+
+            var identity = Matrix3d.Identity;
+
+            if ((MaxExt.Z + MinExt.Z) / 2 < 0)
+            {
+                var vector3d = new Vector3d(0, 1, 0);
+                identity = Matrix3d.Rotation(3.14159265358979, vector3d, new Point3d());
+                LayMatrix *= identity;
+            }
+
+            if (IsBox)
+            {
+                Asymmetry = 0;
+
+            }
+            else
+            {          
+                var boxCen = GetBoxCenter(MinExt, MaxExt).RoundToTolerance();
+
+                AsymmetryVector = boxCen.GetVectorTo(Centroid.RoundToTolerance());
+                AsymmetryVector = AsymmetryVector.TransformBy(identity);
+                Asymmetry = AsymmetryVector.Length;
+
+                if (!Asymmetry.IsLessThanTol())
+                    Asymmetry = Asymmetry.RoundToTolerance();
+                else
+                    Asymmetry = 0;
+
+                AsymmetryVector = AsymmetryVector.RoundToTolerance();
+
+                if (Asymmetry > 0) FixMatrix(boxCen);
+            }
+
+            //Get length, width, thickness
+
+            if (IsSweep)
+            {
+                //TODO
+            }
+            else
+            {
+                var measures = new List<double>(3)
+                {
+                    MaxExt.X - MinExt.X,
+                    MaxExt.Y - MinExt.Y,
+                    MaxExt.Z - MinExt.Z
+                };
+
+                measures.Sort();
+
+                if (TxDirection == TextureDirection.Vertical)
+                {
+                    Width = measures[2].RoundToTolerance();
+                    Length = measures[1].RoundToTolerance();
+                }
+                else
+                {
+                    Length = measures[2].RoundToTolerance();
+                    Width = measures[1].RoundToTolerance();
+                }
+
+                Thickness = measures[0].RoundToTolerance();
+            }
         }
 
+        /// <summary>
+        ///     TODO
+        /// </summary>
+        /// <param name="acSol"></param>
         private void GetLayMatrix(Solid3d acSol)
-        {          
+        {
             try
             {
                 var bestVerts = GetBestVerts(acSol);
 
                 if (bestVerts == null)
-                {
-                    //LayMatrix = BrepExt.LayMatrixForNotFlat(solid, tr);
-                }
+                    LayMatrix = GetAbstractMatrix(acSol);
                 else if (bestVerts.Count == 0)
-                {
                     LayMatrix = new Matrix3d();
-                }
                 else
-                {
                     LayMatrix = RefineLayMatrix(bestVerts);
-                }
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
             }
-
-           
         }
 
+        /// <summary>
+        ///     TODO
+        /// </summary>
+        /// <param name="vertList"></param>
+        /// <returns></returns>
         private Matrix3d RefineLayMatrix(List<VertExt> vertList)
         {
-            if (vertList == null || vertList.Count == 0)
-            {
-                return new Matrix3d();
-            }
+            if (vertList == null || vertList.Count == 0) return new Matrix3d();
 
-            VertExt item = vertList.Max<VertExt>();
+            var item = vertList.Max<VertExt>();
             var mat1 = item.LayMatrix();
 
             while (true)
-            {          
+            {
                 var mat2 = new Matrix3d();
-                if (mat1 != mat2 || vertList.Count <= 1)
-                {
-                    return mat1;
-                }
+                if (!(mat1 == mat2) || vertList.Count <= 1) return mat1;
                 vertList.Remove(item);
                 mat1 = vertList.Max<VertExt>().LayMatrix();
             }
         }
 
+        /// <summary>
+        ///     TODO
+        /// </summary>
+        /// <param name="acSol"></param>
+        /// <returns></returns>
+        private Matrix3d GetAbstractMatrix(Solid3d acSol)
+        {
+            var bestMatrix = new Matrix3d();
+
+            using (var acBrep = acSol.GetBrep())
+            {
+                try
+                {
+                    if (acBrep.Faces.Any())
+                    {
+                        double largest = 0;
+
+                        foreach (var acFace in acBrep.Faces)
+                        {
+                            var fArea = acFace.GetArea();
+
+                            if (fArea.IsEqualArea(largest) || fArea < largest) continue;
+
+                            largest = fArea;
+                            bestMatrix = acFace.GetLayMatrix();
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    return bestMatrix;
+                }
+            }
+
+            return bestMatrix;
+        }
+
+        /// <summary>
+        ///     TODO
+        /// </summary>
+        /// <param name="boxCenter"></param>
+        /// <returns></returns>
+        private bool FixMatrix(Point3d boxCenter)
+        {
+            var flag = false;
+            if (AsymmetryVector.Z.IsLessThanTol() &&
+                (AsymmetryVector.X + AsymmetryVector.Y > 0 ||
+                 (AsymmetryVector.X + AsymmetryVector.Y).IsLessThanTol()
+                 && AsymmetryVector.X > 0))
+            {
+                var matrix3d = Matrix3d.Rotation(3.14159265358979, new Vector3d(0, 1, 0), boxCenter);
+                LayMatrix = matrix3d * LayMatrix;
+                AsymmetryVector = AsymmetryVector.TransformBy(matrix3d);
+                flag = true;
+            }
+
+            if (AsymmetryVector.Y.IsLessThanTol())
+            {
+                if (!AsymmetryVector.X.IsLessThanTol() && AsymmetryVector.X > 0)
+                {
+                    var matrix3d1 = Matrix3d.Rotation(3.14159265358979, new Vector3d(0, 0, 1), boxCenter);
+                    LayMatrix = matrix3d1 * LayMatrix;
+                    AsymmetryVector = AsymmetryVector.TransformBy(matrix3d1);
+                    flag = true;
+                }
+            }
+            else if (AsymmetryVector.Y > 0)
+            {
+                var matrix3d2 = Matrix3d.Rotation(3.14159265358979, new Vector3d(0, 0, 1), boxCenter);
+                LayMatrix = matrix3d2 * LayMatrix;
+                AsymmetryVector = AsymmetryVector.TransformBy(matrix3d2);
+                flag = true;
+            }
+
+            return flag;
+        }
+
+        /// <summary>
+        ///     TODO
+        /// </summary>
+        /// <param name="acSol"></param>
+        /// <returns></returns>
         private List<VertExt> GetBestVerts(Solid3d acSol)
         {
-            List<VertExt> vList = new List<VertExt>();
+            var vList = new List<VertExt>();
 
             using (var acBrep = new Brep(acSol))
             {
@@ -306,10 +547,10 @@ namespace RabCab.Analysis
                 {
                     return vList;
                 }
-                else if (!acBrep.IsNull)
-                {
 
-                    double y = 0.0;
+                if (!acBrep.IsNull)
+                {
+                    var y = 0.0;
 
                     try
                     {
@@ -318,7 +559,7 @@ namespace RabCab.Analysis
                             FaceCount++;
                             var fArea = 0.0;
 
-                            if ((SubId.Type == SubentityType.Face) && (SubId == face.SubentityPath.SubentId))
+                            if (SubId.Type == SubentityType.Face && SubId == face.SubentityPath.SubentId)
                             {
                                 fArea = face.GetArea();
                                 SubArea = fArea.RoundArea();
@@ -329,21 +570,15 @@ namespace RabCab.Analysis
                             {
                                 if (!surface.IsPlane)
                                 {
-                                    if (!surface.IsCylinder)
-                                    {
-                                        Has3DFaces = true;
-                                    }
+                                    if (!surface.IsCylinder) Has3DFaces = true;
                                     HasNonFlatFaces = true;
                                     continue;
                                 }
                             }
 
-                            if (fArea == 0.0)
-                            {
-                                fArea = face.GetArea();
-                            }
+                            if (fArea == 0.0) fArea = face.GetArea();
 
-                            double x = fArea;
+                            var x = fArea;
 
                             try
                             {
@@ -359,17 +594,11 @@ namespace RabCab.Analysis
 
                                     if (lType != LoopKit.Error)
                                     {
-                                        if (lType == LoopKit.RightAngle)
-                                        {
-                                            x *= 1.5;
-                                        }
+                                        if (lType == LoopKit.RightAngle) x *= 1.5;
 
                                         if (!x.IsEqualArea(y))
                                         {
-                                            if (x < y)
-                                            {
-                                                continue;
-                                            }
+                                            if (x < y) continue;
 
                                             vList.Clear();
                                             y = x;
@@ -382,10 +611,7 @@ namespace RabCab.Analysis
                                             foreach (var vtx in acLoop.Vertices)
                                             {
                                                 vList.Add(new VertExt(vtx, acLoop));
-                                                if (vList.Count > 1000)
-                                                {
-                                                    break;
-                                                }
+                                                if (vList.Count > 1000) break;
                                             }
                                         }
                                         catch (Exception e)
@@ -399,7 +625,6 @@ namespace RabCab.Analysis
                             {
                                 Console.WriteLine(e);
                             }
-
                         }
                     }
                     catch (Exception e)
@@ -410,15 +635,14 @@ namespace RabCab.Analysis
                 else
                 {
                     if (SubId.Type == SubentityType.Edge)
-                    {
                         try
                         {
                             foreach (var acEdge in acBrep.Edges)
                             {
-                                FullSubentityPath subentityPath = acEdge.SubentityPath;
-                                if (subentityPath.SubentId == this.SubId)
+                                var subentityPath = acEdge.SubentityPath;
+                                if (subentityPath.SubentId == SubId)
                                 {
-                                    this.SubPerimeter = acEdge.GetLength().RoundToTolerance();
+                                    SubPerimeter = acEdge.GetLength().RoundToTolerance();
                                     break;
                                 }
                             }
@@ -427,20 +651,14 @@ namespace RabCab.Analysis
                         {
                             Console.WriteLine(e);
                         }
-                    }
                 }
 
-                if (this.MaxArea != 0.0)
-                {
-                    return vList;
-                }
+                if (MaxArea != 0.0) return vList;
 
                 return null;
             }
         }
 
-
         #endregion
-
     }
 }

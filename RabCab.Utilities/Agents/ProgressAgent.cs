@@ -19,7 +19,7 @@ namespace RabCab.Agents
     /// <summary>
     ///     Class to handle a Progress bar for CAD
     /// </summary>
-    public sealed class ProgressAgent : IDisposable, IMessageFilter
+    public class ProgressAgent : IDisposable, IMessageFilter
     {
         private static ProgressAgent _pmActive;
         private readonly bool _pmCycle;
