@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RabCab.Engine.Enumerators
 {
@@ -13,7 +10,7 @@ namespace RabCab.Engine.Enumerators
             int count;
             try
             {
-                count = source.Count<TSource>();
+                count = source.Count();
             }
             catch (Exception)
             {

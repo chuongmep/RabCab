@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Autodesk.AutoCAD.Runtime;
+﻿using Autodesk.AutoCAD.Runtime;
 using RabCab.Settings;
 
 namespace RabCab.Commands.ContentLibrary
 {
-    class RcPeople
+    internal class RcPeople
     {
         /// <summary>
         /// </summary>
@@ -37,7 +32,7 @@ namespace RabCab.Commands.ContentLibrary
             //| CommandFlags.NoActionRecording
             //| CommandFlags.ActionMacro
             //| CommandFlags.NoInferConstraint 
-            )]
+        )]
         public void Cmd_Default()
         {
         }

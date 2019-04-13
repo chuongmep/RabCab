@@ -43,7 +43,7 @@ namespace RabCab.Commands.OutputSuite.MaxKit
             //| CommandFlags.NoActionRecording
             //| CommandFlags.ActionMacro
             //| CommandFlags.NoInferConstraint 
-            )]
+        )]
         public void Cmd_Default()
         {
         }

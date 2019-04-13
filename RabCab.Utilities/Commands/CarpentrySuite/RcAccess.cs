@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Autodesk.AutoCAD.Runtime;
+﻿using Autodesk.AutoCAD.Runtime;
 using RabCab.Settings;
 
 namespace RabCab.Commands.CarpentrySuite
 {
-    class RcAccess
+    internal class RcAccess
     {
         /// <summary>
         /// </summary>
@@ -37,7 +32,7 @@ namespace RabCab.Commands.CarpentrySuite
             //| CommandFlags.NoActionRecording
             //| CommandFlags.ActionMacro
             //| CommandFlags.NoInferConstraint 
-            )]
+        )]
         public void Cmd_Default()
         {
         }

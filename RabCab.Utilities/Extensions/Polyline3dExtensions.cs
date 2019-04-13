@@ -47,10 +47,13 @@ namespace RabCab.Extensions
         }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="pt"></param>
         /// <returns></returns>
-        public static bool IsNull(this Point3d pt) => pt == new Point3d();
+        public static bool IsNull(this Point3d pt)
+        {
+            return pt == new Point3d();
+        }
     }
 }

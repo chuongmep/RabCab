@@ -32,7 +32,7 @@ namespace RabCab.Extensions
         public static Point3d GetMidPoint(this Point3d pt1, Point3d pt2)
         {
             var vector = pt1.GetVectorTo(pt2);
-            var halfwayPoint = pt1 + vector*0.5;
+            var halfwayPoint = pt1 + vector * 0.5;
             return halfwayPoint;
         }
 
@@ -108,8 +108,8 @@ namespace RabCab.Extensions
         public static Point3d Polar(this Point3d org, double angle, double distance)
         {
             return new Point3d(
-                org.X + distance*Math.Cos(angle),
-                org.Y + distance*Math.Sin(angle),
+                org.X + distance * Math.Cos(angle),
+                org.Y + distance * Math.Sin(angle),
                 org.Z);
         }
 
@@ -203,7 +203,7 @@ namespace RabCab.Extensions
                             mat = ed.UCS2WCS();
                             break;
                         case CoordSystem.DCS:
-                            mat = ed.UCS2WCS()*ed.WCS2DCS();
+                            mat = ed.UCS2WCS() * ed.WCS2DCS();
                             break;
                         case CoordSystem.PSDCS:
                             throw new AcRx.Exception(
@@ -222,7 +222,7 @@ namespace RabCab.Extensions
                             mat = ed.DCS2WCS();
                             break;
                         case CoordSystem.UCS:
-                            mat = ed.DCS2WCS()*ed.WCS2UCS();
+                            mat = ed.DCS2WCS() * ed.WCS2UCS();
                             break;
                         case CoordSystem.PSDCS:
                             mat = ed.DCS2PSDCS();

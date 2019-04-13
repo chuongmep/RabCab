@@ -181,7 +181,7 @@ namespace RabCab.Extensions
             ObjectId[] solId = {acSol.ObjectId};
 
             //Create a handle Pointer to use to find subentity handles
-            var subentIdPe = acSol.QueryX(RXObject.GetClass(typeof (AssocPersSubentityIdPE)));
+            var subentIdPe = acSol.QueryX(RXObject.GetClass(typeof(AssocPersSubentityIdPE)));
 
             if (subentIdPe == IntPtr.Zero)
                 //Entity doesn't support the subentityPE
@@ -262,7 +262,7 @@ namespace RabCab.Extensions
             ObjectId[] solId = {acSol.ObjectId};
 
             //Create a handle Pointer to use to find subentity handles
-            var subentIdPe = acSol.QueryX(RXObject.GetClass(typeof (AssocPersSubentityIdPE)));
+            var subentIdPe = acSol.QueryX(RXObject.GetClass(typeof(AssocPersSubentityIdPE)));
 
             if (subentIdPe == IntPtr.Zero)
                 //Entity doesn't support the subentityPE
@@ -343,7 +343,7 @@ namespace RabCab.Extensions
             ObjectId[] solId = {acSol.ObjectId};
 
             //Create a handle Pointer to use to find subentity handles
-            var subentIdPe = acSol.QueryX(RXObject.GetClass(typeof (AssocPersSubentityIdPE)));
+            var subentIdPe = acSol.QueryX(RXObject.GetClass(typeof(AssocPersSubentityIdPE)));
 
             if (subentIdPe == IntPtr.Zero)
                 //Entity doesn't support the subentityPE
@@ -370,7 +370,7 @@ namespace RabCab.Extensions
         }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="acSol"></param>
         /// <returns></returns>
@@ -383,15 +383,18 @@ namespace RabCab.Extensions
         }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="minExt"></param>
         /// <param name="maxExt"></param>
         /// <returns></returns>
-        public static Point3d GetBoxCenter(Point3d minExt, Point3d maxExt) => minExt.GetMidPoint(maxExt).RoundToTolerance();
+        public static Point3d GetBoxCenter(Point3d minExt, Point3d maxExt)
+        {
+            return minExt.GetMidPoint(maxExt).RoundToTolerance();
+        }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="acSol"></param>
         /// <returns></returns>
@@ -404,22 +407,28 @@ namespace RabCab.Extensions
         }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="minExt"></param>
         /// <param name="maxExt"></param>
         /// <returns></returns>
-        public static Point3d GetBoxSize(Point3d minExt, Point3d maxExt) => new Point3d(maxExt.X - minExt.X, maxExt.Y - minExt.Y, maxExt.Z - minExt.Z);
+        public static Point3d GetBoxSize(Point3d minExt, Point3d maxExt)
+        {
+            return new Point3d(maxExt.X - minExt.X, maxExt.Y - minExt.Y, maxExt.Z - minExt.Z);
+        }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="acSol"></param>
         /// <returns></returns>
-        public static double GetSolVolume(this Solid3d acSol) => acSol.MassProperties.Volume.RoundToTolerance();
+        public static double GetSolVolume(this Solid3d acSol)
+        {
+            return acSol.MassProperties.Volume.RoundToTolerance();
+        }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="acSol"></param>
         /// <returns></returns>
@@ -429,43 +438,50 @@ namespace RabCab.Extensions
             {
                 using (var acBrep = new AcBr.Brep(acSol))
                 {
-                    using (BoundBlock3d bBlock = acBrep.BoundBlock)
+                    using (var bBlock = acBrep.BoundBlock)
                     {
                         return new Extents3d(bBlock.GetMinimumPoint(), bBlock.GetMaximumPoint());
                     }
                 }
             }
-            catch (Autodesk.AutoCAD.BoundaryRepresentation.Exception)
+            catch (AcBr.Exception)
             {
                 return new Extents3d(Point3d.Origin, Point3d.Origin);
             }
         }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="solid"></param>
         /// <returns></returns>
-        public static bool IsBox(this Solid3d solid) =>
-            solid.MassProperties.IsBox();
+        public static bool IsBox(this Solid3d solid)
+        {
+            return solid.MassProperties.IsBox();
+        }
 
         /// <summary>
-        ///TODO
+        ///     TODO
         /// </summary>
         /// <param name="mProps"></param>
         /// <returns></returns>
-        public static bool IsBox(this Solid3dMassProperties mProps) =>
-            mProps.Volume.IsEqualVolume(mProps.Extents.Volume());
+        public static bool IsBox(this Solid3dMassProperties mProps)
+        {
+            return mProps.Volume.IsEqualVolume(mProps.Extents.Volume());
+        }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="acSol"></param>
         /// <returns></returns>
-        public static double Volume(this Solid3d acSol) => acSol.MassProperties.Volume.RoundToTolerance();
+        public static double Volume(this Solid3d acSol)
+        {
+            return acSol.MassProperties.Volume.RoundToTolerance();
+        }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="extents"></param>
         /// <returns></returns>
@@ -473,9 +489,8 @@ namespace RabCab.Extensions
         {
             var minPoint = extents.MinPoint;
             var maxPoint = extents.MaxPoint;
-            return (((maxPoint.X - minPoint.X) * (maxPoint.Y - minPoint.Y)) * (maxPoint.Z - minPoint.Z))
+            return ((maxPoint.X - minPoint.X) * (maxPoint.Y - minPoint.Y) * (maxPoint.Z - minPoint.Z))
                 .RoundToTolerance();
-
         }
 
         public static void MinToOrigin(this Solid3d acSol)
@@ -526,7 +541,8 @@ namespace RabCab.Extensions
         public static void Downgrade(this Entity ent)
         {
             if (ent.IsWriteEnabled)
-                ent.DowngradeOpen();;
+                ent.DowngradeOpen();
+            ;
         }
 
         #endregion
@@ -818,6 +834,5 @@ namespace RabCab.Extensions
         }
 
         #endregion
-
     }
 }

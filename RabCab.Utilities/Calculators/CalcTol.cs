@@ -9,19 +9,17 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
-using System;
 using Autodesk.AutoCAD.Geometry;
 using RabCab.Engine.Enumerators;
-using RabCab.Engine.System;
-using RabCab.Extensions;
 using RabCab.Settings;
+using System;
+
 // ReSharper disable CompareOfFloatsByEqualityOperator
 
 namespace RabCab.Calculators
 {
     public static class CalcTol
     {
-
         /// <summary>
         ///     Method for returning a tolerance based on the users current setting
         /// </summary>
@@ -72,20 +70,19 @@ namespace RabCab.Calculators
         }
 
         #region Extensions For Determining Tolerance
-       
-        private static byte DecimalPlace => (byte) SettingsUser.UserTol;
+
+        private static byte DecimalPlace => (byte)SettingsUser.UserTol;
         private static double CurrentTolerance => ReturnCurrentTolerance();
         public static double TolSquare => Math.Pow(CurrentTolerance, 2.0);
         public static double TolCube => Math.Pow(CurrentTolerance, 3.0);
 
         public static Tolerance CadTolerance => new Tolerance(SettingsInternal.TolVector, SettingsUser.TolPoint);
         public static Tolerance UnitVector => new Tolerance(SettingsInternal.TolVector, CurrentTolerance);
-        private static double GetTolPoint { get; } = (AcVars.IsAppInch ? 0.004 : 0.1);
 
         #region Double Extensions
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="x"></param>
         /// <returns></returns>
@@ -102,15 +99,15 @@ namespace RabCab.Calculators
         }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="size"></param>
         /// <returns></returns>
         public static bool IsLessThanTol(this double size)
-        {           
+        {
             try
             {
-                return (Math.Abs(size) < CurrentTolerance);
+                return Math.Abs(size) < CurrentTolerance;
             }
             catch (Exception)
             {
@@ -119,7 +116,7 @@ namespace RabCab.Calculators
         }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="size"></param>
         /// <returns></returns>
@@ -127,7 +124,7 @@ namespace RabCab.Calculators
         {
             try
             {
-                return (Math.Abs(size) > CurrentTolerance);
+                return Math.Abs(size) > CurrentTolerance;
             }
             catch (Exception)
             {
@@ -136,7 +133,7 @@ namespace RabCab.Calculators
         }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="x"></param>
         /// <returns></returns>
@@ -153,7 +150,7 @@ namespace RabCab.Calculators
         }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="x"></param>
         /// <returns></returns>
@@ -170,7 +167,7 @@ namespace RabCab.Calculators
         }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="from"></param>
         /// <param name="to"></param>
@@ -188,7 +185,7 @@ namespace RabCab.Calculators
         }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
@@ -199,10 +196,7 @@ namespace RabCab.Calculators
             {
                 if (!(x - y).IsLessThanTol())
                     return x.IsEqualTo(y);
-                else
-                {
-                    return true;
-                }
+                return true;
             }
             catch (Exception)
             {
@@ -211,7 +205,7 @@ namespace RabCab.Calculators
         }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
@@ -229,7 +223,7 @@ namespace RabCab.Calculators
         }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
@@ -251,21 +245,27 @@ namespace RabCab.Calculators
         #region Point2D Extensions
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="pt"></param>
         /// <returns></returns>
-        public static Point2d RoundToTolerance(this Point2d pt) => new Point2d(pt.X.RoundToTolerance(), pt.Y.RoundToTolerance());
+        public static Point2d RoundToTolerance(this Point2d pt)
+        {
+            return new Point2d(pt.X.RoundToTolerance(), pt.Y.RoundToTolerance());
+        }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="pt"></param>
         /// <returns></returns>
-        public static bool IsLessThanTol(this Point2d pt) => pt.X.IsLessThanTol() && pt.Y.IsLessThanTol();
+        public static bool IsLessThanTol(this Point2d pt)
+        {
+            return pt.X.IsLessThanTol() && pt.Y.IsLessThanTol();
+        }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="from"></param>
         /// <param name="to"></param>
@@ -287,21 +287,27 @@ namespace RabCab.Calculators
         #region Point3D Extensions
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="pt"></param>
         /// <returns></returns>
-        public static Point3d RoundToTolerance(this Point3d pt) => new Point3d(pt.X.RoundToTolerance(), pt.Y.RoundToTolerance(), pt.Z.RoundToTolerance());
+        public static Point3d RoundToTolerance(this Point3d pt)
+        {
+            return new Point3d(pt.X.RoundToTolerance(), pt.Y.RoundToTolerance(), pt.Z.RoundToTolerance());
+        }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="pt"></param>
         /// <returns></returns>
-        public static bool IsLessThanTol(this Point3d pt) => pt.X.IsLessThanTol() && pt.Y.IsLessThanTol() && pt.Z.IsLessThanTol();
+        public static bool IsLessThanTol(this Point3d pt)
+        {
+            return pt.X.IsLessThanTol() && pt.Y.IsLessThanTol() && pt.Z.IsLessThanTol();
+        }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="from"></param>
         /// <param name="to"></param>
@@ -323,39 +329,51 @@ namespace RabCab.Calculators
         #region Vector2D Extensions
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="vec"></param>
         /// <returns></returns>
-        public static Vector2d RoundToTolerance(this Vector2d vec) => new Vector2d(vec.X.RoundToTolerance(), vec.Y.RoundToTolerance());
+        public static Vector2d RoundToTolerance(this Vector2d vec)
+        {
+            return new Vector2d(vec.X.RoundToTolerance(), vec.Y.RoundToTolerance());
+        }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="vec"></param>
         /// <returns></returns>
-        public static bool IsLessThanTol(this Vector2d vec) => vec.X.IsLessThanTol() && vec.Y.IsLessThanTol();
-     
+        public static bool IsLessThanTol(this Vector2d vec)
+        {
+            return vec.X.IsLessThanTol() && vec.Y.IsLessThanTol();
+        }
+
         #endregion
 
         #region Vector3D Extensions
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="vec"></param>
         /// <returns></returns>
-        public static Vector3d RoundToTolerance(this Vector3d vec) => new Vector3d(vec.X.RoundToTolerance(), vec.Y.RoundToTolerance(), vec.Z.RoundToTolerance());
+        public static Vector3d RoundToTolerance(this Vector3d vec)
+        {
+            return new Vector3d(vec.X.RoundToTolerance(), vec.Y.RoundToTolerance(), vec.Z.RoundToTolerance());
+        }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="vec"></param>
         /// <returns></returns>
-        public static bool IsLessThanTol(this Vector3d vec) => vec.X.IsLessThanTol() && vec.Y.IsLessThanTol() && vec.Z.IsLessThanTol();
+        public static bool IsLessThanTol(this Vector3d vec)
+        {
+            return vec.X.IsLessThanTol() && vec.Y.IsLessThanTol() && vec.Z.IsLessThanTol();
+        }
 
         #endregion
-        
+
         #endregion
     }
 }

@@ -4,22 +4,21 @@
 <fasteners>
 
   <!--Bolt Information-->
-  <bolts>    
+  <bolts>
     <bolt identifier="Test"
           headType=""
           headHeight=""
           headWidth=""
           threadSize=""
           threadLength=""
-          fitType="" />  
+          fitType="" />
   </bolts>
 
   <!--Nut Information-->
-  <nuts>   
+  <nuts>
     <nut identifier="Test"
          nutType=""
          threadSize="" />
   </nuts>
 
 </fasteners>
-

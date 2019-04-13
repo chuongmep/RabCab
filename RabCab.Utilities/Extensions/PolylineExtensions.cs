@@ -100,14 +100,14 @@ namespace RabCab.Extensions
             {
                 arc = pl.GetArcSegment2dAt(0);
                 area = arc.AlgebricArea();
-                cen = arc.Centroid()*area;
+                cen = arc.Centroid() * area;
             }
 
             for (var i = 1; i < last; i++)
             {
                 tri.Set(p0, pl.GetPoint2dAt(i), pl.GetPoint2dAt(i + 1));
                 tmpArea = tri.AlgebricArea;
-                cen += (tri.Centroid*tmpArea).GetAsVector();
+                cen += (tri.Centroid * tmpArea).GetAsVector();
                 area += tmpArea;
                 bulge = pl.GetBulgeAt(i);
                 if (bulge != 0.0)
@@ -115,7 +115,7 @@ namespace RabCab.Extensions
                     arc = pl.GetArcSegment2dAt(i);
                     tmpArea = arc.AlgebricArea();
                     area += tmpArea;
-                    cen += (arc.Centroid()*tmpArea).GetAsVector();
+                    cen += (arc.Centroid() * tmpArea).GetAsVector();
                 }
             }
 
@@ -125,7 +125,7 @@ namespace RabCab.Extensions
                 arc = pl.GetArcSegment2dAt(last);
                 tmpArea = arc.AlgebricArea();
                 area += tmpArea;
-                cen += (arc.Centroid()*tmpArea).GetAsVector();
+                cen += (arc.Centroid() * tmpArea).GetAsVector();
             }
 
             return cen.DivideBy(area);
@@ -171,12 +171,12 @@ namespace RabCab.Extensions
             var seg2 = pline.GetLineSegment2dAt(index);
             var vec1 = seg1.StartPoint - seg1.EndPoint;
             var vec2 = seg2.EndPoint - seg2.StartPoint;
-            var angle = (Math.PI - vec1.GetAngleTo(vec2))/2.0;
-            var dist = radius*Math.Tan(angle);
+            var angle = (Math.PI - vec1.GetAngleTo(vec2)) / 2.0;
+            var dist = radius * Math.Tan(angle);
             if (dist == 0.0 || dist > seg1.Length || dist > seg2.Length) return 0;
-            var pt1 = seg1.EndPoint + vec1.GetNormal()*dist;
-            var pt2 = seg2.StartPoint + vec2.GetNormal()*dist;
-            var bulge = Math.Tan(angle/2.0);
+            var pt1 = seg1.EndPoint + vec1.GetNormal() * dist;
+            var pt2 = seg2.StartPoint + vec2.GetNormal() * dist;
+            var bulge = Math.Tan(angle / 2.0);
             if (Clockwise(seg1.StartPoint, seg1.EndPoint, seg2.EndPoint)) bulge = -bulge;
             pline.AddVertexAt(index, pt1, bulge, 0.0, 0.0);
             pline.SetPointAt(index + 1, pt2);
@@ -192,7 +192,7 @@ namespace RabCab.Extensions
         /// <returns>True if points are clockwise, False otherwise.</returns>
         private static bool Clockwise(Point2d p1, Point2d p2, Point2d p3)
         {
-            return (p2.X - p1.X)*(p3.Y - p1.Y) - (p2.Y - p1.Y)*(p3.X - p1.X) < 1e-8;
+            return (p2.X - p1.X) * (p3.Y - p1.Y) - (p2.Y - p1.Y) * (p3.X - p1.X) < 1e-8;
         }
 
         /// <summary>
@@ -241,7 +241,7 @@ namespace RabCab.Extensions
         /// <returns>The new bulge.</returns>
         public static double MultiplyBulge(double bulge, double factor)
         {
-            return Math.Tan(Math.Atan(bulge)*factor);
+            return Math.Tan(Math.Atan(bulge) * factor);
         }
     }
 }

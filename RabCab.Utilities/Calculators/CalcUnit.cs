@@ -35,7 +35,7 @@ namespace RabCab.Calculators
         /// <returns>Returns the input angle in Radians</returns>
         public static double ConvertToDegrees(double radians)
         {
-            return 180/Math.PI*radians;
+            return 180 / Math.PI * radians;
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace RabCab.Calculators
         /// <returns>Returns the input angle in Radians</returns>
         public static double ConvertToRadians(double degrees)
         {
-            return Math.PI/180*degrees;
+            return Math.PI / 180 * degrees;
         }
     }
 }

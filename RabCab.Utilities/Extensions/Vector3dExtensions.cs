@@ -29,10 +29,13 @@ namespace RabCab.Extensions
         }
 
         /// <summary>
-        /// TODOs
+        ///     TODOs
         /// </summary>
         /// <param name="vector"></param>
         /// <returns></returns>
-        public static Point3d ConvertToPoint(this Vector3d vector) => new Point3d(vector.X, vector.Y, vector.Z);
+        public static Point3d ConvertToPoint(this Vector3d vector)
+        {
+            return new Point3d(vector.X, vector.Y, vector.Z);
+        }
     }
 }

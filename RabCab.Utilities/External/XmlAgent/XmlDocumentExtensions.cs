@@ -21,12 +21,8 @@ namespace RabCab.External.XmlAgent
             Action<XmlNode> elementVisitor)
         {
             if (doc != null && elementVisitor != null)
-            {
                 foreach (XmlNode node in doc.ChildNodes)
-                {
                     DoIterateNode(node, elementVisitor);
-                }
-            }
         }
 
         private static void DoIterateNode(
@@ -35,10 +31,7 @@ namespace RabCab.External.XmlAgent
         {
             elementVisitor(node);
 
-            foreach (XmlNode childNode in node.ChildNodes)
-            {
-                DoIterateNode(childNode, elementVisitor);
-            }
+            foreach (XmlNode childNode in node.ChildNodes) DoIterateNode(childNode, elementVisitor);
         }
     }
 }

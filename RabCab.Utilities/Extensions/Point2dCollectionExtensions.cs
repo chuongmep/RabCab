@@ -39,20 +39,20 @@ namespace RabCab.Extensions
             for (var i = 0; i < pts.Count; i++) ptlst.Add(pts[i]);
             ptlst.Sort((p1, p2) => p1.X.CompareTo(p2.X));
             for (var i = 0; i < ptlst.Count - 1; i++)
-                for (var j = i + 1; j < ptlst.Count;)
+            for (var j = i + 1; j < ptlst.Count;)
+            {
+                if (ptlst[j].X - ptlst[i].X > tol.EqualPoint)
+                    break;
+                if (ptlst[i].IsEqualTo(ptlst[j], tol))
                 {
-                    if (ptlst[j].X - ptlst[i].X > tol.EqualPoint)
-                        break;
-                    if (ptlst[i].IsEqualTo(ptlst[j], tol))
-                    {
-                        pts.Remove(ptlst[j]);
-                        ptlst.RemoveAt(j);
-                    }
-                    else
-                    {
-                        j++;
-                    }
+                    pts.Remove(ptlst[j]);
+                    ptlst.RemoveAt(j);
                 }
+                else
+                {
+                    j++;
+                }
+            }
         }
 
         /// <summary>

@@ -30,7 +30,7 @@ namespace RabCab.Extensions
             var ang = arc.IsClockWise
                 ? arc.StartAngle - arc.EndAngle
                 : arc.EndAngle - arc.StartAngle;
-            return rad*rad*(ang - Math.Sin(ang))/2.0;
+            return rad * rad * (ang - Math.Sin(ang)) / 2.0;
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace RabCab.Extensions
             var area = arc.AlgebricArea();
             var chord = start.GetDistanceTo(end);
             var angle = (end - start).Angle;
-            return arc.Center.Polar(angle - Math.PI/2.0, chord*chord*chord/(12.0*area));
+            return arc.Center.Polar(angle - Math.PI / 2.0, chord * chord * chord / (12.0 * area));
         }
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace RabCab.Extensions
             if (pt.GetDistanceTo(center) <= arc.Radius)
                 return null;
 
-            var vec = center.GetVectorTo(pt)/2.0;
+            var vec = center.GetVectorTo(pt) / 2.0;
             var tmp = new CircularArc2d(center + vec, vec.Length);
             var inters = arc.IntersectWith(tmp);
             if (inters == null)
@@ -75,7 +75,7 @@ namespace RabCab.Extensions
             var result = new LineSegment2d[2];
             var v1 = inters[0] - center;
             var v2 = inters[1] - center;
-            var i = vec.X*v1.Y - vec.Y - v1.X > 0 ? 0 : 1;
+            var i = vec.X * v1.Y - vec.Y - v1.X > 0 ? 0 : 1;
             var j = i ^ 1;
             result[i] = new LineSegment2d(inters[0], pt);
             result[j] = new LineSegment2d(inters[1], pt);
@@ -123,7 +123,7 @@ namespace RabCab.Extensions
                         return null;
                     vec1 = (inters[0] - arc.Center).GetNormal();
                     vec2 = (inters[1] - arc.Center).GetNormal();
-                    i = vec.X*vec1.Y - vec.Y - vec1.X > 0 ? 0 : 1;
+                    i = vec.X * vec1.Y - vec.Y - vec1.X > 0 ? 0 : 1;
                     j = i ^ 1;
                     result[i] = new LineSegment2d(inters[0], inters[0] + vec);
                     result[j] = new LineSegment2d(inters[1], inters[1] + vec);
@@ -132,35 +132,35 @@ namespace RabCab.Extensions
                 {
                     var center = arc.Radius < other.Radius ? other.Center : arc.Center;
                     tmp1 = new CircularArc2d(center, Math.Abs(arc.Radius - other.Radius));
-                    tmp2 = new CircularArc2d(arc.Center + vec/2.0, dist/2.0);
+                    tmp2 = new CircularArc2d(arc.Center + vec / 2.0, dist / 2.0);
                     inters = tmp1.IntersectWith(tmp2);
                     if (inters == null)
                         return null;
                     vec1 = (inters[0] - center).GetNormal();
                     vec2 = (inters[1] - center).GetNormal();
-                    i = vec.X*vec1.Y - vec.Y - vec1.X > 0 ? 0 : 1;
+                    i = vec.X * vec1.Y - vec.Y - vec1.X > 0 ? 0 : 1;
                     j = i ^ 1;
-                    result[i] = new LineSegment2d(arc.Center + vec1*arc.Radius, other.Center + vec1*other.Radius);
-                    result[j] = new LineSegment2d(arc.Center + vec2*arc.Radius, other.Center + vec2*other.Radius);
+                    result[i] = new LineSegment2d(arc.Center + vec1 * arc.Radius, other.Center + vec1 * other.Radius);
+                    result[j] = new LineSegment2d(arc.Center + vec2 * arc.Radius, other.Center + vec2 * other.Radius);
                 }
             }
 
             // inner tangents
             if ((flags & TangentType.Inner) > 0 && !overlap)
             {
-                var ratio = arc.Radius/(arc.Radius + other.Radius)/2.0;
-                tmp1 = new CircularArc2d(arc.Center + vec*ratio, dist*ratio);
+                var ratio = arc.Radius / (arc.Radius + other.Radius) / 2.0;
+                tmp1 = new CircularArc2d(arc.Center + vec * ratio, dist * ratio);
                 inters = arc.IntersectWith(tmp1);
                 if (inters == null)
                     return null;
                 vec1 = (inters[0] - arc.Center).GetNormal();
                 vec2 = (inters[1] - arc.Center).GetNormal();
-                i = vec.X*vec1.Y - vec.Y - vec1.X > 0 ? 2 : 3;
+                i = vec.X * vec1.Y - vec.Y - vec1.X > 0 ? 2 : 3;
                 j = i == 2 ? 3 : 2;
-                result[i] = new LineSegment2d(arc.Center + vec1*arc.Radius,
-                    other.Center + vec1.Negate()*other.Radius);
-                result[j] = new LineSegment2d(arc.Center + vec2*arc.Radius,
-                    other.Center + vec2.Negate()*other.Radius);
+                result[i] = new LineSegment2d(arc.Center + vec1 * arc.Radius,
+                    other.Center + vec1.Negate() * other.Radius);
+                result[j] = new LineSegment2d(arc.Center + vec2 * arc.Radius,
+                    other.Center + vec2.Negate() * other.Radius);
             }
 
             return result;

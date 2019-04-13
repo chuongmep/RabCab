@@ -9,14 +9,12 @@ namespace RabCab.Extensions
     internal class EdgeExt
     {
         public Axis Eaxis;
-        public bool IsLinear;
         public bool IsClosed;
+        public bool IsLinear;
         public double Length;
         public Vector3d Normal;
-        public Vector3d Tangent;
         public bool OnLoop;
-
-        public bool IsNull => Length == 0;
+        public Vector3d Tangent;
 
         public EdgeExt()
         {
@@ -24,7 +22,7 @@ namespace RabCab.Extensions
         }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="edge"></param>
         /// <param name="vtx"></param>
@@ -78,8 +76,10 @@ namespace RabCab.Extensions
             }
         }
 
+        public bool IsNull => Length == 0;
+
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="nat"></param>
         /// <param name="axis"></param>

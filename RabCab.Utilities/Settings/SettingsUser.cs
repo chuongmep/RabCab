@@ -15,8 +15,6 @@ namespace RabCab.Settings
 {
     public static class SettingsUser
     {
-        public static Enums.RoundTolerance UserTol { set; get; } = Enums.RoundTolerance.SixDecimals;
-
         //User Options
         public static double TolPoint = 0.004;
 
@@ -25,5 +23,6 @@ namespace RabCab.Settings
         public static bool KeepSelection = false;
         public static bool PrioritizeRightAngles = false;
         public static bool UseFields = false;
+        public static Enums.RoundTolerance UserTol { set; get; } = Enums.RoundTolerance.SixDecimals;
     }
 }

@@ -147,6 +147,36 @@ namespace RabCab.Extensions
 
         #endregion
 
+        #region Pick First Selection
+
+        /// <summary>
+        ///     TODO
+        /// </summary>
+        /// <param name="acCurEd"></param>
+        /// <param name="selSet"></param>
+        /// <returns></returns>
+        public static bool CheckForPickFirst(this Editor acCurEd, out SelectionSet selSet)
+        {
+            // Get the PickFirst selection set
+            var acSsPrompt = acCurEd.SelectImplied();
+
+            // If the prompt status is OK, objects were selected before
+            // the command was started
+            if (acSsPrompt.Status == PromptStatus.OK)
+            {
+                selSet = acSsPrompt.Value;
+                return true;
+            }
+
+            // Clear the PickFirst selection set
+            var idarrayEmpty = new ObjectId[0];
+            acCurEd.SetImpliedSelection(idarrayEmpty);
+            selSet = null;
+            return false;
+        }
+
+        #endregion
+
         #region Prompt Angle Options
 
         /// <summary>
@@ -1750,8 +1780,8 @@ namespace RabCab.Extensions
             using (var vtr = ed.GetCurrentView())
             {
                 retVal =
-                    Matrix3d.Rotation(-vtr.ViewTwist, vtr.ViewDirection, vtr.Target)*
-                    Matrix3d.Displacement(vtr.Target - Point3d.Origin)*
+                    Matrix3d.Rotation(-vtr.ViewTwist, vtr.ViewDirection, vtr.Target) *
+                    Matrix3d.Displacement(vtr.Target - Point3d.Origin) *
                     Matrix3d.PlaneToWorld(vtr.ViewDirection);
             }
 
@@ -1826,36 +1856,5 @@ namespace RabCab.Extensions
         }
 
         #endregion
-
-        #region Pick First Selection
-
-        /// <summary>
-        /// TODO
-        /// </summary>
-        /// <param name="acCurEd"></param>
-        /// <param name="selSet"></param>
-        /// <returns></returns>
-        public static bool CheckForPickFirst(this Editor acCurEd, out SelectionSet selSet)
-        {
-            // Get the PickFirst selection set
-            var acSsPrompt = acCurEd.SelectImplied();
-
-            // If the prompt status is OK, objects were selected before
-            // the command was started
-            if (acSsPrompt.Status == PromptStatus.OK)
-            {
-                selSet = acSsPrompt.Value;
-                return true;
-            }
-
-            // Clear the PickFirst selection set
-            var idarrayEmpty = new ObjectId[0];
-            acCurEd.SetImpliedSelection(idarrayEmpty);
-            selSet = null;
-            return false;
-        }
-
-        #endregion
-
     }
 }

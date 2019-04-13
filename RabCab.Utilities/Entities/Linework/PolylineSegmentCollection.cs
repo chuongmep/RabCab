@@ -167,7 +167,7 @@ namespace RabCab.Entities.Linework
             var cen3d = ellipse.Center;
             var pt3d0 = cen3d + ellipse.MajorAxis;
             var pt3d4 = cen3d + ellipse.MinorAxis;
-            var pt3d2 = ellipse.GetPointAtParameter(pi/4.0);
+            var pt3d2 = ellipse.GetPointAtParameter(pi / 4.0);
             var cen = cen3d.Convert2d(plane);
             var pt0 = pt3d0.Convert2d(plane);
             var pt2 = pt3d2.Convert2d(plane);
@@ -191,10 +191,10 @@ namespace RabCab.Entities.Linework
             var pt13 = pt3.TransformBy(Matrix2d.Mirroring(majAx));
             var pt14 = pt2.TransformBy(Matrix2d.Mirroring(majAx));
             var pt15 = pt1.TransformBy(Matrix2d.Mirroring(majAx));
-            var bulge1 = Math.Tan((pt4 - cen).GetAngleTo(pt1 - pt0)/2.0);
-            var bulge2 = Math.Tan((pt1 - pt2).GetAngleTo(pt0 - pt4)/2.0);
-            var bulge3 = Math.Tan((pt4 - pt0).GetAngleTo(pt3 - pt2)/2.0);
-            var bulge4 = Math.Tan((pt3 - pt4).GetAngleTo(pt0 - cen)/2.0);
+            var bulge1 = Math.Tan((pt4 - cen).GetAngleTo(pt1 - pt0) / 2.0);
+            var bulge2 = Math.Tan((pt1 - pt2).GetAngleTo(pt0 - pt4) / 2.0);
+            var bulge3 = Math.Tan((pt4 - pt0).GetAngleTo(pt3 - pt2) / 2.0);
+            var bulge4 = Math.Tan((pt3 - pt4).GetAngleTo(pt0 - cen) / 2.0);
             _contents.Add(new PolylineSegment(pt0, pt1, bulge1));
             _contents.Add(new PolylineSegment(pt1, pt2, bulge2));
             _contents.Add(new PolylineSegment(pt2, pt3, bulge3));
@@ -261,14 +261,14 @@ namespace RabCab.Entities.Linework
                 if (startParam != 0.0)
                 {
                     _contents[startIndex].StartPoint = startPoint;
-                    _contents[startIndex].Bulge = _contents[startIndex].Bulge*(1.0 - startParam);
+                    _contents[startIndex].Bulge = _contents[startIndex].Bulge * (1.0 - startParam);
                 }
 
                 // if the parameter at end point is not equal to 1.0, calculate the bulge
                 if (endParam != 1.0) //(endParam != 0.0)
                 {
                     _contents[endIndex].EndPoint = endPoint;
-                    _contents[endIndex].Bulge = _contents[endIndex].Bulge*endParam;
+                    _contents[endIndex].Bulge = _contents[endIndex].Bulge * endParam;
                 }
 
                 // if both points are on the same segment

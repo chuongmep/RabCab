@@ -15,7 +15,7 @@ using RabCab.Initialization;
 
 // This line is not mandatory, but improves loading performances
 
-[assembly: CommandClass(typeof (Debugging))]
+[assembly: CommandClass(typeof(Debugging))]
 
 namespace RabCab.Initialization
 {
@@ -37,12 +37,8 @@ namespace RabCab.Initialization
             Sandbox.WriteLine("Parsing Collection...");
 
             foreach (var attCol in cols)
-            {
-                foreach (var att in attCol)
-                {
-                    Sandbox.WriteLine("  " + att.LocalName + " - " + att.Value);
-                }
-            }
+            foreach (var att in attCol)
+                Sandbox.WriteLine("  " + att.LocalName + " - " + att.Value);
         }
     }
 }

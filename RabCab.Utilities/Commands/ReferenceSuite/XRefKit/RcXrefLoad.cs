@@ -45,7 +45,7 @@ namespace RabCab.Commands.ReferenceSuite.XRefKit
                 //| CommandFlags.NoActionRecording
                 //| CommandFlags.ActionMacro
                 //| CommandFlags.NoInferConstraint 
-                )]
+            )]
             public void Cmd_Default()
             {
             }

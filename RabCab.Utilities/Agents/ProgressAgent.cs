@@ -133,7 +133,7 @@ namespace RabCab.Agents
                 }
                 else
                 {
-                    _pmLimit = _pmLimit*2;
+                    _pmLimit = _pmLimit * 2;
                     _pm.SetLimit(_pmLimit);
                 }
             }

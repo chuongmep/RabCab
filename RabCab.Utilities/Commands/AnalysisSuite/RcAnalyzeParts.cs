@@ -45,7 +45,7 @@ namespace RabCab.Commands.AnalysisSuite
             //| CommandFlags.NoActionRecording
             //| CommandFlags.ActionMacro
             //| CommandFlags.NoInferConstraint 
-            )]
+        )]
         public void Cmd_Default()
         {
         }

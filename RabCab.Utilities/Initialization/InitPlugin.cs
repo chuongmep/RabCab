@@ -14,7 +14,7 @@ using RabCab.Initialization;
 
 // This line is not mandatory, but improves loading performances
 
-[assembly: ExtensionApplication(typeof (InitPlugin))]
+[assembly: ExtensionApplication(typeof(InitPlugin))]
 
 namespace RabCab.Initialization
 {

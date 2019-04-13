@@ -19,16 +19,16 @@ namespace RabCab.Engine.Enumerators
     {
         public static IEnumerable<T> GetValues<T>()
         {
-            return Enum.GetValues(typeof (T)).Cast<T>();
+            return Enum.GetValues(typeof(T)).Cast<T>();
         }
 
         /// Method to get enumeration value from string value.
         public static T GetEnumValue<T>(string str) where T : struct, IConvertible
         {
-            if (!typeof (T).IsEnum) throw new Exception("T must be an Enumeration type.");
-            var val = ((T[]) Enum.GetValues(typeof (T)))[0];
+            if (!typeof(T).IsEnum) throw new Exception("T must be an Enumeration type.");
+            var val = ((T[]) Enum.GetValues(typeof(T)))[0];
             if (!string.IsNullOrEmpty(str))
-                foreach (var enumValue in (T[]) Enum.GetValues(typeof (T)))
+                foreach (var enumValue in (T[]) Enum.GetValues(typeof(T)))
                     if (enumValue.ToString().ToUpper().Equals(str.ToUpper()))
                     {
                         val = enumValue;
@@ -41,10 +41,10 @@ namespace RabCab.Engine.Enumerators
         /// Method to get enumeration value from int value.
         public static T GetEnumValue<T>(int intValue) where T : struct, IConvertible
         {
-            if (!typeof (T).IsEnum) throw new Exception("T must be an Enumeration type.");
-            var val = ((T[]) Enum.GetValues(typeof (T)))[0];
+            if (!typeof(T).IsEnum) throw new Exception("T must be an Enumeration type.");
+            var val = ((T[]) Enum.GetValues(typeof(T)))[0];
 
-            foreach (var enumValue in (T[]) Enum.GetValues(typeof (T)))
+            foreach (var enumValue in (T[]) Enum.GetValues(typeof(T)))
                 if (Convert.ToInt32(enumValue).Equals(intValue))
                 {
                     val = enumValue;
@@ -61,10 +61,10 @@ namespace RabCab.Engine.Enumerators
         /// <returns></returns>
         public static string GetNameOf<T>(T en) where T : IComparable, IFormattable, IConvertible
         {
-            if (!typeof (T).IsEnum)
+            if (!typeof(T).IsEnum)
                 throw new ArgumentException("en must be enum type");
 
-            return Enum.GetName(typeof (T), en);
+            return Enum.GetName(typeof(T), en);
         }
     }
 }

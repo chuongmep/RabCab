@@ -12,7 +12,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Autodesk.AutoCAD.ApplicationServices;
+using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.BoundaryRepresentation;
 using Autodesk.AutoCAD.Colors;
 using Autodesk.AutoCAD.DatabaseServices;
@@ -21,7 +21,6 @@ using RabCab.Calculators;
 using RabCab.Extensions;
 using static RabCab.Engine.Enumerators.Enums;
 using static RabCab.Extensions.Solid3DExtensions;
-using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
 using Exception = System.Exception;
 
 namespace RabCab.Analysis
@@ -85,12 +84,13 @@ namespace RabCab.Analysis
         {
             get
             {
-                if (IsBox) return ProductionType.Box;
+                if (IsBox) return ProductionType.S4S;
                 if (IsSweep) return ProductionType.Sweep;
                 if (Has3DFaces) return ProductionType.MillingManySide;
-                if (HasHoles || HasNonFlatFaces || FaceCount > 6) return ProductionType.MillingOneSide;
+                if (!HasHoles && !HasNonFlatFaces && FaceCount <= 6) return ProductionType.S4S;
 
-                return ProductionType.S4S;
+                //TODO check for double side milling
+                return ProductionType.MillingOneSide;
             }
         }
 
@@ -244,10 +244,12 @@ namespace RabCab.Analysis
         ///     TODO
         /// </summary>
         /// <returns></returns>
-        public override int GetHashCode() =>
-            Length.GetHashCode() + Width.GetHashCode() + Thickness.GetHashCode() +
-            Volume.GetHashCode() + Asymmetry.GetHashCode() +
-            (Asymmetry == 0.0 ? 0 : AsymmetryVector.GetHashCode());
+        public override int GetHashCode()
+        {
+            return Length.GetHashCode() + Width.GetHashCode() + Thickness.GetHashCode() +
+                   Volume.GetHashCode() + Asymmetry.GetHashCode() +
+                   (Asymmetry == 0.0 ? 0 : AsymmetryVector.GetHashCode());
+        }
 
         /// <summary>
         ///     TODO
@@ -281,36 +283,31 @@ namespace RabCab.Analysis
             objIdStr = objIdStr.Replace("(", "");
             objIdStr = objIdStr.Replace(")", "");
 
-            if (count < 10)
-            {
-                countStr = "0" + countStr;
-            }
+            if (count < 10) countStr = "0" + countStr;
 
             string prntStr;
 
             if (RcName != "")
-            {
                 prntStr = countStr +
                           ": " + RcName +
                           " - L:" + lengthStr +
                           " W:" + widthStr +
                           " T:" + thickStr +
                           " V:" + volStr +
-                          " A:" + asymStr + " " +
-                          AsymVStr(AsymmetryVector);
-            }
+                          " A:" + asymStr + " [" +
+                          AsymVStr(AsymmetryVector)
+                          + "] P:" + ProdType;
             else
-            {
                 prntStr = countStr +
-                          ": " +
+                          ":" +
                           " #" + objIdStr +
                           " - L:" + lengthStr +
                           " W:" + widthStr +
                           " T:" + thickStr +
                           " V:" + volStr +
-                          " A:" + asymStr + " " +
-                          AsymVStr(AsymmetryVector);
-            }
+                          " A:" + asymStr + " [" +
+                          AsymVStr(AsymmetryVector)
+                          + "] P:" + ProdType;
 
             //Print to the current editor
             return prntStr;
@@ -320,21 +317,23 @@ namespace RabCab.Analysis
 
         #region Parsing Methods
 
+        /// <summary>
+        ///     TODO
+        /// </summary>
+        /// <param name="acSol"></param>
         private void ReadEntity(Solid3d acSol)
         {
             GetLayMatrix(acSol);
 
-            if (LayMatrix == new Matrix3d()) return;
+            if (LayMatrix == new Matrix3d()) LayMatrix = GetAbstractMatrix(acSol);
+            ;
 
             using (var solCopy = acSol.Clone() as Solid3d)
             {
                 if (solCopy != null)
                 {
-                    if (LayMatrix != Matrix3d.Identity)
-                    {
-                        solCopy.TransformBy(LayMatrix);
-                    }
-                   
+                    if (LayMatrix != Matrix3d.Identity) solCopy.TransformBy(LayMatrix);
+
 
                     //Get Volume & Extents
                     Extents = solCopy.GetBounds();
@@ -358,10 +357,9 @@ namespace RabCab.Analysis
             if (IsBox)
             {
                 Asymmetry = 0;
-
             }
             else
-            {          
+            {
                 var boxCen = GetBoxCenter(MinExt, MaxExt).RoundToTolerance();
 
                 AsymmetryVector = boxCen.GetVectorTo(Centroid.RoundToTolerance());
@@ -442,7 +440,7 @@ namespace RabCab.Analysis
         {
             if (vertList == null || vertList.Count == 0) return new Matrix3d();
 
-            var item = vertList.Max<VertExt>();
+            var item = vertList.Max();
             var mat1 = item.LayMatrix();
 
             while (true)
@@ -450,7 +448,7 @@ namespace RabCab.Analysis
                 var mat2 = new Matrix3d();
                 if (!(mat1 == mat2) || vertList.Count <= 1) return mat1;
                 vertList.Remove(item);
-                mat1 = vertList.Max<VertExt>().LayMatrix();
+                mat1 = vertList.Max().LayMatrix();
             }
         }
 
@@ -543,10 +541,7 @@ namespace RabCab.Analysis
 
             using (var acBrep = new Brep(acSol))
             {
-                if (acBrep.IsNull)
-                {
-                    return vList;
-                }
+                if (acBrep.IsNull) return vList;
 
                 if (!acBrep.IsNull)
                 {

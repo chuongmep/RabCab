@@ -45,7 +45,7 @@ namespace RabCab.Commands.ReferenceSuite.BlockKit
                 //| CommandFlags.NoActionRecording
                 //| CommandFlags.ActionMacro
                 //| CommandFlags.NoInferConstraint 
-                )]
+            )]
             public void Cmd_Default()
             {
             }

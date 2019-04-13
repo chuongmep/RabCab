@@ -16,7 +16,7 @@ namespace RabCab.Engine.Enumerators
     public static class Enums
     {
         /// <summary>
-        /// Color codes for use in Cad Colors
+        ///     Color codes for use in Cad Colors
         /// </summary>
         public enum CadColor
         {
@@ -84,6 +84,28 @@ namespace RabCab.Engine.Enumerators
             Xline
         }
 
+        public enum LoopKit
+        {
+            Error,
+            Interior,
+            Exterior,
+            RightAngle,
+            Undetermined
+        }
+
+        /// <summary>
+        ///     Enum for determining production type
+        /// </summary>
+        public enum ProductionType
+        {
+            Unknown = -1,
+            Box = 0,
+            Sweep = 1,
+            S4S = 2,
+            MillingOneSide = 3,
+            MillingManySide = 4
+        }
+
         /// <summary>
         ///     Enum for setting round tolerance
         /// </summary>
@@ -116,16 +138,7 @@ namespace RabCab.Engine.Enumerators
         }
 
         /// <summary>
-        ///     Tile Mode Enum
-        /// </summary>
-        public enum TileModeEnum
-        {
-            Paperspace = 0,
-            Modelspace = 1
-        }
-
-        /// <summary>
-        /// Enum for determining texture direction in solids
+        ///     Enum for determining texture direction in solids
         /// </summary>
         public enum TextureDirection
         {
@@ -136,26 +149,12 @@ namespace RabCab.Engine.Enumerators
         }
 
         /// <summary>
-        /// Enum for determining production type
+        ///     Tile Mode Enum
         /// </summary>
-        public enum ProductionType
+        public enum TileModeEnum
         {
-            Unknown = -1,
-            Box = 0,
-            Sweep = 1,
-            S4S = 2,
-            MillingOneSide = 3,
-            MillingManySide = 4          
+            Paperspace = 0,
+            Modelspace = 1
         }
-
-        public enum LoopKit
-        {
-            Error,
-            Interior,
-            Exterior,
-            RightAngle,
-            Undetermined
-        }
-
     }
 }

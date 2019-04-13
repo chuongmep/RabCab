@@ -9,8 +9,7 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
-using System;
-using Autodesk.AutoCAD.ApplicationServices;
+using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Runtime;
@@ -19,8 +18,6 @@ using RabCab.Analysis;
 using RabCab.Engine.Enumerators;
 using RabCab.Extensions;
 using RabCab.Settings;
-using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
-using Exception = Autodesk.AutoCAD.Runtime.Exception;
 
 namespace RabCab.Commands.AnalysisSuite
 {
@@ -53,7 +50,7 @@ namespace RabCab.Commands.AnalysisSuite
             | CommandFlags.NoActionRecording
             //| CommandFlags.ActionMacro
             //| CommandFlags.NoInferConstraint 
-            )]
+        )]
         public void Cmd_Traverse()
         {
             //Get the current document utilities
@@ -66,11 +63,9 @@ namespace RabCab.Commands.AnalysisSuite
 
             //Check for pick-first selection -> if none, get selection
             if (!acCurEd.CheckForPickFirst(out acSet))
-            {
                 acSet = SelectionSet.FromObjectIds(acCurEd.GetFilteredSelection(Enums.DxfNameEnum._3Dsolid, false));
-            }
 
-            using (Transaction acTrans = acCurDb.TransactionManager.StartTransaction())
+            using (var acTrans = acCurDb.TransactionManager.StartTransaction())
             {
                 using (var pWorker = new ProgressAgent("Parsing Solids: ", acSet.Count))
                 {
@@ -89,30 +84,14 @@ namespace RabCab.Commands.AnalysisSuite
 
                         if (acSol == null) continue;
 
-                        EntInfo entInfo = new EntInfo(acSol);
+                        var entInfo = new EntInfo(acSol);
                         acCurEd.WriteMessage("\n" + entInfo.PrintInfo(parseCount));
                         parseCount++;
-
-                        try
-                        {
-                            acSol.Upgrade();
-                            acSol.TransformBy(entInfo.LayMatrix);
-                            acSol.MinToOrigin();
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e);
-                            throw;
-                        }
-
                     }
-
                 }
 
                 acTrans.Commit();
             }
-
-
         }
     }
 }

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Geometry;
 using RabCab.Calculators;
@@ -10,13 +6,13 @@ using RabCab.Extensions;
 
 namespace RabCab.Entities.Linework
 {
-    class Axis
+    internal class Axis
     {
-        public Point3d Start;
         public Point3d End;
+        public Point3d Start;
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="start"></param>
         /// <param name="end"></param>
@@ -27,27 +23,74 @@ namespace RabCab.Entities.Linework
         }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         public bool IsNull => Start.IsNull() || End.IsNull();
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         public bool IsZero => Start.DistanceTo(End).IsLessThanTol();
 
+        //TODO
+        public double AngleX
+        {
+            get
+            {
+                var vectorTo = Start.GetVectorTo(End);
+                return (vectorTo.Y >= 0.0 ? 1 : -1) * vectorTo.GetAngleTo(new Vector3d(1.0, 0.0, 0.0));
+            }
+        }
+
         /// <summary>
-        /// TODO
+        ///     TODO
+        /// </summary>
+        public Matrix3d RotationToX =>
+            Matrix3d.Rotation(-AngleX, new Vector3d(Start.X, Start.Y, 1.0), Start);
+
+        /// <summary>
+        ///     TODO
+        /// </summary>
+        public double Length =>
+            !IsNull ? Start.DistanceTo(End) : 0.0;
+
+        /// <summary>
+        ///     TODO
+        /// </summary>
+        public Point3d MidPoint
+        {
+            get
+            {
+                if (!IsNull)
+                    return (Start + End.GetAsVector()) / 2.0;
+                return new Point3d(double.NaN, double.NaN, double.NaN);
+            }
+        }
+
+        /// <summary>
+        ///     TODO
+        /// </summary>
+        public Plane MidPlane
+        {
+            get
+            {
+                var midPoint = MidPoint;
+                return new Plane(midPoint, midPoint.GetVectorTo(End));
+            }
+        }
+
+        /// <summary>
+        ///     TODO
         /// </summary>
         public void Reverse()
         {
-            Point3d tempPt = Start;
+            var tempPt = Start;
             Start = End;
             End = tempPt;
         }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="transMat"></param>
         public void TransformBy(Matrix3d transMat)
@@ -64,85 +107,42 @@ namespace RabCab.Entities.Linework
         }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <returns></returns>
-        public Vector3d ToVector() =>
-            this.Start.GetVectorTo(this.End);
-
-        /// <summary>
-        /// TODO
-        /// </summary>
-        /// <returns></returns>
-        public Line ToLine() =>
-            new Line(this.Start, this.End);
-
-        //TODO
-        public double AngleX
+        public Vector3d ToVector()
         {
-            get
-            {
-                Vector3d vectorTo = this.Start.GetVectorTo(this.End);
-                return (((vectorTo.Y >= 0.0) ? ((double)1) : ((double)(-1))) * vectorTo.GetAngleTo(new Vector3d(1.0, 0.0, 0.0)));
-            }
+            return Start.GetVectorTo(End);
         }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
-        public Matrix3d RotationToX =>
-            Matrix3d.Rotation(-this.AngleX, new Vector3d(this.Start.X, this.Start.Y, 1.0), this.Start);
+        /// <returns></returns>
+        public Line ToLine()
+        {
+            return new Line(Start, End);
+        }
 
         /// <summary>
-        /// TODO
-        /// </summary>
-        public double Length =>
-            (!this.IsNull ? this.Start.DistanceTo(this.End) : 0.0);
-
-        /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="axis"></param>
         /// <returns></returns>
-        public bool IsParallelTo(Axis axis) =>
-            this.Start.GetVectorTo(this.End).IsParallelTo(axis.Start.GetVectorTo(axis.End), CalcTol.CadTolerance);
+        public bool IsParallelTo(Axis axis)
+        {
+            return Start.GetVectorTo(End).IsParallelTo(axis.Start.GetVectorTo(axis.End), CalcTol.CadTolerance);
+        }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="axis"></param>
         /// <param name="tol"></param>
         /// <returns></returns>
-        public bool IsParallelTo(Axis axis, Tolerance tol) =>
-            this.Start.GetVectorTo(this.End).IsParallelTo(axis.Start.GetVectorTo(axis.End), tol);
-
-        /// <summary>
-        /// TODO
-        /// </summary>
-        public Point3d MidPoint
+        public bool IsParallelTo(Axis axis, Tolerance tol)
         {
-            get
-            {
-                if (!this.IsNull)
-                    return (this.Start + this.End.GetAsVector()) / 2.0;
-                else
-                    return new Point3d(double.NaN, double.NaN, double.NaN);
-            }
+            return Start.GetVectorTo(End).IsParallelTo(axis.Start.GetVectorTo(axis.End), tol);
         }
-
-        /// <summary>
-        /// TODO
-        /// </summary>
-        public Plane MidPlane
-        {
-            get
-            {
-                Point3d midPoint = this.MidPoint;
-                return new Plane(midPoint, midPoint.GetVectorTo(this.End));
-            }
-        }
-
-        
-
     }
 }

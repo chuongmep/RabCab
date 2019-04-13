@@ -1,9 +1,6 @@
-﻿using System;
-using System.Linq;
-
-namespace RabCab.Analysis
+﻿namespace RabCab.Analysis
 {
-    class EntSorter
+    internal class EntSorter
     {
     }
 }
