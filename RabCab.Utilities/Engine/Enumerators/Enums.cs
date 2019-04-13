@@ -132,8 +132,7 @@ namespace RabCab.Engine.Enumerators
             Unknown = -1,
             None = 0,
             Horizontal = 1,
-            Vertical = 2,
-            Diagonal = 3
+            Vertical = 2
         }
 
         /// <summary>
@@ -147,6 +146,15 @@ namespace RabCab.Engine.Enumerators
             S4S = 2,
             MillingOneSide = 3,
             MillingManySide = 4          
+        }
+
+        public enum LoopKit
+        {
+            Error,
+            Interior,
+            Exterior,
+            RightAngle,
+            Undetermined
         }
 
     }

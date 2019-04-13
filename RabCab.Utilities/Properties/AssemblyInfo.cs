@@ -76,3 +76,5 @@ using System.Runtime.InteropServices;
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 
 [assembly: Guid("12540a60-474b-4908-8781-f758acf78931")]
+[assembly: Autodesk.AutoCAD.Runtime.CommandClass(typeof(RabCab.Commands.AnalysisSuite.RcTraverse))]
+

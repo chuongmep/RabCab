@@ -161,7 +161,7 @@ namespace RabCab.Entities.Linework
         /// <param name="ellipse">An Ellipse instance.</param>
         public PolylineSegmentCollection(Ellipse ellipse)
         {
-            // PolylineSegmentCollection figuring the closed ellipse
+            // PolylineSegmentCollection figuring the isClosed ellipse
             var pi = Math.PI;
             var plane = new Plane(Point3d.Origin, ellipse.Normal);
             var cen3d = ellipse.Center;

@@ -71,7 +71,6 @@ namespace RabCab.Calculators
             return tolerance;
         }
 
-
         #region Extensions For Determining Tolerance
        
         private static byte DecimalPlace => (byte) SettingsUser.UserTol;
@@ -79,14 +78,17 @@ namespace RabCab.Calculators
         public static double TolSquare => Math.Pow(CurrentTolerance, 2.0);
         public static double TolCube => Math.Pow(CurrentTolerance, 3.0);
 
-        public static Tolerance CadTolerance => new Tolerance(SettingsInternal.TolVector, SettingsInternal.TolPoint);
+        public static Tolerance CadTolerance => new Tolerance(SettingsInternal.TolVector, SettingsUser.TolPoint);
         public static Tolerance UnitVector => new Tolerance(SettingsInternal.TolVector, CurrentTolerance);
         private static double GetTolPoint { get; } = (AcVars.IsAppInch ? 0.004 : 0.1);
 
-
-
         #region Double Extensions
 
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
         public static double RoundToTolerance(this double x)
         {
             try
@@ -99,6 +101,11 @@ namespace RabCab.Calculators
             }
         }
 
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="size"></param>
+        /// <returns></returns>
         public static bool IsLessThanTol(this double size)
         {           
             try
@@ -111,6 +118,28 @@ namespace RabCab.Calculators
             }
         }
 
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="size"></param>
+        /// <returns></returns>
+        public static bool IsGreaterThanTol(this double size)
+        {
+            try
+            {
+                return (Math.Abs(size) > CurrentTolerance);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
         public static double RoundArea(this double x)
         {
             try
@@ -123,6 +152,11 @@ namespace RabCab.Calculators
             }
         }
 
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
         public static double RoundVolume(this double x)
         {
             try
@@ -135,6 +169,12 @@ namespace RabCab.Calculators
             }
         }
 
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <returns></returns>
         public static bool IsEqualTo(this double from, double to)
         {
             try
@@ -146,15 +186,90 @@ namespace RabCab.Calculators
                 return from == to;
             }
         }
-      
+
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
+        public static bool IsEqualSize(this double x, double y)
+        {
+            try
+            {
+                if (!(x - y).IsLessThanTol())
+                    return x.IsEqualTo(y);
+                else
+                {
+                    return true;
+                }
+            }
+            catch (Exception)
+            {
+                return x == y;
+            }
+        }
+
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
+        public static bool IsEqualVolume(this double x, double y)
+        {
+            try
+            {
+                return !(Math.Abs(x - y) >= TolSquare) || x.IsEqualTo(y);
+            }
+            catch (Exception)
+            {
+                return x == y;
+            }
+        }
+
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
+        public static bool IsEqualArea(this double x, double y)
+        {
+            try
+            {
+                return !(Math.Abs(x - y) >= TolCube) || x.IsEqualTo(y);
+            }
+            catch (Exception)
+            {
+                return x == y;
+            }
+        }
+
         #endregion
 
         #region Point2D Extensions
 
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="pt"></param>
+        /// <returns></returns>
         public static Point2d RoundToTolerance(this Point2d pt) => new Point2d(pt.X.RoundToTolerance(), pt.Y.RoundToTolerance());
 
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="pt"></param>
+        /// <returns></returns>
         public static bool IsLessThanTol(this Point2d pt) => pt.X.IsLessThanTol() && pt.Y.IsLessThanTol();
 
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <returns></returns>
         public static bool IsEqualTo(this Point2d from, Point2d to)
         {
             try
@@ -171,10 +286,26 @@ namespace RabCab.Calculators
 
         #region Point3D Extensions
 
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="pt"></param>
+        /// <returns></returns>
         public static Point3d RoundToTolerance(this Point3d pt) => new Point3d(pt.X.RoundToTolerance(), pt.Y.RoundToTolerance(), pt.Z.RoundToTolerance());
 
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="pt"></param>
+        /// <returns></returns>
         public static bool IsLessThanTol(this Point3d pt) => pt.X.IsLessThanTol() && pt.Y.IsLessThanTol() && pt.Z.IsLessThanTol();
 
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <returns></returns>
         public static bool IsEqualTo(this Point3d from, Point3d to)
         {
             try
@@ -191,16 +322,36 @@ namespace RabCab.Calculators
 
         #region Vector2D Extensions
 
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="vec"></param>
+        /// <returns></returns>
         public static Vector2d RoundToTolerance(this Vector2d vec) => new Vector2d(vec.X.RoundToTolerance(), vec.Y.RoundToTolerance());
 
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="vec"></param>
+        /// <returns></returns>
         public static bool IsLessThanTol(this Vector2d vec) => vec.X.IsLessThanTol() && vec.Y.IsLessThanTol();
      
         #endregion
 
         #region Vector3D Extensions
 
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="vec"></param>
+        /// <returns></returns>
         public static Vector3d RoundToTolerance(this Vector3d vec) => new Vector3d(vec.X.RoundToTolerance(), vec.Y.RoundToTolerance(), vec.Z.RoundToTolerance());
 
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="vec"></param>
+        /// <returns></returns>
         public static bool IsLessThanTol(this Vector3d vec) => vec.X.IsLessThanTol() && vec.Y.IsLessThanTol() && vec.Z.IsLessThanTol();
 
         #endregion

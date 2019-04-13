@@ -145,7 +145,7 @@
     <Compile Include="Agents\ProxyAgent.cs" />
     <Compile Include="Agents\TransientAgent.cs" />
     <Compile Include="Agents\XDataAgent.cs" />
-    <Compile Include="Analysis\EntMetric.cs" />
+    <Compile Include="Analysis\EntInfo.cs" />
     <Compile Include="Analysis\EntSorter.cs" />
     <Compile Include="Analysis\PaperReader.cs" />
     <Compile Include="Calculators\CalcNest.cs" />
@@ -238,7 +238,12 @@
     <Compile Include="Commands\OutputSuite\RenderKit\RcUvMap.cs" />
     <Compile Include="Commands\PaletteKit\RcDwgBrowser.cs" />
     <Compile Include="Commands\PaletteKit\RcLayerRepository.cs" />
+    <Compile Include="Entities\Linework\Axis.cs" />
+    <Compile Include="Extensions\BrepExtensions.cs" />
+    <Compile Include="Extensions\Curve3dExtensions.cs" />
+    <Compile Include="Extensions\EdgeExt.cs" />
     <Compile Include="Extensions\Vector2dExtensions.cs" />
+    <Compile Include="Extensions\VertExt.cs" />
     <Compile Include="Gui\PaletteLayerRepo.cs">
       <SubType>UserControl</SubType>
     </Compile>

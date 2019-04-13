@@ -37,19 +37,6 @@ namespace RabCab.Extensions
         }
 
         /// <summary>
-        ///     Method to get the midpoint between the current point and an input point
-        /// </summary>
-        /// <param name="pt1"></param>
-        /// <param name="pt2"></param>
-        /// <returns></returns>
-        public static Point2d GetMidPoint(this Point2d pt1, Point2d pt2)
-        {
-            var vector = pt1.GetVectorTo(pt2);
-            var halfwayPoint = pt1 + vector*0.5;
-            return halfwayPoint;
-        }
-
-        /// <summary>
         ///     Converts a 3d point into a 2d point (projection on XY plane).
         /// </summary>
         /// <param name="pt">The instance to which the method applies.</param>

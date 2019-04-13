@@ -45,5 +45,12 @@ namespace RabCab.Extensions
         {
             return pline.GetProjectedPolyline(plane, plane.Normal);
         }
+
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="pt"></param>
+        /// <returns></returns>
+        public static bool IsNull(this Point3d pt) => pt == new Point3d();
     }
 }

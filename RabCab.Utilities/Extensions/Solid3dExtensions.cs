@@ -13,7 +13,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Autodesk.AutoCAD.DatabaseServices;
+using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.Runtime;
+using RabCab.Calculators;
 using RabCab.Settings;
 using AcBr = Autodesk.AutoCAD.BoundaryRepresentation;
 
@@ -367,6 +369,162 @@ namespace RabCab.Extensions
             return dbCollect;
         }
 
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="acSol"></param>
+        /// <returns></returns>
+        public static Point3d GetBoxCenter(this Solid3d acSol)
+        {
+            var massProps = acSol.MassProperties;
+            var minExt = massProps.Extents.MinPoint;
+            var maxExt = massProps.Extents.MaxPoint;
+            return GetBoxCenter(minExt, maxExt);
+        }
+
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="minExt"></param>
+        /// <param name="maxExt"></param>
+        /// <returns></returns>
+        public static Point3d GetBoxCenter(Point3d minExt, Point3d maxExt) => minExt.GetMidPoint(maxExt).RoundToTolerance();
+
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="acSol"></param>
+        /// <returns></returns>
+        public static Point3d GetBoxSize(Solid3d acSol)
+        {
+            var massProps = acSol.MassProperties;
+            var minExt = massProps.Extents.MinPoint;
+            var maxExt = massProps.Extents.MaxPoint;
+            return GetBoxSize(minExt, maxExt);
+        }
+
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="minExt"></param>
+        /// <param name="maxExt"></param>
+        /// <returns></returns>
+        public static Point3d GetBoxSize(Point3d minExt, Point3d maxExt) => new Point3d(maxExt.X - minExt.X, maxExt.Y - minExt.Y, maxExt.Z - minExt.Z);
+
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="acSol"></param>
+        /// <returns></returns>
+        public static double GetBoxVolume(this Solid3d acSol) => acSol.MassProperties.Volume.RoundToTolerance();
+
+        //TODO
+        public static Extents3d GetBounds(this Solid3d acSol)
+        {
+            try
+            {
+                using (var acBrep = new AcBr.Brep(acSol))
+                {
+                    using (BoundBlock3d bBlock = acBrep.BoundBlock)
+                    {
+                        return new Extents3d(bBlock.GetMinimumPoint(), bBlock.GetMaximumPoint());
+                    }
+                }
+            }
+            catch (Autodesk.AutoCAD.BoundaryRepresentation.Exception)
+            {
+                return new Extents3d(Point3d.Origin, Point3d.Origin);
+            }
+        }
+
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="solid"></param>
+        /// <returns></returns>
+        public static bool IsBox(this Solid3d solid) =>
+            solid.MassProperties.IsBox();
+
+        /// <summary>
+        ///TODO
+        /// </summary>
+        /// <param name="mProps"></param>
+        /// <returns></returns>
+        public static bool IsBox(this Solid3dMassProperties mProps) =>
+            mProps.Volume.IsEqualVolume(mProps.Extents.Volume());
+
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="acSol"></param>
+        /// <returns></returns>
+        public static double Volume(this Solid3d acSol) => acSol.MassProperties.Volume.RoundToTolerance();
+
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="extents"></param>
+        /// <returns></returns>
+        public static double Volume(this Extents3d extents)
+        {
+            var minPoint = extents.MinPoint;
+            var maxPoint = extents.MaxPoint;
+            return (((maxPoint.X - minPoint.X) * (maxPoint.Y - minPoint.Y)) * (maxPoint.Z - minPoint.Z))
+                .RoundToTolerance();
+
+        }
+
+        public static void MinToOrigin(this Solid3d acSol)
+        {
+            acSol.Upgrade();
+            acSol.TransformBy(Matrix3d.Displacement(acSol.GetBounds().MinPoint.GetVectorTo(Point3d.Origin)));
+            acSol.Downgrade();
+        }
+
+        public static void MaxToOrigin(this Solid3d acSol)
+        {
+            acSol.Upgrade();
+            acSol.TransformBy(Matrix3d.Displacement(acSol.GetBounds().MaxPoint.GetVectorTo(Point3d.Origin)));
+            acSol.Downgrade();
+        }
+
+        public static void MinCenterToOrigin(this Solid3d acSol)
+        {
+            acSol.Upgrade();
+            var center = acSol.MassProperties.Centroid.Flatten();
+            acSol.TransformBy(Matrix3d.Displacement(center.GetVectorTo(Point3d.Origin)));
+            acSol.Downgrade();
+        }
+
+        public static void MaxCenterToOrigin(this Solid3d acSol)
+        {
+            acSol.Upgrade();
+            var center = acSol.MassProperties.Centroid;
+            var maxZ = acSol.GetBounds().MaxPoint.Z;
+            center = new Point3d(center.X, center.Y, maxZ);
+            acSol.TransformBy(Matrix3d.Displacement(center.GetVectorTo(Point3d.Origin)));
+            acSol.Downgrade();
+        }
+
+        public static void CenterToOrigin(this Solid3d acSol)
+        {
+            acSol.Upgrade();
+            acSol.TransformBy(Matrix3d.Displacement(acSol.GetBoxCenter().GetVectorTo(Point3d.Origin)));
+            acSol.Downgrade();
+        }
+
+        public static void Upgrade(this Entity ent)
+        {
+            if (!ent.IsWriteEnabled)
+                ent.UpgradeOpen();
+        }
+
+        public static void Downgrade(this Entity ent)
+        {
+            if (ent.IsWriteEnabled)
+                ent.DowngradeOpen();;
+        }
+
         #endregion
 
         #region Methods for Union, Subtract, Converge, & Gap
@@ -656,5 +814,6 @@ namespace RabCab.Extensions
         }
 
         #endregion
+
     }
 }

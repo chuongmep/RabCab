@@ -21,7 +21,7 @@ namespace RabCab.Extensions
     public static class SplineExtensions
     {
         /// <summary>
-        ///     Gets the centroid of the closed planar spline.
+        ///     Gets the centroid of the isClosed planar spline.
         /// </summary>
         /// <param name="spl">The instance to which the method applies.</param>
         /// <returns>The centroid of the spline (WCS coordinates).</returns>
@@ -29,7 +29,7 @@ namespace RabCab.Extensions
         ///     eNonPlanarEntity is thrown if the Spline is not planar.
         /// </exception>
         /// <exception cref="Autodesk.AutoCAD.Runtime.Exception">
-        ///     eNotApplicable is thrown if the Spline is not closed.
+        ///     eNotApplicable is thrown if the Spline is not isClosed.
         /// </exception>
         public static Point3d Centroid(this Spline spl)
         {
