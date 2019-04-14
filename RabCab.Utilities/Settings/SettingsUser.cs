@@ -9,7 +9,7 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
-using RabCab.Engine.Enumerators;
+using static RabCab.Engine.Enumerators.Enums;
 
 namespace RabCab.Settings
 {
@@ -23,6 +23,15 @@ namespace RabCab.Settings
         public static bool KeepSelection = false;
         public static bool PrioritizeRightAngles = false;
         public static bool UseFields = false;
-        public static Enums.RoundTolerance UserTol { set; get; } = Enums.RoundTolerance.SixDecimals;
+        public static RoundTolerance UserTol { set; get; } = RoundTolerance.SixDecimals;
+
+       //SortingOptions
+       public static bool SortByLayer = true;
+       public static bool SortByColor = false;
+       public static bool SortByThickness = true;
+       public static bool SortByName = true;
+       public static bool GroupSame = true;
+       public static bool SplitByLayer = true;
+       public static bool MixS4S = false;
     }
 }

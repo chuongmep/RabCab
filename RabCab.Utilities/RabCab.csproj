@@ -143,10 +143,10 @@
     <Compile Include="Agents\PageAgent.cs" />
     <Compile Include="Agents\ProgressAgent.cs" />
     <Compile Include="Agents\ProxyAgent.cs" />
+    <Compile Include="Agents\SortingAgent.cs" />
     <Compile Include="Agents\TransientAgent.cs" />
     <Compile Include="Agents\XDataAgent.cs" />
     <Compile Include="Analysis\EntInfo.cs" />
-    <Compile Include="Analysis\EntSorter.cs" />
     <Compile Include="Analysis\PaperReader.cs" />
     <Compile Include="Calculators\CalcNest.cs" />
     <Compile Include="Calculators\CalcTol.cs" />

@@ -9,6 +9,7 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
+using System;
 using System.Diagnostics.CodeAnalysis;
 
 namespace RabCab.Engine.Enumerators
@@ -184,6 +185,18 @@ namespace RabCab.Engine.Enumerators
             ProductionType = 18,
             ParentObject = 19,
             ChildObjects = 20
+        }
+
+        [Flags]
+        public enum SortBy
+        {
+            Layer = 0,
+            Color = 1,
+            Thickness = 2,
+            Name = 3,
+            GroupSame = 4,
+            SplitByLayer = 5,
+            MixS4S = 6
         }
     }
 }

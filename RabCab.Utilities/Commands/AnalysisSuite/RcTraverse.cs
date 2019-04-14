@@ -9,6 +9,8 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
+using System.Collections.Generic;
+using System.Windows.Documents;
 using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
@@ -84,7 +86,7 @@ namespace RabCab.Commands.AnalysisSuite
 
                         if (acSol == null) continue;
 
-                        var entInfo = new EntInfo(acSol, acCurDb, acTrans);
+                        var entInfo = new EntInfo(acSol, acCurDb, acTrans);                    
                         acCurEd.WriteMessage("\n" + entInfo.PrintInfo(parseCount));
                         parseCount++;
 
