@@ -12,7 +12,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using Autodesk.AutoCAD.DatabaseServices;
 using RabCab.Analysis;
 using RabCab.Extensions;
@@ -24,7 +23,7 @@ namespace RabCab.Agents
     public static class XDataAgent
     {
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="acEnt"></param>
         /// <param name="eInfo"></param>
@@ -52,35 +51,35 @@ namespace RabCab.Agents
             // Define the Xdata to add to each selected object
             using (var rBuffer = new ResultBuffer())
             {
-                rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataRegAppName, SettingsInternal.CommandGroup));
-                rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataAsciiString, eInfo.RcName));
-                rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataAsciiString, eInfo.RcInfo));
-                rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataReal, eInfo.Length));
-                rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataReal, eInfo.Width));
-                rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataReal, eInfo.Thickness));
-                rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataReal, eInfo.Volume));
-                rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataReal, eInfo.MaxArea));
-                rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataReal, eInfo.MaxPerimeter));
-                rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataReal, eInfo.Asymmetry));
-                rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataAsciiString, eInfo.AsymString));
-                rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataInteger32, eInfo.RcQtyOf));
-                rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataInteger32, eInfo.RcQtyTotal));
-                rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataInteger32, eInfo.NumberOfChanges));
-                rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataInteger32, Convert.ToInt32(eInfo.IsSweep)));
-                rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataInteger32, Convert.ToInt32(eInfo.IsMirror)));
-                rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataInteger32, Convert.ToInt32(eInfo.HasHoles)));
-                rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataInteger32, eInfo.TxDirection));
-                rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataInteger32, eInfo.ProdType));
-                rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataHandle, eInfo.BaseHandle));
-                rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataAsciiString, String.Join(",", eInfo.ChildHandles)));
+                rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataRegAppName, SettingsInternal.CommandGroup));
+                rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataAsciiString, eInfo.RcName));
+                rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataAsciiString, eInfo.RcInfo));
+                rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataReal, eInfo.Length));
+                rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataReal, eInfo.Width));
+                rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataReal, eInfo.Thickness));
+                rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataReal, eInfo.Volume));
+                rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataReal, eInfo.MaxArea));
+                rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataReal, eInfo.MaxPerimeter));
+                rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataReal, eInfo.Asymmetry));
+                rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataAsciiString, eInfo.AsymString));
+                rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataInteger32, eInfo.RcQtyOf));
+                rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataInteger32, eInfo.RcQtyTotal));
+                rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataInteger32, eInfo.NumberOfChanges));
+                rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataInteger32, Convert.ToInt32(eInfo.IsSweep)));
+                rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataInteger32, Convert.ToInt32(eInfo.IsMirror)));
+                rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataInteger32, Convert.ToInt32(eInfo.HasHoles)));
+                rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataInteger32, eInfo.TxDirection));
+                rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataInteger32, eInfo.ProdType));
+                rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataHandle, eInfo.BaseHandle));
+                rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataAsciiString,
+                    string.Join(",", eInfo.ChildHandles)));
                 // Append the extended data to the object
                 acEnt.XData = rBuffer;
             }
-
         }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="acEnt"></param>
@@ -88,7 +87,8 @@ namespace RabCab.Agents
         /// <param name="xCode"></param>
         /// <param name="acCurDb"></param>
         /// <param name="acTrans"></param>
-        public static void UpdateXData<T>(this Entity acEnt, T value, XDataCode xCode, Database acCurDb, Transaction acTrans)
+        public static void UpdateXData<T>(this Entity acEnt, T value, XDataCode xCode, Database acCurDb,
+            Transaction acTrans)
         {
             //If solid is not open for write, open it for write
             acEnt.Upgrade();
@@ -99,38 +99,39 @@ namespace RabCab.Agents
             // Check to see if the Registered Applications table record for the custom app exists
             if (acRegAppTbl != null && acRegAppTbl.Has(SettingsInternal.CommandGroup) == false)
             {
-                    using (var acRegAppTblRec = new RegAppTableRecord())
-                    {
-                        acRegAppTblRec.Name = SettingsInternal.CommandGroup;
+                using (var acRegAppTblRec = new RegAppTableRecord())
+                {
+                    acRegAppTblRec.Name = SettingsInternal.CommandGroup;
 
-                        acRegAppTbl.UpgradeOpen();
-                        acRegAppTbl.Add(acRegAppTblRec);
-                        acTrans.AddNewlyCreatedDBObject(acRegAppTblRec, true);
-                    }
-                    // Define the Xdata to add to each selected object
-                    using (var rBuffer = new ResultBuffer())
-                    {
-                    rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataRegAppName, SettingsInternal.CommandGroup));
-                    rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataAsciiString, ""));
-                    rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataAsciiString, ""));
-                    rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataReal, 0));
-                    rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataReal, 0));
-                    rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataReal, 0));
-                    rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataReal, 0));
-                    rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataReal, 0));
-                    rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataReal, 0));
-                    rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataReal, 0));
-                    rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataAsciiString, ""));
-                    rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataInteger32, 0));
-                    rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataInteger32, 0));
-                    rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataInteger32, 0));
-                    rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataInteger32, 0));
-                    rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataInteger32, 0));
-                    rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataInteger32, 0));
-                    rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataInteger32, -1));
-                    rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataInteger32, -1));
-                    rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataHandle, 0));
-                    rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataAsciiString, ""));
+                    acRegAppTbl.UpgradeOpen();
+                    acRegAppTbl.Add(acRegAppTblRec);
+                    acTrans.AddNewlyCreatedDBObject(acRegAppTblRec, true);
+                }
+
+                // Define the Xdata to add to each selected object
+                using (var rBuffer = new ResultBuffer())
+                {
+                    rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataRegAppName, SettingsInternal.CommandGroup));
+                    rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataAsciiString, ""));
+                    rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataAsciiString, ""));
+                    rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataReal, 0));
+                    rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataReal, 0));
+                    rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataReal, 0));
+                    rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataReal, 0));
+                    rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataReal, 0));
+                    rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataReal, 0));
+                    rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataReal, 0));
+                    rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataAsciiString, ""));
+                    rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataInteger32, 0));
+                    rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataInteger32, 0));
+                    rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataInteger32, 0));
+                    rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataInteger32, 0));
+                    rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataInteger32, 0));
+                    rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataInteger32, 0));
+                    rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataInteger32, -1));
+                    rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataInteger32, -1));
+                    rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataHandle, 0));
+                    rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataAsciiString, ""));
                     // Append the extended data to the object
                     acEnt.XData = rBuffer;
                 }
@@ -150,18 +151,15 @@ namespace RabCab.Agents
                         var childList = value as List<Handle>;
                         var childString = "";
 
-                        if (childList != null && childList.Count > 0)
-                        {
-                                childString = String.Join(",", childList);                         
-                        }
-                                              
-                        rcData[xDataIndex] = new TypedValue((int)(DxfCode)rcData[xDataIndex].TypeCode, childString);
+                        if (childList != null && childList.Count > 0) childString = string.Join(",", childList);
+
+                        rcData[xDataIndex] = new TypedValue((int) (DxfCode) rcData[xDataIndex].TypeCode, childString);
                     }
                     else
                     {
-                        rcData[xDataIndex] = new TypedValue((int)(DxfCode)rcData[xDataIndex].TypeCode, value);
+                        rcData[xDataIndex] = new TypedValue((int) (DxfCode) rcData[xDataIndex].TypeCode, value);
                     }
-                  
+
                     //Reassign the XData
                     rBuffer = new ResultBuffer(rcData);
                     acEnt.XData = rBuffer;
@@ -181,29 +179,108 @@ namespace RabCab.Agents
 
             var rvArr = rb.AsArray();
 
-            return (T)Convert.ChangeType(rvArr[(int) xCode].Value, typeof(T));
+            return (T) Convert.ChangeType(rvArr[(int) xCode].Value, typeof(T));
         }
 
-        public static string GetAppName(this Entity acEnt) => GetXData<string>(acEnt, XDataCode.App);
-        public static string GetPartName(this Entity acEnt) => GetXData<string>(acEnt, XDataCode.Name);
-        public static string GetPartInfo(this Entity acEnt) => GetXData<string>(acEnt, XDataCode.Info);
-        public static double GetPartLength(this Entity acEnt) => GetXData<double>(acEnt, XDataCode.Length);
-        public static double GetPartWidth(this Entity acEnt) => GetXData<double>(acEnt, XDataCode.Width);
-        public static double GetPartThickness(this Entity acEnt) => GetXData<double>(acEnt, XDataCode.Thickness);
-        public static double GetPartVolume(this Entity acEnt) => GetXData<double>(acEnt, XDataCode.Volume);
-        public static double GetPartArea(this Entity acEnt) => GetXData<double>(acEnt, XDataCode.MaxArea);
-        public static double GetPartPerimeter(this Entity acEnt) => GetXData<double>(acEnt, XDataCode.MaxPerimeter);
-        public static double GetPartAsymmetry(this Entity acEnt) => GetXData<double>(acEnt, XDataCode.Asymmetry);
-        public static string GetAsymVector(this Entity acEnt) => GetXData<string>(acEnt, XDataCode.AsymmetryVector);
-        public static int GetQtyOf(this Entity acEnt) => GetXData<int>(acEnt, XDataCode.PartOf);
-        public static int GetQtyTotal(this Entity acEnt) => GetXData<int>(acEnt, XDataCode.PartTotal);
-        public static int GetNumChanges(this Entity acEnt) => GetXData<int>(acEnt, XDataCode.NumChanges);
-        public static bool GetIsSweep(this Entity acEnt) => GetXData<bool>(acEnt, XDataCode.IsSweep);
-        public static bool GetIsMirror(this Entity acEnt) => GetXData<bool>(acEnt, XDataCode.IsMirror);
-        public static bool GetHasHoles(this Entity acEnt) => GetXData<bool>(acEnt, XDataCode.HasHoles);
-        public static TextureDirection GetTextureDirection(this Entity acEnt) => (TextureDirection) GetXData<int>(acEnt, XDataCode.TextureDirection);
-        public static ProductionType GetProductionType(this Entity acEnt) => (ProductionType)GetXData<int>(acEnt, XDataCode.ProductionType);
-        public static Handle GetParent(this Entity acEnt) => new Handle(Convert.ToInt64(GetXData<string>(acEnt, XDataCode.ParentObject), 16));
+        public static string GetAppName(this Entity acEnt)
+        {
+            return GetXData<string>(acEnt, XDataCode.App);
+        }
+
+        public static string GetPartName(this Entity acEnt)
+        {
+            return GetXData<string>(acEnt, XDataCode.Name);
+        }
+
+        public static string GetPartInfo(this Entity acEnt)
+        {
+            return GetXData<string>(acEnt, XDataCode.Info);
+        }
+
+        public static double GetPartLength(this Entity acEnt)
+        {
+            return GetXData<double>(acEnt, XDataCode.Length);
+        }
+
+        public static double GetPartWidth(this Entity acEnt)
+        {
+            return GetXData<double>(acEnt, XDataCode.Width);
+        }
+
+        public static double GetPartThickness(this Entity acEnt)
+        {
+            return GetXData<double>(acEnt, XDataCode.Thickness);
+        }
+
+        public static double GetPartVolume(this Entity acEnt)
+        {
+            return GetXData<double>(acEnt, XDataCode.Volume);
+        }
+
+        public static double GetPartArea(this Entity acEnt)
+        {
+            return GetXData<double>(acEnt, XDataCode.MaxArea);
+        }
+
+        public static double GetPartPerimeter(this Entity acEnt)
+        {
+            return GetXData<double>(acEnt, XDataCode.MaxPerimeter);
+        }
+
+        public static double GetPartAsymmetry(this Entity acEnt)
+        {
+            return GetXData<double>(acEnt, XDataCode.Asymmetry);
+        }
+
+        public static string GetAsymVector(this Entity acEnt)
+        {
+            return GetXData<string>(acEnt, XDataCode.AsymmetryVector);
+        }
+
+        public static int GetQtyOf(this Entity acEnt)
+        {
+            return GetXData<int>(acEnt, XDataCode.PartOf);
+        }
+
+        public static int GetQtyTotal(this Entity acEnt)
+        {
+            return GetXData<int>(acEnt, XDataCode.PartTotal);
+        }
+
+        public static int GetNumChanges(this Entity acEnt)
+        {
+            return GetXData<int>(acEnt, XDataCode.NumChanges);
+        }
+
+        public static bool GetIsSweep(this Entity acEnt)
+        {
+            return GetXData<bool>(acEnt, XDataCode.IsSweep);
+        }
+
+        public static bool GetIsMirror(this Entity acEnt)
+        {
+            return GetXData<bool>(acEnt, XDataCode.IsMirror);
+        }
+
+        public static bool GetHasHoles(this Entity acEnt)
+        {
+            return GetXData<bool>(acEnt, XDataCode.HasHoles);
+        }
+
+        public static TextureDirection GetTextureDirection(this Entity acEnt)
+        {
+            return (TextureDirection) GetXData<int>(acEnt, XDataCode.TextureDirection);
+        }
+
+        public static ProductionType GetProductionType(this Entity acEnt)
+        {
+            return (ProductionType) GetXData<int>(acEnt, XDataCode.ProductionType);
+        }
+
+        public static Handle GetParent(this Entity acEnt)
+        {
+            return new Handle(Convert.ToInt64(GetXData<string>(acEnt, XDataCode.ParentObject), 16));
+        }
 
         public static List<Handle> GetChildren(this Entity acEnt)
         {
@@ -214,10 +291,7 @@ namespace RabCab.Agents
             {
                 var chds = sepStr.Split(',');
 
-                foreach (var chd in chds)
-                {
-                    cHandles.Add(new Handle(Convert.ToInt64(chd, 16)));
-                }
+                foreach (var chd in chds) cHandles.Add(new Handle(Convert.ToInt64(chd, 16)));
             }
             else
             {
@@ -233,7 +307,5 @@ namespace RabCab.Agents
 
             return cHandles;
         }
-
     }
 }
-

@@ -184,7 +184,6 @@
     <Compile Include="Commands\AssemblySuite\RcPartMark.cs" />
     <Compile Include="Commands\AssemblySuite\RcReferenceAssembly.cs" />
     <Compile Include="Commands\AssemblySuite\RcReferencePart.cs" />
-    <Compile Include="Commands\AssemblySuite\RcReplacePart.cs" />
     <Compile Include="Commands\AssemblySuite\RcRevision.cs" />
     <Compile Include="Commands\AssemblySuite\RcScatter.cs" />
     <Compile Include="Commands\AssemblySuite\RcSelection.cs" />

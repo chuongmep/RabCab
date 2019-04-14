@@ -108,7 +108,6 @@ namespace RabCab.Analysis
         /// <param name="acSol"></param>
         public EntInfo(Solid3d acSol, Database acCurDb, Transaction acTrans)
         {
-            
             ObjId = acSol.ObjectId;
             EntLayer = acSol.Layer;
             EntColor = acSol.Color;
@@ -137,7 +136,7 @@ namespace RabCab.Analysis
         {
             ObjId = acSol.ObjectId;
             SubId = subId;
-            this.ChildHandles = ChildHandles;
+            ChildHandles = ChildHandles;
             EntLayer = acSol.Layer;
             EntColor = acSol.Color;
             EntMaterial = acSol.Material;
@@ -245,13 +244,15 @@ namespace RabCab.Analysis
         {
             if (vect.IsLessThanTol())
             {
-                AsymString = "";             
+                AsymString = "";
                 return AsymString;
             }
 
             AsymString = "";
             AsymString = !vect.X.IsLessThanTol() ? vect.X <= 0.0 ? "-" : "+" : AsymString + "0";
-            AsymString = !vect.Y.IsLessThanTol() ? vect.Y <= 0.0 ? AsymString + "-" : AsymString + "+" : AsymString + "0";
+            AsymString = !vect.Y.IsLessThanTol()
+                ? vect.Y <= 0.0 ? AsymString + "-" : AsymString + "+"
+                : AsymString + "0";
             return !vect.Z.IsLessThanTol() ? vect.Z <= 0.0 ? AsymString + "-" : AsymString + "+" : AsymString + "0";
         }
 
@@ -344,7 +345,7 @@ namespace RabCab.Analysis
         {
             GetLayMatrix(acSol);
 
-            if (LayMatrix == new Matrix3d()) LayMatrix = GetAbstractMatrix(acSol);         
+            if (LayMatrix == new Matrix3d()) LayMatrix = GetAbstractMatrix(acSol);
 
             using (var solCopy = acSol.Clone() as Solid3d)
             {
@@ -425,7 +426,7 @@ namespace RabCab.Analysis
             }
 
             //Add the XData
-            XDataAgent.AddXData(acSol, this, acCurDb, acTrans);
+            acSol.AddXData(this, acCurDb, acTrans);
         }
 
         /// <summary>

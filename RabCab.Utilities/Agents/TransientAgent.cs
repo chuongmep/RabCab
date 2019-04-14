@@ -9,18 +9,9 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-using Autodesk.AutoCAD.ApplicationServices;
-using Autodesk.AutoCAD.DatabaseServices;
-using Autodesk.AutoCAD.Geometry;
-using Autodesk.AutoCAD.GraphicsInterface;
-using Exception = Autodesk.AutoCAD.Runtime.Exception;
-
 namespace RabCab.Agents
 {
     internal class TransientAgent
     {
-        
     }
 }

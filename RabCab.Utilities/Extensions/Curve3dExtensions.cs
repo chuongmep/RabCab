@@ -18,9 +18,9 @@ namespace RabCab.Extensions
 
             if (curve is LinearEntity3d) return new Vector3d();
 
-            if (curve is CircularArc3d) return ((CircularArc3d)curve).Normal;
+            if (curve is CircularArc3d) return ((CircularArc3d) curve).Normal;
 
-            if (curve is EllipticalArc3d) return ((EllipticalArc3d)curve).Normal;
+            if (curve is EllipticalArc3d) return ((EllipticalArc3d) curve).Normal;
 
             var samplePoints = curve.GetSamplePoints(4);
             var vectorTo = samplePoints[1].Point.GetVectorTo(samplePoints[0].Point);

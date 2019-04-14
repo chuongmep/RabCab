@@ -1,0 +1,9 @@
+﻿Notes:
+
+Child objects in assemblies can be kept from being edited with
+
+	'OpenedForModify'
+	'Triggered before the object is modified.'
+
+Can tell the user that editing the part will remove associativity - not taking rotation or translation into account
+Allow either "Prompt user to remove associativity or unlock in the properties palette

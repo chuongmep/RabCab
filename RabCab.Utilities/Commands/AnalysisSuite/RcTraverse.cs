@@ -9,9 +9,6 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-using System.Windows.Documents;
 using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
@@ -139,7 +136,6 @@ namespace RabCab.Commands.AnalysisSuite
                         //acCurEd.WriteMessage("\n" + String.Join(",",acSol.GetChildren()));
 
                         #endregion
-
                     }
                 }
 
