@@ -1,20 +1,14 @@
-﻿// -----------------------------------------------------------------------------------
-//     <copyright file="RcInnerLoop.cs" company="CraterSpace">
-//     Copyright (c) 2019 CraterSpace - All Rights Reserved 
-//     </copyright>
-//     <author>Zach Ayers</author>
-//     <date>04/08/2019</date>
-//     Description:    
-//     Notes:  
-//     References:          
-// -----------------------------------------------------------------------------------
-
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Autodesk.AutoCAD.Runtime;
 using RabCab.Settings;
 
 namespace RabCab.Commands.CNCSuite
 {
-    internal class RcInnerLoop
+    class RcCheckBit
     {
         /// <summary>
         /// </summary>

@@ -156,6 +156,7 @@
     <Compile Include="Commands\AnalysisSuite\RcAnalyzeParts.cs" />
     <Compile Include="Commands\AnalysisSuite\RcFilter.cs" />
     <Compile Include="Commands\AnalysisSuite\RcNotebook.cs" />
+    <Compile Include="Commands\AnalysisSuite\RcShowBounds.cs" />
     <Compile Include="Commands\AnalysisSuite\RcTraverse.cs" />
     <Compile Include="Commands\AnalysisSuite\RcWeight.cs" />
     <Compile Include="Commands\AnnotationSuite\RcAlignViews.cs" />
@@ -181,6 +182,9 @@
     <Compile Include="Commands\AssemblySuite\RcNumParts.cs" />
     <Compile Include="Commands\AssemblySuite\RcPartList.cs" />
     <Compile Include="Commands\AssemblySuite\RcPartMark.cs" />
+    <Compile Include="Commands\AssemblySuite\RcReferenceAssembly.cs" />
+    <Compile Include="Commands\AssemblySuite\RcReferencePart.cs" />
+    <Compile Include="Commands\AssemblySuite\RcReplacePart.cs" />
     <Compile Include="Commands\AssemblySuite\RcRevision.cs" />
     <Compile Include="Commands\AssemblySuite\RcScatter.cs" />
     <Compile Include="Commands\AssemblySuite\RcSelection.cs" />
@@ -202,13 +206,16 @@
     <Compile Include="Commands\CarpentrySuite\RcRevolve.cs" />
     <Compile Include="Commands\CarpentrySuite\RcSlice.cs" />
     <Compile Include="Commands\CNCSuite\RcAutoPrep.cs" />
+    <Compile Include="Commands\CNCSuite\RcCheckBit.cs" />
     <Compile Include="Commands\CNCSuite\RcBreakPoints.cs" />
     <Compile Include="Commands\CNCSuite\RcCheckWork.cs" />
     <Compile Include="Commands\CNCSuite\RcExportParts.cs" />
     <Compile Include="Commands\CNCSuite\RcExportPaths.cs" />
     <Compile Include="Commands\CNCSuite\RcFlatten.cs" />
-    <Compile Include="Commands\CNCSuite\RcInnerLoop.cs" />
-    <Compile Include="Commands\CNCSuite\RcOuterLoop.cs" />
+    <Compile Include="Commands\CNCSuite\RcLoopInner.cs" />
+    <Compile Include="Commands\CNCSuite\RcLoopBit.cs" />
+    <Compile Include="Commands\CNCSuite\RcLoopOuter.cs" />
+    <Compile Include="Commands\CNCSuite\RcCheckFit.cs" />
     <Compile Include="Commands\CNCSuite\RcSimulate.cs" />
     <Compile Include="Commands\CombineSuite\RcBounds.cs" />
     <Compile Include="Commands\CombineSuite\RcConverge.cs" />

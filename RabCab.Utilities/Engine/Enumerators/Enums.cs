@@ -156,5 +156,34 @@ namespace RabCab.Engine.Enumerators
             Paperspace = 0,
             Modelspace = 1
         }
+
+
+        /// <summary>
+        ///     Enum for use with XData retrieval
+        /// </summary>
+        public enum XDataCode
+        {
+            App = 0,
+            Name = 1,
+            Info = 2,
+            Length = 3,
+            Width = 4,
+            Thickness = 5,
+            Volume = 6,
+            MaxArea = 7,
+            MaxPerimeter = 8,
+            Asymmetry = 9,
+            AsymmetryVector = 10,
+            PartOf = 11,
+            PartTotal = 12,
+            NumChanges = 13,
+            IsSweep = 14,
+            IsMirror = 15,
+            HasHoles = 16,
+            TextureDirection = 17,
+            ProductionType = 18,
+            ParentObject = 19,
+            ChildObjects = 20
+        }
     }
 }

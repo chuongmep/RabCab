@@ -9,6 +9,9 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
+using System;
+using System.Collections.Generic;
+using System.Windows.Documents;
 using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
@@ -84,9 +87,59 @@ namespace RabCab.Commands.AnalysisSuite
 
                         if (acSol == null) continue;
 
-                        var entInfo = new EntInfo(acSol);
+                        var entInfo = new EntInfo(acSol, acCurDb, acTrans);
                         acCurEd.WriteMessage("\n" + entInfo.PrintInfo(parseCount));
                         parseCount++;
+
+                        #region Debug Testing
+
+                        //acSol.UpdateXData("TestName", Enums.XDataCode.Name, acCurDb, acTrans); //1
+                        //acSol.UpdateXData("TestInfo", Enums.XDataCode.Info, acCurDb, acTrans); //2
+                        //acSol.UpdateXData(10, Enums.XDataCode.Length, acCurDb, acTrans); //3
+                        //acSol.UpdateXData(20, Enums.XDataCode.Width, acCurDb, acTrans); //4
+                        //acSol.UpdateXData(30, Enums.XDataCode.Thickness, acCurDb, acTrans); //5
+                        //acSol.UpdateXData(40, Enums.XDataCode.Volume, acCurDb, acTrans); //6
+                        //acSol.UpdateXData(50, Enums.XDataCode.MaxArea, acCurDb, acTrans); //7
+                        //acSol.UpdateXData(60, Enums.XDataCode.MaxPerimeter, acCurDb, acTrans); //8
+                        //acSol.UpdateXData(70, Enums.XDataCode.Asymmetry, acCurDb, acTrans); //9
+                        //acSol.UpdateXData("AxymV", Enums.XDataCode.AsymmetryVector, acCurDb, acTrans); //10
+                        //acSol.UpdateXData(1, Enums.XDataCode.PartOf, acCurDb, acTrans); //11
+                        //acSol.UpdateXData(2, Enums.XDataCode.PartTotal, acCurDb, acTrans); //12
+                        //acSol.UpdateXData(3, Enums.XDataCode.NumChanges, acCurDb, acTrans); //13
+                        //acSol.UpdateXData(false, Enums.XDataCode.IsSweep, acCurDb, acTrans); //14
+                        //acSol.UpdateXData(true, Enums.XDataCode.IsMirror, acCurDb, acTrans); //15
+                        //acSol.UpdateXData(false, Enums.XDataCode.HasHoles, acCurDb, acTrans); //16
+                        //acSol.UpdateXData(Enums.TextureDirection.Vertical, Enums.XDataCode.TextureDirection, acCurDb, acTrans); //17
+                        //acSol.UpdateXData(Enums.ProductionType.MillingManySide, Enums.XDataCode.ProductionType, acCurDb, acTrans); //18
+                        //acSol.UpdateXData(acSol.Handle, Enums.XDataCode.ParentObject, acCurDb, acTrans); //19
+                        //acSol.UpdateXData(new List<Handle>() {acSol.Handle, acSol.Handle , acSol.Handle}, 
+                        //Enums.XDataCode.ChildObjects, acCurDb, acTrans); //20
+
+                        //acCurEd.WriteMessage("\n Testing XData Read");
+                        //acCurEd.WriteMessage("\n" + acSol.GetAppName());
+                        //acCurEd.WriteMessage("\n" + acSol.GetPartName());
+                        //acCurEd.WriteMessage("\n" + acSol.GetPartInfo());
+                        //acCurEd.WriteMessage("\n" + acSol.GetPartLength());
+                        //acCurEd.WriteMessage("\n" + acSol.GetPartWidth());
+                        //acCurEd.WriteMessage("\n" + acSol.GetPartThickness());
+                        //acCurEd.WriteMessage("\n" + acSol.GetPartVolume());
+                        //acCurEd.WriteMessage("\n" + acSol.GetPartArea());
+                        //acCurEd.WriteMessage("\n" + acSol.GetPartPerimeter());
+                        //acCurEd.WriteMessage("\n" + acSol.GetPartAsymmetry());
+                        //acCurEd.WriteMessage("\n" + acSol.GetAsymVector());
+                        //acCurEd.WriteMessage("\n" + acSol.GetQtyOf());
+                        //acCurEd.WriteMessage("\n" + acSol.GetQtyTotal());
+                        //acCurEd.WriteMessage("\n" + acSol.GetNumChanges());
+                        //acCurEd.WriteMessage("\n" + acSol.GetIsSweep());
+                        //acCurEd.WriteMessage("\n" + acSol.GetIsMirror());
+                        //acCurEd.WriteMessage("\n" + acSol.GetHasHoles());
+                        //acCurEd.WriteMessage("\n" + acSol.GetTextureDirection());
+                        //acCurEd.WriteMessage("\n" + acSol.GetProductionType());
+                        //acCurEd.WriteMessage("\n" + acSol.GetParent());
+                        //acCurEd.WriteMessage("\n" + String.Join(",",acSol.GetChildren()));
+
+                        #endregion
+
                     }
                 }
 

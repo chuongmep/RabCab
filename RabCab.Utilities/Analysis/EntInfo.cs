@@ -17,6 +17,7 @@ using Autodesk.AutoCAD.BoundaryRepresentation;
 using Autodesk.AutoCAD.Colors;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Geometry;
+using RabCab.Agents;
 using RabCab.Calculators;
 using RabCab.Extensions;
 using static RabCab.Engine.Enumerators.Enums;
@@ -25,11 +26,17 @@ using Exception = System.Exception;
 
 namespace RabCab.Analysis
 {
-    internal class EntInfo
+    public class EntInfo
     {
         #region ObjectProperties
 
+        //Assembly & Reference Information
+        public Handle BaseHandle;
+        public List<Handle> ChildHandles;
+
+
         //Object Information
+
         public ObjectId ObjId;
         public int FaceCount;
         public int NumberOfChanges;
@@ -62,6 +69,7 @@ namespace RabCab.Analysis
         //Asymmetry
         public double Asymmetry;
         public Vector3d AsymmetryVector;
+        public string AsymString;
 
         //Ent Information
         public string EntLayer;
@@ -73,8 +81,8 @@ namespace RabCab.Analysis
         public bool IsSweep;
         public bool IsMirror;
         public string RcInfo;
-        public string RcQty;
-        public string RcQtyInSelection;
+        public int RcQtyOf;
+        public int RcQtyTotal;
         public bool HasNonFlatFaces;
         public bool HasHoles;
         public bool Has3DFaces;
@@ -98,8 +106,9 @@ namespace RabCab.Analysis
         ///     TODO
         /// </summary>
         /// <param name="acSol"></param>
-        public EntInfo(Solid3d acSol)
+        public EntInfo(Solid3d acSol, Database acCurDb, Transaction acTrans)
         {
+            
             ObjId = acSol.ObjectId;
             EntLayer = acSol.Layer;
             EntColor = acSol.Color;
@@ -109,12 +118,14 @@ namespace RabCab.Analysis
             IsSweep = false;
             IsMirror = false;
             RcInfo = "";
-            RcQty = "";
-            RcQtyInSelection = "";
+            RcQtyOf = 0;
+            RcQtyTotal = 0;
             LayMatrix = Matrix3d.Identity;
             AsymmetryVector = new Vector3d();
             NumberOfChanges = 0;
-            ReadEntity(acSol);
+            BaseHandle = acSol.Handle;
+            ChildHandles = new List<Handle>();
+            ReadEntity(acSol, acCurDb, acTrans);
         }
 
         /// <summary>
@@ -122,10 +133,11 @@ namespace RabCab.Analysis
         /// </summary>
         /// <param name="acSol"></param>
         /// <param name="subId"></param>
-        public EntInfo(Solid3d acSol, SubentityId subId)
+        public EntInfo(Solid3d acSol, SubentityId subId, Database acCurDb, Transaction acTrans)
         {
             ObjId = acSol.ObjectId;
             SubId = subId;
+            this.ChildHandles = ChildHandles;
             EntLayer = acSol.Layer;
             EntColor = acSol.Color;
             EntMaterial = acSol.Material;
@@ -134,12 +146,14 @@ namespace RabCab.Analysis
             IsSweep = false;
             IsMirror = false;
             RcInfo = "";
-            RcQty = "";
-            RcQtyInSelection = "";
+            RcQtyOf = 0;
+            RcQtyTotal = 0;
             LayMatrix = Matrix3d.Identity;
             AsymmetryVector = new Vector3d();
             NumberOfChanges = 0;
-            ReadEntity(acSol);
+            BaseHandle = acSol.Handle;
+            ChildHandles = new List<Handle>();
+            ReadEntity(acSol, acCurDb, acTrans);
         }
 
         #endregion
@@ -227,13 +241,18 @@ namespace RabCab.Analysis
         /// </summary>
         /// <param name="vect"></param>
         /// <returns></returns>
-        public static string AsymVStr(Vector3d vect)
+        public string AsymVStr(Vector3d vect)
         {
-            if (vect.IsLessThanTol()) return "";
-            var asymStr = "";
-            asymStr = !vect.X.IsLessThanTol() ? vect.X <= 0.0 ? "-" : "+" : asymStr + "0";
-            asymStr = !vect.Y.IsLessThanTol() ? vect.Y <= 0.0 ? asymStr + "-" : asymStr + "+" : asymStr + "0";
-            return !vect.Z.IsLessThanTol() ? vect.Z <= 0.0 ? asymStr + "-" : asymStr + "+" : asymStr + "0";
+            if (vect.IsLessThanTol())
+            {
+                AsymString = "";             
+                return AsymString;
+            }
+
+            AsymString = "";
+            AsymString = !vect.X.IsLessThanTol() ? vect.X <= 0.0 ? "-" : "+" : AsymString + "0";
+            AsymString = !vect.Y.IsLessThanTol() ? vect.Y <= 0.0 ? AsymString + "-" : AsymString + "+" : AsymString + "0";
+            return !vect.Z.IsLessThanTol() ? vect.Z <= 0.0 ? AsymString + "-" : AsymString + "+" : AsymString + "0";
         }
 
         #endregion
@@ -321,19 +340,17 @@ namespace RabCab.Analysis
         ///     TODO
         /// </summary>
         /// <param name="acSol"></param>
-        private void ReadEntity(Solid3d acSol)
+        private void ReadEntity(Solid3d acSol, Database acCurDb, Transaction acTrans)
         {
             GetLayMatrix(acSol);
 
-            if (LayMatrix == new Matrix3d()) LayMatrix = GetAbstractMatrix(acSol);
-            ;
+            if (LayMatrix == new Matrix3d()) LayMatrix = GetAbstractMatrix(acSol);         
 
             using (var solCopy = acSol.Clone() as Solid3d)
             {
                 if (solCopy != null)
                 {
                     if (LayMatrix != Matrix3d.Identity) solCopy.TransformBy(LayMatrix);
-
 
                     //Get Volume & Extents
                     Extents = solCopy.GetBounds();
@@ -406,6 +423,9 @@ namespace RabCab.Analysis
 
                 Thickness = measures[0].RoundToTolerance();
             }
+
+            //Add the XData
+            XDataAgent.AddXData(acSol, this, acCurDb, acTrans);
         }
 
         /// <summary>
