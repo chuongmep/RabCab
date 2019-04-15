@@ -1498,8 +1498,8 @@ namespace RabCab.Extensions
                 RejectObjectsOnLockedLayers = true,
                 SingleOnly = singleSelection,
                 SinglePickInSpace = singleSelection,
-                MessageForAdding = "Select " + dxfName.ToTitleCase() + " objects to add: ",
-                MessageForRemoval = "Select " + dxfName.ToTitleCase() + " objects to remove: "
+                MessageForAdding = "Select " + dxfName.ToUpper() + " objects to add: ",
+                MessageForRemoval = "Select " + dxfName.ToUpper() + " objects to remove: "
             };
 
             //Create a selection filter to only allow the specified object

@@ -135,9 +135,9 @@ namespace RabCab.Agents
                     // Append the extended data to the object
                     acEnt.XData = rBuffer;
                 }
+
             }
-            else
-            {
+    
                 try
                 {
                     //Update the specified Value
@@ -168,7 +168,7 @@ namespace RabCab.Agents
                 {
                     // ignored
                 }
-            }
+            
         }
 
         public static T GetXData<T>(this Entity acEnt, XDataCode xCode)
@@ -286,6 +286,7 @@ namespace RabCab.Agents
         {
             var sepStr = GetXData<string>(acEnt, XDataCode.ChildObjects);
             var cHandles = new List<Handle>();
+            if (sepStr == null) return cHandles;
 
             if (sepStr.Contains(','))
             {

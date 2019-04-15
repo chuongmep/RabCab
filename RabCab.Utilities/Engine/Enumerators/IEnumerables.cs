@@ -5,12 +5,12 @@ namespace RabCab.Engine.Enumerators
 {
     public static class IEnumerables
     {
-        public static int Count<TSource>(this IEnumerable<TSource> source)
+        public static int CountT<TSource>(this IEnumerable<TSource> source)
         {
             int count;
             try
             {
-                count = source.Count();
+                count = source.CountT();
             }
             catch (Exception)
             {

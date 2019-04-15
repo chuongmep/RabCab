@@ -86,8 +86,9 @@ namespace RabCab.Commands.AnalysisSuite
 
                         if (acSol == null) continue;
 
-                        var entInfo = new EntInfo(acSol, acCurDb, acTrans);                    
-                        acCurEd.WriteMessage("\n" + entInfo.PrintInfo(parseCount));
+                        var entInfo = new EntInfo(acSol, acCurDb, acTrans);
+                        acSol.AddXData(entInfo, acCurDb, acTrans);
+                        acCurEd.WriteMessage("\n" + entInfo.PrintInfo(false, parseCount));
                         parseCount++;
 
                         #region Debug Testing

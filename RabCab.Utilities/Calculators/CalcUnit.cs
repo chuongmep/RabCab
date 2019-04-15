@@ -12,6 +12,7 @@
 using System;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Runtime;
+using RabCab.Settings;
 
 namespace RabCab.Calculators
 {
@@ -25,6 +26,9 @@ namespace RabCab.Calculators
         /// <returns></returns>
         public static string ConvertToDwgUnits(this Database acCurDb, double val)
         {
+            if (acCurDb.Luprec != (int) SettingsUser.UserTol)
+                acCurDb.Luprec = (int) SettingsUser.UserTol;
+
             return Converter.DistanceToString(val, DistanceUnitFormat.Current, acCurDb.Luprec);
         }
 

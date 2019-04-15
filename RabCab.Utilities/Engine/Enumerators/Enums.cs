@@ -120,9 +120,7 @@ namespace RabCab.Engine.Enumerators
             FiveDecimals = 5,
             SixDecimals = 6,
             SevenDecimals = 7,
-            EightDecimals = 8,
-            NineDecimals = 9,
-            TenDecimals = 10
+            EightDecimals = 8
         }
 
         /// <summary>
@@ -190,13 +188,13 @@ namespace RabCab.Engine.Enumerators
         [Flags]
         public enum SortBy
         {
-            Layer = 0,
-            Color = 1,
-            Thickness = 2,
-            Name = 3,
-            GroupSame = 4,
-            SplitByLayer = 5,
-            MixS4S = 6
+            Layer = 1,
+            Color = 2,
+            Thickness = 4,
+            Name = 8,
+            GroupSame = 16,
+            SplitByLayer = 32,
+            MixS4S = 64
         }
     }
 }

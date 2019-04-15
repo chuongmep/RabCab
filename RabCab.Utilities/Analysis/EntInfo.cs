@@ -17,6 +17,7 @@ using Autodesk.AutoCAD.BoundaryRepresentation;
 using Autodesk.AutoCAD.Colors;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Geometry;
+using Autodesk.AutoCAD.Interop.Common;
 using RabCab.Agents;
 using RabCab.Calculators;
 using RabCab.Extensions;
@@ -38,6 +39,7 @@ namespace RabCab.Analysis
         //Object Information
 
         public ObjectId ObjId;
+        public Handle Hndl;
         public int FaceCount;
         public int NumberOfChanges;
 
@@ -61,7 +63,6 @@ namespace RabCab.Analysis
 
         public double MaxArea;
         public double MaxPerimeter;
-
 
         //CNC Information
         public Matrix3d LayMatrix;
@@ -109,6 +110,7 @@ namespace RabCab.Analysis
         public EntInfo(Solid3d acSol, Database acCurDb, Transaction acTrans)
         {
             ObjId = acSol.ObjectId;
+            Hndl = acSol.Handle;
             EntLayer = acSol.Layer;
             EntColor = acSol.Color;
             EntMaterial = acSol.Material;
@@ -135,8 +137,8 @@ namespace RabCab.Analysis
         public EntInfo(Solid3d acSol, SubentityId subId, Database acCurDb, Transaction acTrans)
         {
             ObjId = acSol.ObjectId;
+            Hndl = acSol.Handle;
             SubId = subId;
-            ChildHandles = ChildHandles;
             EntLayer = acSol.Layer;
             EntColor = acSol.Color;
             EntMaterial = acSol.Material;
@@ -286,7 +288,7 @@ namespace RabCab.Analysis
         ///     TODO
         /// </summary>
         /// <returns></returns>
-        public string PrintInfo(int count)
+        public string PrintInfo(bool supressPartName, int count = 0)
         {
             var acCurDb = Application.DocumentManager.MdiActiveDocument.Database;
 
@@ -305,29 +307,29 @@ namespace RabCab.Analysis
 
             if (count < 10) countStr = "0" + countStr;
 
-            string prntStr;
+            string prntStr = "";
 
-            if (RcName != "")
-                prntStr = countStr +
-                          ": " + RcName +
-                          " - L:" + lengthStr +
-                          " W:" + widthStr +
-                          " T:" + thickStr +
-                          " V:" + volStr +
-                          " A:" + asymStr + " [" +
-                          AsymVStr(AsymmetryVector)
-                          + "] P:" + ProdType;
-            else
-                prntStr = countStr +
-                          ":" +
-                          " #" + objIdStr +
-                          " - L:" + lengthStr +
-                          " W:" + widthStr +
-                          " T:" + thickStr +
-                          " V:" + volStr +
-                          " A:" + asymStr + " [" +
-                          AsymVStr(AsymmetryVector)
-                          + "] P:" + ProdType;
+            if (count > 0)
+            {
+                prntStr += count + ":";
+            }
+
+            if (!supressPartName)
+            {
+                if (RcName != "")
+                    prntStr += RcName;
+
+                else
+                    prntStr += " #" + objIdStr;
+            }
+            
+            prntStr += " - L:" + lengthStr +
+                       " W:" + widthStr +
+                       " T:" + thickStr +
+                       " V:" + volStr +
+                       " A:" + asymStr + " [" +
+                       AsymVStr(AsymmetryVector)
+                       + "] P:" + ProdType;
 
             //Print to the current editor
             return prntStr;
@@ -343,6 +345,16 @@ namespace RabCab.Analysis
         /// <param name="acSol"></param>
         private void ReadEntity(Solid3d acSol, Database acCurDb, Transaction acTrans)
         {
+            RcName = acSol.GetPartName();
+            BaseHandle = acSol.GetParent();
+            ChildHandles = acSol.GetChildren();
+            IsSweep = acSol.GetIsSweep();
+            IsMirror = acSol.GetIsMirror();
+            RcInfo = acSol.GetPartInfo();
+            RcQtyOf = acSol.GetQtyOf();
+            RcQtyTotal = acSol.GetQtyTotal();
+            TxDirection = acSol.GetTextureDirection();
+
             GetLayMatrix(acSol);
 
             if (LayMatrix == new Matrix3d()) LayMatrix = GetAbstractMatrix(acSol);

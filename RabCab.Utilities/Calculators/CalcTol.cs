@@ -58,12 +58,6 @@ namespace RabCab.Calculators
                 case Enums.RoundTolerance.EightDecimals:
                     tolerance = 0.00000001f;
                     break;
-                case Enums.RoundTolerance.NineDecimals:
-                    tolerance = 0.000000001f;
-                    break;
-                case Enums.RoundTolerance.TenDecimals:
-                    tolerance = 0.0000000001f;
-                    break;
             }
 
             return tolerance;

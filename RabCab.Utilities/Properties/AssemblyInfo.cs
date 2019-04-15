@@ -13,6 +13,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using Autodesk.AutoCAD.Runtime;
 using RabCab.Commands.AnalysisSuite;
+using RabCab.Commands.AssemblySuite;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
@@ -79,3 +80,5 @@ using RabCab.Commands.AnalysisSuite;
 
 [assembly: Guid("12540a60-474b-4908-8781-f758acf78931")]
 [assembly: CommandClass(typeof(RcTraverse))]
+[assembly: CommandClass(typeof(RcNameParts))]
+

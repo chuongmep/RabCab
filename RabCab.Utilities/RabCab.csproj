@@ -179,7 +179,7 @@
     <Compile Include="Commands\AssemblySuite\RcExplode.cs" />
     <Compile Include="Commands\AssemblySuite\RcIdentifiers.cs" />
     <Compile Include="Commands\AssemblySuite\RcLayParts.cs" />
-    <Compile Include="Commands\AssemblySuite\RcNumParts.cs" />
+    <Compile Include="Commands\AssemblySuite\RcNameParts.cs" />
     <Compile Include="Commands\AssemblySuite\RcPartList.cs" />
     <Compile Include="Commands\AssemblySuite\RcPartMark.cs" />
     <Compile Include="Commands\AssemblySuite\RcReferenceAssembly.cs" />

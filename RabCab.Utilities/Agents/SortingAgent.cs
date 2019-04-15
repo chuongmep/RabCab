@@ -1,19 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Autodesk.AutoCAD.DatabaseServices;
+﻿using Autodesk.AutoCAD.DatabaseServices;
 using RabCab.Analysis;
 using RabCab.Settings;
-using static RabCab.Engine.Enumerators.Enums;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using static RabCab.Engine.Enumerators.Enums.SortBy;
 
 namespace RabCab.Agents
 {
     public static class SortingAgent
     {
-        public static int CurrentCount = 1;
+        public static int CurrentPartNumber = 1;
 
         /// <summary>
         /// TODO
@@ -23,12 +20,12 @@ namespace RabCab.Agents
         {
             #region Sorting Criteria
 
-            var sCrit = Layer 
-                        | Color 
-                        | Thickness 
-                        | Name 
-                        | GroupSame 
-                        | SplitByLayer 
+            var sCrit = Layer
+                        | Color
+                        | Thickness
+                        | Name
+                        | GroupSame
+                        | SplitByLayer
                         | MixS4S;
 
             if (!SettingsUser.SortByLayer) sCrit -= Layer;
@@ -41,7 +38,14 @@ namespace RabCab.Agents
 
             #endregion
 
-            eInfoList.Sort(new CompareAgent(sCrit));
+            var sortedList = eInfoList.OrderByIf(sCrit.HasFlag(MixS4S), e => e.IsBox)
+                .ThenByIf(sCrit.HasFlag(Name), e => e.RcName)
+                .ThenByIf(sCrit.HasFlag(Layer), e => e.EntLayer)
+                .ThenByIf(sCrit.HasFlag(Color), e => e.EntColor)
+                .ThenByIf(sCrit.HasFlag(Thickness), e => e.Thickness)
+                .ThenBy(e => e.Length).ThenBy(e => e.Width);
+
+            eInfoList = sortedList.ToList();
         }
 
         /// <summary>
@@ -91,111 +95,67 @@ namespace RabCab.Agents
         }
     }
 
-    /// <summary>
-    /// TODO
-    /// </summary>
-    internal class CompareAgent : IComparer<EntInfo>
+    public static class ListExt
     {
-        private readonly SortBy _criteria;
-
         /// <summary>
         /// TODO
         /// </summary>
-        /// <param name="criteria"></param>
-        public CompareAgent(SortBy criteria)
-        {
-            _criteria = criteria;
-        } 
-
-        /// <summary>
-        /// TODO
-        /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TKey"></typeparam>
+        /// <param name="list"></param>
+        /// <param name="predicate"></param>
+        /// <param name="sel"></param>
         /// <returns></returns>
-        public int Compare(EntInfo x, EntInfo y)
+        public static IOrderedEnumerable<T> OrderByIf<T, TKey>(this IEnumerable<T> list, bool predicate, Func<T, TKey> sel)
         {
-            if (_criteria.HasFlag(Layer))
+            if (predicate)
+                return list.OrderBy(f => sel(f));
+            else
             {
-                int comp = String.Compare(x.EntLayer, y.EntLayer, StringComparison.Ordinal);
+                return list.OrderBy(a => 1);
+            }
+        }
 
-                if (comp != 0)
-                    return comp;
-            }
-            if (_criteria.HasFlag(Color))
-            {
-                int comp = 0;
-                if (x.EntColor != null)
-                {
-                    comp = (y.EntColor != null ? x.EntColor.CompareTo(y.EntColor) : 1);
-                }
-                else
-                {
-                    comp = (y.EntColor != null ? -1 : 0);
-                }
-                if (comp != 0)
-                {
-                    return comp;
-                }
-                comp = String.Compare(x.EntMaterial, y.EntMaterial, StringComparison.Ordinal);
-                if (comp != 0)
-                {
-                    return comp;
-                };
-            }
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TKey"></typeparam>
+        /// <param name="list"></param>
+        /// <param name="predicate"></param>
+        /// <param name="sel"></param>
+        /// <returns></returns>
+        public static IOrderedEnumerable<T> ThenByIf<T, TKey>(this IOrderedEnumerable<T> list, bool predicate, Func<T, TKey> sel)
+        {
+            if (predicate)
+                return list.ThenBy(f => sel(f));
+            else
+                return list;
+        }
 
-            if (_criteria.HasFlag(Thickness))
-            {
-                int comp = -x.Thickness.CompareTo(y.Thickness);
-                if (comp != 0)
-                {
-                    return comp;
-                }
-            }
+        public static bool Compare(this EntInfo x, EntInfo y, bool compareNames)
+        {
+            if (SettingsUser.SortByLayer)
+                if (x.EntLayer != y.EntLayer)
+                    return false;
 
-            if (_criteria.HasFlag(Name))
-            {
-                int comp = String.Compare(x.RcName, y.RcName, StringComparison.OrdinalIgnoreCase);
-                if (comp != 0)
-                {
-                    return comp;
-                }
-            }
+            if (SettingsUser.SortByColor)
+                if (x.EntColor != y.EntColor)
+                    return false;
 
-            int compM = -x.Width.CompareTo(y.Width);
-            if (compM != 0)
-            {
-                return compM;
-            }
-            compM = -x.Length.CompareTo(y.Length);
-            if (compM != 0)
-            {
-                return compM;
-            }
+            if (SettingsUser.SortByThickness)
+                if (x.Thickness != y.Thickness)
+                    return false;
 
-            if (!_criteria.HasFlag(Thickness))
-            {
-                int comp = -x.Thickness.CompareTo(y.Thickness);
-                if (comp != 0)
-                {
-                    return comp;
-                }
-            }
+            if (SettingsUser.SortByName)
+                if (x.RcName != y.RcName)
+                    return false;
 
-            compM = x.Volume.CompareTo(y.Volume);
-            if (compM != 0)
-            {
-                return compM;
-            }
-            compM = x.Asymmetry.CompareTo(y.Asymmetry);
-            if (compM != 0)
-            {
-                return compM;
-            }
 
-            compM = x.TxDirection.CompareTo(y.TxDirection);
 
-            return compM;
+            return true;
         }
     }
+
+
 }
