@@ -203,6 +203,7 @@
     <Compile Include="Commands\CarpentrySuite\RcGap.cs" />
     <Compile Include="Commands\CarpentrySuite\RcJoint.cs" />
     <Compile Include="Commands\CarpentrySuite\RcOffset.cs" />
+    <Compile Include="Commands\CarpentrySuite\RcRemoveDrills.cs" />
     <Compile Include="Commands\CarpentrySuite\RcRevolve.cs" />
     <Compile Include="Commands\CarpentrySuite\RcSlice.cs" />
     <Compile Include="Commands\CNCSuite\RcAutoPrep.cs" />
