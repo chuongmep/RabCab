@@ -165,6 +165,7 @@
     <Compile Include="Commands\AnnotationSuite\RcDimInsert.cs" />
     <Compile Include="Commands\AnnotationSuite\RcDimJoin.cs" />
     <Compile Include="Commands\AnnotationSuite\RcDimMultEdit.cs" />
+    <Compile Include="Commands\AnnotationSuite\RcDimPrec.cs" />
     <Compile Include="Commands\AnnotationSuite\RcDimSnap.cs" />
     <Compile Include="Commands\AnnotationSuite\RcDimAppend.cs" />
     <Compile Include="Commands\AnnotationSuite\RcGenDims.cs" />

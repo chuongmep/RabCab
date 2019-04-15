@@ -99,18 +99,14 @@ namespace RabCab.Commands.AssemblySuite
                         Layer = SettingsUser.SortByLayer ? x.EntLayer : null,
                         Color = SettingsUser.SortByColor ? x.EntColor : null,
                         Thickness = SettingsUser.SortByThickness ? x.Thickness : double.NaN,
-                        //Name = compNames ? SettingsUser.SortByName ? x.RcName : null : null,
+                         //Name = compNames ? SettingsUser.SortByName ? x.RcName : null : null,
                          x.Length,
                          x.Width,
                          x.Volume,
                          x.Asymmetry,
                          x.TxDirection
                     });
-
-                   
-                    if (SettingsUser.ResetPartCount)
-                        SortingAgent.CurrentPartNumber = 1;
-
+                                
                     pWorker.Reset("Naming Solids: ");
                     var enumerable = groups.ToList();
                     pWorker.SetTotalOperations(enumerable.Count());
@@ -118,6 +114,10 @@ namespace RabCab.Commands.AssemblySuite
                     if (enumerable.Count > 0)
                         try
                         {
+                            //Reset Part Number to 1 if specified in bool
+                            if (SettingsUser.ResetPartCount)
+                                SortingAgent.CurrentPartNumber = 1;
+
                             foreach (var group in enumerable)
                             {                                
                                 var nameString = SettingsUser.NamingConvention;
@@ -130,15 +130,6 @@ namespace RabCab.Commands.AssemblySuite
                                 }
 
                                 var baseInfo = @group.First();
-                                var baseSolid = acTrans.GetObject(baseInfo.ObjId, OpenMode.ForRead) as Solid3d;
-
-                                if (baseSolid == null) continue;
-
-                                var partCount = 1;
-
-                                if (SortingAgent.CurrentPartNumber < 10)
-                                    nameString += "0";
-                                nameString += SortingAgent.CurrentPartNumber;
 
                                 var nonMirrors = new List<EntInfo>();
                                 var mirrors = new List<EntInfo>();
@@ -165,114 +156,9 @@ namespace RabCab.Commands.AssemblySuite
                                     }
                                 }
 
-                                var groupTotal = nonMirrors.Count;
-
-                                foreach (var eInfo in nonMirrors)
-                                {
-                                   
-                                    var acSol = acTrans.GetObject(eInfo.ObjId, OpenMode.ForRead) as Solid3d;
-
-                                    if (acSol == null) continue;
-
-                                    var handle = acSol.Handle;
-
-                                    eInfo.RcName = nameString;
-
-                                    eInfo.RcQtyOf = partCount;
-
-                                    eInfo.RcQtyTotal = groupTotal;
-
-                                    var supressPartName = false;
-
-                                    if (baseInfo.Hndl.ToString() != handle.ToString())
-                                    {
-                                        supressPartName = true;
-                                        eInfo.BaseHandle = baseInfo.Hndl;
-                                        baseInfo.ChildHandles.Add(handle);
-                                        baseSolid.UpdateXData(baseInfo.ChildHandles, XDataCode.ChildObjects, acCurDb, acTrans);
-                                    }
-
-                                    acSol.AddXData(eInfo, acCurDb, acTrans);
-
-                                    string printStr;
-
-                                    if (supressPartName)
-                                    {
-                                        printStr = "\n\t\u2022 [C] |" + eInfo.PrintInfo(true);
-                                    }
-                                    else
-                                    {
-                                        printStr = "\n[P] | " + eInfo.PrintInfo(false);
-                                    }
-
-                                    acCurEd.WriteMessage(printStr + " | Part " + partCount + " Of " + groupTotal);
-
-                                    partCount++;
-                                }
-
-                                if (mirrors.Count > 0)
-                                {
-                                    nameString = SettingsUser.NamingConvention;
-
-                                    baseInfo = mirrors.First();
-                                    baseSolid = acTrans.GetObject(baseInfo.ObjId, OpenMode.ForRead) as Solid3d;
-
-                                    if (baseSolid == null) continue;
-
-                                    partCount = 1;
-                                    SortingAgent.CurrentPartNumber++;
-
-                                    if (SortingAgent.CurrentPartNumber < 10)
-                                        nameString += "0";
-                                    nameString += SortingAgent.CurrentPartNumber;
-
-                                    groupTotal = nonMirrors.Count;
-                                }
-                             
-                                foreach (var eInfo in mirrors)
-                                {
-
-                                    var acSol = acTrans.GetObject(eInfo.ObjId, OpenMode.ForRead) as Solid3d;
-
-                                    if (acSol == null) continue;
-
-                                    var handle = acSol.Handle;
-
-                                    eInfo.RcName = nameString;
-
-                                    eInfo.RcQtyOf = partCount;
-
-                                    eInfo.RcQtyTotal = groupTotal;
-
-                                    var supressPartName = false;
-
-                                    if (baseInfo.Hndl.ToString() != handle.ToString())
-                                    {
-                                        supressPartName = true;
-                                        eInfo.BaseHandle = baseInfo.Hndl;
-                                        baseInfo.ChildHandles.Add(handle);
-                                        baseSolid.UpdateXData(baseInfo.ChildHandles, XDataCode.ChildObjects, acCurDb, acTrans);
-                                    }
-
-                                    acSol.AddXData(eInfo, acCurDb, acTrans);
-
-                                    string printStr;
-
-                                    if (supressPartName)
-                                    {
-                                        printStr = "\n\t\u2022 [C] |" + eInfo.PrintInfo(true);
-                                    }
-                                    else
-                                    {
-                                        printStr = "\n[P] | " + eInfo.PrintInfo(false);
-                                    }
-
-                                    acCurEd.WriteMessage(printStr + " | Part " + partCount + " Of " + groupTotal);
-
-                                    partCount++;
-                                }                
-
-                                SortingAgent.CurrentPartNumber ++;
+                                NameParts(nonMirrors, acCurEd, acCurDb, acTrans);
+                                NameParts(mirrors, acCurEd, acCurDb, acTrans);
+                          
                             }
                         }
                         catch (Exception e)
@@ -285,6 +171,71 @@ namespace RabCab.Commands.AssemblySuite
 
                 acTrans.Commit();
             }
+        }
+
+        private void NameParts(List<EntInfo> eList, Editor acCurEd, Database acCurDb, Transaction acTrans)
+        {
+            if (eList.Count <= 0) return;
+
+            var baseInfo = eList.First();
+            var baseSolid = acTrans.GetObject(baseInfo.ObjId, OpenMode.ForRead) as Solid3d;
+
+            var nameString = SettingsUser.NamingConvention;
+
+            if (SortingAgent.CurrentPartNumber < 10)
+                nameString += "0";
+            nameString += SortingAgent.CurrentPartNumber;
+
+            if (baseSolid == null) return;
+
+            var partCount = 1;
+
+            var groupTotal = eList.Count;
+
+            foreach (var eInfo in eList)
+            {
+
+                var acSol = acTrans.GetObject(eInfo.ObjId, OpenMode.ForRead) as Solid3d;
+
+                if (acSol == null) continue;
+
+                var handle = acSol.Handle;
+
+                eInfo.RcName = nameString;
+
+                eInfo.RcQtyOf = partCount;
+
+                eInfo.RcQtyTotal = groupTotal;
+
+                var supressPartName = false;
+
+                if (baseInfo.Hndl.ToString() != handle.ToString())
+                {
+                    supressPartName = true;
+                    eInfo.BaseHandle = baseInfo.Hndl;
+                    baseInfo.ChildHandles.Add(handle);
+                    baseSolid.UpdateXData(baseInfo.ChildHandles, XDataCode.ChildObjects, acCurDb, acTrans);
+                }
+
+                acSol.AddXData(eInfo, acCurDb, acTrans);
+
+                string printStr;
+
+                if (supressPartName)
+                {
+                    printStr = "\n\t\u2022 [C] |" + eInfo.PrintInfo(true);
+                }
+                else
+                {
+                    printStr = "\n[P] | " + eInfo.PrintInfo(false);
+                }
+
+                acCurEd.WriteMessage(printStr + " | Part " + partCount + " Of " + groupTotal);
+
+                partCount++;
+            }
+
+            SortingAgent.CurrentPartNumber++;
         }
     }
 }
