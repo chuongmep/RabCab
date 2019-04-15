@@ -178,12 +178,45 @@ namespace RabCab.Analysis
         /// </summary>
         /// <param name="mirCheck"></param>
         /// <returns></returns>
-        public bool IsMirrorOf(EntInfo mirCheck)
+        public bool IsMirrorOf(EntInfo y)
         {
-            return Asymmetry != 0.0 && mirCheck.Asymmetry != 0.0 && !AsymmetryVector.IsEqualTo(mirCheck.AsymmetryVector,
-                       CalcTol.UnitVector) && (!AsymmetryVector.X.IsEqualTo(mirCheck.AsymmetryVector.X)
-                                               || !AsymmetryVector.Y.IsEqualTo(mirCheck.AsymmetryVector.Y)
-                                               || !AsymmetryVector.Z.IsEqualTo(mirCheck.AsymmetryVector.Z));
+            if (this.Asymmetry == 0 || y.Asymmetry == 0)
+            {
+                return false;
+            }
+
+            if (this.AsymmetryVector.IsEqualTo(y.AsymmetryVector, CalcTol.UnitVector))
+            {
+                if (!this.AsymmetryVector.X.IsEqualTo(y.AsymmetryVector.X))
+                {
+                    return true;
+                }
+                if (!this.AsymmetryVector.Y.IsEqualTo(y.AsymmetryVector.Y))
+                {
+                    return true;
+                }
+                if (!this.AsymmetryVector.Z.IsEqualTo(y.AsymmetryVector.Z))
+                {
+                    return true;
+                }
+
+                return false;
+            }
+
+            if (!this.AsymmetryVector.X.IsEqualTo(y.AsymmetryVector.X))
+            {
+                return true;
+            }
+            if (!this.AsymmetryVector.Y.IsEqualTo(y.AsymmetryVector.Y))
+            {
+                return true;
+            }
+            if (!this.AsymmetryVector.Z.IsEqualTo(y.AsymmetryVector.Z))
+            {
+                return true;
+            }
+
+            return false;
         }
 
         /// <summary>

@@ -65,7 +65,7 @@ namespace RabCab.Calculators
 
         #region Extensions For Determining Tolerance
 
-        private static byte DecimalPlace => (byte) SettingsUser.UserTol;
+        public static byte DecimalPlace => (byte) SettingsUser.UserTol;
         private static double CurrentTolerance => ReturnCurrentTolerance();
         public static double TolSquare => Math.Pow(CurrentTolerance, 2.0);
         public static double TolCube => Math.Pow(CurrentTolerance, 3.0);
