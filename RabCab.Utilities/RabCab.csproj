@@ -252,6 +252,7 @@
     <Compile Include="Extensions\BrepExtensions.cs" />
     <Compile Include="Extensions\Curve3dExtensions.cs" />
     <Compile Include="Extensions\EdgeExt.cs" />
+    <Compile Include="Agents\KeywordAgent.cs" />
     <Compile Include="Extensions\Vector2dExtensions.cs" />
     <Compile Include="Extensions\VertExt.cs" />
     <Compile Include="Gui\PaletteLayerRepo.cs">

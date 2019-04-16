@@ -12,9 +12,11 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.Remoting.Channels;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
+using RabCab.Agents;
 using RabCab.Calculators;
 using RabCab.Engine.Enumerators;
 using RabCab.Engine.System;
@@ -1479,7 +1481,7 @@ namespace RabCab.Extensions
         /// <param name="filterArg">The DXF name to filter by.</param>
         /// <returns>Returns an objectID collection of the selected objects.</returns>
         public static ObjectId[] GetFilteredSelection(this Editor acCurEd, Enums.DxfNameEnum filterArg,
-            bool singleSelection)
+            bool singleSelection, List<KeywordAgent> keyList = null)
         {
             //Convert the DXFName enum value to its string value
             var dxfName = EnumAgent.GetNameOf(filterArg);
@@ -1501,6 +1503,13 @@ namespace RabCab.Extensions
                 MessageForAdding = "Select " + dxfName.ToUpper() + " objects to add: ",
                 MessageForRemoval = "Select " + dxfName.ToUpper() + " objects to remove: "
             };
+
+            #region KeywordAgent
+
+            HandleKeywords(keyList, prSelOpts);
+            
+            #endregion
+
 
             //Create a selection filter to only allow the specified object
             var selFilter = new SelectionFilter(new[] {new TypedValue((int) DxfCode.Start, dxfName)});
@@ -1543,6 +1552,7 @@ namespace RabCab.Extensions
                 MessageForAdding = "Select " + subEntName.ToTitleCase() + " objects to add: ",
                 MessageForRemoval = "Select " + subEntName.ToTitleCase() + " objects to remove: "
             };
+
 
             PromptSelectionResult prRes;
 
@@ -1856,5 +1866,37 @@ namespace RabCab.Extensions
         }
 
         #endregion
+
+        private static void HandleKeywords(List<KeywordAgent> keyList, PromptSelectionOptions prOpts)
+        {
+            if (keyList == null) return;
+
+            foreach (var key in keyList)
+            {
+                prOpts.Keywords.Add(key.Key);
+            }
+
+            var keyRes = prOpts.Keywords.GetDisplayString(true);
+
+
+            prOpts.MessageForAdding = prOpts.MessageForAdding + " or " + keyRes;
+
+            prOpts.MessageForRemoval = prOpts.MessageForRemoval + " or " + keyRes;
+
+            // Implement a callback for when keywords are entered
+            prOpts.KeywordInput += delegate (object sender, SelectionTextInputEventArgs e)
+            {
+                var userInput = e.Input;
+
+                foreach (var key in keyList)
+                {
+                    if (userInput == key.Key)
+                    {
+                        key.GetOutput();
+                    }
+                }
+            };
+        }
+
     }
 }

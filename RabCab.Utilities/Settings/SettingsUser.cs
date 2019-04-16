@@ -26,7 +26,7 @@ namespace RabCab.Settings
         public static RoundTolerance UserTol { set; get; } = RoundTolerance.SixDecimals;
 
        //SortingOptions
-       public static bool ResetPartCount = false;
+       public static bool ResetPartCount = true;
        public static string NamingConvention = "";
        public static bool SortByLayer = true;
        public static bool SortByColor = false;

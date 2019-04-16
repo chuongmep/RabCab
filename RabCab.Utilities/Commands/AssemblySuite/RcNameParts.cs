@@ -32,7 +32,7 @@ namespace RabCab.Commands.AssemblySuite
         [CommandMethod(SettingsInternal.CommandGroup, "_NAMEPARTS",
             CommandFlags.Modal
             //| CommandFlags.Transparent
-            | CommandFlags.UsePickSet
+            //| CommandFlags.UsePickSet
             //| CommandFlags.Redraw
             //| CommandFlags.NoPerspective
             //| CommandFlags.NoMultiple
@@ -62,12 +62,25 @@ namespace RabCab.Commands.AssemblySuite
             var acCurDb = acCurDoc.Database;
             var acCurEd = acCurDoc.Editor;
 
-            //Start a selection set
-            SelectionSet acSet;
+            var keyList = new List<KeywordAgent>();
 
-            //Check for pick-first selection -> if none, get selection
-            if (!acCurEd.CheckForPickFirst(out acSet))
-                acSet = SelectionSet.FromObjectIds(acCurEd.GetFilteredSelection(DxfNameEnum._3Dsolid, false));
+            var userResetPartCounter = SettingsUser.ResetPartCount;
+
+            //Reset Part Number to 1 if specified in bool
+            if (SettingsUser.ResetPartCount)
+                SortingAgent.CurrentPartNumber = 1;
+
+            var keyAgentName = new KeywordAgent(acCurEd, "NameFormat", "Enter naming format: ", TypeCode.String, SettingsUser.NamingConvention);
+            var keyAgentNum = new KeywordAgent(acCurEd, "StartFrom", "Enter part number to start from: ", TypeCode.Int32, SortingAgent.CurrentPartNumber.ToString());
+
+            keyList.Add(keyAgentName);
+            keyList.Add(keyAgentNum);
+
+            //Check for pick-first selection -> if none, get selection      
+            var acSet = SelectionSet.FromObjectIds(acCurEd.GetFilteredSelection(DxfNameEnum._3Dsolid, false, keyList));
+
+            keyAgentName.Set(ref SettingsUser.NamingConvention);
+            keyAgentNum.Set(ref SortingAgent.CurrentPartNumber);
 
             using (var acTrans = acCurDb.TransactionManager.StartTransaction())
             {
@@ -88,8 +101,7 @@ namespace RabCab.Commands.AssemblySuite
 
                         if (acSol == null) continue;
 
-                        eList.Add(new EntInfo(acSol, acCurDb, acTrans));
-                  
+                        eList.Add(new EntInfo(acSol, acCurDb, acTrans));                 
                     }
 
                     eList.SortSolids();
@@ -108,17 +120,14 @@ namespace RabCab.Commands.AssemblySuite
                     });
                                 
                     pWorker.Reset("Naming Solids: ");
-                    var enumerable = groups.ToList();
-                    pWorker.SetTotalOperations(enumerable.Count());
+                    var gList = groups.ToList();
+                    pWorker.SetTotalOperations(gList.Count());
 
-                    if (enumerable.Count > 0)
+                    if (gList.Count > 0)
                         try
-                        {
-                            //Reset Part Number to 1 if specified in bool
-                            if (SettingsUser.ResetPartCount)
-                                SortingAgent.CurrentPartNumber = 1;
+                        {                          
 
-                            foreach (var group in enumerable)
+                            foreach (var group in gList)
                             {                                
                                 var nameString = SettingsUser.NamingConvention;
 
@@ -171,6 +180,8 @@ namespace RabCab.Commands.AssemblySuite
 
                 acTrans.Commit();
             }
+
+            SettingsUser.ResetPartCount = userResetPartCounter;
         }
 
         private void NameParts(List<EntInfo> eList, Editor acCurEd, Database acCurDb, Transaction acTrans)
