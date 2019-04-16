@@ -20,7 +20,7 @@ namespace DebugConsole
         ///     Main method
         /// </summary>
         /// <param name="args"></param>
-        private static void Main(string[] args)
+        private static void Main()
         {
             Console.WriteLine("-------- RabCab Debugger --------\n");
             Console.WriteLine("Please enter commands to test...");
