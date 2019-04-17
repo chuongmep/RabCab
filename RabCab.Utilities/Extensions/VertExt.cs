@@ -191,9 +191,9 @@ namespace RabCab.Extensions
                 normal = _xEdge.Tangent.GetNormal();
             }
 
-            if (!this._normal.IsLessThanTol())
+            if (!_normal.IsLessThanTol())
             {
-                normal1 = this._normal.GetNormal();
+                normal1 = _normal.GetNormal();
                 vector = normal1.CrossProduct(normal);
                 vector3D = vector.GetNormal();
                 vector = normal.CrossProduct(vector3D);

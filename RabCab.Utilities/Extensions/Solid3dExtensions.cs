@@ -24,7 +24,7 @@ namespace RabCab.Extensions
     public static class Solid3DExtensions
     {
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="acSol"></param>
         /// <param name="from"></param>
@@ -32,6 +32,87 @@ namespace RabCab.Extensions
         public static void Move(this Solid3d acSol, Point3d from, Point3d to)
         {
             acSol.TransformBy(Matrix3d.Displacement(from.GetVectorTo(to)));
+        }
+
+
+        public static void MinToOrigin(this Solid3d acSol)
+        {
+            acSol.Upgrade();
+            acSol.TransformBy(Matrix3d.Displacement(acSol.GetBounds().MinPoint.GetVectorTo(Point3d.Origin)));
+            acSol.Downgrade();
+        }
+
+        public static void MaxToOrigin(this Solid3d acSol)
+        {
+            acSol.Upgrade();
+            acSol.TransformBy(Matrix3d.Displacement(acSol.GetBounds().MaxPoint.GetVectorTo(Point3d.Origin)));
+            acSol.Downgrade();
+        }
+
+        public static void MinCenterToOrigin(this Solid3d acSol)
+        {
+            acSol.Upgrade();
+            var center = acSol.MassProperties.Centroid.Flatten();
+            acSol.TransformBy(Matrix3d.Displacement(center.GetVectorTo(Point3d.Origin)));
+            acSol.Downgrade();
+        }
+
+        public static void MaxCenterToOrigin(this Solid3d acSol)
+        {
+            acSol.Upgrade();
+            var center = acSol.MassProperties.Centroid;
+            var maxZ = acSol.GetBounds().MaxPoint.Z;
+            center = new Point3d(center.X, center.Y, maxZ);
+            acSol.TransformBy(Matrix3d.Displacement(center.GetVectorTo(Point3d.Origin)));
+            acSol.Downgrade();
+        }
+
+        public static void CenterToOrigin(this Solid3d acSol)
+        {
+            acSol.Upgrade();
+            acSol.TransformBy(Matrix3d.Displacement(acSol.GetBoxCenter().GetVectorTo(Point3d.Origin)));
+            acSol.Downgrade();
+        }
+
+        public static double TopLeftToOrigin(this Solid3d acSol)
+        {
+            acSol.Upgrade();
+
+            var min = acSol.GetBounds().MinPoint;
+            var max = acSol.GetBounds().MaxPoint;
+            var yDist = Math.Abs(max.Y - min.Y);
+
+            acSol.TransformBy(Matrix3d.Displacement(new Point3d(min.X, max.Y, min.Z).GetVectorTo(Point3d.Origin)));
+            acSol.Downgrade();
+
+            return yDist;
+        }
+
+        public static double TopLeftTo(this Solid3d acSol, Point3d to)
+        {
+            acSol.Upgrade();
+
+            var min = acSol.GetBounds().MinPoint;
+            var max = acSol.GetBounds().MaxPoint;
+            var yDist = Math.Abs(max.Y - min.Y);
+
+            acSol.TransformBy(Matrix3d.Displacement(new Point3d(min.X, max.Y, min.Z).GetVectorTo(to)));
+            acSol.Downgrade();
+
+            return yDist;
+        }
+
+        public static void Upgrade(this Entity ent)
+        {
+            if (!ent.IsWriteEnabled)
+                ent.UpgradeOpen();
+        }
+
+        public static void Downgrade(this Entity ent)
+        {
+            if (ent.IsWriteEnabled)
+                ent.DowngradeOpen();
+            ;
         }
 
         #region Methods For Getting BREP Information from Solids
@@ -505,87 +586,6 @@ namespace RabCab.Extensions
         }
 
         #endregion
-
-
-        public static void MinToOrigin(this Solid3d acSol)
-        {
-            acSol.Upgrade();
-            acSol.TransformBy(Matrix3d.Displacement(acSol.GetBounds().MinPoint.GetVectorTo(Point3d.Origin)));
-            acSol.Downgrade();
-        }
-
-        public static void MaxToOrigin(this Solid3d acSol)
-        {
-            acSol.Upgrade();
-            acSol.TransformBy(Matrix3d.Displacement(acSol.GetBounds().MaxPoint.GetVectorTo(Point3d.Origin)));
-            acSol.Downgrade();
-        }
-
-        public static void MinCenterToOrigin(this Solid3d acSol)
-        {
-            acSol.Upgrade();
-            var center = acSol.MassProperties.Centroid.Flatten();
-            acSol.TransformBy(Matrix3d.Displacement(center.GetVectorTo(Point3d.Origin)));
-            acSol.Downgrade();
-        }
-
-        public static void MaxCenterToOrigin(this Solid3d acSol)
-        {
-            acSol.Upgrade();
-            var center = acSol.MassProperties.Centroid;
-            var maxZ = acSol.GetBounds().MaxPoint.Z;
-            center = new Point3d(center.X, center.Y, maxZ);
-            acSol.TransformBy(Matrix3d.Displacement(center.GetVectorTo(Point3d.Origin)));
-            acSol.Downgrade();
-        }
-
-        public static void CenterToOrigin(this Solid3d acSol)
-        {
-            acSol.Upgrade();
-            acSol.TransformBy(Matrix3d.Displacement(acSol.GetBoxCenter().GetVectorTo(Point3d.Origin)));
-            acSol.Downgrade();
-        }
-
-        public static double TopLeftToOrigin(this Solid3d acSol)
-        {
-            acSol.Upgrade();
-
-            var min = acSol.GetBounds().MinPoint;
-            var max = acSol.GetBounds().MaxPoint;
-            var yDist = Math.Abs(max.Y - min.Y);
-
-            acSol.TransformBy(Matrix3d.Displacement(new Point3d(min.X, max.Y, min.Z).GetVectorTo(Point3d.Origin)));
-            acSol.Downgrade();
-
-            return yDist;
-        }
-
-        public static double TopLeftTo(this Solid3d acSol, Point3d to)
-        {
-            acSol.Upgrade();
-
-            var min = acSol.GetBounds().MinPoint;
-            var max = acSol.GetBounds().MaxPoint;
-            var yDist = Math.Abs(max.Y - min.Y);
-
-            acSol.TransformBy(Matrix3d.Displacement(new Point3d(min.X, max.Y, min.Z).GetVectorTo(to)));
-            acSol.Downgrade();
-
-            return yDist;
-        }
-
-        public static void Upgrade(this Entity ent)
-        {
-            if (!ent.IsWriteEnabled)
-                ent.UpgradeOpen();
-        }
-
-        public static void Downgrade(this Entity ent)
-        {
-            if (ent.IsWriteEnabled)
-                ent.DowngradeOpen();
-            ;
-        }
 
 
         #region Methods for Union, Subtract, Converge, & Gap

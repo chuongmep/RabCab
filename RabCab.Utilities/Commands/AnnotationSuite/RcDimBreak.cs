@@ -1,11 +1,9 @@
-﻿using System;
-using System.Linq;
-using Autodesk.AutoCAD.Runtime;
+﻿using Autodesk.AutoCAD.Runtime;
 using RabCab.Settings;
 
 namespace RabCab.Commands.AnnotationSuite
 {
-    class RcDimBreak
+    internal class RcDimBreak
     {
         /// <summary>
         /// </summary>

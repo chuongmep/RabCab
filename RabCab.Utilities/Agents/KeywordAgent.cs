@@ -6,14 +6,14 @@ namespace RabCab.Agents
     public class KeywordAgent
     {
         private readonly Editor _acCurEd;
+        public string DefValue;
         public string Key;
+        public object Output;
         public string Prompt;
         public TypeCode T;
-        public string DefValue;
-        public object Output;
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="acCurEd"></param>
         /// <param name="key"></param>
@@ -31,7 +31,7 @@ namespace RabCab.Agents
         }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         public void GetOutput()
         {
@@ -49,10 +49,9 @@ namespace RabCab.Agents
                     };
 
                     if (DefValue != null)
-                    {
                         try
                         {
-                            prIntOpts.DefaultValue = Int32.Parse(DefValue);
+                            prIntOpts.DefaultValue = int.Parse(DefValue);
                             prIntOpts.UseDefaultValue = true;
                         }
                         catch (Exception e)
@@ -60,7 +59,6 @@ namespace RabCab.Agents
                             Console.WriteLine(e);
                             throw;
                         }
-                    }
 
 
                     //Prompt the editor to receive the double from the user
@@ -82,10 +80,9 @@ namespace RabCab.Agents
                     };
 
                     if (DefValue != null)
-                    {
                         try
                         {
-                            prDobOpts.DefaultValue = Double.Parse(DefValue);
+                            prDobOpts.DefaultValue = double.Parse(DefValue);
                             prDobOpts.UseDefaultValue = true;
                         }
                         catch (Exception e)
@@ -93,7 +90,6 @@ namespace RabCab.Agents
                             Console.WriteLine(e);
                             throw;
                         }
-                    }
 
                     //Prompt the editor to receive the double from the user
                     var prDobRes = _acCurEd.GetDouble(prDobOpts);
@@ -127,18 +123,13 @@ namespace RabCab.Agents
                 case TypeCode.Boolean:
                     //TODO
                     break;
-
             }
 
-            if (Output != null)
-            {
-                DefValue = Output.ToString();
-            }
-
+            if (Output != null) DefValue = Output.ToString();
         }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="setVar"></param>
@@ -149,7 +140,7 @@ namespace RabCab.Agents
 
             try
             {
-                setVar = (T)Output;
+                setVar = (T) Output;
             }
             catch (Exception e)
             {
@@ -157,6 +148,5 @@ namespace RabCab.Agents
                 throw;
             }
         }
-
     }
 }

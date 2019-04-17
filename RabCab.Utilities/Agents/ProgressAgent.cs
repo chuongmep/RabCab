@@ -46,7 +46,7 @@ namespace RabCab.Agents
 
         public static ProgressAgent Active
         {
-            get { return _pmActive; }
+            get => _pmActive;
             set
             {
                 _pmActive?.Dispose();

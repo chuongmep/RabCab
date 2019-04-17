@@ -46,7 +46,7 @@ namespace RabCab.Network
         {
             // Add the specified number of items
             for (var i = 0; i < initialSize; i++)
-                Items.Add(default(Node<T>));
+                Items.Add(default);
         }
 
         public Node<T> FindByValue(T value)

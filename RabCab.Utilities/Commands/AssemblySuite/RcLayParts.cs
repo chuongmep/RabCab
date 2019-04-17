@@ -9,20 +9,16 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
-using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.Runtime;
 using RabCab.Agents;
 using RabCab.Analysis;
 using RabCab.Engine.Enumerators;
 using RabCab.Extensions;
 using RabCab.Settings;
-using Exception = Autodesk.AutoCAD.Runtime.Exception;
 
 namespace RabCab.Commands.AssemblySuite
 {
@@ -65,6 +61,12 @@ namespace RabCab.Commands.AssemblySuite
 
             //Check for pick-first selection -> if none, get selection      
             var acSet = SelectionSet.FromObjectIds(acCurEd.GetFilteredSelection(Enums.DxfNameEnum._3Dsolid, false));
+            var laypt = acCurEd.Get2DPoint("\nSelect point to lay parts at: ");
+
+            var multAmount = 1;
+
+            if (SettingsUser.PromptForMultiplication)
+                multAmount = acCurEd.GetPositiveInteger("\nEnter number to multiply parts by: ", 1);
 
             using (var acTrans = acCurDb.TransactionManager.StartTransaction())
             {
@@ -88,17 +90,7 @@ namespace RabCab.Commands.AssemblySuite
                         eList.Add(new EntInfo(acSol, acCurDb, acTrans));
                     }
 
-                    if (SettingsUser.SortByName)
-                    {
-                        eList.SortByName();
-                    }
-                    else
-                    {
-                        eList.SortSolids();
-                    }
-                   
-                    eList.GroupAndLay(Point3d.Origin, pWorker, acCurDb, acCurEd, acTrans);
-
+                    eList.SortAndLay(laypt, pWorker, acCurDb, acCurEd, acTrans, multAmount);
                 }
 
                 acTrans.Commit();

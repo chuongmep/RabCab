@@ -135,47 +135,45 @@ namespace RabCab.Agents
                     // Append the extended data to the object
                     acEnt.XData = rBuffer;
                 }
-
             }
-    
-                try
+
+            try
+            {
+                //Update the specified Value
+                var rBuffer = acEnt.GetXDataForApplication(SettingsInternal.CommandGroup);
+
+                var rcData = rBuffer.AsArray();
+                var xDataIndex = (int) xCode;
+
+                if (value.GetType() == typeof(List<Handle>))
                 {
-                    //Update the specified Value
-                    var rBuffer = acEnt.GetXDataForApplication(SettingsInternal.CommandGroup);
+                    var childList = value as List<Handle>;
+                    var childString = "";
 
-                    var rcData = rBuffer.AsArray();
-                    var xDataIndex = (int) xCode;
+                    if (childList != null && childList.Count > 0) childString = string.Join(",", childList);
 
-                    if (value.GetType() == typeof(List<Handle>))
-                    {
-                        var childList = value as List<Handle>;
-                        var childString = "";
-
-                        if (childList != null && childList.Count > 0) childString = string.Join(",", childList);
-
-                        rcData[xDataIndex] = new TypedValue((int) (DxfCode) rcData[xDataIndex].TypeCode, childString);
-                    }
-                    else
-                    {
-                        rcData[xDataIndex] = new TypedValue((int) (DxfCode) rcData[xDataIndex].TypeCode, value);
-                    }
-
-                    //Reassign the XData
-                    rBuffer = new ResultBuffer(rcData);
-                    acEnt.XData = rBuffer;
+                    rcData[xDataIndex] = new TypedValue((int) (DxfCode) rcData[xDataIndex].TypeCode, childString);
                 }
-                catch
+                else
                 {
-                    // ignored
+                    rcData[xDataIndex] = new TypedValue((int) (DxfCode) rcData[xDataIndex].TypeCode, value);
                 }
-            
+
+                //Reassign the XData
+                rBuffer = new ResultBuffer(rcData);
+                acEnt.XData = rBuffer;
+            }
+            catch
+            {
+                // ignored
+            }
         }
 
         public static T GetXData<T>(this Entity acEnt, XDataCode xCode)
         {
             //Get the XData from RC_DATA
             var rb = acEnt.GetXDataForApplication(SettingsInternal.CommandGroup);
-            if (rb == null) return default(T);
+            if (rb == null) return default;
 
             var rvArr = rb.AsArray();
 

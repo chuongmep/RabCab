@@ -23,28 +23,28 @@ namespace RabCab.Settings
         public static bool KeepSelection = false;
         public static bool PrioritizeRightAngles = false;
         public static bool UseFields = false;
-        public static RoundTolerance UserTol { set; get; } = RoundTolerance.SixDecimals;
 
-     //SortingOptions
-       public static bool ResetPartCount = true;
-       public static string NamingConvention = "";
-       public static bool SortByLayer = true;
-       public static bool SortByColor = false;
-       public static bool SortByThickness = true;
-       public static bool SortByName = true;
-       public static bool GroupSame = true;
-       public static bool SplitByLayer = true;
-       public static bool MixS4S = false;
+        //SortingOptions
+        public static bool ResetPartCount = true;
+        public static string NamingConvention = "";
+        public static bool SortByLayer = true;
+        public static bool SortByColor = false;
+        public static bool SortByThickness = true;
+        public static bool SortByName = true;
+        public static bool GroupSame = true;
+        public static bool SplitByLayer = true;
+        public static bool MixS4S = false;
 
-      //Laying Options
+        //Laying Options
         public static int LayStep = 10;
-        public static double LayTextHeight  = 2;
+        public static double LayTextHeight = 2;
         public static bool LayTextAbove = true;
         public static bool LayTextInside = false;
         public static bool LayTextLeft = true;
         public static bool LayTextCenter = false;
-        public static bool LayFlatShot  = false;
-        public static bool LayAllLSidesFlatShot  = false;
-
+        public static bool LayFlatShot = false;
+        public static bool LayAllLSidesFlatShot = false;
+        public static bool PromptForMultiplication = true;
+        public static RoundTolerance UserTol { set; get; } = RoundTolerance.SixDecimals;
     }
 }

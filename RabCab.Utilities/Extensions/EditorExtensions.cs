@@ -178,6 +178,35 @@ namespace RabCab.Extensions
 
         #endregion
 
+        /// <summary>
+        ///     TODO
+        /// </summary>
+        /// <param name="keyList"></param>
+        /// <param name="prOpts"></param>
+        private static void HandleKeywords(List<KeywordAgent> keyList, PromptSelectionOptions prOpts)
+        {
+            if (keyList == null) return;
+
+            foreach (var key in keyList) prOpts.Keywords.Add(key.Key);
+
+            var keyRes = prOpts.Keywords.GetDisplayString(true);
+
+
+            prOpts.MessageForAdding = prOpts.MessageForAdding + " or " + keyRes;
+
+            prOpts.MessageForRemoval = prOpts.MessageForRemoval + " or " + keyRes;
+
+            // Implement a callback for when keywords are entered
+            prOpts.KeywordInput += delegate(object sender, SelectionTextInputEventArgs e)
+            {
+                var userInput = e.Input;
+
+                foreach (var key in keyList)
+                    if (userInput == key.Key)
+                        key.GetOutput();
+            };
+        }
+
         #region Prompt Angle Options
 
         /// <summary>
@@ -1157,7 +1186,7 @@ namespace RabCab.Extensions
         ///     point.
         /// </param>
         /// <returns></returns>
-        public static Point3d Get3DPoint(this Editor acCurEd, string prompt, Point3d basePt = default(Point3d))
+        public static Point3d Get3DPoint(this Editor acCurEd, string prompt, Point3d basePt = default)
         {
             var prPtOpts = new PromptPointOptions("")
             {
@@ -1166,7 +1195,7 @@ namespace RabCab.Extensions
             };
 
             //Check if a base point has been passed to the method
-            if (basePt != default(Point3d))
+            if (basePt != default)
             {
                 prPtOpts.BasePoint = basePt;
                 prPtOpts.UseBasePoint = true;
@@ -1176,7 +1205,7 @@ namespace RabCab.Extensions
             var prPtRes = acCurEd.GetPoint(prPtOpts);
 
             //If bad input -> return 0
-            if (prPtRes.Status != PromptStatus.OK) return default(Point3d);
+            if (prPtRes.Status != PromptStatus.OK) return default;
 
             //Return the distance entered into the editor
             var ptResult = prPtRes.Value;
@@ -1193,7 +1222,7 @@ namespace RabCab.Extensions
         ///     point.
         /// </param>
         /// <returns></returns>
-        public static Point2d Get2DPoint(this Editor acCurEd, string prompt, Point2d basePt = default(Point2d))
+        public static Point2d Get2DPoint(this Editor acCurEd, string prompt, Point2d basePt = default)
         {
             var prPtOpts = new PromptPointOptions("")
             {
@@ -1202,7 +1231,7 @@ namespace RabCab.Extensions
             };
 
             //Check if a base point has been passed to the method
-            if (basePt != default(Point2d))
+            if (basePt != default)
             {
                 prPtOpts.BasePoint = new Point3d(basePt.X, basePt.Y, 0);
                 prPtOpts.UseBasePoint = true;
@@ -1212,7 +1241,7 @@ namespace RabCab.Extensions
             var prPtRes = acCurEd.GetPoint(prPtOpts);
 
             //If bad input -> return 0
-            if (prPtRes.Status != PromptStatus.OK) return default(Point2d);
+            if (prPtRes.Status != PromptStatus.OK) return default;
 
             //Return the distance entered into the editor
             var ptResult = new Point2d(prPtRes.Value.X, prPtRes.Value.Y);
@@ -1513,7 +1542,7 @@ namespace RabCab.Extensions
 
 
             //Create a selection filter to only allow the specified object
-            var selFilter = new SelectionFilter(new[] { new TypedValue((int)DxfCode.Start, dxfName) });
+            var selFilter = new SelectionFilter(new[] {new TypedValue((int) DxfCode.Start, dxfName)});
 
             //Get the selection from the user
             var prSelRes = acCurEd.GetSelection(prSelOpts, selFilter);
@@ -1714,7 +1743,7 @@ namespace RabCab.Extensions
         public static ObjectId[] GetObjectsByType(this Editor acCurEd, Enums.DxfNameEnum[] filterArgs)
         {
             SelectionSet acSSet = null;
-            var curSpace = (int)AcVars.TileMode;
+            var curSpace = (int) AcVars.TileMode;
 
             var dxfNames = new List<string>();
 
@@ -1735,7 +1764,7 @@ namespace RabCab.Extensions
 
             // Create a TypedValue array to define the filter criteria
             var acTypValAr = new TypedValue[2];
-            acTypValAr.SetValue(new TypedValue((int)DxfCode.Start, filterValue), 0);
+            acTypValAr.SetValue(new TypedValue((int) DxfCode.Start, filterValue), 0);
             acTypValAr.SetValue(new TypedValue(67, curSpace), 1);
 
             // Assign the filter criteria to a SelectionFilter object
@@ -1832,12 +1861,12 @@ namespace RabCab.Extensions
             using (var tr = db.TransactionManager.StartTransaction())
             {
                 var vp =
-                    (Viewport)tr.GetObject(ed.CurrentViewportObjectId, OpenMode.ForRead);
+                    (Viewport) tr.GetObject(ed.CurrentViewportObjectId, OpenMode.ForRead);
                 if (vp.Number == 1)
                     try
                     {
                         ed.SwitchToModelSpace();
-                        vp = (Viewport)tr.GetObject(ed.CurrentViewportObjectId, OpenMode.ForRead);
+                        vp = (Viewport) tr.GetObject(ed.CurrentViewportObjectId, OpenMode.ForRead);
                         ed.SwitchToPaperSpace();
                     }
                     catch
@@ -1867,42 +1896,5 @@ namespace RabCab.Extensions
         }
 
         #endregion
-
-        /// <summary>
-        /// TODO
-        /// </summary>
-        /// <param name="keyList"></param>
-        /// <param name="prOpts"></param>
-        private static void HandleKeywords(List<KeywordAgent> keyList, PromptSelectionOptions prOpts)
-        {
-            if (keyList == null) return;
-
-            foreach (var key in keyList)
-            {
-                prOpts.Keywords.Add(key.Key);
-            }
-
-            var keyRes = prOpts.Keywords.GetDisplayString(true);
-
-
-            prOpts.MessageForAdding = prOpts.MessageForAdding + " or " + keyRes;
-
-            prOpts.MessageForRemoval = prOpts.MessageForRemoval + " or " + keyRes;
-
-            // Implement a callback for when keywords are entered
-            prOpts.KeywordInput += delegate (object sender, SelectionTextInputEventArgs e)
-            {
-                var userInput = e.Input;
-
-                foreach (var key in keyList)
-                {
-                    if (userInput == key.Key)
-                    {
-                        key.GetOutput();
-                    }
-                }
-            };
-        }
-
     }
 }

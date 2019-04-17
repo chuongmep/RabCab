@@ -17,7 +17,6 @@ using Autodesk.AutoCAD.BoundaryRepresentation;
 using Autodesk.AutoCAD.Colors;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Geometry;
-using Autodesk.AutoCAD.Interop.Common;
 using RabCab.Agents;
 using RabCab.Calculators;
 using RabCab.Extensions;
@@ -183,41 +182,20 @@ namespace RabCab.Analysis
         /// <returns></returns>
         public bool IsMirrorOf(EntInfo y)
         {
-            if (this.Asymmetry == 0 || y.Asymmetry == 0)
-            {
-                return false;
-            }
+            if (Asymmetry == 0 || y.Asymmetry == 0) return false;
 
-            if (this.AsymmetryVector.IsEqualTo(y.AsymmetryVector, CalcTol.UnitVector))
+            if (AsymmetryVector.IsEqualTo(y.AsymmetryVector, CalcTol.UnitVector))
             {
-                if (!this.AsymmetryVector.X.IsEqualTo(y.AsymmetryVector.X))
-                {
-                    return true;
-                }
-                if (!this.AsymmetryVector.Y.IsEqualTo(y.AsymmetryVector.Y))
-                {
-                    return true;
-                }
-                if (!this.AsymmetryVector.Z.IsEqualTo(y.AsymmetryVector.Z))
-                {
-                    return true;
-                }
+                if (!AsymmetryVector.X.IsEqualTo(y.AsymmetryVector.X)) return true;
+                if (!AsymmetryVector.Y.IsEqualTo(y.AsymmetryVector.Y)) return true;
+                if (!AsymmetryVector.Z.IsEqualTo(y.AsymmetryVector.Z)) return true;
 
                 return false;
             }
 
-            if (!this.AsymmetryVector.X.IsEqualTo(y.AsymmetryVector.X))
-            {
-                return true;
-            }
-            if (!this.AsymmetryVector.Y.IsEqualTo(y.AsymmetryVector.Y))
-            {
-                return true;
-            }
-            if (!this.AsymmetryVector.Z.IsEqualTo(y.AsymmetryVector.Z))
-            {
-                return true;
-            }
+            if (!AsymmetryVector.X.IsEqualTo(y.AsymmetryVector.X)) return true;
+            if (!AsymmetryVector.Y.IsEqualTo(y.AsymmetryVector.Y)) return true;
+            if (!AsymmetryVector.Z.IsEqualTo(y.AsymmetryVector.Z)) return true;
 
             return false;
         }
@@ -343,12 +321,9 @@ namespace RabCab.Analysis
 
             if (count < 10) countStr = "0" + countStr;
 
-            string prntStr = "";
+            var prntStr = "";
 
-            if (count > 0)
-            {
-                prntStr += count + ":";
-            }
+            if (count > 0) prntStr += count + ":";
 
             if (!supressPartName)
             {
@@ -358,7 +333,7 @@ namespace RabCab.Analysis
                 else
                     prntStr += " #" + objIdStr;
             }
-            
+
             prntStr += " - L:" + lengthStr +
                        " W:" + widthStr +
                        " T:" + thickStr +

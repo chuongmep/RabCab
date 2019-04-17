@@ -9,8 +9,6 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
-using System.Collections.Generic;
-using System.Windows.Documents;
 using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;

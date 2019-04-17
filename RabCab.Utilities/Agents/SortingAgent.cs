@@ -1,14 +1,13 @@
-﻿using Autodesk.AutoCAD.DatabaseServices;
-using RabCab.Analysis;
-using RabCab.Settings;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
+using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
+using RabCab.Analysis;
 using RabCab.Engine.Enumerators;
 using RabCab.Extensions;
+using RabCab.Settings;
 using static RabCab.Engine.Enumerators.Enums.SortBy;
 using Exception = Autodesk.AutoCAD.Runtime.Exception;
 
@@ -19,7 +18,7 @@ namespace RabCab.Agents
         public static int CurrentPartNumber = 1;
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="eInfoList"></param>
         public static void SortSolids(this List<EntInfo> eInfoList)
@@ -42,13 +41,13 @@ namespace RabCab.Agents
                 .ThenByIf(sCrit.HasFlag(Layer), e => e.EntLayer)
                 .ThenByIf(sCrit.HasFlag(Color), e => e.EntColor)
                 .ThenByIf(sCrit.HasFlag(Thickness), e => e.Thickness)
-                .ThenBy(e => e.Length);//.ThenByDescending(e => e.Width);
+                .ThenByDescending(e => e.Length); //.ThenByDescending(e => e.Width);
 
             eInfoList = sortedList.ToList();
         }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="eInfoList"></param>
         public static void SortByName(this List<EntInfo> eInfoList)
@@ -79,7 +78,7 @@ namespace RabCab.Agents
 
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="objIds"></param>
         /// <param name="acCurDb"></param>
@@ -93,7 +92,7 @@ namespace RabCab.Agents
         }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="objIds"></param>
         /// <param name="acCurDb"></param>
@@ -103,15 +102,12 @@ namespace RabCab.Agents
         {
             var mList = new List<EntInfo>();
 
-            using (var pWorker = new ProgressAgent("Parsing Solids: ", Enumerable.Count(objIds)))
+            using (var pWorker = new ProgressAgent("Parsing Solids: ", objIds.Count()))
             {
                 foreach (var objId in objIds)
                 {
                     //Tick progress bar or exit if ESC has been pressed
-                    if (!pWorker.Tick())
-                    {
-                        return mList;
-                    }
+                    if (!pWorker.Tick()) return mList;
 
                     var acSol = acTrans.GetObject(objId, OpenMode.ForRead) as Solid3d;
 
@@ -124,8 +120,25 @@ namespace RabCab.Agents
             return mList;
         }
 
+        private static Enums.SortBy GetSCrit()
+        {
+            var sCrit = Name
+                        | Layer
+                        | Color
+                        | Thickness
+                        | MixS4S;
+
+            if (!SettingsUser.SortByName) sCrit -= Name;
+            if (!SettingsUser.SortByLayer) sCrit -= Layer;
+            if (!SettingsUser.SortByColor) sCrit -= Color;
+            if (!SettingsUser.SortByThickness) sCrit -= Thickness;
+            if (!SettingsUser.MixS4S) sCrit -= MixS4S;
+
+            return sCrit;
+        }
+
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="eList"></param>
         /// <param name="nameParts"></param>
@@ -133,14 +146,17 @@ namespace RabCab.Agents
         /// <param name="acCurDb"></param>
         /// <param name="acCurEd"></param>
         /// <param name="acTrans"></param>
-        public static void GroupAndName(this List<EntInfo> eList, ProgressAgent pWorker,
+        public static void SortAndName(this List<EntInfo> eList, ProgressAgent pWorker,
             Database acCurDb, Editor acCurEd, Transaction acTrans)
         {
+            var sCrit = GetSCrit();
+
             var groups = eList.GroupBy(x => new
             {
-                Layer = SettingsUser.SortByLayer ? x.EntLayer : null,
-                Color = SettingsUser.SortByColor ? x.EntColor : null,
-                Thickness = SettingsUser.SortByThickness ? x.Thickness : double.NaN,
+                Box = sCrit.HasFlag(MixS4S) && x.IsBox,
+                Layer = sCrit.HasFlag(Layer) ? x.EntLayer : null,
+                Color = sCrit.HasFlag(Color) ? x.EntColor : null,
+                Thickness = sCrit.HasFlag(Thickness) ? x.Thickness : double.NaN,
                 x.Length,
                 x.Width,
                 x.Volume,
@@ -149,13 +165,18 @@ namespace RabCab.Agents
             });
 
             pWorker.Reset("Naming Solids: ");
-            var gList = groups.ToList();
+
+            var gList = groups.OrderByDescendingIf(sCrit.HasFlag(MixS4S), e => e.Key.Box)
+                .ThenByIf(sCrit.HasFlag(Layer), e => e.Key.Layer)
+                .ThenByIf(sCrit.HasFlag(Color), e => e.Key.Color)
+                .ThenByDescendingIf(sCrit.HasFlag(Thickness), e => e.Key.Thickness)
+                .ThenByDescending(e => e.Key.Length).ThenByDescending(e => e.Key.Width).ToList();
+
             pWorker.SetTotalOperations(gList.Count());
 
             if (gList.Count > 0)
                 try
                 {
-
                     foreach (var group in gList)
                     {
                         //Tick progress bar or exit if ESC has been pressed
@@ -183,18 +204,13 @@ namespace RabCab.Agents
                             }
 
                             if (eInfo.IsMirrorOf(baseInfo))
-                            {
                                 mirrors.Add(eInfo);
-                            }
                             else
-                            {
                                 nonMirrors.Add(eInfo);
-                            }
                         }
 
                         nonMirrors.UpdatePartData(true, acCurEd, acCurDb, acTrans);
                         mirrors.UpdatePartData(true, acCurEd, acCurDb, acTrans);
-
                     }
                 }
                 catch (Exception e)
@@ -206,24 +222,25 @@ namespace RabCab.Agents
 
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="eList"></param>
-        /// <param name="nameParts"></param>
         /// <param name="pWorker"></param>
         /// <param name="acCurDb"></param>
         /// <param name="acCurEd"></param>
         /// <param name="acTrans"></param>
-        public static void GroupAndLay(this List<EntInfo> eList, Point3d layPoint, ProgressAgent pWorker,
-            Database acCurDb, Editor acCurEd, Transaction acTrans)
+        public static void SortAndLay(this List<EntInfo> eList, Point2d layPoint, ProgressAgent pWorker,
+            Database acCurDb, Editor acCurEd, Transaction acTrans, int multAmount = 1)
         {
+            var sCrit = GetSCrit();
 
             var groups = eList.GroupBy(x => new
             {
-                Name = SettingsUser.SortByName ? x.RcName : null,
-                Layer = SettingsUser.SortByLayer ? x.EntLayer : null,
-                Color = SettingsUser.SortByColor ? x.EntColor : null,
-                Thickness = SettingsUser.SortByThickness ? x.Thickness : double.NaN,             
+                Box = sCrit.HasFlag(MixS4S) && x.IsBox,
+                Name = sCrit.HasFlag(Name) ? x.RcName : null,
+                Layer = sCrit.HasFlag(Layer) ? x.EntLayer : null,
+                Color = sCrit.HasFlag(Color) ? x.EntColor : null,
+                Thickness = sCrit.HasFlag(Thickness) ? x.Thickness : double.NaN,
                 x.Length,
                 x.Width,
                 x.Volume,
@@ -231,15 +248,21 @@ namespace RabCab.Agents
                 x.TxDirection
             });
 
-            pWorker.Reset("Laying Solids: ");
-            var gList = groups.OrderBy(e => e.Key.Name).ToList();
 
+            var enumerable = groups.ToList();
+            var gList = enumerable.OrderBy(e => e.Key.Name).ThenByIf(sCrit.HasFlag(MixS4S), e => e.Key.Box)
+                .ThenByIf(sCrit.HasFlag(Layer), e => e.Key.Layer)
+                .ThenByIf(sCrit.HasFlag(Color), e => e.Key.Color)
+                .ThenByDescendingIf(sCrit.HasFlag(Thickness), e => e.Key.Thickness)
+                .ThenByDescending(e => e.Key.Length).ThenByDescending(e => e.Key.Width).ToList();
+            ;
+
+            pWorker.Reset("Laying Solids: ");
             pWorker.SetTotalOperations(gList.Count());
 
             if (gList.Count > 0)
                 try
                 {
-
                     foreach (var group in gList)
                     {
                         //Tick progress bar or exit if ESC has been pressed
@@ -267,19 +290,15 @@ namespace RabCab.Agents
                             }
 
                             if (eInfo.IsMirrorOf(baseInfo))
-                            {
                                 mirrors.Add(eInfo);
-                            }
                             else
-                            {
                                 nonMirrors.Add(eInfo);
-                            }
                         }
 
                         nonMirrors.UpdatePartData(false, acCurEd, acCurDb, acTrans);
-                        nonMirrors.LayParts(ref layPoint, acCurDb, acTrans);
+                        nonMirrors.LayParts(ref layPoint, acCurDb, acTrans, multAmount);
                         mirrors.UpdatePartData(false, acCurEd, acCurDb, acTrans);
-                        mirrors.LayParts(ref layPoint, acCurDb, acTrans);
+                        mirrors.LayParts(ref layPoint, acCurDb, acTrans, multAmount);
                     }
                 }
                 catch (Exception e)
@@ -290,13 +309,14 @@ namespace RabCab.Agents
         }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="eList"></param>
         /// <param name="layPoint"></param>
         /// <param name="acCurDb"></param>
         /// <param name="acTrans"></param>
-        private static void LayParts(this List<EntInfo> eList, ref Point3d layPoint, Database acCurDb, Transaction acTrans)
+        private static void LayParts(this List<EntInfo> eList, ref Point2d layPoint, Database acCurDb,
+            Transaction acTrans, int multAmount = 1)
         {
             foreach (var e in eList)
             {
@@ -306,59 +326,60 @@ namespace RabCab.Agents
                 if (acSol == null) continue;
 
                 var cloneSol = acSol.Clone() as Solid3d;
-                
-                    cloneSol?.TransformBy(e.LayMatrix);
-                    acCurDb.AppendEntity(cloneSol, acTrans);
-                    var yStep = cloneSol.TopLeftTo(layPoint);
 
-                    using (var acText = new MText())
+                cloneSol?.TransformBy(e.LayMatrix);
+                acCurDb.AppendEntity(cloneSol, acTrans);
+                var yStep = cloneSol.TopLeftTo(layPoint.Convert3D());
+
+                using (var acText = new MText())
+                {
+                    acText.TextHeight = SettingsUser.LayTextHeight;
+                    acText.Contents = e.RcName + " - " + e.RcQtyTotal * multAmount + " Pieces";
+                    //acText.Layer = ;
+                    //acText.ColorIndex = ;                           
+
+                    //Parse the insertion point and text alignment
+                    double zPt = 0;
+
+                    //Default Lay Above
+                    var yPt = layPoint.Y + 1;
+
+
+                    if (SettingsUser.LayTextInside)
                     {
+                        yPt = layPoint.Y - yStep / 2;
+                        zPt = e.Thickness + .01;
+                    }
 
-                        acText.TextHeight = SettingsUser.LayTextHeight;
-                        acText.Contents = e.RcName + " - " + e.RcQtyTotal + " Pieces";
-                        //acText.Layer = ;
-                        //acText.ColorIndex = ;                           
+                    //Default Lay Left
+                    var xPt = layPoint.X;
+                    acText.Attachment = AttachmentPoint.BottomLeft;
 
-                        //Parse the insertion point and text alignment
-                        double zPt = 0;
+                    if (SettingsUser.LayTextCenter)
+                    {
+                        xPt = layPoint.X + e.Length / 2;
+                        acText.Attachment = AttachmentPoint.MiddleCenter;
+                    }
 
-                        //Default Lay Above
-                        var yPt = layPoint.Y + 1;
+                    acText.Location = new Point3d(xPt, yPt, zPt);
 
+                    //Appent the text
+                    acCurDb.AppendEntity(acText, acTrans);
+                }
 
-                        if (SettingsUser.LayTextInside)
-                        {
-                            yPt = layPoint.Y - (yStep / 2);
-                            zPt = e.Thickness + .01;
-                        }
-
-                        //Default Lay Left
-                        var xPt = layPoint.X;
-                        acText.Attachment = AttachmentPoint.BottomLeft;
-
-                        if (SettingsUser.LayTextCenter)
-                        {
-                            xPt = layPoint.X + (e.Length / 2);
-                            acText.Attachment = AttachmentPoint.MiddleCenter;
-                        }
-
-                        acText.Location = new Point3d(xPt, yPt, zPt);
-
-                        //Appent the text
-                        acCurDb.AppendEntity(acText, acTrans);
-                    }              
-                    layPoint = new Point3d(layPoint.X, layPoint.Y - yStep - SettingsUser.LayStep, 0);                            
+                layPoint = new Point2d(layPoint.X, layPoint.Y - yStep - SettingsUser.LayStep);
             }
         }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="eList"></param>
         /// <param name="acCurEd"></param>
         /// <param name="acCurDb"></param>
         /// <param name="acTrans"></param>
-        public static void UpdatePartData(this List<EntInfo> eList, bool nameParts, Editor acCurEd, Database acCurDb, Transaction acTrans)
+        public static void UpdatePartData(this List<EntInfo> eList, bool nameParts, Editor acCurEd, Database acCurDb,
+            Transaction acTrans)
         {
             if (eList.Count <= 0) return;
 
@@ -367,9 +388,9 @@ namespace RabCab.Agents
 
             var nameString = SettingsUser.NamingConvention;
 
-            if (SortingAgent.CurrentPartNumber < 10)
+            if (CurrentPartNumber < 10)
                 nameString += "0";
-            nameString += SortingAgent.CurrentPartNumber;
+            nameString += CurrentPartNumber;
 
             if (baseSolid == null) return;
 
@@ -379,7 +400,6 @@ namespace RabCab.Agents
 
             foreach (var eInfo in eList)
             {
-
                 var acSol = acTrans.GetObject(eInfo.ObjId, OpenMode.ForRead) as Solid3d;
 
                 if (acSol == null) continue;
@@ -387,7 +407,7 @@ namespace RabCab.Agents
                 var handle = acSol.Handle;
 
                 if (nameParts)
-                eInfo.RcName = nameString;
+                    eInfo.RcName = nameString;
 
                 eInfo.RcQtyOf = partCount;
 
@@ -406,27 +426,23 @@ namespace RabCab.Agents
                 string printStr;
 
                 if (eInfo.IsChild)
-                {
                     printStr = "\n\t\u2022 [C] |" + eInfo.PrintInfo(true);
-                }
                 else // Is Parent
-                {
                     printStr = "\n[P] | " + eInfo.PrintInfo(false);
-                }
 
                 acCurEd.WriteMessage(printStr + " | Part " + partCount + " Of " + groupTotal);
 
                 partCount++;
             }
 
-            SortingAgent.CurrentPartNumber++;
+            CurrentPartNumber++;
         }
     }
 
     public static class ListExt
     {
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="TKey"></typeparam>
@@ -439,14 +455,11 @@ namespace RabCab.Agents
         {
             if (predicate)
                 return list.OrderBy(f => sel(f));
-            else
-            {
-                return list.OrderBy(a => 1);
-            }
+            return list.OrderBy(a => 1);
         }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="TKey"></typeparam>
@@ -459,14 +472,11 @@ namespace RabCab.Agents
         {
             if (predicate)
                 return list.OrderByDescending(f => sel(f));
-            else
-            {
-                return list.OrderBy(a => 1);
-            }
+            return list.OrderBy(a => 1);
         }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="TKey"></typeparam>
@@ -479,12 +489,11 @@ namespace RabCab.Agents
         {
             if (predicate)
                 return list.ThenBy(f => sel(f));
-            else
-                return list;
+            return list;
         }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="TKey"></typeparam>
@@ -496,9 +505,8 @@ namespace RabCab.Agents
             Func<T, TKey> sel)
         {
             if (predicate)
-                return list.ThenByDescending<T, TKey>(f => sel(f));
-            else
-                return list;
+                return list.ThenByDescending(f => sel(f));
+            return list;
         }
 
         public static bool Compare(this EntInfo x, EntInfo y, bool compareNames)
@@ -521,7 +529,5 @@ namespace RabCab.Agents
 
             return true;
         }
-
-
     }
 }

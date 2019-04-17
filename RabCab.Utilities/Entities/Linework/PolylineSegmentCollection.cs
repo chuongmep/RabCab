@@ -506,8 +506,8 @@ namespace RabCab.Entities.Linework
         /// <returns>The element at the specified index.</returns>
         public PolylineSegment this[int index]
         {
-            get { return _contents[index]; }
-            set { _contents[index] = value; }
+            get => _contents[index];
+            set => _contents[index] = value;
         }
 
         #endregion

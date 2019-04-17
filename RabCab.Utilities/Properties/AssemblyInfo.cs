@@ -82,4 +82,3 @@ using RabCab.Commands.AssemblySuite;
 [assembly: CommandClass(typeof(RcTraverse))]
 [assembly: CommandClass(typeof(RcNameParts))]
 [assembly: CommandClass(typeof(RcLayParts))]
-

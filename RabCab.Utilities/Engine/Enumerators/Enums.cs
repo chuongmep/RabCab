@@ -123,6 +123,18 @@ namespace RabCab.Engine.Enumerators
             EightDecimals = 8
         }
 
+        [Flags]
+        public enum SortBy
+        {
+            Layer = 1,
+            Color = 2,
+            Thickness = 4,
+            Name = 8,
+            GroupSame = 16,
+            SplitByLayer = 32,
+            MixS4S = 64
+        }
+
         /// <summary>
         ///     Sub Object Selection Modes
         /// </summary>
@@ -183,18 +195,6 @@ namespace RabCab.Engine.Enumerators
             ProductionType = 18,
             ParentObject = 19,
             ChildObjects = 20
-        }
-
-        [Flags]
-        public enum SortBy
-        {
-            Layer = 1,
-            Color = 2,
-            Thickness = 4,
-            Name = 8,
-            GroupSame = 16,
-            SplitByLayer = 32,
-            MixS4S = 64
         }
     }
 }

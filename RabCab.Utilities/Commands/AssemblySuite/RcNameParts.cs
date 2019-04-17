@@ -11,7 +11,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
@@ -21,14 +20,13 @@ using RabCab.Analysis;
 using RabCab.Extensions;
 using RabCab.Settings;
 using static RabCab.Engine.Enumerators.Enums;
-using Exception = Autodesk.AutoCAD.Runtime.Exception;
 
 namespace RabCab.Commands.AssemblySuite
 {
     internal class RcNameParts
     {
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         [CommandMethod(SettingsInternal.CommandGroup, "_NAMEPARTS",
             CommandFlags.Modal
@@ -71,8 +69,10 @@ namespace RabCab.Commands.AssemblySuite
             if (SettingsUser.ResetPartCount)
                 SortingAgent.CurrentPartNumber = 1;
 
-            var keyAgentName = new KeywordAgent(acCurEd, "NameFormat", "Enter naming format: ", TypeCode.String, SettingsUser.NamingConvention);
-            var keyAgentNum = new KeywordAgent(acCurEd, "StartFrom", "Enter part number to start from: ", TypeCode.Int32, SortingAgent.CurrentPartNumber.ToString());
+            var keyAgentName = new KeywordAgent(acCurEd, "NameFormat", "Enter naming format: ", TypeCode.String,
+                SettingsUser.NamingConvention);
+            var keyAgentNum = new KeywordAgent(acCurEd, "StartFrom", "Enter part number to start from: ",
+                TypeCode.Int32, SortingAgent.CurrentPartNumber.ToString());
 
             keyList.Add(keyAgentName);
             keyList.Add(keyAgentNum);
@@ -102,17 +102,17 @@ namespace RabCab.Commands.AssemblySuite
 
                         if (acSol == null) continue;
 
-                        eList.Add(new EntInfo(acSol, acCurDb, acTrans));                 
+                        eList.Add(new EntInfo(acSol, acCurDb, acTrans));
                     }
 
-                    eList.SortSolids();
-                    eList.GroupAndName(pWorker, acCurDb, acCurEd, acTrans);
+                    //eList.SortSolids();
+                    eList.SortAndName(pWorker, acCurDb, acCurEd, acTrans);
                 }
+
                 acTrans.Commit();
             }
 
             SettingsUser.ResetPartCount = userResetPartCounter;
         }
-
     }
 }

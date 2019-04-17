@@ -32,8 +32,8 @@ namespace RabCab.Entities.Linework
         /// </summary>
         public Point2d StartPoint
         {
-            get { return _startPoint; }
-            set { _startPoint = value; }
+            get => _startPoint;
+            set => _startPoint = value;
         }
 
         /// <summary>
@@ -41,8 +41,8 @@ namespace RabCab.Entities.Linework
         /// </summary>
         public Point2d EndPoint
         {
-            get { return _endPoint; }
-            set { _endPoint = value; }
+            get => _endPoint;
+            set => _endPoint = value;
         }
 
         /// <summary>

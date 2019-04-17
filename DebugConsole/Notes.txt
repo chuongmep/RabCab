@@ -7,3 +7,5 @@ Child objects in assemblies can be kept from being edited with
 
 Can tell the user that editing the part will remove associativity - not taking rotation or translation into account
 Allow either "Prompt user to remove associativity or unlock in the properties palette
+
+Lay command crashes if you run too many solids
