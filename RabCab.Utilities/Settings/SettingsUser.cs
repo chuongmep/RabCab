@@ -25,7 +25,7 @@ namespace RabCab.Settings
         public static bool UseFields = false;
         public static RoundTolerance UserTol { set; get; } = RoundTolerance.SixDecimals;
 
-       //SortingOptions
+     //SortingOptions
        public static bool ResetPartCount = true;
        public static string NamingConvention = "";
        public static bool SortByLayer = true;
@@ -35,5 +35,16 @@ namespace RabCab.Settings
        public static bool GroupSame = true;
        public static bool SplitByLayer = true;
        public static bool MixS4S = false;
+
+      //Laying Options
+        public static int LayStep = 10;
+        public static double LayTextHeight  = 2;
+        public static bool LayTextAbove = true;
+        public static bool LayTextInside = false;
+        public static bool LayTextLeft = true;
+        public static bool LayTextCenter = false;
+        public static bool LayFlatShot  = false;
+        public static bool LayAllLSidesFlatShot  = false;
+
     }
 }

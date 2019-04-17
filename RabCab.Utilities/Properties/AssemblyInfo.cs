@@ -81,4 +81,5 @@ using RabCab.Commands.AssemblySuite;
 [assembly: Guid("12540a60-474b-4908-8781-f758acf78931")]
 [assembly: CommandClass(typeof(RcTraverse))]
 [assembly: CommandClass(typeof(RcNameParts))]
+[assembly: CommandClass(typeof(RcLayParts))]
 

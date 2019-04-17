@@ -23,6 +23,17 @@ namespace RabCab.Extensions
 {
     public static class Solid3DExtensions
     {
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="acSol"></param>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        public static void Move(this Solid3d acSol, Point3d from, Point3d to)
+        {
+            acSol.TransformBy(Matrix3d.Displacement(from.GetVectorTo(to)));
+        }
+
         #region Methods For Getting BREP Information from Solids
 
         /// <summary>
@@ -493,6 +504,9 @@ namespace RabCab.Extensions
                 .RoundToTolerance();
         }
 
+        #endregion
+
+
         public static void MinToOrigin(this Solid3d acSol)
         {
             acSol.Upgrade();
@@ -532,6 +546,34 @@ namespace RabCab.Extensions
             acSol.Downgrade();
         }
 
+        public static double TopLeftToOrigin(this Solid3d acSol)
+        {
+            acSol.Upgrade();
+
+            var min = acSol.GetBounds().MinPoint;
+            var max = acSol.GetBounds().MaxPoint;
+            var yDist = Math.Abs(max.Y - min.Y);
+
+            acSol.TransformBy(Matrix3d.Displacement(new Point3d(min.X, max.Y, min.Z).GetVectorTo(Point3d.Origin)));
+            acSol.Downgrade();
+
+            return yDist;
+        }
+
+        public static double TopLeftTo(this Solid3d acSol, Point3d to)
+        {
+            acSol.Upgrade();
+
+            var min = acSol.GetBounds().MinPoint;
+            var max = acSol.GetBounds().MaxPoint;
+            var yDist = Math.Abs(max.Y - min.Y);
+
+            acSol.TransformBy(Matrix3d.Displacement(new Point3d(min.X, max.Y, min.Z).GetVectorTo(to)));
+            acSol.Downgrade();
+
+            return yDist;
+        }
+
         public static void Upgrade(this Entity ent)
         {
             if (!ent.IsWriteEnabled)
@@ -545,7 +587,6 @@ namespace RabCab.Extensions
             ;
         }
 
-        #endregion
 
         #region Methods for Union, Subtract, Converge, & Gap
 

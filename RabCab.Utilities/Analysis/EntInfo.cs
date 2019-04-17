@@ -81,6 +81,7 @@ namespace RabCab.Analysis
         public string RcName;
         public bool IsSweep;
         public bool IsMirror;
+        public bool IsChild;
         public string RcInfo;
         public int RcQtyOf;
         public int RcQtyTotal;
@@ -118,6 +119,7 @@ namespace RabCab.Analysis
             RcName = "";
             IsSweep = false;
             IsMirror = false;
+            IsChild = false;
             RcInfo = "";
             RcQtyOf = 0;
             RcQtyTotal = 0;
@@ -146,6 +148,7 @@ namespace RabCab.Analysis
             RcName = "";
             IsSweep = false;
             IsMirror = false;
+            IsChild = false;
             RcInfo = "";
             RcQtyOf = 0;
             RcQtyTotal = 0;
