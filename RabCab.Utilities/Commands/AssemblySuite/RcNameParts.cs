@@ -28,6 +28,7 @@ namespace RabCab.Commands.AssemblySuite
     internal class RcNameParts
     {
         /// <summary>
+        /// TODO
         /// </summary>
         [CommandMethod(SettingsInternal.CommandGroup, "_NAMEPARTS",
             CommandFlags.Modal
@@ -128,9 +129,7 @@ namespace RabCab.Commands.AssemblySuite
                         {                          
 
                             foreach (var group in gList)
-                            {                                
-                                var nameString = SettingsUser.NamingConvention;
-
+                            {
                                 //Tick progress bar or exit if ESC has been pressed
                                 if (!pWorker.Tick())
                                 {
@@ -138,7 +137,7 @@ namespace RabCab.Commands.AssemblySuite
                                     return;
                                 }
 
-                                var baseInfo = @group.First();
+                                var baseInfo = group.First();
 
                                 var nonMirrors = new List<EntInfo>();
                                 var mirrors = new List<EntInfo>();
@@ -184,6 +183,13 @@ namespace RabCab.Commands.AssemblySuite
             SettingsUser.ResetPartCount = userResetPartCounter;
         }
 
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="eList"></param>
+        /// <param name="acCurEd"></param>
+        /// <param name="acCurDb"></param>
+        /// <param name="acTrans"></param>
         private void NameParts(List<EntInfo> eList, Editor acCurEd, Database acCurDb, Transaction acTrans)
         {
             if (eList.Count <= 0) return;
@@ -218,11 +224,11 @@ namespace RabCab.Commands.AssemblySuite
 
                 eInfo.RcQtyTotal = groupTotal;
 
-                var supressPartName = false;
+                var suppressPartName = false;
 
                 if (baseInfo.Hndl.ToString() != handle.ToString())
                 {
-                    supressPartName = true;
+                    suppressPartName = true;
                     eInfo.BaseHandle = baseInfo.Hndl;
                     baseInfo.ChildHandles.Add(handle);
                     baseSolid.UpdateXData(baseInfo.ChildHandles, XDataCode.ChildObjects, acCurDb, acTrans);
@@ -232,7 +238,7 @@ namespace RabCab.Commands.AssemblySuite
 
                 string printStr;
 
-                if (supressPartName)
+                if (suppressPartName)
                 {
                     printStr = "\n\t\u2022 [C] |" + eInfo.PrintInfo(true);
                 }

@@ -33,8 +33,8 @@ namespace RabCab.Network
         private void DepthFirst(Network<T> network,
             List<T> visited,
             T end,
-            int max_hops,
-            int min_hops)
+            int maxHops,
+            int minHops)
         {
             var back = visited[visited.Count - 1];
 
@@ -59,7 +59,7 @@ namespace RabCab.Network
                     var size = visited.Count;
                     var hops = size - 1;
 
-                    if ((max_hops < 1 || hops <= max_hops) && hops >= min_hops)
+                    if ((maxHops < 1 || hops <= maxHops) && hops >= minHops)
                     {
                         var path = new List<T>(visited);
                         network.AddPath(path);
@@ -80,7 +80,7 @@ namespace RabCab.Network
 
                 visited.Add(nodeString);
 
-                DepthFirst(network, visited, end, max_hops, min_hops);
+                DepthFirst(network, visited, end, maxHops, minHops);
 
                 var n = visited.Count - 1;
                 visited.RemoveAt(n);
@@ -90,15 +90,15 @@ namespace RabCab.Network
         public void GetAllPaths(Network<T> network,
             T start,
             T target,
-            int max_hops,
-            int min_hops)
+            int maxHops,
+            int minHops)
         {
             _startNode = start;
 
             var visited = new List<T>();
             visited.Add(start);
 
-            DepthFirst(network, visited, target, max_hops, min_hops);
+            DepthFirst(network, visited, target, maxHops, minHops);
         }
 
         private bool ContainsNode(List<T> nodes, T node)

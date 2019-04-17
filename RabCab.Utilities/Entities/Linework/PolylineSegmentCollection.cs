@@ -123,8 +123,8 @@ namespace RabCab.Entities.Linework
             {
                 var vertex = vertices[i];
                 _contents.Add(new PolylineSegment(
-                    vertex.Position.Convert2d(),
-                    vertices[i + 1].Position.Convert2d(),
+                    vertex.Position.Convert2D(),
+                    vertices[i + 1].Position.Convert2D(),
                     vertex.Bulge,
                     vertex.StartWidth,
                     vertex.EndWidth));
@@ -134,8 +134,8 @@ namespace RabCab.Entities.Linework
             {
                 var vertex = vertices[n];
                 _contents.Add(new PolylineSegment(
-                    vertex.Position.Convert2d(),
-                    vertices[0].Position.Convert2d(),
+                    vertex.Position.Convert2D(),
+                    vertices[0].Position.Convert2D(),
                     vertex.Bulge,
                     vertex.StartWidth,
                     vertex.EndWidth));
@@ -164,14 +164,14 @@ namespace RabCab.Entities.Linework
             // PolylineSegmentCollection figuring the isClosed ellipse
             var pi = Math.PI;
             var plane = new Plane(Point3d.Origin, ellipse.Normal);
-            var cen3d = ellipse.Center;
-            var pt3d0 = cen3d + ellipse.MajorAxis;
-            var pt3d4 = cen3d + ellipse.MinorAxis;
-            var pt3d2 = ellipse.GetPointAtParameter(pi / 4.0);
-            var cen = cen3d.Convert2d(plane);
-            var pt0 = pt3d0.Convert2d(plane);
-            var pt2 = pt3d2.Convert2d(plane);
-            var pt4 = pt3d4.Convert2d(plane);
+            var cen3D = ellipse.Center;
+            var pt3D0 = cen3D + ellipse.MajorAxis;
+            var pt3D4 = cen3D + ellipse.MinorAxis;
+            var pt3D2 = ellipse.GetPointAtParameter(pi / 4.0);
+            var cen = cen3D.Convert2d(plane);
+            var pt0 = pt3D0.Convert2d(plane);
+            var pt2 = pt3D2.Convert2d(plane);
+            var pt4 = pt3D4.Convert2d(plane);
             var line01 = new Line2d(pt0, (pt4 - cen).GetNormal() + (pt2 - pt0).GetNormal());
             var line21 = new Line2d(pt2, (pt0 - pt4).GetNormal() + (pt0 - pt2).GetNormal());
             var line23 = new Line2d(pt2, (pt4 - pt0).GetNormal() + (pt4 - pt2).GetNormal());
@@ -222,7 +222,7 @@ namespace RabCab.Entities.Linework
                 // index of the PolylineSegment closest to the ellipse start point
                 var startIndex = GetClosestSegmentIndexTo(startPoint);
                 // start point on the PolylineSegment
-                var pt = _contents[startIndex].ToCurve2d().GetClosestPointTo(startPoint).Point;
+                var pt = _contents[startIndex].ToCurve2D().GetClosestPointTo(startPoint).Point;
                 // if the point is equal to the PolylineSegment end point, jump the next segment in collection
                 if (pt.IsEqualTo(_contents[startIndex].EndPoint))
                 {
@@ -241,7 +241,7 @@ namespace RabCab.Entities.Linework
                 // index of the PolylineSegment closest to the ellipse end point
                 var endIndex = GetClosestSegmentIndexTo(endPoint);
                 // end point on the PolylineSegment
-                pt = _contents[endIndex].ToCurve2d().GetClosestPointTo(endPoint).Point;
+                pt = _contents[endIndex].ToCurve2D().GetClosestPointTo(endPoint).Point;
                 // if the point is equals to the PolylineSegment startPoint, jump to the previous segment
                 if (pt.IsEqualTo(_contents[endIndex].StartPoint))
                 {
@@ -318,10 +318,10 @@ namespace RabCab.Entities.Linework
         public int GetClosestSegmentIndexTo(Point2d pt)
         {
             var result = 0;
-            var dist = _contents[0].ToCurve2d().GetDistanceTo(pt);
+            var dist = _contents[0].ToCurve2D().GetDistanceTo(pt);
             for (var i = 1; i < Count; i++)
             {
-                var tmpDist = _contents[i].ToCurve2d().GetDistanceTo(pt);
+                var tmpDist = _contents[i].ToCurve2D().GetDistanceTo(pt);
                 if (tmpDist < dist)
                 {
                     result = i;

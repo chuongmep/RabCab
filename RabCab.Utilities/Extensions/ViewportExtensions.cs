@@ -58,7 +58,7 @@ namespace RabCab.Extensions
             return
                 Matrix3d.Scaling(vp.CustomScale, vp.CenterPoint) *
                 Matrix3d.Displacement(vp.CenterPoint.GetAsVector()) *
-                Matrix3d.Displacement(vp.ViewCenter.Convert3d().GetAsVector().Negate());
+                Matrix3d.Displacement(vp.ViewCenter.Convert3D().GetAsVector().Negate());
         }
 
         /// <summary>

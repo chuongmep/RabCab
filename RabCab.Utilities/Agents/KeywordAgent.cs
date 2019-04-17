@@ -1,5 +1,4 @@
 ﻿using System;
-using System.CodeDom;
 using Autodesk.AutoCAD.EditorInput;
 
 namespace RabCab.Agents
@@ -13,6 +12,14 @@ namespace RabCab.Agents
         public string DefValue;
         public object Output;
 
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="acCurEd"></param>
+        /// <param name="key"></param>
+        /// <param name="prompt"></param>
+        /// <param name="retType"></param>
+        /// <param name="defaultValue"></param>
         public KeywordAgent(Editor acCurEd, string key, string prompt, TypeCode retType, string defaultValue = null)
         {
             _acCurEd = acCurEd;
@@ -23,6 +30,9 @@ namespace RabCab.Agents
             Output = null;
         }
 
+        /// <summary>
+        /// TODO
+        /// </summary>
         public void GetOutput()
         {
             switch (T)
@@ -35,7 +45,7 @@ namespace RabCab.Agents
                     {
                         Message = Prompt,
                         AllowNone = false,
-                        AllowNegative = false                       
+                        AllowNegative = false
                     };
 
                     if (DefValue != null)
@@ -51,7 +61,7 @@ namespace RabCab.Agents
                             throw;
                         }
                     }
-                   
+
 
                     //Prompt the editor to receive the double from the user
                     var prIntRes = _acCurEd.GetInteger(prIntOpts);
@@ -68,7 +78,7 @@ namespace RabCab.Agents
                     {
                         Message = Prompt,
                         AllowNone = false,
-                        AllowNegative = true             
+                        AllowNegative = true
                     };
 
                     if (DefValue != null)
@@ -97,12 +107,11 @@ namespace RabCab.Agents
 
                 case TypeCode.String:
 
-
                     var prStrOpts = new PromptStringOptions("")
                     {
                         Message = Prompt,
-                        DefaultValue = (string) DefValue,
-                        UseDefaultValue = (string) DefValue != ""
+                        DefaultValue = DefValue,
+                        UseDefaultValue = DefValue != ""
                     };
 
                     //Prompt the editor to receive the string from the user
@@ -125,9 +134,14 @@ namespace RabCab.Agents
             {
                 DefValue = Output.ToString();
             }
-          
+
         }
 
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="setVar"></param>
         public void Set<T>(ref T setVar)
         {
             if (setVar == null) return;
@@ -135,7 +149,7 @@ namespace RabCab.Agents
 
             try
             {
-                setVar = (T) Output;
+                setVar = (T)Output;
             }
             catch (Exception e)
             {
@@ -143,6 +157,6 @@ namespace RabCab.Agents
                 throw;
             }
         }
-      
+
     }
 }

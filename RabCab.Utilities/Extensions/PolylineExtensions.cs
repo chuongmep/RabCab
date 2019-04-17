@@ -85,10 +85,10 @@ namespace RabCab.Extensions
         /// </summary>
         /// <param name="pl">The instance to which the method applies.</param>
         /// <returns>The centroid of the polyline (OCS coordinates).</returns>
-        public static Point2d Centroid2d(this Polyline pl)
+        public static Point2d Centroid2D(this Polyline pl)
         {
             var cen = new Point2d();
-            var tri = new Triangle2d();
+            var tri = new Triangle2D();
             var arc = new CircularArc2d();
             double tmpArea;
             var area = 0.0;
@@ -138,7 +138,7 @@ namespace RabCab.Extensions
         /// <returns>The centroid of the polyline (WCS coordinates).</returns>
         public static Point3d Centroid(this Polyline pl)
         {
-            return pl.Centroid2d().Convert3d(pl.Normal, pl.Elevation);
+            return pl.Centroid2D().Convert3D(pl.Normal, pl.Elevation);
         }
 
         /// <summary>

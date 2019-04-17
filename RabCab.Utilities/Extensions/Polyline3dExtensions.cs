@@ -17,7 +17,7 @@ namespace RabCab.Extensions
     /// <summary>
     ///     Provides extension methods for the Polyline3d type.
     /// </summary>
-    public static class Polyline3dExtensions
+    public static class Polyline3DExtensions
     {
         /// <summary>
         ///     Creates a new Polyline that is the result of projecting the Polyline3d parallel to 'direction' onto 'plane' and

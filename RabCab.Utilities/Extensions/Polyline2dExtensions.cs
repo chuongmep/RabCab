@@ -21,7 +21,7 @@ namespace RabCab.Extensions
     /// <summary>
     ///     Provides extension methods for the Polyline2d type.
     /// </summary>
-    public static class Polyline2dExtensions
+    public static class Polyline2DExtensions
     {
         /// <summary>
         ///     Gets the vertices list of the polyline 2d.
@@ -80,14 +80,14 @@ namespace RabCab.Extensions
         /// <exception cref="ArgumentOutOfRangeException">
         ///     ArgumentOutOfRangeException is thrown the index is out of range.
         /// </exception>
-        public static LineSegment2d GetLineSegment2dAt(this Polyline2d pl, int index)
+        public static LineSegment2d GetLineSegment2DAt(this Polyline2d pl, int index)
         {
             try
             {
-                var WCS2ECS = pl.Ecs.Inverse();
+                var wcs2Ecs = pl.Ecs.Inverse();
                 return new LineSegment2d(
-                    pl.GetPointAtParameter(index).TransformBy(WCS2ECS).Convert2d(),
-                    pl.GetPointAtParameter(index + 1.0).TransformBy(WCS2ECS).Convert2d());
+                    pl.GetPointAtParameter(index).TransformBy(wcs2Ecs).Convert2D(),
+                    pl.GetPointAtParameter(index + 1.0).TransformBy(wcs2Ecs).Convert2D());
             }
             catch
             {
@@ -128,15 +128,15 @@ namespace RabCab.Extensions
         /// <exception cref="ArgumentOutOfRangeException">
         ///     ArgumentOutOfRangeException is thrown the index is out of range.
         /// </exception>
-        public static CircularArc2d GetArcSegment2dAt(this Polyline2d pl, int index)
+        public static CircularArc2d GetArcSegment2DAt(this Polyline2d pl, int index)
         {
             try
             {
-                var WCS2ECS = pl.Ecs.Inverse();
+                var wcs2Ecs = pl.Ecs.Inverse();
                 return new CircularArc2d(
-                    pl.GetPointAtParameter(index).TransformBy(WCS2ECS).Convert2d(),
-                    pl.GetPointAtParameter(index + 0.5).TransformBy(WCS2ECS).Convert2d(),
-                    pl.GetPointAtParameter(index + 1.0).TransformBy(WCS2ECS).Convert2d());
+                    pl.GetPointAtParameter(index).TransformBy(wcs2Ecs).Convert2D(),
+                    pl.GetPointAtParameter(index + 0.5).TransformBy(wcs2Ecs).Convert2D(),
+                    pl.GetPointAtParameter(index + 1.0).TransformBy(wcs2Ecs).Convert2D());
             }
             catch
             {
@@ -154,18 +154,18 @@ namespace RabCab.Extensions
             var vertices = pl.GetVertices().ToArray();
             var last = vertices.Length - 1;
             var vertex = vertices[0];
-            var p0 = vertex.Position.Convert2d();
+            var p0 = vertex.Position.Convert2D();
             var elev = pl.Elevation;
             var cen = new Point2d(0.0, 0.0);
             var area = 0.0;
             var bulge = vertex.Bulge;
             double tmpArea;
             Point2d tmpPt;
-            var tri = new Triangle2d();
+            var tri = new Triangle2D();
             var arc = new CircularArc2d();
             if (bulge != 0.0)
             {
-                arc = pl.GetArcSegment2dAt(0);
+                arc = pl.GetArcSegment2DAt(0);
                 tmpArea = arc.AlgebricArea();
                 tmpPt = arc.Centroid();
                 area += tmpArea;
@@ -174,8 +174,8 @@ namespace RabCab.Extensions
 
             for (var i = 1; i < last; i++)
             {
-                var p1 = vertices[i].Position.Convert2d();
-                var p2 = vertices[i + 1].Position.Convert2d();
+                var p1 = vertices[i].Position.Convert2D();
+                var p2 = vertices[i + 1].Position.Convert2D();
                 tri.Set(p0, p1, p2);
                 tmpArea = tri.AlgebricArea;
                 area += tmpArea;
@@ -183,7 +183,7 @@ namespace RabCab.Extensions
                 bulge = vertices[i].Bulge;
                 if (bulge != 0.0)
                 {
-                    arc = pl.GetArcSegment2dAt(i);
+                    arc = pl.GetArcSegment2DAt(i);
                     tmpArea = arc.AlgebricArea();
                     tmpPt = arc.Centroid();
                     area += tmpArea;
@@ -194,7 +194,7 @@ namespace RabCab.Extensions
             bulge = vertices[last].Bulge;
             if (bulge != 0.0 && pl.Closed)
             {
-                arc = pl.GetArcSegment2dAt(last);
+                arc = pl.GetArcSegment2DAt(last);
                 tmpArea = arc.AlgebricArea();
                 tmpPt = arc.Centroid();
                 area += tmpArea;

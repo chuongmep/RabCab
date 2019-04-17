@@ -227,7 +227,7 @@ namespace RabCab.Entities.Linework
         ///     Converts the PolylineSegment into a Curve2d.
         /// </summary>
         /// <returns>A new Curve2d instance.</returns>
-        public Curve2d ToCurve2d()
+        public Curve2d ToCurve2D()
         {
             return IsLinear
                 ? new LineSegment2d(_startPoint, _endPoint)

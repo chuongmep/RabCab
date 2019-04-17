@@ -17,7 +17,7 @@ namespace RabCab.Extensions
         private readonly EdgeExt _xEdge;
         private readonly EdgeExt _yEdge;
         private readonly EdgeExt _zEdge;
-        private Vector3d normal;
+        private Vector3d _normal;
 
         //TODO
         public VertExt(Vertex vtx, BoundaryLoop owner)
@@ -26,7 +26,7 @@ namespace RabCab.Extensions
             _xEdge = new EdgeExt();
             _yEdge = new EdgeExt();
             _zEdge = new EdgeExt();
-            normal = new Vector3d();
+            _normal = new Vector3d();
             _vertAngle = 0.0;
             _rightAngle = false;
             _rightCs = false;
@@ -53,9 +53,9 @@ namespace RabCab.Extensions
                         _xEdge = eInfo;
                     }
 
-                    if (!normal.IsLessThanTol()) continue;
+                    if (!_normal.IsLessThanTol()) continue;
 
-                    normal = eInfo.Normal;
+                    _normal = eInfo.Normal;
                 }
                 else
                 {
@@ -78,18 +78,18 @@ namespace RabCab.Extensions
                     if (SettingsUser.PrioritizeRightAngles)
                         _rightAngle = Math.Abs(_vertAngle - 1.5707963267949) < SettingsInternal.TolVector;
 
-                    if (normal.IsLessThanTol()) normal = _xEdge.Tangent.CrossProduct(_yEdge.Tangent);
+                    if (_normal.IsLessThanTol()) _normal = _xEdge.Tangent.CrossProduct(_yEdge.Tangent);
                 }
             }
 
             if (_zEdge.Length < SettingsUser.TolPoint) return;
 
-            if (!normal.IsLessThanTol())
+            if (!_normal.IsLessThanTol())
             {
-                if (normal.GetAngleTo(_zEdge.Tangent) > 1.5707963267949) normal = normal.Negate();
+                if (_normal.GetAngleTo(_zEdge.Tangent) > 1.5707963267949) _normal = _normal.Negate();
 
                 if (_yEdge.Length > SettingsUser.TolPoint)
-                    _rightCs = _yEdge.Tangent.GetAngleTo(normal.CrossProduct(_xEdge.Tangent)) <
+                    _rightCs = _yEdge.Tangent.GetAngleTo(_normal.CrossProduct(_xEdge.Tangent)) <
                                1.5707963267949;
             }
         }
@@ -170,15 +170,15 @@ namespace RabCab.Extensions
         public Matrix3d LayMatrix()
         {
             Vector3d normal;
-            Vector3d vector3d;
+            Vector3d vector3D;
             Vector3d normal1;
-            Matrix3d matrix3d;
+            Matrix3d matrix3D;
             Vector3d vector;
 
             if (_xEdge.Length < SettingsUser.TolPoint)
             {
-                matrix3d = new Matrix3d();
-                return matrix3d;
+                matrix3D = new Matrix3d();
+                return matrix3D;
             }
 
             if (!_rightAngle)
@@ -191,30 +191,30 @@ namespace RabCab.Extensions
                 normal = _xEdge.Tangent.GetNormal();
             }
 
-            if (!this.normal.IsLessThanTol())
+            if (!this._normal.IsLessThanTol())
             {
-                normal1 = this.normal.GetNormal();
+                normal1 = this._normal.GetNormal();
                 vector = normal1.CrossProduct(normal);
-                vector3d = vector.GetNormal();
-                vector = normal.CrossProduct(vector3d);
+                vector3D = vector.GetNormal();
+                vector = normal.CrossProduct(vector3D);
                 normal1 = vector.GetNormal();
             }
             else
             {
                 if (_yEdge.Length < SettingsUser.TolPoint)
                 {
-                    matrix3d = new Matrix3d();
-                    return matrix3d;
+                    matrix3D = new Matrix3d();
+                    return matrix3D;
                 }
 
-                vector3d = _yEdge.Tangent.GetNormal();
+                vector3D = _yEdge.Tangent.GetNormal();
                 vector = normal.CrossProduct(_yEdge.Tangent);
                 normal1 = vector.GetNormal();
                 vector = normal1.CrossProduct(normal);
-                vector3d = vector.GetNormal();
+                vector3D = vector.GetNormal();
             }
 
-            return Matrix3d.AlignCoordinateSystem(_vertPoint, normal, vector3d, normal1, Point3d.Origin, Vector3d.XAxis,
+            return Matrix3d.AlignCoordinateSystem(_vertPoint, normal, vector3D, normal1, Point3d.Origin, Vector3d.XAxis,
                 Vector3d.YAxis, Vector3d.ZAxis);
         }
     }

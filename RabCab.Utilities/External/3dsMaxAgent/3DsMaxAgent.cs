@@ -20,15 +20,15 @@ namespace RabCab.External._3dsMaxAgent
         {
             var pFinder = new PathFinder();
 
-            var _3dsPath = pFinder.GetAppPath("3ds Max 2018");
+            var _3DsPath = pFinder.GetAppPath("3ds Max 2018");
 
-            var startInfo = new ProcessStartInfo(_3dsPath + "3dsmax.exe");
+            var startInfo = new ProcessStartInfo(_3DsPath + "3dsmax.exe");
             startInfo.WindowStyle = ProcessWindowStyle.Maximized;
             startInfo.Arguments = "C:\\Drawing1.dwg";
 
             try
             {
-                var _3dsProc = Process.Start(startInfo);
+                var _3DsProc = Process.Start(startInfo);
                 return true;
             }
             catch (Exception e)

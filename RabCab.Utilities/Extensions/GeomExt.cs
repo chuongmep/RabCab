@@ -24,22 +24,22 @@ namespace RabCab.Extensions
         /// <summary>
         ///     World Coordinate System.
         /// </summary>
-        WCS = 0,
+        Wcs = 0,
 
         /// <summary>
         ///     Current User Coordinate System.
         /// </summary>
-        UCS,
+        Ucs,
 
         /// <summary>
         ///     Display Coordinate System of the current viewport.
         /// </summary>
-        DCS,
+        Dcs,
 
         /// <summary>
         ///     Paper Space Display Coordinate System.
         /// </summary>
-        PSDCS
+        Psdcs
     }
 
     /// <summary>
@@ -148,8 +148,8 @@ namespace RabCab.Extensions
             var pt1 = extents.MinPoint.TransformBy(Matrix3d.PlaneToWorld(dirPlane));
             var pt2 = extents.MaxPoint.TransformBy(Matrix3d.PlaneToWorld(dirPlane));
             var projectedPline = new Polyline(2);
-            projectedPline.AddVertexAt(0, pt1.Project(plane, direction).Convert2d(), 0.0, 0.0, 0.0);
-            projectedPline.AddVertexAt(1, pt2.Project(plane, direction).Convert2d(), 0.0, 0.0, 0.0);
+            projectedPline.AddVertexAt(0, pt1.Project(plane, direction).Convert2D(), 0.0, 0.0, 0.0);
+            projectedPline.AddVertexAt(1, pt2.Project(plane, direction).Convert2D(), 0.0, 0.0, 0.0);
             return projectedPline;
         }
     }

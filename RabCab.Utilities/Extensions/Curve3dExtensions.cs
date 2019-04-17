@@ -3,7 +3,7 @@ using RabCab.Calculators;
 
 namespace RabCab.Extensions
 {
-    public static class Curve3dExtensions
+    public static class Curve3DExtensions
     {
         public static Vector3d GetNormal(this Curve3d curve)
         {

@@ -37,14 +37,14 @@ namespace RabCab.Entities.Shapes
             {
                 if (i > 2 || i < 0)
                     throw new IndexOutOfRangeException("Index out of range");
-                return _pts[i];
+                return Pts[i];
             }
             set
             {
                 if (i > 2 || i < 0)
                     throw new IndexOutOfRangeException("Index out of range");
-                _pts[i] = value;
-                Set(_pts);
+                Pts[i] = value;
+                Set(Pts);
             }
         }
 
@@ -58,7 +58,7 @@ namespace RabCab.Entities.Shapes
         /// <returns>An IEnumerable&lt;T&gt; enumerator for the Triangle&lt;T&gt;.</returns>
         public IEnumerator<T> GetEnumerator()
         {
-            foreach (var item in _pts) yield return item;
+            foreach (var item in Pts) yield return item;
         }
 
         #endregion
@@ -81,22 +81,22 @@ namespace RabCab.Entities.Shapes
         /// <summary>
         ///     The first triangle element (origin).
         /// </summary>
-        protected T _pt0;
+        protected T Pt0;
 
         /// <summary>
         ///     The second triangle element.
         /// </summary>
-        protected T _pt1;
+        protected T Pt1;
 
         /// <summary>
         ///     The third triangle element.
         /// </summary>
-        protected T _pt2;
+        protected T Pt2;
 
         /// <summary>
         ///     An array containing the three triangle elements.
         /// </summary>
-        protected T[] _pts = new T[3];
+        protected T[] Pts = new T[3];
 
         #endregion
 
@@ -120,9 +120,9 @@ namespace RabCab.Entities.Shapes
         {
             if (pts.Length != 3)
                 throw new ArgumentOutOfRangeException("The array must contain 3 items");
-            _pts[0] = _pt0 = pts[0];
-            _pts[1] = _pt1 = pts[1];
-            _pts[2] = _pt2 = pts[2];
+            Pts[0] = Pt0 = pts[0];
+            Pts[1] = Pt1 = pts[1];
+            Pts[2] = Pt2 = pts[2];
         }
 
         /// <summary>
@@ -133,9 +133,9 @@ namespace RabCab.Entities.Shapes
         /// <param name="c">Third element to be copied in the new Triangle.</param>
         protected internal Triangle(T a, T b, T c)
         {
-            _pts[0] = _pt0 = a;
-            _pts[1] = _pt1 = b;
-            _pts[2] = _pt2 = c;
+            Pts[0] = Pt0 = a;
+            Pts[1] = Pt1 = b;
+            Pts[2] = Pt2 = c;
         }
 
         #endregion
@@ -153,9 +153,9 @@ namespace RabCab.Entities.Shapes
             return
                 trgl != null &&
                 trgl.GetHashCode() == GetHashCode() &&
-                trgl[0].Equals(_pt0) &&
-                trgl[1].Equals(_pt1) &&
-                trgl[2].Equals(_pt2);
+                trgl[0].Equals(Pt0) &&
+                trgl[1].Equals(Pt1) &&
+                trgl[2].Equals(Pt2);
         }
 
         /// <summary>
@@ -164,7 +164,7 @@ namespace RabCab.Entities.Shapes
         /// <returns>A hash code for the current Triangle&lt;T&gt;.</returns>
         public override int GetHashCode()
         {
-            return _pt0.GetHashCode() ^ _pt1.GetHashCode() ^ _pt2.GetHashCode();
+            return Pt0.GetHashCode() ^ Pt1.GetHashCode() ^ Pt2.GetHashCode();
         }
 
         /// <summary>
@@ -172,7 +172,7 @@ namespace RabCab.Entities.Shapes
         /// </summary>
         public void Inverse()
         {
-            Set(_pt0, _pt2, _pt1);
+            Set(Pt0, Pt2, Pt1);
         }
 
         /// <summary>
@@ -186,9 +186,9 @@ namespace RabCab.Entities.Shapes
         {
             if (pts.Length != 3)
                 throw new IndexOutOfRangeException("The array must contain 3 items");
-            _pts[0] = _pt0 = pts[0];
-            _pts[1] = _pt1 = pts[1];
-            _pts[2] = _pt2 = pts[2];
+            Pts[0] = Pt0 = pts[0];
+            Pts[1] = Pt1 = pts[1];
+            Pts[2] = Pt2 = pts[2];
         }
 
         /// <summary>
@@ -199,9 +199,9 @@ namespace RabCab.Entities.Shapes
         /// <param name="c">Third element to be copied in the Triangle.</param>
         public void Set(T a, T b, T c)
         {
-            _pts[0] = _pt0 = a;
-            _pts[1] = _pt1 = b;
-            _pts[2] = _pt2 = c;
+            Pts[0] = Pt0 = a;
+            Pts[1] = Pt1 = b;
+            Pts[2] = Pt2 = c;
         }
 
         /// <summary>
@@ -210,7 +210,7 @@ namespace RabCab.Entities.Shapes
         /// <returns>An array of three elements.</returns>
         public T[] ToArray()
         {
-            return _pts;
+            return Pts;
         }
 
         /// <summary>
@@ -219,7 +219,7 @@ namespace RabCab.Entities.Shapes
         /// <returns>A string containing the three elements separated with commas.</returns>
         public override string ToString()
         {
-            return string.Format("{0},{1},{2}", _pt0, _pt1, _pt2);
+            return string.Format("{0},{1},{2}", Pt0, Pt1, Pt2);
         }
 
         #endregion

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace RabCab.Engine.Enumerators
 {
-    public static class IEnumerables
+    public static class Enumerables
     {
         public static int CountT<TSource>(this IEnumerable<TSource> source)
         {

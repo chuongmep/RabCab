@@ -19,14 +19,14 @@ namespace RabCab.Entities.Shapes
     /// <summary>
     ///     Represents a triangle in a 2d plane. It can be viewed as a structure consisting of three Point2d.
     /// </summary>
-    public class Triangle2d : Triangle<Point2d>
+    public class Triangle2D : Triangle<Point2d>
     {
         #region Constructors
 
         /// <summary>
         ///     Initializes a new instance of Triangle2d that is empty.
         /// </summary>
-        public Triangle2d()
+        public Triangle2D()
         {
         }
 
@@ -34,7 +34,7 @@ namespace RabCab.Entities.Shapes
         ///     Initializes a new instance of Triangle2d that contains elements copied from the specified array.
         /// </summary>
         /// <param name="pts">The Point2d array whose elements are copied to the new Triangle2d.</param>
-        public Triangle2d(Point2d[] pts) : base(pts)
+        public Triangle2D(Point2d[] pts) : base(pts)
         {
         }
 
@@ -44,7 +44,7 @@ namespace RabCab.Entities.Shapes
         /// <param name="a">The first vertex of the new Triangle2d (origin).</param>
         /// <param name="b">The second vertex of the new Triangle2d (2nd vertex).</param>
         /// <param name="c">The third vertex of the new Triangle2d (3rd vertex).</param>
-        public Triangle2d(Point2d a, Point2d b, Point2d c) : base(a, b, c)
+        public Triangle2D(Point2d a, Point2d b, Point2d c) : base(a, b, c)
         {
         }
 
@@ -54,11 +54,11 @@ namespace RabCab.Entities.Shapes
         /// <param name="org">The origin of the Triangle2d (1st vertex).</param>
         /// <param name="v1">The vector from origin to the second vertex.</param>
         /// <param name="v2">The vector from origin to the third vertex.</param>
-        public Triangle2d(Point2d org, Vector2d v1, Vector2d v2)
+        public Triangle2D(Point2d org, Vector2d v1, Vector2d v2)
         {
-            _pts[0] = _pt0 = org;
-            _pts[1] = _pt1 = org + v1;
-            _pts[2] = _pt2 = org + v2;
+            Pts[0] = Pt0 = org;
+            Pts[1] = Pt1 = org + v1;
+            Pts[2] = Pt2 = org + v2;
         }
 
         #endregion
@@ -69,13 +69,13 @@ namespace RabCab.Entities.Shapes
         ///     Gets the triangle algebraic (signed) area.
         /// </summary>
         public double AlgebricArea =>
-            ((_pt1.X - _pt0.X) * (_pt2.Y - _pt0.Y) -
-             (_pt2.X - _pt0.X) * (_pt1.Y - _pt0.Y)) / 2.0;
+            ((Pt1.X - Pt0.X) * (Pt2.Y - Pt0.Y) -
+             (Pt2.X - Pt0.X) * (Pt1.Y - Pt0.Y)) / 2.0;
 
         /// <summary>
         ///     Gets the triangle centroid.
         /// </summary>
-        public Point2d Centroid => (_pt0 + _pt1.GetAsVector() + _pt2.GetAsVector()) / 3.0;
+        public Point2d Centroid => (Pt0 + Pt1.GetAsVector() + Pt2.GetAsVector()) / 3.0;
 
         /// <summary>
         ///     Gets the circumscribed circle.
@@ -89,7 +89,7 @@ namespace RabCab.Entities.Shapes
                 var inters = l1.IntersectWith(l2);
                 if (inters == null)
                     return null;
-                return new CircularArc2d(inters[0], inters[0].GetDistanceTo(_pt0));
+                return new CircularArc2d(inters[0], inters[0].GetDistanceTo(Pt0));
             }
         }
 
@@ -100,13 +100,13 @@ namespace RabCab.Entities.Shapes
         {
             get
             {
-                var v1 = _pt0.GetVectorTo(_pt1).GetNormal();
-                var v2 = _pt0.GetVectorTo(_pt2).GetNormal();
-                var v3 = _pt1.GetVectorTo(_pt2).GetNormal();
+                var v1 = Pt0.GetVectorTo(Pt1).GetNormal();
+                var v2 = Pt0.GetVectorTo(Pt2).GetNormal();
+                var v3 = Pt1.GetVectorTo(Pt2).GetNormal();
                 if (v1.IsEqualTo(v2) || v2.IsEqualTo(v3))
                     return null;
-                var l1 = new Line2d(_pt0, v1 + v2);
-                var l2 = new Line2d(_pt1, v1.Negate() + v3);
+                var l1 = new Line2d(Pt0, v1 + v2);
+                var l2 = new Line2d(Pt1, v1.Negate() + v3);
                 var inters = l1.IntersectWith(l2);
                 return new CircularArc2d(inters[0], GetSegmentAt(0).GetDistanceTo(inters[0]));
             }
@@ -126,10 +126,10 @@ namespace RabCab.Entities.Shapes
         /// </summary>
         /// <param name="plane">Plane of the Triangle3d.</param>
         /// <returns>The new Triangle3d.</returns>
-        public Triangle3d Convert3d(Plane plane)
+        public Triangle3D Convert3D(Plane plane)
         {
-            return new Triangle3d(
-                Array.ConvertAll(_pts, x => x.Convert3d(plane)));
+            return new Triangle3D(
+                Array.ConvertAll(Pts, x => x.Convert3D(plane)));
         }
 
         /// <summary>
@@ -138,10 +138,10 @@ namespace RabCab.Entities.Shapes
         /// <param name="normal">The normal vector of the plane.</param>
         /// <param name="elevation">The elevation of the plane.</param>
         /// <returns>The new Triangle3d.</returns>
-        public Triangle3d Convert3d(Vector3d normal, double elevation)
+        public Triangle3D Convert3D(Vector3d normal, double elevation)
         {
-            return new Triangle3d(
-                Array.ConvertAll(_pts, x => x.Convert3d(normal, elevation)));
+            return new Triangle3D(
+                Array.ConvertAll(Pts, x => x.Convert3D(normal, elevation)));
         }
 
         /// <summary>
@@ -179,14 +179,14 @@ namespace RabCab.Entities.Shapes
         /// <summary>
         ///     Gets the intersection points between the triangle and the line.
         /// </summary>
-        /// <param name="le2d">The line with which intersections are searched.</param>
+        /// <param name="le2D">The line with which intersections are searched.</param>
         /// <returns>The intersection points list (an empty list if none).</returns>
-        public List<Point2d> IntersectWith(LinearEntity2d le2d)
+        public List<Point2d> IntersectWith(LinearEntity2d le2D)
         {
             var result = new List<Point2d>();
             for (var i = 0; i < 3; i++)
             {
-                var inters = le2d.IntersectWith(GetSegmentAt(i));
+                var inters = le2D.IntersectWith(GetSegmentAt(i));
                 if (inters != null && inters.Length != 0 && !result.Contains(inters[0]))
                     result.Add(inters[0]);
             }
@@ -197,15 +197,15 @@ namespace RabCab.Entities.Shapes
         /// <summary>
         ///     Gets the intersection points between the triangle and the line.
         /// </summary>
-        /// <param name="le2d">The line with which intersections are searched.</param>
+        /// <param name="le2D">The line with which intersections are searched.</param>
         /// <param name="tol">The tolerance used in comparisons.</param>
         /// <returns>The intersection points list (an empty list if none).</returns>
-        public List<Point2d> IntersectWith(LinearEntity2d le2d, Tolerance tol)
+        public List<Point2d> IntersectWith(LinearEntity2d le2D, Tolerance tol)
         {
             var result = new List<Point2d>();
             for (var i = 0; i < 3; i++)
             {
-                var inters = le2d.IntersectWith(GetSegmentAt(i), tol);
+                var inters = le2D.IntersectWith(GetSegmentAt(i), tol);
                 if (inters != null && inters.Length != 0 && !result.Contains(inters[0]))
                     result.Add(inters[0]);
             }
@@ -217,23 +217,23 @@ namespace RabCab.Entities.Shapes
         ///     Checks if the distance between every respective Point2d in both Triangle2d is less than or equal to the
         ///     Tolerance.Global.EqualPoint value.
         /// </summary>
-        /// <param name="t2d">The triangle2d to compare.</param>
+        /// <param name="t2D">The triangle2d to compare.</param>
         /// <returns>true if the condition is met; otherwise, false.</returns>
-        public bool IsEqualTo(Triangle2d t2d)
+        public bool IsEqualTo(Triangle2D t2D)
         {
-            return IsEqualTo(t2d, Tolerance.Global);
+            return IsEqualTo(t2D, Tolerance.Global);
         }
 
         /// <summary>
         ///     Checks if the distance between every respective Point2d in both Triangle2d is less than or equal to the
         ///     Tolerance.EqualPoint value of the specified tolerance.
         /// </summary>
-        /// <param name="t2d">The triangle2d to compare.</param>
+        /// <param name="t2D">The triangle2d to compare.</param>
         /// <param name="tol">The tolerance used in points comparisons.</param>
         /// <returns>true if the condition is met; otherwise, false.</returns>
-        public bool IsEqualTo(Triangle2d t2d, Tolerance tol)
+        public bool IsEqualTo(Triangle2D t2D, Tolerance tol)
         {
-            return t2d[0].IsEqualTo(_pt0, tol) && t2d[1].IsEqualTo(_pt1, tol) && t2d[2].IsEqualTo(_pt2, tol);
+            return t2D[0].IsEqualTo(Pt0, tol) && t2D[1].IsEqualTo(Pt1, tol) && t2D[2].IsEqualTo(Pt2, tol);
         }
 
         /// <summary>
@@ -276,9 +276,9 @@ namespace RabCab.Entities.Shapes
         /// <param name="v2">The vector from origin to the third vertex.</param>
         public void Set(Point2d org, Vector2d v1, Vector2d v2)
         {
-            _pts[0] = _pt0 = org;
-            _pts[1] = _pt1 = org + v1;
-            _pts[2] = _pt2 = org + v2;
+            Pts[0] = Pt0 = org;
+            Pts[1] = Pt1 = org + v1;
+            Pts[2] = Pt2 = org + v2;
         }
 
         /// <summary>
@@ -286,10 +286,10 @@ namespace RabCab.Entities.Shapes
         /// </summary>
         /// <param name="mat">The 2d transformation matrix.</param>
         /// <returns>The new Triangle2d.</returns>
-        public Triangle2d TransformBy(Matrix2d mat)
+        public Triangle2D TransformBy(Matrix2d mat)
         {
-            return new Triangle2d(Array.ConvertAll(
-                _pts, p => p.TransformBy(mat)));
+            return new Triangle2D(Array.ConvertAll(
+                Pts, p => p.TransformBy(mat)));
         }
 
         #endregion

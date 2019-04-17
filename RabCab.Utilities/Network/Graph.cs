@@ -42,9 +42,9 @@ namespace RabCab.Network
             throw new NotImplementedException();
         }
 
-        public void AddNode(GraphNode<T> Node)
+        public void AddNode(GraphNode<T> node)
         {
-            if (!Contains(Node.Value)) Nodes.Add(Node);
+            if (!Contains(node.Value)) Nodes.Add(node);
         }
 
         public void AddNode(T value)

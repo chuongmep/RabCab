@@ -303,18 +303,18 @@ namespace RabCab.Extensions
         /// <returns></returns>
         public static Matrix3d GetLayMatrix(this Face face)
         {
-            Matrix3d matrix3d;
+            Matrix3d matrix3D;
             double num;
             double num1;
             Vector3d yVec;
             Vector3d zVec;
-            Matrix3d matrix3d1;
-            Vector3d vector3d1;
+            Matrix3d matrix3D1;
+            Vector3d vector3D1;
 
             if (face.IsNull)
             {
-                matrix3d = new Matrix3d();
-                return matrix3d;
+                matrix3D = new Matrix3d();
+                return matrix3D;
             }
 
             try
@@ -323,7 +323,7 @@ namespace RabCab.Extensions
                 {
                     if (surface == null || !(surface is ExternalBoundedSurface))
                     {
-                        matrix3d = new Matrix3d();
+                        matrix3D = new Matrix3d();
                     }
                     else
                     {
@@ -331,8 +331,8 @@ namespace RabCab.Extensions
                         var envelope = externalBoundedSurface.GetEnvelope();
                         var lowerBound = envelope[0].LowerBound;
                         var lowerBound1 = envelope[1].LowerBound;
-                        var point2d = new Point2d(lowerBound, lowerBound1);
-                        using (var pointOnSurface = new PointOnSurface(externalBoundedSurface, point2d))
+                        var point2D = new Point2d(lowerBound, lowerBound1);
+                        using (var pointOnSurface = new PointOnSurface(externalBoundedSurface, point2D))
                         {
                             var uDerivative = pointOnSurface.GetNormal();
                             var point = pointOnSurface.GetPoint();
@@ -342,8 +342,8 @@ namespace RabCab.Extensions
                             num1 = !externalBoundedSurface.IsClosedInV(CalcTol.CadTolerance)
                                 ? envelope[1].UpperBound
                                 : (envelope[1].LowerBound + envelope[1].UpperBound) / 2;
-                            var point3d = pointOnSurface.GetPoint(new Point2d(num, lowerBound1));
-                            var vectorTo = point.GetVectorTo(point3d);
+                            var point3D = pointOnSurface.GetPoint(new Point2d(num, lowerBound1));
+                            var vectorTo = point.GetVectorTo(point3D);
                             var point1 = pointOnSurface.GetPoint(new Point2d(lowerBound, num1));
                             var vectorTo1 = point.GetVectorTo(point1);
                             if (vectorTo.Length < SettingsUser.TolPoint)
@@ -355,30 +355,30 @@ namespace RabCab.Extensions
                                 }
                                 else
                                 {
-                                    matrix3d1 = new Matrix3d();
-                                    matrix3d = matrix3d1;
-                                    return matrix3d;
+                                    matrix3D1 = new Matrix3d();
+                                    matrix3D = matrix3D1;
+                                    return matrix3D;
                                 }
                             }
 
                             if (vectorTo.Length < vectorTo1.Length)
                             {
-                                var vector3d2 = vectorTo;
+                                var vector3D2 = vectorTo;
                                 vectorTo = vectorTo1;
-                                vectorTo1 = vector3d2;
+                                vectorTo1 = vector3D2;
                             }
 
                             var angleTo = vectorTo.GetAngleTo(uDerivative);
                             if (angleTo < SettingsInternal.TolVector || Math.PI - angleTo < SettingsInternal.TolVector)
-                                uDerivative = pointOnSurface.GetUDerivative(1, point2d);
+                                uDerivative = pointOnSurface.GetUDerivative(1, point2D);
                             var xVec = vectorTo.GetNormal();
                             if (uDerivative.Length >= SettingsUser.TolPoint)
                             {
                                 zVec = uDerivative.GetNormal();
-                                vector3d1 = uDerivative.CrossProduct(vectorTo);
-                                yVec = vector3d1.GetNormal();
-                                vector3d1 = xVec.CrossProduct(yVec);
-                                zVec = vector3d1.GetNormal();
+                                vector3D1 = uDerivative.CrossProduct(vectorTo);
+                                yVec = vector3D1.GetNormal();
+                                vector3D1 = xVec.CrossProduct(yVec);
+                                zVec = vector3D1.GetNormal();
                             }
                             else if (vectorTo1.Length >= SettingsUser.TolPoint)
                             {
@@ -386,25 +386,25 @@ namespace RabCab.Extensions
                                 if (angleTo1 < SettingsInternal.TolVector ||
                                     Math.PI - angleTo1 < SettingsInternal.TolVector)
                                 {
-                                    matrix3d1 = new Matrix3d();
-                                    matrix3d = matrix3d1;
-                                    return matrix3d;
+                                    matrix3D1 = new Matrix3d();
+                                    matrix3D = matrix3D1;
+                                    return matrix3D;
                                 }
 
                                 yVec = vectorTo1.GetNormal();
-                                vector3d1 = vectorTo.CrossProduct(vectorTo1);
-                                zVec = vector3d1.GetNormal();
-                                vector3d1 = zVec.CrossProduct(xVec);
-                                yVec = vector3d1.GetNormal();
+                                vector3D1 = vectorTo.CrossProduct(vectorTo1);
+                                zVec = vector3D1.GetNormal();
+                                vector3D1 = zVec.CrossProduct(xVec);
+                                yVec = vector3D1.GetNormal();
                             }
                             else
                             {
-                                matrix3d1 = new Matrix3d();
-                                matrix3d = matrix3d1;
-                                return matrix3d;
+                                matrix3D1 = new Matrix3d();
+                                matrix3D = matrix3D1;
+                                return matrix3D;
                             }
 
-                            matrix3d = Matrix3d.AlignCoordinateSystem(point, xVec, yVec, zVec, Point3d.Origin,
+                            matrix3D = Matrix3d.AlignCoordinateSystem(point, xVec, yVec, zVec, Point3d.Origin,
                                 Vector3d.XAxis, Vector3d.YAxis, Vector3d.ZAxis);
                         }
                     }
@@ -412,11 +412,11 @@ namespace RabCab.Extensions
             }
             catch
             {
-                matrix3d1 = new Matrix3d();
-                matrix3d = matrix3d1;
+                matrix3D1 = new Matrix3d();
+                matrix3D = matrix3D1;
             }
 
-            return matrix3d;
+            return matrix3D;
         }
     }
 }

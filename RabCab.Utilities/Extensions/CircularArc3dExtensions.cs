@@ -19,7 +19,7 @@ namespace RabCab.Extensions
     /// <summary>
     ///     Provides extension methods for the CircularArc2dType
     /// </summary>
-    public static class CircularArc3dExtensions
+    public static class CircularArc3DExtensions
     {
         /// <summary>
         ///     Returns the tangents between the active CircularArc3d instance complete circle and a point.
@@ -40,26 +40,26 @@ namespace RabCab.Extensions
         {
             // check if arc and point lies on the plane
             var normal = arc.Normal;
-            var WCS2OCS = Matrix3d.WorldToPlane(normal);
-            var elevation = arc.Center.TransformBy(WCS2OCS).Z;
-            if (Math.Abs(elevation - pt.TransformBy(WCS2OCS).Z) < Tolerance.Global.EqualPoint)
+            var wcs2Ocs = Matrix3d.WorldToPlane(normal);
+            var elevation = arc.Center.TransformBy(wcs2Ocs).Z;
+            if (Math.Abs(elevation - pt.TransformBy(wcs2Ocs).Z) < Tolerance.Global.EqualPoint)
                 throw new Exception(
                     ErrorStatus.NonCoplanarGeometry);
 
             var plane = new Plane(Point3d.Origin, normal);
-            var OCS2WCS = Matrix3d.PlaneToWorld(plane);
-            var ca2d = new CircularArc2d(arc.Center.Convert2d(plane), arc.Radius);
-            var lines2d = ca2d.GetTangentsTo(pt.Convert2d(plane));
+            var ocs2Wcs = Matrix3d.PlaneToWorld(plane);
+            var ca2D = new CircularArc2d(arc.Center.Convert2d(plane), arc.Radius);
+            var lines2D = ca2D.GetTangentsTo(pt.Convert2d(plane));
 
-            if (lines2d == null)
+            if (lines2D == null)
                 return null;
 
-            var result = new LineSegment3d[lines2d.Length];
-            for (var i = 0; i < lines2d.Length; i++)
+            var result = new LineSegment3d[lines2D.Length];
+            for (var i = 0; i < lines2D.Length; i++)
             {
-                var ls2d = lines2d[i];
-                result[i] = new LineSegment3d(ls2d.StartPoint.Convert3d(normal, elevation),
-                    ls2d.EndPoint.Convert3d(normal, elevation));
+                var ls2D = lines2D[i];
+                result[i] = new LineSegment3d(ls2D.StartPoint.Convert3D(normal, elevation),
+                    ls2D.EndPoint.Convert3D(normal, elevation));
             }
 
             return result;
@@ -85,28 +85,28 @@ namespace RabCab.Extensions
         {
             // check if circles lies on the same plane
             var normal = arc.Normal;
-            var WCS2OCS = Matrix3d.WorldToPlane(normal);
-            var elevation = arc.Center.TransformBy(WCS2OCS).Z;
+            var wcs2Ocs = Matrix3d.WorldToPlane(normal);
+            var elevation = arc.Center.TransformBy(wcs2Ocs).Z;
             if (!(normal.IsParallelTo(other.Normal) &&
-                  Math.Abs(elevation - other.Center.TransformBy(WCS2OCS).Z) < Tolerance.Global.EqualPoint))
+                  Math.Abs(elevation - other.Center.TransformBy(wcs2Ocs).Z) < Tolerance.Global.EqualPoint))
                 throw new Exception(
                     ErrorStatus.NonCoplanarGeometry);
 
             var plane = new Plane(Point3d.Origin, normal);
-            var OCS2WCS = Matrix3d.PlaneToWorld(plane);
-            var ca2d1 = new CircularArc2d(arc.Center.Convert2d(plane), arc.Radius);
-            var ca2d2 = new CircularArc2d(other.Center.Convert2d(plane), other.Radius);
-            var lines2d = ca2d1.GetTangentsTo(ca2d2, flags);
+            var ocs2Wcs = Matrix3d.PlaneToWorld(plane);
+            var ca2D1 = new CircularArc2d(arc.Center.Convert2d(plane), arc.Radius);
+            var ca2D2 = new CircularArc2d(other.Center.Convert2d(plane), other.Radius);
+            var lines2D = ca2D1.GetTangentsTo(ca2D2, flags);
 
-            if (lines2d == null)
+            if (lines2D == null)
                 return null;
 
-            var result = new LineSegment3d[lines2d.Length];
-            for (var i = 0; i < lines2d.Length; i++)
+            var result = new LineSegment3d[lines2D.Length];
+            for (var i = 0; i < lines2D.Length; i++)
             {
-                var ls2d = lines2d[i];
-                result[i] = new LineSegment3d(ls2d.StartPoint.Convert3d(normal, elevation),
-                    ls2d.EndPoint.Convert3d(normal, elevation));
+                var ls2D = lines2D[i];
+                result[i] = new LineSegment3d(ls2D.StartPoint.Convert3D(normal, elevation),
+                    ls2D.EndPoint.Convert3D(normal, elevation));
             }
 
             return result;

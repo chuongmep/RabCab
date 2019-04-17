@@ -20,7 +20,7 @@ namespace RabCab.Extensions
     /// <summary>
     ///     Provides extension methods for the Point3dCollection type.
     /// </summary>
-    public static class Point3dCollectionExtensions
+    public static class Point3DCollectionExtensions
     {
         /// <summary>
         ///     Removes duplicated points in the collection.
@@ -92,9 +92,9 @@ namespace RabCab.Extensions
         /// <exception cref="ArgumentException">
         ///     ArgumentException is thrown if the collection is null or empty.
         /// </exception>
-        public static Extents3d ToExtents3d(this Point3dCollection pts)
+        public static Extents3d ToExtents3D(this Point3dCollection pts)
         {
-            return pts.Cast<Point3d>().ToExtents3d();
+            return pts.Cast<Point3d>().ToExtents3D();
         }
 
         /// <summary>
@@ -105,7 +105,7 @@ namespace RabCab.Extensions
         /// <exception cref="ArgumentException">
         ///     ArgumentException is thrown if the sequence is null or empty.
         /// </exception>
-        public static Extents3d ToExtents3d(this IEnumerable<Point3d> pts)
+        public static Extents3d ToExtents3D(this IEnumerable<Point3d> pts)
         {
             if (pts == null || !pts.Any())
                 throw new ArgumentException("Null or empty sequence");

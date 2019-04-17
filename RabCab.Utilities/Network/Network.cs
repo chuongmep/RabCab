@@ -30,15 +30,15 @@ namespace RabCab.Network
 
     internal class Network<T>
     {
-        private readonly Graph<T> graph = new Graph<T>();
-        private readonly List<List<T>> PathSetList = new List<List<T>>();
+        private readonly Graph<T> _graph = new Graph<T>();
+        private readonly List<List<T>> _pathSetList = new List<List<T>>();
 
         public Network()
         {
         }
 
         public Network(List<Link<T>> links,
-            bool bi_connected = false)
+            bool biConnected = false)
         {
             foreach (var value in links)
             {
@@ -46,13 +46,13 @@ namespace RabCab.Network
                 var to = value.To;
                 var weight = value.Weight;
 
-                graph.AddNode(from);
-                graph.AddNode(to);
+                _graph.AddNode(from);
+                _graph.AddNode(to);
 
-                if (bi_connected)
-                    graph.AddUndirectedEdge(from, to, weight);
+                if (biConnected)
+                    _graph.AddUndirectedEdge(from, to, weight);
                 else
-                    graph.AddDirectedEdge(from, to, weight);
+                    _graph.AddDirectedEdge(from, to, weight);
             }
         }
 
@@ -67,12 +67,12 @@ namespace RabCab.Network
 
         public void AddPath(List<T> p)
         {
-            PathSetList.Add(p);
+            _pathSetList.Add(p);
         }
 
         public void ShowPaths()
         {
-            foreach (var value in PathSetList)
+            foreach (var value in _pathSetList)
             {
                 var path = value;
 
@@ -86,7 +86,7 @@ namespace RabCab.Network
         {
             var pathList = new List<List<T>>();
 
-            foreach (var value in PathSetList) pathList.Add(value);
+            foreach (var value in _pathSetList) pathList.Add(value);
 
             return pathList;
         }
@@ -94,7 +94,7 @@ namespace RabCab.Network
         // Get all nodes adjacent to n
         public NodeList<T> GetAdjNodeIDs(T label)
         {
-            var nodeList = graph.Nodes;
+            var nodeList = _graph.Nodes;
             var node = (GraphNode<T>) nodeList.FindByValue(label);
             var neighbors = node.Neighbors;
 

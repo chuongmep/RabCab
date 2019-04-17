@@ -412,8 +412,8 @@ namespace RabCab.Analysis
 
             if ((MaxExt.Z + MinExt.Z) / 2 < 0)
             {
-                var vector3d = new Vector3d(0, 1, 0);
-                identity = Matrix3d.Rotation(3.14159265358979, vector3d, new Point3d());
+                var vector3D = new Vector3d(0, 1, 0);
+                identity = Matrix3d.Rotation(3.14159265358979, vector3D, new Point3d());
                 LayMatrix *= identity;
             }
 
@@ -569,9 +569,9 @@ namespace RabCab.Analysis
                  (AsymmetryVector.X + AsymmetryVector.Y).IsLessThanTol()
                  && AsymmetryVector.X > 0))
             {
-                var matrix3d = Matrix3d.Rotation(3.14159265358979, new Vector3d(0, 1, 0), boxCenter);
-                LayMatrix = matrix3d * LayMatrix;
-                AsymmetryVector = AsymmetryVector.TransformBy(matrix3d);
+                var matrix3D = Matrix3d.Rotation(3.14159265358979, new Vector3d(0, 1, 0), boxCenter);
+                LayMatrix = matrix3D * LayMatrix;
+                AsymmetryVector = AsymmetryVector.TransformBy(matrix3D);
                 flag = true;
             }
 
@@ -579,17 +579,17 @@ namespace RabCab.Analysis
             {
                 if (!AsymmetryVector.X.IsLessThanTol() && AsymmetryVector.X > 0)
                 {
-                    var matrix3d1 = Matrix3d.Rotation(3.14159265358979, new Vector3d(0, 0, 1), boxCenter);
-                    LayMatrix = matrix3d1 * LayMatrix;
-                    AsymmetryVector = AsymmetryVector.TransformBy(matrix3d1);
+                    var matrix3D1 = Matrix3d.Rotation(3.14159265358979, new Vector3d(0, 0, 1), boxCenter);
+                    LayMatrix = matrix3D1 * LayMatrix;
+                    AsymmetryVector = AsymmetryVector.TransformBy(matrix3D1);
                     flag = true;
                 }
             }
             else if (AsymmetryVector.Y > 0)
             {
-                var matrix3d2 = Matrix3d.Rotation(3.14159265358979, new Vector3d(0, 0, 1), boxCenter);
-                LayMatrix = matrix3d2 * LayMatrix;
-                AsymmetryVector = AsymmetryVector.TransformBy(matrix3d2);
+                var matrix3D2 = Matrix3d.Rotation(3.14159265358979, new Vector3d(0, 0, 1), boxCenter);
+                LayMatrix = matrix3D2 * LayMatrix;
+                AsymmetryVector = AsymmetryVector.TransformBy(matrix3D2);
                 flag = true;
             }
 

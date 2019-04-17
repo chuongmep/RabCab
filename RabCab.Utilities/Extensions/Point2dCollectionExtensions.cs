@@ -17,7 +17,7 @@ namespace RabCab.Extensions
     /// <summary>
     ///     Provides extension methods for the Point2dCollection type.
     /// </summary>
-    public static class Point2dCollectionExtensions
+    public static class Point2DCollectionExtensions
     {
         /// <summary>
         ///     Removes duplicated points in the collection.

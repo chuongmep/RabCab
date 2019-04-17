@@ -12,7 +12,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.Remoting.Channels;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
@@ -1479,6 +1478,8 @@ namespace RabCab.Extensions
         /// </summary>
         /// <param name="acCurEd">The current working editor.</param>
         /// <param name="filterArg">The DXF name to filter by.</param>
+        /// <param name="singleSelection"></param>
+        /// <param name="keyList"></param>
         /// <returns>Returns an objectID collection of the selected objects.</returns>
         public static ObjectId[] GetFilteredSelection(this Editor acCurEd, Enums.DxfNameEnum filterArg,
             bool singleSelection, List<KeywordAgent> keyList = null)
@@ -1507,12 +1508,12 @@ namespace RabCab.Extensions
             #region KeywordAgent
 
             HandleKeywords(keyList, prSelOpts);
-            
+
             #endregion
 
 
             //Create a selection filter to only allow the specified object
-            var selFilter = new SelectionFilter(new[] {new TypedValue((int) DxfCode.Start, dxfName)});
+            var selFilter = new SelectionFilter(new[] { new TypedValue((int)DxfCode.Start, dxfName) });
 
             //Get the selection from the user
             var prSelRes = acCurEd.GetSelection(prSelOpts, selFilter);
@@ -1713,7 +1714,7 @@ namespace RabCab.Extensions
         public static ObjectId[] GetObjectsByType(this Editor acCurEd, Enums.DxfNameEnum[] filterArgs)
         {
             SelectionSet acSSet = null;
-            var curSpace = (int) AcVars.TileMode;
+            var curSpace = (int)AcVars.TileMode;
 
             var dxfNames = new List<string>();
 
@@ -1734,7 +1735,7 @@ namespace RabCab.Extensions
 
             // Create a TypedValue array to define the filter criteria
             var acTypValAr = new TypedValue[2];
-            acTypValAr.SetValue(new TypedValue((int) DxfCode.Start, filterValue), 0);
+            acTypValAr.SetValue(new TypedValue((int)DxfCode.Start, filterValue), 0);
             acTypValAr.SetValue(new TypedValue(67, curSpace), 1);
 
             // Assign the filter criteria to a SelectionFilter object
@@ -1759,7 +1760,7 @@ namespace RabCab.Extensions
         /// </summary>
         /// <param name="ed">The instance to which this method applies.</param>
         /// <returns>The UCS to WCS transformation matrix.</returns>
-        public static Matrix3d UCS2WCS(this Editor ed)
+        public static Matrix3d Ucs2Wcs(this Editor ed)
         {
             return ed.CurrentUserCoordinateSystem;
         }
@@ -1770,7 +1771,7 @@ namespace RabCab.Extensions
         /// </summary>
         /// <param name="ed">The instance to which this method applies.</param>
         /// <returns>The WCS to UCS transformation matrix.</returns>
-        public static Matrix3d WCS2UCS(this Editor ed)
+        public static Matrix3d Wcs2Ucs(this Editor ed)
         {
             return ed.CurrentUserCoordinateSystem.Inverse();
         }
@@ -1781,9 +1782,9 @@ namespace RabCab.Extensions
         /// </summary>
         /// <param name="ed">The instance to which this method applies.</param>
         /// <returns>The DCS to WCS transformation matrix.</returns>
-        public static Matrix3d DCS2WCS(this Editor ed)
+        public static Matrix3d Dcs2Wcs(this Editor ed)
         {
-            var retVal = new Matrix3d();
+            Matrix3d retVal;
             var tilemode = ed.Document.Database.TileMode;
             if (!tilemode)
                 ed.SwitchToModelSpace();
@@ -1806,9 +1807,9 @@ namespace RabCab.Extensions
         /// </summary>
         /// <param name="ed">The instance to which this method applies.</param>
         /// <returns>The WCS to DCS transformation matrix.</returns>
-        public static Matrix3d WCS2DCS(this Editor ed)
+        public static Matrix3d Wcs2Dcs(this Editor ed)
         {
-            return ed.DCS2WCS().Inverse();
+            return ed.Dcs2Wcs().Inverse();
         }
 
         /// <summary>
@@ -1823,7 +1824,7 @@ namespace RabCab.Extensions
         /// <exception cref=" Autodesk.AutoCAD.Runtime.Exception">
         ///     eCannotChangeActiveViewport is thrown if there is none floating viewport in the current layout.
         /// </exception>
-        public static Matrix3d DCS2PSDCS(this Editor ed)
+        public static Matrix3d Dcs2Psdcs(this Editor ed)
         {
             var db = ed.Document.Database;
             if (db.TileMode)
@@ -1831,12 +1832,12 @@ namespace RabCab.Extensions
             using (var tr = db.TransactionManager.StartTransaction())
             {
                 var vp =
-                    (Viewport) tr.GetObject(ed.CurrentViewportObjectId, OpenMode.ForRead);
+                    (Viewport)tr.GetObject(ed.CurrentViewportObjectId, OpenMode.ForRead);
                 if (vp.Number == 1)
                     try
                     {
                         ed.SwitchToModelSpace();
-                        vp = (Viewport) tr.GetObject(ed.CurrentViewportObjectId, OpenMode.ForRead);
+                        vp = (Viewport)tr.GetObject(ed.CurrentViewportObjectId, OpenMode.ForRead);
                         ed.SwitchToPaperSpace();
                     }
                     catch
@@ -1855,18 +1856,23 @@ namespace RabCab.Extensions
         /// <param name="ed">The instance to which this method applies.</param>
         /// <returns>The PSDCS to DCS transformation matrix.</returns>
         /// <exception cref=" Autodesk.AutoCAD.Runtime.Exception">
-        ///     eNotInPaperSpace is thrown if this method is called form Model Space.
+        ///     eNotInPaperSpace is thrown if this method is called from Model Space.
         /// </exception>
         /// <exception cref=" Autodesk.AutoCAD.Runtime.Exception">
         ///     eCannotChangeActiveViewport is thrown if there is none floating viewport in the current layout.
         /// </exception>
-        public static Matrix3d PSDCS2DCS(this Editor ed)
+        public static Matrix3d Psdcs2Dcs(this Editor ed)
         {
-            return ed.DCS2PSDCS().Inverse();
+            return ed.Dcs2Psdcs().Inverse();
         }
 
         #endregion
 
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="keyList"></param>
+        /// <param name="prOpts"></param>
         private static void HandleKeywords(List<KeywordAgent> keyList, PromptSelectionOptions prOpts)
         {
             if (keyList == null) return;

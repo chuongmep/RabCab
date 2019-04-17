@@ -18,14 +18,14 @@ namespace RabCab.Extensions
     /// <summary>
     ///     Provides extension methods for the Point2d type.
     /// </summary>
-    public static class Point2dExtensions
+    public static class Point2DExtensions
     {
         /// <summary>
         ///     Converts a 2d point into a 3d point with Z coodinate equal to 0.
         /// </summary>
         /// <param name="pt">The instance to which the method applies.</param>
         /// <returns>The corresponding 3d point.</returns>
-        public static Point3d Convert3d(this Point2d pt)
+        public static Point3d Convert3D(this Point2d pt)
         {
             return new Point3d(pt.X, pt.Y, 0.0);
         }
@@ -36,7 +36,7 @@ namespace RabCab.Extensions
         /// <param name="pt">The instance to which the method applies.</param>
         /// <param name="plane">The plane which the point lies on.</param>
         /// <returns>The corresponding 3d point</returns>
-        public static Point3d Convert3d(this Point2d pt, Plane plane)
+        public static Point3d Convert3D(this Point2d pt, Plane plane)
         {
             return new Point3d(pt.X, pt.Y, 0.0).TransformBy(Matrix3d.PlaneToWorld(plane));
         }
@@ -49,7 +49,7 @@ namespace RabCab.Extensions
         /// <param name="normal">The normal vector of the plane which the point lies on.</param>
         /// <param name="elevation">The elevation of the plane which the point lies on.</param>
         /// <returns>The corresponding 3d point</returns>
-        public static Point3d Convert3d(this Point2d pt, Vector3d normal, double elevation)
+        public static Point3d Convert3D(this Point2d pt, Vector3d normal, double elevation)
         {
             return new Point3d(pt.X, pt.Y, elevation).TransformBy(Matrix3d.PlaneToWorld(normal));
         }

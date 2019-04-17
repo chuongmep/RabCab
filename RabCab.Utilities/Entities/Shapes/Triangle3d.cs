@@ -18,14 +18,14 @@ namespace RabCab.Entities.Shapes
     /// <summary>
     ///     Represents a triangle in the 3d space. It can be viewed as a structure consisting of three Point3d.
     /// </summary>
-    public class Triangle3d : Triangle<Point3d>
+    public class Triangle3D : Triangle<Point3d>
     {
         #region Constructors
 
         /// <summary>
         ///     Initializes a new instance of Triangle3d; that is empty.
         /// </summary>
-        public Triangle3d()
+        public Triangle3D()
         {
         }
 
@@ -34,7 +34,7 @@ namespace RabCab.Entities.Shapes
         ///     Initializes a new instance of Triangle3d that contains elements copied from the specified array.
         /// </summary>
         /// <param name="pts">The Point3d array whose elements are copied to the new Triangle3d.</param>
-        public Triangle3d(Point3d[] pts) : base(pts)
+        public Triangle3D(Point3d[] pts) : base(pts)
         {
         }
 
@@ -44,7 +44,7 @@ namespace RabCab.Entities.Shapes
         /// <param name="a">The first vertex of the new Triangle3d (origin).</param>
         /// <param name="b">The second vertex of the new Triangle3d (2nd vertex).</param>
         /// <param name="c">The third vertex of the new Triangle3d (3rd vertex).</param>
-        public Triangle3d(Point3d a, Point3d b, Point3d c) : base(a, b, c)
+        public Triangle3D(Point3d a, Point3d b, Point3d c) : base(a, b, c)
         {
         }
 
@@ -54,11 +54,11 @@ namespace RabCab.Entities.Shapes
         /// <param name="org">The origin of the Triangle3d (1st vertex).</param>
         /// <param name="v1">The vector from origin to the second vertex.</param>
         /// <param name="v2">The vector from origin to the third vertex.</param>
-        public Triangle3d(Point3d org, Vector3d v1, Vector3d v2)
+        public Triangle3D(Point3d org, Vector3d v1, Vector3d v2)
         {
-            _pts[0] = _pt0 = org;
-            _pts[0] = _pt1 = org + v1;
-            _pts[0] = _pt2 = org + v2;
+            Pts[0] = Pt0 = org;
+            Pts[0] = Pt1 = org + v1;
+            Pts[0] = Pt2 = org + v2;
         }
 
         #endregion
@@ -70,13 +70,13 @@ namespace RabCab.Entities.Shapes
         /// </summary>
         public double Area =>
             Math.Abs(
-                ((_pt1.X - _pt0.X) * (_pt2.Y - _pt0.Y) -
-                 (_pt2.X - _pt0.X) * (_pt1.Y - _pt0.Y)) / 2.0);
+                ((Pt1.X - Pt0.X) * (Pt2.Y - Pt0.Y) -
+                 (Pt2.X - Pt0.X) * (Pt1.Y - Pt0.Y)) / 2.0);
 
         /// <summary>
         ///     Gets the triangle centroid.
         /// </summary>
-        public Point3d Centroid => (_pt0 + _pt1.GetAsVector() + _pt2.GetAsVector()) / 3.0;
+        public Point3d Centroid => (Pt0 + Pt1.GetAsVector() + Pt2.GetAsVector()) / 3.0;
 
         /// <summary>
         ///     Gets the circumscribed circle.
@@ -85,17 +85,17 @@ namespace RabCab.Entities.Shapes
         {
             get
             {
-                var ca2D = Convert2d().CircumscribedCircle;
+                var ca2D = Convert2D().CircumscribedCircle;
                 if (ca2D == null)
                     return null;
-                return new CircularArc3d(ca2D.Center.Convert3d(GetPlane()), Normal, ca2D.Radius);
+                return new CircularArc3d(ca2D.Center.Convert3D(GetPlane()), Normal, ca2D.Radius);
             }
         }
 
         /// <summary>
         ///     Gets the triangle plane elevation.
         /// </summary>
-        public double Elevation => _pt0.TransformBy(Matrix3d.WorldToPlane(Normal)).Z;
+        public double Elevation => Pt0.TransformBy(Matrix3d.WorldToPlane(Normal)).Z;
 
         /// <summary>
         ///     Gets the unit vector of the triangle plane greatest slope.
@@ -134,22 +134,22 @@ namespace RabCab.Entities.Shapes
         {
             get
             {
-                var ca2D = Convert2d().InscribedCircle;
+                var ca2D = Convert2D().InscribedCircle;
                 if (ca2D == null)
                     return null;
-                return new CircularArc3d(ca2D.Center.Convert3d(GetPlane()), Normal, ca2D.Radius);
+                return new CircularArc3d(ca2D.Center.Convert3D(GetPlane()), Normal, ca2D.Radius);
             }
         }
 
         /// <summary>
         ///     Gets a value indicating whether the triangle plane is horizontal.
         /// </summary>
-        public bool IsHorizontal => _pt0.Z == _pt1.Z && _pt0.Z == _pt2.Z;
+        public bool IsHorizontal => Pt0.Z == Pt1.Z && Pt0.Z == Pt2.Z;
 
         /// <summary>
         ///     Gets the normal vector of the triangle plane.
         /// </summary>
-        public Vector3d Normal => (_pt1 - _pt0).CrossProduct(_pt2 - _pt0).GetNormal();
+        public Vector3d Normal => (Pt1 - Pt0).CrossProduct(Pt2 - Pt0).GetNormal();
 
         /// <summary>
         ///     Gets the percent slope of the triangle plane.
@@ -169,7 +169,7 @@ namespace RabCab.Entities.Shapes
         ///     Gets the triangle coordinates system
         ///     (origin = centroid, X axis = horizontal vector, Y axis = negated geatest slope vector).
         /// </summary>
-        public Matrix3d SlopeUCS
+        public Matrix3d SlopeUcs
         {
             get
             {
@@ -195,20 +195,20 @@ namespace RabCab.Entities.Shapes
         ///     Converts a Triangle3d into a Triangle2d according to the Triangle3d plane.
         /// </summary>
         /// <returns>The resulting Triangle2d.</returns>
-        public Triangle2d Convert2d()
+        public Triangle2D Convert2D()
         {
             var plane = GetPlane();
-            return new Triangle2d(
-                Array.ConvertAll(_pts, x => x.Convert2d(plane)));
+            return new Triangle2D(
+                Array.ConvertAll(Pts, x => x.Convert2d(plane)));
         }
 
         /// <summary>
         ///     Projects a Triangle3d on the WCS XY plane.
         /// </summary>
         /// <returns>The resulting Triangle2d.</returns>
-        public Triangle2d Flatten()
+        public Triangle2D Flatten()
         {
-            return new Triangle2d(
+            return new Triangle2D(
                 new Point2d(this[0].X, this[0].Y),
                 new Point2d(this[1].X, this[1].Y),
                 new Point2d(this[2].X, this[2].Y));
@@ -266,23 +266,23 @@ namespace RabCab.Entities.Shapes
         ///     Checks if the distance between every respective Point3d in both Triangle3d is less than or equal to the
         ///     Tolerance.Global.EqualPoint value.
         /// </summary>
-        /// <param name="t3d">The triangle3d to compare.</param>
+        /// <param name="t3D">The triangle3d to compare.</param>
         /// <returns>true if the condition is met; otherwise, false.</returns>
-        public bool IsEqualTo(Triangle3d t3d)
+        public bool IsEqualTo(Triangle3D t3D)
         {
-            return IsEqualTo(t3d, Tolerance.Global);
+            return IsEqualTo(t3D, Tolerance.Global);
         }
 
         /// <summary>
         ///     Checks if the distance between every respective Point3d in both Triangle3d is less than or equal to the
         ///     Tolerance.EqualPoint value of the specified tolerance.
         /// </summary>
-        /// <param name="t3d">The triangle3d to compare.</param>
+        /// <param name="t3D">The triangle3d to compare.</param>
         /// <param name="tol">The tolerance used in points comparisons.</param>
         /// <returns>true if the condition is met; otherwise, false.</returns>
-        public bool IsEqualTo(Triangle3d t3d, Tolerance tol)
+        public bool IsEqualTo(Triangle3D t3D, Tolerance tol)
         {
-            return t3d[0].IsEqualTo(_pt0, tol) && t3d[1].IsEqualTo(_pt1, tol) && t3d[2].IsEqualTo(_pt2, tol);
+            return t3D[0].IsEqualTo(Pt0, tol) && t3D[1].IsEqualTo(Pt1, tol) && t3D[2].IsEqualTo(Pt2, tol);
         }
 
         /// <summary>
@@ -293,9 +293,9 @@ namespace RabCab.Entities.Shapes
         public bool IsPointInside(Point3d pt)
         {
             var tol = new Tolerance(1e-9, 1e-9);
-            var v1 = pt.GetVectorTo(_pt0).CrossProduct(pt.GetVectorTo(_pt1)).GetNormal();
-            var v2 = pt.GetVectorTo(_pt1).CrossProduct(pt.GetVectorTo(_pt2)).GetNormal();
-            var v3 = pt.GetVectorTo(_pt2).CrossProduct(pt.GetVectorTo(_pt0)).GetNormal();
+            var v1 = pt.GetVectorTo(Pt0).CrossProduct(pt.GetVectorTo(Pt1)).GetNormal();
+            var v2 = pt.GetVectorTo(Pt1).CrossProduct(pt.GetVectorTo(Pt2)).GetNormal();
+            var v3 = pt.GetVectorTo(Pt2).CrossProduct(pt.GetVectorTo(Pt0)).GetNormal();
             return v1.IsEqualTo(v2, tol) && v2.IsEqualTo(v3, tol);
         }
 
@@ -308,9 +308,9 @@ namespace RabCab.Entities.Shapes
         {
             var tol = new Tolerance(1e-9, 1e-9);
             var v0 = new Vector3d(0.0, 0.0, 0.0);
-            var v1 = pt.GetVectorTo(_pt0).CrossProduct(pt.GetVectorTo(_pt1));
-            var v2 = pt.GetVectorTo(_pt1).CrossProduct(pt.GetVectorTo(_pt2));
-            var v3 = pt.GetVectorTo(_pt2).CrossProduct(pt.GetVectorTo(_pt0));
+            var v1 = pt.GetVectorTo(Pt0).CrossProduct(pt.GetVectorTo(Pt1));
+            var v2 = pt.GetVectorTo(Pt1).CrossProduct(pt.GetVectorTo(Pt2));
+            var v3 = pt.GetVectorTo(Pt2).CrossProduct(pt.GetVectorTo(Pt0));
             return v1.IsEqualTo(v0, tol) || v2.IsEqualTo(v0, tol) || v3.IsEqualTo(v0, tol);
         }
 
@@ -322,10 +322,10 @@ namespace RabCab.Entities.Shapes
         /// <param name="v2">The vector from origin to the third vertex.</param>
         public void Set(Point3d org, Vector3d v1, Vector3d v2)
         {
-            _pt0 = org;
-            _pt1 = org + v1;
-            _pt2 = org + v2;
-            _pts = new Point3d[3] {_pt0, _pt1, _pt2};
+            Pt0 = org;
+            Pt1 = org + v1;
+            Pt2 = org + v2;
+            Pts = new Point3d[3] {Pt0, Pt1, Pt2};
         }
 
         /// <summary>
@@ -333,10 +333,10 @@ namespace RabCab.Entities.Shapes
         /// </summary>
         /// <param name="mat">The 3d transformation matrix.</param>
         /// <returns>The new Triangle3d.</returns>
-        public Triangle3d Transformby(Matrix3d mat)
+        public Triangle3D Transformby(Matrix3d mat)
         {
-            return new Triangle3d(Array.ConvertAll(
-                _pts, p => p.TransformBy(mat)));
+            return new Triangle3D(Array.ConvertAll(
+                Pts, p => p.TransformBy(mat)));
         }
 
         #endregion

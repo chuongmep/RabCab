@@ -163,6 +163,7 @@
     <Compile Include="Commands\AnnotationSuite\RcAlignViews.cs" />
     <Compile Include="Commands\AnnotationSuite\RcDimAlign.cs" />
     <Compile Include="Commands\AnnotationSuite\RcDimArrange.cs" />
+    <Compile Include="Commands\AnnotationSuite\RcDimBreak.cs" />
     <Compile Include="Commands\AnnotationSuite\RcDimInsert.cs" />
     <Compile Include="Commands\AnnotationSuite\RcDimJoin.cs" />
     <Compile Include="Commands\AnnotationSuite\RcDimMultEdit.cs" />

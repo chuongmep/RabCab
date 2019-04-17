@@ -41,7 +41,7 @@ namespace RabCab.Extensions
         /// </summary>
         /// <param name="pt">The instance to which the method applies.</param>
         /// <returns>The corresponding 2d point.</returns>
-        public static Point2d Convert2d(this Point3d pt)
+        public static Point2d Convert2D(this Point3d pt)
         {
             return new Point2d(pt.X, pt.Y);
         }
@@ -177,16 +177,16 @@ namespace RabCab.Extensions
             var mat = new Matrix3d();
             switch (from)
             {
-                case CoordSystem.WCS:
+                case CoordSystem.Wcs:
                     switch (to)
                     {
-                        case CoordSystem.UCS:
-                            mat = ed.WCS2UCS();
+                        case CoordSystem.Ucs:
+                            mat = ed.Wcs2Ucs();
                             break;
-                        case CoordSystem.DCS:
-                            mat = ed.WCS2DCS();
+                        case CoordSystem.Dcs:
+                            mat = ed.Wcs2Dcs();
                             break;
-                        case CoordSystem.PSDCS:
+                        case CoordSystem.Psdcs:
                             throw new AcRx.Exception(
                                 AcRx.ErrorStatus.InvalidInput,
                                 "To be used only with DCS");
@@ -196,16 +196,16 @@ namespace RabCab.Extensions
                     }
 
                     break;
-                case CoordSystem.UCS:
+                case CoordSystem.Ucs:
                     switch (to)
                     {
-                        case CoordSystem.WCS:
-                            mat = ed.UCS2WCS();
+                        case CoordSystem.Wcs:
+                            mat = ed.Ucs2Wcs();
                             break;
-                        case CoordSystem.DCS:
-                            mat = ed.UCS2WCS() * ed.WCS2DCS();
+                        case CoordSystem.Dcs:
+                            mat = ed.Ucs2Wcs() * ed.Wcs2Dcs();
                             break;
-                        case CoordSystem.PSDCS:
+                        case CoordSystem.Psdcs:
                             throw new AcRx.Exception(
                                 AcRx.ErrorStatus.InvalidInput,
                                 "To be used only with DCS");
@@ -215,17 +215,17 @@ namespace RabCab.Extensions
                     }
 
                     break;
-                case CoordSystem.DCS:
+                case CoordSystem.Dcs:
                     switch (to)
                     {
-                        case CoordSystem.WCS:
-                            mat = ed.DCS2WCS();
+                        case CoordSystem.Wcs:
+                            mat = ed.Dcs2Wcs();
                             break;
-                        case CoordSystem.UCS:
-                            mat = ed.DCS2WCS() * ed.WCS2UCS();
+                        case CoordSystem.Ucs:
+                            mat = ed.Dcs2Wcs() * ed.Wcs2Ucs();
                             break;
-                        case CoordSystem.PSDCS:
-                            mat = ed.DCS2PSDCS();
+                        case CoordSystem.Psdcs:
+                            mat = ed.Dcs2Psdcs();
                             break;
                         default:
                             mat = Matrix3d.Identity;
@@ -233,19 +233,19 @@ namespace RabCab.Extensions
                     }
 
                     break;
-                case CoordSystem.PSDCS:
+                case CoordSystem.Psdcs:
                     switch (to)
                     {
-                        case CoordSystem.WCS:
+                        case CoordSystem.Wcs:
                             throw new AcRx.Exception(
                                 AcRx.ErrorStatus.InvalidInput,
                                 "To be used only with DCS");
-                        case CoordSystem.UCS:
+                        case CoordSystem.Ucs:
                             throw new AcRx.Exception(
                                 AcRx.ErrorStatus.InvalidInput,
                                 "To be used only with DCS");
-                        case CoordSystem.DCS:
-                            mat = ed.PSDCS2DCS();
+                        case CoordSystem.Dcs:
+                            mat = ed.Psdcs2Dcs();
                             break;
                         default:
                             mat = Matrix3d.Identity;
