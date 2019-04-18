@@ -692,9 +692,7 @@ namespace RabCab.Analysis
                         }
                 }
 
-                if (MaxArea != 0.0) return vList;
-
-                return null;
+                return MaxArea != 0.0 ? vList : null;
             }
         }
 

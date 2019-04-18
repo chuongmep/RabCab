@@ -9,3 +9,5 @@ Can tell the user that editing the part will remove associativity - not taking r
 Allow either "Prompt user to remove associativity or unlock in the properties palette
 
 Lay command crashes if you run too many solids
+
+Add things like Silicone Bead, VHB Tape, and Velcro Connections to Content Library

@@ -315,6 +315,7 @@ namespace RabCab.Agents
         /// <param name="layPoint"></param>
         /// <param name="acCurDb"></param>
         /// <param name="acTrans"></param>
+        /// <param name="multAmount"></param>
         private static void LayParts(this List<EntInfo> eList, ref Point2d layPoint, Database acCurDb,
             Transaction acTrans, int multAmount = 1)
         {
@@ -330,6 +331,7 @@ namespace RabCab.Agents
                 cloneSol?.TransformBy(e.LayMatrix);
                 acCurDb.AppendEntity(cloneSol, acTrans);
                 var yStep = cloneSol.TopLeftTo(layPoint.Convert3D());
+                cloneSol.CheckRotation();
 
                 using (var acText = new MText())
                 {
@@ -343,7 +345,6 @@ namespace RabCab.Agents
 
                     //Default Lay Above
                     var yPt = layPoint.Y + 1;
-
 
                     if (SettingsUser.LayTextInside)
                     {

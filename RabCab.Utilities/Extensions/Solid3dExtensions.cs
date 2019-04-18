@@ -16,6 +16,7 @@ using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.Runtime;
 using RabCab.Calculators;
+using RabCab.Engine.Enumerators;
 using RabCab.Settings;
 using AcBr = Autodesk.AutoCAD.BoundaryRepresentation;
 
@@ -112,7 +113,68 @@ namespace RabCab.Extensions
         {
             if (ent.IsWriteEnabled)
                 ent.DowngradeOpen();
-            ;
+        }
+
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="acSol"></param>
+        /// <returns></returns>
+        public static bool CheckRotation(this Solid3d acSol)
+        {
+            var faceList = new List<AcBr.Face>();
+            Point3d centroid;
+
+            using (var brep = new AcBr.Brep(acSol))
+            {
+                foreach (var face in brep.Faces)
+                    faceList.Add(face);
+
+                centroid = acSol.MassProperties.Centroid;
+            }
+           
+            var largestFace = faceList.OrderByDescending(r => r.GetArea()).First(); 
+          
+            foreach (var loop in largestFace.Loops)
+            {
+                var vList = new List<AcBr.Vertex>();
+                var lType = loop.GetLoopType();
+               
+
+                if (lType != Enums.LoopKit.Exterior) continue;
+
+                try
+                {
+                    foreach (var vtx in loop.Vertices)
+                    {
+                        vList.Add(vtx);
+                        if (vList.Count > 1000) break;
+                    }
+
+                    var val = vList.First().Point.Z;
+
+                    if (val.IsLessThanTol())
+                        return false;
+
+                    var allZEqual = vList.All(x => x.Point.Z.IsEqualTo(val));
+
+                    if (!allZEqual) continue;
+
+                    acSol.Upgrade();
+                    acSol.TransformBy(Matrix3d.Rotation(CalcUnit.ConvertToRadians(180), Vector3d.XAxis, centroid));
+                    var minPt = acSol.GetBounds().MinPoint;
+                    acSol.TransformBy(Matrix3d.Displacement(minPt.GetVectorTo(minPt.Flatten())));
+                    acSol.Downgrade();
+                    return true;
+                }
+                catch (Autodesk.AutoCAD.BoundaryRepresentation.Exception)
+                {
+                    return false;
+                }
+
+            }
+
+            return false;
         }
 
         #region Methods For Getting BREP Information from Solids
@@ -644,14 +706,20 @@ namespace RabCab.Extensions
             var acBlkTbl = acTrans.GetObject(acCurDb.BlockTableId, OpenMode.ForRead) as BlockTable;
 
             // Open the Block table record Model space for write
-            var acBlkTblRec =
-                acTrans.GetObject(acBlkTbl[BlockTableRecord.ModelSpace], OpenMode.ForWrite) as BlockTableRecord;
+            if (acBlkTbl != null)
+            {
+                var acBlkTblRec =
+                    acTrans.GetObject(acBlkTbl[BlockTableRecord.ModelSpace], OpenMode.ForWrite) as BlockTableRecord;
 
-            //Add the Fused Boolean to the Database
-            acBlkTblRec?.AppendEntity(acBool1);
+                //Add the Fused Boolean to the Database
+                acBlkTblRec?.AppendEntity(acBool1);
+            }
+
             acTrans.AddNewlyCreatedDBObject(acBool1, true);
 
-            return acBool1.ObjectId;
+            if (acBool1 != null) return acBool1.ObjectId;
+            
+            return ObjectId.Null;
         }
 
         /// <summary>
@@ -832,39 +900,42 @@ namespace RabCab.Extensions
             var acBlkTbl = acTrans.GetObject(acCurDb.BlockTableId, OpenMode.ForRead) as BlockTable;
 
             // Open the Block table record Model space for write
-            var acBlkTblRec =
-                acTrans.GetObject(acBlkTbl[BlockTableRecord.ModelSpace], OpenMode.ForWrite) as BlockTableRecord;
-
-            acCurDb.AddLayer("RCConverge", Colors.LayerColorConverge, "CONTINUOUS", acTrans);
-
-            // Find Convergence Of the Solids
-            foreach (var acSol in convList)
+            if (acBlkTbl != null)
             {
-                ranIds.Add(acSol.Id);
+                var acBlkTblRec =
+                    acTrans.GetObject(acBlkTbl[BlockTableRecord.ModelSpace], OpenMode.ForWrite) as BlockTableRecord;
 
-                foreach (var checkSol in convList)
+                acCurDb.AddLayer("RCConverge", Colors.LayerColorConverge, "CONTINUOUS", acTrans);
+
+                // Find Convergence Of the Solids
+                foreach (var acSol in convList)
                 {
-                    if (ranIds.Contains(checkSol.Id)) continue;
+                    ranIds.Add(acSol.Id);
 
-                    //Create a clone of the solids and add them to the Database
-                    var acBool1 = acSol.Clone() as Solid3d;
-                    var acBool2 = checkSol.Clone() as Solid3d;
+                    foreach (var checkSol in convList)
+                    {
+                        if (ranIds.Contains(checkSol.Id)) continue;
 
-                    //Set the color of the solids
-                    if (acBool1 == null) continue;
-                    acBool1.Layer = "RCConverge";
+                        //Create a clone of the solids and add them to the Database
+                        var acBool1 = acSol.Clone() as Solid3d;
+                        var acBool2 = checkSol.Clone() as Solid3d;
 
-                    if (acBool2 == null) continue;
-                    acBool2.Layer = "RCConverge";
+                        //Set the color of the solids
+                        if (acBool1 == null) continue;
+                        acBool1.Layer = "RCConverge";
 
-                    acBlkTblRec?.AppendEntity(acBool1);
-                    acBlkTblRec?.AppendEntity(acBool2);
+                        if (acBool2 == null) continue;
+                        acBool2.Layer = "RCConverge";
 
-                    acTrans.AddNewlyCreatedDBObject(acBool1, true);
-                    acTrans.AddNewlyCreatedDBObject(acBool2, true);
+                        acBlkTblRec?.AppendEntity(acBool1);
+                        acBlkTblRec?.AppendEntity(acBool2);
 
-                    // Fuse the solids with a Boolean Operation
-                    acBool1.BooleanOperation(BooleanOperationType.BoolIntersect, acBool2);
+                        acTrans.AddNewlyCreatedDBObject(acBool1, true);
+                        acTrans.AddNewlyCreatedDBObject(acBool2, true);
+
+                        // Fuse the solids with a Boolean Operation
+                        acBool1.BooleanOperation(BooleanOperationType.BoolIntersect, acBool2);
+                    }
                 }
             }
 

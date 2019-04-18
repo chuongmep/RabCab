@@ -248,12 +248,14 @@
     <Compile Include="Commands\OutputSuite\RenderKit\RcUvMap.cs" />
     <Compile Include="Commands\PaletteKit\RcDwgBrowser.cs" />
     <Compile Include="Commands\PaletteKit\RcLayerRepository.cs" />
+    <Compile Include="Commands\TidySuite\RcBurstAll.cs" />
     <Compile Include="Engine\Enumerators\IEnumerables.cs" />
     <Compile Include="Entities\Linework\Axis.cs" />
     <Compile Include="Extensions\BrepExtensions.cs" />
     <Compile Include="Extensions\Curve3dExtensions.cs" />
     <Compile Include="Extensions\EdgeExt.cs" />
     <Compile Include="Agents\KeywordAgent.cs" />
+    <Compile Include="Extensions\LinqExtensions.cs" />
     <Compile Include="Extensions\Vector2dExtensions.cs" />
     <Compile Include="Extensions\VertExt.cs" />
     <Compile Include="Gui\PaletteLayerRepo.cs">
