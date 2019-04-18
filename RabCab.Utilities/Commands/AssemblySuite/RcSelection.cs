@@ -9,7 +9,9 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
+using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.Runtime;
+using RabCab.Extensions;
 using RabCab.Settings;
 
 namespace RabCab.Commands.AssemblySuite
@@ -18,7 +20,7 @@ namespace RabCab.Commands.AssemblySuite
     {
         /// <summary>
         /// </summary>
-        [CommandMethod(SettingsInternal.CommandGroup, "_CMDDEFAULT",
+        [CommandMethod(SettingsInternal.CommandGroup, "_SELECTSAME",
             CommandFlags.Modal
             //| CommandFlags.Transparent
             //| CommandFlags.UsePickSet
@@ -26,7 +28,7 @@ namespace RabCab.Commands.AssemblySuite
             //| CommandFlags.NoPerspective
             //| CommandFlags.NoMultiple
             //| CommandFlags.NoTileMode
-            //| CommandFlags.NoPaperSpace
+            | CommandFlags.NoPaperSpace
             //| CommandFlags.NoOem
             //| CommandFlags.Undefined
             //| CommandFlags.InProgress
@@ -44,8 +46,53 @@ namespace RabCab.Commands.AssemblySuite
             //| CommandFlags.ActionMacro
             //| CommandFlags.NoInferConstraint 
         )]
-        public void Cmd_Default()
+        public void Cmd_SelectSame()
         {
+            //Get the current document utilities
+            var acCurDoc = Application.DocumentManager.MdiActiveDocument;
+            var acCurDb = acCurDoc.Database;
+            var acCurEd = acCurDoc.Editor;
+
+            var acSol = acCurEd.GetAllSelection(true);
+        }
+
+
+        /// <summary>
+        /// </summary>
+        [CommandMethod(SettingsInternal.CommandGroup, "_SELECTUNNAMED",
+            CommandFlags.Modal
+            //| CommandFlags.Transparent
+            | CommandFlags.UsePickSet
+            //| CommandFlags.Redraw
+            //| CommandFlags.NoPerspective
+            //| CommandFlags.NoMultiple
+            //| CommandFlags.NoTileMode
+            | CommandFlags.NoPaperSpace
+            //| CommandFlags.NoOem
+            //| CommandFlags.Undefined
+            //| CommandFlags.InProgress
+            //| CommandFlags.Defun
+            //| CommandFlags.NoNewStack
+            //| CommandFlags.NoInternalLock
+            //| CommandFlags.DocReadLock
+            //| CommandFlags.DocExclusiveLock
+            //| CommandFlags.Session
+            //| CommandFlags.Interruptible
+            //| CommandFlags.NoHistory
+            //| CommandFlags.NoUndoMarker
+            //| CommandFlags.NoBlockEditor
+            //| CommandFlags.NoActionRecording
+            //| CommandFlags.ActionMacro
+            //| CommandFlags.NoInferConstraint 
+        )]
+        public void Cmd_SelectUnNamed()
+        {
+            //Get the current document utilities
+            var acCurDoc = Application.DocumentManager.MdiActiveDocument;
+            var acCurDb = acCurDoc.Database;
+            var acCurEd = acCurDoc.Editor;
+
+            var acSol = acCurEd.GetAllSelection(false);
         }
     }
 }

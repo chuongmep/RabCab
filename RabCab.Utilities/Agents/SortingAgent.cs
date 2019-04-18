@@ -454,12 +454,8 @@ namespace RabCab.Agents
         /// <param name="sel"></param>
         /// <returns></returns>
         public static IOrderedEnumerable<T> OrderByIf<T, TKey>(this IEnumerable<T> list, bool predicate,
-            Func<T, TKey> sel)
-        {
-            if (predicate)
-                return list.OrderBy(f => sel(f));
-            return list.OrderBy(a => 1);
-        }
+            Func<T, TKey> sel) =>
+            predicate ? list.OrderBy(f => sel(f)) : list.OrderBy(a => 1);
 
         /// <summary>
         ///     TODO
@@ -471,12 +467,8 @@ namespace RabCab.Agents
         /// <param name="sel"></param>
         /// <returns></returns>
         public static IOrderedEnumerable<T> OrderByDescendingIf<T, TKey>(this IEnumerable<T> list, bool predicate,
-            Func<T, TKey> sel)
-        {
-            if (predicate)
-                return list.OrderByDescending(f => sel(f));
-            return list.OrderBy(a => 1);
-        }
+            Func<T, TKey> sel) =>
+            predicate ? list.OrderByDescending(f => sel(f)) : list.OrderBy(a => 1);
 
         /// <summary>
         ///     TODO
@@ -488,12 +480,8 @@ namespace RabCab.Agents
         /// <param name="sel"></param>
         /// <returns></returns>
         public static IOrderedEnumerable<T> ThenByIf<T, TKey>(this IOrderedEnumerable<T> list, bool predicate,
-            Func<T, TKey> sel)
-        {
-            if (predicate)
-                return list.ThenBy(f => sel(f));
-            return list;
-        }
+            Func<T, TKey> sel) =>
+            predicate ? list.ThenBy(f => sel(f)) : list;
 
         /// <summary>
         ///     TODO
@@ -505,12 +493,8 @@ namespace RabCab.Agents
         /// <param name="sel"></param>
         /// <returns></returns>
         public static IOrderedEnumerable<T> ThenByDescendingIf<T, TKey>(this IOrderedEnumerable<T> list, bool predicate,
-            Func<T, TKey> sel)
-        {
-            if (predicate)
-                return list.ThenByDescending(f => sel(f));
-            return list;
-        }
+            Func<T, TKey> sel) =>
+            predicate ? list.ThenByDescending(f => sel(f)) : list;
 
         public static bool Compare(this EntInfo x, EntInfo y, bool compareNames)
         {

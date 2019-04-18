@@ -1479,7 +1479,7 @@ namespace RabCab.Extensions
         /// </summary>
         /// <param name="acCurEd">The current working editor.</param>
         /// <returns>Returns an objectID collection of the selected objects.</returns>
-        public static ObjectId[] GetAllSelection(this Editor acCurEd)
+        public static ObjectId[] GetAllSelection(this Editor acCurEd, bool singleSelection)
         {
             var prSelOpts = new PromptSelectionOptions
             {
@@ -1487,8 +1487,10 @@ namespace RabCab.Extensions
                 AllowSubSelections = false,
                 RejectObjectsFromNonCurrentSpace = true,
                 RejectObjectsOnLockedLayers = true,
-                MessageForAdding = "Select objects to add: ",
-                MessageForRemoval = "Select objects to remove: "
+                MessageForAdding = singleSelection ? "Select object to add: " : "Select objects to add: ",
+                MessageForRemoval = singleSelection ? "Select object to remove: " : "Select objects to remove: ",
+                SingleOnly = singleSelection,
+                SinglePickInSpace = singleSelection
             };
 
             //Get the selection from the user
@@ -1530,8 +1532,9 @@ namespace RabCab.Extensions
                 RejectObjectsOnLockedLayers = true,
                 SingleOnly = singleSelection,
                 SinglePickInSpace = singleSelection,
-                MessageForAdding = "Select " + dxfName.ToUpper() + " objects to add: ",
-                MessageForRemoval = "Select " + dxfName.ToUpper() + " objects to remove: "
+                MessageForAdding = singleSelection ? "Select " + dxfName.ToUpper() + " object to add: " : "Select " + dxfName.ToUpper() + " objects to add: ",
+                MessageForRemoval = singleSelection ? "Select " + dxfName.ToUpper() + " object to remove: " : "Select " + dxfName.ToUpper() + " objects to remove: ",
+
             };
 
             #region KeywordAgent
