@@ -331,7 +331,9 @@ namespace RabCab.Agents
                 cloneSol?.TransformBy(e.LayMatrix);
                 acCurDb.AppendEntity(cloneSol, acTrans);
                 var yStep = cloneSol.TopLeftTo(layPoint.Convert3D());
-                cloneSol.CheckRotation();
+
+                if (cloneSol.CheckRotation())
+                    cloneSol.TopLeftTo(layPoint.Convert3D());
 
                 using (var acText = new MText())
                 {
