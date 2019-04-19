@@ -32,6 +32,12 @@ namespace RabCab.Engine.Enumerators
             LightGrey = 9
         }
 
+        public enum ColorTheme
+        {
+            Dark = 0,
+            Light = 1
+        }
+
         /// <summary>
         ///     DXF Names for autoCAD entities
         /// </summary>

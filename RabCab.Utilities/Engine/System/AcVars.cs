@@ -94,5 +94,16 @@ namespace RabCab.Engine.System
         }
 
         #endregion
+
+        /// <summary>
+        ///     Controls the behavior of the Action Recorder panel when recording and playing back macros.
+        /// </summary>
+        public static Enums.ColorTheme ColorTheme
+        {
+            get => (Enums.ColorTheme)(short)Application.GetSystemVariable("COLORTHEME");
+            set => Application.SetSystemVariable("COLORTHEME", (short)value);
+        }
+
+        
     }
 }

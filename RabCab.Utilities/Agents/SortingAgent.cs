@@ -41,7 +41,7 @@ namespace RabCab.Agents
                 .ThenByIf(sCrit.HasFlag(Layer), e => e.EntLayer)
                 .ThenByIf(sCrit.HasFlag(Color), e => e.EntColor)
                 .ThenByIf(sCrit.HasFlag(Thickness), e => e.Thickness)
-                .ThenByDescending(e => e.Length); //.ThenByDescending(e => e.Width);
+                .ThenByDescending(e => e.Length).ThenByDescending(e => e.Volume); //.ThenByDescending(e => e.Width);
 
             eInfoList = sortedList.ToList();
         }
@@ -170,7 +170,10 @@ namespace RabCab.Agents
                 .ThenByIf(sCrit.HasFlag(Layer), e => e.Key.Layer)
                 .ThenByIf(sCrit.HasFlag(Color), e => e.Key.Color)
                 .ThenByDescendingIf(sCrit.HasFlag(Thickness), e => e.Key.Thickness)
-                .ThenByDescending(e => e.Key.Length).ThenByDescending(e => e.Key.Width).ToList();
+                .ThenByDescending(e => e.Key.Length)
+                .ThenByDescending(e => e.Key.Width)
+                .ThenByDescending(e => e.Key.Volume)
+                .ToList();
 
             pWorker.SetTotalOperations(gList.Count());
 
@@ -254,7 +257,9 @@ namespace RabCab.Agents
                 .ThenByIf(sCrit.HasFlag(Layer), e => e.Key.Layer)
                 .ThenByIf(sCrit.HasFlag(Color), e => e.Key.Color)
                 .ThenByDescendingIf(sCrit.HasFlag(Thickness), e => e.Key.Thickness)
-                .ThenByDescending(e => e.Key.Length).ThenByDescending(e => e.Key.Width).ToList();
+                .ThenByDescending(e => e.Key.Length)
+                .ThenByDescending(e => e.Key.Width)
+                .ThenByDescending(e => e.Key.Volume).ToList();
             ;
 
             pWorker.Reset("Laying Solids: ");
