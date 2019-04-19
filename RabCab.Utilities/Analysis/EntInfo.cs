@@ -124,7 +124,7 @@ namespace RabCab.Analysis
             RcQtyTotal = 0;
             LayMatrix = Matrix3d.Identity;
             AsymmetryVector = new Vector3d();
-            NumberOfChanges = 0;
+            NumberOfChanges = acSol.NumChanges;
             BaseHandle = acSol.Handle;
             ChildHandles = new List<Handle>();
             ReadEntity(acSol, acCurDb, acTrans);
@@ -153,7 +153,7 @@ namespace RabCab.Analysis
             RcQtyTotal = 0;
             LayMatrix = Matrix3d.Identity;
             AsymmetryVector = new Vector3d();
-            NumberOfChanges = 0;
+            NumberOfChanges = acSol.NumChanges;
             BaseHandle = acSol.Handle;
             ChildHandles = new List<Handle>();
             ReadEntity(acSol, acCurDb, acTrans);

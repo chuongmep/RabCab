@@ -149,12 +149,14 @@
     <Compile Include="Agents\XDataAgent.cs" />
     <Compile Include="Analysis\EntInfo.cs" />
     <Compile Include="Analysis\PaperReader.cs" />
+    <Compile Include="Analysis\PropReader.cs" />
     <Compile Include="Calculators\CalcNest.cs" />
     <Compile Include="Calculators\CalcTol.cs" />
     <Compile Include="Calculators\CalcUnit.cs" />
     <Compile Include="Calculators\CalcWatt.cs" />
     <Compile Include="Calculators\CalcWeight.cs" />
     <Compile Include="Commands\AnalysisSuite\RcAnalyzeParts.cs" />
+    <Compile Include="Commands\AnalysisSuite\RcDump.cs" />
     <Compile Include="Commands\AnalysisSuite\RcFilter.cs" />
     <Compile Include="Commands\AnalysisSuite\RcNotebook.cs" />
     <Compile Include="Commands\AnalysisSuite\RcShowBounds.cs" />
@@ -251,6 +253,7 @@
     <Compile Include="Commands\TidySuite\RcBurstAll.cs" />
     <Compile Include="Engine\Enumerators\IEnumerables.cs" />
     <Compile Include="Entities\Linework\Axis.cs" />
+    <Compile Include="Exceptions\NullException.cs" />
     <Compile Include="Extensions\BrepExtensions.cs" />
     <Compile Include="Extensions\Curve3dExtensions.cs" />
     <Compile Include="Extensions\EdgeExt.cs" />
