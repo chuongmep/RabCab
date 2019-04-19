@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
 using RabCab.Analysis;
+using RabCab.Calculators;
 using RabCab.Engine.Enumerators;
 using RabCab.Extensions;
 using RabCab.Settings;
@@ -118,6 +120,137 @@ namespace RabCab.Agents
             }
 
             return mList;
+        }
+
+        public static ObjectId[] SelectSimilar(this Entity acEnt, List<string> propFilter, Editor acCurEd, Database acCurDb, Transaction acTrans, bool select)
+        {
+            var entProps = GetProperties(acEnt, propFilter);
+            var matchList = new List<ObjectId>();
+
+            //Get the Current Space
+            var acCurSpaceBlkTblRec = acTrans.GetObject(acCurDb.CurrentSpaceId, OpenMode.ForWrite) as BlockTableRecord;
+
+            if (acCurSpaceBlkTblRec == null) return new ObjectId[]{ObjectId.Null, };
+
+            var objCount = 0;
+
+            foreach (var objId in acCurSpaceBlkTblRec)
+            {
+                var compEnt = acTrans.GetObject(objId, OpenMode.ForRead) as Entity;
+                if (compEnt == null) continue;
+
+                var compProps = GetProperties(compEnt, propFilter);
+
+                if (entProps.SequenceEqual(compProps))
+                {
+                    matchList.Add(objId);
+                }
+
+                objCount++;
+            }
+
+            if (!@select) return matchList.ToArray();
+
+            if (matchList.Count > 0)
+            {
+                acCurEd.SetImpliedSelection(matchList.ToArray());
+                acCurEd.WriteMessage($"\n{objCount} Objects parsed - {matchList.Count} duplicates found.");
+            }
+            else
+            {
+                acCurEd.WriteMessage("\nNo duplicates found.");
+            }
+
+            return matchList.ToArray();
+
+        }
+
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="acEnt"></param>
+        /// <param name="filter"></param>
+        /// <returns></returns>
+        private static Dictionary<string, string> GetProperties(Entity acEnt, List<string> filter)
+        {
+            var propDict = new Dictionary<string, string>();
+
+            //Get Com Properties
+            var acadObj = acEnt.AcadObject;
+            var props = TypeDescriptor.GetProperties(acadObj);
+
+            //NAME
+            if (filter.Contains("PartName"))
+                propDict.Add("Part Name", acEnt.GetPartName());
+            //LENGTH
+            if (filter.Contains("Length"))
+                propDict.Add("Length", acEnt.GetPartLength().ToString());
+            //WIDTH
+            if (filter.Contains("Width"))
+                propDict.Add("Width", acEnt.GetPartWidth().ToString());
+            //THICKNESS
+            if (filter.Contains("Thickness"))
+                propDict.Add("Thickness", acEnt.GetPartThickness().ToString());
+            //VOLUME
+            if (filter.Contains("Volume"))
+                propDict.Add("Volume", acEnt.GetPartVolume().ToString());
+            //ISSWEEP
+            if (filter.Contains("IsSweep"))
+                propDict.Add("Is Sweep", acEnt.GetIsSweep().ToString());
+            //ISMIRROR
+            if (filter.Contains("IsMirror"))
+                propDict.Add("Is Mirror", acEnt.GetIsMirror().ToString());
+            //HASHOLES
+            if (filter.Contains("HasHoles"))
+                propDict.Add("Has Holes", acEnt.GetHasHoles().ToString());
+            //TXDIRECTION
+            if (filter.Contains("TextureDirection"))
+                propDict.Add("Texture Direction", acEnt.GetTextureDirection().ToString());
+            //PRODTYPE
+            if (filter.Contains("ProductionType"))
+                propDict.Add("ProductionType", acEnt.GetProductionType().ToString());
+            //BASEHANDLE
+            if (filter.Contains("ParentHandle"))
+                propDict.Add("Parent Handle", acEnt.GetParent().ToString());
+
+            //Iterate through properties
+            foreach (PropertyDescriptor prop in props)
+            {
+                if (!filter.Contains(prop.DisplayName.ToString())) continue;
+
+                var value = prop.GetValue(acadObj);
+                if (value == null) continue;
+
+                var isNumeric = double.TryParse(value.ToString(), out var checkVal);
+
+                if (isNumeric)
+                {
+                    checkVal = checkVal.RoundToTolerance();
+
+                    try
+                    {
+                        propDict.Add(prop.DisplayName, checkVal.ToString());
+                    }
+                    catch (System.Exception e)
+                    {
+                        Console.WriteLine(e);
+                    }
+                }
+                else
+                {
+                    try
+                    {
+                        propDict.Add(prop.DisplayName, value.ToString());
+                    }
+                    catch (System.Exception e)
+                    {
+                        Console.WriteLine(e);
+                    }
+                }
+
+            }
+
+            return propDict;
         }
 
         private static Enums.SortBy GetSCrit()

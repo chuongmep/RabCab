@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
+using System.Windows.Controls;
 using System.Windows.Forms;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
@@ -26,7 +27,11 @@ using RabCab.Exceptions;
 using RabCab.Extensions;
 using RabCab.Settings;
 using Application = Autodesk.AutoCAD.ApplicationServices.Application;
+using Button = System.Windows.Forms.Button;
+using CheckBox = System.Windows.Forms.CheckBox;
+using Control = System.Windows.Forms.Control;
 using FlowDirection = System.Windows.Forms.FlowDirection;
+using Label = System.Windows.Forms.Label;
 
 namespace RabCab.Commands.AssemblySuite
 {
@@ -149,10 +154,36 @@ namespace RabCab.Commands.AssemblySuite
                 buttonOk.AutoSize = true;
                 buttonCancel.AutoSize = true;
 
-                //Get XData Props
-                var partName = acEnt.GetPartName();
-                if (!string.IsNullOrEmpty(partName))
-                    AddCheckBox(bodyPanel, "Part Name = " + partName);
+                //NAME
+                AddCheckBox(bodyPanel, "Part Name = " + acEnt.GetPartName());
+                //LENGTH
+                AddCheckBox(bodyPanel, "Length = " + acEnt.GetPartLength());
+                //WIDTH
+                AddCheckBox(bodyPanel, "Width = " + acEnt.GetPartWidth());
+                //THICKNESS
+                AddCheckBox(bodyPanel, "Thickness = " + acEnt.GetPartThickness());
+                //VOLUME
+                AddCheckBox(bodyPanel, "Volume = " + acEnt.GetPartVolume());
+                //ISSWEEP
+                AddCheckBox(bodyPanel, "Is Sweep = " + acEnt.GetIsSweep());
+                //ISMIRROR
+                AddCheckBox(bodyPanel, "Is Mirror = " + acEnt.GetIsMirror());
+                //HASHOLES
+                AddCheckBox(bodyPanel, "Has Holes = " + acEnt.GetHasHoles());
+                //TXDIRECTION
+                AddCheckBox(bodyPanel, "Texture Direction = " + acEnt.GetTextureDirection());
+                //PRODTYPE
+                AddCheckBox(bodyPanel, "Production Type = " + acEnt.GetProductionType());
+                //BASEHANDLE
+                AddCheckBox(bodyPanel, "Parent Handle = " + acEnt.GetParent());
+
+                var divider = new Label();
+                divider.Text = "";
+                divider.BorderStyle = BorderStyle.Fixed3D;
+                divider.AutoSize = false;
+                divider.Height = 2;
+
+                bodyPanel.Controls.Add(divider);
 
                 //Get Com Properties
                 var acadObj = acEnt.AcadObject;
@@ -197,83 +228,13 @@ namespace RabCab.Commands.AssemblySuite
                 //Dispose the form
                 propF.Dispose();
 
-                var entProps = GetProperties(acEnt, propFilter);
-                var matchList = new List<ObjectId>();
-
-                //Get the Current Space
-                var acCurSpaceBlkTblRec = acTrans.GetObject(acCurDb.CurrentSpaceId, OpenMode.ForWrite) as BlockTableRecord;
-
-                if (acCurSpaceBlkTblRec == null) return;
-
-                var objCount = 0;
-
-                foreach (var objId in acCurSpaceBlkTblRec)
-                {
-                    var compEnt = acTrans.GetObject(objId, OpenMode.ForRead) as Entity;
-                    if (compEnt == null) continue;
-
-                    var compProps = GetProperties(compEnt, propFilter);
-
-                    if (entProps.SequenceEqual(compProps))
-                    {
-                        matchList.Add(objId);
-                    }
-
-                    objCount++;
-                }
-
-                if (matchList.Count > 0)
-                {
-                    acCurEd.SetImpliedSelection(matchList.ToArray());
-                    acCurEd.WriteMessage($"\n{objCount} Objects parsed - {matchList.Count} duplicates found.");
-                }
-                else
-                {
-                    acCurEd.WriteMessage("\nNo duplicates found.");
-                }
-
+                acEnt.SelectSimilar(propFilter, acCurEd, acCurDb, acTrans, true);
                 #endregion
                 acTrans.Commit();
             }
 
         }
-
-        private Dictionary<string, string> GetProperties(Entity acEnt, List<string> filter)
-        {
-            var propDict = new Dictionary<string, string>();
-
-            //Get Com Properties
-            var acadObj = acEnt.AcadObject;
-            var props = TypeDescriptor.GetProperties(acadObj);
-
-            //Iterate through properties
-            foreach (PropertyDescriptor prop in props)
-            {
-                if (!filter.Contains(prop.DisplayName.ToString())) continue;
-
-                var value = prop.GetValue(acadObj);
-                if (value == null) continue;
-
-                var isNumeric = double.TryParse(value.ToString(), out var checkVal);
-
-                if (isNumeric)
-                {
-                    checkVal = checkVal.RoundToTolerance();
-                    propDict.Add(prop.DisplayName, checkVal.ToString());
-                }
-                else
-                {
-                    propDict.Add(prop.DisplayName, value.ToString());
-                }
-   
-            }
-
-            //XData Checking
-            //NAME
-            //
-
-            return propDict;
-        }
+      
 
         /// <summary>
         /// TODO
