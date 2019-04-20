@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RabCab.Commands.TidySuite
+﻿namespace RabCab.Commands.TidySuite
 {
-    class RcBurstAll
+    internal class RcBurstAll
     {
     }
 }

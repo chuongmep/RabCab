@@ -9,34 +9,26 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Linq;
-using System.Windows.Controls;
 using System.Windows.Forms;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Runtime;
 using RabCab.Agents;
-using RabCab.Analysis;
-using RabCab.Calculators;
-using RabCab.Engine.System;
-using RabCab.Exceptions;
 using RabCab.Extensions;
 using RabCab.Settings;
-using Application = Autodesk.AutoCAD.ApplicationServices.Application;
-using Button = System.Windows.Forms.Button;
-using CheckBox = System.Windows.Forms.CheckBox;
-using Control = System.Windows.Forms.Control;
+using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
 using FlowDirection = System.Windows.Forms.FlowDirection;
-using Label = System.Windows.Forms.Label;
 
 namespace RabCab.Commands.AssemblySuite
 {
     internal class RcSelection
     {
+        private readonly List<string> _lastChecked = new List<string>();
+        private bool showOnlySelected = true;
+
         /// <summary>
         /// </summary>
         [CommandMethod(SettingsInternal.CommandGroup, "_SELECTSAME",
@@ -47,7 +39,7 @@ namespace RabCab.Commands.AssemblySuite
             //| CommandFlags.NoPerspective
             //| CommandFlags.NoMultiple
             //| CommandFlags.NoTileMode
-            | CommandFlags.NoPaperSpace
+            //| CommandFlags.NoPaperSpace
             //| CommandFlags.NoOem
             //| CommandFlags.Undefined
             //| CommandFlags.InProgress
@@ -68,7 +60,7 @@ namespace RabCab.Commands.AssemblySuite
         public void Cmd_SelectSame()
         {
             //Get the current document utilities
-            var acCurDoc = Autodesk.AutoCAD.ApplicationServices.Core.Application.DocumentManager.MdiActiveDocument;
+            var acCurDoc = Application.DocumentManager.MdiActiveDocument;
             var acCurDb = acCurDoc.Database;
             var acCurEd = acCurDoc.Editor;
 
@@ -98,13 +90,24 @@ namespace RabCab.Commands.AssemblySuite
 
                 var headPanel = new FlowLayoutPanel();
                 var bodyPanel = new FlowLayoutPanel();
-                var footPanel = new FlowLayoutPanel();
+                var footPanel = new Panel();
 
                 var buttonOk = new Button();
                 var buttonCancel = new Button();
+                var showButton = new CheckBox();
+                showButton.Appearance = Appearance.Button;
+
+                var divider = new Label
+                {
+                    Text = "", BorderStyle = BorderStyle.Fixed3D, AutoSize = false, Height = 1,
+                    Width = bodyPanel.Width - 40
+                };
 
                 buttonOk.Text = "OK";
                 buttonCancel.Text = "Cancel";
+                showButton.Text = "Showing only selected";
+
+                showButton.TextAlign = ContentAlignment.MiddleCenter;
 
                 propF.Controls.Add(bodyPanel);
                 propF.Controls.Add(headPanel);
@@ -113,6 +116,17 @@ namespace RabCab.Commands.AssemblySuite
                 bodyPanel.Dock = DockStyle.Fill;
                 headPanel.Dock = DockStyle.Top;
                 footPanel.Dock = DockStyle.Bottom;
+                buttonOk.Dock = DockStyle.Left;
+                buttonCancel.Dock = DockStyle.Right;
+                showButton.Dock = DockStyle.Fill;
+
+                buttonOk.BackColor = Colors.GetCadForeColor();
+                buttonCancel.BackColor = Colors.GetCadForeColor();
+                showButton.BackColor = Colors.GetCadForeColor();
+
+                buttonOk.ForeColor = Colors.GetCadTextColor();
+                buttonCancel.ForeColor = Colors.GetCadTextColor();
+                showButton.ForeColor = Colors.GetCadTextColor();
 
                 headPanel.BackColor = Colors.GetCadBackColor();
                 bodyPanel.BackColor = Colors.GetCadForeColor();
@@ -124,7 +138,6 @@ namespace RabCab.Commands.AssemblySuite
 
                 headPanel.FlowDirection = FlowDirection.LeftToRight;
                 bodyPanel.FlowDirection = FlowDirection.TopDown;
-                footPanel.FlowDirection = FlowDirection.LeftToRight;
 
                 headPanel.AutoScroll = false;
                 bodyPanel.AutoScroll = true;
@@ -132,10 +145,19 @@ namespace RabCab.Commands.AssemblySuite
 
                 headPanel.WrapContents = false;
                 bodyPanel.WrapContents = false;
-                footPanel.WrapContents = false;
 
                 headPanel.Height = 25;
                 footPanel.Height = 25;
+
+                var allBox = new CheckBox
+                {
+                    AutoSize = true,
+                    Text = "Deselect All",
+                    ForeColor = Colors.GetCadTextColor(),
+                    CheckState = CheckState.Checked
+                };
+
+                headPanel.Controls.Add(allBox);
 
                 buttonOk.Click += (sender, e) =>
                 {
@@ -148,11 +170,29 @@ namespace RabCab.Commands.AssemblySuite
                     propF.Close();
                 };
 
+                showButton.CheckStateChanged += (sender, e) =>
+                {
+                    if (showButton.Checked)
+                    {
+                        showOnlySelected = false;
+                        showButton.Text = "Showing all properties";
+                        RunPanel(bodyPanel, divider, true);
+                    }
+                    else
+                    {
+                        showOnlySelected = true;
+                        showButton.Text = "Showing only selected";
+                        RunPanel(bodyPanel, divider, false);
+                    }
+                };
+
+                footPanel.Controls.Add(showButton);
                 footPanel.Controls.Add(buttonOk);
                 footPanel.Controls.Add(buttonCancel);
 
                 buttonOk.AutoSize = true;
                 buttonCancel.AutoSize = true;
+                showButton.AutoSize = true;
 
                 //NAME
                 AddCheckBox(bodyPanel, "Part Name = " + acEnt.GetPartName());
@@ -177,11 +217,6 @@ namespace RabCab.Commands.AssemblySuite
                 //BASEHANDLE
                 AddCheckBox(bodyPanel, "Parent Handle = " + acEnt.GetParent());
 
-                var divider = new Label();
-                divider.Text = "";
-                divider.BorderStyle = BorderStyle.Fixed3D;
-                divider.AutoSize = false;
-                divider.Height = 2;
 
                 bodyPanel.Controls.Add(divider);
 
@@ -195,8 +230,36 @@ namespace RabCab.Commands.AssemblySuite
                     var value = prop.GetValue(acadObj);
                     if (value == null) continue;
                     if (value.ToString().Contains("System.")) continue;
+                    if (prop.DisplayName == "Volume") continue;
                     AddCheckBox(bodyPanel, prop.DisplayName + " = " + value);
                 }
+
+                foreach (Control c in bodyPanel.Controls)
+                {
+                    if (!(c is CheckBox cBox)) continue;
+
+                    if (cBox.Checked) continue;
+
+                    allBox.Checked = false;
+                    allBox.Text = "Select All";
+                }
+
+                allBox.CheckStateChanged += (sender, e) =>
+                {
+                    allBox.Text = allBox.Checked ? "Deselect All" : "Select All";
+
+                    foreach (Control c in bodyPanel.Controls)
+                    {
+                        if (!(c is CheckBox cBox)) continue;
+
+                        cBox.Checked = allBox.Checked;
+                    }
+
+                    if (allBox.Checked) showButton.Checked = true;
+                };
+
+                _lastChecked.Clear();
+                RunPanel(bodyPanel, divider, false);
 
                 propF.ShowDialog();
 
@@ -220,24 +283,25 @@ namespace RabCab.Commands.AssemblySuite
                 {
                     var contents = cBox.Text.Split('=');
                     var propName = contents[0].Replace(" ", "");
-                    var propValue = contents[1].Replace(" ", "");
 
                     propFilter.Add(propName);
+                    _lastChecked.Add(propName);
                 }
 
                 //Dispose the form
                 propF.Dispose();
 
-                acEnt.SelectSimilar(propFilter, acCurEd, acCurDb, acTrans, true);
                 #endregion
+
+                acEnt.SelectSimilar(propFilter, acCurEd, acCurDb, acTrans, true);
+
                 acTrans.Commit();
             }
-
         }
-      
+
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="panel"></param>
         /// <param name="text"></param>
@@ -247,8 +311,58 @@ namespace RabCab.Commands.AssemblySuite
             cBox.AutoSize = true;
             cBox.Text = text;
             cBox.ForeColor = Colors.GetCadTextColor();
-            cBox.CheckState = CheckState.Unchecked;
+
+            var contents = text.Split('=');
+            var propName = contents[0].Replace(" ", "");
+
+            cBox.Checked = _lastChecked.Contains(propName);
+
+            cBox.CheckStateChanged += (sender, e) =>
+            {
+                if (cBox.Checked) return;
+
+                if (showOnlySelected) cBox.Visible = false;
+
+                panel.Update();
+            };
+
             panel.Controls.Add(cBox);
+        }
+
+        /// <summary>
+        ///     TODO
+        /// </summary>
+        /// <param name="panel"></param>
+        /// <param name="showAll"></param>
+        private void RunPanel(FlowLayoutPanel panel, Label divider, bool showAll)
+        {
+            panel.SuspendLayout();
+
+            var hiddenCount = 0;
+
+            foreach (Control c in panel.Controls)
+            {
+                if (!(c is CheckBox cBox)) continue;
+
+
+                if (!showAll)
+                {
+                    if (!cBox.Checked)
+                    {
+                        cBox.Visible = false;
+                        hiddenCount++;
+                    }
+                }
+                else
+                {
+                    cBox.Visible = true;
+                }
+            }
+
+            divider.Visible = hiddenCount != panel.Controls.Count - 1;
+
+            panel.ResumeLayout();
+            panel.Update();
         }
 
         /// <summary>

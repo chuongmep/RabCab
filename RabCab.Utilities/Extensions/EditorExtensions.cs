@@ -1532,9 +1532,12 @@ namespace RabCab.Extensions
                 RejectObjectsOnLockedLayers = true,
                 SingleOnly = singleSelection,
                 SinglePickInSpace = singleSelection,
-                MessageForAdding = singleSelection ? "Select " + dxfName.ToUpper() + " object to add: " : "Select " + dxfName.ToUpper() + " objects to add: ",
-                MessageForRemoval = singleSelection ? "Select " + dxfName.ToUpper() + " object to remove: " : "Select " + dxfName.ToUpper() + " objects to remove: ",
-
+                MessageForAdding = singleSelection
+                    ? "Select " + dxfName.ToUpper() + " object to add: "
+                    : "Select " + dxfName.ToUpper() + " objects to add: ",
+                MessageForRemoval = singleSelection
+                    ? "Select " + dxfName.ToUpper() + " object to remove: "
+                    : "Select " + dxfName.ToUpper() + " objects to remove: "
             };
 
             #region KeywordAgent

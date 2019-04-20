@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Autodesk.AutoCAD.DatabaseServices;
 
 namespace RabCab.Analysis
@@ -14,16 +10,13 @@ namespace RabCab.Analysis
         {
             var propList = new List<PropertyDescriptor>();
 
-            object acadObj = acEnt.AcadObject;
+            var acadObj = acEnt.AcadObject;
             var props = TypeDescriptor.GetProperties(acadObj);
 
             foreach (PropertyDescriptor prop in props)
             {
-                object value = prop.GetValue(acadObj);
-                if (value != null)
-                {
-                    propList.Add(prop);
-                }
+                var value = prop.GetValue(acadObj);
+                if (value != null) propList.Add(prop);
             }
 
             return propList;

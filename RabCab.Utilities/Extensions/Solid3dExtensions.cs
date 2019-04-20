@@ -116,7 +116,7 @@ namespace RabCab.Extensions
         }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="acSol"></param>
         /// <returns></returns>
@@ -132,14 +132,14 @@ namespace RabCab.Extensions
 
                 centroid = acSol.MassProperties.Centroid;
             }
-           
-            var largestFace = faceList.OrderByDescending(r => r.GetArea()).First(); 
-          
+
+            var largestFace = faceList.OrderByDescending(r => r.GetArea()).First();
+
             foreach (var loop in largestFace.Loops)
             {
                 var vList = new List<AcBr.Vertex>();
                 var lType = loop.GetLoopType();
-               
+
 
                 if (lType != Enums.LoopKit.Exterior) continue;
 
@@ -167,11 +167,10 @@ namespace RabCab.Extensions
                     acSol.Downgrade();
                     return true;
                 }
-                catch (Autodesk.AutoCAD.BoundaryRepresentation.Exception)
+                catch (AcBr.Exception)
                 {
                     return false;
                 }
-
             }
 
             return false;
@@ -718,7 +717,7 @@ namespace RabCab.Extensions
             acTrans.AddNewlyCreatedDBObject(acBool1, true);
 
             if (acBool1 != null) return acBool1.ObjectId;
-            
+
             return ObjectId.Null;
         }
 

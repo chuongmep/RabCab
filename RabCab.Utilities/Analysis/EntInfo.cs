@@ -327,7 +327,7 @@ namespace RabCab.Analysis
 
             if (!supressPartName)
             {
-                if (RcName != "")
+                if (!string.IsNullOrEmpty(RcName))
                     prntStr += RcName;
 
                 else

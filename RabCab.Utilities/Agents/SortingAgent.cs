@@ -11,7 +11,6 @@ using RabCab.Engine.Enumerators;
 using RabCab.Extensions;
 using RabCab.Settings;
 using static RabCab.Engine.Enumerators.Enums.SortBy;
-using Exception = Autodesk.AutoCAD.Runtime.Exception;
 
 namespace RabCab.Agents
 {
@@ -42,7 +41,7 @@ namespace RabCab.Agents
             var sortedList = eInfoList.OrderByDescendingIf(sCrit.HasFlag(MixS4S), e => e.IsBox)
                 .ThenByIf(sCrit.HasFlag(Layer), e => e.EntLayer)
                 .ThenByIf(sCrit.HasFlag(Color), e => e.EntColor)
-                .ThenByIf(sCrit.HasFlag(Thickness), e => e.Thickness)
+                .ThenByDescendingIf(sCrit.HasFlag(Thickness), e => e.Thickness)
                 .ThenByDescending(e => e.Length).ThenByDescending(e => e.Volume); //.ThenByDescending(e => e.Width);
 
             eInfoList = sortedList.ToList();
@@ -122,7 +121,8 @@ namespace RabCab.Agents
             return mList;
         }
 
-        public static ObjectId[] SelectSimilar(this Entity acEnt, List<string> propFilter, Editor acCurEd, Database acCurDb, Transaction acTrans, bool select)
+        public static ObjectId[] SelectSimilar(this Entity acEnt, List<string> propFilter, Editor acCurEd,
+            Database acCurDb, Transaction acTrans, bool select)
         {
             var entProps = GetProperties(acEnt, propFilter);
             var matchList = new List<ObjectId>();
@@ -130,31 +130,47 @@ namespace RabCab.Agents
             //Get the Current Space
             var acCurSpaceBlkTblRec = acTrans.GetObject(acCurDb.CurrentSpaceId, OpenMode.ForWrite) as BlockTableRecord;
 
-            if (acCurSpaceBlkTblRec == null) return new ObjectId[]{ObjectId.Null, };
+            if (acCurSpaceBlkTblRec == null) return new[] {ObjectId.Null};
 
             var objCount = 0;
 
-            foreach (var objId in acCurSpaceBlkTblRec)
+            using (var pWorker = new ProgressAgent("Parsing Solids: ", 1))
             {
-                var compEnt = acTrans.GetObject(objId, OpenMode.ForRead) as Entity;
-                if (compEnt == null) continue;
-
-                var compProps = GetProperties(compEnt, propFilter);
-
-                if (entProps.SequenceEqual(compProps))
+                foreach (var objId in acCurSpaceBlkTblRec)
                 {
-                    matchList.Add(objId);
-                }
+                    //Tick progress bar or exit if ESC has been pressed
+                    if (!pWorker.Tick())
+                    {
+                        acTrans.Abort();
+                        return new[] {ObjectId.Null};
+                    }
 
-                objCount++;
+                    var compEnt = acTrans.GetObject(objId, OpenMode.ForRead) as Entity;
+                    if (compEnt == null) continue;
+
+                    //Check if entity can be parsed by traverse
+                    var travSol = compEnt as Solid3d;
+
+                    if (travSol != null)
+                    {
+                        var eTrav = new EntInfo(travSol, acCurDb, acTrans);
+                        travSol.AddXData(eTrav, acCurDb, acTrans);
+                    }
+
+                    var compProps = GetProperties(compEnt, propFilter);
+
+                    if (entProps.SequenceEqual(compProps)) matchList.Add(objId);
+
+                    objCount++;
+                }
             }
 
-            if (!@select) return matchList.ToArray();
+            if (!select) return matchList.ToArray();
 
             if (matchList.Count > 0)
             {
                 acCurEd.SetImpliedSelection(matchList.ToArray());
-                acCurEd.WriteMessage($"\n{objCount} Objects parsed - {matchList.Count} duplicates found.");
+                acCurEd.WriteMessage($"\n{objCount} Objects parsed - {matchList.Count - 1} duplicates found.");
             }
             else
             {
@@ -162,11 +178,10 @@ namespace RabCab.Agents
             }
 
             return matchList.ToArray();
-
         }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="acEnt"></param>
         /// <param name="filter"></param>
@@ -216,7 +231,7 @@ namespace RabCab.Agents
             //Iterate through properties
             foreach (PropertyDescriptor prop in props)
             {
-                if (!filter.Contains(prop.DisplayName.ToString())) continue;
+                if (!filter.Contains(prop.DisplayName)) continue;
 
                 var value = prop.GetValue(acadObj);
                 if (value == null) continue;
@@ -231,7 +246,7 @@ namespace RabCab.Agents
                     {
                         propDict.Add(prop.DisplayName, checkVal.ToString());
                     }
-                    catch (System.Exception e)
+                    catch (Exception e)
                     {
                         Console.WriteLine(e);
                     }
@@ -242,12 +257,11 @@ namespace RabCab.Agents
                     {
                         propDict.Add(prop.DisplayName, value.ToString());
                     }
-                    catch (System.Exception e)
+                    catch (Exception e)
                     {
                         Console.WriteLine(e);
                     }
                 }
-
             }
 
             return propDict;
@@ -349,7 +363,7 @@ namespace RabCab.Agents
                         mirrors.UpdatePartData(true, acCurEd, acCurDb, acTrans);
                     }
                 }
-                catch (Exception e)
+                catch (Autodesk.AutoCAD.Runtime.Exception e)
                 {
                     Console.WriteLine(e);
                     throw;
@@ -386,7 +400,8 @@ namespace RabCab.Agents
 
 
             var enumerable = groups.ToList();
-            var gList = enumerable.OrderBy(e => e.Key.Name).ThenByIf(sCrit.HasFlag(MixS4S), e => e.Key.Box)
+            var gList = enumerable.OrderBy(e => e.Key.Name)
+                .ThenByIf(sCrit.HasFlag(MixS4S), e => e.Key.Box)
                 .ThenByIf(sCrit.HasFlag(Layer), e => e.Key.Layer)
                 .ThenByIf(sCrit.HasFlag(Color), e => e.Key.Color)
                 .ThenByDescendingIf(sCrit.HasFlag(Thickness), e => e.Key.Thickness)
@@ -439,7 +454,7 @@ namespace RabCab.Agents
                         mirrors.LayParts(ref layPoint, acCurDb, acTrans, multAmount);
                     }
                 }
-                catch (Exception e)
+                catch (Autodesk.AutoCAD.Runtime.Exception e)
                 {
                     Console.WriteLine(e);
                     throw;
@@ -592,8 +607,10 @@ namespace RabCab.Agents
         /// <param name="sel"></param>
         /// <returns></returns>
         public static IOrderedEnumerable<T> OrderByIf<T, TKey>(this IEnumerable<T> list, bool predicate,
-            Func<T, TKey> sel) =>
-            predicate ? list.OrderBy(f => sel(f)) : list.OrderBy(a => 1);
+            Func<T, TKey> sel)
+        {
+            return predicate ? list.OrderBy(f => sel(f)) : list.OrderBy(a => 1);
+        }
 
         /// <summary>
         ///     TODO
@@ -605,8 +622,10 @@ namespace RabCab.Agents
         /// <param name="sel"></param>
         /// <returns></returns>
         public static IOrderedEnumerable<T> OrderByDescendingIf<T, TKey>(this IEnumerable<T> list, bool predicate,
-            Func<T, TKey> sel) =>
-            predicate ? list.OrderByDescending(f => sel(f)) : list.OrderBy(a => 1);
+            Func<T, TKey> sel)
+        {
+            return predicate ? list.OrderByDescending(f => sel(f)) : list.OrderBy(a => 1);
+        }
 
         /// <summary>
         ///     TODO
@@ -618,8 +637,10 @@ namespace RabCab.Agents
         /// <param name="sel"></param>
         /// <returns></returns>
         public static IOrderedEnumerable<T> ThenByIf<T, TKey>(this IOrderedEnumerable<T> list, bool predicate,
-            Func<T, TKey> sel) =>
-            predicate ? list.ThenBy(f => sel(f)) : list;
+            Func<T, TKey> sel)
+        {
+            return predicate ? list.ThenBy(f => sel(f)) : list;
+        }
 
         /// <summary>
         ///     TODO
@@ -631,8 +652,10 @@ namespace RabCab.Agents
         /// <param name="sel"></param>
         /// <returns></returns>
         public static IOrderedEnumerable<T> ThenByDescendingIf<T, TKey>(this IOrderedEnumerable<T> list, bool predicate,
-            Func<T, TKey> sel) =>
-            predicate ? list.ThenByDescending(f => sel(f)) : list;
+            Func<T, TKey> sel)
+        {
+            return predicate ? list.ThenByDescending(f => sel(f)) : list;
+        }
 
         public static bool Compare(this EntInfo x, EntInfo y, bool compareNames)
         {
