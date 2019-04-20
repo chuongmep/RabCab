@@ -33,29 +33,29 @@ namespace RabCab.Commands.AssemblySuite
         /// </summary>
         [CommandMethod(SettingsInternal.CommandGroup, "_SELECTSAME",
             CommandFlags.Modal
-            //| CommandFlags.Transparent
-            //| CommandFlags.UsePickSet
-            //| CommandFlags.Redraw
-            //| CommandFlags.NoPerspective
-            //| CommandFlags.NoMultiple
-            //| CommandFlags.NoTileMode
-            //| CommandFlags.NoPaperSpace
-            //| CommandFlags.NoOem
-            //| CommandFlags.Undefined
-            //| CommandFlags.InProgress
-            //| CommandFlags.Defun
-            //| CommandFlags.NoNewStack
-            //| CommandFlags.NoInternalLock
-            //| CommandFlags.DocReadLock
-            //| CommandFlags.DocExclusiveLock
-            //| CommandFlags.Session
-            //| CommandFlags.Interruptible
-            //| CommandFlags.NoHistory
-            //| CommandFlags.NoUndoMarker
-            //| CommandFlags.NoBlockEditor
-            //| CommandFlags.NoActionRecording
-            //| CommandFlags.ActionMacro
-            //| CommandFlags.NoInferConstraint 
+        //| CommandFlags.Transparent
+        //| CommandFlags.UsePickSet
+        //| CommandFlags.Redraw
+        //| CommandFlags.NoPerspective
+        //| CommandFlags.NoMultiple
+        //| CommandFlags.NoTileMode
+        //| CommandFlags.NoPaperSpace
+        //| CommandFlags.NoOem
+        //| CommandFlags.Undefined
+        //| CommandFlags.InProgress
+        //| CommandFlags.Defun
+        //| CommandFlags.NoNewStack
+        //| CommandFlags.NoInternalLock
+        //| CommandFlags.DocReadLock
+        //| CommandFlags.DocExclusiveLock
+        //| CommandFlags.Session
+        //| CommandFlags.Interruptible
+        //| CommandFlags.NoHistory
+        //| CommandFlags.NoUndoMarker
+        //| CommandFlags.NoBlockEditor
+        //| CommandFlags.NoActionRecording
+        //| CommandFlags.ActionMacro
+        //| CommandFlags.NoInferConstraint 
         )]
         public void Cmd_SelectSame()
         {
@@ -99,7 +99,10 @@ namespace RabCab.Commands.AssemblySuite
 
                 var divider = new Label
                 {
-                    Text = "", BorderStyle = BorderStyle.Fixed3D, AutoSize = false, Height = 1,
+                    Text = "",
+                    BorderStyle = BorderStyle.Fixed3D,
+                    AutoSize = false,
+                    Height = 1,
                     Width = bodyPanel.Width - 40
                 };
 
@@ -376,22 +379,22 @@ namespace RabCab.Commands.AssemblySuite
             //| CommandFlags.NoMultiple
             //| CommandFlags.NoTileMode
             | CommandFlags.NoPaperSpace
-            //| CommandFlags.NoOem
-            //| CommandFlags.Undefined
-            //| CommandFlags.InProgress
-            //| CommandFlags.Defun
-            //| CommandFlags.NoNewStack
-            //| CommandFlags.NoInternalLock
-            //| CommandFlags.DocReadLock
-            //| CommandFlags.DocExclusiveLock
-            //| CommandFlags.Session
-            //| CommandFlags.Interruptible
-            //| CommandFlags.NoHistory
-            //| CommandFlags.NoUndoMarker
-            //| CommandFlags.NoBlockEditor
-            //| CommandFlags.NoActionRecording
-            //| CommandFlags.ActionMacro
-            //| CommandFlags.NoInferConstraint 
+        //| CommandFlags.NoOem
+        //| CommandFlags.Undefined
+        //| CommandFlags.InProgress
+        //| CommandFlags.Defun
+        //| CommandFlags.NoNewStack
+        //| CommandFlags.NoInternalLock
+        //| CommandFlags.DocReadLock
+        //| CommandFlags.DocExclusiveLock
+        //| CommandFlags.Session
+        //| CommandFlags.Interruptible
+        //| CommandFlags.NoHistory
+        //| CommandFlags.NoUndoMarker
+        //| CommandFlags.NoBlockEditor
+        //| CommandFlags.NoActionRecording
+        //| CommandFlags.ActionMacro
+        //| CommandFlags.NoInferConstraint 
         )]
         public void Cmd_SelectUnNamed()
         {
