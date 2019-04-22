@@ -3,7 +3,7 @@ using RabCab.Settings;
 
 namespace RabCab.Commands.PaletteKit
 {
-    internal class RcLayerRepository
+    internal class RcPaletteLayer
     {
         internal class RcDwgBrowser
         {

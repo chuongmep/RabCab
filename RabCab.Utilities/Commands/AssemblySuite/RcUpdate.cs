@@ -1,9 +1,9 @@
 ﻿using Autodesk.AutoCAD.Runtime;
 using RabCab.Settings;
 
-namespace RabCab.Commands.ContentLibrary
+namespace RabCab.Commands.AssemblySuite
 {
-    internal class RcFurnishcs
+    internal class RcUpdate
     {
         /// <summary>
         /// </summary>

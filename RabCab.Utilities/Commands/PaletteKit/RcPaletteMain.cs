@@ -1,9 +1,20 @@
-﻿using Autodesk.AutoCAD.Runtime;
+﻿// -----------------------------------------------------------------------------------
+//     <copyright file="RcMainPalette.cs" company="CraterSpace">
+//     Copyright (c) 2019 CraterSpace - All Rights Reserved 
+//     </copyright>
+//     <author>Zach Ayers</author>
+//     <date>04/08/2019</date>
+//     Description:    
+//     Notes:  
+//     References:          
+// -----------------------------------------------------------------------------------
+
+using Autodesk.AutoCAD.Runtime;
 using RabCab.Settings;
 
-namespace RabCab.Commands.AssemblySuite
+namespace RabCab.Commands.PaletteKit
 {
-    internal class RcUpdateParts
+    internal class RcPaletteMain
     {
         /// <summary>
         /// </summary>

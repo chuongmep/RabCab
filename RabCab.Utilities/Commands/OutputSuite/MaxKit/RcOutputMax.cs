@@ -14,7 +14,7 @@ using RabCab.Settings;
 
 namespace RabCab.Commands.OutputSuite.MaxKit
 {
-    internal class RcOutput
+    internal class RcOutputMax
     {
         /// <summary>
         /// </summary>

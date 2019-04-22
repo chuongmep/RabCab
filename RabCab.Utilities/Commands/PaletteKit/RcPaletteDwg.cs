@@ -1,9 +1,20 @@
-﻿using Autodesk.AutoCAD.Runtime;
+﻿// -----------------------------------------------------------------------------------
+//     <copyright file="RcDwgBrowser.cs" company="CraterSpace">
+//     Copyright (c) 2019 CraterSpace - All Rights Reserved 
+//     </copyright>
+//     <author>Zach Ayers</author>
+//     <date>04/11/2019</date>
+//     Description:    
+//     Notes:  
+//     References:          
+// -----------------------------------------------------------------------------------
+
+using Autodesk.AutoCAD.Runtime;
 using RabCab.Settings;
 
-namespace RabCab.Commands.ContentLibrary
+namespace RabCab.Commands.PaletteKit
 {
-    internal class RcPeople
+    internal class RcPaletteDwg
     {
         /// <summary>
         /// </summary>

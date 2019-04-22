@@ -192,7 +192,7 @@
     <Compile Include="Commands\AssemblySuite\RcRevision.cs" />
     <Compile Include="Commands\AssemblySuite\RcScatter.cs" />
     <Compile Include="Commands\AssemblySuite\RcSelection.cs" />
-    <Compile Include="Commands\AssemblySuite\RcUpdateParts.cs" />
+    <Compile Include="Commands\AssemblySuite\RcUpdate.cs" />
     <Compile Include="Commands\AutomationSuite\RcAutoLayer.cs" />
     <Compile Include="Commands\AutomationSuite\RcAutoScale.cs" />
     <Compile Include="Commands\AutomationSuite\RcAutoVar.cs" />
@@ -207,7 +207,6 @@
     <Compile Include="Commands\CarpentrySuite\RcGap.cs" />
     <Compile Include="Commands\CarpentrySuite\RcJoint.cs" />
     <Compile Include="Commands\CarpentrySuite\RcOffset.cs" />
-    <Compile Include="Commands\CarpentrySuite\RcRemoveDrills.cs" />
     <Compile Include="Commands\CarpentrySuite\RcRevolve.cs" />
     <Compile Include="Commands\CarpentrySuite\RcSlice.cs" />
     <Compile Include="Commands\CNCSuite\RcAutoPrep.cs" />
@@ -220,7 +219,6 @@
     <Compile Include="Commands\CNCSuite\RcLoopInner.cs" />
     <Compile Include="Commands\CNCSuite\RcLoopBit.cs" />
     <Compile Include="Commands\CNCSuite\RcLoopOuter.cs" />
-    <Compile Include="Commands\CNCSuite\RcCheckFit.cs" />
     <Compile Include="Commands\CNCSuite\RcSimulate.cs" />
     <Compile Include="Commands\CombineSuite\RcBounds.cs" />
     <Compile Include="Commands\CombineSuite\RcConverge.cs" />
@@ -228,14 +226,10 @@
     <Compile Include="Commands\CombineSuite\RcSeparate.cs" />
     <Compile Include="Commands\CombineSuite\RcSubtrahend.cs" />
     <Compile Include="Commands\ContentLibrary\RcChangeRepresentation.cs" />
-    <Compile Include="Commands\ContentLibrary\RcFoliage.cs" />
-    <Compile Include="Commands\ContentLibrary\RcFurnishcs.cs" />
-    <Compile Include="Commands\ContentLibrary\RcPaletteContent.cs" />
+    <Compile Include="Commands\ContentLibrary\RcContentPalette.cs" />
     <Compile Include="Commands\ContentLibrary\RcContentManager.cs" />
     <Compile Include="Commands\ContentLibrary\RcContentNew.cs" />
     <Compile Include="Commands\ContentLibrary\RcContentUpd.cs" />
-    <Compile Include="Commands\ContentLibrary\RcPeople.cs" />
-    <Compile Include="Commands\ContentLibrary\RcSteelShapes.cs" />
     <Compile Include="Commands\ContentLibrary\RcTechSpec.cs" />
     <Compile Include="Commands\MeshSuite\RcMeshConvert.cs" />
     <Compile Include="Commands\MeshSuite\RcMeshExplode.cs" />
@@ -248,8 +242,8 @@
     <Compile Include="Commands\OutputSuite\RenderKit\RcMaterial.cs" />
     <Compile Include="Commands\OutputSuite\RenderKit\RcRender.cs" />
     <Compile Include="Commands\OutputSuite\RenderKit\RcUvMap.cs" />
-    <Compile Include="Commands\PaletteKit\RcDwgBrowser.cs" />
-    <Compile Include="Commands\PaletteKit\RcLayerRepository.cs" />
+    <Compile Include="Commands\PaletteKit\RcPaletteDwg.cs" />
+    <Compile Include="Commands\PaletteKit\RcPaletteLayer.cs" />
     <Compile Include="Commands\TidySuite\RcBurstAll.cs" />
     <Compile Include="Engine\Enumerators\IEnumerables.cs" />
     <Compile Include="Entities\Linework\Axis.cs" />
@@ -267,10 +261,10 @@
     <Compile Include="Gui\PaletteLayerRepo.Designer.cs">
       <DependentUpon>PaletteLayerRepo.cs</DependentUpon>
     </Compile>
-    <Compile Include="Commands\PaletteKit\RcMainPalette.cs" />
+    <Compile Include="Commands\PaletteKit\RcPaletteMain.cs" />
     <Compile Include="Commands\PaletteKit\RcPaletteNet.cs" />
     <Compile Include="Commands\PaletteKit\RcPaletteNotebook.cs" />
-    <Compile Include="Commands\PaletteKit\RcSnapPalette.cs" />
+    <Compile Include="Commands\PaletteKit\RcPaletteSnap.cs" />
     <Compile Include="Commands\ReferenceSuite\BlockKit\RcBlockInsert.cs" />
     <Compile Include="Commands\ReferenceSuite\BlockKit\RcBlockDefine.cs" />
     <Compile Include="Commands\ReferenceSuite\BlockKit\RcBlockReplace.cs" />
