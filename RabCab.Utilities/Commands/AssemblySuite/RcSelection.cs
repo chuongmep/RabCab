@@ -16,6 +16,7 @@ using System.Windows.Forms;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Runtime;
+using Autodesk.AutoCAD.ViewModel.PointCloudManager;
 using RabCab.Agents;
 using RabCab.Extensions;
 using RabCab.Settings;
@@ -350,11 +351,9 @@ namespace RabCab.Commands.AssemblySuite
 
                 if (!showAll)
                 {
-                    if (!cBox.Checked)
-                    {
-                        cBox.Visible = false;
-                        hiddenCount++;
-                    }
+                    if (cBox.Checked) continue;
+                    cBox.Visible = false;
+                    hiddenCount++;
                 }
                 else
                 {
@@ -378,23 +377,23 @@ namespace RabCab.Commands.AssemblySuite
             //| CommandFlags.NoPerspective
             //| CommandFlags.NoMultiple
             //| CommandFlags.NoTileMode
-            | CommandFlags.NoPaperSpace
-        //| CommandFlags.NoOem
-        //| CommandFlags.Undefined
-        //| CommandFlags.InProgress
-        //| CommandFlags.Defun
-        //| CommandFlags.NoNewStack
-        //| CommandFlags.NoInternalLock
-        //| CommandFlags.DocReadLock
-        //| CommandFlags.DocExclusiveLock
-        //| CommandFlags.Session
-        //| CommandFlags.Interruptible
-        //| CommandFlags.NoHistory
-        //| CommandFlags.NoUndoMarker
-        //| CommandFlags.NoBlockEditor
-        //| CommandFlags.NoActionRecording
-        //| CommandFlags.ActionMacro
-        //| CommandFlags.NoInferConstraint 
+            //| CommandFlags.NoPaperSpace
+            //| CommandFlags.NoOem
+            //| CommandFlags.Undefined
+            //| CommandFlags.InProgress
+            //| CommandFlags.Defun
+            //| CommandFlags.NoNewStack
+            //| CommandFlags.NoInternalLock
+            //| CommandFlags.DocReadLock
+            //| CommandFlags.DocExclusiveLock
+            //| CommandFlags.Session
+            //| CommandFlags.Interruptible
+            //| CommandFlags.NoHistory
+            //| CommandFlags.NoUndoMarker
+            //| CommandFlags.NoBlockEditor
+            //| CommandFlags.NoActionRecording
+            //| CommandFlags.ActionMacro
+            //| CommandFlags.NoInferConstraint 
         )]
         public void Cmd_SelectUnNamed()
         {
@@ -403,7 +402,47 @@ namespace RabCab.Commands.AssemblySuite
             var acCurDb = acCurDoc.Database;
             var acCurEd = acCurDoc.Editor;
 
-            var acSol = acCurEd.GetAllSelection(false);
+            //Check for pick-first selection -> if none, get selection
+            if (!acCurEd.CheckForPickFirst(out var acSet))
+                acSet = SelectionSet.FromObjectIds(acCurEd.GetAllSelection(false));
+
+            var objIds = acSet.GetObjectIds();
+            var unNamed = new List<ObjectId>();
+
+            using (var pWorker = new ProgressAgent("Finding Unnamed Parts: ", objIds.Length))
+            {
+                using (var acTrans = acCurDb.TransactionManager.StartTransaction())
+                {
+                    foreach (var obj in objIds)
+                    {
+                        if (!pWorker.Tick())
+                        {
+                            acTrans.Abort();
+                            return;
+                        }
+
+                        var acEnt = acTrans.GetObject(obj, OpenMode.ForRead) as Entity;
+
+                        if (acEnt == null) continue;
+                        if (string.IsNullOrEmpty(acEnt.GetPartName()))
+                        {
+                            unNamed.Add(obj);
+                        }
+                    }
+
+                    acTrans.Commit();
+                }
+            }
+
+            if (unNamed.Count > 0)
+            {
+                acCurEd.SetImpliedSelection(unNamed.ToArray());
+            }
+            else
+            {
+                acCurEd.WriteMessage("\nAll selected parts have pre-defined names.");
+            }
+
         }
     }
 }

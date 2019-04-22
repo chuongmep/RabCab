@@ -14,7 +14,7 @@ using RabCab.Settings;
 
 namespace RabCab.Commands.StructuralSuite
 {
-    internal class RcAlignEnts
+    internal class RcAlign
     {
         /// <summary>
         /// </summary>
