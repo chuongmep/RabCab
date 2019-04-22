@@ -55,9 +55,6 @@
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug_Cad|AnyCPU'">
-    <OutputPath>bin\Debug_Cad\</OutputPath>
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="AcCoreMgd">
       <SpecificVersion>False</SpecificVersion>

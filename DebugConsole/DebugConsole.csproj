@@ -37,9 +37,6 @@
   <PropertyGroup>
     <StartupObject>DebugConsole.DebugSandbox</StartupObject>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug_Cad|AnyCPU'">
-    <OutputPath>bin\Debug_Cad\</OutputPath>
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="RabCab">
       <HintPath>..\RabCab.Utilities\bin\Debug\RabCab.dll</HintPath>
