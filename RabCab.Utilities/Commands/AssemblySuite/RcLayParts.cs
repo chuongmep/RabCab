@@ -13,10 +13,12 @@ using System.Collections.Generic;
 using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
+using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.Runtime;
 using RabCab.Agents;
 using RabCab.Analysis;
 using RabCab.Engine.Enumerators;
+using RabCab.Engine.System;
 using RabCab.Extensions;
 using RabCab.Settings;
 
@@ -29,7 +31,7 @@ namespace RabCab.Commands.AssemblySuite
         [CommandMethod(SettingsInternal.CommandGroup, "_LAYPARTS",
             CommandFlags.Modal
             //| CommandFlags.Transparent
-            | CommandFlags.UsePickSet
+            //| CommandFlags.UsePickSet
             //| CommandFlags.Redraw
             //| CommandFlags.NoPerspective
             //| CommandFlags.NoMultiple
@@ -61,7 +63,24 @@ namespace RabCab.Commands.AssemblySuite
 
             //Check for pick-first selection -> if none, get selection      
             var acSet = SelectionSet.FromObjectIds(acCurEd.GetFilteredSelection(Enums.DxfNameEnum._3Dsolid, false));
+
+            //Set the UCS to World - save the user UCS
+            var userCoordSystem = acCurEd.CurrentUserCoordinateSystem;
+            acCurEd.CurrentUserCoordinateSystem = Matrix3d.Identity;
+
+            //Set the Grid Mode to ON if it is not ON - Get the users current grid mode
+            var userGridMode = AcVars.GridMode;
+            if (AcVars.GridMode != Enums.GridMode.On)
+            {
+                AcVars.GridMode = Enums.GridMode.On;
+            }
+
+            acCurEd.Regen();
+
             var laypt = acCurEd.Get2DPoint("\nSelect point to lay parts at: ");
+
+            // Return the Grid Mode to the Users Setting
+            AcVars.GridMode = userGridMode;
 
             var multAmount = 1;
 
@@ -95,6 +114,10 @@ namespace RabCab.Commands.AssemblySuite
 
                 acTrans.Commit();
             }
+
+            //Set the UCS back to the user UCS
+            acCurEd.CurrentUserCoordinateSystem = userCoordSystem;
+            acCurEd.Regen();
         }
     }
 }

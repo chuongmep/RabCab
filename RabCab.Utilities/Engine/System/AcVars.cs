@@ -32,6 +32,20 @@ namespace RabCab.Engine.System
 
         #endregion
 
+        #region GRIDMODE
+
+        /// <summary>
+        ///     Specifies whether the grid is turned on or off.
+        /// </summary>
+        public static Enums.GridMode GridMode
+        {
+            get { return (Enums.GridMode)(short)Application.GetSystemVariable("GRIDMODE"); }
+            set { Application.SetSystemVariable("GRIDMODE", (short)value); }
+        }
+
+
+        #endregion
+
         #region Tile Mode
 
         /// <summary>

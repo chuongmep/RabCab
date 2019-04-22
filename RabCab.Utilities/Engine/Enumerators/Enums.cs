@@ -202,5 +202,12 @@ namespace RabCab.Engine.Enumerators
             ParentObject = 19,
             ChildObjects = 20
         }
+
+
+        public enum GridMode
+        {
+            Off = 0,
+            On = 1
+        }
     }
 }

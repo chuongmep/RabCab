@@ -6,6 +6,7 @@ using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Runtime;
+using RabCab.Settings;
 using AcAp = Autodesk.AutoCAD.ApplicationServices.Application;
 using Exception = System.Exception;
 
@@ -13,44 +14,107 @@ namespace RabCab.Commands.AnalysisSuite
 {
     internal class RcDump
     {
-        [CommandMethod("DUMPALLPROPS")]
+        /// <summary>
+        /// </summary>
+        [CommandMethod(SettingsInternal.CommandGroup, "_DUMPALLPROPS",
+            CommandFlags.Modal
+            //| CommandFlags.Transparent
+            //| CommandFlags.UsePickSet
+            //| CommandFlags.Redraw
+            //| CommandFlags.NoPerspective
+            //| CommandFlags.NoMultiple
+            //| CommandFlags.NoTileMode
+            //| CommandFlags.NoPaperSpace
+            //| CommandFlags.NoOem
+            //| CommandFlags.Undefined
+            //| CommandFlags.InProgress
+            //| CommandFlags.Defun
+            //| CommandFlags.NoNewStack
+            //| CommandFlags.NoInternalLock
+            //| CommandFlags.DocReadLock
+            //| CommandFlags.DocExclusiveLock
+            //| CommandFlags.Session
+            //| CommandFlags.Interruptible
+            //| CommandFlags.NoHistory
+            //| CommandFlags.NoUndoMarker
+            //| CommandFlags.NoBlockEditor
+            //| CommandFlags.NoActionRecording
+            //| CommandFlags.ActionMacro
+            //| CommandFlags.NoInferConstraint 
+        )]
         public void Dump()
         {
-            var doc = Application.DocumentManager.MdiActiveDocument;
-            var db = doc.Database;
-            var ed = doc.Editor;
-            var entRes = ed.GetEntity("\nSelect object: ");
+            var acCurDoc = Application.DocumentManager.MdiActiveDocument;
+            var acCurDb = acCurDoc.Database;
+            var acCurEd = acCurDoc.Editor;
+
+            var entRes = acCurEd.GetEntity("\nSelect object: ");
             if (entRes.Status == PromptStatus.OK)
             {
-                PrintDump(entRes.ObjectId, ed);
+                PrintDump(entRes.ObjectId, acCurEd);
                 AcAp.DisplayTextScreen = true;
             }
         }
 
-        [CommandMethod("DUMPCOMPROPS")]
+         /// <summary>
+        /// </summary>
+        [CommandMethod(SettingsInternal.CommandGroup, "_DUMPCOMPROPS",
+            CommandFlags.Modal
+            //| CommandFlags.Transparent
+            //| CommandFlags.UsePickSet
+            //| CommandFlags.Redraw
+            //| CommandFlags.NoPerspective
+            //| CommandFlags.NoMultiple
+            //| CommandFlags.NoTileMode
+            //| CommandFlags.NoPaperSpace
+            //| CommandFlags.NoOem
+            //| CommandFlags.Undefined
+            //| CommandFlags.InProgress
+            //| CommandFlags.Defun
+            //| CommandFlags.NoNewStack
+            //| CommandFlags.NoInternalLock
+            //| CommandFlags.DocReadLock
+            //| CommandFlags.DocExclusiveLock
+            //| CommandFlags.Session
+            //| CommandFlags.Interruptible
+            //| CommandFlags.NoHistory
+            //| CommandFlags.NoUndoMarker
+            //| CommandFlags.NoBlockEditor
+            //| CommandFlags.NoActionRecording
+            //| CommandFlags.ActionMacro
+            //| CommandFlags.NoInferConstraint 
+        )]
         public static void ListComProps()
         {
-            var doc = Application.DocumentManager.MdiActiveDocument;
-            var ed = doc.Editor;
+            var acCurDoc = Application.DocumentManager.MdiActiveDocument;
+            var acCurEd = acCurDoc.Editor;
+
             var peo = new PromptEntityOptions("\nSelect object: ");
-            var res = ed.GetEntity(peo);
+            var res = acCurEd.GetEntity(peo);
+
             if (res.Status != PromptStatus.OK)
                 return;
-            using (Transaction tr = doc.TransactionManager.StartOpenCloseTransaction())
+
+            using (Transaction acTrans = acCurDoc.TransactionManager.StartOpenCloseTransaction())
             {
-                var ent = (Entity) tr.GetObject(res.ObjectId, OpenMode.ForRead);
-                var acadObj = ent.AcadObject;
+                var acEnt = (Entity) acTrans.GetObject(res.ObjectId, OpenMode.ForRead);
+                var acadObj = acEnt.AcadObject;
                 var props = TypeDescriptor.GetProperties(acadObj);
                 foreach (PropertyDescriptor prop in props)
                 {
                     var value = prop.GetValue(acadObj);
-                    if (value != null) ed.WriteMessage("\n{0} = {1}", prop.DisplayName, value.ToString());
+                    if (value != null) acCurEd.WriteMessage("\n{0} = {1}", prop.DisplayName, value.ToString());
                 }
 
-                tr.Commit();
+                acTrans.Commit();
             }
         }
 
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="ed"></param>
         private void PrintDump(ObjectId id, Editor ed)
         {
             var flags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.DeclaredOnly;

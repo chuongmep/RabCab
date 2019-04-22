@@ -485,6 +485,9 @@ namespace RabCab.Agents
                 acCurDb.AppendEntity(cloneSol, acTrans);
                 var yStep = cloneSol.TopLeftTo(layPoint.Convert3D());
 
+                cloneSol.UpdateXData(acSol.Handle, Enums.XDataCode.ParentObject, acCurDb, acTrans);
+                cloneSol.UpdateXData("", Enums.XDataCode.ChildObjects, acCurDb, acTrans);
+
                 if (cloneSol.CheckRotation())
                     cloneSol.TopLeftTo(layPoint.Convert3D());
 

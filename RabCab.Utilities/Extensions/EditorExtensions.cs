@@ -1648,6 +1648,37 @@ namespace RabCab.Extensions
             return Tuple.Create(objId, subId);
         }
 
+        public static ObjectId[] SelectAllOfType(this Editor acCurEd, string dxfVals, Transaction acTrans)
+        {
+            SelectionSet acSSet = null;
+
+            var curSpace = 0;
+
+            if (AcVars.TileMode == Enums.TileModeEnum.Paperspace)
+            {
+                curSpace = 1;
+            }
+
+            // Create a TypedValue array to define the filter criteria
+            var acTypValAr = new TypedValue[2];
+            acTypValAr.SetValue(new TypedValue((int)DxfCode.Start, dxfVals), 0);
+            acTypValAr.SetValue(new TypedValue(67, curSpace), 1);
+
+            // Assign the filter criteria to a SelectionFilter object
+            var acSelFtr = new SelectionFilter(acTypValAr);
+
+            // Request for objects to be selected in the drawing area
+            var acSsPrompt = acCurEd.SelectAll(acSelFtr);
+
+            // If the prompt status is OK, objects were selected
+            if (acSsPrompt.Status == PromptStatus.OK)
+            {
+                acSSet = acSsPrompt.Value;
+            }
+
+            return acSSet.GetObjectIds();
+        }
+
         /// <summary>
         ///     Method to prompt the user to select a specific type of subentities = only allows single selection.
         /// </summary>
