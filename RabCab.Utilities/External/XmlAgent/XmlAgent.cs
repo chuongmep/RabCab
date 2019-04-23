@@ -38,7 +38,7 @@ namespace RabCab.External.XmlAgent
                 if (node.LocalName != nodeName) return;
 
                 //If we have found a node with attributes, write the nodes name to the console
-                Sandbox.WriteLine(node.LocalName);
+                //Sandbox.WriteLine(node.LocalName);
 
                 //Create a list to hold the attribute values
                 var attributeList = new List<XmlAttribute>();
@@ -47,7 +47,7 @@ namespace RabCab.External.XmlAgent
                 foreach (XmlAttribute att in node.Attributes)
                 {
                     attributeList.Add(att);
-                    Sandbox.WriteLine("  " + att.LocalName + " - " + att.Value);
+                    //Sandbox.WriteLine("  " + att.LocalName + " - " + att.Value);
                 }
 
                 //Add the attribute collection to the returnable collection

@@ -40,5 +40,21 @@ namespace RabCab.Initialization
             foreach (var att in attCol)
                 Sandbox.WriteLine("  " + att.LocalName + " - " + att.Value);
         }
+
+        public static void Cmd_TestMats()
+        {
+            var reader = new XmlAgent();
+            var cols =
+                reader.GetXmlAttributes(
+                    @"C:\Users\zayers\Documents\GitHub\RabCab.Utilities\RabCab.Utilities\Repository\RepoMaterials.xml",
+                    "machMaterial");
+
+            Sandbox.WriteLine("");
+            Sandbox.WriteLine("Parsing Collection...");
+
+            foreach (var attCol in cols)
+            foreach (var att in attCol)
+                Sandbox.WriteLine("  " + att.LocalName + " - " + att.Value);
+        }
     }
 }
