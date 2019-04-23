@@ -29,7 +29,8 @@ namespace RabCab.Engine.Enumerators
             Magenta = 6,
             White = 7,
             DarkGrey = 8,
-            LightGrey = 9
+            LightGrey = 9,
+            BoundsGreen = 85
         }
 
         public enum ColorTheme

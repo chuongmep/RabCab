@@ -127,6 +127,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Commands\AddInKit\" />
+    <Folder Include="Engine\Builder\" />
     <Folder Include="Resources\CUI\" />
     <Folder Include="Resources\Help\" />
     <Folder Include="Resources\Icons\" />

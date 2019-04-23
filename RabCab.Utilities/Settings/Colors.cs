@@ -62,6 +62,9 @@ namespace RabCab.Settings
         public static Autodesk.AutoCAD.Colors.Color LayerColorDefpoints =
             Autodesk.AutoCAD.Colors.Color.FromColorIndex(ColorMethod.ByAci, (int) Enums.CadColor.LightGrey);
 
+        public static Autodesk.AutoCAD.Colors.Color LayerColorBounds =
+            Autodesk.AutoCAD.Colors.Color.FromColorIndex(ColorMethod.ByAci, (int)Enums.CadColor.BoundsGreen);
+
         #endregion
     }
 }

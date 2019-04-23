@@ -1,4 +1,6 @@
-﻿using Autodesk.AutoCAD.ApplicationServices.Core;
+﻿using System;
+using Autodesk.AutoCAD.ApplicationServices.Core;
+using Autodesk.AutoCAD.Colors;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.Runtime;
@@ -51,13 +53,40 @@ namespace RabCab.Commands.AnalysisSuite
             {
                 var extents = acTrans.GetExtents(objIds, acCurDb);
 
-                // now create a boundary polyline to hilite my structure that need attention:
-                Polyline3d poly = new Polyline3d(Poly3dType.SimplePoly, new Point3dCollection(){extents.MinPoint, extents.MaxPoint},false );
+                //Get geom extents of all selected
+                var minX = extents.MinPoint.X;
+                var maxX = extents.MaxPoint.X;
+                var minY = extents.MinPoint.Y;
+                var maxY = extents.MaxPoint.Y;
+                var minZ = extents.MinPoint.Z;
+                var maxZ = extents.MaxPoint.Z;
 
-                TransientAgent.Add(poly);
-                TransientAgent.Draw();
+                var sol = new Solid3d();
+                
+                    var width = Math.Abs(maxX - minX);
+                    var length = Math.Abs(maxY - minY);
+                    var height = Math.Abs(maxZ - minZ);
 
-                var exit = acCurEd.GetString("");
+                    sol.CreateBox(width, length, height);
+                    sol.TransformBy(
+                        Matrix3d.Displacement(sol.GeometricExtents.MinPoint.GetVectorTo(new Point3d(minX, minY, minZ))));
+                    sol.Transparency = new Transparency(75);
+                    sol.Color = Colors.LayerColorBounds;
+
+                    TransientAgent.Add(sol);
+                    TransientAgent.Draw();
+
+                    if (acCurEd.GetBool("Save bounds? "))
+                    {
+                        acCurDb.AppendEntity(sol);
+                    }
+                    else
+                    {
+                        sol.Dispose();
+                    }
+
+                    TransientAgent.Clear();
+
 
                 acTrans.Commit();
             }

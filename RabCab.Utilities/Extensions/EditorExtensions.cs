@@ -286,7 +286,28 @@ namespace RabCab.Extensions
 
         #endregion
 
-        //TODO Prompt Corner Options
+        //TODO Prompt Corner 
+
+        #region Prompt Bool Options
+
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="acCurEd"></param>
+        /// <param name="prompt"></param>
+        /// <returns></returns>
+        public static bool GetBool(this Editor acCurEd, string prompt)
+        {
+            const string bTrue = "Yes";
+            const string bFalse = "No";
+
+            var keys = new string[] { bTrue, bFalse };
+            var key = acCurEd.GetSimpleKeyword(prompt, keys);
+
+            return key == bTrue;
+        }
+
+        #endregion
 
         #region Prompt Distance Options
 
@@ -1933,5 +1954,16 @@ namespace RabCab.Extensions
         }
 
         #endregion
+
+        #region Wait For Exit
+
+        public static void WaitForExit(this Editor acCurEd)
+        {
+            var prStrOpts = new PromptStringOptions("Press ENTER or ESC to continue ") {AllowSpaces = false};
+            acCurEd.GetString(prStrOpts);
+        }
+
+        #endregion
+
     }
 }
