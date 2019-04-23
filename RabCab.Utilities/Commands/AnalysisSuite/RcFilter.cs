@@ -9,6 +9,7 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
+using System.Linq;
 using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.Runtime;
 using RabCab.Extensions;
@@ -106,13 +107,13 @@ namespace RabCab.Commands.AnalysisSuite
             {
                 var objIds = acCurEd.SelectAllOfType(dxfKey, acTrans);
 
-                if (objIds.Length > 0)
+                if (objIds.Any())
                 {
                     acCurEd.SetImpliedSelection(objIds);
                 }
                 else
                 {
-                    acCurEd.WriteMessage("\nNone exist in drawing.<");
+                    acCurEd.WriteMessage("\nNone exist in drawing.");
                 }
 
                 acTrans.Commit();

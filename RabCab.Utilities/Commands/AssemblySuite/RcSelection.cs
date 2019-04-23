@@ -372,7 +372,7 @@ namespace RabCab.Commands.AssemblySuite
         [CommandMethod(SettingsInternal.CommandGroup, "_SELECTUNNAMED",
             CommandFlags.Modal
             //| CommandFlags.Transparent
-            | CommandFlags.UsePickSet
+            //| CommandFlags.UsePickSet
             //| CommandFlags.Redraw
             //| CommandFlags.NoPerspective
             //| CommandFlags.NoMultiple
@@ -402,11 +402,7 @@ namespace RabCab.Commands.AssemblySuite
             var acCurDb = acCurDoc.Database;
             var acCurEd = acCurDoc.Editor;
 
-            //Check for pick-first selection -> if none, get selection
-            if (!acCurEd.CheckForPickFirst(out var acSet))
-                acSet = SelectionSet.FromObjectIds(acCurEd.GetAllSelection(false));
-
-            var objIds = acSet.GetObjectIds();
+            var objIds = acCurEd.GetAllSelection(false);
             var unNamed = new List<ObjectId>();
 
             using (var pWorker = new ProgressAgent("Finding Unnamed Parts: ", objIds.Length))
@@ -430,17 +426,18 @@ namespace RabCab.Commands.AssemblySuite
                         }
                     }
 
+                    if (unNamed.Count > 0)
+                    {
+                        acCurEd.SetImpliedSelection(unNamed.ToArray());
+                        acCurEd.SelectImplied();
+                    }
+                    else
+                    {
+                        acCurEd.WriteMessage("\nAll selected parts have pre-defined names.");
+                    }
+
                     acTrans.Commit();
                 }
-            }
-
-            if (unNamed.Count > 0)
-            {
-                acCurEd.SetImpliedSelection(unNamed.ToArray());
-            }
-            else
-            {
-                acCurEd.WriteMessage("\nAll selected parts have pre-defined names.");
             }
 
         }

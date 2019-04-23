@@ -9,9 +9,75 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
+using System.Collections.Generic;
+using Autodesk.AutoCAD.ApplicationServices.Core;
+using Autodesk.AutoCAD.DatabaseServices;
+using Autodesk.AutoCAD.Geometry;
+using Autodesk.AutoCAD.GraphicsInterface;
+
 namespace RabCab.Agents
 {
-    internal class TransientAgent
+    internal static class TransientAgent
     {
+        private static readonly List<Drawable> _transients = new List<Drawable>();
+
+        /// <summary>
+        ///     TODO
+        /// </summary>
+        public static void Clear()
+        {
+            var acCurTm = TransientManager.CurrentTransientManager;
+            var intCol = new IntegerCollection();
+
+            foreach (var tempGraphic in _transients) acCurTm.EraseTransient(tempGraphic, intCol);
+
+            _transients.Clear();
+        }
+
+        /// <summary>
+        ///     TODO
+        /// </summary>
+        /// <param name="ents"></param>
+        public static void Add(Entity[] ents)
+        {
+            Clear();
+
+            foreach (var ent in ents)
+                if (ent != null)
+                    _transients.Add(ent);
+        }
+
+        /// <summary>
+        ///     TODO
+        /// </summary>
+        /// <param name="ents"></param>
+        public static void Add(Entity ent)
+        {
+            Clear();
+
+            if (ent != null) _transients.Add(ent);
+        }
+
+        /// <summary>
+        ///     TODO
+        /// </summary>
+        public static void Draw()
+        {
+            var acCurTm = TransientManager.CurrentTransientManager;
+            var intCol = new IntegerCollection();
+
+            foreach (var transient in _transients)
+                acCurTm.AddTransient(transient, TransientDrawingMode.DirectTopmost, 0, intCol);
+        }
+
+        /// <summary>
+        ///     TODO
+        /// </summary>
+        /// <returns></returns>
+        public static double GetPenWidth()
+        {
+            return (double) Application.GetSystemVariable("VIEWSIZE") /
+                   250.0;
+        }
     }
 }

@@ -1676,7 +1676,7 @@ namespace RabCab.Extensions
                 acSSet = acSsPrompt.Value;
             }
 
-            return acSSet.GetObjectIds();
+            return acSSet != null ? acSSet.GetObjectIds() : new ObjectId[0];
         }
 
         /// <summary>
