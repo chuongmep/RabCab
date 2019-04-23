@@ -16,7 +16,7 @@ namespace RabCab.Commands.AnalysisSuite
         /// </summary>
         [CommandMethod(SettingsInternal.CommandGroup, "_SHOWBOUNDS",
             CommandFlags.Modal
-            | CommandFlags.Transparent
+            //| CommandFlags.Transparent
             //| CommandFlags.UsePickSet
             //| CommandFlags.Redraw
             //| CommandFlags.NoPerspective

@@ -9,6 +9,7 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
+using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.Runtime;
 using RabCab.Settings;
 
@@ -18,7 +19,7 @@ namespace RabCab.Commands.AnalysisSuite
     {
         /// <summary>
         /// </summary>
-        [CommandMethod(SettingsInternal.CommandGroup, "_CMDDEFAULT",
+        [CommandMethod(SettingsInternal.CommandGroup, "_CALCWEIGHT",
             CommandFlags.Modal
             //| CommandFlags.Transparent
             //| CommandFlags.UsePickSet
@@ -44,8 +45,12 @@ namespace RabCab.Commands.AnalysisSuite
             //| CommandFlags.ActionMacro
             //| CommandFlags.NoInferConstraint 
         )]
-        public void Cmd_Default()
+        public void Cmd_CalcWeight()
         {
+            //Get the current document utilities
+            var acCurDoc = Application.DocumentManager.MdiActiveDocument;
+            var acCurDb = acCurDoc.Database;
+            var acCurEd = acCurDoc.Editor;
         }
     }
 }

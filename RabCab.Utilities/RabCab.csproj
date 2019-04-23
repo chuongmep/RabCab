@@ -156,7 +156,6 @@
     <Compile Include="Commands\AnalysisSuite\RcAnalyzeParts.cs" />
     <Compile Include="Commands\AnalysisSuite\RcDump.cs" />
     <Compile Include="Commands\AnalysisSuite\RcFilter.cs" />
-    <Compile Include="Commands\AnalysisSuite\RcNotebook.cs" />
     <Compile Include="Commands\AnalysisSuite\RcShowBounds.cs" />
     <Compile Include="Commands\AnalysisSuite\RcTraverse.cs" />
     <Compile Include="Commands\AnalysisSuite\RcWeight.cs" />
@@ -183,7 +182,6 @@
     <Compile Include="Commands\AssemblySuite\RcIdentifiers.cs" />
     <Compile Include="Commands\AssemblySuite\RcLayParts.cs" />
     <Compile Include="Commands\AssemblySuite\RcNameParts.cs" />
-    <Compile Include="Commands\AssemblySuite\RcPartList.cs" />
     <Compile Include="Commands\AssemblySuite\RcPartMark.cs" />
     <Compile Include="Commands\AssemblySuite\RcReferenceAssembly.cs" />
     <Compile Include="Commands\AssemblySuite\RcReferencePart.cs" />
@@ -263,8 +261,6 @@
     <Compile Include="Commands\PaletteKit\RcPaletteNet.cs" />
     <Compile Include="Commands\PaletteKit\RcPaletteNotebook.cs" />
     <Compile Include="Commands\PaletteKit\RcPaletteSnap.cs" />
-    <Compile Include="Commands\ReferenceSuite\BlockKit\RcBlockInsert.cs" />
-    <Compile Include="Commands\ReferenceSuite\BlockKit\RcBlockDefine.cs" />
     <Compile Include="Commands\ReferenceSuite\BlockKit\RcBlockReplace.cs" />
     <Compile Include="Commands\ReferenceSuite\BlockKit\RcBlockToXref.cs" />
     <Compile Include="Commands\ReferenceSuite\OleKit\RcOleBind.cs" />
@@ -547,6 +543,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Repository\RepoSteelShapes.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Repository\RepoMaterials.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Repository\RepoToolpaths.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--Xml Document To Hold Material Information-->
+<materials>
+
+  <machiningMaterials>
+
+    <!--Sheet Material Information-->
+    <material identifier="Test"
+          defaultMat=""
+          cadColorCode=""
+          description=""
+          sheetLengths=""
+          sheetWidths=""
+          sheetDepths=""         
+          lbPerCuFt=""/>
+
+  </machiningMaterials>
+
+  <standardMaterials>
+
+    <material identifier="Test"
+              defaultMat=""
+              cadColorCode=""
+              description=""
+              lbPerCuFt=""/>
+
+  </standardMaterials>
+
+</materials>

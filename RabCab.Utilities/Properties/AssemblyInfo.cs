@@ -101,7 +101,6 @@ using RabCab.Commands.TidySuite;
 [assembly: CommandClass(typeof(RcAnalyzeParts))]
 [assembly: CommandClass(typeof(RcDump))]
 [assembly: CommandClass(typeof(RcFilter))]
-[assembly: CommandClass(typeof(RcNotebook))]
 [assembly: CommandClass(typeof(RcShowBounds))]
 [assembly: CommandClass(typeof(RcTraverse))]
 [assembly: CommandClass(typeof(RcWeight))]
@@ -132,7 +131,6 @@ using RabCab.Commands.TidySuite;
 [assembly: CommandClass(typeof(RcIdentifiers))]
 [assembly: CommandClass(typeof(RcLayParts))]
 [assembly: CommandClass(typeof(RcNameParts))]
-[assembly: CommandClass(typeof(RcPartList))]
 [assembly: CommandClass(typeof(RcPartMark))]
 [assembly: CommandClass(typeof(RcReferenceAssembly))]
 [assembly: CommandClass(typeof(RcReferencePart))]
@@ -213,8 +211,6 @@ using RabCab.Commands.TidySuite;
 [assembly: CommandClass(typeof(RcPaletteSnap))]
 
 //Reference Suite
-[assembly: CommandClass(typeof(RcBlockDefine))]
-[assembly: CommandClass(typeof(RcBlockInsert))]
 [assembly: CommandClass(typeof(RcBlockReplace))]
 [assembly: CommandClass(typeof(RcBlockToXref))]
 [assembly: CommandClass(typeof(RcOleBind))]
