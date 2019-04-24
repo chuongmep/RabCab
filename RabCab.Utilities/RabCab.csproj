@@ -172,6 +172,7 @@
     <Compile Include="Commands\AnnotationSuite\RcGenDims.cs" />
     <Compile Include="Commands\AnnotationSuite\RcGenTags.cs" />
     <Compile Include="Commands\AnnotationSuite\RcGenViews.cs" />
+    <Compile Include="Commands\AnnotationSuite\RcMatchViews.cs" />
     <Compile Include="Commands\AnnotationSuite\RcPartFinder.cs" />
     <Compile Include="Commands\AnnotationSuite\RcSurfaceTag.cs" />
     <Compile Include="Commands\AnnotationSuite\RcVpConvert.cs" />

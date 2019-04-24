@@ -296,10 +296,14 @@ namespace RabCab.Extensions
         /// <param name="acCurEd"></param>
         /// <param name="prompt"></param>
         /// <returns></returns>
-        public static bool GetBool(this Editor acCurEd, string prompt)
+        public static bool GetBool(this Editor acCurEd, string prompt, string t = null, string f = null)
         {
-            const string bTrue = "Yes";
-            const string bFalse = "No";
+           
+            var bTrue = t ?? "Yes";
+            var bFalse = f ?? "No";
+
+            if (f != null)
+                bFalse = f;
 
             var keys = new string[] { bTrue, bFalse };
             var key = acCurEd.GetSimpleKeyword(prompt, keys);
@@ -1515,7 +1519,7 @@ namespace RabCab.Extensions
             };
 
             //Get the selection from the user
-            var prSelRes = acCurEd.GetSelection(prSelOpts);
+            var prSelRes = acCurEd.GetSelection();
 
             //If bad input -> return empty array
             if (prSelRes.Status != PromptStatus.OK) return new ObjectId[0];
@@ -1534,7 +1538,7 @@ namespace RabCab.Extensions
         /// <param name="keyList"></param>
         /// <returns>Returns an objectID collection of the selected objects.</returns>
         public static ObjectId[] GetFilteredSelection(this Editor acCurEd, Enums.DxfNameEnum filterArg,
-            bool singleSelection, List<KeywordAgent> keyList = null)
+            bool singleSelection, List<KeywordAgent> keyList = null, string msgForAdding = null, string msgForRemoval = null)
         {
             //Convert the DXFName enum value to its string value
             var dxfName = EnumAgent.GetNameOf(filterArg);
@@ -1560,6 +1564,12 @@ namespace RabCab.Extensions
                     ? "Select " + dxfName.ToUpper() + " object to remove: "
                     : "Select " + dxfName.ToUpper() + " objects to remove: "
             };
+
+            if (msgForAdding != null)
+                prSelOpts.MessageForAdding = msgForAdding;
+
+            if (msgForRemoval != null)
+                prSelOpts.MessageForRemoval = msgForRemoval;
 
             #region KeywordAgent
 

@@ -1,30 +1,23 @@
-﻿// -----------------------------------------------------------------------------------
-//     <copyright file="RcAlignViews.cs" company="CraterSpace">
-//     Copyright (c) 2019 CraterSpace - All Rights Reserved 
-//     </copyright>
-//     <author>Zach Ayers</author>
-//     <date>04/11/2019</date>
-//     Description:    
-//     Notes:  
-//     References:          
-// -----------------------------------------------------------------------------------
-
-using System.Windows.Forms;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.Runtime;
 using RabCab.Engine.Enumerators;
 using RabCab.Extensions;
 using RabCab.Settings;
-using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
 
 namespace RabCab.Commands.AnnotationSuite
 {
-    internal class RcAlignViews
+    class RcMatchViews
     {
         /// <summary>
         /// </summary>
-        [CommandMethod(SettingsInternal.CommandGroup, "_ALIGNVIEWS",
+        [CommandMethod(SettingsInternal.CommandGroup, "_MATCHVIEWS",
             CommandFlags.Modal
             //| CommandFlags.Transparent
             //| CommandFlags.UsePickSet
@@ -48,57 +41,66 @@ namespace RabCab.Commands.AnnotationSuite
             | CommandFlags.NoBlockEditor
             | CommandFlags.NoActionRecording
             | CommandFlags.ActionMacro
-            //| CommandFlags.NoInferConstraint 
+        //| CommandFlags.NoInferConstraint 
         )]
-        public void Cmd_AlignViews()
+        public void Cmd_MatchViews()
         {
             //Get the current document utilities
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;
             var acCurDb = acCurDoc.Database;
             var acCurEd = acCurDoc.Editor;
 
-            var viewRes = acCurEd.GetFilteredSelection(Enums.DxfNameEnum.Viewport, false, null, "\nSelect Viewports to align: ");
+            var viewRes = acCurEd.GetFilteredSelection(Enums.DxfNameEnum.Viewport, false, null, "\nSelect Viewports to resize: ");
             if (viewRes.Length <= 0) return;
 
-            var alignRes = acCurEd.GetFilteredSelection(Enums.DxfNameEnum.Viewport, true, null, "\nSelect Viewport to align to: ");
+            var alignRes = acCurEd.GetFilteredSelection(Enums.DxfNameEnum.Viewport, true, null, "\nSelect Viewport to match: ");
             if (alignRes.Length <= 0) return;
 
-            var boolRes = acCurEd.GetBool("Align by which orientation? ", "Horizontal", "Vertical");       
+            const string key1 = "Height";
+            const string key2 = "Width";
+            const string key3 = "Both";
+
+            var keyRes = acCurEd.GetSimpleKeyword("Match which size: ", new[] { key1, key2, key3});
+            if (string.IsNullOrEmpty(keyRes)) return;
+
 
             using (var acTrans = acCurDb.TransactionManager.StartTransaction())
             {
-               
+
                 var mainViewport = acTrans.GetObject(alignRes[0], OpenMode.ForRead) as Viewport;
                 if (mainViewport == null) return;
 
-                var mainX = mainViewport.CenterPoint.X;
-                var mainY = mainViewport.CenterPoint.Y;
+                var mainHeight = mainViewport.Height;
+                var mainWidth = mainViewport.Width;
+                var mainCenter = mainViewport.CenterPoint;
 
                 foreach (var objId in viewRes)
                 {
                     var alignView = acTrans.GetObject(objId, OpenMode.ForWrite) as Viewport;
                     if (alignView == null) continue;
 
-                    var alignX = alignView.CenterPoint.X;
-                    var alignY = alignView.CenterPoint.Y;
-
-                    if (boolRes) //Horizontal
+                    switch (keyRes)
                     {
-                        mainX = alignX; 
-                    }
-                    else //Vertical
-                    {
-                        mainY = alignY;
-                    }
+                        case key1://Height
+                            alignView.Height = mainHeight;
+                            break;
 
-                    alignView.CenterPoint = new Point3d(mainX, mainY, 0);
+                        case key2://Width
+                            alignView.Width = mainWidth;
+                            break;
+
+                        case key3: //Both
+                            alignView.Height = mainHeight;
+                            alignView.Width = mainWidth;
+                            break;
+                    }
 
                 }
 
-               acTrans.Commit();
+                acTrans.Commit();
 
             }
-  
+
         }
     }
 }

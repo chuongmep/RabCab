@@ -119,6 +119,7 @@ using RabCab.Commands.TidySuite;
 [assembly: CommandClass(typeof(RcGenDims))]
 [assembly: CommandClass(typeof(RcGenTags))]
 [assembly: CommandClass(typeof(RcGenViews))]
+[assembly: CommandClass(typeof(RcMatchViews))]
 [assembly: CommandClass(typeof(RcPartFinder))]
 [assembly: CommandClass(typeof(RcSurfaceTag))]
 [assembly: CommandClass(typeof(RcVpConvert))]
