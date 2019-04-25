@@ -60,6 +60,7 @@ namespace RabCab.Commands.AnnotationSuite
             const string key2 = "Width";
             const string key3 = "Both";
 
+
             var keyRes = acCurEd.GetSimpleKeyword("Match which size: ", new[] { key1, key2, key3});
             if (string.IsNullOrEmpty(keyRes)) return;
 
@@ -72,7 +73,13 @@ namespace RabCab.Commands.AnnotationSuite
 
                 var mainHeight = mainViewport.Height;
                 var mainWidth = mainViewport.Width;
-                var mainCenter = mainViewport.CenterPoint;
+                var mainBounds = mainViewport.Bounds;
+                if (mainBounds == null) return;
+
+                var topY = mainBounds.Value.MaxPoint.Y;
+                var botY = mainBounds.Value.MinPoint.Y;
+                var leftX = mainBounds.Value.MinPoint.X;
+                var rightX = mainBounds.Value.MaxPoint.X;
 
                 foreach (var objId in viewRes)
                 {
@@ -93,6 +100,7 @@ namespace RabCab.Commands.AnnotationSuite
                             alignView.Height = mainHeight;
                             alignView.Width = mainWidth;
                             break;
+
                     }
 
                 }

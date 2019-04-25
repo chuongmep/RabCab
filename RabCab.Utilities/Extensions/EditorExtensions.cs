@@ -296,9 +296,8 @@ namespace RabCab.Extensions
         /// <param name="acCurEd"></param>
         /// <param name="prompt"></param>
         /// <returns></returns>
-        public static bool GetBool(this Editor acCurEd, string prompt, string t = null, string f = null)
-        {
-           
+        public static bool? GetBool(this Editor acCurEd, string prompt, string t = null, string f = null)
+        {           
             var bTrue = t ?? "Yes";
             var bFalse = f ?? "No";
 
@@ -307,6 +306,11 @@ namespace RabCab.Extensions
 
             var keys = new string[] { bTrue, bFalse };
             var key = acCurEd.GetSimpleKeyword(prompt, keys);
+
+            if (string.IsNullOrEmpty(key))
+            {
+                return null;
+            }
 
             return key == bTrue;
         }

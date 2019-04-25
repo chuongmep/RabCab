@@ -48,6 +48,11 @@ namespace RabCab.Commands.AnalysisSuite
             var acCurEd = acCurDoc.Editor;
 
             var objIds = acCurEd.GetAllSelection(false);
+            var boolRes = acCurEd.GetBool("Save bounds? ");
+            if (boolRes == null)
+               return;
+
+            var append = boolRes.Value;
 
             using (var acTrans = acCurDb.TransactionManager.StartTransaction())
             {
@@ -74,9 +79,9 @@ namespace RabCab.Commands.AnalysisSuite
                     sol.Color = Colors.LayerColorBounds;
 
                     TransientAgent.Add(sol);
-                    TransientAgent.Draw();
+                    TransientAgent.Draw();               
 
-                    if (acCurEd.GetBool("Save bounds? "))
+                    if (append)
                     {
                         acCurDb.AppendEntity(sol);
                     }

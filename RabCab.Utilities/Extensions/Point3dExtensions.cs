@@ -36,6 +36,12 @@ namespace RabCab.Extensions
             return halfwayPoint;
         }
 
+        public static Point3d GetAlong(this Point3d pt1, Point3d pt2, double distance)
+        {
+            var direction = pt1.GetVectorTo(pt2).GetNormal();
+            return pt1 + direction * distance;
+        }
+
         /// <summary>
         ///     Converts a 3d point into a 2d point (projection on XY plane).
         /// </summary>

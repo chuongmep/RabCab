@@ -63,7 +63,10 @@ namespace RabCab.Commands.AnnotationSuite
             var alignRes = acCurEd.GetFilteredSelection(Enums.DxfNameEnum.Viewport, true, null, "\nSelect Viewport to align to: ");
             if (alignRes.Length <= 0) return;
 
-            var boolRes = acCurEd.GetBool("Align by which orientation? ", "Horizontal", "Vertical");       
+            var boolRes = acCurEd.GetBool("Align by which orientation? ", "Horizontal", "Vertical");
+            if (boolRes == null) return;
+
+            var horizontal = boolRes.Value;
 
             using (var acTrans = acCurDb.TransactionManager.StartTransaction())
             {
@@ -82,7 +85,7 @@ namespace RabCab.Commands.AnnotationSuite
                     var alignX = alignView.CenterPoint.X;
                     var alignY = alignView.CenterPoint.Y;
 
-                    if (boolRes) //Horizontal
+                    if (horizontal) //Horizontal
                     {
                         mainX = alignX; 
                     }
