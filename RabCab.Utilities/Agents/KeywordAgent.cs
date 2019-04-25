@@ -121,7 +121,27 @@ namespace RabCab.Agents
                     break;
 
                 case TypeCode.Boolean:
-                    //TODO
+                    var bTrue = "Yes";
+                    var bFalse = "No";
+                    var keys = new string[] { bTrue, bFalse };
+
+                    var prKeyOpts = new PromptKeywordOptions("")
+                    {
+                        Message = Prompt,
+                        AllowNone = false
+                    };
+
+                    //Append keywords to the message
+                    foreach (var key in keys)
+                        prKeyOpts.Keywords.Add(key);
+
+                    var prKeyRes = _acCurEd.GetKeywords(prKeyOpts);
+
+                    // If bad input -> return null
+                    if (prKeyRes.Status != PromptStatus.OK) Output = false;
+
+                    //Return the keyword selected in the editor
+                    Output = prKeyRes.StringResult == bTrue;
                     break;
             }
 

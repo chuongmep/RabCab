@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Documents;
 using Autodesk.AutoCAD.ApplicationServices.Core;
@@ -52,14 +53,18 @@ namespace RabCab.Commands.AnnotationSuite
             var acCurDb = acCurDoc.Database;
             var acCurEd = acCurDoc.Editor;
 
-            var viewRes = acCurEd.GetFilteredSelection(Enums.DxfNameEnum.Viewport, false, null,
-                "\nSelect Viewports to space: ");
+            var keyList = new List<KeywordAgent>();
+            var keyAgentSpace = new KeywordAgent(acCurEd, "SpaceEqually", "Space viewports equally between two viewports? ", TypeCode.Boolean);
+
+            keyList.Add(keyAgentSpace);
+
+            var viewRes = acCurEd.GetFilteredSelection(Enums.DxfNameEnum.Viewport, false, keyList,
+                "\nSelect Viewports to space or: ");
             if (viewRes.Length <= 0) return;
 
-            var spaceBool = acCurEd.GetBool("Space Equally? ");
-            if (spaceBool == null) return;
+            var equalSpace = false;
 
-            var equalSpace = spaceBool.Value;
+            keyAgentSpace.Set(ref equalSpace);
 
             using (var acTrans = acCurDb.TransactionManager.StartTransaction())
             {
@@ -154,6 +159,7 @@ namespace RabCab.Commands.AnnotationSuite
                                 var acViewport = acTrans.GetObject(view, OpenMode.ForWrite) as Viewport;
                                 if (acViewport == null) continue;
 
+                                //TODO add correct spacing here to get distance across viewport bounds at the given vector
                                 lastPt = lastPt.GetAlong(endPt, dist);
                                 acViewport.CenterPoint = lastPt;                               
           
