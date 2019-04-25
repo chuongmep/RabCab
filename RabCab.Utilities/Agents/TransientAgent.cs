@@ -12,6 +12,7 @@
 using System.Collections.Generic;
 using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.DatabaseServices;
+using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.GraphicsInterface;
 
@@ -47,6 +48,22 @@ namespace RabCab.Agents
                     _transients.Add(ent);
         }
 
+        public static void Update(Point3d curPt, Point3d moveToPt)
+        {
+            // Displace each of our drawables
+            Matrix3d mat = Matrix3d.Displacement(curPt.GetVectorTo(moveToPt));
+
+            // Update their graphics
+            foreach (Drawable d in _transients)
+            {
+                Entity e = d as Entity;
+                e.TransformBy(mat);
+                TransientManager.CurrentTransientManager.UpdateTransient(
+                    d, new IntegerCollection()
+                );
+            }
+        }
+
         /// <summary>
         ///     TODO
         /// </summary>
@@ -79,5 +96,6 @@ namespace RabCab.Agents
             return (double) Application.GetSystemVariable("VIEWSIZE") /
                    250.0;
         }
+       
     }
 }

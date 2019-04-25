@@ -39,6 +39,12 @@ namespace RabCab.Engine.Enumerators
             Light = 1
         }
 
+        public enum OrthoMode
+        {
+            Off = 0,
+            On = 1
+        }
+
         /// <summary>
         ///     DXF Names for autoCAD entities
         /// </summary>

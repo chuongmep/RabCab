@@ -23,6 +23,21 @@ namespace RabCab.Extensions
     /// </summary>
     public static class Point3DExtensions
     {
+        public static Point3d GetOrthoPoint( this Point3d pt, Point3d basePt)
+        {
+            // Apply a crude orthographic mode
+            double x = pt.X;
+            double y = pt.Y;
+
+            Vector3d vec = basePt.GetVectorTo(pt);
+            if (Math.Abs(vec.X) >= Math.Abs(vec.Y))
+               y = basePt.Y;
+            else
+                x = basePt.X;
+
+            return new Point3d(x, y, 0.0);
+        }
+
         /// <summary>
         ///     Method to get the midpoint between the current point and an input point
         /// </summary>

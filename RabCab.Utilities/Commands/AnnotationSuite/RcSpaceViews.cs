@@ -1,20 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Documents;
 using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
+using Autodesk.AutoCAD.GraphicsInterface;
 using Autodesk.AutoCAD.Runtime;
 using RabCab.Agents;
 using RabCab.Engine.Enumerators;
+using RabCab.Engine.System;
 using RabCab.Extensions;
 using RabCab.Settings;
+using Viewport = Autodesk.AutoCAD.DatabaseServices.Viewport;
 
 namespace RabCab.Commands.AnnotationSuite
 {
-    class RcSpaceViews
+    internal class RcSpaceViews
     {
         /// <summary>
         /// </summary>
@@ -51,7 +52,8 @@ namespace RabCab.Commands.AnnotationSuite
             var acCurDb = acCurDoc.Database;
             var acCurEd = acCurDoc.Editor;
 
-            var viewRes = acCurEd.GetFilteredSelection(Enums.DxfNameEnum.Viewport, false, null, "\nSelect Viewports to align: ");
+            var viewRes = acCurEd.GetFilteredSelection(Enums.DxfNameEnum.Viewport, false, null,
+                "\nSelect Viewports to space: ");
             if (viewRes.Length <= 0) return;
 
             var spaceBool = acCurEd.GetBool("Space Equally? ");
@@ -61,93 +63,107 @@ namespace RabCab.Commands.AnnotationSuite
 
             using (var acTrans = acCurDb.TransactionManager.StartTransaction())
             {
+                var views = viewRes.ToList();
+
+                var firstViewAr = acCurEd.GetFilteredSelection(Enums.DxfNameEnum.Viewport, true, null,
+                    "\nSelect first viewport to use as spacing criteria: ");
+                if (firstViewAr.Length <= 0)
+                {
+                    acTrans.Abort();
+                    return;
+                }
+
+                var firstView = firstViewAr[0];
+                var fViewport = acTrans.GetObject(firstView, OpenMode.ForRead) as Viewport;
+
+                if (fViewport == null)
+                {
+                    acTrans.Abort();
+                    return;
+                }
+
+                var fCen = fViewport.CenterPoint;
+
+                if (views.Contains(firstView)) views.Remove(firstView);
+
                 if (equalSpace)
                 {
-                    if (viewRes.Length < 3)
-                    {
-                        acCurEd.WriteMessage("At least 3 Viewports must be selected to space equally.");
-                        acTrans.Abort();
-                        return;
-                    }
+                    var lastViewAr = acCurEd.GetFilteredSelection(Enums.DxfNameEnum.Viewport, true, null,
+                        "\nSelect last viewport to use as spacing criteria: ");
 
-                    var groupExt = acTrans.GetExtents(viewRes, acCurDb);
-                    var groupMax = groupExt.MaxPoint;
-                    var groupMin = groupExt.MinPoint;
-
-                    var closestIdToMax = ObjectId.Null;
-                    var closestIdToMin = ObjectId.Null;
-                    double closestMaxDist = double.MaxValue;
-                    double closestMinDist = double.MaxValue;
-
-                    foreach (var obj in viewRes)
-                    {
-                        var acView = acTrans.GetObject(obj, OpenMode.ForRead) as Viewport;
-                        if (acView == null) continue;
-                        var acBounds = acView.Bounds;
-                        if (acBounds == null) continue;
-
-                        var acViewMax = acBounds.Value.MaxPoint;
-                        var acViewMin = acBounds.Value.MinPoint;
-                        var distToMax = acViewMax.DistanceTo(groupMax);
-                        var distToMin = acViewMin.DistanceTo(groupMin);
-
-                        if (distToMax < closestMaxDist)
-                        {
-                            closestIdToMax = obj;
-                            closestMaxDist = distToMax;
-                        }
-
-                        if (distToMin < closestMinDist)
-                        {
-                            closestIdToMin = obj;
-                            closestMinDist = distToMin;
-                        }
-                    }
-
-                    if (closestIdToMax == ObjectId.Null || closestIdToMin == ObjectId.Null)
+                    if (lastViewAr.Length <= 0)
                     {
                         acTrans.Abort();
                         return;
                     }
 
-                    var maxView = acTrans.GetObject(closestIdToMax, OpenMode.ForRead) as Viewport;
-                    var minView = acTrans.GetObject(closestIdToMin, OpenMode.ForRead) as Viewport;
-                    if (maxView == null || minView == null)
+                    var lastView = lastViewAr[0];
+                    var lViewport = acTrans.GetObject(lastView, OpenMode.ForRead) as Viewport;
+
+                    if (lViewport == null)
                     {
                         acTrans.Abort();
                         return;
                     }
 
-                    var viewList = viewRes.ToList();
-                    var divCount = viewList.Count - 1;
+                    var lCen = lViewport.CenterPoint;
 
-                    viewList.Remove(closestIdToMax);
-                    viewList.Remove(closestIdToMin);
+                    if (views.Contains(lastView)) views.Remove(lastView);
 
-                    var maxCen = maxView.CenterPoint;
-                    var minCen = minView.CenterPoint;
+                    var dist = fCen.DistanceTo(lCen);
+                    var dSpace = dist / (views.Count + 1);
 
-                    var fullDist = minCen.DistanceTo(maxCen);
-                    var divDist = fullDist / divCount;
-
-                    for (var index = 0; index < viewList.Count; index++)
+                    for (var index = 0; index < views.Count; index++)
                     {
-                        var viewId = viewList[index];
-                        var acView = acTrans.GetObject(viewId, OpenMode.ForWrite) as Viewport;
-                        if (acView == null) continue;
+                        var view = views[index];
+                        var acViewport = acTrans.GetObject(view, OpenMode.ForWrite) as Viewport;
+                        if (acViewport == null) continue;
 
-                        acView.CenterPoint = minCen.GetAlong(maxCen, divDist * (index + 1));
+                        acViewport.CenterPoint =
+                            fCen.GetAlong(lCen, dSpace * (index + 1));
                     }
                 }
                 else
                 {
-                   
+                    var dist = acCurEd.GetPositiveDistance("Enter distance to space between viewports: ");
+                    if (dist != 0)
+                    {
+                        var startPoint = fCen;                                    
+               
+                        //prompt for end point
+                        var endPtOpts = new PromptPointOptions("\nSelect direction for spacing: ")
+                        {
+                            UseBasePoint = true, UseDashedLine = true, BasePoint = startPoint, AllowNone = false
+                        };
+
+                        var endPtRes = acCurEd.GetPoint(endPtOpts);
+
+                        if (endPtRes.Status == PromptStatus.OK)
+                        {
+                            var endPt = endPtRes.Value;
+
+                            if (AcVars.OrthoMode == Enums.OrthoMode.On)
+                            {
+                                endPt = endPt.GetOrthoPoint(startPoint);
+                            }                      
+
+                            var lastPt = fCen;
+
+                            foreach (var view in views)
+                            {
+                                var acViewport = acTrans.GetObject(view, OpenMode.ForWrite) as Viewport;
+                                if (acViewport == null) continue;
+
+                                lastPt = lastPt.GetAlong(endPt, dist);
+                                acViewport.CenterPoint = lastPt;                               
+          
+                            }
+                        }
+                    }
                 }
 
                 acTrans.Commit();
             }
-
-
         }
     }
 }

@@ -19,6 +19,8 @@ namespace RabCab.Engine.System
 {
     internal static class AcVars
     {
+
+
         #region Sub Object Selection Mode
 
         /// <summary>
@@ -45,7 +47,20 @@ namespace RabCab.Engine.System
 
 
         #endregion
+        
+        #region OrthoMode
 
+        /// <summary>
+        ///     Specifies whether the grid is turned on or off.
+        /// </summary>
+        public static Enums.OrthoMode OrthoMode
+        {
+            get { return (Enums.OrthoMode)(short)Application.GetSystemVariable("ORTHOMODE"); }
+            set { Application.SetSystemVariable("ORTHOMODE", (short)value); }
+        }
+
+
+        #endregion
         #region Tile Mode
 
         /// <summary>

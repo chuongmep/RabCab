@@ -1979,5 +1979,24 @@ namespace RabCab.Extensions
 
         #endregion
 
+        public static ObjectId[] SelectAtPoint(this Editor acCurEd, Point3d pt)
+        {
+            var p = pt;
+            var tol = 0.01;
+            var p1 = new Point3d(p.X - tol, p.Y - tol, p.Z - tol);
+            var p2 = new Point3d(p.X + tol, p.Y + tol, p.Z + tol);
+
+            var res = acCurEd.SelectCrossingWindow(p1, p2);
+
+            if (res.Status != PromptStatus.OK)
+            {
+                return new ObjectId[0];
+            }
+
+            var ss = res.Value;
+            return ss.GetObjectIds();
+        }
+
+        
     }
 }
