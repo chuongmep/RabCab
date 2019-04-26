@@ -1,5 +1,6 @@
 ﻿using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.Runtime;
+using RabCab.Extensions;
 using RabCab.Settings;
 
 namespace RabCab.Commands.TidySuite
@@ -8,7 +9,7 @@ namespace RabCab.Commands.TidySuite
     {
         /// <summary>
         /// </summary>
-        [CommandMethod(SettingsInternal.CommandGroup, "_CMDDEFAULT",
+        [CommandMethod(SettingsInternal.CommandGroup, "_CLEANSOLS",
             CommandFlags.Modal
             //| CommandFlags.Transparent
             //| CommandFlags.UsePickSet
@@ -16,7 +17,7 @@ namespace RabCab.Commands.TidySuite
             //| CommandFlags.NoPerspective
             //| CommandFlags.NoMultiple
             //| CommandFlags.NoTileMode
-            //| CommandFlags.NoPaperSpace
+            | CommandFlags.NoPaperSpace
             //| CommandFlags.NoOem
             //| CommandFlags.Undefined
             //| CommandFlags.InProgress
@@ -34,12 +35,23 @@ namespace RabCab.Commands.TidySuite
             //| CommandFlags.ActionMacro
             //| CommandFlags.NoInferConstraint 
         )]
-        public void Cmd_Default()
+        public void Cmd_CleanSols()
         {
             //Get the current document utilities
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;
             var acCurDb = acCurDoc.Database;
             var acCurEd = acCurDoc.Editor;
+
+            using (var acTrans = acCurDb.TransactionManager.StartTransaction())
+            {
+                var objIds = acCurEd.SelectAllOfType("3DSOLID", acTrans);
+
+                if (objIds.Length > 0)
+                {
+                    objIds.Clean(acCurDb, acTrans);
+                }
+                acTrans.Commit();
+            }
         }
     }
 }

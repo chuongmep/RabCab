@@ -89,6 +89,17 @@ namespace RabCab.Analysis
         public bool Has3DFaces;
         public TextureDirection TxDirection;
 
+       //Rotation Matrices
+        public Matrix3d X90;
+        public Matrix3d Y90;
+        public Matrix3d Z90;
+        public Matrix3d X180;
+        public Matrix3d Y180;
+        public Matrix3d Z180;
+        public Matrix3d X270;
+        public Matrix3d Y270;
+        public Matrix3d Z270;
+
         public ProductionType ProdType
         {
             get
@@ -383,6 +394,8 @@ namespace RabCab.Analysis
                     Centroid = solCopy.MassProperties.Centroid;
                     Box = Extents.Volume();
                     Volume = acSol.Volume();
+
+                    GetRotationMatrices();
                 }
             }
 
@@ -696,6 +709,27 @@ namespace RabCab.Analysis
             }
         }
 
+        /// <summary>
+        ///     Method to get the rotation matrices of a solid, based on its Centroid
+        /// </summary>
+        /// <param name="acSol">The solid to be rotated</param>
+        private void GetRotationMatrices()
+        {
+            //Find the 90 degree rotation matrices
+            X90 = Matrix3d.Rotation(CalcUnit.ConvertToRadians(90), Vector3d.XAxis, Centroid);
+            Y90 = Matrix3d.Rotation(CalcUnit.ConvertToRadians(90), Vector3d.YAxis, Centroid);
+            Z90 = Matrix3d.Rotation(CalcUnit.ConvertToRadians(90), Vector3d.ZAxis, Centroid);
+
+            //Find the 180 degree rotation matrices
+            X180 = Matrix3d.Rotation(CalcUnit.ConvertToRadians(180), Vector3d.XAxis, Centroid);
+            Y180 = Matrix3d.Rotation(CalcUnit.ConvertToRadians(180), Vector3d.YAxis, Centroid);
+            Z180 = Matrix3d.Rotation(CalcUnit.ConvertToRadians(180), Vector3d.ZAxis, Centroid);
+
+            //Find the 180 degree rotation matrices
+            X270 = Matrix3d.Rotation(CalcUnit.ConvertToRadians(270), Vector3d.XAxis, Centroid);
+            Y270 = Matrix3d.Rotation(CalcUnit.ConvertToRadians(270), Vector3d.YAxis, Centroid);
+            Z270 = Matrix3d.Rotation(CalcUnit.ConvertToRadians(270), Vector3d.ZAxis, Centroid);
+        }
         #endregion
     }
 }

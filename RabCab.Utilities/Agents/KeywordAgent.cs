@@ -126,10 +126,11 @@ namespace RabCab.Agents
                     var keys = new string[] { bTrue, bFalse };
 
                     var prKeyOpts = new PromptKeywordOptions("")
-                    {
-                        Message = Prompt,
+                    {                        
+                        Message = Prompt + " <" + DefValue + "> ",
                         AllowNone = false
                     };
+
 
                     //Append keywords to the message
                     foreach (var key in keys)

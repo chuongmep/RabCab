@@ -48,6 +48,22 @@ namespace RabCab.Settings
 
         //Annotation Options
         public static double ViewSpacing = 0;
+
+        //Flatshot Options
+        public static bool FlattenAssembly = false;
+        public static bool FlattenAllSides = false;
+        public static bool RetainHiddenLines = true;
+
+        //Layers
+        public static string RcVisible = "RCVisible";
+        public static string RcHidden = "RcHidden";
+        public static string RcAnno = "RcAnno";
+
+        //Linetypes
+        public static string RcVisibleLT = "CONTINUOUS";
+        public static string RcHiddenLT = "HIDDEN";
+        public static string RcAnnoLt = "CONTINUOUS";
+
         public static RoundTolerance UserTol { set; get; } = RoundTolerance.SixDecimals;
     }
 }

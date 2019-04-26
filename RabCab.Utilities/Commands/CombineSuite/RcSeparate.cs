@@ -11,6 +11,8 @@
 
 using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.Runtime;
+using RabCab.Engine.Enumerators;
+using RabCab.Extensions;
 using RabCab.Settings;
 
 namespace RabCab.Commands.CombineSuite
@@ -19,7 +21,7 @@ namespace RabCab.Commands.CombineSuite
     {
         /// <summary>
         /// </summary>
-        [CommandMethod(SettingsInternal.CommandGroup, "_CMDDEFAULT",
+        [CommandMethod(SettingsInternal.CommandGroup, "_SEPSOLS",
             CommandFlags.Modal
             //| CommandFlags.Transparent
             //| CommandFlags.UsePickSet
@@ -27,7 +29,7 @@ namespace RabCab.Commands.CombineSuite
             //| CommandFlags.NoPerspective
             //| CommandFlags.NoMultiple
             //| CommandFlags.NoTileMode
-            //| CommandFlags.NoPaperSpace
+            | CommandFlags.NoPaperSpace
             //| CommandFlags.NoOem
             //| CommandFlags.Undefined
             //| CommandFlags.InProgress
@@ -40,17 +42,28 @@ namespace RabCab.Commands.CombineSuite
             //| CommandFlags.Interruptible
             //| CommandFlags.NoHistory
             //| CommandFlags.NoUndoMarker
-            //| CommandFlags.NoBlockEditor
+            | CommandFlags.NoBlockEditor
             //| CommandFlags.NoActionRecording
             //| CommandFlags.ActionMacro
             //| CommandFlags.NoInferConstraint 
         )]
-        public void Cmd_Default()
+        public void Cmd_SepSols()
         {
             //Get the current document utilities
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;
             var acCurDb = acCurDoc.Database;
             var acCurEd = acCurDoc.Editor;
+
+            using (var acTrans = acCurDb.TransactionManager.StartTransaction())
+            {
+                var objIds = acCurEd.SelectAllOfType("3DSOLID", acTrans);
+
+                if (objIds.Length > 0)
+                {
+                    objIds.Separate(acCurDb, acTrans);
+                }  
+                acTrans.Commit();
+            }
         }
     }
 }

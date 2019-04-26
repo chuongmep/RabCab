@@ -56,25 +56,8 @@ namespace RabCab.Commands.AnalysisSuite
 
             using (var acTrans = acCurDb.TransactionManager.StartTransaction())
             {
-                var extents = acTrans.GetExtents(objIds, acCurDb);
-
-                //Get geom extents of all selected
-                var minX = extents.MinPoint.X;
-                var maxX = extents.MaxPoint.X;
-                var minY = extents.MinPoint.Y;
-                var maxY = extents.MaxPoint.Y;
-                var minZ = extents.MinPoint.Z;
-                var maxZ = extents.MaxPoint.Z;
-
-                var sol = new Solid3d();
+                    var sol = acTrans.GetBoundingBox(objIds, acCurDb);
                 
-                    var width = Math.Abs(maxX - minX);
-                    var length = Math.Abs(maxY - minY);
-                    var height = Math.Abs(maxZ - minZ);
-
-                    sol.CreateBox(width, length, height);
-                    sol.TransformBy(
-                        Matrix3d.Displacement(sol.GeometricExtents.MinPoint.GetVectorTo(new Point3d(minX, minY, minZ))));
                     sol.Transparency = new Transparency(75);
                     sol.Color = Colors.LayerColorBounds;
 

@@ -13,11 +13,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Autodesk.AutoCAD.DatabaseServices;
+using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.Runtime;
+using RabCab.Agents;
+using RabCab.Analysis;
 using RabCab.Calculators;
 using RabCab.Engine.Enumerators;
-using RabCab.Settings;
+using static RabCab.Settings.Colors;
+using static RabCab.Settings.SettingsUser;
 using AcBr = Autodesk.AutoCAD.BoundaryRepresentation;
 
 namespace RabCab.Extensions
@@ -646,6 +650,36 @@ namespace RabCab.Extensions
                 .RoundToTolerance();
         }
 
+        /// <summary>
+        ///     TODO
+        /// </summary>
+        /// <param name="acSol"></param>
+        /// <returns></returns>
+        public static Solid3d GetBoundingBox(this Solid3d acSol)
+        {
+            var extents = acSol.GeometricExtents;
+
+            //Get geom extents of all selected
+            var minX = extents.MinPoint.X;
+            var maxX = extents.MaxPoint.X;
+            var minY = extents.MinPoint.Y;
+            var maxY = extents.MaxPoint.Y;
+            var minZ = extents.MinPoint.Z;
+            var maxZ = extents.MaxPoint.Z;
+
+            var sol = new Solid3d();
+
+            var width = Math.Abs(maxX - minX);
+            var length = Math.Abs(maxY - minY);
+            var height = Math.Abs(maxZ - minZ);
+
+            sol.CreateBox(width, length, height);
+            sol.TransformBy(
+                Matrix3d.Displacement(sol.GeometricExtents.MinPoint.GetVectorTo(new Point3d(minX, minY, minZ))));
+
+            return sol;
+        }
+
         #endregion
 
 
@@ -658,7 +692,8 @@ namespace RabCab.Extensions
         /// <param name="acTrans">The Current Working Transaction</param>
         /// <param name="objIds">The IDList to run the command on</param>
         /// <param name="deleteSols">Delete consumed solids? True or False</param>
-        public static ObjectId SolidFusion(this ObjectId[] objIds, Transaction acTrans, Database acCurDb, bool deleteSols)
+        public static ObjectId SolidFusion(this ObjectId[] objIds, Transaction acTrans, Database acCurDb,
+            bool deleteSols)
         {
             // Create A List To Store Objects To Be Fused
             var fuseList = new List<Solid3d>();
@@ -730,7 +765,8 @@ namespace RabCab.Extensions
         /// <param name="boolId2">The ID List to use as subtraction objects</param>
         /// <param name="deleteSols">Delete consumed solids? True or False</param>
         /// open
-        public static void SolidSubtrahend(this ObjectId[] boolId1, ObjectId[] boolId2, Database acCurDb, Transaction acTrans, 
+        public static void SolidSubtrahend(this ObjectId[] boolId1, ObjectId[] boolId2, Database acCurDb,
+            Transaction acTrans,
             bool deleteSols)
         {
             // Create A List To Store Objects To Be Fused
@@ -805,7 +841,7 @@ namespace RabCab.Extensions
         /// <param name="deleteSols">Delete consumed solids? True or False</param>
         /// <param name="offset"></param>
         /// open
-        public static void SolidGap(this ObjectId[] boolId1, ObjectId[] boolId2, Database acCurDb, Transaction acTrans, 
+        public static void SolidGap(this ObjectId[] boolId1, ObjectId[] boolId2, Database acCurDb, Transaction acTrans,
             bool deleteSols, double offset)
         {
             // Create A List To Store Objects To Be Fused
@@ -881,7 +917,8 @@ namespace RabCab.Extensions
         /// <param name="acTrans">The Current Working Transaction</param>
         /// <param name="boolId1">The ID List to Find Convergence Of</param>
         /// <param name="deleteSols">Delete consumed solids? True or False</param>
-        public static void SolidConverge(this ObjectId[] boolId1, Database acCurDb, Transaction acTrans, bool deleteSols)
+        public static void SolidConverge(this ObjectId[] boolId1, Database acCurDb, Transaction acTrans,
+            bool deleteSols)
         {
             // Create A List To Store Objects To Be Fused
             var convList = new List<Solid3d>();
@@ -903,7 +940,7 @@ namespace RabCab.Extensions
                 var acBlkTblRec =
                     acTrans.GetObject(acBlkTbl[BlockTableRecord.ModelSpace], OpenMode.ForWrite) as BlockTableRecord;
 
-                acCurDb.AddLayer("RCConverge", Colors.LayerColorConverge, "CONTINUOUS", acTrans);
+                acCurDb.AddLayer("RCConverge", LayerColorConverge, "CONTINUOUS", acTrans);
 
                 // Find Convergence Of the Solids
                 foreach (var acSol in convList)
@@ -941,6 +978,453 @@ namespace RabCab.Extensions
             if (deleteSols)
                 foreach (var acSol in convList)
                     acSol.Erase();
+        }
+
+        public static void Separate(this ObjectId[] objIds, Database acCurDb, Transaction acTrans)
+        {
+            using (var pWorker = new ProgressAgent("Separating Solids: ", objIds.Length))
+            {
+                foreach (var objId in objIds)
+                {
+                    //Tick progress bar or exit if ESC has been pressed
+                    if (!pWorker.Tick()) return;
+
+                    var acSol = acTrans.GetObject(objId, OpenMode.ForWrite) as Solid3d;
+                    if (acSol == null) continue;
+
+                    var sepSols = acSol.SeparateBody();
+
+                    foreach (var newSol in sepSols)
+                    {
+                        newSol.SetPropertiesFrom(acSol);
+                        acCurDb.AppendEntity(newSol);
+                    }
+                }
+            }
+        }
+
+        public static void Clean(this ObjectId[] objIds, Database acCurDb, Transaction acTrans)
+        {
+            using (var pWorker = new ProgressAgent("Cleaning Solids: ", objIds.Length))
+            {
+                foreach (var objId in objIds)
+                {
+                    //Tick progress bar or exit if ESC has been pressed
+                    if (!pWorker.Tick()) return;
+
+                    var acSol = acTrans.GetObject(objId, OpenMode.ForWrite) as Solid3d;
+                    if (acSol == null) continue;
+
+                    acSol.CleanBody();
+                }
+            }
+        }
+
+        #endregion
+
+        #region Methods for 2D Creation
+
+        /// <summary>
+        ///     Utility method to create a 2d representation of a 3d object
+        /// </summary>
+        /// <param name="acEnt"></param>
+        /// <param name="acTrans"></param>
+        /// <param name="acCurDb"></param>
+        /// <param name="acCurEd"></param>
+        /// <param name="visible"></param>
+        /// <param name="hidden"></param>
+        /// <param name="translate"></param>
+        /// <param name="userCoordSystem"></param>
+        /// <param name="pWorker"></param>
+        public static void Flatten(this Entity acEnt, Transaction acTrans, Database acCurDb, Editor acCurEd,
+            bool visible, bool hidden, bool translate, Matrix3d? inputCoordSystem = null)
+        {
+            //Set the UCS to World - save the user UCS
+            var userCoordSystem = acCurEd.CurrentUserCoordinateSystem;
+            acCurEd.CurrentUserCoordinateSystem = Matrix3d.Identity;
+
+            var savedCoordSystem = userCoordSystem;
+
+            if (inputCoordSystem != null)
+                userCoordSystem = (Matrix3d) inputCoordSystem;
+
+            // Open the Block currently active space for write
+            var bt = (BlockTable) acTrans.GetObject(acCurDb.BlockTableId, OpenMode.ForRead);
+
+            var ms = (BlockTableRecord) acTrans.GetObject(bt[BlockTableRecord.ModelSpace], OpenMode.ForWrite);
+
+            var ptCol = new Point3dCollection {new Point3d(0, 0, 0), new Point3d(1, 0, 0)};
+
+            const SectionType acSectionType = SectionType.Section2d;
+            var acSection = new Section(ptCol, Vector3d.ZAxis) {State = SectionState.Plane};
+
+            var geomMin = acEnt.GeometricExtents.MinPoint;
+            var geomMax = acEnt.GeometricExtents.MaxPoint;
+
+            var xLength = Math.Abs(geomMax.X - geomMin.X);
+            var yLength = Math.Abs(geomMax.Y - geomMin.Y);
+            var zLength = Math.Abs(geomMax.Z - geomMin.Z);
+
+            if (xLength > zLength)
+                zLength = xLength;
+
+            if (yLength > zLength)
+                zLength = yLength;
+
+            if (zLength < 10)
+                zLength = 10;
+
+            var pt1 = Point3d.Origin;
+            var pt2 = new Point3d(0, 0, zLength * 2);
+
+            acSection.TransformBy(Matrix3d.Rotation(CalcUnit.ConvertToRadians(270), Vector3d.XAxis,
+                new Point3d(0, 0, 0)));
+            acSection.TransformBy(Matrix3d.Displacement(pt1.GetTransformedVector(pt2, acCurEd)));
+
+            if (translate)
+                acSection.TransformBy(userCoordSystem);
+
+            ms.AppendEntity(acSection);
+
+            acTrans.AddNewlyCreatedDBObject(acSection, true);
+
+            // Set up some of its direct properties
+            acSection.SetHeight(SectionHeight.HeightAboveSectionLine, 60.0);
+            acSection.SetHeight(SectionHeight.HeightBelowSectionLine, 60.0);
+
+            // ... and then its settings
+            var ss = (SectionSettings) acTrans.GetObject(acSection.Settings, OpenMode.ForWrite);
+
+            // Set our section type
+            ss.CurrentSectionType = acSectionType;
+
+            var oic = new ObjectIdCollection {acEnt.ObjectId};
+            ss.SetSourceObjects(acSectionType, oic);
+
+            // 2D-specific settings
+            ss.SetVisibility(acSectionType, SectionGeometry.BackgroundGeometry, visible);
+            ss.SetHiddenLine(acSectionType, SectionGeometry.BackgroundGeometry, hidden);
+
+            ss.SetGenerationOptions(acSectionType,
+                SectionGeneration.SourceSelectedObjects | SectionGeneration.DestinationFile);
+
+            var ent = (Entity) acTrans.GetObject(acEnt.ObjectId, OpenMode.ForWrite);
+
+            acSection.GenerateSectionGeometry(ent, out var flEnts, out var bgEnts, out var fgEnts, out _,
+                out var ctEnts);
+
+            if (hidden)
+                acCurDb.AddLayer(RcHidden, LayerColorRcHidden, RcHiddenLT, acTrans);
+            else
+                acCurDb.AddLayer(RcVisible, LayerColorRcVisible, RcVisibleLT, acTrans);
+
+            foreach (Entity apEnt in flEnts)
+            {
+                apEnt.Layer = hidden ? RcHidden : RcVisible;
+
+                apEnt.ColorIndex = 256;
+
+                if (translate)
+                    apEnt.TransformBy(userCoordSystem.Inverse());
+
+                apEnt.TransformBy(Matrix3d.Displacement(pt2.GetTransformedVector(pt1, acCurEd)));
+
+                if (translate)
+                    apEnt.TransformBy(userCoordSystem);
+
+                ms.AppendEntity(apEnt);
+                acTrans.AddNewlyCreatedDBObject(apEnt, true);
+            }
+
+            foreach (Entity apEnt in bgEnts)
+            {
+                apEnt.Layer = hidden ? RcHidden : RcVisible;
+
+                apEnt.ColorIndex = 256;
+
+                if (translate)
+                    apEnt.TransformBy(userCoordSystem.Inverse());
+
+                apEnt.TransformBy(Matrix3d.Displacement(pt2.GetTransformedVector(pt1, acCurEd)));
+
+
+                if (translate)
+                    apEnt.TransformBy(userCoordSystem);
+
+                ms.AppendEntity(apEnt);
+                acTrans.AddNewlyCreatedDBObject(apEnt, true);
+            }
+
+            foreach (Entity apEnt in fgEnts)
+            {
+                apEnt.Layer = hidden ? RcHidden : RcVisible;
+
+                apEnt.ColorIndex = 256;
+
+                if (translate)
+                    apEnt.TransformBy(userCoordSystem.Inverse());
+
+                apEnt.TransformBy(Matrix3d.Displacement(pt2.GetTransformedVector(pt1, acCurEd)));
+
+                if (translate)
+                    apEnt.TransformBy(userCoordSystem);
+
+                ms.AppendEntity(apEnt);
+                acTrans.AddNewlyCreatedDBObject(apEnt, true);
+            }
+
+            foreach (Entity apEnt in ctEnts)
+            {
+                apEnt.Layer = hidden ? RcHidden : RcVisible;
+
+                apEnt.ColorIndex = 256;
+
+                if (translate)
+                    apEnt.TransformBy(userCoordSystem.Inverse());
+
+                apEnt.TransformBy(Matrix3d.Displacement(pt2.GetTransformedVector(pt1, acCurEd)));
+
+                if (translate)
+                    apEnt.TransformBy(userCoordSystem);
+
+                ms.AppendEntity(apEnt);
+                acTrans.AddNewlyCreatedDBObject(apEnt, true);
+            }
+
+            acSection.Erase();
+            acSection.Dispose();
+
+            acCurEd.CurrentUserCoordinateSystem = savedCoordSystem;
+        }
+
+        public static bool BoundsIntersect(this Solid3d sol1, Solid3d sol2, Database acCurDb, Transaction acTrans)
+        {
+            bool interferes;
+
+            using (var bounds1 = sol1.GetBoundingBox())
+            {
+                using (var bounds2 = sol2.GetBoundingBox())
+                {
+                    acCurDb.AppendEntity(bounds1, acTrans);
+                    acCurDb.AppendEntity(bounds2, acTrans);
+
+                    interferes = bounds1.CheckInterference(bounds2);
+                }
+            }
+
+            return interferes;
+        }
+
+        /// <summary>
+        ///     Method to flatten all sides of a solid3d
+        /// </summary>
+        /// <param name="acSol"></param>
+        /// <param name="acCurDb"></param>
+        /// <param name="acCurEd"></param>
+        /// <param name="acTrans"></param>
+        public static double FlattenAllSides(this Solid3d acSol, Database acCurDb, Editor acCurEd, Transaction acTrans)
+        {
+            if (acSol == null) return 0;
+
+            var eInfo = new EntInfo(acSol, acCurDb, acTrans);
+
+            var yStep = LayStep;
+            var geomMin = acSol.GeometricExtents.MinPoint;
+            var geomMax = acSol.GeometricExtents.MaxPoint;
+
+            var xLength = Math.Abs(geomMax.X - geomMin.X);
+            var yLength = Math.Abs(geomMax.Y - geomMin.Y);
+            var zLength = Math.Abs(geomMax.Z - geomMin.Z);
+
+            if (zLength > xLength)
+                xLength = zLength;
+
+            if (zLength > yLength)
+                yLength = zLength;
+
+            var topView = acSol.Clone() as Solid3d;
+            var frontView = acSol.Clone() as Solid3d;
+            var bottomView = acSol.Clone() as Solid3d;
+            var rearView = acSol.Clone() as Solid3d;
+            var leftView = acSol.Clone() as Solid3d;
+            var rightView = acSol.Clone() as Solid3d;
+
+            var frontY = new Point3d(geomMin.X, geomMin.Y - (yLength + yStep), geomMin.Z);
+            var bottomY = new Point3d(geomMin.X, geomMin.Y - (yLength + yStep) * 2, geomMin.Z);
+            var rearY = new Point3d(geomMin.X, geomMin.Y - (yLength + yStep) * 3, geomMin.Z);
+            var leftX = new Point3d(geomMin.X - xLength / 2, geomMin.Y, geomMin.Z);
+            var rightX = new Point3d(geomMin.X + xLength / 2, geomMin.Y, geomMin.Z);
+
+            frontView?.TransformBy(eInfo.X90);
+            bottomView?.TransformBy(eInfo.X180);
+            rearView?.TransformBy(eInfo.X270);
+            leftView?.TransformBy(eInfo.Y270);
+            rightView?.TransformBy(eInfo.Y90);
+
+            frontView?.TransformBy(Matrix3d.Displacement(geomMin.GetTransformedVector(frontY, acCurEd)));
+            bottomView?.TransformBy(Matrix3d.Displacement(geomMin.GetTransformedVector(bottomY, acCurEd)));
+            rearView?.TransformBy(Matrix3d.Displacement(geomMin.GetTransformedVector(rearY, acCurEd)));
+            leftView?.TransformBy(Matrix3d.Displacement(geomMin.GetTransformedVector(leftX, acCurEd)));
+            rightView?.TransformBy(Matrix3d.Displacement(geomMin.GetTransformedVector(rightX, acCurEd)));
+
+            acCurDb.AppendEntity(topView, acTrans);
+            acCurDb.AppendEntity(frontView, acTrans);
+            acCurDb.AppendEntity(bottomView, acTrans);
+            acCurDb.AppendEntity(rearView, acTrans);
+            acCurDb.AppendEntity(leftView, acTrans);
+            acCurDb.AppendEntity(rightView, acTrans);
+
+            //Check if views interfere
+            var interferes = true;
+
+            while (interferes)
+                if (frontView != null && frontView.BoundsIntersect(topView, acCurDb, acTrans))
+                {
+                    frontView.TransformBy(
+                        Matrix3d.Displacement(frontY.GetTransformedVector(frontY.StepYPoint(), acCurEd)));
+                    bottomView?.TransformBy(
+                        Matrix3d.Displacement(bottomY.GetTransformedVector(bottomY.StepYPoint(), acCurEd)));
+                    rearView?.TransformBy(
+                        Matrix3d.Displacement(rearY.GetTransformedVector(rearY.StepYPoint(), acCurEd)));
+                }
+                else
+                {
+                    interferes = false;
+                }
+
+            interferes = true;
+
+            while (interferes)
+                if (bottomView != null && bottomView.BoundsIntersect(frontView, acCurDb, acTrans))
+                {
+                    bottomView.TransformBy(
+                        Matrix3d.Displacement(bottomY.GetTransformedVector(bottomY.StepYPoint(), acCurEd)));
+                    rearView?.TransformBy(
+                        Matrix3d.Displacement(rearY.GetTransformedVector(rearY.StepYPoint(), acCurEd)));
+                }
+                else
+                {
+                    interferes = false;
+                }
+
+            interferes = true;
+
+            while (interferes)
+                if (rearView != null && rearView.BoundsIntersect(bottomView, acCurDb, acTrans))
+                    rearView.TransformBy(
+                        Matrix3d.Displacement(rearY.GetTransformedVector(rearY.StepYPoint(), acCurEd)));
+                else
+                    interferes = false;
+
+            interferes = true;
+
+            while (interferes)
+                if (leftView != null && leftView.BoundsIntersect(topView, acCurDb, acTrans))
+                    leftView.TransformBy(Matrix3d.Displacement(leftX.GetTransformedVector(leftX.StepXLeft(), acCurEd)));
+                else
+                    interferes = false;
+
+            interferes = true;
+
+            while (interferes)
+                if (rightView != null && rightView.BoundsIntersect(topView, acCurDb, acTrans))
+                    rightView.TransformBy(
+                        Matrix3d.Displacement(rightX.GetTransformedVector(rightX.StepXRight(), acCurEd)));
+                else
+                    interferes = false;
+
+            CreateFlatShotText("TOP", topView, acCurDb, acTrans);
+            CreateFlatShotText("FRONT", frontView, acCurDb, acTrans);
+            CreateFlatShotText("BOTTOM", bottomView, acCurDb, acTrans);
+            CreateFlatShotText("BACK", rearView, acCurDb, acTrans);
+            CreateFlatShotText("LEFT", leftView, acCurDb, acTrans);
+            CreateFlatShotText("RIGHT", rightView, acCurDb, acTrans);
+
+            //Create Top Views
+            topView.Flatten(acTrans, acCurDb, acCurEd, true, false, false, Matrix3d.Identity);
+            topView.Flatten(acTrans, acCurDb, acCurEd, false, true, false, Matrix3d.Identity);
+
+            //Create Front Views
+            frontView.Flatten(acTrans, acCurDb, acCurEd, true, false, false, Matrix3d.Identity);
+            frontView.Flatten(acTrans, acCurDb, acCurEd, false, true, false, Matrix3d.Identity);
+
+            //Create Bottom Views
+            bottomView.Flatten(acTrans, acCurDb, acCurEd, true, false, false, Matrix3d.Identity);
+            bottomView.Flatten(acTrans, acCurDb, acCurEd, false, true, false, Matrix3d.Identity);
+
+            //Create Rear Views
+            rearView.Flatten(acTrans, acCurDb, acCurEd, true, false, false, Matrix3d.Identity);
+            rearView.Flatten(acTrans, acCurDb, acCurEd, false, true, false, Matrix3d.Identity);
+
+            //Create Left Views
+            leftView.Flatten(acTrans, acCurDb, acCurEd, true, false, false, Matrix3d.Identity);
+            leftView.Flatten(acTrans, acCurDb, acCurEd, false, true, false, Matrix3d.Identity);
+
+            //Create Right Views
+            rightView.Flatten(acTrans, acCurDb, acCurEd, true, false, false, Matrix3d.Identity);
+            rightView.Flatten(acTrans, acCurDb, acCurEd, false, true, false, Matrix3d.Identity);
+
+            acSol.Erase();
+            topView?.Erase();
+            frontView?.Erase();
+            bottomView?.Erase();
+            rearView?.Erase();
+            leftView?.Erase();
+            rightView?.Erase();
+
+            acSol.Dispose();
+            topView?.Dispose();
+            frontView?.Dispose();
+            bottomView?.Dispose();
+            rearView?.Dispose();
+            leftView?.Dispose();
+            rightView?.Dispose();
+
+            return (yLength + yStep) * 4;
+        }
+
+        /// <summary>
+        ///     Utility method for creating flat shot text identifiers
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="acEnt"></param>
+        /// <param name="acCurDb"></param>
+        /// <param name="acTrans"></param>
+        private static void CreateFlatShotText(string text, Entity acEnt, Database acCurDb, Transaction acTrans)
+        {
+            var geomMin = acEnt.GeometricExtents.MinPoint;
+            var geomMax = acEnt.GeometricExtents.MaxPoint;
+
+            var xLength = Math.Abs(geomMax.X - geomMin.X);
+
+            //View Text
+            using (var acText = new MText())
+            {
+                acCurDb.AddLayer(RcAnno, LayerColorRcAnno, RcAnnoLt,
+                    acTrans);
+
+                //Set the text height                   
+                acText.TextHeight = LayTextHeight;
+                acText.Layer = RcAnno;
+                acText.ColorIndex = 256;
+
+                //Parse the insertion point and text alignment
+                if (LayTextLeft)
+                {
+                    acText.Attachment = AttachmentPoint.TopLeft;
+                    acText.Location = new Point3d(geomMin.X, geomMin.Y - 1, 0);
+                }
+                else if (LayTextCenter)
+                {
+                    acText.Attachment = AttachmentPoint.TopCenter;
+                    acText.Location = new Point3d(geomMin.X + xLength / 2, geomMin.Y - 1, 0);
+                }
+
+                acText.Contents = text;
+
+                //Append the text
+                acCurDb.AppendEntity(acText);
+            }
         }
 
         #endregion

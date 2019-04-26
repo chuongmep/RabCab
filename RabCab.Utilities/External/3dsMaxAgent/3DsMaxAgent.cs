@@ -12,7 +12,7 @@
 using System;
 using System.Diagnostics;
 
-namespace RabCab.External._3dsMaxAgent
+namespace RabCab.External
 {
     internal class _3DsMaxAgent
     {

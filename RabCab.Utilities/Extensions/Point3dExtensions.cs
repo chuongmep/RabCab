@@ -14,6 +14,7 @@ using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
+using RabCab.Settings;
 using AcRx = Autodesk.AutoCAD.Runtime;
 
 namespace RabCab.Extensions
@@ -23,6 +24,22 @@ namespace RabCab.Extensions
     /// </summary>
     public static class Point3DExtensions
     {
+
+        ///     Method to return a displacement vector - transformed by the current UCS
+        /// </summary>
+        /// <param name="point1">Point3d to transform from</param>
+        /// <param name="point2">Point3d to transform to</param>
+        /// <param name="acCurEd">The Current Working Editor</param>
+        /// <returns></returns>
+        public static Vector3d GetTransformedVector(this Point3d point1, Point3d point2, Editor acCurEd)
+        {
+            //Get the vector from point1 to point2
+            var acVec3D = point1.GetVectorTo(point2);
+
+            //Transform the vector by the current UCS and return it
+            return acVec3D.TransformBy(acCurEd.CurrentUserCoordinateSystem);
+        }
+
         public static Point3d GetOrthoPoint( this Point3d pt, Point3d basePt)
         {
             // Apply a crude orthographic mode
@@ -277,6 +294,36 @@ namespace RabCab.Extensions
             }
 
             return pt.TransformBy(mat);
+        }
+
+        /// <summary>
+        ///     Method to move an insert solid to by the interference step point
+        /// </summary>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        public static Point3d StepXLeft(this Point3d point)
+        {
+            return new Point3d(point.X - SettingsUser.LayStep, point.Y, point.Z);
+        }
+
+        /// <summary>
+        ///     Method to move an insert solid to by the interference step point
+        /// </summary>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        public static Point3d StepXRight(this Point3d point)
+        {
+            return new Point3d(point.X + SettingsUser.LayStep, point.Y, point.Z);
+        }
+
+        /// <summary>
+        ///     Method to move an insert solid to by the interference step point
+        /// </summary>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        public static Point3d StepYPoint(this Point3d point)
+        {
+            return new Point3d(point.X, point.Y - SettingsUser.LayStep, point.Z);
         }
     }
 }
