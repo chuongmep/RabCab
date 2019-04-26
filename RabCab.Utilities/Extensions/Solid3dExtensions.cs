@@ -656,15 +656,15 @@ namespace RabCab.Extensions
         /// </summary>
         /// <param name="acCurDb">The Current Working Database</param>
         /// <param name="acTrans">The Current Working Transaction</param>
-        /// <param name="boolId1">The IDList to run the command on</param>
+        /// <param name="objIds">The IDList to run the command on</param>
         /// <param name="deleteSols">Delete consumed solids? True or False</param>
-        public static ObjectId SolidFusion(Database acCurDb, Transaction acTrans, ObjectId[] boolId1, bool deleteSols)
+        public static ObjectId SolidFusion(this ObjectId[] objIds, Transaction acTrans, Database acCurDb, bool deleteSols)
         {
             // Create A List To Store Objects To Be Fused
             var fuseList = new List<Solid3d>();
 
             // Get Solids from the ID's provided
-            foreach (var acSolId in boolId1)
+            foreach (var acSolId in objIds)
             {
                 var acSol = acTrans.GetObject(acSolId, OpenMode.ForWrite) as Solid3d;
 
@@ -730,8 +730,7 @@ namespace RabCab.Extensions
         /// <param name="boolId2">The ID List to use as subtraction objects</param>
         /// <param name="deleteSols">Delete consumed solids? True or False</param>
         /// open
-        public static void SolidSubtrahend(Database acCurDb, Transaction acTrans, ObjectId[] boolId1,
-            ObjectId[] boolId2,
+        public static void SolidSubtrahend(this ObjectId[] boolId1, ObjectId[] boolId2, Database acCurDb, Transaction acTrans, 
             bool deleteSols)
         {
             // Create A List To Store Objects To Be Fused
@@ -806,7 +805,7 @@ namespace RabCab.Extensions
         /// <param name="deleteSols">Delete consumed solids? True or False</param>
         /// <param name="offset"></param>
         /// open
-        public static void SolidGap(Database acCurDb, Transaction acTrans, ObjectId[] boolId1, ObjectId[] boolId2,
+        public static void SolidGap(this ObjectId[] boolId1, ObjectId[] boolId2, Database acCurDb, Transaction acTrans, 
             bool deleteSols, double offset)
         {
             // Create A List To Store Objects To Be Fused
@@ -882,7 +881,7 @@ namespace RabCab.Extensions
         /// <param name="acTrans">The Current Working Transaction</param>
         /// <param name="boolId1">The ID List to Find Convergence Of</param>
         /// <param name="deleteSols">Delete consumed solids? True or False</param>
-        public static void SolidConverge(Database acCurDb, Transaction acTrans, ObjectId[] boolId1, bool deleteSols)
+        public static void SolidConverge(this ObjectId[] boolId1, Database acCurDb, Transaction acTrans, bool deleteSols)
         {
             // Create A List To Store Objects To Be Fused
             var convList = new List<Solid3d>();

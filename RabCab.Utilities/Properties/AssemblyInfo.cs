@@ -99,14 +99,14 @@ using RabCab.Commands.TidySuite;
 
 //Analysis Suite
 [assembly: CommandClass(typeof(RcAnalyzeParts))]
-[assembly: CommandClass(typeof(RcDump))]
-[assembly: CommandClass(typeof(RcFilter))]
-[assembly: CommandClass(typeof(RcShowBounds))]
-[assembly: CommandClass(typeof(RcTraverse))]
+[assembly: CommandClass(typeof(RcDump))]           
+[assembly: CommandClass(typeof(RcFilter))]          
+[assembly: CommandClass(typeof(RcShowBounds))]     
+[assembly: CommandClass(typeof(RcTraverse))]      
 [assembly: CommandClass(typeof(RcWeight))]
 
 //Annotation Suite
-[assembly: CommandClass(typeof(RcAlignViews))]
+[assembly: CommandClass(typeof(RcAlignViews))]      
 [assembly: CommandClass(typeof(RcDimAlign))]
 [assembly: CommandClass(typeof(RcDimAppend))]
 [assembly: CommandClass(typeof(RcDimArrange))]
@@ -119,7 +119,7 @@ using RabCab.Commands.TidySuite;
 [assembly: CommandClass(typeof(RcGenDims))]
 [assembly: CommandClass(typeof(RcGenTags))]
 [assembly: CommandClass(typeof(RcGenViews))]
-[assembly: CommandClass(typeof(RcMatchViews))]
+[assembly: CommandClass(typeof(RcMatchViews))]    
 [assembly: CommandClass(typeof(RcPartFinder))]
 [assembly: CommandClass(typeof(RcSpaceViews))]
 [assembly: CommandClass(typeof(RcSurfaceTag))]
@@ -175,7 +175,7 @@ using RabCab.Commands.TidySuite;
 [assembly: CommandClass(typeof(RcSimulate))]
 
 //Combine Suite
-[assembly: CommandClass(typeof(RcBounds))]
+[assembly: CommandClass(typeof(Rc3DBoundary))]
 [assembly: CommandClass(typeof(RcConverge))]
 [assembly: CommandClass(typeof(RcFuse))]
 [assembly: CommandClass(typeof(RcSeparate))]

@@ -4,7 +4,7 @@ using RabCab.Settings;
 
 namespace RabCab.Commands.CombineSuite
 {
-    internal class RcBounds
+    internal class Rc3DBoundary
     {
         /// <summary>
         /// </summary>

@@ -218,7 +218,7 @@
     <Compile Include="Commands\CNCSuite\RcLoopBit.cs" />
     <Compile Include="Commands\CNCSuite\RcLoopOuter.cs" />
     <Compile Include="Commands\CNCSuite\RcSimulate.cs" />
-    <Compile Include="Commands\CombineSuite\RcBounds.cs" />
+    <Compile Include="Commands\CombineSuite\Rc3DBoundary.cs" />
     <Compile Include="Commands\CombineSuite\RcConverge.cs" />
     <Compile Include="Commands\CombineSuite\RcFuse.cs" />
     <Compile Include="Commands\CombineSuite\RcSeparate.cs" />
