@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Documents;
 using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
-using Autodesk.AutoCAD.GraphicsInterface;
 using Autodesk.AutoCAD.Runtime;
 using RabCab.Agents;
 using RabCab.Engine.Enumerators;
 using RabCab.Engine.System;
 using RabCab.Extensions;
 using RabCab.Settings;
-using Viewport = Autodesk.AutoCAD.DatabaseServices.Viewport;
 
 namespace RabCab.Commands.AnnotationSuite
 {
@@ -54,8 +51,12 @@ namespace RabCab.Commands.AnnotationSuite
             var acCurEd = acCurDoc.Editor;
 
             var keyList = new List<KeywordAgent>();
-            var keyAgentSpace = new KeywordAgent(acCurEd, "SpaceEqually", "Space viewports equally between two viewports? ", TypeCode.Boolean);
+            var keyAgentSpace = new KeywordAgent(acCurEd, "SpaceEqually",
+                "Space viewports equally between two viewports? ", TypeCode.Boolean);
+            var keyAgentDist = new KeywordAgent(acCurEd, "Distance", "Enter distance to space between viewports:  ",
+                TypeCode.Double, SettingsUser.ViewSpacing.ToString());
 
+            keyList.Add(keyAgentDist);
             keyList.Add(keyAgentSpace);
 
             var viewRes = acCurEd.GetFilteredSelection(Enums.DxfNameEnum.Viewport, false, keyList,
@@ -65,6 +66,7 @@ namespace RabCab.Commands.AnnotationSuite
             var equalSpace = false;
 
             keyAgentSpace.Set(ref equalSpace);
+            keyAgentDist.Set(ref SettingsUser.ViewSpacing);
 
             using (var acTrans = acCurDb.TransactionManager.StartTransaction())
             {
@@ -130,40 +132,53 @@ namespace RabCab.Commands.AnnotationSuite
                 }
                 else
                 {
-                    var dist = acCurEd.GetPositiveDistance("Enter distance to space between viewports: ");
-                    if (dist != 0)
+                    var startPoint = fCen;
+
+                    //prompt for end point
+                    var endPtOpts = new PromptPointOptions("\nSelect direction for spacing: ")
                     {
-                        var startPoint = fCen;                                    
-               
-                        //prompt for end point
-                        var endPtOpts = new PromptPointOptions("\nSelect direction for spacing: ")
+                        UseBasePoint = true, UseDashedLine = true, BasePoint = startPoint, AllowNone = false
+                    };
+
+                    var endPtRes = acCurEd.GetPoint(endPtOpts);
+
+                    if (endPtRes.Status == PromptStatus.OK)
+                    {
+                        var endPt = endPtRes.Value;
+
+                        if (AcVars.OrthoMode == Enums.OrthoMode.On) endPt = endPt.GetOrthoPoint(startPoint);
+
+                        var lastPt = fCen;
+
+                        var lastBounds = fViewport.Bounds;
+                        var lengthToTravel = lastBounds.GetLengthAcross(startPoint, endPt) / 2;
+                        var vPorts = new List<Viewport>();
+                        foreach (var view in views)
                         {
-                            UseBasePoint = true, UseDashedLine = true, BasePoint = startPoint, AllowNone = false
-                        };
+                            var vPort = acTrans.GetObject(view, OpenMode.ForRead) as Viewport;
+                            if (vPort == null) continue;
 
-                        var endPtRes = acCurEd.GetPoint(endPtOpts);
+                            vPorts.Add(vPort);
+                        }
 
-                        if (endPtRes.Status == PromptStatus.OK)
+                        var sortedVPorts = vPorts.OrderBy(e => e.CenterPoint.X).ThenBy(e => e.CenterPoint.Y);
+
+                        foreach (var view in sortedVPorts)
                         {
-                            var endPt = endPtRes.Value;
+                            var vBounds = view.Bounds;
+                            if (vBounds == null) continue;
 
-                            if (AcVars.OrthoMode == Enums.OrthoMode.On)
-                            {
-                                endPt = endPt.GetOrthoPoint(startPoint);
-                            }                      
+                            var vDist = vBounds.GetLengthAcross(startPoint, endPt);
 
-                            var lastPt = fCen;
+                            lengthToTravel += vDist / 2 + SettingsUser.ViewSpacing;
 
-                            foreach (var view in views)
-                            {
-                                var acViewport = acTrans.GetObject(view, OpenMode.ForWrite) as Viewport;
-                                if (acViewport == null) continue;
+                            var newPt = startPoint.GetAlong(endPt, lengthToTravel);
 
-                                //TODO add correct spacing here to get distance across viewport bounds at the given vector
-                                lastPt = lastPt.GetAlong(endPt, dist);
-                                acViewport.CenterPoint = lastPt;                               
-          
-                            }
+                            lengthToTravel += vDist / 2;
+
+                            view.UpgradeOpen();
+                            view.CenterPoint = newPt;
+                            view.DowngradeOpen();
                         }
                     }
                 }

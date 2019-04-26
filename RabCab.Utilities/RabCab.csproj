@@ -246,6 +246,7 @@
     <Compile Include="Engine\Enumerators\IEnumerables.cs" />
     <Compile Include="Entities\Linework\Axis.cs" />
     <Compile Include="Exceptions\NullException.cs" />
+    <Compile Include="Extensions\BoundsExtensions.cs" />
     <Compile Include="Extensions\BrepExtensions.cs" />
     <Compile Include="Extensions\Curve3dExtensions.cs" />
     <Compile Include="Extensions\EdgeExt.cs" />

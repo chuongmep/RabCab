@@ -45,6 +45,9 @@ namespace RabCab.Settings
         public static bool LayFlatShot = false;
         public static bool LayAllLSidesFlatShot = false;
         public static bool PromptForMultiplication = true;
+
+        //Annotation Options
+        public static double ViewSpacing = 0;
         public static RoundTolerance UserTol { set; get; } = RoundTolerance.SixDecimals;
     }
 }

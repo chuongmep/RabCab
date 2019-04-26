@@ -176,11 +176,6 @@ namespace RabCab.Extensions
             return false;
         }
 
-        public static void GetLengthAcross(this Extents3d extents, Point3d pt1, Point3d pt2)
-        {
-
-        }
-
         #region Methods For Getting BREP Information from Solids
 
         /// <summary>
