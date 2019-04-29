@@ -680,6 +680,18 @@ namespace RabCab.Extensions
             return sol;
         }
 
+        /// <summary>
+        ///     Utility Method to get the Full Subentity Path of a SubEntity
+        /// </summary>
+        /// <param name="acSol">The parent Solid</param>
+        /// <param name="subEnt">The ID of the subentity to be determined</param>
+        /// <returns></returns>
+        public static FullSubentityPath GetFsPath(this Solid3d acSol, SubentityId subEnt)
+        {
+            ObjectId[] objIds = { acSol.ObjectId };
+            return new FullSubentityPath(objIds, subEnt);
+        }
+
         #endregion
 
 
@@ -1037,16 +1049,8 @@ namespace RabCab.Extensions
         /// <param name="userCoordSystem"></param>
         /// <param name="pWorker"></param>
         public static void Flatten(this Entity acEnt, Transaction acTrans, Database acCurDb, Editor acCurEd,
-            bool visible, bool hidden, bool translate, Matrix3d? inputCoordSystem = null)
+            bool visible, bool hidden, bool translate, Matrix3d userCoordSystem)
         {
-            //Set the UCS to World - save the user UCS
-            var userCoordSystem = acCurEd.CurrentUserCoordinateSystem;
-            acCurEd.CurrentUserCoordinateSystem = Matrix3d.Identity;
-
-            var savedCoordSystem = userCoordSystem;
-
-            if (inputCoordSystem != null)
-                userCoordSystem = (Matrix3d) inputCoordSystem;
 
             // Open the Block currently active space for write
             var bt = (BlockTable) acTrans.GetObject(acCurDb.BlockTableId, OpenMode.ForRead);
@@ -1193,11 +1197,9 @@ namespace RabCab.Extensions
 
             acSection.Erase();
             acSection.Dispose();
-
-            acCurEd.CurrentUserCoordinateSystem = savedCoordSystem;
         }
 
-        public static bool BoundsIntersect(this Solid3d sol1, Solid3d sol2, Database acCurDb, Transaction acTrans)
+        public static bool BoundsIntersect(this Solid3d sol1, Solid3d sol2, Database acCurDb, Transaction acTrans, double tolerance = 0)
         {
             bool interferes;
 
@@ -1208,7 +1210,22 @@ namespace RabCab.Extensions
                     acCurDb.AppendEntity(bounds1, acTrans);
                     acCurDb.AppendEntity(bounds2, acTrans);
 
+                    if (!Math.Abs(tolerance).IsLessThanTol())
+                    {
+                        try
+                        {
+                            bounds1.OffsetBody(tolerance);
+                        }
+                        catch (Autodesk.AutoCAD.BoundaryRepresentation.Exception e)
+                        {
+                            Console.WriteLine(e);
+                        }
+                    }
+
                     interferes = bounds1.CheckInterference(bounds2);
+
+                    bounds1.Erase();
+                    bounds2.Erase();
                 }
             }
 
@@ -1229,8 +1246,9 @@ namespace RabCab.Extensions
             var eInfo = new EntInfo(acSol, acCurDb, acTrans);
 
             var yStep = LayStep;
-            var geomMin = acSol.GeometricExtents.MinPoint;
-            var geomMax = acSol.GeometricExtents.MaxPoint;
+            var solBounds = acSol.GetBounds();
+            var geomMin = solBounds.MinPoint;
+            var geomMax = solBounds.MaxPoint;
 
             var xLength = Math.Abs(geomMax.X - geomMin.X);
             var yLength = Math.Abs(geomMax.Y - geomMin.Y);
@@ -1278,7 +1296,7 @@ namespace RabCab.Extensions
             var interferes = true;
 
             while (interferes)
-                if (frontView != null && frontView.BoundsIntersect(topView, acCurDb, acTrans))
+                if (frontView != null && frontView.BoundsIntersect(topView, acCurDb, acTrans, LayStep))
                 {
                     frontView.TransformBy(
                         Matrix3d.Displacement(frontY.GetTransformedVector(frontY.StepYPoint(), acCurEd)));
@@ -1295,7 +1313,7 @@ namespace RabCab.Extensions
             interferes = true;
 
             while (interferes)
-                if (bottomView != null && bottomView.BoundsIntersect(frontView, acCurDb, acTrans))
+                if (bottomView != null && bottomView.BoundsIntersect(frontView, acCurDb, acTrans, LayStep))
                 {
                     bottomView.TransformBy(
                         Matrix3d.Displacement(bottomY.GetTransformedVector(bottomY.StepYPoint(), acCurEd)));
@@ -1310,7 +1328,7 @@ namespace RabCab.Extensions
             interferes = true;
 
             while (interferes)
-                if (rearView != null && rearView.BoundsIntersect(bottomView, acCurDb, acTrans))
+                if (rearView != null && rearView.BoundsIntersect(bottomView, acCurDb, acTrans, LayStep))
                     rearView.TransformBy(
                         Matrix3d.Displacement(rearY.GetTransformedVector(rearY.StepYPoint(), acCurEd)));
                 else
@@ -1319,7 +1337,7 @@ namespace RabCab.Extensions
             interferes = true;
 
             while (interferes)
-                if (leftView != null && leftView.BoundsIntersect(topView, acCurDb, acTrans))
+                if (leftView != null && leftView.BoundsIntersect(topView, acCurDb, acTrans, LayStep))
                     leftView.TransformBy(Matrix3d.Displacement(leftX.GetTransformedVector(leftX.StepXLeft(), acCurEd)));
                 else
                     interferes = false;
@@ -1327,9 +1345,8 @@ namespace RabCab.Extensions
             interferes = true;
 
             while (interferes)
-                if (rightView != null && rightView.BoundsIntersect(topView, acCurDb, acTrans))
-                    rightView.TransformBy(
-                        Matrix3d.Displacement(rightX.GetTransformedVector(rightX.StepXRight(), acCurEd)));
+                if (rightView != null && rightView.BoundsIntersect(topView, acCurDb, acTrans, LayStep))
+                    rightView.TransformBy(Matrix3d.Displacement(rightX.GetTransformedVector(rightX.StepXRight(), acCurEd)));
                 else
                     interferes = false;
 

@@ -10,6 +10,7 @@
 // -----------------------------------------------------------------------------------
 
 using System.Globalization;
+using static System.String;
 
 namespace RabCab.Extensions
 {
@@ -30,6 +31,17 @@ namespace RabCab.Extensions
 
             //Return the title case of the input text
             return textInfo.ToTitleCase(upperCase.ToLower());
+        }
+
+        public static string ToSpecified(this bool input, string tString = null, string fString = null)
+        {
+            var trueStr = "Yes";
+            var falseStr = "No";
+
+            if (!IsNullOrEmpty(tString)) trueStr = tString;
+            if (!IsNullOrEmpty(tString)) falseStr = fString;
+
+            return input ? trueStr : falseStr;
         }
     }
 }

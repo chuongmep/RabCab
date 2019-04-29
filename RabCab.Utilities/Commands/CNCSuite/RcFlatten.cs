@@ -62,13 +62,13 @@ namespace RabCab.Commands.CNCSuite
             var keys = new List<KeywordAgent>();
 
             var keyFlatAssembly = new KeywordAgent(acCurEd, "assemBly", "Flatten Assembly? ", TypeCode.Boolean,
-                SettingsUser.FlattenAssembly.ToString());
+                SettingsUser.FlattenAssembly.ToSpecified());
 
             var keyFlatAllSides = new KeywordAgent(acCurEd, "allSides", "Flatten All Sides? ", TypeCode.Boolean,
-                SettingsUser.FlattenAllSides.ToString());
+                SettingsUser.FlattenAllSides.ToSpecified());
 
             var keyRetainHidden = new KeywordAgent(acCurEd, "retainHidden", "Retain Hidden Lines? ", TypeCode.Boolean,
-                SettingsUser.RetainHiddenLines.ToString());
+                SettingsUser.RetainHiddenLines.ToSpecified());
 
             keys.Add(keyFlatAssembly);
             keys.Add(keyFlatAllSides);
@@ -87,7 +87,11 @@ namespace RabCab.Commands.CNCSuite
                 using (var acTrans = acCurDb.TransactionManager.StartTransaction())
                 {
 
-                    if (SettingsUser.FlattenAssembly)
+                    //Set the UCS to World - save the user UCS
+                    var userCoordSystem = acCurEd.CurrentUserCoordinateSystem;
+                    acCurEd.CurrentUserCoordinateSystem = Matrix3d.Identity;
+
+                    if (SettingsUser.FlattenAssembly || SettingsUser.FlattenAllSides)
                     {
                         var objId = objIds.SolidFusion(acTrans, acCurDb, true);
                         objIds = new[] { objId };
@@ -98,7 +102,6 @@ namespace RabCab.Commands.CNCSuite
                         if (!pWorker.Tick())
                         {
                             acTrans.Abort();
-                            return;
                         }
 
                         using (var acSol = acTrans.GetObject(obj, OpenMode.ForWrite) as Solid3d)
@@ -111,9 +114,9 @@ namespace RabCab.Commands.CNCSuite
                                 }
                                 else
                                 {
-                                    acSol.Flatten(acTrans, acCurDb, acCurEd, true, false, true);
+                                    acSol.Flatten(acTrans, acCurDb, acCurEd, true, false, true, userCoordSystem);
                                     if (SettingsUser.RetainHiddenLines)
-                                        acSol.Flatten(acTrans, acCurDb, acCurEd, false, true, true);
+                                        acSol.Flatten(acTrans, acCurDb, acCurEd, false, true, true, userCoordSystem);
 
                                     acSol.Erase();
                                     acSol.Dispose();
@@ -123,8 +126,12 @@ namespace RabCab.Commands.CNCSuite
                     
                         }
                     }
+
+                    acCurEd.CurrentUserCoordinateSystem = userCoordSystem;
                     acTrans.Commit();
                 }
+
+
             }
         }
 

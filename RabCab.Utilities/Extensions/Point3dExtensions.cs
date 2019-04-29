@@ -325,5 +325,25 @@ namespace RabCab.Extensions
         {
             return new Point3d(point.X, point.Y - SettingsUser.LayStep, point.Z);
         }
+
+        /// <summary>
+        ///     Method to move an insert solid to by the interference step point
+        /// </summary>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        public static Point3d StepYUpward(this Point3d point, double stepAmount)
+        {
+            return new Point3d(point.X, point.Y + stepAmount, point.Z);
+        }
+
+        /// <summary>
+        ///     Method to move an insert solid to by the interference step point
+        /// </summary>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        public static Point3d StepYDownward(this Point3d point, double stepAmount)
+        {
+            return new Point3d(point.X, point.Y - stepAmount, point.Z);
+        }
     }
 }

@@ -188,10 +188,10 @@ namespace RabCab.Extensions
         {
             if (keyList == null) return;
 
-            foreach (var key in keyList) prOpts.Keywords.Add(key.Key);
+            foreach (var key in keyList)
+                prOpts.Keywords.Add(key.Key);
 
             var keyRes = prOpts.Keywords.GetDisplayString(true);
-
 
             prOpts.MessageForAdding = prOpts.MessageForAdding + " or " + keyRes;
 
@@ -206,6 +206,7 @@ namespace RabCab.Extensions
                     if (userInput == key.Key)
                         key.GetOutput();
             };
+
         }
 
         #region Prompt Angle Options
