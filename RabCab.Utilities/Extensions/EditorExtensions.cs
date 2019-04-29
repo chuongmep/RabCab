@@ -68,7 +68,7 @@ namespace RabCab.Extensions
         ///     string.
         /// </param>
         /// <returns>Returns a string from the editor.</returns>
-        public static string GetString(this Editor acCurEd, string prompt, string defaultValue = "")
+        public static string GetSimpleString(this Editor acCurEd, string prompt, string defaultValue = "")
         {
             var prStrOpts = new PromptStringOptions("")
             {

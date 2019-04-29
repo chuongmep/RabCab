@@ -213,6 +213,7 @@ using RabCab.Commands.TidySuite;
 [assembly: CommandClass(typeof(RcPaletteSnap))]
 
 //Reference Suite
+[assembly: CommandClass(typeof(RcAutoBlock))]
 [assembly: CommandClass(typeof(RcBlockReplace))]
 [assembly: CommandClass(typeof(RcBlockToXref))]
 [assembly: CommandClass(typeof(RcOleBind))]
