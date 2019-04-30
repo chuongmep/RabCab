@@ -115,8 +115,8 @@ namespace RabCab.Commands.ReferenceSuite.BlockKit
                 {
                     Justify = AttachmentPoint.MiddleCenter,
                     AlignmentPoint = extents.MinPoint,
-                    Prompt = "Tag:",
-                    Tag = "Tag",
+                    Prompt = "TAG:",
+                    Tag = "TAG",
                     TextString = bName,
                     Height = 1,
                     Invisible = true,
@@ -127,8 +127,8 @@ namespace RabCab.Commands.ReferenceSuite.BlockKit
                 {
                     Justify = AttachmentPoint.MiddleCenter,
                     AlignmentPoint = extents.MinPoint,
-                    Prompt = "Crate:",
-                    Tag = "Crate",
+                    Prompt = "CRATE:",
+                    Tag = "CRATE",
                     TextString = "",
                     Height = 1,
                     Invisible = true,
@@ -255,8 +255,8 @@ namespace RabCab.Commands.ReferenceSuite.BlockKit
                     {
                         Justify = AttachmentPoint.MiddleCenter,
                         AlignmentPoint = btr.Origin,
-                        Prompt = "Tag:",
-                        Tag = "Tag",
+                        Prompt = "TAG:",
+                        Tag = "TAG",
                         TextString = bName,
                         Height = 1,
                         Invisible = true,
@@ -267,8 +267,8 @@ namespace RabCab.Commands.ReferenceSuite.BlockKit
                     {
                         Justify = AttachmentPoint.MiddleCenter,
                         AlignmentPoint = btr.Origin,
-                        Prompt = "Crate:",
-                        Tag = "Crate",
+                        Prompt = "CRATE:",
+                        Tag = "CRATE",
                         TextString = "",
                         Height = 1,
                         Invisible = true,

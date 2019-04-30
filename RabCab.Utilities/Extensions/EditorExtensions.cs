@@ -74,7 +74,8 @@ namespace RabCab.Extensions
             {
                 Message = prompt,
                 DefaultValue = defaultValue,
-                UseDefaultValue = defaultValue != ""
+                UseDefaultValue = defaultValue != "",
+                AllowSpaces = true
             };
 
 
