@@ -9,6 +9,7 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
+using System.Runtime.InteropServices.WindowsRuntime;
 using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
@@ -46,7 +47,7 @@ namespace RabCab.Extensions
                         acBlkRef = new BlockReference(insertPt, blkRecId);
                         acBlkTableRec?.AppendEntity(acBlkRef);
                         acTrans.AddNewlyCreatedDBObject(acBlkRef, true);
-                        acBlkRef.AppendAttributes(blkRecId, acTrans);
+                        acBlkRef.AppendAttributes(acBlkTableRec, acTrans);
                     }
 
                     acTrans.Commit();
@@ -62,31 +63,35 @@ namespace RabCab.Extensions
         /// <param name="acBlkRef"></param>
         /// <param name="blkRecId"></param>
         /// <param name="acTrans"></param>
-        public static void AppendAttributes(this BlockReference acBlkRef, ObjectId blkRecId, Transaction acTrans)
+        public static void AppendAttributes(this BlockReference acBlkRef, BlockTableRecord acBlkTblRec, Transaction acTrans)
         {
-            BlockTableRecord acBlkTblRec;
-            acBlkTblRec = acTrans.GetObject(blkRecId, OpenMode.ForRead) as BlockTableRecord;
 
-            // Verify block table record has attribute definitions associated with it
-            if (acBlkTblRec != null && acBlkTblRec.HasAttributeDefinitions)
-                foreach (var objId in acBlkTblRec)
-                {
-                    var dbObj = acTrans.GetObject(objId, OpenMode.ForRead);
-
-                    if (dbObj is AttributeDefinition)
+                // Verify block table record has attribute definitions associated with it
+                if (acBlkTblRec != null && acBlkTblRec.HasAttributeDefinitions)
+                    foreach (var objId in acBlkTblRec)
                     {
-                        var acAtt = dbObj as AttributeDefinition;
+                        var dbObj = acTrans.GetObject(objId, OpenMode.ForRead);
 
-                        if (!acAtt.Constant)
-                            using (var acAttRef = new AttributeReference())
+                        if (!(dbObj is AttributeDefinition acAtt)) continue;
+
+                        if (acAtt.Constant) continue;
+
+                        using (var acAttRef = new AttributeReference())
+                        {
+                            acAttRef.SetAttributeFromBlock(acAtt, acBlkRef.BlockTransform);
+
+                            if (!acBlkRef.ContainsAttributeDef(acAtt.Tag, acTrans))
                             {
-                                acAttRef.SetAttributeFromBlock(acAtt, acBlkRef.BlockTransform);
                                 acAttRef.TextString = acAtt.TextString;
                                 acBlkRef.AttributeCollection.AppendAttribute(acAttRef);
                                 acTrans.AddNewlyCreatedDBObject(acAttRef, true);
                             }
+
+                        }
                     }
-                }
+
+
+          
         }
 
         /// <summary>
@@ -313,6 +318,36 @@ namespace RabCab.Extensions
             }
 
             return changedCount;
+        }
+
+        public static bool ContainsAttributeDef(this BlockTableRecord acBlkRc, string Tag, Transaction acTrans)
+        {
+            foreach (var objId in acBlkRc)
+            {
+                var obj = acTrans.GetObject(objId, OpenMode.ForRead);
+
+                var aDef = obj as AttributeDefinition;
+
+                if (aDef == null) continue;
+                if (aDef.Tag == Tag) return true;
+            }
+
+            return false;
+        }
+
+         public static bool ContainsAttributeDef(this BlockReference acBlkRef, string Tag, Transaction acTrans)
+        {
+            foreach (ObjectId objId in acBlkRef.AttributeCollection)
+            {
+                var obj = acTrans.GetObject(objId, OpenMode.ForRead);
+
+                var aRef = obj as AttributeReference;
+
+                if (aRef == null) continue;
+                if (aRef.Tag == Tag) return true;
+            }
+
+            return false;
         }
     }
 }
