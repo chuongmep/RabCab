@@ -216,6 +216,7 @@ using RabCab.Commands.TidySuite;
 [assembly: CommandClass(typeof(RcAutoBlock))]
 [assembly: CommandClass(typeof(RcBlockReplace))]
 [assembly: CommandClass(typeof(RcBlockToXref))]
+[assembly: CommandClass(typeof(RcQuickRename))]
 [assembly: CommandClass(typeof(RcOleBind))]
 [assembly: CommandClass(typeof(RcOleDeskew))]
 [assembly: CommandClass(typeof(RcOleToDwg))]

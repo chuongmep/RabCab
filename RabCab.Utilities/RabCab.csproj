@@ -243,6 +243,7 @@
     <Compile Include="Commands\PaletteKit\RcPaletteDwg.cs" />
     <Compile Include="Commands\PaletteKit\RcPaletteLayer.cs" />
     <Compile Include="Commands\ReferenceSuite\BlockKit\RcAutoBlock.cs" />
+    <Compile Include="Commands\ReferenceSuite\BlockKit\RcQuickRename.cs" />
     <Compile Include="Commands\TidySuite\RcBurstAll.cs" />
     <Compile Include="Engine\Enumerators\IEnumerables.cs" />
     <Compile Include="Entities\Linework\Axis.cs" />
