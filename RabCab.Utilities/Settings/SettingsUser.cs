@@ -9,6 +9,7 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
+using Autodesk.AutoCAD.Colors;
 using static RabCab.Engine.Enumerators.Enums;
 
 namespace RabCab.Settings
@@ -48,6 +49,8 @@ namespace RabCab.Settings
 
         //Annotation Options
         public static double ViewSpacing = 0;
+        public static Color  DynPreviewColor = Colors.LayerColorPreview;
+
 
         //Flatshot Options
         public static bool FlattenAssembly = false;

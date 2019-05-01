@@ -24,10 +24,10 @@ namespace RabCab.Entities.Annotation
             Highlighted = false;
         }
 
-        public void DeletePointByIndex(int index, DimSystemSettings dimSystemSettings)
+        public void DeletePointByIndex(int index)
         {
             var database = Application.DocumentManager.MdiActiveDocument.Database;
-            var dimPoints = GetDimPoints(dimSystemSettings.EqPoint);
+            var dimPoints = GetDimPoints(CalcTol.ReturnCurrentTolerance());
             if (dimPoints.Count < index) return;
             var item = dimPoints[index];
             var topTransaction = database.TransactionManager.TopTransaction;
@@ -56,10 +56,7 @@ namespace RabCab.Entities.Annotation
                     {
                         dim1.XLine2Point = dim2.XLine2Point;
                     }
-
-                    if (dimSystemSettings.OriginalDimRemoveTextOverride == 1) dim1.DimensionText = "";
-                    if (dimSystemSettings.OriginalDimTextPosition != 0 && dimSystemSettings.OriginalDimTextPosition == 1
-                    ) dim1.UsingDefaultTextPosition = true;
+ dim1.UsingDefaultTextPosition = true;
                     dim2.Unhighlight();
                     dim2.Erase();
                     SysList.Remove(dim2);
@@ -79,9 +76,9 @@ namespace RabCab.Entities.Annotation
             }
         }
 
-        public void DeletePointByLine(Point3d fencePoint1, Point3d fencePoint2, DimSystemSettings dimSystemSettings)
+        public void DeletePointByLine(Point3d fencePoint1, Point3d fencePoint2)
         {
-            var equalPointDistance = dimSystemSettings.EqPoint;
+            var equalPointDistance = CalcTol.ReturnCurrentTolerance();
             var dimPoints = GetDimPoints(equalPointDistance);
             if (dimPoints.Count == 0) return;
             var dimLinePoint = dimPoints[0].DimLinePoint;
@@ -118,7 +115,7 @@ namespace RabCab.Entities.Annotation
                     }
                     else
                     {
-                        DeletePointByIndex(num, dimSystemSettings);
+                        DeletePointByIndex(num);
                         flag = true;
                         break;
                     }
@@ -126,10 +123,10 @@ namespace RabCab.Entities.Annotation
             } while (flag);
         }
 
-        public void DeletePointByPoint(Point3d deletePoint, DimSystemSettings dimSystemSettings)
+        public void DeletePointByPoint(Point3d deletePoint)
         {
             var database = Application.DocumentManager.MdiActiveDocument.Database;
-            var dimPoints = GetDimPoints(dimSystemSettings.EqPoint);
+            var dimPoints = GetDimPoints(CalcTol.ReturnCurrentTolerance());
             var nums = new List<double>();
             if (dimPoints.Count == 0) return;
             foreach (var dimPoint in dimPoints) nums.Add(deletePoint.DistanceTo(dimPoint.DimLinePoint));
@@ -161,10 +158,7 @@ namespace RabCab.Entities.Annotation
                     {
                         dim1.XLine2Point = dim2.XLine2Point;
                     }
-
-                    if (dimSystemSettings.OriginalDimRemoveTextOverride == 1) dim1.DimensionText = "";
-                    if (dimSystemSettings.OriginalDimTextPosition != 0 && dimSystemSettings.OriginalDimTextPosition == 1
-                    ) dim1.UsingDefaultTextPosition = true;
+                    dim1.UsingDefaultTextPosition = true;
                     dim2.Unhighlight();
                     dim2.Erase();
                     SysList.Remove(dim2);
@@ -617,7 +611,7 @@ namespace RabCab.Entities.Annotation
             }
         }
 
-        public void InsertPoint(Point3d newPoint, DimSystemSettings dimSystemSettings)
+        public void InsertPoint(Point3d newPoint)
         {
             var database = Application.DocumentManager.MdiActiveDocument.Database;
             var flag = false;
@@ -677,9 +671,7 @@ namespace RabCab.Entities.Annotation
                         rotatedDimension.XLine2Point = item.XLine1Point;
                     }
 
-                    if (dimSystemSettings.NewDimRemoveTextOverride == 1) rotatedDimension.DimensionText = "";
-                    if (dimSystemSettings.NewDimTextPosition != 0 && dimSystemSettings.NewDimTextPosition == 1)
-                        rotatedDimension.UsingDefaultTextPosition = true;
+                    rotatedDimension.UsingDefaultTextPosition = true;
                 }
                 else
                 {
@@ -687,12 +679,8 @@ namespace RabCab.Entities.Annotation
                     if (!item.IsWriteEnabled) item.UpgradeOpen();
                     item.XLine2Point = newPoint;
                     rotatedDimension.XLine1Point = newPoint;
-                    if (dimSystemSettings.OriginalDimRemoveTextOverride == 1) item.DimensionText = "";
-                    if (dimSystemSettings.OriginalDimTextPosition != 0 && dimSystemSettings.OriginalDimTextPosition == 1
-                    ) item.UsingDefaultTextPosition = true;
-                    if (dimSystemSettings.NewDimRemoveTextOverride == 1) rotatedDimension.DimensionText = "";
-                    if (dimSystemSettings.NewDimTextPosition != 0 && dimSystemSettings.NewDimTextPosition == 1)
-                        rotatedDimension.UsingDefaultTextPosition = true;
+                     item.UsingDefaultTextPosition = true;
+                     rotatedDimension.UsingDefaultTextPosition = true;
                 }
 
                 if (obj != null) obj.AppendEntity(rotatedDimension);
@@ -1069,7 +1057,7 @@ namespace RabCab.Entities.Annotation
             var line3d = new Line3d(pnt1, pnt2);
             var point = line3d.GetClosestPointTo(_newPoint).Point;
             var num = pnt1.DistanceTo(pnt2);
-            var point3d = new Point3d();
+            Point3d point3d;
             if (pnt1.DistanceTo(_newPoint) > num || pnt2.DistanceTo(_newPoint) > num)
                 point3d = pnt1.DistanceTo(_newPoint) >= pnt2.DistanceTo(_newPoint) ? pnt2 : pnt1;
             else
@@ -1078,125 +1066,4 @@ namespace RabCab.Entities.Annotation
         }
     }
 
-    public class DimSystemSettings
-    {
-        public short DynPreviewColor { get; set; }
-
-        public double EqPoint { get; set; }
-
-        public int NewDimRemoveTextOverride { get; set; }
-
-        public int NewDimTextPosition { get; set; }
-
-        public int OriginalDimRemoveTextOverride { get; set; }
-
-        public int OriginalDimTextPosition { get; set; }
-
-        public DimSystemSettings()
-        {
-            EqPoint = 0.0001;
-            DynPreviewColor = (int)Enums.CadColor.Magenta;
-            OriginalDimRemoveTextOverride = 1;
-            OriginalDimTextPosition = 1;
-            NewDimRemoveTextOverride = 1;
-            NewDimTextPosition = 1;
-        }
-
-        public static DimSystemSettings GetDimSystemSettings()
-        {
-            DimSystemSettings dimSystemSetting;
-            var database = Application.DocumentManager.MdiActiveDocument.Database;
-            var value = new DimSystemSettings();
-            using (var transaction = database.TransactionManager.StartTransaction())
-            {
-                var obj = (DBDictionary)transaction.GetObject(database.NamedObjectsDictionaryId, OpenMode.ForRead);
-                DBDictionary dBDictionary;
-                try
-                {
-                    dBDictionary = (DBDictionary)transaction.GetObject(obj.GetAt("RcDimSystem"), OpenMode.ForRead);
-                }
-                catch
-                {
-                    dimSystemSetting = value;
-                    return dimSystemSetting;
-                }
-
-                Xrecord xrecord;
-                try
-                {
-                    xrecord = (Xrecord)transaction.GetObject(dBDictionary.GetAt("Standard"), OpenMode.ForRead);
-                }
-                catch
-                {
-                    dimSystemSetting = value;
-                    return dimSystemSetting;
-                }
-
-                var typedValue = xrecord.Data.AsArray()[0];
-                value.EqPoint = (double)typedValue.Value;
-                try
-                {
-                    typedValue = xrecord.Data.AsArray()[1];
-                    value.DynPreviewColor = (short)typedValue.Value;
-                    typedValue = xrecord.Data.AsArray()[2];
-                    value.OriginalDimRemoveTextOverride = (int)typedValue.Value;
-                    typedValue = xrecord.Data.AsArray()[3];
-                    value.OriginalDimTextPosition = (int)typedValue.Value;
-                    typedValue = xrecord.Data.AsArray()[4];
-                    value.NewDimRemoveTextOverride = (int)typedValue.Value;
-                    typedValue = xrecord.Data.AsArray()[5];
-                    value.NewDimTextPosition = (int)typedValue.Value;
-                }
-                catch
-                {
-                    // ignored
-                }
-
-                dimSystemSetting = value;
-            }
-
-            return dimSystemSetting;
-        }
-
-        public static void WriteDimSettings(DimSystemSettings dimSystemSettings)
-        {
-            DBDictionary obj;
-            var mdiActiveDocument = Application.DocumentManager.MdiActiveDocument;
-            var database = mdiActiveDocument.Database;
-            using (mdiActiveDocument.LockDocument())
-            {
-                using (var transaction = database.TransactionManager.StartTransaction())
-                {
-                    var dBDictionary =
-                        (DBDictionary)transaction.GetObject(database.NamedObjectsDictionaryId, OpenMode.ForWrite);
-                    try
-                    {
-                        obj = (DBDictionary)transaction.GetObject(dBDictionary.GetAt("RcDimSystem"),
-                            OpenMode.ForWrite);
-                    }
-                    catch
-                    {
-                        obj = new DBDictionary();
-                        dBDictionary.SetAt("RcDimSystem", obj);
-                        transaction.AddNewlyCreatedDBObject(obj, true);
-                    }
-
-                    var xrecord = new Xrecord();
-                    var resultBuffers = new ResultBuffer
-                    {
-                        new TypedValue(40, dimSystemSettings.EqPoint),
-                        new TypedValue(62, dimSystemSettings.DynPreviewColor),
-                        new TypedValue(90, dimSystemSettings.OriginalDimRemoveTextOverride),
-                        new TypedValue(90, dimSystemSettings.OriginalDimTextPosition),
-                        new TypedValue(90, dimSystemSettings.NewDimRemoveTextOverride),
-                        new TypedValue(90, dimSystemSettings.NewDimTextPosition)
-                    };
-                    xrecord.Data = resultBuffers;
-                    obj.SetAt("Standard", xrecord);
-                    transaction.AddNewlyCreatedDBObject(xrecord, true);
-                    transaction.Commit();
-                }
-            }
-        }
-    }
 }

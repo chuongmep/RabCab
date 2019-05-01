@@ -11,6 +11,7 @@ using RabCab.Settings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using RabCab.Calculators;
 using static Autodesk.AutoCAD.ApplicationServices.Application;
 using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
 
@@ -83,8 +84,7 @@ namespace RabCab.Commands.AnnotationSuite
             ObjectId objectId = entity.ObjectId;
             CoordinateSystem3d coordinateSystem3d = mdiActiveDocument.Editor.CurrentUserCoordinateSystem.CoordinateSystem3d;
             Matrix3d matrix3d = Matrix3d.AlignCoordinateSystem(Point3d.Origin, Vector3d.XAxis, Vector3d.YAxis, Vector3d.ZAxis, coordinateSystem3d.Origin, coordinateSystem3d.Xaxis, coordinateSystem3d.Yaxis, coordinateSystem3d.Zaxis);
-            DimSystemSettings sysSettings = DimSystemSettings.GetDimSystemSettings();
-            double equalPointDistance = sysSettings.EqPoint;
+            double equalPointDistance = CalcTol.ReturnCurrentTolerance();
             using (Transaction transaction = database.TransactionManager.StartTransaction())
             {
                 Entity obj = (Entity)transaction.GetObject(objectId, OpenMode.ForWrite);
@@ -107,9 +107,9 @@ namespace RabCab.Commands.AnnotationSuite
                     Circle circle = new Circle();
                     Circle dynPreviewColor = new Circle();
                     Line line = new Line(new Point3d(0, 0, 0), new Point3d(0, 0, 0));
-                    circle.ColorIndex = sysSettings.DynPreviewColor;
-                    dynPreviewColor.ColorIndex = sysSettings.DynPreviewColor;
-                    line.ColorIndex = sysSettings.DynPreviewColor;
+                    circle.Color = Colors.LayerColorPreview;
+                    dynPreviewColor.Color = Colors.LayerColorPreview;
+                    line.Color = Colors.LayerColorPreview;
                     IntegerCollection integerCollections = new IntegerCollection(numArray);
                     currentTransientManager.AddTransient(circle, TransientDrawingMode.Main, 128, integerCollections);
                     currentTransientManager.AddTransient(dynPreviewColor, TransientDrawingMode.Main, 128, integerCollections);

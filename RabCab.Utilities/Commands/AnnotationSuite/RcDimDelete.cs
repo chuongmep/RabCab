@@ -16,6 +16,7 @@ using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.GraphicsInterface;
 using Autodesk.AutoCAD.Runtime;
 using RabCab.Analysis;
+using RabCab.Calculators;
 using RabCab.Entities.Annotation;
 using RabCab.Extensions;
 using RabCab.Settings;
@@ -72,8 +73,7 @@ namespace RabCab.Commands.AnnotationSuite
             var objId = prEntRes.ObjectId;
             var matrix3d = acCurEd.GetAlignedMatrix();
 
-            var sysSettings = DimSystemSettings.GetDimSystemSettings();
-            var eqPoint = sysSettings.EqPoint;
+            var eqPoint = CalcTol.ReturnCurrentTolerance();
 
             using (var acTrans = acCurDb.TransactionManager.StartTransaction())
             {
@@ -103,9 +103,9 @@ namespace RabCab.Commands.AnnotationSuite
                             var circle = new Circle();
                             var dynPreviewColor = new Circle();
                             var line = new Line(new Point3d(0, 0, 0), new Point3d(0, 0, 0));
-                            circle.ColorIndex = sysSettings.DynPreviewColor;
-                            dynPreviewColor.ColorIndex = sysSettings.DynPreviewColor;
-                            line.ColorIndex = sysSettings.DynPreviewColor;
+                            circle.Color = Colors.LayerColorPreview;
+                            dynPreviewColor.Color = Colors.LayerColorPreview;
+                            line.Color = Colors.LayerColorPreview;
                             var integerCollections = new IntegerCollection(nArray);
                             currentTransientManager.AddTransient(circle, TransientDrawingMode.Main, 128,
                                 integerCollections);
@@ -207,11 +207,11 @@ namespace RabCab.Commands.AnnotationSuite
                             {
                                 var point3d3 = ptRes.Value.TransformBy(matrix3d);
                                 var point3d4 = promptPointResult.Value.TransformBy(matrix3d);
-                                dimSys.DeletePointByLine(point3d3, point3d4, sysSettings);
+                                dimSys.DeletePointByLine(point3d3, point3d4);
                             }
                             else
                             {
-                                dimSys.DeletePointByPoint(ptRes.Value.TransformBy(matrix3d), sysSettings);
+                                dimSys.DeletePointByPoint(ptRes.Value.TransformBy(matrix3d));
                             }
                         }
 

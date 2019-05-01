@@ -9,6 +9,7 @@ using RabCab.Settings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using RabCab.Calculators;
 using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
 
 namespace RabCab.Commands.AnnotationSuite
@@ -66,7 +67,7 @@ namespace RabCab.Commands.AnnotationSuite
             ObjectId objectId = entity.ObjectId;
             CoordinateSystem3d coordinateSystem3d = mdiActiveDocument.Editor.CurrentUserCoordinateSystem.CoordinateSystem3d;
             Matrix3d matrix3d = Matrix3d.AlignCoordinateSystem(Point3d.Origin, Vector3d.XAxis, Vector3d.YAxis, Vector3d.ZAxis, coordinateSystem3d.Origin, coordinateSystem3d.Xaxis, coordinateSystem3d.Yaxis, coordinateSystem3d.Zaxis);
-            double equalPointDistance = DimSystemSettings.GetDimSystemSettings().EqPoint;
+            double equalPointDistance = CalcTol.ReturnCurrentTolerance();
             using (Transaction transaction = database.TransactionManager.StartTransaction())
             {
                 Entity obj = (Entity)transaction.GetObject(objectId, OpenMode.ForWrite);

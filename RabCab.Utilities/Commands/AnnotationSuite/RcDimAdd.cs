@@ -14,6 +14,7 @@ using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.GraphicsInterface;
 using Autodesk.AutoCAD.Runtime;
+using RabCab.Calculators;
 using RabCab.Entities.Annotation;
 using RabCab.Extensions;
 using RabCab.Settings;
@@ -70,8 +71,7 @@ namespace RabCab.Commands.AnnotationSuite
             var objId = prEntRes.ObjectId;
             var matrix3d = acCurEd.GetAlignedMatrix();
 
-            var sysSettings = DimSystemSettings.GetDimSystemSettings();
-            var eqPoint = sysSettings.EqPoint;
+            var eqPoint = CalcTol.ReturnCurrentTolerance();
 
             using (var acTrans = acCurDb.TransactionManager.StartTransaction())
             {
@@ -115,9 +115,9 @@ namespace RabCab.Commands.AnnotationSuite
                             var currentTransientManager = TransientManager.CurrentTransientManager;
                             Line line = new Line(new Point3d(0, 0, 0), new Point3d(0, 0, 0));
                             Line dynPreviewColor = new Line(new Point3d(0, 0, 0), new Point3d(0, 0, 0));
-                            line.ColorIndex = sysSettings.DynPreviewColor;
-                            dynPreviewColor.ColorIndex = sysSettings.DynPreviewColor;
-                            line.ColorIndex = sysSettings.DynPreviewColor;
+                            line.Color = Colors.LayerColorPreview;
+                            dynPreviewColor.Color = Colors.LayerColorPreview;
+                            line.Color = Colors.LayerColorPreview;
                             IntegerCollection integerCollections = new IntegerCollection(nArray);
 
                             currentTransientManager.AddTransient(line, TransientDrawingMode.Main, 128,
@@ -157,7 +157,7 @@ namespace RabCab.Commands.AnnotationSuite
                                 break;
                             }
 
-                            dimSys.InsertPoint(ptRes.Value.TransformBy(matrix3d), sysSettings);
+                            dimSys.InsertPoint(ptRes.Value.TransformBy(matrix3d));
                         }
 
                         dimSys.Unhighlight();

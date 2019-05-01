@@ -8,6 +8,7 @@ using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.GraphicsInterface;
 using Autodesk.AutoCAD.Runtime;
 using RabCab.Analysis;
+using RabCab.Calculators;
 using RabCab.Entities.Annotation;
 using RabCab.Settings;
 using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
@@ -69,8 +70,7 @@ namespace RabCab.Commands.AnnotationSuite
             ObjectId objectId = entity.ObjectId;
             CoordinateSystem3d coordinateSystem3d = mdiActiveDocument.Editor.CurrentUserCoordinateSystem.CoordinateSystem3d;
             Matrix3d matrix3d = Matrix3d.AlignCoordinateSystem(Point3d.Origin, Vector3d.XAxis, Vector3d.YAxis, Vector3d.ZAxis, coordinateSystem3d.Origin, coordinateSystem3d.Xaxis, coordinateSystem3d.Yaxis, coordinateSystem3d.Zaxis);
-            DimSystemSettings DimSystemSettings = DimSystemSettings.GetDimSystemSettings();
-            double EqPoint = DimSystemSettings.EqPoint;
+            double EqPoint = CalcTol.ReturnCurrentTolerance();
             using (Transaction transaction = database.TransactionManager.StartTransaction())
             {
                 Entity obj = (Entity)transaction.GetObject(objectId, OpenMode.ForWrite);
@@ -122,9 +122,9 @@ namespace RabCab.Commands.AnnotationSuite
                             Circle circle = new Circle();
                             Circle dynPreviewColor = new Circle();
                             Line line = new Line(new Point3d(0, 0, 0), new Point3d(0, 0, 0));
-                            circle.ColorIndex = DimSystemSettings.DynPreviewColor;
-                            dynPreviewColor.ColorIndex = DimSystemSettings.DynPreviewColor;
-                            line.ColorIndex = DimSystemSettings.DynPreviewColor;
+                            circle.Color = Colors.LayerColorPreview;
+                            dynPreviewColor.Color = Colors.LayerColorPreview;
+                            line.Color = Colors.LayerColorPreview;
                             IntegerCollection integerCollections = new IntegerCollection(numArray);
                             currentTransientManager.AddTransient(circle, TransientDrawingMode.Main, 128, integerCollections);
                             currentTransientManager.AddTransient(dynPreviewColor, TransientDrawingMode.Main, 128, integerCollections);
@@ -236,9 +236,9 @@ namespace RabCab.Commands.AnnotationSuite
                         TransientManager transientManager = TransientManager.CurrentTransientManager;
                         Circle normal = new Circle();
                         Line line1 = new Line(new Point3d(0, 0, 0), new Point3d(0, 0, 0));
-                        normal.ColorIndex = DimSystemSettings.DynPreviewColor;
+                        normal.Color = Colors.LayerColorPreview;
                         normal.Normal = rotatedDimension.Normal;
-                        line1.ColorIndex = DimSystemSettings.DynPreviewColor;
+                        line1.Color = Colors.LayerColorPreview;
                         IntegerCollection integerCollections1 = new IntegerCollection(numArray1);
                         transientManager.AddTransient(normal, TransientDrawingMode.Highlight, 128, integerCollections1);
                         transientManager.AddTransient(line1, TransientDrawingMode.Highlight, 128, integerCollections1);

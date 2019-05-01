@@ -7,6 +7,7 @@ using RabCab.Settings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using RabCab.Calculators;
 
 namespace RabCab.Commands.AnnotationSuite
 {
@@ -61,7 +62,7 @@ namespace RabCab.Commands.AnnotationSuite
 
             var objIds = new List<ObjectId>();
 
-            var eqPoint = DimSystemSettings.GetDimSystemSettings().EqPoint;
+            var eqPoint = CalcTol.ReturnCurrentTolerance();
 
             using (var acTrans = acCurDb.TransactionManager.StartTransaction())
             {
