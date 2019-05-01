@@ -58,7 +58,7 @@ namespace RabCab.Commands.AnnotationSuite
             var acCurDb = acCurDoc.Database;
             var acCurEd = acCurDoc.Editor;
 
-            var prEntOpt = new PromptEntityOptions("\nSelect a dimension system add to: ");
+            var prEntOpt = new PromptEntityOptions("\nSelect a dimension system to add to: ");
             prEntOpt.SetRejectMessage("\nOnly linear dimensions may be selected.");
             prEntOpt.AllowNone = false;
             prEntOpt.AddAllowedClass(typeof(RotatedDimension), false);

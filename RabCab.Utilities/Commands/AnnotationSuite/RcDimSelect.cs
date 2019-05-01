@@ -47,8 +47,8 @@ namespace RabCab.Commands.AnnotationSuite
             var acCurDb = acCurDoc.Database;
             var acCurEd = acCurDoc.Editor;
 
-            var prEntOpt = new PromptEntityOptions("\nSelect a dimension system to delete dimensions from: ");
-            prEntOpt.SetRejectMessage("\nOnly rotated dimensions may be selected.");
+            var prEntOpt = new PromptEntityOptions("\nSelect a dimension system: ");
+            prEntOpt.SetRejectMessage("\nOnly linear dimensions may be selected.");
             prEntOpt.AllowNone = false;
             prEntOpt.AddAllowedClass(typeof(RotatedDimension), false);
 
