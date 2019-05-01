@@ -65,6 +65,9 @@ namespace RabCab.Settings
         public static Autodesk.AutoCAD.Colors.Color LayerColorBounds =
             Autodesk.AutoCAD.Colors.Color.FromColorIndex(ColorMethod.ByAci, (int)Enums.CadColor.BoundsGreen);
 
+        public static Autodesk.AutoCAD.Colors.Color LayerColorPreview =
+            Autodesk.AutoCAD.Colors.Color.FromColorIndex(ColorMethod.ByAci, (int)Enums.CadColor.Magenta);
+
         #endregion
     }
 }

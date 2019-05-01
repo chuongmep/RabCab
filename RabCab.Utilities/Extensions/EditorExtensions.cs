@@ -27,6 +27,12 @@ namespace RabCab.Extensions
 {
     internal static class EditorExtensions
     {
+        public static Matrix3d GetAlignedMatrix(this Editor acCurEd)
+        {
+            CoordinateSystem3d coordinateSystem3d = acCurEd.CurrentUserCoordinateSystem.CoordinateSystem3d;
+            Matrix3d matrix3d = Matrix3d.AlignCoordinateSystem(Point3d.Origin, Vector3d.XAxis, Vector3d.YAxis, Vector3d.ZAxis, coordinateSystem3d.Origin, coordinateSystem3d.Xaxis, coordinateSystem3d.Yaxis, coordinateSystem3d.Zaxis);
+            return matrix3d;
+        }
         #region  Prompt Nested Entity Options
 
         /// <summary>

@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Attributes>
+
+  <Attribute
+    Tag=""
+    Prompt=""
+    Default=""
+    Justification=""
+    TextStyle=""
+    Annotative=""
+    TextHeight=""
+    Rotation=""
+    Invisible=""
+    Constant=""
+    Verify=""
+    Preset=""
+    LockPosition="" />
+
+</Attributes>

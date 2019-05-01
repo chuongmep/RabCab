@@ -14,6 +14,7 @@ using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
+using RabCab.Calculators;
 using RabCab.Settings;
 using AcRx = Autodesk.AutoCAD.Runtime;
 
