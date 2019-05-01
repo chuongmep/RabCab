@@ -271,7 +271,7 @@
     <Compile Include="Gui\DimSystem\DimSystemProperties.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Gui\DimSystem\DimSystemSettings.cs">
+    <Compile Include="Gui\DimSystem\DimSystemSettingsGui.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Gui\PaletteLayerRepo.cs">

@@ -42,7 +42,7 @@ namespace RabCab.Commands.AnnotationSuite
         {
             var dimSetSettings = DimSystemSettings.GetDimSystemSettings();
 
-            var myDialog = new Gui.DimSystem.DimSystemSettings();
+            var myDialog = new Gui.DimSystem.DimSystemSettingsGui();
 
             myDialog.TboxTolerance.Text = dimSetSettings.EqPoint.ToString(CultureInfo.CurrentCulture);
             myDialog.ChbOriginalDimRemoveOverride.Checked =

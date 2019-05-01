@@ -11,3 +11,21 @@ Allow either "Prompt user to remove associativity or unlock in the properties pa
 Lay command crashes if you run too many solids
 
 Add things like Silicone Bead, VHB Tape, and Velcro Connections to Content Library
+
+//TODO
+Rework and implement into settings
+- DIMSYSTEMARROW
+- DIMSYSTEMPROPERTIES
+- DIMSYSTEMARROW
+
+Rework and cleanup
+- DIMPOINT
+- DIMSYSTEM
+- DIMSYSTEMSETTINGS < MOVE INTO USER SETTINGS
+- RCDIMDELETE
+- RCDIMSELECT
+- RCDIMEXTEND
+- RCDIMMOVE
+- RCDIMPROP
+- RCDIMSETTINGS
+- RCDIMADD

@@ -8,7 +8,7 @@ using ColorDialog = Autodesk.AutoCAD.Windows.ColorDialog;
 
 namespace RabCab.Gui.DimSystem
 {
-    internal class DimSystemSettings : Form
+    internal class DimSystemSettingsGui : Form
     {
         public bool ClickedOk;
 
@@ -52,7 +52,7 @@ namespace RabCab.Gui.DimSystem
 
         private Label _label7;
 
-        public DimSystemSettings()
+        public DimSystemSettingsGui()
         {
             InitializeComponent();
         }

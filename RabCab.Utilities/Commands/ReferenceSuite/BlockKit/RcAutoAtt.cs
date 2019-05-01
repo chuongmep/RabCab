@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing.Imaging;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Autodesk.AutoCAD.ApplicationServices;
+﻿using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.DatabaseServices;
-using Autodesk.AutoCAD.Geometry;
-using Autodesk.AutoCAD.Interop.Common;
 using Autodesk.AutoCAD.Runtime;
 using RabCab.Engine.Enumerators;
 using RabCab.Extensions;
 using RabCab.Settings;
+using System;
+using System.Linq;
 using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
 
 namespace RabCab.Commands.ReferenceSuite.BlockKit

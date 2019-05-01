@@ -1,20 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Autodesk.AutoCAD.ApplicationServices.Core;
+﻿using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Runtime;
 using RabCab.Engine.Enumerators;
 using RabCab.Extensions;
 using RabCab.Settings;
+using System;
+using System.Linq;
 
 namespace RabCab.Commands.ReferenceSuite.BlockKit
 {
     class RcQuickRename
     { /// <summary>
-        /// </summary>
+      /// </summary>
         [CommandMethod(SettingsInternal.CommandGroup, "_QRename",
             CommandFlags.Modal
             //| CommandFlags.Transparent
@@ -39,7 +36,7 @@ namespace RabCab.Commands.ReferenceSuite.BlockKit
             | CommandFlags.NoBlockEditor
             | CommandFlags.NoActionRecording
             | CommandFlags.ActionMacro
-            //| CommandFlags.NoInferConstraint 
+        //| CommandFlags.NoInferConstraint 
         )]
         public void Cmd_QRename()
         {

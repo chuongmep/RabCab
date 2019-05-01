@@ -60,8 +60,8 @@ namespace RabCab.Commands.AnnotationSuite
             var acCurDb = acCurDoc.Database;
             var acCurEd = acCurDoc.Editor;
 
-            var prEntOpt = new PromptEntityOptions("\nSelect a dimension system to delete dimensions from: ");
-            prEntOpt.SetRejectMessage("\nOnly rotated dimensions may be selected.");
+            var prEntOpt = new PromptEntityOptions("\nSelect a dimension system remove from: ");
+            prEntOpt.SetRejectMessage("\nOnly linear dimensions may be selected.");
             prEntOpt.AllowNone = false;
             prEntOpt.AddAllowedClass(typeof(RotatedDimension), false);
 
@@ -86,7 +86,6 @@ namespace RabCab.Commands.AnnotationSuite
                     if (acRotDim != null)
                     {
                         var dimSys = DimSystem.GetDimSystem(acRotDim, eqPoint, eqPoint);
-                        dimSys.Highlight();
 
                         var prPtOpts =
                             new PromptPointOptions("\nSelect point to delete or press CTRL to start a crossing line: ");

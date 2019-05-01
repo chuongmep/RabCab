@@ -388,7 +388,7 @@ namespace RabCab.Entities.Annotation
                 {
                     do
                     {
-                        Label0:
+                    Label0:
                         if (!enumerator.MoveNext()) break;
                         var current = enumerator.Current;
                         if (current != listOfDim)
@@ -541,7 +541,7 @@ namespace RabCab.Entities.Annotation
                 }
                 finally
                 {
-                    ((IDisposable) enumerator).Dispose();
+                    ((IDisposable)enumerator).Dispose();
                 }
 
                 if (!flag)
@@ -661,7 +661,7 @@ namespace RabCab.Entities.Annotation
                 {
                     var num1 = nums.IndexOf(nums.Min());
                     item = SysList[num1];
-                    rotatedDimension = (RotatedDimension) item.Clone();
+                    rotatedDimension = (RotatedDimension)item.Clone();
                     var point3dCollections1 = new Point3dCollection();
                     item.GetStretchPoints(point3dCollections1);
                     var item2 = point3dCollections1[2];
@@ -683,7 +683,7 @@ namespace RabCab.Entities.Annotation
                 }
                 else
                 {
-                    rotatedDimension = (RotatedDimension) item.Clone();
+                    rotatedDimension = (RotatedDimension)item.Clone();
                     if (!item.IsWriteEnabled) item.UpgradeOpen();
                     item.XLine2Point = newPoint;
                     rotatedDimension.XLine1Point = newPoint;
@@ -888,7 +888,7 @@ namespace RabCab.Entities.Annotation
             var topTransaction = database.TransactionManager.TopTransaction;
             using (topTransaction)
             {
-                var obj = (BlockTable) topTransaction.GetObject(database.BlockTableId, OpenMode.ForRead);
+                var obj = (BlockTable)topTransaction.GetObject(database.BlockTableId, OpenMode.ForRead);
                 @null = obj[newArrName];
             }
 
@@ -911,9 +911,9 @@ namespace RabCab.Entities.Annotation
                     flag = false;
                     foreach (ObjectId objectId in originDimsColl)
                     {
-                        var obj = (Entity) topTransaction.GetObject(objectId, OpenMode.ForRead);
+                        var obj = (Entity)topTransaction.GetObject(objectId, OpenMode.ForRead);
                         if (!(obj is RotatedDimension)) continue;
-                        var rotatedDimension = (RotatedDimension) obj;
+                        var rotatedDimension = (RotatedDimension)obj;
                         var point3dCollections = new Point3dCollection();
                         rotatedDimension.GetStretchPoints(point3dCollections);
                         var item = point3dCollections[2];
@@ -969,9 +969,9 @@ namespace RabCab.Entities.Annotation
             {
                 foreach (ObjectId objectId in dimsColl)
                 {
-                    var obj = (Entity) topTransaction.GetObject(objectId, OpenMode.ForRead);
+                    var obj = (Entity)topTransaction.GetObject(objectId, OpenMode.ForRead);
                     if (!(obj is RotatedDimension)) continue;
-                    var rotatedDimension = (RotatedDimension) obj;
+                    var rotatedDimension = (RotatedDimension)obj;
                     if (line3d.GetDistanceTo(rotatedDimension.DimLinePoint) >= equalDistTolerance) continue;
                     objectIdCollections.Add(rotatedDimension.Id);
                 }
@@ -994,9 +994,9 @@ namespace RabCab.Entities.Annotation
                 if (obj != null)
                     foreach (var objectId in obj)
                     {
-                        var entity = (Entity) topTransaction.GetObject(objectId, OpenMode.ForRead);
+                        var entity = (Entity)topTransaction.GetObject(objectId, OpenMode.ForRead);
                         if (!(entity is RotatedDimension) || !(entity.LayerId == masterDimLayerId)) continue;
-                        var rotatedDimension = (RotatedDimension) entity;
+                        var rotatedDimension = (RotatedDimension)entity;
                         if (Math.Abs(rotatedDimension.Rotation - angle) >= angleTolerance &&
                             Math.Abs(rotatedDimension.Rotation - num) >= angleTolerance &&
                             Math.Abs(rotatedDimension.Rotation - num1) >= angleTolerance ||
@@ -1074,7 +1074,7 @@ namespace RabCab.Entities.Annotation
                 point3d = pnt1.DistanceTo(_newPoint) >= pnt2.DistanceTo(_newPoint) ? pnt2 : pnt1;
             else
                 point3d = point;
-            return new[] {point3d, point};
+            return new[] { point3d, point };
         }
     }
 
@@ -1094,8 +1094,8 @@ namespace RabCab.Entities.Annotation
 
         public DimSystemSettings()
         {
-            EqPoint = CalcTol.DecimalPlace;
-            DynPreviewColor = (int) Enums.CadColor.Magenta;
+            EqPoint = 0.0001;
+            DynPreviewColor = (int)Enums.CadColor.Magenta;
             OriginalDimRemoveTextOverride = 1;
             OriginalDimTextPosition = 1;
             NewDimRemoveTextOverride = 1;
@@ -1109,11 +1109,11 @@ namespace RabCab.Entities.Annotation
             var value = new DimSystemSettings();
             using (var transaction = database.TransactionManager.StartTransaction())
             {
-                var obj = (DBDictionary) transaction.GetObject(database.NamedObjectsDictionaryId, OpenMode.ForRead);
+                var obj = (DBDictionary)transaction.GetObject(database.NamedObjectsDictionaryId, OpenMode.ForRead);
                 DBDictionary dBDictionary;
                 try
                 {
-                    dBDictionary = (DBDictionary) transaction.GetObject(obj.GetAt("RcDimSystem"), OpenMode.ForRead);
+                    dBDictionary = (DBDictionary)transaction.GetObject(obj.GetAt("RcDimSystem"), OpenMode.ForRead);
                 }
                 catch
                 {
@@ -1124,7 +1124,7 @@ namespace RabCab.Entities.Annotation
                 Xrecord xrecord;
                 try
                 {
-                    xrecord = (Xrecord) transaction.GetObject(dBDictionary.GetAt("Standard"), OpenMode.ForRead);
+                    xrecord = (Xrecord)transaction.GetObject(dBDictionary.GetAt("Standard"), OpenMode.ForRead);
                 }
                 catch
                 {
@@ -1133,19 +1133,19 @@ namespace RabCab.Entities.Annotation
                 }
 
                 var typedValue = xrecord.Data.AsArray()[0];
-                value.EqPoint = (double) typedValue.Value;
+                value.EqPoint = (double)typedValue.Value;
                 try
                 {
                     typedValue = xrecord.Data.AsArray()[1];
-                    value.DynPreviewColor = (short) typedValue.Value;
+                    value.DynPreviewColor = (short)typedValue.Value;
                     typedValue = xrecord.Data.AsArray()[2];
-                    value.OriginalDimRemoveTextOverride = (int) typedValue.Value;
+                    value.OriginalDimRemoveTextOverride = (int)typedValue.Value;
                     typedValue = xrecord.Data.AsArray()[3];
-                    value.OriginalDimTextPosition = (int) typedValue.Value;
+                    value.OriginalDimTextPosition = (int)typedValue.Value;
                     typedValue = xrecord.Data.AsArray()[4];
-                    value.NewDimRemoveTextOverride = (int) typedValue.Value;
+                    value.NewDimRemoveTextOverride = (int)typedValue.Value;
                     typedValue = xrecord.Data.AsArray()[5];
-                    value.NewDimTextPosition = (int) typedValue.Value;
+                    value.NewDimTextPosition = (int)typedValue.Value;
                 }
                 catch
                 {
@@ -1168,10 +1168,10 @@ namespace RabCab.Entities.Annotation
                 using (var transaction = database.TransactionManager.StartTransaction())
                 {
                     var dBDictionary =
-                        (DBDictionary) transaction.GetObject(database.NamedObjectsDictionaryId, OpenMode.ForWrite);
+                        (DBDictionary)transaction.GetObject(database.NamedObjectsDictionaryId, OpenMode.ForWrite);
                     try
                     {
-                        obj = (DBDictionary) transaction.GetObject(dBDictionary.GetAt("RcDimSystem"),
+                        obj = (DBDictionary)transaction.GetObject(dBDictionary.GetAt("RcDimSystem"),
                             OpenMode.ForWrite);
                     }
                     catch

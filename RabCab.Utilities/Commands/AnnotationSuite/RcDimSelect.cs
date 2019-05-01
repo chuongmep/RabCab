@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Autodesk.AutoCAD.ApplicationServices.Core;
+﻿using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Runtime;
 using RabCab.Entities.Annotation;
 using RabCab.Settings;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace RabCab.Commands.AnnotationSuite
 {
@@ -21,26 +19,26 @@ namespace RabCab.Commands.AnnotationSuite
             //| CommandFlags.Transparent
             //| CommandFlags.UsePickSet
             CommandFlags.Redraw
-            //| CommandFlags.NoPerspective
-            //| CommandFlags.NoMultiple
-            //| CommandFlags.NoTileMode
-            //| CommandFlags.NoPaperSpace
-            //| CommandFlags.NoOem
-            //| CommandFlags.Undefined
-            //| CommandFlags.InProgress
-            //| CommandFlags.Defun
-            //| CommandFlags.NoNewStack
-            //| CommandFlags.NoInternalLock
-            //| CommandFlags.DocReadLock
-            //| CommandFlags.DocExclusiveLock
-            //| CommandFlags.Session
-            //| CommandFlags.Interruptible
-            //| CommandFlags.NoHistory
-            //| CommandFlags.NoUndoMarker
-            //| CommandFlags.NoBlockEditor
-            //| CommandFlags.NoActionRecording
-            //| CommandFlags.ActionMacro
-            //| CommandFlags.NoInferConstraint 
+        //| CommandFlags.NoPerspective
+        //| CommandFlags.NoMultiple
+        //| CommandFlags.NoTileMode
+        //| CommandFlags.NoPaperSpace
+        //| CommandFlags.NoOem
+        //| CommandFlags.Undefined
+        //| CommandFlags.InProgress
+        //| CommandFlags.Defun
+        //| CommandFlags.NoNewStack
+        //| CommandFlags.NoInternalLock
+        //| CommandFlags.DocReadLock
+        //| CommandFlags.DocExclusiveLock
+        //| CommandFlags.Session
+        //| CommandFlags.Interruptible
+        //| CommandFlags.NoHistory
+        //| CommandFlags.NoUndoMarker
+        //| CommandFlags.NoBlockEditor
+        //| CommandFlags.NoActionRecording
+        //| CommandFlags.ActionMacro
+        //| CommandFlags.NoInferConstraint 
         )]
         public void Cmd_DimSelect()
         {
