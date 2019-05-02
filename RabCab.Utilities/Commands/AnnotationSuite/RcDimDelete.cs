@@ -97,7 +97,7 @@ namespace RabCab.Commands.AnnotationSuite
 
                             dimSys.Highlight();
 
-                            var nArray = DimSystem.ActiveViewports();
+                            var nArray = DimSystem.GetActiveViewCount();
 
                             var ctManager = TransientManager.CurrentTransientManager;
 

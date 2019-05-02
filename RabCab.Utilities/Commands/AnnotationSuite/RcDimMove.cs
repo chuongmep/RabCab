@@ -81,7 +81,7 @@ namespace RabCab.Commands.AnnotationSuite
                 while (true)
                 {
                     dimSet.Highlight();
-                    int[] numArray = DimSystem.ActiveViewports();
+                    int[] numArray = DimSystem.GetActiveViewCount();
                     TransientManager currentTransientManager = TransientManager.CurrentTransientManager;
                     IntegerCollection integerCollections = new IntegerCollection(numArray);
                     List<RotatedDimension> rotatedDimensions = new List<RotatedDimension>();

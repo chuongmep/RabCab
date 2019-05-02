@@ -78,152 +78,10 @@ namespace RabCab.Commands.AnnotationSuite
                 RotatedDimension rotatedDimension = (RotatedDimension)obj;
                 dimSys = new DimSystem();
                 dimSys = DimSystem.GetSystem(rotatedDimension, EqPoint, EqPoint);
-                editor.WriteMessage(string.Concat("\nNumber of dimensions in set: ", dimSys.Count));
+                
                 dimSys.Highlight();
-                PromptKeywordOptions promptKeywordOption = new PromptKeywordOptions("")
-                {
-                    Message = "\nEnter an option "
-                };
-                promptKeywordOption.Keywords.Add("Synchronize");
-                promptKeywordOption.Keywords.Add("Extend");
-                promptKeywordOption.AllowNone = false;
-                PromptResult keywords = mdiActiveDocument.Editor.GetKeywords(promptKeywordOption);
-                if (keywords.StringResult == "Synchronize")
-                {
-                    PromptKeywordOptions promptKeywordOption1 = new PromptKeywordOptions("")
-                    {
-                        Message = "\nEnter an option which point synchronize to"
-                    };
-                    promptKeywordOption1.Keywords.Add("Nearer to dimension line");
-                    promptKeywordOption1.Keywords.Add("Far to dimension line ");
-                    promptKeywordOption1.AllowNone = false;
-                    PromptResult promptResult = mdiActiveDocument.Editor.GetKeywords(promptKeywordOption1);
-                    if (promptResult.Status != PromptStatus.Cancel)
-                    {
-                        int num = -1;
-                        if (promptResult.StringResult == "Nearer")
-                        {
-                            num = 1;
-                        }
-                        else if (promptResult.StringResult == "Far")
-                        {
-                            num = 2;
-                        }
-                        PromptPointOptions promptPointOption = new PromptPointOptions("\nSelect point to synchronize or press CTRL to start crossing line:");
-                        while (true)
-                        {
-                            if (dimSys.Count == 0)
-                            {
-                                goto Label1;
-                            }
-                            dimSys.Highlight();
-                            int[] numArray = DimSystem.ActiveViewports();
-                            TransientManager currentTransientManager = TransientManager.CurrentTransientManager;
-                            Circle circle = new Circle();
-                            Circle dynPreviewColor = new Circle();
-                            Line line = new Line(new Point3d(0, 0, 0), new Point3d(0, 0, 0));
-                            circle.Color = Colors.LayerColorPreview;
-                            dynPreviewColor.Color = Colors.LayerColorPreview;
-                            line.Color = Colors.LayerColorPreview;
-                            IntegerCollection integerCollections = new IntegerCollection(numArray);
-                            currentTransientManager.AddTransient(circle, TransientDrawingMode.Main, 128, integerCollections);
-                            currentTransientManager.AddTransient(dynPreviewColor, TransientDrawingMode.Main, 128, integerCollections);
-                            currentTransientManager.AddTransient(line, TransientDrawingMode.Highlight, 128, integerCollections);
-                            List<SysPoint> sysPoints = dimSys.GetSystemPoints(EqPoint);
-                            PointMonitorEventHandler pointMonitorEventHandler = (object sender, PointMonitorEventArgs e) =>
-                            {
-                                int closestsysPoint = dimSys.GetNearest(e.Context.ComputedPoint, EqPoint);
-                                SysPoint item = sysPoints[closestsysPoint];
-                                Point3d dimLinePoint = item.DimLinePoint;
-                                double sreenSize = ScreenReader.GetSreenSize();
-                                circle.Radius = sreenSize / 200;
-                                circle.Normal = rotatedDimension.Normal;
-                                dynPreviewColor.Radius = sreenSize / 200;
-                                dynPreviewColor.Normal = rotatedDimension.Normal;
-                                Point3d point3d = new Point3d();
-                                Point3d point3d1 = new Point3d();
-                                Point3d point3d2 = new Point3d();
-                                if (!item.IsLast)
-                                {
-                                    point3d = (item.Dim1PointIndex != 1 ? item.Dim1.XLine2Point : item.Dim1.XLine1Point);
-                                    circle.Center = point3d;
-                                    point3d1 = (item.Dim2PointIndex != 1 ? item.Dim2.XLine2Point : item.Dim2.XLine1Point);
-                                    dynPreviewColor.Center = point3d1;
-                                    point3d2 = (dimLinePoint.DistanceTo(point3d) <= dimLinePoint.DistanceTo(point3d1) ? point3d1 : point3d);
-                                    line.StartPoint = dimLinePoint;
-                                    line.EndPoint = point3d2;
-                                    currentTransientManager.UpdateTransient(circle, integerCollections);
-                                    currentTransientManager.UpdateTransient(dynPreviewColor, integerCollections);
-                                    currentTransientManager.UpdateTransient(line, integerCollections);
-                                }
-                            };
-                            editor.PointMonitor += pointMonitorEventHandler;
-                            try
-                            {
-                                promptPointResult = mdiActiveDocument.Editor.GetPoint(promptPointOption);
-                            }
-                            finally
-                            {
-                                editor.PointMonitor -= pointMonitorEventHandler;
-                                currentTransientManager.EraseTransient(circle, integerCollections);
-                                currentTransientManager.EraseTransient(dynPreviewColor, integerCollections);
-                                currentTransientManager.EraseTransient(line, integerCollections);
-                                circle.Dispose();
-                                dynPreviewColor.Dispose();
-                                line.Dispose();
-                            }
-                            bool modifierKeys = (Control.ModifierKeys & Keys.Control) > Keys.None;
-                            PromptPointResult promptPointResult2 = null;
-                            if (modifierKeys)
-                            {
-                                PromptPointOptions promptPointOption1 = new PromptPointOptions("\nSelect second point of crossing line:")
-                                {
-                                    UseBasePoint = true,
-                                    UseDashedLine = true,
-                                    BasePoint = promptPointResult.Value
-                                };
-                                promptPointResult2 = mdiActiveDocument.Editor.GetPoint(promptPointOption1);
-                                if (promptPointResult2.Status != PromptStatus.OK)
-                                {
-                                    goto Label1;
-                                }
-                            }
-                            if (promptPointResult.Status != PromptStatus.OK)
-                            {
-                                break;
-                            }
-                            if (modifierKeys)
-                            {
-                                Point3d point3d3 = promptPointResult.Value.TransformBy(matrix3d);
-                                Point3d point3d4 = promptPointResult2.Value.TransformBy(matrix3d);
-                                List<int> sysPointsByLine = dimSys.GetSystemByLine(point3d3, point3d4, EqPoint);
-                                if (sysPointsByLine.Count > 0)
-                                {
-                                    foreach (int num1 in sysPointsByLine)
-                                    {
-                                        dimSys.Extend(num1, num, new Point3d(), EqPoint);
-                                    }
-                                    transaction.TransactionManager.QueueForGraphicsFlush();
-                                }
-                            }
-                            else
-                            {
-                                Point3d point3d5 = promptPointResult.Value.TransformBy(matrix3d);
-                                int num2 = dimSys.GetNearest(point3d5, EqPoint);
-                                dimSys.Extend(num2, num, new Point3d(), EqPoint);
-                                transaction.TransactionManager.QueueForGraphicsFlush();
-                            }
-                        }
-                        dimSys.Unhighlight();
-                    }
-                    else
-                    {
-                        dimSys.Unhighlight();
-                        return;
-                    }
-                }
-                else if (keywords.StringResult == "Extend")
-                {
+               
+                
                     PromptPointOptions promptPointOption2 = new PromptPointOptions("\nSelect new extend of dimension or press CTRL to start crossing line:");
                     while (true)
                     {
@@ -232,7 +90,7 @@ namespace RabCab.Commands.AnnotationSuite
                             goto Label1;
                         }
                         dimSys.Highlight();
-                        int[] numArray1 = DimSystem.ActiveViewports();
+                        int[] numArray1 = DimSystem.GetActiveViewCount();
                         TransientManager transientManager = TransientManager.CurrentTransientManager;
                         Circle normal = new Circle();
                         Line line1 = new Line(new Point3d(0, 0, 0), new Point3d(0, 0, 0));
@@ -345,7 +203,7 @@ namespace RabCab.Commands.AnnotationSuite
                         }
                     }
                     dimSys.Unhighlight();
-                }
+                
             Label1:
                 dimSys.Unhighlight();
                 transaction.Commit();

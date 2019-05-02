@@ -162,8 +162,9 @@
     <Compile Include="Commands\AnalysisSuite\RcWeight.cs" />
     <Compile Include="Commands\AnnotationSuite\RcAlignViews.cs" />
     <Compile Include="Commands\AnnotationSuite\RcDimAlign.cs" />
+    <Compile Include="Commands\AnnotationSuite\RcDimArrow.cs" />
+    <Compile Include="Commands\AnnotationSuite\RcDimExtLine.cs" />
     <Compile Include="Commands\AnnotationSuite\RcDimSelect.cs" />
-    <Compile Include="Commands\AnnotationSuite\RcDimSettings.cs" />
     <Compile Include="Commands\AnnotationSuite\RcDimArrange.cs" />
     <Compile Include="Commands\AnnotationSuite\RcDimBreak.cs" />
     <Compile Include="Commands\AnnotationSuite\RcDimExtend.cs" />
@@ -172,7 +173,6 @@
     <Compile Include="Commands\AnnotationSuite\RcDimMove.cs" />
     <Compile Include="Commands\AnnotationSuite\RcDimMultEdit.cs" />
     <Compile Include="Commands\AnnotationSuite\RcDimPrec.cs" />
-    <Compile Include="Commands\AnnotationSuite\RcDimProp.cs" />
     <Compile Include="Commands\AnnotationSuite\RcDimSnap.cs" />
     <Compile Include="Commands\AnnotationSuite\RcDimDelete.cs" />
     <Compile Include="Commands\AnnotationSuite\RcGenDims.cs" />
@@ -265,15 +265,6 @@
     <Compile Include="Extensions\LinqExtensions.cs" />
     <Compile Include="Extensions\Vector2dExtensions.cs" />
     <Compile Include="Extensions\VertExt.cs" />
-    <Compile Include="Gui\DimSystem\DimSystemArrow.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Gui\DimSystem\DimSystemProperties.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Gui\DimSystem\DimSystemSettingsGui.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Gui\PaletteLayerRepo.cs">
       <SubType>UserControl</SubType>
     </Compile>

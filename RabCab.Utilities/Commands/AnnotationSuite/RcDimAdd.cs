@@ -111,7 +111,7 @@ namespace RabCab.Commands.AnnotationSuite
                                 bl = true;
                             }
 
-                            var nArray = DimSystem.ActiveViewports();
+                            var nArray = DimSystem.GetActiveViewCount();
 
                             var currentTransientManager = TransientManager.CurrentTransientManager;
 
