@@ -163,12 +163,12 @@
     <Compile Include="Commands\AnnotationSuite\RcAlignViews.cs" />
     <Compile Include="Commands\AnnotationSuite\RcDimAlign.cs" />
     <Compile Include="Commands\AnnotationSuite\RcDimArrow.cs" />
-    <Compile Include="Commands\AnnotationSuite\RcDimExtLine.cs" />
+    <Compile Include="Commands\AnnotationSuite\RcDimLt.cs" />
+    <Compile Include="Commands\AnnotationSuite\RcDimToggle.cs" />
     <Compile Include="Commands\AnnotationSuite\RcDimSelect.cs" />
     <Compile Include="Commands\AnnotationSuite\RcDimArrange.cs" />
     <Compile Include="Commands\AnnotationSuite\RcDimBreak.cs" />
     <Compile Include="Commands\AnnotationSuite\RcDimExtend.cs" />
-    <Compile Include="Commands\AnnotationSuite\RcDimInsert.cs" />
     <Compile Include="Commands\AnnotationSuite\RcDimAdd.cs" />
     <Compile Include="Commands\AnnotationSuite\RcDimMove.cs" />
     <Compile Include="Commands\AnnotationSuite\RcDimMultEdit.cs" />

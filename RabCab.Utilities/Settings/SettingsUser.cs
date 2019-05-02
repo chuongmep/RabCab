@@ -51,7 +51,6 @@ namespace RabCab.Settings
         public static double ViewSpacing = 0;
         public static Color  DynPreviewColor = Colors.LayerColorPreview;
 
-
         //Flatshot Options
         public static bool FlattenAssembly = false;
         public static bool FlattenAllSides = false;
@@ -66,6 +65,7 @@ namespace RabCab.Settings
         public static string RcVisibleLT = "CONTINUOUS";
         public static string RcHiddenLT = "HIDDEN";
         public static string RcAnnoLt = "CONTINUOUS";
+        public static string RcDimLt = "CENTER";
 
         public static RoundTolerance UserTol { set; get; } = RoundTolerance.SixDecimals;
     }
