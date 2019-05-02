@@ -1,11 +1,11 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 
 <toolpaths>
 
-    <!--Sheet Material Information-->
-    <toolpath identifier="Test"
-              cadColorCode=""
-              description=""
-              cutterDiameter=""/>
+  <!--Sheet Material Information-->
+  <toolpath identifier="Test"
+            cadColorCode=""
+            description=""
+            cutterDiameter="" />
 
 </toolpaths>

@@ -16,7 +16,6 @@ using System.Windows.Forms;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Runtime;
-using Autodesk.AutoCAD.ViewModel.PointCloudManager;
 using RabCab.Agents;
 using RabCab.Extensions;
 using RabCab.Settings;
@@ -34,29 +33,29 @@ namespace RabCab.Commands.AssemblySuite
         /// </summary>
         [CommandMethod(SettingsInternal.CommandGroup, "_SELECTSAME",
             CommandFlags.Modal
-        //| CommandFlags.Transparent
-        //| CommandFlags.UsePickSet
-        //| CommandFlags.Redraw
-        //| CommandFlags.NoPerspective
-        //| CommandFlags.NoMultiple
-        //| CommandFlags.NoTileMode
-        //| CommandFlags.NoPaperSpace
-        //| CommandFlags.NoOem
-        //| CommandFlags.Undefined
-        //| CommandFlags.InProgress
-        //| CommandFlags.Defun
-        //| CommandFlags.NoNewStack
-        //| CommandFlags.NoInternalLock
-        //| CommandFlags.DocReadLock
-        //| CommandFlags.DocExclusiveLock
-        //| CommandFlags.Session
-        //| CommandFlags.Interruptible
-        //| CommandFlags.NoHistory
-        //| CommandFlags.NoUndoMarker
-        //| CommandFlags.NoBlockEditor
-        //| CommandFlags.NoActionRecording
-        //| CommandFlags.ActionMacro
-        //| CommandFlags.NoInferConstraint 
+            //| CommandFlags.Transparent
+            //| CommandFlags.UsePickSet
+            //| CommandFlags.Redraw
+            //| CommandFlags.NoPerspective
+            //| CommandFlags.NoMultiple
+            //| CommandFlags.NoTileMode
+            //| CommandFlags.NoPaperSpace
+            //| CommandFlags.NoOem
+            //| CommandFlags.Undefined
+            //| CommandFlags.InProgress
+            //| CommandFlags.Defun
+            //| CommandFlags.NoNewStack
+            //| CommandFlags.NoInternalLock
+            //| CommandFlags.DocReadLock
+            //| CommandFlags.DocExclusiveLock
+            //| CommandFlags.Session
+            //| CommandFlags.Interruptible
+            //| CommandFlags.NoHistory
+            //| CommandFlags.NoUndoMarker
+            //| CommandFlags.NoBlockEditor
+            //| CommandFlags.NoActionRecording
+            //| CommandFlags.ActionMacro
+            //| CommandFlags.NoInferConstraint 
         )]
         public void Cmd_SelectSame()
         {
@@ -420,10 +419,7 @@ namespace RabCab.Commands.AssemblySuite
                         var acEnt = acTrans.GetObject(obj, OpenMode.ForRead) as Entity;
 
                         if (acEnt == null) continue;
-                        if (string.IsNullOrEmpty(acEnt.GetPartName()))
-                        {
-                            unNamed.Add(obj);
-                        }
+                        if (string.IsNullOrEmpty(acEnt.GetPartName())) unNamed.Add(obj);
                     }
 
                     if (unNamed.Count > 0)
@@ -439,7 +435,6 @@ namespace RabCab.Commands.AssemblySuite
                     acTrans.Commit();
                 }
             }
-
         }
     }
 }

@@ -75,49 +75,30 @@ namespace RabCab.Commands.AnalysisSuite
             var dxfKey = "";
 
             if (userKey == objKey1) //2dObjects
-            {
                 dxfKey = "*LINE,CIRCLE,ARC,ELLIPSE,POINT,RAY";
-            }
             else if (userKey == objKey2) //3dObjects
-            {
                 dxfKey = "3DSOLID, SURFACE, MESH";
-            }
             else if (userKey == objKey3) //Annotations
-            {
                 dxfKey = "*DIMENSION,*TEXT,*LEADER,*TABLE";
-            }
             else if (userKey == objKey4) //Blocks
-            {
                 dxfKey = "INSERT";
-            }
             else if (userKey == objKey5) //Dimensions
-            {
                 dxfKey = "*DIMENSION";
-            }
             else if (userKey == objKey6) //Hatches
-            {
                 dxfKey = "HATCH";
-            }
             else if (userKey == objKey7) //Text
-            {
                 dxfKey = "*TEXT";
-            }
 
             using (var acTrans = acCurDb.TransactionManager.StartTransaction())
             {
                 var objIds = acCurEd.SelectAllOfType(dxfKey, acTrans);
 
                 if (objIds.Any())
-                {
                     acCurEd.SetImpliedSelection(objIds);
-                }
                 else
-                {
                     acCurEd.WriteMessage("\nNone exist in drawing.");
-                }
 
                 acTrans.Commit();
-
             }
         }
     }

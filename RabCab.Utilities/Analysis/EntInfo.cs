@@ -89,7 +89,7 @@ namespace RabCab.Analysis
         public bool Has3DFaces;
         public TextureDirection TxDirection;
 
-       //Rotation Matrices
+        //Rotation Matrices
         public Matrix3d X90;
         public Matrix3d Y90;
         public Matrix3d Z90;
@@ -379,7 +379,7 @@ namespace RabCab.Analysis
 
             GetRotationMatrices(acSol);
             GetLayMatrix(acSol);
-      
+
             if (LayMatrix == new Matrix3d()) LayMatrix = GetAbstractMatrix(acSol);
 
             using (var solCopy = acSol.Clone() as Solid3d)
@@ -721,7 +721,7 @@ namespace RabCab.Analysis
                 var centroid = brep.GetMassProperties().Centroid.RoundToTolerance();
 
                 if (centroid != center)
-                center = brep.GetMassProperties().Centroid;
+                    center = brep.GetMassProperties().Centroid;
             }
 
             //Find the 90 degree rotation matrices
@@ -739,6 +739,7 @@ namespace RabCab.Analysis
             Y270 = Matrix3d.Rotation(CalcUnit.ConvertToRadians(270), Vector3d.YAxis, center);
             Z270 = Matrix3d.Rotation(CalcUnit.ConvertToRadians(270), Vector3d.ZAxis, center);
         }
+
         #endregion
     }
 }

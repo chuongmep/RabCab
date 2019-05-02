@@ -11,7 +11,6 @@
 
 using System;
 using Autodesk.AutoCAD.DatabaseServices;
-using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
 
 namespace RabCab.Extensions
@@ -35,7 +34,7 @@ namespace RabCab.Extensions
         }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="acTrans"></param>
         /// <param name="acCurDb"></param>
@@ -44,24 +43,18 @@ namespace RabCab.Extensions
         public static Extents3d GetExtents(this Transaction acTrans, ObjectId[] ids, Database acCurDb)
         {
             //Add all selected objects to a temporary group
-            var grDict = (DBDictionary)acTrans.GetObject(acCurDb.GroupDictionaryId, OpenMode.ForWrite);
+            var grDict = (DBDictionary) acTrans.GetObject(acCurDb.GroupDictionaryId, OpenMode.ForWrite);
 
             var anonyGroup = new Group();
 
             grDict.SetAt("*", anonyGroup);
-            foreach (ObjectId objId in ids)
-            {
-                anonyGroup.Append(objId);
-            }
+            foreach (var objId in ids) anonyGroup.Append(objId);
 
             acTrans.AddNewlyCreatedDBObject(anonyGroup, true);
 
             var extents = acTrans.GetExtents(anonyGroup.GetAllEntityIds());
 
-            foreach (ObjectId objId in ids)
-            {
-                anonyGroup.Remove(objId);
-            }
+            foreach (var objId in ids) anonyGroup.Remove(objId);
 
             anonyGroup.Dispose();
 
@@ -87,7 +80,8 @@ namespace RabCab.Extensions
             var height = Math.Abs(maxZ - minZ);
 
             sol.CreateBox(width, length, height);
-            sol.TransformBy( Matrix3d.Displacement(sol.GeometricExtents.MinPoint.GetVectorTo(new Point3d(minX, minY, minZ))));
+            sol.TransformBy(
+                Matrix3d.Displacement(sol.GeometricExtents.MinPoint.GetVectorTo(new Point3d(minX, minY, minZ))));
 
             return sol;
         }

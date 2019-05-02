@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Autodesk.AutoCAD.ApplicationServices.Core;
+﻿using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.DatabaseServices;
-using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.Runtime;
 using RabCab.Engine.Enumerators;
 using RabCab.Extensions;
@@ -13,7 +7,7 @@ using RabCab.Settings;
 
 namespace RabCab.Commands.AnnotationSuite
 {
-    class RcMatchViews
+    internal class RcMatchViews
     {
         /// <summary>
         /// </summary>
@@ -41,7 +35,7 @@ namespace RabCab.Commands.AnnotationSuite
             | CommandFlags.NoBlockEditor
             | CommandFlags.NoActionRecording
             | CommandFlags.ActionMacro
-        //| CommandFlags.NoInferConstraint 
+            //| CommandFlags.NoInferConstraint 
         )]
         public void Cmd_MatchViews()
         {
@@ -50,10 +44,12 @@ namespace RabCab.Commands.AnnotationSuite
             var acCurDb = acCurDoc.Database;
             var acCurEd = acCurDoc.Editor;
 
-            var viewRes = acCurEd.GetFilteredSelection(Enums.DxfNameEnum.Viewport, false, null, "\nSelect Viewports to resize: ");
+            var viewRes = acCurEd.GetFilteredSelection(Enums.DxfNameEnum.Viewport, false, null,
+                "\nSelect Viewports to resize: ");
             if (viewRes.Length <= 0) return;
 
-            var alignRes = acCurEd.GetFilteredSelection(Enums.DxfNameEnum.Viewport, true, null, "\nSelect Viewport to match: ");
+            var alignRes =
+                acCurEd.GetFilteredSelection(Enums.DxfNameEnum.Viewport, true, null, "\nSelect Viewport to match: ");
             if (alignRes.Length <= 0) return;
 
             const string key1 = "Height";
@@ -61,13 +57,12 @@ namespace RabCab.Commands.AnnotationSuite
             const string key3 = "Both";
 
 
-            var keyRes = acCurEd.GetSimpleKeyword("Match which size: ", new[] { key1, key2, key3});
+            var keyRes = acCurEd.GetSimpleKeyword("Match which size: ", new[] {key1, key2, key3});
             if (string.IsNullOrEmpty(keyRes)) return;
 
 
             using (var acTrans = acCurDb.TransactionManager.StartTransaction())
             {
-
                 var mainViewport = acTrans.GetObject(alignRes[0], OpenMode.ForRead) as Viewport;
                 if (mainViewport == null) return;
 
@@ -88,11 +83,11 @@ namespace RabCab.Commands.AnnotationSuite
 
                     switch (keyRes)
                     {
-                        case key1://Height
+                        case key1: //Height
                             alignView.Height = mainHeight;
                             break;
 
-                        case key2://Width
+                        case key2: //Width
                             alignView.Width = mainWidth;
                             break;
 
@@ -100,15 +95,11 @@ namespace RabCab.Commands.AnnotationSuite
                             alignView.Height = mainHeight;
                             alignView.Width = mainWidth;
                             break;
-
                     }
-
                 }
 
                 acTrans.Commit();
-
             }
-
         }
     }
 }

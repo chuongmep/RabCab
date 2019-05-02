@@ -4,13 +4,11 @@ using Autodesk.AutoCAD.Runtime;
 using RabCab.Engine.Enumerators;
 using RabCab.Extensions;
 using RabCab.Settings;
-using System;
-using System.Linq;
 using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
 
 namespace RabCab.Commands.ReferenceSuite.BlockKit
 {
-    class RcAutoAtt
+    internal class RcAutoAtt
     {
         /// <summary>
         /// </summary>
@@ -38,7 +36,7 @@ namespace RabCab.Commands.ReferenceSuite.BlockKit
             | CommandFlags.NoBlockEditor
             | CommandFlags.NoActionRecording
             | CommandFlags.ActionMacro
-        //| CommandFlags.NoInferConstraint 
+            //| CommandFlags.NoInferConstraint 
         )]
         public void Cmd_AutoAtt()
         {
@@ -69,17 +67,14 @@ namespace RabCab.Commands.ReferenceSuite.BlockKit
                     BlockTableRecord btr = null;
 
                     if (acBref.IsDynamicBlock)
-                    {
                         btr = acTrans.GetObject(acBref.DynamicBlockTableRecord, OpenMode.ForRead) as BlockTableRecord;
-                    }
                     else
-                    {
                         btr = acTrans.GetObject(acBref.BlockTableRecord, OpenMode.ForRead) as BlockTableRecord;
-                    }
 
                     if (btr == null) continue;
 
                     #region TODO replace with xml reading
+
                     var bName = acBref.Name;
 
                     //Add attribute definitions
@@ -114,8 +109,8 @@ namespace RabCab.Commands.ReferenceSuite.BlockKit
                     btr.AppendEntity(attTag);
                     btr.AppendEntity(attCrate);
 
-
                     #endregion
+
                     acBref.UpgradeOpen();
                     acBref.AppendAttributes(btr, acTrans);
                     acBref.DowngradeOpen();

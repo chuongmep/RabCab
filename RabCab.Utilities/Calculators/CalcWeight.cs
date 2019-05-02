@@ -13,6 +13,9 @@ namespace RabCab.Calculators
 {
     internal static class CalcWeight
     {
-        public static double GetWeightPerCuFt(this double mass, double weightPerCuFt) => mass * weightPerCuFt;
+        public static double GetWeightPerCuFt(this double mass, double weightPerCuFt)
+        {
+            return mass * weightPerCuFt;
+        }
     }
 }

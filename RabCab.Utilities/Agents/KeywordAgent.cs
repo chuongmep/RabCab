@@ -123,10 +123,10 @@ namespace RabCab.Agents
                 case TypeCode.Boolean:
                     var bTrue = "Yes";
                     var bFalse = "No";
-                    var keys = new string[] { bTrue, bFalse };
+                    var keys = new[] {bTrue, bFalse};
 
                     var prKeyOpts = new PromptKeywordOptions("")
-                    {                        
+                    {
                         Message = Prompt + " <" + DefValue + "> ",
                         AllowNone = false
                     };

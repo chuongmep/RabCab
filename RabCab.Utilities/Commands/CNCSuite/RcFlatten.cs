@@ -86,7 +86,6 @@ namespace RabCab.Commands.CNCSuite
             {
                 using (var acTrans = acCurDb.TransactionManager.StartTransaction())
                 {
-
                     //Set the UCS to World - save the user UCS
                     var userCoordSystem = acCurEd.CurrentUserCoordinateSystem;
                     acCurEd.CurrentUserCoordinateSystem = Matrix3d.Identity;
@@ -94,15 +93,12 @@ namespace RabCab.Commands.CNCSuite
                     if (SettingsUser.FlattenAssembly || SettingsUser.FlattenAllSides)
                     {
                         var objId = objIds.SolidFusion(acTrans, acCurDb, true);
-                        objIds = new[] { objId };
+                        objIds = new[] {objId};
                     }
 
                     foreach (var obj in objIds)
                     {
-                        if (!pWorker.Tick())
-                        {
-                            acTrans.Abort();
-                        }
+                        if (!pWorker.Tick()) acTrans.Abort();
 
                         using (var acSol = acTrans.GetObject(obj, OpenMode.ForWrite) as Solid3d)
                         {
@@ -110,7 +106,7 @@ namespace RabCab.Commands.CNCSuite
                             {
                                 if (SettingsUser.FlattenAllSides)
                                 {
-                                    acSol.FlattenAllSides(acCurDb, acCurEd, acTrans);                    
+                                    acSol.FlattenAllSides(acCurDb, acCurEd, acTrans);
                                 }
                                 else
                                 {
@@ -121,20 +117,14 @@ namespace RabCab.Commands.CNCSuite
                                     acSol.Erase();
                                     acSol.Dispose();
                                 }
-                            
                             }
-                    
                         }
                     }
 
                     acCurEd.CurrentUserCoordinateSystem = userCoordSystem;
                     acTrans.Commit();
                 }
-
-
             }
         }
-
-        
     }
 }

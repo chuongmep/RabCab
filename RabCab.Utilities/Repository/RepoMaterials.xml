@@ -1,4 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--Xml Document To Hold Material Information-->
 <materials>
 
@@ -6,23 +7,23 @@
 
     <!--Sheet Material Information-->
     <machMaterial identifier="Test"
-          defaultMat=""
-          cadColorCode=""
-          description=""
-          sheetLengths=""
-          sheetWidths=""
-          sheetDepths=""         
-          lbPerCuFt=""/>
+                  defaultMat=""
+                  cadColorCode=""
+                  description=""
+                  sheetLengths=""
+                  sheetWidths=""
+                  sheetDepths=""
+                  lbPerCuFt="" />
 
   </machiningMaterials>
 
   <standardMaterials>
 
     <stdMaterial identifier="Test"
-              defaultMat=""
-              cadColorCode=""
-              description=""
-              lbPerCuFt=""/>
+                 defaultMat=""
+                 cadColorCode=""
+                 description=""
+                 lbPerCuFt="" />
 
   </standardMaterials>
 

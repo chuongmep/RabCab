@@ -4,14 +4,13 @@ using Autodesk.AutoCAD.Runtime;
 using RabCab.Engine.Enumerators;
 using RabCab.Extensions;
 using RabCab.Settings;
-using System;
-using System.Linq;
 
 namespace RabCab.Commands.ReferenceSuite.BlockKit
 {
-    class RcQuickRename
-    { /// <summary>
-      /// </summary>
+    internal class RcQuickRename
+    {
+        /// <summary>
+        /// </summary>
         [CommandMethod(SettingsInternal.CommandGroup, "_QRename",
             CommandFlags.Modal
             //| CommandFlags.Transparent
@@ -36,7 +35,7 @@ namespace RabCab.Commands.ReferenceSuite.BlockKit
             | CommandFlags.NoBlockEditor
             | CommandFlags.NoActionRecording
             | CommandFlags.ActionMacro
-        //| CommandFlags.NoInferConstraint 
+            //| CommandFlags.NoInferConstraint 
         )]
         public void Cmd_QRename()
         {
@@ -51,7 +50,6 @@ namespace RabCab.Commands.ReferenceSuite.BlockKit
             // start a transaction
             using (var acTrans = acCurDb.TransactionManager.StartTransaction())
             {
-
                 // Open the Block table for write
                 var acBlkTbl = acTrans.GetObject(acCurDb.BlockTableId, OpenMode.ForRead) as BlockTable;
 
@@ -90,7 +88,7 @@ namespace RabCab.Commands.ReferenceSuite.BlockKit
                     else
                     {
                         // open the block definition
-                        var btr = (BlockTableRecord)acTrans.GetObject(acBlkTbl[bName], OpenMode.ForWrite);
+                        var btr = (BlockTableRecord) acTrans.GetObject(acBlkTbl[bName], OpenMode.ForWrite);
                         // rename the bloc
                         btr.Name = newName;
                     }

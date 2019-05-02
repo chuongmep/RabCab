@@ -45,10 +45,8 @@ namespace RabCab.External.XmlAgent
 
                 //Iterate through the attributes - if any match the specified 'attributesToGet' - replace that att with its value
                 foreach (XmlAttribute att in node.Attributes)
-                {
                     attributeList.Add(att);
-                    //Sandbox.WriteLine("  " + att.LocalName + " - " + att.Value);
-                }
+                //Sandbox.WriteLine("  " + att.LocalName + " - " + att.Value);
 
                 //Add the attribute collection to the returnable collection
                 xmlAtts.Add(attributeList.ToArray());

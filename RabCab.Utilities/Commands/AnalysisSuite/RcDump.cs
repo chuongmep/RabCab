@@ -56,7 +56,7 @@ namespace RabCab.Commands.AnalysisSuite
             }
         }
 
-         /// <summary>
+        /// <summary>
         /// </summary>
         [CommandMethod(SettingsInternal.CommandGroup, "_DUMPCOMPROPS",
             CommandFlags.Modal
@@ -111,7 +111,7 @@ namespace RabCab.Commands.AnalysisSuite
         }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="id"></param>
         /// <param name="ed"></param>

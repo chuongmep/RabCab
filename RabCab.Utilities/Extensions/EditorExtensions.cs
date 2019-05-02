@@ -29,10 +29,13 @@ namespace RabCab.Extensions
     {
         public static Matrix3d GetAlignedMatrix(this Editor acCurEd)
         {
-            CoordinateSystem3d coordinateSystem3d = acCurEd.CurrentUserCoordinateSystem.CoordinateSystem3d;
-            Matrix3d matrix3d = Matrix3d.AlignCoordinateSystem(Point3d.Origin, Vector3d.XAxis, Vector3d.YAxis, Vector3d.ZAxis, coordinateSystem3d.Origin, coordinateSystem3d.Xaxis, coordinateSystem3d.Yaxis, coordinateSystem3d.Zaxis);
+            var coordinateSystem3d = acCurEd.CurrentUserCoordinateSystem.CoordinateSystem3d;
+            var matrix3d = Matrix3d.AlignCoordinateSystem(Point3d.Origin, Vector3d.XAxis, Vector3d.YAxis,
+                Vector3d.ZAxis, coordinateSystem3d.Origin, coordinateSystem3d.Xaxis, coordinateSystem3d.Yaxis,
+                coordinateSystem3d.Zaxis);
             return matrix3d;
         }
+
         #region  Prompt Nested Entity Options
 
         /// <summary>
@@ -213,7 +216,59 @@ namespace RabCab.Extensions
                     if (userInput == key.Key)
                         key.GetOutput();
             };
+        }
 
+        //TODO Prompt Corner 
+
+        #region Prompt Bool Options
+
+        /// <summary>
+        ///     TODO
+        /// </summary>
+        /// <param name="acCurEd"></param>
+        /// <param name="prompt"></param>
+        /// <returns></returns>
+        public static bool? GetBool(this Editor acCurEd, string prompt, string t = null, string f = null)
+        {
+            var bTrue = t ?? "Yes";
+            var bFalse = f ?? "No";
+
+            if (f != null)
+                bFalse = f;
+
+            var keys = new[] {bTrue, bFalse};
+            var key = acCurEd.GetSimpleKeyword(prompt, keys);
+
+            if (string.IsNullOrEmpty(key)) return null;
+
+            return key == bTrue;
+        }
+
+        #endregion
+
+        #region Wait For Exit
+
+        public static void WaitForExit(this Editor acCurEd)
+        {
+            var prStrOpts = new PromptStringOptions("Press ENTER or ESC to continue ") {AllowSpaces = false};
+            acCurEd.GetString(prStrOpts);
+        }
+
+        #endregion
+
+        public static ObjectId[] SelectAtPoint(this Editor acCurEd, Point3d pt)
+        {
+            var p = pt;
+            var tol = 0.01;
+            var p1 = new Point3d(p.X - tol, p.Y - tol, p.Z - tol);
+            var p2 = new Point3d(p.X + tol, p.Y + tol, p.Z + tol);
+
+            var res = acCurEd.SelectCrossingWindow(p1, p2);
+
+            if (res.Status != PromptStatus.OK) return new ObjectId[0];
+
+            var ss = res.Value;
+            return ss.GetObjectIds();
         }
 
         #region Prompt Angle Options
@@ -291,37 +346,6 @@ namespace RabCab.Extensions
             //Return the angle entered into the editor
             var doubleResult = prAngRes.Value;
             return CalcUnit.ConvertToDegrees(doubleResult);
-        }
-
-        #endregion
-
-        //TODO Prompt Corner 
-
-        #region Prompt Bool Options
-
-        /// <summary>
-        /// TODO
-        /// </summary>
-        /// <param name="acCurEd"></param>
-        /// <param name="prompt"></param>
-        /// <returns></returns>
-        public static bool? GetBool(this Editor acCurEd, string prompt, string t = null, string f = null)
-        {           
-            var bTrue = t ?? "Yes";
-            var bFalse = f ?? "No";
-
-            if (f != null)
-                bFalse = f;
-
-            var keys = new string[] { bTrue, bFalse };
-            var key = acCurEd.GetSimpleKeyword(prompt, keys);
-
-            if (string.IsNullOrEmpty(key))
-            {
-                return null;
-            }
-
-            return key == bTrue;
         }
 
         #endregion
@@ -1551,7 +1575,8 @@ namespace RabCab.Extensions
         /// <param name="keyList"></param>
         /// <returns>Returns an objectID collection of the selected objects.</returns>
         public static ObjectId[] GetFilteredSelection(this Editor acCurEd, Enums.DxfNameEnum filterArg,
-            bool singleSelection, List<KeywordAgent> keyList = null, string msgForAdding = null, string msgForRemoval = null)
+            bool singleSelection, List<KeywordAgent> keyList = null, string msgForAdding = null,
+            string msgForRemoval = null)
         {
             //Convert the DXFName enum value to its string value
             var dxfName = EnumAgent.GetNameOf(filterArg);
@@ -1698,14 +1723,11 @@ namespace RabCab.Extensions
 
             var curSpace = 0;
 
-            if (AcVars.TileMode == Enums.TileModeEnum.Paperspace)
-            {
-                curSpace = 1;
-            }
+            if (AcVars.TileMode == Enums.TileModeEnum.Paperspace) curSpace = 1;
 
             // Create a TypedValue array to define the filter criteria
             var acTypValAr = new TypedValue[2];
-            acTypValAr.SetValue(new TypedValue((int)DxfCode.Start, dxfVals), 0);
+            acTypValAr.SetValue(new TypedValue((int) DxfCode.Start, dxfVals), 0);
             acTypValAr.SetValue(new TypedValue(67, curSpace), 1);
 
             // Assign the filter criteria to a SelectionFilter object
@@ -1715,10 +1737,7 @@ namespace RabCab.Extensions
             var acSsPrompt = acCurEd.SelectAll(acSelFtr);
 
             // If the prompt status is OK, objects were selected
-            if (acSsPrompt.Status == PromptStatus.OK)
-            {
-                acSSet = acSsPrompt.Value;
-            }
+            if (acSsPrompt.Status == PromptStatus.OK) acSSet = acSsPrompt.Value;
 
             return acSSet != null ? acSSet.GetObjectIds() : new ObjectId[0];
         }
@@ -1977,35 +1996,5 @@ namespace RabCab.Extensions
         }
 
         #endregion
-
-        #region Wait For Exit
-
-        public static void WaitForExit(this Editor acCurEd)
-        {
-            var prStrOpts = new PromptStringOptions("Press ENTER or ESC to continue ") {AllowSpaces = false};
-            acCurEd.GetString(prStrOpts);
-        }
-
-        #endregion
-
-        public static ObjectId[] SelectAtPoint(this Editor acCurEd, Point3d pt)
-        {
-            var p = pt;
-            var tol = 0.01;
-            var p1 = new Point3d(p.X - tol, p.Y - tol, p.Z - tol);
-            var p2 = new Point3d(p.X + tol, p.Y + tol, p.Z + tol);
-
-            var res = acCurEd.SelectCrossingWindow(p1, p2);
-
-            if (res.Status != PromptStatus.OK)
-            {
-                return new ObjectId[0];
-            }
-
-            var ss = res.Value;
-            return ss.GetObjectIds();
-        }
-
-        
     }
 }

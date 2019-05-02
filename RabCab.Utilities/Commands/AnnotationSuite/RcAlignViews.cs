@@ -9,14 +9,13 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
-using System.Windows.Forms;
+using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.Runtime;
 using RabCab.Engine.Enumerators;
 using RabCab.Extensions;
 using RabCab.Settings;
-using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
 
 namespace RabCab.Commands.AnnotationSuite
 {
@@ -57,10 +56,12 @@ namespace RabCab.Commands.AnnotationSuite
             var acCurDb = acCurDoc.Database;
             var acCurEd = acCurDoc.Editor;
 
-            var viewRes = acCurEd.GetFilteredSelection(Enums.DxfNameEnum.Viewport, false, null, "\nSelect Viewports to align: ");
+            var viewRes = acCurEd.GetFilteredSelection(Enums.DxfNameEnum.Viewport, false, null,
+                "\nSelect Viewports to align: ");
             if (viewRes.Length <= 0) return;
 
-            var alignRes = acCurEd.GetFilteredSelection(Enums.DxfNameEnum.Viewport, true, null, "\nSelect Viewport to align to: ");
+            var alignRes = acCurEd.GetFilteredSelection(Enums.DxfNameEnum.Viewport, true, null,
+                "\nSelect Viewport to align to: ");
             if (alignRes.Length <= 0) return;
 
             var boolRes = acCurEd.GetBool("Align by which orientation? ", "Horizontal", "Vertical");
@@ -70,7 +71,6 @@ namespace RabCab.Commands.AnnotationSuite
 
             using (var acTrans = acCurDb.TransactionManager.StartTransaction())
             {
-               
                 var mainViewport = acTrans.GetObject(alignRes[0], OpenMode.ForRead) as Viewport;
                 if (mainViewport == null) return;
 
@@ -86,22 +86,15 @@ namespace RabCab.Commands.AnnotationSuite
                     var alignY = alignView.CenterPoint.Y;
 
                     if (horizontal) //Horizontal
-                    {
-                        mainX = alignX; 
-                    }
+                        mainX = alignX;
                     else //Vertical
-                    {
                         mainY = alignY;
-                    }
 
                     alignView.CenterPoint = new Point3d(mainX, mainY, 0);
-
                 }
 
-               acTrans.Commit();
-
+                acTrans.Commit();
             }
-  
         }
     }
 }

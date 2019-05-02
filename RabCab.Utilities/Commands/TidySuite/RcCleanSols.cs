@@ -46,10 +46,7 @@ namespace RabCab.Commands.TidySuite
             {
                 var objIds = acCurEd.SelectAllOfType("3DSOLID", acTrans);
 
-                if (objIds.Length > 0)
-                {
-                    objIds.Clean(acCurDb, acTrans);
-                }
+                if (objIds.Length > 0) objIds.Clean(acCurDb, acTrans);
                 acTrans.Commit();
             }
         }

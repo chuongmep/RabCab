@@ -9,9 +9,8 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
-using Autodesk.AutoCAD.ApplicationServices;
+using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.Runtime;
-using RabCab.Engine.Enumerators;
 using RabCab.Extensions;
 using RabCab.Settings;
 
@@ -58,10 +57,7 @@ namespace RabCab.Commands.CombineSuite
             {
                 var objIds = acCurEd.SelectAllOfType("3DSOLID", acTrans);
 
-                if (objIds.Length > 0)
-                {
-                    objIds.Separate(acCurDb, acTrans);
-                }  
+                if (objIds.Length > 0) objIds.Separate(acCurDb, acTrans);
                 acTrans.Commit();
             }
         }

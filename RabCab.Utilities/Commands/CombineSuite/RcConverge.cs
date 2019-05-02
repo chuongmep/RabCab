@@ -55,7 +55,8 @@ namespace RabCab.Commands.CombineSuite
             var acCurEd = acCurDoc.Editor;
 
             var objIds =
-                acCurEd.GetFilteredSelection(Enums.DxfNameEnum._3Dsolid, false, null, "\nSelect solids to find the convergence of: ");
+                acCurEd.GetFilteredSelection(Enums.DxfNameEnum._3Dsolid, false, null,
+                    "\nSelect solids to find the convergence of: ");
             if (objIds.Length <= 1) return;
 
             var delSols = acCurEd.GetBool("\nDelete consumed solids after performing operation? ");

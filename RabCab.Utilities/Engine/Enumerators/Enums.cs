@@ -39,12 +39,6 @@ namespace RabCab.Engine.Enumerators
             Light = 1
         }
 
-        public enum OrthoMode
-        {
-            Off = 0,
-            On = 1
-        }
-
         /// <summary>
         ///     DXF Names for autoCAD entities
         /// </summary>
@@ -98,6 +92,13 @@ namespace RabCab.Engine.Enumerators
             Xline
         }
 
+
+        public enum GridMode
+        {
+            Off = 0,
+            On = 1
+        }
+
         public enum LoopKit
         {
             Error,
@@ -105,6 +106,12 @@ namespace RabCab.Engine.Enumerators
             Exterior,
             RightAngle,
             Undetermined
+        }
+
+        public enum OrthoMode
+        {
+            Off = 0,
+            On = 1
         }
 
         /// <summary>
@@ -208,13 +215,6 @@ namespace RabCab.Engine.Enumerators
             ProductionType = 18,
             ParentObject = 19,
             ChildObjects = 20
-        }
-
-
-        public enum GridMode
-        {
-            Off = 0,
-            On = 1
         }
     }
 }

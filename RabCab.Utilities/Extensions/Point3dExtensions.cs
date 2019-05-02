@@ -14,7 +14,6 @@ using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
-using RabCab.Calculators;
 using RabCab.Settings;
 using AcRx = Autodesk.AutoCAD.Runtime;
 
@@ -25,8 +24,7 @@ namespace RabCab.Extensions
     /// </summary>
     public static class Point3DExtensions
     {
-
-        ///     Method to return a displacement vector - transformed by the current UCS
+        /// Method to return a displacement vector - transformed by the current UCS
         /// </summary>
         /// <param name="point1">Point3d to transform from</param>
         /// <param name="point2">Point3d to transform to</param>
@@ -41,15 +39,15 @@ namespace RabCab.Extensions
             return acVec3D.TransformBy(acCurEd.CurrentUserCoordinateSystem);
         }
 
-        public static Point3d GetOrthoPoint( this Point3d pt, Point3d basePt)
+        public static Point3d GetOrthoPoint(this Point3d pt, Point3d basePt)
         {
             // Apply a crude orthographic mode
-            double x = pt.X;
-            double y = pt.Y;
+            var x = pt.X;
+            var y = pt.Y;
 
-            Vector3d vec = basePt.GetVectorTo(pt);
+            var vec = basePt.GetVectorTo(pt);
             if (Math.Abs(vec.X) >= Math.Abs(vec.Y))
-               y = basePt.Y;
+                y = basePt.Y;
             else
                 x = basePt.X;
 

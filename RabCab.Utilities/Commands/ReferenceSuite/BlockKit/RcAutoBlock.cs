@@ -1,22 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing.Imaging;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Autodesk.AutoCAD.ApplicationServices;
+﻿using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.DatabaseServices;
-using Autodesk.AutoCAD.Geometry;
-using Autodesk.AutoCAD.Interop.Common;
 using Autodesk.AutoCAD.Runtime;
-using RabCab.Engine.Enumerators;
 using RabCab.Extensions;
 using RabCab.Settings;
 using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
 
 namespace RabCab.Commands.ReferenceSuite.BlockKit
 {
-    class RcAutoBlock
+    internal class RcAutoBlock
     {
         /// <summary>
         /// </summary>
@@ -160,7 +151,7 @@ namespace RabCab.Commands.ReferenceSuite.BlockKit
 
                 acBtr.AssumeOwnershipOf(objCol2);
 
-                BlockReference acBr = new BlockReference(extents.MinPoint, blockId);
+                var acBr = new BlockReference(extents.MinPoint, blockId);
                 acCurDb.AppendEntity(acBr);
                 acBr.AppendAttributes(acBtr, acTrans);
 
@@ -176,7 +167,5 @@ namespace RabCab.Commands.ReferenceSuite.BlockKit
 
             acCurDb.Audit(true, false);
         }
-
-       
     }
 }

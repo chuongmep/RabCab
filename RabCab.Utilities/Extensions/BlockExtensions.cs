@@ -9,7 +9,6 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
-using System.Runtime.InteropServices.WindowsRuntime;
 using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
@@ -63,35 +62,31 @@ namespace RabCab.Extensions
         /// <param name="acBlkRef"></param>
         /// <param name="blkRecId"></param>
         /// <param name="acTrans"></param>
-        public static void AppendAttributes(this BlockReference acBlkRef, BlockTableRecord acBlkTblRec, Transaction acTrans)
+        public static void AppendAttributes(this BlockReference acBlkRef, BlockTableRecord acBlkTblRec,
+            Transaction acTrans)
         {
+            // Verify block table record has attribute definitions associated with it
+            if (acBlkTblRec != null && acBlkTblRec.HasAttributeDefinitions)
+                foreach (var objId in acBlkTblRec)
+                {
+                    var dbObj = acTrans.GetObject(objId, OpenMode.ForRead);
 
-                // Verify block table record has attribute definitions associated with it
-                if (acBlkTblRec != null && acBlkTblRec.HasAttributeDefinitions)
-                    foreach (var objId in acBlkTblRec)
+                    if (!(dbObj is AttributeDefinition acAtt)) continue;
+
+                    if (acAtt.Constant) continue;
+
+                    using (var acAttRef = new AttributeReference())
                     {
-                        var dbObj = acTrans.GetObject(objId, OpenMode.ForRead);
+                        acAttRef.SetAttributeFromBlock(acAtt, acBlkRef.BlockTransform);
 
-                        if (!(dbObj is AttributeDefinition acAtt)) continue;
-
-                        if (acAtt.Constant) continue;
-
-                        using (var acAttRef = new AttributeReference())
+                        if (!acBlkRef.ContainsAttributeDef(acAtt.Tag, acTrans))
                         {
-                            acAttRef.SetAttributeFromBlock(acAtt, acBlkRef.BlockTransform);
-
-                            if (!acBlkRef.ContainsAttributeDef(acAtt.Tag, acTrans))
-                            {
-                                acAttRef.TextString = acAtt.TextString;
-                                acBlkRef.AttributeCollection.AppendAttribute(acAttRef);
-                                acTrans.AddNewlyCreatedDBObject(acAttRef, true);
-                            }
-
+                            acAttRef.TextString = acAtt.TextString;
+                            acBlkRef.AttributeCollection.AppendAttribute(acAttRef);
+                            acTrans.AddNewlyCreatedDBObject(acAttRef, true);
                         }
                     }
-
-
-          
+                }
         }
 
         /// <summary>
@@ -335,7 +330,7 @@ namespace RabCab.Extensions
             return false;
         }
 
-         public static bool ContainsAttributeDef(this BlockReference acBlkRef, string Tag, Transaction acTrans)
+        public static bool ContainsAttributeDef(this BlockReference acBlkRef, string Tag, Transaction acTrans)
         {
             foreach (ObjectId objId in acBlkRef.AttributeCollection)
             {

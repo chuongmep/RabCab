@@ -9,7 +9,7 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
-using Autodesk.AutoCAD.ApplicationServices;
+using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.Runtime;
 using RabCab.Settings;
 
@@ -47,7 +47,7 @@ namespace RabCab.Commands.AutomationSuite
         )]
         public void Cmd_Default()
         {
-             //Get the current document utilities
+            //Get the current document utilities
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;
             var acCurDb = acCurDoc.Database;
             var acCurEd = acCurDoc.Editor;

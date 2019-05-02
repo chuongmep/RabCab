@@ -688,7 +688,7 @@ namespace RabCab.Extensions
         /// <returns></returns>
         public static FullSubentityPath GetFsPath(this Solid3d acSol, SubentityId subEnt)
         {
-            ObjectId[] objIds = { acSol.ObjectId };
+            ObjectId[] objIds = {acSol.ObjectId};
             return new FullSubentityPath(objIds, subEnt);
         }
 
@@ -1051,7 +1051,6 @@ namespace RabCab.Extensions
         public static void Flatten(this Entity acEnt, Transaction acTrans, Database acCurDb, Editor acCurEd,
             bool visible, bool hidden, bool translate, Matrix3d userCoordSystem)
         {
-
             // Open the Block currently active space for write
             var bt = (BlockTable) acTrans.GetObject(acCurDb.BlockTableId, OpenMode.ForRead);
 
@@ -1199,7 +1198,8 @@ namespace RabCab.Extensions
             acSection.Dispose();
         }
 
-        public static bool BoundsIntersect(this Solid3d sol1, Solid3d sol2, Database acCurDb, Transaction acTrans, double tolerance = 0)
+        public static bool BoundsIntersect(this Solid3d sol1, Solid3d sol2, Database acCurDb, Transaction acTrans,
+            double tolerance = 0)
         {
             bool interferes;
 
@@ -1211,16 +1211,14 @@ namespace RabCab.Extensions
                     acCurDb.AppendEntity(bounds2, acTrans);
 
                     if (!Math.Abs(tolerance).IsLessThanTol())
-                    {
                         try
                         {
                             bounds1.OffsetBody(tolerance);
                         }
-                        catch (Autodesk.AutoCAD.BoundaryRepresentation.Exception e)
+                        catch (AcBr.Exception e)
                         {
                             Console.WriteLine(e);
                         }
-                    }
 
                     interferes = bounds1.CheckInterference(bounds2);
 
@@ -1346,7 +1344,8 @@ namespace RabCab.Extensions
 
             while (interferes)
                 if (rightView != null && rightView.BoundsIntersect(topView, acCurDb, acTrans, LayStep))
-                    rightView.TransformBy(Matrix3d.Displacement(rightX.GetTransformedVector(rightX.StepXRight(), acCurEd)));
+                    rightView.TransformBy(
+                        Matrix3d.Displacement(rightX.GetTransformedVector(rightX.StepXRight(), acCurEd)));
                 else
                     interferes = false;
 

@@ -5,6 +5,16 @@ namespace RabCab.Entities.Annotation
 {
     internal class SysPoint
     {
+        public SysPoint()
+        {
+            Dim1 = null;
+            Dim2 = null;
+            Dim1PointIndex = 0;
+            Dim1PointIndex = 0;
+            IsLast = true;
+            DimLinePoint = new Point3d();
+        }
+
         public RotatedDimension Dim1 { get; set; }
 
         public int Dim1PointIndex { get; set; }
@@ -16,15 +26,5 @@ namespace RabCab.Entities.Annotation
         public Point3d DimLinePoint { get; set; }
 
         public bool IsLast { get; set; }
-
-        public SysPoint()
-        {
-            Dim1 = null;
-            Dim2 = null;
-            Dim1PointIndex = 0;
-            Dim1PointIndex = 0;
-            IsLast = true;
-            DimLinePoint = new Point3d();
-        }
     }
 }

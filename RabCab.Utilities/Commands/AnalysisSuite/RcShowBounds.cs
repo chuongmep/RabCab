@@ -1,8 +1,5 @@
-﻿using System;
-using Autodesk.AutoCAD.ApplicationServices.Core;
+﻿using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.Colors;
-using Autodesk.AutoCAD.DatabaseServices;
-using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.Runtime;
 using RabCab.Agents;
 using RabCab.Extensions;
@@ -50,30 +47,26 @@ namespace RabCab.Commands.AnalysisSuite
             var objIds = acCurEd.GetAllSelection(false);
             var boolRes = acCurEd.GetBool("Save bounds? ");
             if (boolRes == null)
-               return;
+                return;
 
             var append = boolRes.Value;
 
             using (var acTrans = acCurDb.TransactionManager.StartTransaction())
             {
-                    var sol = acTrans.GetBoundingBox(objIds, acCurDb);
-                
-                    sol.Transparency = new Transparency(75);
-                    sol.Color = Colors.LayerColorBounds;
+                var sol = acTrans.GetBoundingBox(objIds, acCurDb);
 
-                    TransientAgent.Add(sol);
-                    TransientAgent.Draw();               
+                sol.Transparency = new Transparency(75);
+                sol.Color = Colors.LayerColorBounds;
 
-                    if (append)
-                    {
-                        acCurDb.AppendEntity(sol);
-                    }
-                    else
-                    {
-                        sol.Dispose();
-                    }
+                TransientAgent.Add(sol);
+                TransientAgent.Draw();
 
-                    TransientAgent.Clear();
+                if (append)
+                    acCurDb.AppendEntity(sol);
+                else
+                    sol.Dispose();
+
+                TransientAgent.Clear();
 
 
                 acTrans.Commit();

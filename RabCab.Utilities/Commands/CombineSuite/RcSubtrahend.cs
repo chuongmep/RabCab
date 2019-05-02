@@ -55,11 +55,13 @@ namespace RabCab.Commands.CombineSuite
             var acCurEd = acCurDoc.Editor;
 
             var objIds1 =
-                acCurEd.GetFilteredSelection(Enums.DxfNameEnum._3Dsolid, false, null, "\nSelect solids to be subtracted from: ");
+                acCurEd.GetFilteredSelection(Enums.DxfNameEnum._3Dsolid, false, null,
+                    "\nSelect solids to be subtracted from: ");
             if (objIds1.Length <= 0) return;
 
             var objIds2 =
-                acCurEd.GetFilteredSelection(Enums.DxfNameEnum._3Dsolid, false, null, "\nSelect solids to be used as subtrahends: ");
+                acCurEd.GetFilteredSelection(Enums.DxfNameEnum._3Dsolid, false, null,
+                    "\nSelect solids to be used as subtrahends: ");
             if (objIds2.Length <= 0) return;
 
             var delSols = acCurEd.GetBool("\nDelete consumed solids after performing operation? ");
@@ -68,7 +70,7 @@ namespace RabCab.Commands.CombineSuite
             using (var acTrans = acCurDb.TransactionManager.StartTransaction())
             {
                 objIds1.SolidSubtrahend(objIds2, acCurDb, acTrans, delSols.Value);
-                acTrans.Commit(); 
+                acTrans.Commit();
             }
         }
     }

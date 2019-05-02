@@ -1,7 +1,6 @@
-﻿using Autodesk.AutoCAD.DatabaseServices;
+﻿using System;
+using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Geometry;
-using System;
-using System.Linq;
 
 namespace RabCab.Extensions
 {
@@ -47,13 +46,9 @@ namespace RabCab.Extensions
             line.IntersectWith(pline, Intersect.ExtendThis, ixPoints, IntPtr.Zero, IntPtr.Zero);
 
             if (ixPoints.Count == 2)
-            {
                 distanceAcross = ixPoints[0].DistanceTo(ixPoints[1]);
-            }
             else
-            {
                 distanceAcross = Math.Abs(maxX - minX);
-            }
 
             pline.Dispose();
             line.Dispose();

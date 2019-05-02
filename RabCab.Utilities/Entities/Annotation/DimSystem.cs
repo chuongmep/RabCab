@@ -10,6 +10,173 @@ namespace RabCab.Entities.Annotation
 {
     internal class DimSystem
     {
+        #region Properties
+
+        /// <summary>
+        ///     TODO
+        /// </summary>
+        /// <param name="pntIndex"></param>
+        /// <param name="modifyArrowhead"></param>
+        /// <param name="arrowheadName"></param>
+        /// <param name="modifyExtensionLine"></param>
+        /// <param name="suppressExtLine"></param>
+        /// <param name="eqPt"></param>
+        public void GetProps(int pntIndex, bool modifyArrowhead, string arrowheadName, bool modifyExtensionLine,
+            bool suppressExtLine, double eqPt)
+        {
+            var sysPoints = GetSystemPoints(eqPt);
+            if (sysPoints.Count == 0) return;
+            if (sysPoints.Count < pntIndex) return;
+
+            var sysPt = sysPoints[pntIndex];
+
+            var objectId = new ObjectId();
+            if (modifyArrowhead && arrowheadName != ".") objectId = GetArrowId(arrowheadName);
+
+            if (sysPt.IsLast)
+            {
+                var num2 = sysPt.Dim1PointIndex != 1 ? 2 : 1;
+                if (!sysPt.Dim1.IsWriteEnabled) sysPt.Dim1.UpgradeOpen();
+                if (modifyExtensionLine)
+                {
+                    if (num2 != 1)
+                        sysPt.Dim1.Dimse2 = suppressExtLine;
+                    else
+                        sysPt.Dim1.Dimse1 = suppressExtLine;
+                }
+
+                if (modifyArrowhead)
+                {
+                    var dimblk = new ObjectId();
+                    var flag = false;
+                    if (objectId.IsNull && !sysPt.Dim1.Dimblk.IsNull)
+                    {
+                        dimblk = sysPt.Dim1.Dimblk;
+                        sysPt.Dim1.Dimblk = objectId;
+                        flag = true;
+                    }
+
+                    sysPt.Dim1.Dimsah = true;
+                    if (num2 != 1)
+                    {
+                        sysPt.Dim1.Dimblk2 = objectId;
+                        if (flag) sysPt.Dim1.Dimblk1 = dimblk;
+                    }
+                    else
+                    {
+                        sysPt.Dim1.Dimblk1 = objectId;
+                        if (flag) sysPt.Dim1.Dimblk2 = dimblk;
+                    }
+                }
+
+                sysPt.Dim1.RecomputeDimensionBlock(true);
+                return;
+            }
+
+            var num = sysPt.Dim1PointIndex != 1 ? 2 : 1;
+            var num1 = sysPt.Dim2PointIndex != 1 ? 2 : 1;
+            if (!sysPt.Dim1.IsWriteEnabled) sysPt.Dim1.UpgradeOpen();
+            if (!sysPt.Dim2.IsWriteEnabled) sysPt.Dim2.UpgradeOpen();
+            if (modifyExtensionLine)
+            {
+                if (num != 1)
+                    sysPt.Dim1.Dimse2 = suppressExtLine;
+                else
+                    sysPt.Dim1.Dimse1 = suppressExtLine;
+                if (num1 != 1)
+                    sysPt.Dim2.Dimse2 = suppressExtLine;
+                else
+                    sysPt.Dim2.Dimse1 = suppressExtLine;
+            }
+
+            if (modifyArrowhead)
+            {
+                var dimblk1 = new ObjectId();
+                var objectId1 = new ObjectId();
+                var flag1 = false;
+                var flag2 = false;
+                if (objectId.IsNull)
+                {
+                    if (!sysPt.Dim1.Dimblk.IsNull)
+                    {
+                        dimblk1 = sysPt.Dim1.Dimblk;
+                        sysPt.Dim1.Dimblk = objectId;
+                        flag1 = true;
+                    }
+
+                    if (!sysPt.Dim2.Dimblk.IsNull)
+                    {
+                        objectId1 = sysPt.Dim2.Dimblk;
+                        sysPt.Dim2.Dimblk = objectId;
+                        flag2 = true;
+                    }
+                }
+
+                sysPt.Dim1.Dimsah = true;
+                if (num != 1)
+                {
+                    sysPt.Dim1.Dimblk2 = objectId;
+                    if (flag1) sysPt.Dim1.Dimblk1 = dimblk1;
+                }
+                else
+                {
+                    sysPt.Dim1.Dimblk1 = objectId;
+                    if (flag1) sysPt.Dim1.Dimblk2 = dimblk1;
+                }
+
+                sysPt.Dim2.Dimsah = true;
+                if (num1 != 1)
+                {
+                    sysPt.Dim2.Dimblk2 = objectId;
+                    if (flag2) sysPt.Dim2.Dimblk1 = objectId1;
+                }
+                else
+                {
+                    sysPt.Dim2.Dimblk1 = objectId;
+                    if (flag2) sysPt.Dim2.Dimblk2 = objectId1;
+                }
+            }
+
+            sysPt.Dim1.RecomputeDimensionBlock(true);
+            sysPt.Dim2.RecomputeDimensionBlock(true);
+        }
+
+        #endregion
+
+
+        #region Get Active Viewports
+
+        /// <summary>
+        ///     TODO
+        /// </summary>
+        /// <returns></returns>
+        public static int[] GetActiveViewCount()
+        {
+            var acCurEd = Application.DocumentManager.MdiActiveDocument.Editor;
+            var acCurDb = HostApplicationServices.WorkingDatabase;
+            if (acCurDb.TileMode) return new int[0];
+            IList<int> nums = new List<int>();
+
+            using (var acTrans = acCurDb.TransactionManager.StartTransaction())
+            {
+                var obj = acTrans.GetObject(acCurEd.ActiveViewportId, OpenMode.ForRead) as Viewport;
+                if (!(obj != null) || obj.Number != 1)
+                    foreach (ObjectId viewport in acCurDb.GetViewports(false))
+                    {
+                        obj = (Viewport) acTrans.GetObject(viewport, OpenMode.ForRead);
+                        nums.Add(obj.Number);
+                    }
+                else
+                    nums.Add(1);
+
+                acTrans.Commit();
+            }
+
+            return nums.ToArray();
+        }
+
+        #endregion
+
         #region Constructor
 
         public List<RotatedDimension> SysList;
@@ -17,7 +184,7 @@ namespace RabCab.Entities.Annotation
         public int Count { get; private set; }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         public DimSystem()
         {
@@ -29,8 +196,9 @@ namespace RabCab.Entities.Annotation
         #endregion
 
         #region Deletion Methods
+
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="index"></param>
         private void Delete(int index)
@@ -84,7 +252,7 @@ namespace RabCab.Entities.Annotation
         }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="fencePoint1"></param>
         /// <param name="fencePoint2"></param>
@@ -138,7 +306,7 @@ namespace RabCab.Entities.Annotation
         }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="deletePoint"></param>
         public void Delete(Point3d deletePoint)
@@ -494,139 +662,6 @@ namespace RabCab.Entities.Annotation
 
         #endregion
 
-        #region Properties
-
-        /// <summary>
-        ///     TODO
-        /// </summary>
-        /// <param name="pntIndex"></param>
-        /// <param name="modifyArrowhead"></param>
-        /// <param name="arrowheadName"></param>
-        /// <param name="modifyExtensionLine"></param>
-        /// <param name="suppressExtLine"></param>
-        /// <param name="eqPt"></param>
-        public void GetProps(int pntIndex, bool modifyArrowhead, string arrowheadName, bool modifyExtensionLine,
-            bool suppressExtLine, double eqPt)
-        {
-            var sysPoints = GetSystemPoints(eqPt);
-            if (sysPoints.Count == 0) return;
-            if (sysPoints.Count < pntIndex) return;
-
-            var sysPt = sysPoints[pntIndex];
-
-            var objectId = new ObjectId();
-            if (modifyArrowhead && arrowheadName != ".") objectId = GetArrowId(arrowheadName);
-
-            if (sysPt.IsLast)
-            {
-                var num2 = sysPt.Dim1PointIndex != 1 ? 2 : 1;
-                if (!sysPt.Dim1.IsWriteEnabled) sysPt.Dim1.UpgradeOpen();
-                if (modifyExtensionLine)
-                {
-                    if (num2 != 1)
-                        sysPt.Dim1.Dimse2 = suppressExtLine;
-                    else
-                        sysPt.Dim1.Dimse1 = suppressExtLine;
-                }
-
-                if (modifyArrowhead)
-                {
-                    var dimblk = new ObjectId();
-                    var flag = false;
-                    if (objectId.IsNull && !sysPt.Dim1.Dimblk.IsNull)
-                    {
-                        dimblk = sysPt.Dim1.Dimblk;
-                        sysPt.Dim1.Dimblk = objectId;
-                        flag = true;
-                    }
-
-                    sysPt.Dim1.Dimsah = true;
-                    if (num2 != 1)
-                    {
-                        sysPt.Dim1.Dimblk2 = objectId;
-                        if (flag) sysPt.Dim1.Dimblk1 = dimblk;
-                    }
-                    else
-                    {
-                        sysPt.Dim1.Dimblk1 = objectId;
-                        if (flag) sysPt.Dim1.Dimblk2 = dimblk;
-                    }
-                }
-
-                sysPt.Dim1.RecomputeDimensionBlock(true);
-                return;
-            }
-
-            var num = sysPt.Dim1PointIndex != 1 ? 2 : 1;
-            var num1 = sysPt.Dim2PointIndex != 1 ? 2 : 1;
-            if (!sysPt.Dim1.IsWriteEnabled) sysPt.Dim1.UpgradeOpen();
-            if (!sysPt.Dim2.IsWriteEnabled) sysPt.Dim2.UpgradeOpen();
-            if (modifyExtensionLine)
-            {
-                if (num != 1)
-                    sysPt.Dim1.Dimse2 = suppressExtLine;
-                else
-                    sysPt.Dim1.Dimse1 = suppressExtLine;
-                if (num1 != 1)
-                    sysPt.Dim2.Dimse2 = suppressExtLine;
-                else
-                    sysPt.Dim2.Dimse1 = suppressExtLine;
-            }
-
-            if (modifyArrowhead)
-            {
-                var dimblk1 = new ObjectId();
-                var objectId1 = new ObjectId();
-                var flag1 = false;
-                var flag2 = false;
-                if (objectId.IsNull)
-                {
-                    if (!sysPt.Dim1.Dimblk.IsNull)
-                    {
-                        dimblk1 = sysPt.Dim1.Dimblk;
-                        sysPt.Dim1.Dimblk = objectId;
-                        flag1 = true;
-                    }
-
-                    if (!sysPt.Dim2.Dimblk.IsNull)
-                    {
-                        objectId1 = sysPt.Dim2.Dimblk;
-                        sysPt.Dim2.Dimblk = objectId;
-                        flag2 = true;
-                    }
-                }
-
-                sysPt.Dim1.Dimsah = true;
-                if (num != 1)
-                {
-                    sysPt.Dim1.Dimblk2 = objectId;
-                    if (flag1) sysPt.Dim1.Dimblk1 = dimblk1;
-                }
-                else
-                {
-                    sysPt.Dim1.Dimblk1 = objectId;
-                    if (flag1) sysPt.Dim1.Dimblk2 = dimblk1;
-                }
-
-                sysPt.Dim2.Dimsah = true;
-                if (num1 != 1)
-                {
-                    sysPt.Dim2.Dimblk2 = objectId;
-                    if (flag2) sysPt.Dim2.Dimblk1 = objectId1;
-                }
-                else
-                {
-                    sysPt.Dim2.Dimblk1 = objectId;
-                    if (flag2) sysPt.Dim2.Dimblk2 = objectId1;
-                }
-            }
-
-            sysPt.Dim1.RecomputeDimensionBlock(true);
-            sysPt.Dim2.RecomputeDimensionBlock(true);
-        }
-
-        #endregion
-
         #region Highlight Options
 
         /// <summary>
@@ -651,40 +686,6 @@ namespace RabCab.Entities.Annotation
                 acRotDim.Unhighlight();
                 Highlighted = false;
             }
-        }
-
-        #endregion
-
-
-        #region Get Active Viewports
-
-        /// <summary>
-        ///     TODO
-        /// </summary>
-        /// <returns></returns>
-        public static int[] GetActiveViewCount()
-        {
-            var acCurEd = Application.DocumentManager.MdiActiveDocument.Editor;
-            var acCurDb = HostApplicationServices.WorkingDatabase;
-            if (acCurDb.TileMode) return new int[0];
-            IList<int> nums = new List<int>();
-
-            using (var acTrans = acCurDb.TransactionManager.StartTransaction())
-            {
-                var obj = acTrans.GetObject(acCurEd.ActiveViewportId, OpenMode.ForRead) as Viewport;
-                if (!(obj != null) || obj.Number != 1)
-                    foreach (ObjectId viewport in acCurDb.GetViewports(false))
-                    {
-                        obj = (Viewport) acTrans.GetObject(viewport, OpenMode.ForRead);
-                        nums.Add(obj.Number);
-                    }
-                else
-                    nums.Add(1);
-
-                acTrans.Commit();
-            }
-
-            return nums.ToArray();
         }
 
         #endregion
@@ -961,7 +962,7 @@ namespace RabCab.Entities.Annotation
                 Application.SetSystemVariable("DIMBLK", ".");
             else
                 Application.SetSystemVariable("DIMBLK", dimBlk);
-            
+
             using (var topTransaction = acCurDb.TransactionManager.TopTransaction)
             {
                 var obj = (BlockTable) topTransaction.GetObject(acCurDb.BlockTableId, OpenMode.ForRead);

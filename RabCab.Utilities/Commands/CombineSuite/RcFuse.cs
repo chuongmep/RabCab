@@ -66,8 +66,6 @@ namespace RabCab.Commands.CombineSuite
                 objIds.SolidFusion(acTrans, acCurDb, delSols.Value);
                 acTrans.Commit();
             }
-   
         }
-
     }
 }

@@ -1,20 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.Runtime;
-using RabCab.Engine.Enumerators;
-using RabCab.Extensions;
 using RabCab.Settings;
+using Exception = Autodesk.AutoCAD.Runtime.Exception;
 
 namespace RabCab.Commands.AnnotationSuite
 {
-    class RcDimToggle
+    internal class RcDimToggle
     {
         /// <summary>
         /// </summary>
@@ -68,7 +63,6 @@ namespace RabCab.Commands.AnnotationSuite
             {
                 var acDim = acTrans.GetObject(prEntRes.ObjectId, OpenMode.ForWrite) as Entity;
                 if (acDim != null)
-                {
                     try
                     {
                         Point3d xPt1;
@@ -132,19 +126,15 @@ namespace RabCab.Commands.AnnotationSuite
 
                                 break;
                             }
-
                         }
-
                     }
-                    catch (Autodesk.AutoCAD.Runtime.Exception e)
+                    catch (Exception e)
                     {
                         Console.WriteLine(e);
                     }
-                }
 
                 acTrans.Commit();
             }
-
         }
     }
 }

@@ -70,10 +70,7 @@ namespace RabCab.Commands.AssemblySuite
 
             //Set the Grid Mode to ON if it is not ON - Get the users current grid mode
             var userGridMode = AcVars.GridMode;
-            if (AcVars.GridMode != Enums.GridMode.On)
-            {
-                AcVars.GridMode = Enums.GridMode.On;
-            }
+            if (AcVars.GridMode != Enums.GridMode.On) AcVars.GridMode = Enums.GridMode.On;
 
             acCurEd.Regen();
 
