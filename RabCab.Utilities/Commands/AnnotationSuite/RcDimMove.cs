@@ -111,6 +111,7 @@ namespace RabCab.Commands.AnnotationSuite
                         }
                     };
                     editor.PointMonitor += pointMonitorEventHandler;
+
                     try
                     {
                         point = mdiActiveDocument.Editor.GetPoint(promptPointOption);
