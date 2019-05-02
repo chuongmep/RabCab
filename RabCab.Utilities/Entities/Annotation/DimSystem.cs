@@ -3,50 +3,52 @@ using System.Collections.Generic;
 using System.Linq;
 using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.DatabaseServices;
-using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
 using RabCab.Calculators;
-using RabCab.Engine.Enumerators;
 
 namespace RabCab.Entities.Annotation
 {
     internal class DimSystem
     {
-        public List<RotatedDimension> SysList;
+        #region Constructor
 
-        public bool Highlighted { get; set; }
-        public int SystemCount { get; set; }
+        public List<RotatedDimension> SysList;
+        private bool Highlighted { get; set; }
+        public int Count { get; private set; }
 
         public DimSystem()
         {
-            SystemCount = 0;
+            Count = 0;
             SysList = new List<RotatedDimension>();
             Highlighted = false;
         }
 
-        public void DeletePointByIndex(int index)
+        #endregion
+
+        private void Delete(int index)
         {
-            var database = Application.DocumentManager.MdiActiveDocument.Database;
-            var dimPoints = GetDimPoints(CalcTol.ReturnCurrentTolerance());
-            if (dimPoints.Count < index) return;
-            var item = dimPoints[index];
-            var topTransaction = database.TransactionManager.TopTransaction;
-            using (topTransaction)
+            var acCurDb = Application.DocumentManager.MdiActiveDocument.Database;
+
+            var sysPts = GetSystemPoints(CalcTol.ReturnCurrentTolerance());
+            if (sysPts.Count < index) return;
+
+            var pt = sysPts[index];
+
+            using (var acTrans = acCurDb.TransactionManager.TopTransaction)
             {
-                if (!item.IsLast)
+                if (!pt.IsLast)
                 {
-                    var dim1 = item.Dim1;
-                    var dim2 = item.Dim2;
+                    var dim1 = pt.Dim1;
+                    var dim2 = pt.Dim2;
                     if (!dim1.IsWriteEnabled) dim1.UpgradeOpen();
                     if (!dim2.IsWriteEnabled) dim2.UpgradeOpen();
-                    var dim1PointIndex = item.Dim1PointIndex;
-                    var dim2PointIndex = item.Dim2PointIndex;
+
+                    var dim1PointIndex = pt.Dim1PointIndex;
+                    var dim2PointIndex = pt.Dim2PointIndex;
+
                     if (dim1PointIndex == 1)
                     {
-                        if (dim2PointIndex != 1)
-                            dim1.XLine1Point = dim2.XLine1Point;
-                        else
-                            dim1.XLine1Point = dim2.XLine2Point;
+                        dim1.XLine1Point = dim2PointIndex != 1 ? dim2.XLine1Point : dim2.XLine2Point;
                     }
                     else if (dim2PointIndex != 1)
                     {
@@ -56,41 +58,45 @@ namespace RabCab.Entities.Annotation
                     {
                         dim1.XLine2Point = dim2.XLine2Point;
                     }
- dim1.UsingDefaultTextPosition = true;
+
+                    dim1.UsingDefaultTextPosition = true;
                     dim2.Unhighlight();
                     dim2.Erase();
                     SysList.Remove(dim2);
-                    SystemCount = SystemCount - 1;
+                    Count -= 1;
                 }
                 else
                 {
-                    var rotatedDimension = item.Dim1;
+                    var rotatedDimension = pt.Dim1;
                     if (!rotatedDimension.IsWriteEnabled) rotatedDimension.UpgradeOpen();
+
                     rotatedDimension.Unhighlight();
                     rotatedDimension.Erase();
+
                     SysList.Remove(rotatedDimension);
-                    SystemCount = SystemCount - 1;
+                    Count -= 1;
                 }
 
-                topTransaction.TransactionManager.QueueForGraphicsFlush();
+                acTrans.TransactionManager.QueueForGraphicsFlush();
             }
         }
 
-        public void DeletePointByLine(Point3d fencePoint1, Point3d fencePoint2)
+        public void Delete(Point3d fencePoint1, Point3d fencePoint2)
         {
-            var equalPointDistance = CalcTol.ReturnCurrentTolerance();
-            var dimPoints = GetDimPoints(equalPointDistance);
-            if (dimPoints.Count == 0) return;
-            var dimLinePoint = dimPoints[0].DimLinePoint;
-            var point3d = dimPoints[1].DimLinePoint;
-            var plane = Matrix3d.WorldToPlane(dimPoints[0].Dim1.Normal);
-            var point3d1 = dimLinePoint.TransformBy(plane);
+            var eqPoint = CalcTol.ReturnCurrentTolerance();
+            var sysPoints = GetSystemPoints(eqPoint);
+            if (sysPoints.Count == 0) return;
+
+            var dlPoint = sysPoints[0].DimLinePoint;
+            var pt = sysPoints[1].DimLinePoint;
+            var wPlane = Matrix3d.WorldToPlane(sysPoints[0].Dim1.Normal);
+            var point3d1 = dlPoint.TransformBy(wPlane);
             var point2d = new Point2d(point3d1.X, point3d1.Y);
-            var point3d2 = point3d.TransformBy(plane);
+            var point3d2 = pt.TransformBy(wPlane);
             var point2d1 = new Point2d(point3d2.X, point3d2.Y);
-            var point3d3 = fencePoint1.TransformBy(plane);
+            var point3d3 = fencePoint1.TransformBy(wPlane);
             var point2d2 = new Point2d(point3d3.X, point3d3.Y);
-            var point3d4 = fencePoint2.TransformBy(plane);
+            var point3d4 = fencePoint2.TransformBy(wPlane);
             var point2d3 = new Point2d(point3d4.X, point3d4.Y);
             var line2d = new Line2d(point2d, point2d1);
             var point = line2d.GetClosestPointTo(point2d2).Point;
@@ -100,11 +106,12 @@ namespace RabCab.Entities.Annotation
             do
             {
                 if (SysList.Count == 0) return;
-                if (flag) dimPoints = GetDimPoints(equalPointDistance);
+                if (flag) sysPoints = GetSystemPoints(eqPoint);
                 var num = 0;
-                foreach (var dimPoint in dimPoints)
+
+                foreach (var sysPoint in sysPoints)
                 {
-                    var point3d5 = dimPoint.DimLinePoint.TransformBy(plane);
+                    var point3d5 = sysPoint.DimLinePoint.TransformBy(wPlane);
                     var point2d4 = new Point2d(point3d5.X, point3d5.Y);
                     var distanceTo1 = point2d4.GetDistanceTo(point);
                     var num1 = point2d4.GetDistanceTo(point1);
@@ -115,40 +122,38 @@ namespace RabCab.Entities.Annotation
                     }
                     else
                     {
-                        DeletePointByIndex(num);
+                        Delete(num);
                         flag = true;
                         break;
                     }
                 }
+
             } while (flag);
         }
 
-        public void DeletePointByPoint(Point3d deletePoint)
+        public void Delete(Point3d deletePoint)
         {
-            var database = Application.DocumentManager.MdiActiveDocument.Database;
-            var dimPoints = GetDimPoints(CalcTol.ReturnCurrentTolerance());
+            var acCurDb = Application.DocumentManager.MdiActiveDocument.Database;
+            var dPoints = GetSystemPoints(CalcTol.ReturnCurrentTolerance());
             var nums = new List<double>();
-            if (dimPoints.Count == 0) return;
-            foreach (var dimPoint in dimPoints) nums.Add(deletePoint.DistanceTo(dimPoint.DimLinePoint));
+            if (dPoints.Count == 0) return;
+            foreach (var sysPoint in dPoints) nums.Add(deletePoint.DistanceTo(sysPoint.DimLinePoint));
             var num = nums.IndexOf(nums.Min());
-            var item = dimPoints[num];
-            var topTransaction = database.TransactionManager.TopTransaction;
-            using (topTransaction)
+            var pt = dPoints[num];
+           
+            using (var topTransaction = acCurDb.TransactionManager.TopTransaction)
             {
-                if (!item.IsLast)
+                if (!pt.IsLast)
                 {
-                    var dim1 = item.Dim1;
-                    var dim2 = item.Dim2;
+                    var dim1 = pt.Dim1;
+                    var dim2 = pt.Dim2;
                     if (!dim1.IsWriteEnabled) dim1.UpgradeOpen();
                     if (!dim2.IsWriteEnabled) dim2.UpgradeOpen();
-                    var dim1PointIndex = item.Dim1PointIndex;
-                    var dim2PointIndex = item.Dim2PointIndex;
+                    var dim1PointIndex = pt.Dim1PointIndex;
+                    var dim2PointIndex = pt.Dim2PointIndex;
                     if (dim1PointIndex == 1)
                     {
-                        if (dim2PointIndex != 1)
-                            dim1.XLine1Point = dim2.XLine1Point;
-                        else
-                            dim1.XLine1Point = dim2.XLine2Point;
+                        dim1.XLine1Point = dim2PointIndex != 1 ? dim2.XLine1Point : dim2.XLine2Point;
                     }
                     else if (dim2PointIndex != 1)
                     {
@@ -158,217 +163,223 @@ namespace RabCab.Entities.Annotation
                     {
                         dim1.XLine2Point = dim2.XLine2Point;
                     }
+
                     dim1.UsingDefaultTextPosition = true;
                     dim2.Unhighlight();
                     dim2.Erase();
                     SysList.Remove(dim2);
-                    SystemCount = SystemCount - 1;
+                    Count -= 1;
                     if (Highlighted) dim1.Highlight();
                 }
                 else
                 {
-                    var rotatedDimension = item.Dim1;
+                    var rotatedDimension = pt.Dim1;
                     if (!rotatedDimension.IsWriteEnabled) rotatedDimension.UpgradeOpen();
                     rotatedDimension.Unhighlight();
                     rotatedDimension.Erase();
                     SysList.Remove(rotatedDimension);
-                    SystemCount = SystemCount - 1;
+                    Count -= 1;
                 }
 
                 topTransaction.TransactionManager.QueueForGraphicsFlush();
             }
         }
 
-        public void ExtendDimSystemBasePoint(int pntIndex, int extendTo, Point3d newPoint, double equalDistTolerance)
+        public void Extend(int pntIndex, int extendTo, Point3d newPoint, double equalDistTolerance)
         {
-            var dimPoints = GetDimPoints(equalDistTolerance);
-            if (dimPoints.Count == 0) return;
-            if (dimPoints.Count < pntIndex) return;
-            var item = dimPoints[pntIndex];
+            var sysPoints = GetSystemPoints(equalDistTolerance);
+            if (sysPoints.Count == 0) return;
+            if (sysPoints.Count < pntIndex) return;
+
+            var pt = sysPoints[pntIndex];
             double num = 0;
             double num1 = 0;
-            if (!item.IsLast)
+
+            if (!pt.IsLast)
             {
-                var dimLinePoint = item.DimLinePoint;
-                Point3d point3d;
-                point3d = item.Dim1PointIndex != 1 ? item.Dim1.XLine2Point : item.Dim1.XLine1Point;
-                Point3d point3d1;
-                point3d1 = item.Dim2PointIndex != 1 ? item.Dim2.XLine2Point : item.Dim2.XLine1Point;
+                var dimLinePoint = pt.DimLinePoint;
+                var point3d = pt.Dim1PointIndex != 1 ? pt.Dim1.XLine2Point : pt.Dim1.XLine1Point;
+                var point3d1 = pt.Dim2PointIndex != 1 ? pt.Dim2.XLine2Point : pt.Dim2.XLine1Point;
                 num = point3d.DistanceTo(dimLinePoint);
                 num1 = point3d1.DistanceTo(dimLinePoint);
             }
 
-            if (extendTo == 1 && !item.IsLast)
+            switch (extendTo)
             {
-                if (num < num1)
+                case 1 when !pt.IsLast:
                 {
-                    if (!item.Dim2.IsWriteEnabled) item.Dim2.UpgradeOpen();
-                    if (item.Dim2PointIndex == 1)
+                    if (num < num1)
                     {
-                        if (item.Dim1PointIndex == 1)
+                        if (!pt.Dim2.IsWriteEnabled) pt.Dim2.UpgradeOpen();
+                        if (pt.Dim2PointIndex == 1)
                         {
-                            item.Dim2.XLine1Point = item.Dim1.XLine1Point;
+                            if (pt.Dim1PointIndex == 1)
+                            {
+                                pt.Dim2.XLine1Point = pt.Dim1.XLine1Point;
+                                return;
+                            }
+
+                            pt.Dim2.XLine1Point = pt.Dim1.XLine2Point;
                             return;
                         }
 
-                        item.Dim2.XLine1Point = item.Dim1.XLine2Point;
-                        return;
-                    }
-
-                    if (item.Dim1PointIndex == 1)
-                    {
-                        item.Dim2.XLine2Point = item.Dim1.XLine1Point;
-                        return;
-                    }
-
-                    item.Dim2.XLine2Point = item.Dim1.XLine2Point;
-                    return;
-                }
-
-                if (!item.Dim1.IsWriteEnabled) item.Dim1.UpgradeOpen();
-                if (item.Dim1PointIndex == 1)
-                {
-                    if (item.Dim2PointIndex == 1)
-                    {
-                        item.Dim1.XLine1Point = item.Dim2.XLine1Point;
-                        return;
-                    }
-
-                    item.Dim1.XLine1Point = item.Dim2.XLine2Point;
-                    return;
-                }
-
-                if (item.Dim2PointIndex == 1)
-                {
-                    item.Dim1.XLine2Point = item.Dim2.XLine1Point;
-                    return;
-                }
-
-                item.Dim1.XLine2Point = item.Dim2.XLine2Point;
-                return;
-            }
-
-            if (extendTo == 2 && !item.IsLast)
-            {
-                if (num > num1)
-                {
-                    if (!item.Dim2.IsWriteEnabled) item.Dim2.UpgradeOpen();
-                    if (item.Dim2PointIndex == 1)
-                    {
-                        if (item.Dim1PointIndex == 1)
+                        if (pt.Dim1PointIndex == 1)
                         {
-                            item.Dim2.XLine1Point = item.Dim1.XLine1Point;
+                            pt.Dim2.XLine2Point = pt.Dim1.XLine1Point;
                             return;
                         }
 
-                        item.Dim2.XLine1Point = item.Dim1.XLine2Point;
+                        pt.Dim2.XLine2Point = pt.Dim1.XLine2Point;
                         return;
                     }
 
-                    if (item.Dim1PointIndex == 1)
+                    if (!pt.Dim1.IsWriteEnabled) pt.Dim1.UpgradeOpen();
+                    if (pt.Dim1PointIndex == 1)
                     {
-                        item.Dim2.XLine2Point = item.Dim1.XLine1Point;
+                        if (pt.Dim2PointIndex == 1)
+                        {
+                            pt.Dim1.XLine1Point = pt.Dim2.XLine1Point;
+                            return;
+                        }
+
+                        pt.Dim1.XLine1Point = pt.Dim2.XLine2Point;
                         return;
                     }
 
-                    item.Dim2.XLine2Point = item.Dim1.XLine2Point;
+                    if (pt.Dim2PointIndex == 1)
+                    {
+                        pt.Dim1.XLine2Point = pt.Dim2.XLine1Point;
+                        return;
+                    }
+
+                    pt.Dim1.XLine2Point = pt.Dim2.XLine2Point;
                     return;
                 }
 
-                if (!item.Dim1.IsWriteEnabled) item.Dim1.UpgradeOpen();
-                if (item.Dim1PointIndex == 1)
+                case 2 when !pt.IsLast:
                 {
-                    if (item.Dim2PointIndex == 1)
+                    if (num > num1)
                     {
-                        item.Dim1.XLine1Point = item.Dim2.XLine1Point;
+                        if (!pt.Dim2.IsWriteEnabled) pt.Dim2.UpgradeOpen();
+                        if (pt.Dim2PointIndex == 1)
+                        {
+                            if (pt.Dim1PointIndex == 1)
+                            {
+                                pt.Dim2.XLine1Point = pt.Dim1.XLine1Point;
+                                return;
+                            }
+
+                            pt.Dim2.XLine1Point = pt.Dim1.XLine2Point;
+                            return;
+                        }
+
+                        if (pt.Dim1PointIndex == 1)
+                        {
+                            pt.Dim2.XLine2Point = pt.Dim1.XLine1Point;
+                            return;
+                        }
+
+                        pt.Dim2.XLine2Point = pt.Dim1.XLine2Point;
                         return;
                     }
 
-                    item.Dim1.XLine1Point = item.Dim2.XLine2Point;
-                    return;
-                }
-
-                if (item.Dim2PointIndex == 1)
-                {
-                    item.Dim1.XLine2Point = item.Dim2.XLine1Point;
-                    return;
-                }
-
-                item.Dim1.XLine2Point = item.Dim2.XLine2Point;
-                return;
-            }
-
-            if (extendTo == 0)
-            {
-                var plane = Matrix3d.WorldToPlane(dimPoints[0].Dim1.Normal);
-                var dimLinePoint1 = item.DimLinePoint;
-                Point3d point3d2;
-                point3d2 = item.Dim1PointIndex != 1 ? item.Dim1.XLine2Point : item.Dim1.XLine1Point;
-                var point3d3 = dimLinePoint1.TransformBy(plane);
-                var point2d = new Point2d(point3d3.X, point3d3.Y);
-                var point3d4 = point3d2.TransformBy(plane);
-                var point2d1 = new Point2d(point3d4.X, point3d4.Y);
-                var point3d5 = newPoint.TransformBy(plane);
-                var point2d2 = new Point2d(point3d5.X, point3d5.Y);
-                var line2d = new Line2d(point2d, point2d1);
-                var point = line2d.GetClosestPointTo(point2d2).Point;
-                var point3d6 = new Point3d(point.X, point.Y, 0);
-                var point3d7 = point3d6.TransformBy(plane.Inverse());
-                if (!item.Dim1.IsWriteEnabled) item.Dim1.UpgradeOpen();
-                if (!item.IsLast && !item.Dim2.IsWriteEnabled) item.Dim2.UpgradeOpen();
-                if (item.Dim1PointIndex != 1)
-                    item.Dim1.XLine2Point = point3d7;
-                else
-                    item.Dim1.XLine1Point = point3d7;
-                if (!item.IsLast)
-                {
-                    if (item.Dim2PointIndex == 1)
+                    if (!pt.Dim1.IsWriteEnabled) pt.Dim1.UpgradeOpen();
+                    if (pt.Dim1PointIndex == 1)
                     {
-                        item.Dim2.XLine1Point = point3d7;
+                        if (pt.Dim2PointIndex == 1)
+                        {
+                            pt.Dim1.XLine1Point = pt.Dim2.XLine1Point;
+                            return;
+                        }
+
+                        pt.Dim1.XLine1Point = pt.Dim2.XLine2Point;
                         return;
                     }
 
-                    item.Dim2.XLine2Point = point3d7;
+                    if (pt.Dim2PointIndex == 1)
+                    {
+                        pt.Dim1.XLine2Point = pt.Dim2.XLine1Point;
+                        return;
+                    }
+
+                    pt.Dim1.XLine2Point = pt.Dim2.XLine2Point;
+                    return;
+                }
+
+                case 0:
+                {
+                    var plane = Matrix3d.WorldToPlane(sysPoints[0].Dim1.Normal);
+                    var dimLinePoint1 = pt.DimLinePoint;
+                    Point3d point3d2;
+                    point3d2 = pt.Dim1PointIndex != 1 ? pt.Dim1.XLine2Point : pt.Dim1.XLine1Point;
+                    var point3d3 = dimLinePoint1.TransformBy(plane);
+                    var point2d = new Point2d(point3d3.X, point3d3.Y);
+                    var point3d4 = point3d2.TransformBy(plane);
+                    var point2d1 = new Point2d(point3d4.X, point3d4.Y);
+                    var point3d5 = newPoint.TransformBy(plane);
+                    var point2d2 = new Point2d(point3d5.X, point3d5.Y);
+                    var line2d = new Line2d(point2d, point2d1);
+                    var point = line2d.GetClosestPointTo(point2d2).Point;
+                    var point3d6 = new Point3d(point.X, point.Y, 0);
+                    var point3d7 = point3d6.TransformBy(plane.Inverse());
+                    if (!pt.Dim1.IsWriteEnabled) pt.Dim1.UpgradeOpen();
+                    if (!pt.IsLast && !pt.Dim2.IsWriteEnabled) pt.Dim2.UpgradeOpen();
+                    if (pt.Dim1PointIndex != 1)
+                        pt.Dim1.XLine2Point = point3d7;
+                    else
+                        pt.Dim1.XLine1Point = point3d7;
+                    if (!pt.IsLast)
+                    {
+                        if (pt.Dim2PointIndex == 1)
+                        {
+                            pt.Dim2.XLine1Point = point3d7;
+                            return;
+                        }
+
+                        pt.Dim2.XLine2Point = point3d7;
+                    }
+
+                    break;
                 }
             }
         }
 
-        public int GetClosestDimPoint(Point3d point, double equalDistTolerance)
+        public int GetNearest(Point3d point, double equalDistTolerance)
         {
-            var dimPoints = GetDimPoints(equalDistTolerance);
+            var sysPoints = GetSystemPoints(equalDistTolerance);
             var nums = new List<double>();
-            if (dimPoints.Count == 0) return -1;
-            foreach (var dimPoint in dimPoints) nums.Add(point.DistanceTo(dimPoint.DimLinePoint));
+            if (sysPoints.Count == 0) return -1;
+            foreach (var sysPoint in sysPoints) nums.Add(point.DistanceTo(sysPoint.DimLinePoint));
             return nums.IndexOf(nums.Min());
         }
 
-        public static DimSystem GetDimSystem(RotatedDimension masterDim, double angleTolerance,
+        public static DimSystem GetSystem(RotatedDimension masterDim, double angleTolerance,
             double equalDistTolerance)
         {
             var database = Application.DocumentManager.MdiActiveDocument.Database;
             var dimSystem = new DimSystem();
             using (database.TransactionManager.TopTransaction)
             {
-                var objectIdCollections = ZGetDimsWithSameAngle(masterDim.Rotation, masterDim.BlockId, masterDim.Normal,
+                var objectIdCollections = GetSameAngleSystem(masterDim.Rotation, masterDim.BlockId, masterDim.Normal,
                     masterDim.Id, masterDim.LayerId, angleTolerance);
                 var point3dCollections = new Point3dCollection();
                 masterDim.GetStretchPoints(point3dCollections);
                 var item = point3dCollections[2];
                 var point3d = point3dCollections[3];
-                var objectIdCollections1 = ZGetDimsOnSameLine(objectIdCollections, item, point3d, equalDistTolerance);
-                var eachOther = ZGetDimsNextToEachOther(objectIdCollections1, item, point3d, equalDistTolerance);
+                var objectIdCollections1 = GetSameLineSystem(objectIdCollections, item, point3d, equalDistTolerance);
+                var eachOther = GetAdjacent(objectIdCollections1, item, point3d, equalDistTolerance);
                 eachOther.Add(masterDim);
                 dimSystem.SysList = eachOther;
-                dimSystem.SystemCount = eachOther.Count;
+                dimSystem.Count = eachOther.Count;
             }
 
             return dimSystem;
         }
 
-        public List<DimPoint> GetDimPoints(double equalDistTolerance)
+        public List<SysPoint> GetSystemPoints(double equalDistTolerance)
         {
             var dimSystem = this;
-            var dimPoints = new List<DimPoint>();
+            var sysPoints = new List<SysPoint>();
             foreach (var listOfDim in dimSystem.SysList)
             {
                 var point3dCollections = new Point3dCollection();
@@ -382,7 +393,7 @@ namespace RabCab.Entities.Annotation
                 {
                     do
                     {
-                    Label0:
+                        Label0:
                         if (!enumerator.MoveNext()) break;
                         var current = enumerator.Current;
                         if (current != listOfDim)
@@ -400,23 +411,23 @@ namespace RabCab.Entities.Annotation
                                 if (num < equalDistTolerance)
                                 {
                                     var flag2 = true;
-                                    foreach (var dimPoint in dimPoints)
-                                        if (dimPoint.Dim1 != listOfDim)
+                                    foreach (var sysPoint in sysPoints)
+                                        if (sysPoint.Dim1 != listOfDim)
                                         {
-                                            if (!(dimPoint.Dim2 == listOfDim) || dimPoint.Dim2PointIndex != 1) continue;
+                                            if (!(sysPoint.Dim2 == listOfDim) || sysPoint.Dim2PointIndex != 1) continue;
                                             flag2 = false;
                                             flag = true;
                                         }
                                         else
                                         {
-                                            if (dimPoint.Dim1PointIndex != 1) continue;
+                                            if (sysPoint.Dim1PointIndex != 1) continue;
                                             flag2 = false;
                                             flag = true;
                                         }
 
                                     if (flag2)
                                     {
-                                        var dimPoint1 = new DimPoint
+                                        var sysPoint1 = new SysPoint()
                                         {
                                             Dim1 = listOfDim,
                                             Dim2 = current,
@@ -426,30 +437,30 @@ namespace RabCab.Entities.Annotation
                                             DimLinePoint = item
                                         };
                                         flag = true;
-                                        dimPoints.Add(dimPoint1);
+                                        sysPoints.Add(sysPoint1);
                                     }
                                 }
                                 else if (num1 < equalDistTolerance)
                                 {
                                     var flag3 = true;
-                                    foreach (var dimPoint2 in dimPoints)
-                                        if (dimPoint2.Dim1 != listOfDim)
+                                    foreach (var sysPoint2 in sysPoints)
+                                        if (sysPoint2.Dim1 != listOfDim)
                                         {
-                                            if (!(dimPoint2.Dim2 == listOfDim) || dimPoint2.Dim2PointIndex != 1)
+                                            if (!(sysPoint2.Dim2 == listOfDim) || sysPoint2.Dim2PointIndex != 1)
                                                 continue;
                                             flag3 = false;
                                             flag = true;
                                         }
                                         else
                                         {
-                                            if (dimPoint2.Dim1PointIndex != 1) continue;
+                                            if (sysPoint2.Dim1PointIndex != 1) continue;
                                             flag3 = false;
                                             flag = true;
                                         }
 
                                     if (flag3)
                                     {
-                                        var dimPoint3 = new DimPoint
+                                        var sysPoint3 = new SysPoint
                                         {
                                             Dim1 = listOfDim,
                                             Dim2 = current,
@@ -459,31 +470,31 @@ namespace RabCab.Entities.Annotation
                                             DimLinePoint = item
                                         };
                                         flag = true;
-                                        dimPoints.Add(dimPoint3);
+                                        sysPoints.Add(sysPoint3);
                                     }
                                 }
 
                                 if (num2 < equalDistTolerance)
                                 {
                                     var flag4 = true;
-                                    foreach (var dimPoint4 in dimPoints)
-                                        if (dimPoint4.Dim1 != listOfDim)
+                                    foreach (var sysPoint4 in sysPoints)
+                                        if (sysPoint4.Dim1 != listOfDim)
                                         {
-                                            if (!(dimPoint4.Dim2 == listOfDim) || dimPoint4.Dim2PointIndex != 2)
+                                            if (!(sysPoint4.Dim2 == listOfDim) || sysPoint4.Dim2PointIndex != 2)
                                                 continue;
                                             flag4 = false;
                                             flag1 = true;
                                         }
                                         else
                                         {
-                                            if (dimPoint4.Dim1PointIndex != 2) continue;
+                                            if (sysPoint4.Dim1PointIndex != 2) continue;
                                             flag4 = false;
                                             flag1 = true;
                                         }
 
                                     if (flag4)
                                     {
-                                        var dimPoint5 = new DimPoint
+                                        var sysPoint5 = new SysPoint()
                                         {
                                             Dim1 = listOfDim,
                                             Dim2 = current,
@@ -493,28 +504,28 @@ namespace RabCab.Entities.Annotation
                                             DimLinePoint = point3d
                                         };
                                         flag1 = true;
-                                        dimPoints.Add(dimPoint5);
+                                        sysPoints.Add(sysPoint5);
                                     }
                                 }
 
                                 if (num3 >= equalDistTolerance) continue;
                                 var flag5 = true;
-                                foreach (var dimPoint6 in dimPoints)
-                                    if (dimPoint6.Dim1 != listOfDim)
+                                foreach (var sysPoint6 in sysPoints)
+                                    if (sysPoint6.Dim1 != listOfDim)
                                     {
-                                        if (!(dimPoint6.Dim2 == listOfDim) || dimPoint6.Dim2PointIndex != 2) continue;
+                                        if (!(sysPoint6.Dim2 == listOfDim) || sysPoint6.Dim2PointIndex != 2) continue;
                                         flag5 = false;
                                         flag1 = true;
                                     }
                                     else
                                     {
-                                        if (dimPoint6.Dim1PointIndex != 2) continue;
+                                        if (sysPoint6.Dim1PointIndex != 2) continue;
                                         flag5 = false;
                                         flag1 = true;
                                     }
 
                                 if (!flag5) continue;
-                                var dimPoint7 = new DimPoint
+                                var sysPoint7 = new SysPoint()
                                 {
                                     Dim1 = listOfDim,
                                     Dim2 = current,
@@ -524,7 +535,7 @@ namespace RabCab.Entities.Annotation
                                     DimLinePoint = point3d
                                 };
                                 flag1 = true;
-                                dimPoints.Add(dimPoint7);
+                                sysPoints.Add(sysPoint7);
                             }
                         }
                         else
@@ -535,12 +546,12 @@ namespace RabCab.Entities.Annotation
                 }
                 finally
                 {
-                    ((IDisposable)enumerator).Dispose();
+                    ((IDisposable) enumerator).Dispose();
                 }
 
                 if (!flag)
                 {
-                    var dimPoint8 = new DimPoint
+                    var sysPoint8 = new SysPoint()
                     {
                         Dim1 = listOfDim,
                         Dim2 = null,
@@ -549,11 +560,11 @@ namespace RabCab.Entities.Annotation
                         IsLast = true,
                         DimLinePoint = item
                     };
-                    dimPoints.Add(dimPoint8);
+                    sysPoints.Add(sysPoint8);
                 }
 
                 if (flag1) continue;
-                var dimPoint9 = new DimPoint
+                var sysPoint9 = new SysPoint()
                 {
                     Dim1 = listOfDim,
                     Dim2 = null,
@@ -562,20 +573,20 @@ namespace RabCab.Entities.Annotation
                     IsLast = true,
                     DimLinePoint = point3d
                 };
-                dimPoints.Add(dimPoint9);
+                sysPoints.Add(sysPoint9);
             }
 
-            return dimPoints;
+            return sysPoints;
         }
 
-        public List<int> GetDimPointsByLine(Point3d fencePoint1, Point3d fencePoint2, double equalDistTolerance)
+        public List<int> GetSystemByLine(Point3d fencePoint1, Point3d fencePoint2, double equalDistTolerance)
         {
             var nums = new List<int>();
-            var dimPoints = GetDimPoints(equalDistTolerance);
-            if (dimPoints.Count == 0) return nums;
-            var dimLinePoint = dimPoints[0].DimLinePoint;
-            var point3d = dimPoints[1].DimLinePoint;
-            var plane = Matrix3d.WorldToPlane(dimPoints[0].Dim1.Normal);
+            var sysPoints = GetSystemPoints(equalDistTolerance);
+            if (sysPoints.Count == 0) return nums;
+            var dimLinePoint = sysPoints[0].DimLinePoint;
+            var point3d = sysPoints[1].DimLinePoint;
+            var plane = Matrix3d.WorldToPlane(sysPoints[0].Dim1.Normal);
             var point3d1 = dimLinePoint.TransformBy(plane);
             var point2d = new Point2d(point3d1.X, point3d1.Y);
             var point3d2 = point3d.TransformBy(plane);
@@ -589,9 +600,9 @@ namespace RabCab.Entities.Annotation
             var point1 = line2d.GetClosestPointTo(point2d3).Point;
             var distanceTo = point.GetDistanceTo(point1);
             var num = 0;
-            foreach (var dimPoint in dimPoints)
+            foreach (var sysPoint in sysPoints)
             {
-                var point3d5 = dimPoint.DimLinePoint.TransformBy(plane);
+                var point3d5 = sysPoint.DimLinePoint.TransformBy(plane);
                 var point2d4 = new Point2d(point3d5.X, point3d5.Y);
                 var distanceTo1 = point2d4.GetDistanceTo(point);
                 var num1 = point2d4.GetDistanceTo(point1);
@@ -611,7 +622,7 @@ namespace RabCab.Entities.Annotation
             }
         }
 
-        public void InsertPoint(Point3d newPoint)
+        public void Insert(Point3d newPoint)
         {
             var database = Application.DocumentManager.MdiActiveDocument.Database;
             var flag = false;
@@ -655,7 +666,7 @@ namespace RabCab.Entities.Annotation
                 {
                     var num1 = nums.IndexOf(nums.Min());
                     item = SysList[num1];
-                    rotatedDimension = (RotatedDimension)item.Clone();
+                    rotatedDimension = (RotatedDimension) item.Clone();
                     var point3dCollections1 = new Point3dCollection();
                     item.GetStretchPoints(point3dCollections1);
                     var item2 = point3dCollections1[2];
@@ -675,12 +686,12 @@ namespace RabCab.Entities.Annotation
                 }
                 else
                 {
-                    rotatedDimension = (RotatedDimension)item.Clone();
+                    rotatedDimension = (RotatedDimension) item.Clone();
                     if (!item.IsWriteEnabled) item.UpgradeOpen();
                     item.XLine2Point = newPoint;
                     rotatedDimension.XLine1Point = newPoint;
-                     item.UsingDefaultTextPosition = true;
-                     rotatedDimension.UsingDefaultTextPosition = true;
+                    item.UsingDefaultTextPosition = true;
+                    rotatedDimension.UsingDefaultTextPosition = true;
                 }
 
                 if (obj != null) obj.AppendEntity(rotatedDimension);
@@ -688,7 +699,7 @@ namespace RabCab.Entities.Annotation
             }
 
             SysList.Add(rotatedDimension);
-            SystemCount = SystemCount + 1;
+            Count = Count + 1;
             if (Highlighted)
             {
                 topTransaction.TransactionManager.QueueForGraphicsFlush();
@@ -697,13 +708,13 @@ namespace RabCab.Entities.Annotation
             }
         }
 
-        public void MoveDimSystem(Point3d newPoint, double equalDistTolerance)
+        public void MoveSystem(Point3d newPoint, double equalDistTolerance)
         {
-            var dimPoints = GetDimPoints(equalDistTolerance);
-            if (dimPoints.Count == 0) return;
-            var dimLinePoint = dimPoints[0].DimLinePoint;
-            var point3d = dimPoints[1].DimLinePoint;
-            var plane = Matrix3d.WorldToPlane(dimPoints[0].Dim1.Normal);
+            var sysPoints = GetSystemPoints(equalDistTolerance);
+            if (sysPoints.Count == 0) return;
+            var dimLinePoint = sysPoints[0].DimLinePoint;
+            var point3d = sysPoints[1].DimLinePoint;
+            var plane = Matrix3d.WorldToPlane(sysPoints[0].Dim1.Normal);
             var point3d1 = dimLinePoint.TransformBy(plane);
             var point2d = new Point2d(point3d1.X, point3d1.Y);
             var point3d2 = point3d.TransformBy(plane);
@@ -734,18 +745,18 @@ namespace RabCab.Entities.Annotation
             }
         }
 
-        public void PointProperties(int pntIndex, bool modifyArrowhead, string arrowheadName, bool modifyExtensionLine,
+        public void GetProps(int pntIndex, bool modifyArrowhead, string arrowheadName, bool modifyExtensionLine,
             bool suppressExtLine, double equalDistTolerance)
         {
             int num;
             int num1;
             int num2;
-            var dimPoints = GetDimPoints(equalDistTolerance);
-            if (dimPoints.Count == 0) return;
-            if (dimPoints.Count < pntIndex) return;
-            var item = dimPoints[pntIndex];
+            var sysPoints = GetSystemPoints(equalDistTolerance);
+            if (sysPoints.Count == 0) return;
+            if (sysPoints.Count < pntIndex) return;
+            var item = sysPoints[pntIndex];
             var objectId = new ObjectId();
-            if (modifyArrowhead && !(arrowheadName == ".")) objectId = ZGetArrowObjectId(arrowheadName);
+            if (modifyArrowhead && !(arrowheadName == ".")) objectId = GetArrowId(arrowheadName);
             if (item.IsLast)
             {
                 num2 = item.Dim1PointIndex != 1 ? 2 : 1;
@@ -863,7 +874,7 @@ namespace RabCab.Entities.Annotation
             }
         }
 
-        private static ObjectId ZGetArrowObjectId(string newArrName)
+        private static ObjectId GetArrowId(string newArrName)
         {
             ObjectId @null;
             var database = Application.DocumentManager.MdiActiveDocument.Database;
@@ -876,14 +887,14 @@ namespace RabCab.Entities.Annotation
             var topTransaction = database.TransactionManager.TopTransaction;
             using (topTransaction)
             {
-                var obj = (BlockTable)topTransaction.GetObject(database.BlockTableId, OpenMode.ForRead);
+                var obj = (BlockTable) topTransaction.GetObject(database.BlockTableId, OpenMode.ForRead);
                 @null = obj[newArrName];
             }
 
             return @null;
         }
 
-        private static List<RotatedDimension> ZGetDimsNextToEachOther(ObjectIdCollection originDimsColl,
+        private static List<RotatedDimension> GetAdjacent(ObjectIdCollection originDimsColl,
             Point3d masterDimLineStartPnt, Point3d masterDimLineEndPnt, double equalDistTolerance)
         {
             bool flag;
@@ -899,9 +910,9 @@ namespace RabCab.Entities.Annotation
                     flag = false;
                     foreach (ObjectId objectId in originDimsColl)
                     {
-                        var obj = (Entity)topTransaction.GetObject(objectId, OpenMode.ForRead);
+                        var obj = (Entity) topTransaction.GetObject(objectId, OpenMode.ForRead);
                         if (!(obj is RotatedDimension)) continue;
-                        var rotatedDimension = (RotatedDimension)obj;
+                        var rotatedDimension = (RotatedDimension) obj;
                         var point3dCollections = new Point3dCollection();
                         rotatedDimension.GetStretchPoints(point3dCollections);
                         var item = point3dCollections[2];
@@ -946,7 +957,7 @@ namespace RabCab.Entities.Annotation
             return rotatedDimensions;
         }
 
-        private static ObjectIdCollection ZGetDimsOnSameLine(ObjectIdCollection dimsColl, Point3d dimLineStartPnt,
+        private static ObjectIdCollection GetSameLineSystem(ObjectIdCollection dimsColl, Point3d dimLineStartPnt,
             Point3d dimLineEndPnt, double equalDistTolerance)
         {
             var database = Application.DocumentManager.MdiActiveDocument.Database;
@@ -957,9 +968,9 @@ namespace RabCab.Entities.Annotation
             {
                 foreach (ObjectId objectId in dimsColl)
                 {
-                    var obj = (Entity)topTransaction.GetObject(objectId, OpenMode.ForRead);
+                    var obj = (Entity) topTransaction.GetObject(objectId, OpenMode.ForRead);
                     if (!(obj is RotatedDimension)) continue;
-                    var rotatedDimension = (RotatedDimension)obj;
+                    var rotatedDimension = (RotatedDimension) obj;
                     if (line3d.GetDistanceTo(rotatedDimension.DimLinePoint) >= equalDistTolerance) continue;
                     objectIdCollections.Add(rotatedDimension.Id);
                 }
@@ -968,27 +979,27 @@ namespace RabCab.Entities.Annotation
             return objectIdCollections;
         }
 
-        private static ObjectIdCollection ZGetDimsWithSameAngle(double angle, ObjectId dimSpaceId, Vector3d dimNormal,
-            ObjectId masterDimId, ObjectId masterDimLayerId, double angleTolerance)
+        private static ObjectIdCollection GetSameAngleSystem(double angle, ObjectId dimSpaceId, Vector3d dimNormal,
+            ObjectId mainDimId, ObjectId mainLayerId, double angleTolerance)
         {
-            var database = Application.DocumentManager.MdiActiveDocument.Database;
+            var acCurDb = Application.DocumentManager.MdiActiveDocument.Database;
             var objectIdCollections = new ObjectIdCollection();
-            var topTransaction = database.TransactionManager.TopTransaction;
+            var topTransaction = acCurDb.TransactionManager.TopTransaction;
             using (topTransaction)
             {
                 var obj = topTransaction.GetObject(dimSpaceId, OpenMode.ForRead) as BlockTableRecord;
-                var num = angle + 3.14159265358979;
-                var num1 = angle - 3.14159265358979;
+                var num = angle + Math.PI;
+                var num1 = angle - Math.PI;
                 if (obj != null)
                     foreach (var objectId in obj)
                     {
-                        var entity = (Entity)topTransaction.GetObject(objectId, OpenMode.ForRead);
-                        if (!(entity is RotatedDimension) || !(entity.LayerId == masterDimLayerId)) continue;
-                        var rotatedDimension = (RotatedDimension)entity;
+                        var entity = (Entity) topTransaction.GetObject(objectId, OpenMode.ForRead);
+                        if (!(entity is RotatedDimension) || !(entity.LayerId == mainLayerId)) continue;
+                        var rotatedDimension = (RotatedDimension) entity;
                         if (Math.Abs(rotatedDimension.Rotation - angle) >= angleTolerance &&
                             Math.Abs(rotatedDimension.Rotation - num) >= angleTolerance &&
                             Math.Abs(rotatedDimension.Rotation - num1) >= angleTolerance ||
-                            !(rotatedDimension.Normal == dimNormal) || !(rotatedDimension.Id != masterDimId)) continue;
+                            !(rotatedDimension.Normal == dimNormal) || !(rotatedDimension.Id != mainDimId)) continue;
                         objectIdCollections.Add(rotatedDimension.Id);
                     }
             }
@@ -996,48 +1007,41 @@ namespace RabCab.Entities.Annotation
             return objectIdCollections;
         }
 
-        public static int[] ViewportNumbers()
+        public static int[] ActiveViewports()
         {
-            Editor editor = Application.DocumentManager.MdiActiveDocument.Editor;
-            Database workingDatabase = HostApplicationServices.WorkingDatabase;
-            if (workingDatabase.TileMode)
-            {
-                return new int[0];
-            }
+            var acCurEd = Application.DocumentManager.MdiActiveDocument.Editor;
+            var acCurDb = HostApplicationServices.WorkingDatabase;
+            if (acCurDb.TileMode) return new int[0];
             IList<int> nums = new List<int>();
-            Transaction transaction = workingDatabase.TransactionManager.StartTransaction();
-            using (transaction)
+          
+            using (var acTrans = acCurDb.TransactionManager.StartTransaction())
             {
-                Viewport obj = transaction.GetObject(editor.ActiveViewportId, OpenMode.ForRead) as Viewport;
+                var obj = acTrans.GetObject(acCurEd.ActiveViewportId, OpenMode.ForRead) as Viewport;
                 if (!(obj != null) || obj.Number != 1)
-                {
-                    foreach (ObjectId viewport in workingDatabase.GetViewports(false))
+                    foreach (ObjectId viewport in acCurDb.GetViewports(false))
                     {
-                        obj = (Viewport)transaction.GetObject(viewport, OpenMode.ForRead);
+                        obj = (Viewport) acTrans.GetObject(viewport, OpenMode.ForRead);
                         nums.Add(obj.Number);
                     }
-                }
                 else
-                {
                     nums.Add(1);
-                }
-                transaction.Commit();
+
+                acTrans.Commit();
             }
-            int[] numArray = new int[nums.Count];
-            nums.CopyTo(numArray, 0);
-            return numArray;
+
+            return nums.ToArray();
         }
 
-        public static Point3d zGetIntersection(DimSystem _dimSet, List<DimPoint> _dimSetPnts, int _index,
+        public static Point3d GetCrossing(DimSystem sys, List<SysPoint> sysPnts, int index,
             Point3d fencePoint1, Point3d fencePoint2, double equalPoints)
         {
-            var plane = Matrix3d.WorldToPlane(_dimSet.SysList[0].Normal);
+            var plane = Matrix3d.WorldToPlane(sys.SysList[0].Normal);
             var point3d = fencePoint1.TransformBy(plane);
             var point2d = new Point2d(point3d.X, point3d.Y);
             var point3d1 = fencePoint2.TransformBy(plane);
             var point2d1 = new Point2d(point3d1.X, point3d1.Y);
             var line2d = new Line2d(point2d, point2d1);
-            var item = _dimSetPnts[_index];
+            var item = sysPnts[index];
             var dimLinePoint = item.DimLinePoint;
             var point3d2 = new Point3d();
             point3d2 = item.Dim1PointIndex != 1 ? item.Dim1.XLine2Point : item.Dim1.XLine1Point;
@@ -1052,18 +1056,17 @@ namespace RabCab.Entities.Annotation
             return point3d5.TransformBy(plane.Inverse());
         }
 
-        public static Point3d[] zGetPointOnDimSet(Point3d pnt1, Point3d pnt2, Point3d _newPoint)
+        public static Point3d[] GetSystemPoint(Point3d pnt1, Point3d pnt2, Point3d newPoint)
         {
             var line3d = new Line3d(pnt1, pnt2);
-            var point = line3d.GetClosestPointTo(_newPoint).Point;
+            var point = line3d.GetClosestPointTo(newPoint).Point;
             var num = pnt1.DistanceTo(pnt2);
             Point3d point3d;
-            if (pnt1.DistanceTo(_newPoint) > num || pnt2.DistanceTo(_newPoint) > num)
-                point3d = pnt1.DistanceTo(_newPoint) >= pnt2.DistanceTo(_newPoint) ? pnt2 : pnt1;
+            if (pnt1.DistanceTo(newPoint) > num || pnt2.DistanceTo(newPoint) > num)
+                point3d = pnt1.DistanceTo(newPoint) >= pnt2.DistanceTo(newPoint) ? pnt2 : pnt1;
             else
                 point3d = point;
-            return new[] { point3d, point };
+            return new[] {point3d, point};
         }
     }
-
 }

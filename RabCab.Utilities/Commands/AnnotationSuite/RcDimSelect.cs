@@ -58,7 +58,7 @@ namespace RabCab.Commands.AnnotationSuite
             if (prEntRes.Status != PromptStatus.OK) return;
 
             var objId = prEntRes.ObjectId;
-            var prSelRes = acCurEd.SelectImplied();
+            acCurEd.SelectImplied();
 
             var objIds = new List<ObjectId>();
 
@@ -74,7 +74,7 @@ namespace RabCab.Commands.AnnotationSuite
                     var acRotDim = acEnt as RotatedDimension;
                     if (acRotDim != null)
                     {
-                        var dimSys = DimSystem.GetDimSystem(acRotDim, eqPoint, eqPoint);
+                        var dimSys = DimSystem.GetSystem(acRotDim, eqPoint, eqPoint);
 
                         foreach (var dim in dimSys.SysList)
                         {

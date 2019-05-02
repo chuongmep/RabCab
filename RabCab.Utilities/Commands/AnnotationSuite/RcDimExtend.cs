@@ -77,8 +77,8 @@ namespace RabCab.Commands.AnnotationSuite
                 obj.Unhighlight();
                 RotatedDimension rotatedDimension = (RotatedDimension)obj;
                 dimSys = new DimSystem();
-                dimSys = DimSystem.GetDimSystem(rotatedDimension, EqPoint, EqPoint);
-                editor.WriteMessage(string.Concat("\nNumber of dimensions in set: ", dimSys.SystemCount));
+                dimSys = DimSystem.GetSystem(rotatedDimension, EqPoint, EqPoint);
+                editor.WriteMessage(string.Concat("\nNumber of dimensions in set: ", dimSys.Count));
                 dimSys.Highlight();
                 PromptKeywordOptions promptKeywordOption = new PromptKeywordOptions("")
                 {
@@ -112,12 +112,12 @@ namespace RabCab.Commands.AnnotationSuite
                         PromptPointOptions promptPointOption = new PromptPointOptions("\nSelect point to synchronize or press CTRL to start crossing line:");
                         while (true)
                         {
-                            if (dimSys.SystemCount == 0)
+                            if (dimSys.Count == 0)
                             {
                                 goto Label1;
                             }
                             dimSys.Highlight();
-                            int[] numArray = DimSystem.ViewportNumbers();
+                            int[] numArray = DimSystem.ActiveViewports();
                             TransientManager currentTransientManager = TransientManager.CurrentTransientManager;
                             Circle circle = new Circle();
                             Circle dynPreviewColor = new Circle();
@@ -129,11 +129,11 @@ namespace RabCab.Commands.AnnotationSuite
                             currentTransientManager.AddTransient(circle, TransientDrawingMode.Main, 128, integerCollections);
                             currentTransientManager.AddTransient(dynPreviewColor, TransientDrawingMode.Main, 128, integerCollections);
                             currentTransientManager.AddTransient(line, TransientDrawingMode.Highlight, 128, integerCollections);
-                            List<DimPoint> DimPoints = dimSys.GetDimPoints(EqPoint);
+                            List<SysPoint> sysPoints = dimSys.GetSystemPoints(EqPoint);
                             PointMonitorEventHandler pointMonitorEventHandler = (object sender, PointMonitorEventArgs e) =>
                             {
-                                int closestDimPoint = dimSys.GetClosestDimPoint(e.Context.ComputedPoint, EqPoint);
-                                DimPoint item = DimPoints[closestDimPoint];
+                                int closestsysPoint = dimSys.GetNearest(e.Context.ComputedPoint, EqPoint);
+                                SysPoint item = sysPoints[closestsysPoint];
                                 Point3d dimLinePoint = item.DimLinePoint;
                                 double sreenSize = ScreenReader.GetSreenSize();
                                 circle.Radius = sreenSize / 200;
@@ -196,12 +196,12 @@ namespace RabCab.Commands.AnnotationSuite
                             {
                                 Point3d point3d3 = promptPointResult.Value.TransformBy(matrix3d);
                                 Point3d point3d4 = promptPointResult2.Value.TransformBy(matrix3d);
-                                List<int> DimPointsByLine = dimSys.GetDimPointsByLine(point3d3, point3d4, EqPoint);
-                                if (DimPointsByLine.Count > 0)
+                                List<int> sysPointsByLine = dimSys.GetSystemByLine(point3d3, point3d4, EqPoint);
+                                if (sysPointsByLine.Count > 0)
                                 {
-                                    foreach (int num1 in DimPointsByLine)
+                                    foreach (int num1 in sysPointsByLine)
                                     {
-                                        dimSys.ExtendDimSystemBasePoint(num1, num, new Point3d(), EqPoint);
+                                        dimSys.Extend(num1, num, new Point3d(), EqPoint);
                                     }
                                     transaction.TransactionManager.QueueForGraphicsFlush();
                                 }
@@ -209,8 +209,8 @@ namespace RabCab.Commands.AnnotationSuite
                             else
                             {
                                 Point3d point3d5 = promptPointResult.Value.TransformBy(matrix3d);
-                                int num2 = dimSys.GetClosestDimPoint(point3d5, EqPoint);
-                                dimSys.ExtendDimSystemBasePoint(num2, num, new Point3d(), EqPoint);
+                                int num2 = dimSys.GetNearest(point3d5, EqPoint);
+                                dimSys.Extend(num2, num, new Point3d(), EqPoint);
                                 transaction.TransactionManager.QueueForGraphicsFlush();
                             }
                         }
@@ -227,12 +227,12 @@ namespace RabCab.Commands.AnnotationSuite
                     PromptPointOptions promptPointOption2 = new PromptPointOptions("\nSelect new extend of dimension or press CTRL to start crossing line:");
                     while (true)
                     {
-                        if (dimSys.SystemCount == 0)
+                        if (dimSys.Count == 0)
                         {
                             goto Label1;
                         }
                         dimSys.Highlight();
-                        int[] numArray1 = DimSystem.ViewportNumbers();
+                        int[] numArray1 = DimSystem.ActiveViewports();
                         TransientManager transientManager = TransientManager.CurrentTransientManager;
                         Circle normal = new Circle();
                         Line line1 = new Line(new Point3d(0, 0, 0), new Point3d(0, 0, 0));
@@ -242,11 +242,11 @@ namespace RabCab.Commands.AnnotationSuite
                         IntegerCollection integerCollections1 = new IntegerCollection(numArray1);
                         transientManager.AddTransient(normal, TransientDrawingMode.Highlight, 128, integerCollections1);
                         transientManager.AddTransient(line1, TransientDrawingMode.Highlight, 128, integerCollections1);
-                        List<DimPoint> DimPoints1 = dimSys.GetDimPoints(EqPoint);
+                        List<SysPoint> sysPoints1 = dimSys.GetSystemPoints(EqPoint);
                         PointMonitorEventHandler pointMonitorEventHandler1 = (object sender, PointMonitorEventArgs e) =>
                         {
-                            int closestDimPoint = dimSys.GetClosestDimPoint(e.Context.ComputedPoint, EqPoint);
-                            DimPoint item = DimPoints1[closestDimPoint];
+                            int closestsysPoint = dimSys.GetNearest(e.Context.ComputedPoint, EqPoint);
+                            SysPoint item = sysPoints1[closestsysPoint];
                             Point3d dimLinePoint = item.DimLinePoint;
                             double sreenSize = ScreenReader.GetSreenSize();
                             normal.Radius = sreenSize / 200;
@@ -306,16 +306,16 @@ namespace RabCab.Commands.AnnotationSuite
                         {
                             Point3d point3d6 = promptPointResult1.Value.TransformBy(matrix3d);
                             Point3d point3d7 = promptPointResult3.Value.TransformBy(matrix3d);
-                            List<int> nums = dimSys.GetDimPointsByLine(point3d6, point3d7, EqPoint);
+                            List<int> nums = dimSys.GetSystemByLine(point3d6, point3d7, EqPoint);
                             if (nums.Count > 0)
                             {
-                                List<DimPoint> DimPoints2 = dimSys.GetDimPoints(EqPoint);
+                                List<SysPoint> sysPoints2 = dimSys.GetSystemPoints(EqPoint);
                                 foreach (int num3 in nums)
                                 {
-                                    Point3d point3d8 = DimSystem.zGetIntersection(dimSys, DimPoints2, num3, point3d6, point3d7, EqPoint);
+                                    Point3d point3d8 = DimSystem.GetCrossing(dimSys, sysPoints2, num3, point3d6, point3d7, EqPoint);
                                     if (point3d8.X != -99999 || point3d8.Y != -99999 || point3d8.Z != -99999)
                                     {
-                                        dimSys.ExtendDimSystemBasePoint(num3, 0, point3d8, EqPoint);
+                                        dimSys.Extend(num3, 0, point3d8, EqPoint);
                                     }
                                     else
                                     {
@@ -328,14 +328,14 @@ namespace RabCab.Commands.AnnotationSuite
                         else
                         {
                             Point3d point3d9 = promptPointResult1.Value.TransformBy(matrix3d);
-                            int num4 = dimSys.GetClosestDimPoint(point3d9, EqPoint);
-                            DimPoint DimPoint = dimSys.GetDimPoints(EqPoint)[num4];
-                            Point3d point3d10 = DimPoint.DimLinePoint;
+                            int num4 = dimSys.GetNearest(point3d9, EqPoint);
+                            SysPoint sysPoint = dimSys.GetSystemPoints(EqPoint)[num4];
+                            Point3d point3d10 = sysPoint.DimLinePoint;
                             Point3d point3d11 = new Point3d();
-                            point3d11 = (DimPoint.Dim1PointIndex != 1 ? DimPoint.Dim1.XLine2Point : DimPoint.Dim1.XLine1Point);
+                            point3d11 = (sysPoint.Dim1PointIndex != 1 ? sysPoint.Dim1.XLine2Point : sysPoint.Dim1.XLine1Point);
                             if (Math.Abs(point3d10.DistanceTo(point3d11)) >= EqPoint)
                             {
-                                dimSys.ExtendDimSystemBasePoint(num4, 0, point3d9, EqPoint);
+                                dimSys.Extend(num4, 0, point3d9, EqPoint);
                                 transaction.TransactionManager.QueueForGraphicsFlush();
                             }
                             else

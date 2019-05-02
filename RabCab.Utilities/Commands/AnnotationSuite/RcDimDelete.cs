@@ -71,7 +71,7 @@ namespace RabCab.Commands.AnnotationSuite
             if (prEntRes.Status != PromptStatus.OK) return;
 
             var objId = prEntRes.ObjectId;
-            var matrix3d = acCurEd.GetAlignedMatrix();
+            var delMatrix = acCurEd.GetAlignedMatrix();
 
             var eqPoint = CalcTol.ReturnCurrentTolerance();
 
@@ -85,7 +85,7 @@ namespace RabCab.Commands.AnnotationSuite
                     var acRotDim = acEnt as RotatedDimension;
                     if (acRotDim != null)
                     {
-                        var dimSys = DimSystem.GetDimSystem(acRotDim, eqPoint, eqPoint);
+                        var dimSys = DimSystem.GetSystem(acRotDim, eqPoint, eqPoint);
 
                         var prPtOpts =
                             new PromptPointOptions("\nSelect point to delete or press CTRL to start a crossing line: ");
@@ -93,75 +93,82 @@ namespace RabCab.Commands.AnnotationSuite
 
                         while (true)
                         {
-                            if (dimSys.SystemCount <= 0) break;
+                            if (dimSys.Count <= 0) break;
 
                             dimSys.Highlight();
 
-                            var nArray = DimSystem.ViewportNumbers();
+                            var nArray = DimSystem.ActiveViewports();
 
-                            var currentTransientManager = TransientManager.CurrentTransientManager;
-                            var circle = new Circle();
-                            var dynPreviewColor = new Circle();
-                            var line = new Line(new Point3d(0, 0, 0), new Point3d(0, 0, 0));
-                            circle.Color = Colors.LayerColorPreview;
-                            dynPreviewColor.Color = Colors.LayerColorPreview;
-                            line.Color = Colors.LayerColorPreview;
+                            var ctManager = TransientManager.CurrentTransientManager;
+
+                            var acCirc = new Circle();
+                            var acPreview = new Circle();
+                            var acLine = new Line(new Point3d(0, 0, 0), new Point3d(0, 0, 0));
+
+                            acCirc.Color = Colors.LayerColorPreview;
+                            acPreview.Color = Colors.LayerColorPreview;
+                            acLine.Color = Colors.LayerColorPreview;
+
                             var integerCollections = new IntegerCollection(nArray);
-                            currentTransientManager.AddTransient(circle, TransientDrawingMode.Main, 128,
+
+                            ctManager.AddTransient(acCirc, TransientDrawingMode.Main, 128,
                                 integerCollections);
-                            currentTransientManager.AddTransient(dynPreviewColor, TransientDrawingMode.Main, 128,
+                            ctManager.AddTransient(acPreview, TransientDrawingMode.Main, 128,
                                 integerCollections);
-                            currentTransientManager.AddTransient(line, TransientDrawingMode.Highlight, 128,
+                            ctManager.AddTransient(acLine, TransientDrawingMode.Highlight, 128,
                                 integerCollections);
 
-                            var dimSetPoints = dimSys.GetDimPoints(eqPoint);
+                            var dPoints = dimSys.GetSystemPoints(eqPoint);
 
-                            PointMonitorEventHandler pointMonitorEventHandler = (sender, e) =>
+                            void PreviewHandler(object sender, PointMonitorEventArgs e)
                             {
-                                var closestDimSetPoint = dimSys.GetClosestDimPoint(e.Context.ComputedPoint, eqPoint);
-                                var item = dimSetPoints[closestDimSetPoint];
-                                var dimLinePoint = item.DimLinePoint;
-                                {
-                                    circle.Center = dimLinePoint;
-                                    var sreenSize = ScreenReader.GetSreenSize();
-                                    circle.Radius = sreenSize / 200;
-                                    circle.Normal = acRotDim.Normal;
-                                    dynPreviewColor.Radius = sreenSize / 200;
-                                    dynPreviewColor.Normal = acRotDim.Normal;
-                                    Point3d point3d;
-                                    Point3d point3d1;
-                                    Point3d point3d2;
-                                    if (item.IsLast)
-                                    {
-                                        point3d = item.Dim1PointIndex != 1
-                                            ? item.Dim1.XLine2Point
-                                            : item.Dim1.XLine1Point;
-                                        point3d2 = point3d;
-                                    }
-                                    else
-                                    {
-                                        point3d = item.Dim1PointIndex != 1
-                                            ? item.Dim1.XLine2Point
-                                            : item.Dim1.XLine1Point;
-                                        point3d1 = item.Dim2PointIndex != 1
-                                            ? item.Dim2.XLine2Point
-                                            : item.Dim2.XLine1Point;
-                                        point3d2 = dimLinePoint.DistanceTo(point3d) <= dimLinePoint.DistanceTo(point3d1)
-                                            ? point3d1
-                                            : point3d;
-                                    }
+                                var cdPoint = dimSys.GetNearest(e.Context.ComputedPoint, eqPoint);
 
-                                    line.StartPoint = dimLinePoint;
-                                    line.EndPoint = point3d2;
-                                    dynPreviewColor.Center = point3d2;
-                                    currentTransientManager.UpdateTransient(circle, integerCollections);
+                                var cPt = dPoints[cdPoint];
+                                var dlPoint = cPt.DimLinePoint;
+                                acCirc.Center = dlPoint;
+
+                                var scrSize = ScreenReader.GetSreenSize();
+
+                                acCirc.Radius = scrSize / 200;
+                                acCirc.Normal = acRotDim.Normal;
+                                acPreview.Radius = scrSize / 200;
+                                acPreview.Normal = acRotDim.Normal;
+
+                                Point3d tempPt;
+                                Point3d tempPt1;
+                                Point3d tempPt2;
+
+                                if (cPt.IsLast)
+                                {
+                                    tempPt = cPt.Dim1PointIndex != 1
+                                        ? cPt.Dim1.XLine2Point
+                                        : cPt.Dim1.XLine1Point;
+                                    tempPt2 = tempPt;
+                                }
+                                else
+                                {
+                                    tempPt = cPt.Dim1PointIndex != 1
+                                        ? cPt.Dim1.XLine2Point
+                                        : cPt.Dim1.XLine1Point;
+                                    tempPt1 = cPt.Dim2PointIndex != 1
+                                        ? cPt.Dim2.XLine2Point
+                                        : cPt.Dim2.XLine1Point;
+                                    tempPt2 = dlPoint.DistanceTo(tempPt) <= dlPoint.DistanceTo(tempPt1)
+                                        ? tempPt1
+                                        : tempPt;
                                 }
 
-                                currentTransientManager.UpdateTransient(dynPreviewColor, integerCollections);
-                                currentTransientManager.UpdateTransient(line, integerCollections);
-                            };
+                                acLine.StartPoint = dlPoint;
+                                acLine.EndPoint = tempPt2;
+                                acPreview.Center = tempPt2;
 
-                            acCurEd.PointMonitor += pointMonitorEventHandler;
+                                ctManager.UpdateTransient(acCirc, integerCollections);
+                                ctManager.UpdateTransient(acPreview, integerCollections);
+                                ctManager.UpdateTransient(acLine, integerCollections);
+                            }
+
+                            acCurEd.PointMonitor += PreviewHandler;
 
                             try
                             {
@@ -169,18 +176,24 @@ namespace RabCab.Commands.AnnotationSuite
                             }
                             finally
                             {
-                                acCurEd.PointMonitor -= pointMonitorEventHandler;
-                                currentTransientManager.EraseTransient(circle, integerCollections);
-                                currentTransientManager.EraseTransient(dynPreviewColor, integerCollections);
-                                currentTransientManager.EraseTransient(line, integerCollections);
-                                circle.Dispose();
-                                dynPreviewColor.Dispose();
-                                line.Dispose();
+                                acCurEd.PointMonitor -= PreviewHandler;
+
+                                ctManager.EraseTransient(acCirc, integerCollections);
+                                ctManager.EraseTransient(acPreview, integerCollections);
+                                ctManager.EraseTransient(acLine, integerCollections);
+
+                                acCirc.Dispose();
+                                acPreview.Dispose();
+                                acLine.Dispose();
                             }
 
-                            var modifierKeys = (Control.ModifierKeys & Keys.Control) > Keys.None;
+                            #region CTRL Modifier
+
+                            var ctrlPressed = (Control.ModifierKeys & Keys.Control) > Keys.None;
+
                             PromptPointResult promptPointResult = null;
-                            if (modifierKeys)
+
+                            if (ctrlPressed)
                             {
                                 var promptPointOption1 =
                                     new PromptPointOptions("\nSelect second point of crossing line:")
@@ -189,7 +202,9 @@ namespace RabCab.Commands.AnnotationSuite
                                         UseDashedLine = true,
                                         BasePoint = ptRes.Value
                                     };
+
                                 promptPointResult = acCurEd.GetPoint(promptPointOption1);
+
                                 if (promptPointResult.Status != PromptStatus.OK)
                                 {
                                     dimSys.Unhighlight();
@@ -203,15 +218,17 @@ namespace RabCab.Commands.AnnotationSuite
                                 break;
                             }
 
-                            if (modifierKeys)
+                            #endregion
+
+                            if (ctrlPressed)
                             {
-                                var point3d3 = ptRes.Value.TransformBy(matrix3d);
-                                var point3d4 = promptPointResult.Value.TransformBy(matrix3d);
-                                dimSys.DeletePointByLine(point3d3, point3d4);
+                                var delPt1 = ptRes.Value.TransformBy(delMatrix);
+                                var delPt2 = promptPointResult.Value.TransformBy(delMatrix);
+                                dimSys.Delete(delPt1, delPt2);
                             }
                             else
                             {
-                                dimSys.DeletePointByPoint(ptRes.Value.TransformBy(matrix3d));
+                                dimSys.Delete(ptRes.Value.TransformBy(delMatrix));
                             }
                         }
 

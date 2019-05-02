@@ -91,18 +91,18 @@ namespace RabCab.Commands.AnnotationSuite
                 obj.Unhighlight();
                 RotatedDimension rotatedDimension = (RotatedDimension)obj;
                 DimSystem dimSet = new DimSystem();
-                dimSet = DimSystem.GetDimSystem(rotatedDimension, equalPointDistance, equalPointDistance);
-                editor.WriteMessage(string.Concat("\nNumber of dimensions in set: ", dimSet.SystemCount));
+                dimSet = DimSystem.GetSystem(rotatedDimension, equalPointDistance, equalPointDistance);
+                editor.WriteMessage(string.Concat("\nNumber of dimensions in set: ", dimSet.Count));
                 dimSet.Highlight();
                 PromptPointOptions promptPointOption = new PromptPointOptions("\nSelect point to modify properties :");
                 while (true)
                 {
-                    if (dimSet.SystemCount == 0)
+                    if (dimSet.Count == 0)
                     {
                         break;
                     }
                     dimSet.Highlight();
-                    int[] numArray = DimSystem.ViewportNumbers();
+                    int[] numArray = DimSystem.ActiveViewports();
                     TransientManager currentTransientManager = TransientManager.CurrentTransientManager;
                     Circle circle = new Circle();
                     Circle dynPreviewColor = new Circle();
@@ -114,11 +114,11 @@ namespace RabCab.Commands.AnnotationSuite
                     currentTransientManager.AddTransient(circle, TransientDrawingMode.Main, 128, integerCollections);
                     currentTransientManager.AddTransient(dynPreviewColor, TransientDrawingMode.Main, 128, integerCollections);
                     currentTransientManager.AddTransient(line, TransientDrawingMode.Highlight, 128, integerCollections);
-                    List<DimPoint> dimSetPoints = dimSet.GetDimPoints(equalPointDistance);
+                    List<SysPoint> dimSetPoints = dimSet.GetSystemPoints(equalPointDistance);
                     PointMonitorEventHandler pointMonitorEventHandler = (object sender, PointMonitorEventArgs e) =>
                     {
-                        int closestDimSetPoint = dimSet.GetClosestDimPoint(e.Context.ComputedPoint, equalPointDistance);
-                        DimPoint item = dimSetPoints[closestDimSetPoint];
+                        int closestDimSetPoint = dimSet.GetNearest(e.Context.ComputedPoint, equalPointDistance);
+                        SysPoint item = dimSetPoints[closestDimSetPoint];
                         Point3d dimLinePoint = item.DimLinePoint;
                         circle.Center = dimLinePoint;
                         double sreenSize = ScreenReader.GetSreenSize();
@@ -165,8 +165,8 @@ namespace RabCab.Commands.AnnotationSuite
                     if (point.Status == PromptStatus.OK)
                     {
                         Point3d point3d3 = point.Value.TransformBy(matrix3d);
-                        int num = dimSet.GetClosestDimPoint(point3d3, equalPointDistance);
-                        dimSet.PointProperties(num, @checked, arrowheadBlkName, flag, checked1, equalPointDistance);
+                        int num = dimSet.GetNearest(point3d3, equalPointDistance);
+                        dimSet.GetProps(num, @checked, arrowheadBlkName, flag, checked1, equalPointDistance);
                         transaction.TransactionManager.QueueForGraphicsFlush();
                     }
                     else

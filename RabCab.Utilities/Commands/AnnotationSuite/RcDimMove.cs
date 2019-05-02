@@ -74,14 +74,14 @@ namespace RabCab.Commands.AnnotationSuite
                 obj.Unhighlight();
                 RotatedDimension rotatedDimension = (RotatedDimension)obj;
                 DimSystem dimSet = new DimSystem();
-                dimSet = DimSystem.GetDimSystem(rotatedDimension, equalPointDistance, equalPointDistance);
-                editor.WriteMessage(string.Concat("\nNumber of dimensions in set: ", dimSet.SystemCount));
+                dimSet = DimSystem.GetSystem(rotatedDimension, equalPointDistance, equalPointDistance);
+                editor.WriteMessage(string.Concat("\nNumber of dimensions in set: ", dimSet.Count));
                 dimSet.Highlight();
                 PromptPointOptions promptPointOption = new PromptPointOptions("\nSelect new position of dimensions:");
                 while (true)
                 {
                     dimSet.Highlight();
-                    int[] numArray = DimSystem.ViewportNumbers();
+                    int[] numArray = DimSystem.ActiveViewports();
                     TransientManager currentTransientManager = TransientManager.CurrentTransientManager;
                     IntegerCollection integerCollections = new IntegerCollection(numArray);
                     List<RotatedDimension> rotatedDimensions = new List<RotatedDimension>();
@@ -128,7 +128,7 @@ namespace RabCab.Commands.AnnotationSuite
                     {
                         break;
                     }
-                    dimSet.MoveDimSystem(point.Value.TransformBy(matrix3d), equalPointDistance);
+                    dimSet.MoveSystem(point.Value.TransformBy(matrix3d), equalPointDistance);
                     transaction.TransactionManager.QueueForGraphicsFlush();
                 }
                 dimSet.Unhighlight();

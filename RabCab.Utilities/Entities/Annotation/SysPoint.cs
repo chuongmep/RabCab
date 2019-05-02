@@ -3,7 +3,7 @@ using Autodesk.AutoCAD.Geometry;
 
 namespace RabCab.Entities.Annotation
 {
-    internal class DimPoint
+    internal class SysPoint
     {
         public RotatedDimension Dim1 { get; set; }
 
@@ -17,7 +17,7 @@ namespace RabCab.Entities.Annotation
 
         public bool IsLast { get; set; }
 
-        public DimPoint()
+        public SysPoint()
         {
             Dim1 = null;
             Dim2 = null;

@@ -9,6 +9,7 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
+using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
@@ -18,7 +19,6 @@ using RabCab.Calculators;
 using RabCab.Entities.Annotation;
 using RabCab.Extensions;
 using RabCab.Settings;
-using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
 
 namespace RabCab.Commands.AnnotationSuite
 {
@@ -60,6 +60,7 @@ namespace RabCab.Commands.AnnotationSuite
             var acCurEd = acCurDoc.Editor;
 
             var prEntOpt = new PromptEntityOptions("\nSelect a dimension system to add to: ");
+
             prEntOpt.SetRejectMessage("\nOnly linear dimensions may be selected.");
             prEntOpt.AllowNone = false;
             prEntOpt.AddAllowedClass(typeof(RotatedDimension), false);
@@ -69,7 +70,7 @@ namespace RabCab.Commands.AnnotationSuite
             if (prEntRes.Status != PromptStatus.OK) return;
 
             var objId = prEntRes.ObjectId;
-            var matrix3d = acCurEd.GetAlignedMatrix();
+            var addMatrix = acCurEd.GetAlignedMatrix();
 
             var eqPoint = CalcTol.ReturnCurrentTolerance();
 
@@ -83,7 +84,7 @@ namespace RabCab.Commands.AnnotationSuite
                     var acRotDim = acEnt as RotatedDimension;
                     if (acRotDim != null)
                     {
-                        var dimSys = DimSystem.GetDimSystem(acRotDim, eqPoint, eqPoint);
+                        var dimSys = DimSystem.GetSystem(acRotDim, eqPoint, eqPoint);
 
                         var prPtOpts =
                             new PromptPointOptions("\nSelect point to add: ");
@@ -92,7 +93,7 @@ namespace RabCab.Commands.AnnotationSuite
                         {
                             dimSys.Highlight();
 
-                            var dPoints = dimSys.GetDimPoints(eqPoint);
+                            var dPoints = dimSys.GetSystemPoints(eqPoint);
 
                             var dimLinPt = new Point3d();
                             var pt = new Point3d();
@@ -110,30 +111,34 @@ namespace RabCab.Commands.AnnotationSuite
                                 bl = true;
                             }
 
-                            var nArray = DimSystem.ViewportNumbers();
+                            var nArray = DimSystem.ActiveViewports();
 
                             var currentTransientManager = TransientManager.CurrentTransientManager;
-                            Line line = new Line(new Point3d(0, 0, 0), new Point3d(0, 0, 0));
-                            Line dynPreviewColor = new Line(new Point3d(0, 0, 0), new Point3d(0, 0, 0));
-                            line.Color = Colors.LayerColorPreview;
-                            dynPreviewColor.Color = Colors.LayerColorPreview;
-                            line.Color = Colors.LayerColorPreview;
-                            IntegerCollection integerCollections = new IntegerCollection(nArray);
 
-                            currentTransientManager.AddTransient(line, TransientDrawingMode.Main, 128,
+                            var acLine = new Line(new Point3d(0, 0, 0), new Point3d(0, 0, 0));
+                            var acPreview = new Line(new Point3d(0, 0, 0), new Point3d(0, 0, 0));
+
+                            acLine.Color = Colors.LayerColorPreview;
+                            acPreview.Color = Colors.LayerColorPreview;
+
+                            var integerCollections = new IntegerCollection(nArray);
+
+                            currentTransientManager.AddTransient(acLine, TransientDrawingMode.Main, 128,
                                 integerCollections);
-                            currentTransientManager.AddTransient(dynPreviewColor, TransientDrawingMode.Main, 128,
+                            currentTransientManager.AddTransient(acPreview, TransientDrawingMode.Main, 128,
                                 integerCollections);
 
                             void PointMonitorEventHandler(object sender, PointMonitorEventArgs e)
                             {
-                                Point3d[] point3dArray = DimSystem.zGetPointOnDimSet(dimLinPt, pt, e.Context.ComputedPoint);
-                                line.StartPoint = point3dArray[0];
-                                line.EndPoint = point3dArray[1];
-                                dynPreviewColor.EndPoint = e.Context.ComputedPoint;
-                                dynPreviewColor.StartPoint = point3dArray[1];
-                                currentTransientManager.UpdateTransient(line, integerCollections);
-                                currentTransientManager.UpdateTransient(dynPreviewColor, integerCollections);
+                                var point3dArray = DimSystem.GetSystemPoint(dimLinPt, pt, e.Context.ComputedPoint);
+                                acLine.StartPoint = point3dArray[0];
+                                acLine.EndPoint = point3dArray[1];
+
+                                acPreview.StartPoint = point3dArray[1];
+                                acPreview.EndPoint = e.Context.ComputedPoint;
+
+                                currentTransientManager.UpdateTransient(acLine, integerCollections);
+                                currentTransientManager.UpdateTransient(acPreview, integerCollections);
                             }
 
                             acCurEd.PointMonitor += PointMonitorEventHandler;
@@ -146,18 +151,17 @@ namespace RabCab.Commands.AnnotationSuite
                             finally
                             {
                                 acCurEd.PointMonitor -= PointMonitorEventHandler;
-                                currentTransientManager.EraseTransient(line, integerCollections);
-                                currentTransientManager.EraseTransient(dynPreviewColor, integerCollections);
-                                line.Dispose();
-                                dynPreviewColor.Dispose();
+
+                                currentTransientManager.EraseTransient(acLine, integerCollections);
+                                currentTransientManager.EraseTransient(acPreview, integerCollections);
+
+                                acLine.Dispose();
+                                acPreview.Dispose();
                             }
 
-                            if (ptRes.Status != PromptStatus.OK)
-                            {
-                                break;
-                            }
+                            if (ptRes.Status != PromptStatus.OK) break;
 
-                            dimSys.InsertPoint(ptRes.Value.TransformBy(matrix3d));
+                            dimSys.Insert(ptRes.Value.TransformBy(addMatrix));
                         }
 
                         dimSys.Unhighlight();
@@ -167,6 +171,5 @@ namespace RabCab.Commands.AnnotationSuite
                 acTrans.Commit();
             }
         }
-
     }
 }

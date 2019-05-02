@@ -253,7 +253,7 @@
     <Compile Include="Commands\ReferenceSuite\BlockKit\RcQuickRename.cs" />
     <Compile Include="Commands\TidySuite\RcBurstAll.cs" />
     <Compile Include="Engine\Enumerators\IEnumerables.cs" />
-    <Compile Include="Entities\Annotation\DimPoint.cs" />
+    <Compile Include="Entities\Annotation\SysPoint.cs" />
     <Compile Include="Entities\Annotation\DimSystem.cs" />
     <Compile Include="Entities\Linework\Axis.cs" />
     <Compile Include="Exceptions\NullException.cs" />
