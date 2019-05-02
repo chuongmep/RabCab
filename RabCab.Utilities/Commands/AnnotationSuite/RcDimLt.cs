@@ -53,7 +53,6 @@ namespace RabCab.Commands.AnnotationSuite
             prEntOpt.AllowNone = false;
             prEntOpt.AddAllowedClass(typeof(AlignedDimension), false);
             prEntOpt.AddAllowedClass(typeof(RotatedDimension), false);
-            prEntOpt.AddAllowedClass(typeof(Point3AngularDimension), false);
             prEntOpt.AddAllowedClass(typeof(ArcDimension), false);
 
             var prEntRes = acCurEd.GetEntity(prEntOpt);
@@ -141,22 +140,6 @@ namespace RabCab.Commands.AnnotationSuite
                                         break;
                                     }
 
-                                case Point3AngularDimension angDim:
-                                    {
-                                        xPt1 = angDim.XLine1Point;
-                                        xPt2 = angDim.XLine2Point;
-
-                                        if (prPickPoint.DistanceTo(xPt1) < prPickPoint.DistanceTo(xPt2))
-                                        {
-                                            angDim.Dimltex1 = ltId;
-                                        }
-                                        else
-                                        {
-                                            angDim.Dimltex2 = ltId;
-                                        }
-
-                                        break;
-                                    }
                             }
 
                         }
