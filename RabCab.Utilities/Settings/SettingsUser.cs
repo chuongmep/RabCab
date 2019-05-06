@@ -45,7 +45,7 @@ namespace RabCab.Settings
         public static bool LayTextLeft = true;
         public static bool LayTextCenter = false;
         public static bool LayFlatShot = false;
-        public static bool LayAllLSidesFlatShot = false;
+        public static bool LayAllSidesFlatShot = false;
         public static bool PromptForMultiplication = true;
 
         //Annotation Options

@@ -9,8 +9,12 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
+using System.Linq;
 using Autodesk.AutoCAD.ApplicationServices.Core;
+using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Runtime;
+using RabCab.Engine.Enumerators;
+using RabCab.Extensions;
 using RabCab.Settings;
 
 namespace RabCab.Commands.AnnotationSuite
@@ -19,7 +23,7 @@ namespace RabCab.Commands.AnnotationSuite
     {
         /// <summary>
         /// </summary>
-        [CommandMethod(SettingsInternal.CommandGroup, "_CMDDEFAULT",
+        [CommandMethod(SettingsInternal.CommandGroup, "_DimAG",
             CommandFlags.Modal
             //| CommandFlags.Transparent
             //| CommandFlags.UsePickSet
@@ -45,12 +49,24 @@ namespace RabCab.Commands.AnnotationSuite
             //| CommandFlags.ActionMacro
             //| CommandFlags.NoInferConstraint 
         )]
-        public void Cmd_Default()
+        public void Cmd_DimAlign()
         {
             //Get the current document utilities
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;
             var acCurDb = acCurDoc.Database;
             var acCurEd = acCurDoc.Editor;
+
+            var objIds = acCurEd.GetFilteredSelection(Enums.DxfNameEnum.Dimension, false, null, "\nSelect dimensions to align: ");
+            if (objIds.Length <= 0) return;
+
+            var pId = acCurEd.GetFilteredSelection(Enums.DxfNameEnum.Dimension, true, null, "\nSelect baseline dimension: ");
+            if (pId.Length <= 0) return;
+
+            var pDim = SelectionSet.FromObjectIds(pId);
+            var dims = SelectionSet.FromObjectIds(objIds);
+
+            acCurEd.Command("_.Dimspace", pDim, dims, "", "Auto");
+
         }
     }
 }
