@@ -1,5 +1,8 @@
 ﻿using Autodesk.AutoCAD.ApplicationServices.Core;
+using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Runtime;
+using RabCab.Engine.Enumerators;
+using RabCab.Extensions;
 using RabCab.Settings;
 
 namespace RabCab.Commands.AnnotationSuite
@@ -8,7 +11,7 @@ namespace RabCab.Commands.AnnotationSuite
     {
         /// <summary>
         /// </summary>
-        [CommandMethod(SettingsInternal.CommandGroup, "_CMDDEFAULT",
+        [CommandMethod(SettingsInternal.CommandGroup, "_DIMPREC",
             CommandFlags.Modal
             //| CommandFlags.Transparent
             //| CommandFlags.UsePickSet
@@ -34,12 +37,28 @@ namespace RabCab.Commands.AnnotationSuite
             //| CommandFlags.ActionMacro
             //| CommandFlags.NoInferConstraint 
         )]
-        public void Cmd_Default()
+        public void Cmd_DimPrec()
         {
             //Get the current document utilities
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;
             var acCurDb = acCurDoc.Database;
             var acCurEd = acCurDoc.Editor;
+
+            var objIds = acCurEd.GetFilteredSelection(Enums.DxfNameEnum.Dimension, false);
+            if (objIds.Length <= 0) return;
+
+            var prec = acCurEd.GetLimitedInteger("Enter new precision: [0-8] ", 0, 8);
+
+            using (var acTrans = acCurDb.TransactionManager.StartTransaction())
+            {
+                foreach (var obj in objIds)
+                {
+                    var acDim = acTrans.GetObject(obj, OpenMode.ForWrite) as Dimension;
+                    if (acDim != null) acDim.Dimdec = prec;
+                }
+
+                acTrans.Commit();
+            }
         }
     }
 }
