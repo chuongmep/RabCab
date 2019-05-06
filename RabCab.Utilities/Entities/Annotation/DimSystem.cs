@@ -21,8 +21,7 @@ namespace RabCab.Entities.Annotation
         /// <param name="modifyExtensionLine"></param>
         /// <param name="suppressExtLine"></param>
         /// <param name="eqPt"></param>
-        public void GetProps(int pntIndex, bool modifyArrowhead, string arrowheadName, bool modifyExtensionLine,
-            bool suppressExtLine, double eqPt)
+        public void ModifyArrow(int pntIndex, bool modifyArrowhead, string arrowheadName, double eqPt)
         {
             var sysPoints = GetSystemPoints(eqPt);
             if (sysPoints.Count == 0) return;
@@ -37,13 +36,6 @@ namespace RabCab.Entities.Annotation
             {
                 var num2 = sysPt.Dim1PointIndex != 1 ? 2 : 1;
                 if (!sysPt.Dim1.IsWriteEnabled) sysPt.Dim1.UpgradeOpen();
-                if (modifyExtensionLine)
-                {
-                    if (num2 != 1)
-                        sysPt.Dim1.Dimse2 = suppressExtLine;
-                    else
-                        sysPt.Dim1.Dimse1 = suppressExtLine;
-                }
 
                 if (modifyArrowhead)
                 {
@@ -77,17 +69,6 @@ namespace RabCab.Entities.Annotation
             var num1 = sysPt.Dim2PointIndex != 1 ? 2 : 1;
             if (!sysPt.Dim1.IsWriteEnabled) sysPt.Dim1.UpgradeOpen();
             if (!sysPt.Dim2.IsWriteEnabled) sysPt.Dim2.UpgradeOpen();
-            if (modifyExtensionLine)
-            {
-                if (num != 1)
-                    sysPt.Dim1.Dimse2 = suppressExtLine;
-                else
-                    sysPt.Dim1.Dimse1 = suppressExtLine;
-                if (num1 != 1)
-                    sysPt.Dim2.Dimse2 = suppressExtLine;
-                else
-                    sysPt.Dim2.Dimse1 = suppressExtLine;
-            }
 
             if (modifyArrowhead)
             {
@@ -951,7 +932,7 @@ namespace RabCab.Entities.Annotation
         /// </summary>
         /// <param name="newArrName"></param>
         /// <returns></returns>
-        private static ObjectId GetArrowId(string newArrName)
+        public static ObjectId GetArrowId(string newArrName)
         {
             ObjectId objId;
             var acCurDb = Application.DocumentManager.MdiActiveDocument.Database;

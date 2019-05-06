@@ -92,6 +92,30 @@ namespace RabCab.Engine.Enumerators
             Xline
         }
 
+        /// <summary>
+        /// TODO
+        /// </summary>
+        public enum Arrowhead
+        {
+        _ClosedBlank,
+        _Closed,
+        _Dot,
+        _ArchTick,
+        _Oblique,
+        _Open,
+        _Origin,
+        _Origin2,
+        _Open90,
+        _Open30,
+        _DotSmall,
+        _DotBlank,
+        _Small,
+        _BoxBlank,
+        _BoxFilled,
+        _DatumFilled,
+        _Integral,
+        _None
+        }
 
         public enum GridMode
         {

@@ -10,6 +10,7 @@
 // -----------------------------------------------------------------------------------
 
 using Autodesk.AutoCAD.Colors;
+using RabCab.Engine.Enumerators;
 using static RabCab.Engine.Enumerators.Enums;
 
 namespace RabCab.Settings
@@ -50,6 +51,7 @@ namespace RabCab.Settings
         //Annotation Options
         public static double ViewSpacing = 0;
         public static Color DynPreviewColor = Colors.LayerColorPreview;
+        public static Enums.Arrowhead ArwHead = Arrowhead._None;
 
         //Flatshot Options
         public static bool FlattenAssembly = false;

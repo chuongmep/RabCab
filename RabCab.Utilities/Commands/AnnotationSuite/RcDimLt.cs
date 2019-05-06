@@ -67,8 +67,7 @@ namespace RabCab.Commands.AnnotationSuite
                     try
                     {
                         // Open the Linetype table for read
-                        LinetypeTable acLineTypTbl;
-                        acLineTypTbl = acTrans.GetObject(acCurDb.LinetypeTableId,
+                        var acLineTypTbl = acTrans.GetObject(acCurDb.LinetypeTableId,
                             OpenMode.ForRead) as LinetypeTable;
 
                         if (acLineTypTbl != null)
