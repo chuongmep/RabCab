@@ -166,7 +166,7 @@
     <Compile Include="Commands\AnnotationSuite\RcDimLt.cs" />
     <Compile Include="Commands\AnnotationSuite\RcDimToggle.cs" />
     <Compile Include="Commands\AnnotationSuite\RcDimSelect.cs" />
-    <Compile Include="Commands\AnnotationSuite\RcDimArrange.cs" />
+    <Compile Include="Commands\AnnotationSuite\RcDimSpace.cs" />
     <Compile Include="Commands\AnnotationSuite\RcDimBreak.cs" />
     <Compile Include="Commands\AnnotationSuite\RcDimExtend.cs" />
     <Compile Include="Commands\AnnotationSuite\RcDimAdd.cs" />

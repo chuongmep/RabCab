@@ -110,7 +110,7 @@ using RabCab.Commands.TidySuite;
 [assembly: CommandClass(typeof(RcDimAlign))]
 [assembly: CommandClass(typeof(RcDimArrow))]
 [assembly: CommandClass(typeof(RcDimExtend))]
-[assembly: CommandClass(typeof(RcDimArrange))]
+[assembly: CommandClass(typeof(RcDimSpace))]
 [assembly: CommandClass(typeof(RcDimBreak))]
 [assembly: CommandClass(typeof(RcDimToggle))]
 [assembly: CommandClass(typeof(RcDimLt))]

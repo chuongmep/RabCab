@@ -52,6 +52,7 @@ namespace RabCab.Settings
         public static double ViewSpacing = 0;
         public static Color DynPreviewColor = Colors.LayerColorPreview;
         public static Enums.Arrowhead ArwHead = Arrowhead._None;
+        public static double AnnoSpacing = 0.3125;
 
         //Flatshot Options
         public static bool FlattenAssembly = false;

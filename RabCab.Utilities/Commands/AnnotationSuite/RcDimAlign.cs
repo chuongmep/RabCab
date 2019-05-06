@@ -23,7 +23,7 @@ namespace RabCab.Commands.AnnotationSuite
     {
         /// <summary>
         /// </summary>
-        [CommandMethod(SettingsInternal.CommandGroup, "_DimAG",
+        [CommandMethod(SettingsInternal.CommandGroup, "_DIMAL",
             CommandFlags.Modal
             //| CommandFlags.Transparent
             //| CommandFlags.UsePickSet
@@ -65,7 +65,7 @@ namespace RabCab.Commands.AnnotationSuite
             var pDim = SelectionSet.FromObjectIds(pId);
             var dims = SelectionSet.FromObjectIds(objIds);
 
-            acCurEd.Command("_.Dimspace", pDim, dims, "", "Auto");
+            acCurEd.Command("_.Dimspace", pDim, dims, "", 0);
 
         }
     }
