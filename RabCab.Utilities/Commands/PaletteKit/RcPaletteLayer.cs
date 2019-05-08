@@ -3,7 +3,6 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
 using Autodesk.AutoCAD.Colors;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Runtime;
@@ -128,8 +127,6 @@ namespace RabCab.Commands.PaletteKit
                         ForeColor = Colors.GetCadForeColor(),
                         ColumnCount = 3,
                         Dock = DockStyle.Fill,
-                        Location = new Point(0, 0),
-                        Name = "PalLayout",
                     };
 
                     palLayout.MouseEnter += (s, e) => palLayout.Focus();
@@ -275,23 +272,48 @@ namespace RabCab.Commands.PaletteKit
                         ForeColor = foreColor
                     };
 
-                    var loadButton = new ToolStripButton();
+                    var bLayout = new TableLayoutPanel
+                    {
+                        BackColor = Colors.GetCadBackColor(),
+                        ForeColor = Colors.GetCadForeColor(),
+                        ColumnCount = 2,
+                        Height = 30,
+                        Dock = DockStyle.Bottom
+                    };
+
+                    bLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 80F));
+                    bLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
+                    bLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 30f));
+
+
+                    var loadButton = new Button();
                     loadButton.Click += Load_Click;
                     loadButton.Text = "Load From Dwg";
                     loadButton.BackColor = foreColor;
                     loadButton.ForeColor = textColor;
+                    loadButton.Dock = DockStyle.Fill;
+                    loadButton.Height = 30;
+                    loadButton.FlatStyle = FlatStyle.Flat;
+                    loadButton.FlatAppearance.BorderColor = SystemColors.WindowFrame;
+                    loadButton.FlatAppearance.BorderSize = 1;
 
-                    var updButton = new ToolStripButton();
+                    var updButton = new Button();
                     updButton.Click += Update_Click;
                     updButton.Text = "Update";
                     updButton.BackColor = foreColor;
                     updButton.ForeColor = textColor;
+                    updButton.Dock = DockStyle.Fill;
+                    loadButton.Height = 30;
+                    updButton.FlatStyle = FlatStyle.Flat;
+                    updButton.FlatAppearance.BorderColor = SystemColors.WindowFrame;
+                    updButton.FlatAppearance.BorderSize = 1;
 
-                    stStrip.Items.Add(loadButton);
-                    stStrip.Items.Add(updButton);
+                    bLayout.Controls.Add(loadButton, 0, 0);
+                    bLayout.Controls.Add(updButton, 1, 0);
 
                     _palPanel.Controls.Add(palLayout);
-                    _palPanel.Controls.Add(stStrip);
+                    _palPanel.Controls.Add(bLayout);
+
                     _palPanel.ResumeLayout();
                 }
             }
@@ -446,7 +468,7 @@ namespace RabCab.Commands.PaletteKit
                         acEnt.Color = Color.FromColorIndex(ColorMethod.ByLayer, 256);
                     }
 
-                    acTrans.Commit();;
+                    acTrans.Commit();
                 }
                 
             }
