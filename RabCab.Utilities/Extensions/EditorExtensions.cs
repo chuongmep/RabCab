@@ -128,7 +128,7 @@ namespace RabCab.Extensions
         /// </summary>
         /// <param name="acCurEd">The Current Working Editor</param>
         /// <returns>Returns an External aCAD Database</returns>
-        public static Database GetExternalDatabase(Editor acCurEd)
+        public static Database GetExternalDatabase(this Editor acCurEd)
         {
             // Create Database Object
             var importDb = new Database(false, true);

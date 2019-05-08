@@ -3,7 +3,9 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 using Autodesk.AutoCAD.Colors;
+using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Runtime;
 using Autodesk.AutoCAD.Windows;
 using RabCab.Agents;
@@ -12,9 +14,11 @@ using RabCab.Engine.System;
 using RabCab.Entities.Controls;
 using RabCab.Extensions;
 using RabCab.Settings;
+using static System.Drawing.ContentAlignment;
 using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
 using Color = Autodesk.AutoCAD.Colors.Color;
 using Exception = Autodesk.AutoCAD.BoundaryRepresentation.Exception;
+using Image = System.Drawing.Image;
 
 namespace RabCab.Commands.PaletteKit
 {
@@ -23,6 +27,7 @@ namespace RabCab.Commands.PaletteKit
         private PaletteSet _rcPal;
         private UserControl _palPanel;
         private readonly string _palName = "Layers";
+        private readonly Size _squareSize = new Size(18, 18);
 
         /// <summary>
         /// </summary>
@@ -54,11 +59,6 @@ namespace RabCab.Commands.PaletteKit
         )]
         public void Cmd_RcLayerPal()
         {
-            //Get the current document utilities
-            var acCurDoc = Application.DocumentManager.MdiActiveDocument;
-            var acCurDb = acCurDoc.Database;
-            var acCurEd = acCurDoc.Editor;
-
             CreatePal();
         }
 
@@ -79,7 +79,6 @@ namespace RabCab.Commands.PaletteKit
                 };
 
                 _palPanel = new UserControl();
-
                 PopulatePal();
                 _palPanel.UpdateTheme();
                 _rcPal.Add(_palName, _palPanel);
@@ -88,9 +87,14 @@ namespace RabCab.Commands.PaletteKit
             _rcPal.Visible = true;
         }
 
+        /// <summary>
+        /// TODO
+        /// </summary>
         private void PopulatePal()
         {
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;
+            if (acCurDoc == null) return;
+
             var acCurDb = acCurDoc.Database;
             const int imageColumn = 0;
             const int buttonColumn = 1;
@@ -121,8 +125,10 @@ namespace RabCab.Commands.PaletteKit
                         ColumnCount = 3,
                         Dock = DockStyle.Fill,
                         Location = new Point(0, 0),
-                        Name = "PalLayout"
+                        Name = "PalLayout",
                     };
+
+                    palLayout.MouseEnter += (s, e) => palLayout.Focus();
 
                     palLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 25F));
                     palLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
@@ -150,9 +156,11 @@ namespace RabCab.Commands.PaletteKit
                                     Dock = DockStyle.Fill,
                                     Height = buttonHeight,
                                     ContextMenuStrip = new ContextMenuStrip(),
-                                    FlatStyle = FlatStyle.Flat
+                                    FlatStyle = FlatStyle.Flat,
+                                    
                                 };
 
+                                spButton.Click += Button_Click;
                                 spButton.FlatAppearance.BorderColor = SystemColors.WindowFrame;
                                 spButton.FlatAppearance.BorderSize = 1;
                                 spButton.ContextMenuStrip.BackColor = foreColor;
@@ -175,8 +183,8 @@ namespace RabCab.Commands.PaletteKit
                                     var tsButton = new ToolStripButton(layer.Name, GetLayerImage(layer.Color),
                                         contextItem_Click)
                                     {
-                                        ImageAlign = ContentAlignment.TopLeft,
-                                        TextAlign = ContentAlignment.MiddleLeft,
+                                        ImageAlign = TopLeft,
+                                        TextAlign = BottomLeft,
                                         BackColor = foreColor,
                                         ForeColor = textColor
                                     };
@@ -188,7 +196,7 @@ namespace RabCab.Commands.PaletteKit
                                 {
                                     Height = buttonHeight,
                                     Image = GetLayerImage(spColor),
-                                    Anchor = AnchorStyles.None
+                                    Dock = DockStyle.Fill
                                 };
 
                                 palLayout.Controls.Add(spButton, buttonColumn, rowCounter);
@@ -209,6 +217,7 @@ namespace RabCab.Commands.PaletteKit
                                     FlatStyle = FlatStyle.Flat
                                 };
 
+                                button.Click += Button_Click;
                                 button.FlatAppearance.BorderColor = SystemColors.WindowFrame;
                                 button.FlatAppearance.BorderSize = 1;
 
@@ -216,7 +225,7 @@ namespace RabCab.Commands.PaletteKit
                                 {
                                     Height = buttonHeight,
                                     Image = GetLayerImage(layer.Color),
-                                    Anchor = AnchorStyles.None
+                                    Dock = DockStyle.Fill
                                 };
 
 
@@ -251,7 +260,32 @@ namespace RabCab.Commands.PaletteKit
 
                     palLayout.Refresh();
 
+
+                    var stStrip = new StatusStrip
+                    {
+                        AllowItemReorder = false,
+                        AllowMerge = false,
+                        AllowDrop = false,
+                        Dock = DockStyle.Bottom,
+                        BackColor = backColor,
+                        ForeColor = foreColor
+                    };
+
+                    var loadButton = new ToolStripButton();
+                    loadButton.Click += Load_Click;
+                    loadButton.Text = "Load From Dwg";
+                    loadButton.Dock = DockStyle.Left;
+
+                    var updButton = new ToolStripButton();
+                    updButton.Click += Update_Click;
+                    updButton.Text = "Update";
+                    updButton.Dock = DockStyle.Right;
+
+                    stStrip.Items.Add(loadButton);
+                    stStrip.Items.Add(updButton);
+
                     _palPanel.Controls.Add(palLayout);
+                    _palPanel.Controls.Add(stStrip);
                 }
             }
             catch (Exception e)
@@ -260,37 +294,169 @@ namespace RabCab.Commands.PaletteKit
             }
         }
 
+        /// <summary>
+        ///     TODO
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void contextItem_Click(object sender, EventArgs e)
         {
             var item = (ToolStripItem) sender;
             if (item == null) return;
 
-            //TODO
+            if (!(item.Owner is ContextMenuStrip owner)) return;
+            if (!(owner.SourceControl is Button spButton)) return;
+            if (!(spButton.Parent is TableLayoutPanel tLayout)) return;
+
+            spButton.Text = item.Text;
+
+            var bPos = tLayout.GetCellPosition(spButton);
+            var image = item.Image;
+
+            var b = new Bitmap(image);
+            var layColor = b.GetPixel(image.Width / 2, image.Height / 2);
+            b.Dispose();
+
+            var newPicBox = new PictureBox
+            {
+                Height = image.Height,
+                Image = GetLayerImage(layColor),
+                Dock = DockStyle.Fill
+            };
+
+            var curPicBox = tLayout.GetControlFromPosition(bPos.Column - 1, bPos.Row);
+            tLayout.Controls.Remove(curPicBox);
+            tLayout.Controls.Add(newPicBox, bPos.Column - 1, bPos.Row);
+            tLayout.Refresh();
+
+            SetLayer(spButton.Text, Color.FromRgb(layColor.R, layColor.G, layColor.B));
         }
 
+        /// <summary>
+        ///     TODO
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Button_Click(object sender, EventArgs e)
+        {
+            var item = (Button) sender;
+            if (item == null) return;
 
+            if (!(item.Parent is TableLayoutPanel tLayout)) return;
+            var bPos = tLayout.GetCellPosition(item);
+            var picBox = tLayout.GetControlFromPosition(bPos.Column - 1, bPos.Row);
+
+            if (picBox == null) return;
+
+            var b = new Bitmap(picBox.ClientSize.Width, picBox.Height);
+            picBox.DrawToBitmap(b, picBox.ClientRectangle);
+            var layColor = b.GetPixel(_squareSize.Width / 2, _squareSize.Height / 2);
+            b.Dispose();
+
+            SetLayer(item.Text, Color.FromRgb(layColor.R, layColor.G, layColor.B));
+        }
+
+        /// <summary>
+        ///     TODO
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Update_Click(object sender, EventArgs e)
+        {
+           PopulatePal();
+        }
+
+        /// <summary>
+        ///     TODO
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Load_Click(object sender, EventArgs e)
+        {
+
+            try
+            {
+                //Get the current document utilities
+                var acCurDoc = Application.DocumentManager.MdiActiveDocument;
+                if (acCurDoc == null) return;
+
+                var acCurDb = acCurDoc.Database;
+                var acCurEd = acCurDoc.Editor;
+
+                using (acCurDoc.LockDocument())
+                {
+                    using (var extDb = acCurEd.GetExternalDatabase())
+                    {
+                        using (var acTrans = acCurDb.TransactionManager.StartTransaction())
+                        {
+                            acCurDb.CopyAllLayers(acCurEd, extDb, acTrans);
+                            acTrans.Commit();
+                        }
+                    }
+
+                    PopulatePal();
+                }
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+            }
+        }
+
+        private void SetLayer(string layerName, Color acColor)
+        {
+            //Get the current document utilities
+            var acCurDoc = Application.DocumentManager.MdiActiveDocument;
+            if (acCurDoc == null) return;
+
+            var acCurDb = acCurDoc.Database;
+            var acCurEd = acCurDoc.Editor;
+
+            using (acCurDoc.LockDocument())
+            {
+                Autodesk.AutoCAD.Internal.Utils.SetFocusToDwgView();
+                var objIds = acCurEd.GetAllSelection(false);
+
+                using (var acTrans = acCurDb.TransactionManager.StartTransaction())
+                {
+                    acCurDb.AddLayer(layerName, acColor, SettingsUser.RcVisibleLT, acTrans);
+
+                    foreach (var obj in objIds)
+                    {
+                        var acEnt = acTrans.GetObject(obj, OpenMode.ForWrite) as Entity;
+                        if (acEnt == null) continue;
+
+                        acEnt.Layer = layerName;
+                        acEnt.Color = Color.FromColorIndex(ColorMethod.ByLayer, 256);
+                    }
+
+                    acTrans.Commit();;
+                }
+                
+            }
+
+        }
 
         #endregion
 
         /// <summary>
-        ///     Method to create a colored square for displaying layer color
+        ///     TODO
         /// </summary>
         /// <param name="acColor"></param>
         /// <returns></returns>
         private Image GetLayerImage(Color acColor)
         {
-            var squareSize = new Size(18, 18);
             var brush = new SolidBrush(AcadColorAciToDrawingColor(acColor));
             var outlineColor = System.Drawing.Color.Black;
 
             if (AcVars.ColorTheme == Enums.ColorTheme.Dark) outlineColor = System.Drawing.Color.White;
 
-            var squareImage = new Bitmap(squareSize.Width, squareSize.Height);
+            var squareImage = new Bitmap(_squareSize.Width, _squareSize.Height);
             using (var graphics = Graphics.FromImage(squareImage))
             {
                 var pen = new Pen(outlineColor, 1) {Alignment = PenAlignment.Center};
-                graphics.FillRectangle(brush, 3, 3, squareSize.Width, squareSize.Height);
-                graphics.DrawRectangle(pen, 3, 3, squareSize.Width - 4, squareSize.Height - 4);
+                graphics.FillRectangle(brush, 3, 3, _squareSize.Width, _squareSize.Height);
+                graphics.DrawRectangle(pen, 3, 3, _squareSize.Width - 4, _squareSize.Height - 4);
                 graphics.CompositingQuality = CompositingQuality.HighQuality;
                 graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
                 graphics.SmoothingMode = SmoothingMode.HighQuality;
@@ -300,7 +466,33 @@ namespace RabCab.Commands.PaletteKit
         }
 
         /// <summary>
-        ///     Method to parse an Autocad COLOR and convert it to System Color
+        ///     TODO
+        /// </summary>
+        /// <param name="acColor"></param>
+        /// <returns></returns>
+        private Image GetLayerImage(System.Drawing.Color acColor)
+        {
+            var brush = new SolidBrush(acColor);
+            var outlineColor = System.Drawing.Color.Black;
+
+            if (AcVars.ColorTheme == Enums.ColorTheme.Dark) outlineColor = System.Drawing.Color.White;
+
+            var squareImage = new Bitmap(_squareSize.Width, _squareSize.Height);
+            using (var graphics = Graphics.FromImage(squareImage))
+            {
+                var pen = new Pen(outlineColor, 1) {Alignment = PenAlignment.Center};
+                graphics.FillRectangle(brush, 3, 3, _squareSize.Width, _squareSize.Height);
+                graphics.DrawRectangle(pen, 3, 3, _squareSize.Width - 4, _squareSize.Height - 4);
+                graphics.CompositingQuality = CompositingQuality.HighQuality;
+                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                graphics.SmoothingMode = SmoothingMode.HighQuality;
+            }
+
+            return squareImage;
+        }
+
+        /// <summary>
+        ///     TODO
         /// </summary>
         /// <param name="color"></param>
         /// <returns></returns>

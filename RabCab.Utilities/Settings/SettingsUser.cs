@@ -10,7 +10,6 @@
 // -----------------------------------------------------------------------------------
 
 using Autodesk.AutoCAD.Colors;
-using RabCab.Engine.Enumerators;
 using static RabCab.Engine.Enumerators.Enums;
 
 namespace RabCab.Settings
@@ -60,7 +59,7 @@ namespace RabCab.Settings
         public static bool RetainHiddenLines = true;
 
         //Layers
-        public static char LayerDelimiter = '-';
+        public static char LayerDelimiter = '*';
         public static string RcVisible = "RCVisible";
         public static string RcHidden = "RcHidden";
         public static string RcAnno = "RcAnno";
