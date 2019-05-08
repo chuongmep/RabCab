@@ -96,6 +96,7 @@ namespace RabCab.Commands.PaletteKit
             if (acCurDoc == null) return;
 
             var acCurDb = acCurDoc.Database;
+
             const int imageColumn = 0;
             const int buttonColumn = 1;
             const int barOffset = 10;
@@ -111,6 +112,9 @@ namespace RabCab.Commands.PaletteKit
             {
                 using (acCurDoc.LockDocument())
                 {
+                   
+                    _palPanel.SuspendLayout();
+                    _palPanel.BackColor = backColor;
                     _palPanel.Controls.Clear();
                     _palPanel.AutoScroll = false;
 
@@ -274,18 +278,21 @@ namespace RabCab.Commands.PaletteKit
                     var loadButton = new ToolStripButton();
                     loadButton.Click += Load_Click;
                     loadButton.Text = "Load From Dwg";
-                    loadButton.Dock = DockStyle.Left;
+                    loadButton.BackColor = foreColor;
+                    loadButton.ForeColor = textColor;
 
                     var updButton = new ToolStripButton();
                     updButton.Click += Update_Click;
                     updButton.Text = "Update";
-                    updButton.Dock = DockStyle.Right;
+                    updButton.BackColor = foreColor;
+                    updButton.ForeColor = textColor;
 
                     stStrip.Items.Add(loadButton);
                     stStrip.Items.Add(updButton);
 
                     _palPanel.Controls.Add(palLayout);
                     _palPanel.Controls.Add(stStrip);
+                    _palPanel.ResumeLayout();
                 }
             }
             catch (Exception e)
@@ -387,14 +394,18 @@ namespace RabCab.Commands.PaletteKit
                 {
                     using (var extDb = acCurEd.GetExternalDatabase())
                     {
+                        if (extDb == null) return;
+
                         using (var acTrans = acCurDb.TransactionManager.StartTransaction())
                         {
                             acCurDb.CopyAllLayers(acCurEd, extDb, acTrans);
                             acTrans.Commit();
                         }
+
+                        PopulatePal();
                     }
 
-                    PopulatePal();
+                    
                 }
             }
             catch (Exception exception)
@@ -403,6 +414,11 @@ namespace RabCab.Commands.PaletteKit
             }
         }
 
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="layerName"></param>
+        /// <param name="acColor"></param>
         private void SetLayer(string layerName, Color acColor)
         {
             //Get the current document utilities

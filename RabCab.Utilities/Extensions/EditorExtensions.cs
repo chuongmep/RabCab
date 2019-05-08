@@ -152,6 +152,10 @@ namespace RabCab.Extensions
                 //Read the import DWG file
                 importDb.ReadDwgFile(fileRes.StringResult, FileShare.Read, true, "");
             }
+            else
+            {
+                importDb = null;
+            }
 
             return importDb;
         }
@@ -208,7 +212,7 @@ namespace RabCab.Extensions
             prOpts.MessageForRemoval = prOpts.MessageForRemoval + " or " + keyRes;
 
             // Implement a callback for when keywords are entered
-            prOpts.KeywordInput += delegate(object sender, SelectionTextInputEventArgs e)
+            prOpts.KeywordInput += delegate (object sender, SelectionTextInputEventArgs e)
             {
                 var userInput = e.Input;
 
@@ -236,7 +240,7 @@ namespace RabCab.Extensions
             if (f != null)
                 bFalse = f;
 
-            var keys = new[] {bTrue, bFalse};
+            var keys = new[] { bTrue, bFalse };
             var key = acCurEd.GetSimpleKeyword(prompt, keys);
 
             if (string.IsNullOrEmpty(key)) return null;
@@ -250,7 +254,7 @@ namespace RabCab.Extensions
 
         public static void WaitForExit(this Editor acCurEd)
         {
-            var prStrOpts = new PromptStringOptions("Press ENTER or ESC to continue ") {AllowSpaces = false};
+            var prStrOpts = new PromptStringOptions("Press ENTER or ESC to continue ") { AllowSpaces = false };
             acCurEd.GetString(prStrOpts);
         }
 
@@ -1617,7 +1621,7 @@ namespace RabCab.Extensions
 
 
             //Create a selection filter to only allow the specified object
-            var selFilter = new SelectionFilter(new[] {new TypedValue((int) DxfCode.Start, dxfName)});
+            var selFilter = new SelectionFilter(new[] { new TypedValue((int)DxfCode.Start, dxfName) });
 
             //Get the selection from the user
             var prSelRes = acCurEd.GetSelection(prSelOpts, selFilter);
@@ -1727,7 +1731,7 @@ namespace RabCab.Extensions
 
             // Create a TypedValue array to define the filter criteria
             var acTypValAr = new TypedValue[2];
-            acTypValAr.SetValue(new TypedValue((int) DxfCode.Start, dxfVals), 0);
+            acTypValAr.SetValue(new TypedValue((int)DxfCode.Start, dxfVals), 0);
             acTypValAr.SetValue(new TypedValue(67, curSpace), 1);
 
             // Assign the filter criteria to a SelectionFilter object
@@ -1843,7 +1847,7 @@ namespace RabCab.Extensions
         public static ObjectId[] GetObjectsByType(this Editor acCurEd, Enums.DxfNameEnum[] filterArgs)
         {
             SelectionSet acSSet = null;
-            var curSpace = (int) AcVars.TileMode;
+            var curSpace = (int)AcVars.TileMode;
 
             var dxfNames = new List<string>();
 
@@ -1864,7 +1868,7 @@ namespace RabCab.Extensions
 
             // Create a TypedValue array to define the filter criteria
             var acTypValAr = new TypedValue[2];
-            acTypValAr.SetValue(new TypedValue((int) DxfCode.Start, filterValue), 0);
+            acTypValAr.SetValue(new TypedValue((int)DxfCode.Start, filterValue), 0);
             acTypValAr.SetValue(new TypedValue(67, curSpace), 1);
 
             // Assign the filter criteria to a SelectionFilter object
@@ -1961,12 +1965,12 @@ namespace RabCab.Extensions
             using (var tr = db.TransactionManager.StartTransaction())
             {
                 var vp =
-                    (Viewport) tr.GetObject(ed.CurrentViewportObjectId, OpenMode.ForRead);
+                    (Viewport)tr.GetObject(ed.CurrentViewportObjectId, OpenMode.ForRead);
                 if (vp.Number == 1)
                     try
                     {
                         ed.SwitchToModelSpace();
-                        vp = (Viewport) tr.GetObject(ed.CurrentViewportObjectId, OpenMode.ForRead);
+                        vp = (Viewport)tr.GetObject(ed.CurrentViewportObjectId, OpenMode.ForRead);
                         ed.SwitchToPaperSpace();
                     }
                     catch
