@@ -94,13 +94,15 @@ namespace RabCab.Commands.PaletteKit
             var acCurDb = acCurDoc.Database;
             const int imageColumn = 0;
             const int buttonColumn = 1;
-            const int barOffset = 15;
+            const int barOffset = 10;
             const int buttonOffset = 1;
             const int buttonHeight = 25;
 
+            var backColor = Colors.GetCadBackColor();
+            var foreColor = Colors.GetCadForeColor();
+            var textColor = Colors.GetCadTextColor();
+
             var rowCounter = 0;
-
-
             try
             {
                 using (acCurDoc.LockDocument())
@@ -115,6 +117,7 @@ namespace RabCab.Commands.PaletteKit
                         AutoScroll = true,
                         AutoSizeMode = AutoSizeMode.GrowAndShrink,
                         BackColor = Colors.GetCadBackColor(),
+                        ForeColor = Colors.GetCadForeColor(),
                         ColumnCount = 3,
                         Dock = DockStyle.Fill,
                         Location = new Point(0, 0),
@@ -125,8 +128,6 @@ namespace RabCab.Commands.PaletteKit
                     palLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
                     palLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 5F));
 
-                    _palPanel.Controls.Add(palLayout);
-
                     #endregion
 
                     using (var acTrans = acCurDb.TransactionManager.StartTransaction())
@@ -136,18 +137,28 @@ namespace RabCab.Commands.PaletteKit
                             .OrderBy(layer => layer.Key);
 
                         foreach (var group in layerGroups)
+                        {
+                            palLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, buttonHeight + 5));
+
                             if (group.Count() > 1)
                             {
                                 var spButton = new SplitButton
                                 {
                                     ShowSplit = true,
-                                    UseVisualStyleBackColor = true,
-                                    BackColor = Colors.GetCadBackColor(),
-                                    ForeColor = Colors.GetCadTextColor(),
+                                    BackColor = foreColor,
+                                    ForeColor = textColor,
                                     Dock = DockStyle.Fill,
                                     Height = buttonHeight,
-                                    ContextMenuStrip = new ContextMenuStrip()
+                                    ContextMenuStrip = new ContextMenuStrip(),
+                                    FlatStyle = FlatStyle.Flat
                                 };
+
+                                spButton.FlatAppearance.BorderColor = SystemColors.WindowFrame;
+                                spButton.FlatAppearance.BorderSize = 1;
+                                spButton.ContextMenuStrip.BackColor = foreColor;
+                                spButton.ContextMenuStrip.ForeColor = textColor;
+                                spButton.ContextMenuStrip.ShowImageMargin = false;
+                                spButton.ContextMenuStrip.ShowCheckMargin = false;
 
                                 Color spColor = null;
                                 var firstParse = true;
@@ -162,7 +173,14 @@ namespace RabCab.Commands.PaletteKit
                                     }
 
                                     var tsButton = new ToolStripButton(layer.Name, GetLayerImage(layer.Color),
-                                        contextItem_Click);
+                                        contextItem_Click)
+                                    {
+                                        ImageAlign = ContentAlignment.TopLeft,
+                                        TextAlign = ContentAlignment.MiddleLeft,
+                                        BackColor = foreColor,
+                                        ForeColor = textColor
+                                    };
+
                                     spButton.ContextMenuStrip.Items.Add(tsButton);
                                 }
 
@@ -184,11 +202,15 @@ namespace RabCab.Commands.PaletteKit
                                 var button = new Button
                                 {
                                     Text = layer.Name,
-                                    BackColor = Colors.GetCadForeColor(),
-                                    ForeColor = Colors.GetCadTextColor(),
+                                    BackColor = foreColor,
+                                    ForeColor = textColor,
                                     Dock = DockStyle.Fill,
-                                    Height = buttonHeight
+                                    Height = buttonHeight,
+                                    FlatStyle = FlatStyle.Flat
                                 };
+
+                                button.FlatAppearance.BorderColor = SystemColors.WindowFrame;
+                                button.FlatAppearance.BorderSize = 1;
 
                                 var picBox = new PictureBox
                                 {
@@ -197,10 +219,12 @@ namespace RabCab.Commands.PaletteKit
                                     Anchor = AnchorStyles.None
                                 };
 
+
                                 palLayout.Controls.Add(button, buttonColumn, rowCounter);
                                 palLayout.Controls.Add(picBox, imageColumn, rowCounter);
                                 rowCounter++;
                             }
+                        }
 
                         //Add a blank label to the final row to keep from having a giant row at the bottom
                         var blankLabel = new Label {Height = buttonHeight};
@@ -225,18 +249,9 @@ namespace RabCab.Commands.PaletteKit
                         palLayout.ColumnStyles[2].Width = buttonOffset;
                     }
 
-                    palLayout.RowStyles.Clear();   //now you have zero rowstyles
-
-                    var styles = palLayout.RowStyles;
-
-                    foreach (RowStyle style in styles)
-                    {
-                        // Set the row height to 20 pixels.
-                        style.SizeType = SizeType.Absolute;
-                        style.Height = buttonHeight + 2;
-                    }
-
                     palLayout.Refresh();
+
+                    _palPanel.Controls.Add(palLayout);
                 }
             }
             catch (Exception e)
@@ -253,6 +268,8 @@ namespace RabCab.Commands.PaletteKit
             //TODO
         }
 
+
+
         #endregion
 
         /// <summary>
@@ -262,7 +279,7 @@ namespace RabCab.Commands.PaletteKit
         /// <returns></returns>
         private Image GetLayerImage(Color acColor)
         {
-            var squareSize = new Size(20, 20);
+            var squareSize = new Size(18, 18);
             var brush = new SolidBrush(AcadColorAciToDrawingColor(acColor));
             var outlineColor = System.Drawing.Color.Black;
 

@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
+using RabCab.Settings;
 
 namespace RabCab.Entities.Controls
 {
@@ -28,6 +29,18 @@ namespace RabCab.Entities.Controls
         {
             get => base.AutoSize;
             set => base.AutoSize = value;
+        }
+
+        public sealed override Color BackColor
+        {
+            get => base.BackColor;
+            set => base.BackColor = value;
+        }
+
+        public sealed override Color ForeColor
+        {
+            get => base.ForeColor;
+            set => base.ForeColor = value;
         }
 
         [DefaultValue(true)]
@@ -180,9 +193,7 @@ namespace RabCab.Entities.Controls
 
 
             if (!State.Equals(PushButtonState.Pressed) && !State.Equals(PushButtonState.Disabled))
-            {
                 State = Focused ? PushButtonState.Default : PushButtonState.Normal;
-            }
         }
 
 
@@ -229,9 +240,7 @@ namespace RabCab.Entities.Controls
 
                 ButtonRenderer.DrawButton(g, backgroundBounds, State);
 
-
                 // button renderer doesnt draw the black frame when themes are off =(
-
                 g.DrawRectangle(SystemPens.WindowFrame, 0, 0, bounds.Width - 1, bounds.Height - 1);
             }
 
@@ -239,6 +248,11 @@ namespace RabCab.Entities.Controls
             {
                 ButtonRenderer.DrawButton(g, bounds, State);
             }
+
+
+            var backBrush = new SolidBrush(BackColor);
+            g.FillRectangle(backBrush, 1, 1, bounds.Width - 2, bounds.Height - 2);
+
 
             // calculate the current dropdown rectangle.
 
@@ -311,7 +325,7 @@ namespace RabCab.Entities.Controls
 
 
             if (!string.IsNullOrEmpty(Text))
-                TextRenderer.DrawText(g, Text, Font, focusRect, SystemColors.ControlText, formatFlags);
+                TextRenderer.DrawText(g, Text, Font, focusRect, ForeColor, formatFlags);
 
 
             // draw the focus rectangle.
