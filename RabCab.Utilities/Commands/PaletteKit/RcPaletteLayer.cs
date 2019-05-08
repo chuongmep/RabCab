@@ -32,29 +32,29 @@ namespace RabCab.Commands.PaletteKit
         /// </summary>
         [CommandMethod(SettingsInternal.CommandGroup, "_RCLAYERPAL",
             CommandFlags.Modal
-            //| CommandFlags.Transparent
-            //| CommandFlags.UsePickSet
-            //| CommandFlags.Redraw
-            //| CommandFlags.NoPerspective
-            //| CommandFlags.NoMultiple
-            //| CommandFlags.NoTileMode
-            //| CommandFlags.NoPaperSpace
-            //| CommandFlags.NoOem
-            //| CommandFlags.Undefined
-            //| CommandFlags.InProgress
-            //| CommandFlags.Defun
-            //| CommandFlags.NoNewStack
-            //| CommandFlags.NoInternalLock
-            //| CommandFlags.DocReadLock
-            //| CommandFlags.DocExclusiveLock
-            //| CommandFlags.Session
-            //| CommandFlags.Interruptible
-            //| CommandFlags.NoHistory
-            //| CommandFlags.NoUndoMarker
-            //| CommandFlags.NoBlockEditor
-            //| CommandFlags.NoActionRecording
-            //| CommandFlags.ActionMacro
-            //| CommandFlags.NoInferConstraint 
+        //| CommandFlags.Transparent
+        //| CommandFlags.UsePickSet
+        //| CommandFlags.Redraw
+        //| CommandFlags.NoPerspective
+        //| CommandFlags.NoMultiple
+        //| CommandFlags.NoTileMode
+        //| CommandFlags.NoPaperSpace
+        //| CommandFlags.NoOem
+        //| CommandFlags.Undefined
+        //| CommandFlags.InProgress
+        //| CommandFlags.Defun
+        //| CommandFlags.NoNewStack
+        //| CommandFlags.NoInternalLock
+        //| CommandFlags.DocReadLock
+        //| CommandFlags.DocExclusiveLock
+        //| CommandFlags.Session
+        //| CommandFlags.Interruptible
+        //| CommandFlags.NoHistory
+        //| CommandFlags.NoUndoMarker
+        //| CommandFlags.NoBlockEditor
+        //| CommandFlags.NoActionRecording
+        //| CommandFlags.ActionMacro
+        //| CommandFlags.NoInferConstraint 
         )]
         public void Cmd_RcLayerPal()
         {
@@ -111,7 +111,7 @@ namespace RabCab.Commands.PaletteKit
             {
                 using (acCurDoc.LockDocument())
                 {
-                   
+
                     _palPanel.SuspendLayout();
                     _palPanel.BackColor = backColor;
                     _palPanel.Controls.Clear();
@@ -158,7 +158,7 @@ namespace RabCab.Commands.PaletteKit
                                     Height = buttonHeight,
                                     ContextMenuStrip = new ContextMenuStrip(),
                                     FlatStyle = FlatStyle.Flat,
-                                    
+
                                 };
 
                                 spButton.Click += Button_Click;
@@ -237,7 +237,7 @@ namespace RabCab.Commands.PaletteKit
                         }
 
                         //Add a blank label to the final row to keep from having a giant row at the bottom
-                        var blankLabel = new Label {Height = buttonHeight};
+                        var blankLabel = new Label { Height = buttonHeight };
                         palLayout.Controls.Add(blankLabel, buttonColumn, rowCounter + 1);
                         palLayout.RowCount++;
 
@@ -330,7 +330,7 @@ namespace RabCab.Commands.PaletteKit
         /// <param name="e"></param>
         private void contextItem_Click(object sender, EventArgs e)
         {
-            var item = (ToolStripItem) sender;
+            var item = (ToolStripItem)sender;
             if (item == null) return;
 
             if (!(item.Owner is ContextMenuStrip owner)) return;
@@ -368,7 +368,7 @@ namespace RabCab.Commands.PaletteKit
         /// <param name="e"></param>
         private void Button_Click(object sender, EventArgs e)
         {
-            var item = (Button) sender;
+            var item = (Button)sender;
             if (item == null) return;
 
             if (!(item.Parent is TableLayoutPanel tLayout)) return;
@@ -392,7 +392,7 @@ namespace RabCab.Commands.PaletteKit
         /// <param name="e"></param>
         private void Update_Click(object sender, EventArgs e)
         {
-           PopulatePal();
+            PopulatePal();
         }
 
         /// <summary>
@@ -427,7 +427,7 @@ namespace RabCab.Commands.PaletteKit
                         PopulatePal();
                     }
 
-                    
+
                 }
             }
             catch (Exception exception)
@@ -470,7 +470,7 @@ namespace RabCab.Commands.PaletteKit
 
                     acTrans.Commit();
                 }
-                
+
             }
 
         }
@@ -492,7 +492,7 @@ namespace RabCab.Commands.PaletteKit
             var squareImage = new Bitmap(_squareSize.Width, _squareSize.Height);
             using (var graphics = Graphics.FromImage(squareImage))
             {
-                var pen = new Pen(outlineColor, 1) {Alignment = PenAlignment.Center};
+                var pen = new Pen(outlineColor, 1) { Alignment = PenAlignment.Center };
                 graphics.FillRectangle(brush, 3, 3, _squareSize.Width, _squareSize.Height);
                 graphics.DrawRectangle(pen, 3, 3, _squareSize.Width - 4, _squareSize.Height - 4);
                 graphics.CompositingQuality = CompositingQuality.HighQuality;
@@ -518,7 +518,7 @@ namespace RabCab.Commands.PaletteKit
             var squareImage = new Bitmap(_squareSize.Width, _squareSize.Height);
             using (var graphics = Graphics.FromImage(squareImage))
             {
-                var pen = new Pen(outlineColor, 1) {Alignment = PenAlignment.Center};
+                var pen = new Pen(outlineColor, 1) { Alignment = PenAlignment.Center };
                 graphics.FillRectangle(brush, 3, 3, _squareSize.Width, _squareSize.Height);
                 graphics.DrawRectangle(pen, 3, 3, _squareSize.Width - 4, _squareSize.Height - 4);
                 graphics.CompositingQuality = CompositingQuality.HighQuality;
