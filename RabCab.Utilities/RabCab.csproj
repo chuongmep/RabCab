@@ -149,7 +149,6 @@
     <Folder Include="Commands\AddInKit\" />
     <Folder Include="Engine\Builder\" />
     <Folder Include="Resources\CUI\" />
-    <Folder Include="Resources\Help\" />
     <Folder Include="Resources\Icons\" />
   </ItemGroup>
   <ItemGroup>
@@ -589,6 +588,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Repository\RepoAttributes.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Help\ExtendedHelp.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
