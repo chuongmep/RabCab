@@ -47,7 +47,9 @@ namespace RabCab.Commands.PaletteKit
             _refreshButton,
             _homeButton,
             _searchButton,
-            _printButton;
+            _printButton,
+            _zoomIn,
+            _zoomOut;
 
         private TextBox _addressBox;
 
@@ -152,35 +154,13 @@ namespace RabCab.Commands.PaletteKit
             _homeButton = new ToolStripButton();
             _searchButton = new ToolStripButton();
             _printButton = new ToolStripButton();
+            _zoomIn = new ToolStripButton();
+            _zoomOut = new ToolStripButton();
 
             _addressBox = new TextBox();
 
             _fileToolStripMenuItem.BackColor = foreColor;
             _fileToolStripMenuItem.ForeColor = textColor;
-
-            _saveAsToolStripMenuItem.BackColor = foreColor;
-            _saveAsToolStripMenuItem.ForeColor = textColor;
-
-            _toolStripSeparator1.BackColor = foreColor;
-            _toolStripSeparator1.ForeColor = textColor;
-
-            _pageSetupToolStripMenuItem.BackColor = foreColor;
-            _pageSetupToolStripMenuItem.ForeColor = textColor;
-
-            _printToolStripMenuItem.BackColor = foreColor;
-            _printToolStripMenuItem.ForeColor = textColor;
-
-            _printPreviewToolStripMenuItem.BackColor = foreColor;
-            _printPreviewToolStripMenuItem.ForeColor = textColor;
-
-            _toolStripSeparator2.BackColor = foreColor;
-            _toolStripSeparator2.ForeColor = textColor;
-
-            _propertiesToolStripMenuItem.BackColor = foreColor;
-            _propertiesToolStripMenuItem.ForeColor = textColor;
-
-            _exitToolStripMenuItem.BackColor = foreColor;
-            _exitToolStripMenuItem.ForeColor = textColor;
 
             _fileToolStripMenuItem.DropDownItems.AddRange(
                 new ToolStripItem[]
@@ -238,10 +218,16 @@ namespace RabCab.Commands.PaletteKit
             _printButton.BackColor = foreColor;
             _printButton.ForeColor = textColor;
 
+            _zoomIn.BackColor = foreColor;
+            _zoomIn.ForeColor = textColor;
+
+            _zoomOut.BackColor = foreColor;
+            _zoomOut.ForeColor = textColor;
+
             _menuStrip.Items.AddRange(new ToolStripItem[]
             {
                 _fileToolStripMenuItem, _homeButton, _searchButton, _goButton, _backButton, _forwardButton, _stopButton,
-                _refreshButton, _printButton
+                _refreshButton, _printButton, _zoomIn, _zoomOut
             });
 
             _goButton.Text = "Go";
@@ -252,6 +238,8 @@ namespace RabCab.Commands.PaletteKit
             _homeButton.Text = "Home";
             _searchButton.Text = "Search";
             _printButton.Text = "Print";
+            _zoomIn.Text = "Zoom In";
+            _zoomOut.Text = "Zoom Out";
 
             _backButton.Enabled = false;
             _forwardButton.Enabled = false;
@@ -264,11 +252,11 @@ namespace RabCab.Commands.PaletteKit
             _homeButton.Click += homeButton_Click;
             _searchButton.Click += searchButton_Click;
             _printButton.Click += printButton_Click;
+            _zoomIn.Click += zoomIn_Click;
+            _zoomOut.Click += zoomOut_Click;
 
             _addressBox.Dock = DockStyle.Bottom;
             _addressBox.Height = 25;
-            _addressBox.BackColor = foreColor;
-            _addressBox.ForeColor = textColor;
             _addressBox.KeyDown +=
                 AddressBoxKeyDown;
             _addressBox.Click +=
@@ -284,6 +272,7 @@ namespace RabCab.Commands.PaletteKit
             _menuStrip.BackColor = foreColor;
             _menuStrip.ForeColor = textColor;
 
+            _wBrowser.ScriptErrorsSuppressed = true;
 
             _palPanel.Controls.AddRange(new Control[]
             {
@@ -300,6 +289,20 @@ namespace RabCab.Commands.PaletteKit
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             _wBrowser.ShowSaveAsDialog();
+        }
+
+        private void zoomIn_Click(object sender, EventArgs e)
+        {
+            // zoom in
+            _wBrowser.Focus();
+            SendKeys.Send("^{ADD}");
+        }
+
+        private void zoomOut_Click(object sender, EventArgs e)
+        {
+            // zoom out
+            _wBrowser.Focus();
+            SendKeys.Send("^{SUBTRACT}");
         }
 
         // Displays the Page Setup dialog box.
