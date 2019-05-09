@@ -12,16 +12,79 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.DatabaseServices;
 using RabCab.Analysis;
 using RabCab.Extensions;
 using RabCab.Settings;
 using static RabCab.Engine.Enumerators.Enums;
+using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
 
 namespace RabCab.Agents
 {
     public static class XDataAgent
     {
+        /// <summary>
+        /// Add or edit a Xrecord data in a named dictionary (the dictionary and xrecord are created if not already exist)
+        /// </summary>
+        /// <param name="dictName">The dictionary name</param>
+        /// <param name="key">the xrecord key</param>
+        /// <param name="resbuf">the xrecord data</param>
+        public static void SetXrecord(string dictName, string key, ResultBuffer resbuf)
+        {
+            var acCurDoc = Application.DocumentManager.MdiActiveDocument;
+            var acCurDb = acCurDoc.Database;
+            using (var acTrans = acCurDb.TransactionManager.StartTransaction())
+            {
+                var NOD =
+                    (DBDictionary) acTrans.GetObject(acCurDb.NamedObjectsDictionaryId, OpenMode.ForRead);
+                DBDictionary dict;
+                if (NOD.Contains(dictName))
+                {
+                    dict = (DBDictionary) acTrans.GetObject(NOD.GetAt(dictName), OpenMode.ForWrite);
+                }
+                else
+                {
+                    dict = new DBDictionary();
+                    NOD.UpgradeOpen();
+                    NOD.SetAt(dictName, dict);
+                    acTrans.AddNewlyCreatedDBObject(dict, true);
+                }
+
+                var xRec = new Xrecord();
+                xRec.Data = resbuf;
+                dict.SetAt(key, xRec);
+                acTrans.AddNewlyCreatedDBObject(xRec, true);
+                acTrans.Commit();
+            }
+        }
+
+        /// <summary>
+        ///     Gets an xrecord data in a named dictionary
+        /// </summary>
+        /// <param name="dictName">The dictionary name</param>
+        /// <param name="key">The xrecord key</param>
+        /// <returns>The xrecord data or null if the dictionary or the xrecord do not exist</returns>
+        public static ResultBuffer GetXrecord(string dictName, string key)
+        {
+            var acCurDoc = Application.DocumentManager.MdiActiveDocument;
+            var acCurDb = acCurDoc.Database;
+            using (var acTrans = acCurDb.TransactionManager.StartTransaction())
+            {
+                var NOD =
+                    (DBDictionary) acTrans.GetObject(acCurDb.NamedObjectsDictionaryId, OpenMode.ForRead);
+                if (!NOD.Contains(dictName))
+                    return null;
+                var dict = acTrans.GetObject(NOD.GetAt(dictName), OpenMode.ForRead) as DBDictionary;
+                if (dict == null || !dict.Contains(key))
+                    return null;
+                var xRec = acTrans.GetObject(dict.GetAt(key), OpenMode.ForRead) as Xrecord;
+                if (xRec == null)
+                    return null;
+                return xRec.Data;
+            }
+        }
+
         /// <summary>
         ///     TODO
         /// </summary>
