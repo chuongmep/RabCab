@@ -16,6 +16,7 @@ using Autodesk.AutoCAD.Windows;
 using RabCab.Agents;
 using RabCab.Settings;
 
+
 namespace RabCab.Commands.PaletteKit
 {
     internal class RcPaletteNet
@@ -436,6 +437,7 @@ namespace RabCab.Commands.PaletteKit
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             _rcPal.Visible = false;
+            _wBrowser.GoHome();
         }
 
         #endregion
