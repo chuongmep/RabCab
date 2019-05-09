@@ -133,12 +133,6 @@ namespace RabCab.Commands.PaletteKit
                 PopulatePal();
                 _palPanel.UpdateTheme();
                 _rcPal.Add(PalName, _palPanel);
-
-                _rcPal.StateChanged +=
-                    (s, e) =>
-                    {
-                        if (_rcPal != null && !_rcPal.Visible) _wBrowser.Load(SettingsUser.NetHomePage);
-                    };
             }
 
             _rcPal.Visible = true;
@@ -183,8 +177,8 @@ namespace RabCab.Commands.PaletteKit
             _refreshButton.Text = "Refresh";
             _searchButton.Text = "Search";
             _homeButton.Text = "Home";
-            _zoomIn.Text = "Zoom In";
-            _zoomOut.Text = "Zoom Out";
+            _zoomIn.Text = "In";
+            _zoomOut.Text = "Out";
 
             _refreshButton.Click += refreshButton_Click;
             _homeButton.Click += homeButton_Click;
