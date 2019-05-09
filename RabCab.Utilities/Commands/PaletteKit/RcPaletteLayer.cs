@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Autodesk.AutoCAD.Colors;
 using Autodesk.AutoCAD.DatabaseServices;
+using Autodesk.AutoCAD.Internal;
 using Autodesk.AutoCAD.Runtime;
 using Autodesk.AutoCAD.Windows;
 using RabCab.Agents;
@@ -32,29 +33,29 @@ namespace RabCab.Commands.PaletteKit
         /// </summary>
         [CommandMethod(SettingsInternal.CommandGroup, "_RCLAYERPAL",
             CommandFlags.Modal
-        //| CommandFlags.Transparent
-        //| CommandFlags.UsePickSet
-        //| CommandFlags.Redraw
-        //| CommandFlags.NoPerspective
-        //| CommandFlags.NoMultiple
-        //| CommandFlags.NoTileMode
-        //| CommandFlags.NoPaperSpace
-        //| CommandFlags.NoOem
-        //| CommandFlags.Undefined
-        //| CommandFlags.InProgress
-        //| CommandFlags.Defun
-        //| CommandFlags.NoNewStack
-        //| CommandFlags.NoInternalLock
-        //| CommandFlags.DocReadLock
-        //| CommandFlags.DocExclusiveLock
-        //| CommandFlags.Session
-        //| CommandFlags.Interruptible
-        //| CommandFlags.NoHistory
-        //| CommandFlags.NoUndoMarker
-        //| CommandFlags.NoBlockEditor
-        //| CommandFlags.NoActionRecording
-        //| CommandFlags.ActionMacro
-        //| CommandFlags.NoInferConstraint 
+            //| CommandFlags.Transparent
+            //| CommandFlags.UsePickSet
+            //| CommandFlags.Redraw
+            //| CommandFlags.NoPerspective
+            //| CommandFlags.NoMultiple
+            //| CommandFlags.NoTileMode
+            //| CommandFlags.NoPaperSpace
+            //| CommandFlags.NoOem
+            //| CommandFlags.Undefined
+            //| CommandFlags.InProgress
+            //| CommandFlags.Defun
+            //| CommandFlags.NoNewStack
+            //| CommandFlags.NoInternalLock
+            //| CommandFlags.DocReadLock
+            //| CommandFlags.DocExclusiveLock
+            //| CommandFlags.Session
+            //| CommandFlags.Interruptible
+            //| CommandFlags.NoHistory
+            //| CommandFlags.NoUndoMarker
+            //| CommandFlags.NoBlockEditor
+            //| CommandFlags.NoActionRecording
+            //| CommandFlags.ActionMacro
+            //| CommandFlags.NoInferConstraint 
         )]
         public void Cmd_RcLayerPal()
         {
@@ -87,7 +88,7 @@ namespace RabCab.Commands.PaletteKit
         }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         private void PopulatePal()
         {
@@ -111,7 +112,6 @@ namespace RabCab.Commands.PaletteKit
             {
                 using (acCurDoc.LockDocument())
                 {
-
                     _palPanel.SuspendLayout();
                     _palPanel.BackColor = backColor;
                     _palPanel.Controls.Clear();
@@ -126,7 +126,7 @@ namespace RabCab.Commands.PaletteKit
                         BackColor = Colors.GetCadBackColor(),
                         ForeColor = Colors.GetCadForeColor(),
                         ColumnCount = 3,
-                        Dock = DockStyle.Fill,
+                        Dock = DockStyle.Fill
                     };
 
                     palLayout.MouseEnter += (s, e) => palLayout.Focus();
@@ -157,8 +157,7 @@ namespace RabCab.Commands.PaletteKit
                                     Dock = DockStyle.Fill,
                                     Height = buttonHeight,
                                     ContextMenuStrip = new ContextMenuStrip(),
-                                    FlatStyle = FlatStyle.Flat,
-
+                                    FlatStyle = FlatStyle.Flat
                                 };
 
                                 spButton.Click += Button_Click;
@@ -182,7 +181,7 @@ namespace RabCab.Commands.PaletteKit
                                     }
 
                                     var tsButton = new ToolStripButton(layer.Name, GetLayerImage(layer.Color),
-                                        contextItem_Click)
+                                        ContextItem_Click)
                                     {
                                         ImageAlign = TopLeft,
                                         TextAlign = BottomLeft,
@@ -237,7 +236,7 @@ namespace RabCab.Commands.PaletteKit
                         }
 
                         //Add a blank label to the final row to keep from having a giant row at the bottom
-                        var blankLabel = new Label { Height = buttonHeight };
+                        var blankLabel = new Label {Height = buttonHeight};
                         palLayout.Controls.Add(blankLabel, buttonColumn, rowCounter + 1);
                         palLayout.RowCount++;
 
@@ -260,17 +259,6 @@ namespace RabCab.Commands.PaletteKit
                     }
 
                     palLayout.Refresh();
-
-
-                    var stStrip = new StatusStrip
-                    {
-                        AllowItemReorder = false,
-                        AllowMerge = false,
-                        AllowDrop = false,
-                        Dock = DockStyle.Bottom,
-                        BackColor = backColor,
-                        ForeColor = foreColor
-                    };
 
                     var bLayout = new TableLayoutPanel
                     {
@@ -328,37 +316,44 @@ namespace RabCab.Commands.PaletteKit
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void contextItem_Click(object sender, EventArgs e)
+        private void ContextItem_Click(object sender, EventArgs e)
         {
-            var item = (ToolStripItem)sender;
-            if (item == null) return;
-
-            if (!(item.Owner is ContextMenuStrip owner)) return;
-            if (!(owner.SourceControl is Button spButton)) return;
-            if (!(spButton.Parent is TableLayoutPanel tLayout)) return;
-
-            spButton.Text = item.Text;
-
-            var bPos = tLayout.GetCellPosition(spButton);
-            var image = item.Image;
-
-            var b = new Bitmap(image);
-            var layColor = b.GetPixel(image.Width / 2, image.Height / 2);
-            b.Dispose();
-
-            var newPicBox = new PictureBox
+            try
             {
-                Height = image.Height,
-                Image = GetLayerImage(layColor),
-                Dock = DockStyle.Fill
-            };
+                var item = (ToolStripItem) sender;
+                if (item == null) return;
 
-            var curPicBox = tLayout.GetControlFromPosition(bPos.Column - 1, bPos.Row);
-            tLayout.Controls.Remove(curPicBox);
-            tLayout.Controls.Add(newPicBox, bPos.Column - 1, bPos.Row);
-            tLayout.Refresh();
+                if (!(item.Owner is ContextMenuStrip owner)) return;
+                if (!(owner.SourceControl is Button spButton)) return;
+                if (!(spButton.Parent is TableLayoutPanel tLayout)) return;
 
-            SetLayer(spButton.Text, Color.FromRgb(layColor.R, layColor.G, layColor.B));
+                spButton.Text = item.Text;
+
+                var bPos = tLayout.GetCellPosition(spButton);
+                var image = item.Image;
+
+                var b = new Bitmap(image);
+                var layColor = b.GetPixel(image.Width / 2, image.Height / 2);
+                b.Dispose();
+
+                var newPicBox = new PictureBox
+                {
+                    Height = image.Height,
+                    Image = GetLayerImage(layColor),
+                    Dock = DockStyle.Fill
+                };
+
+                var curPicBox = tLayout.GetControlFromPosition(bPos.Column - 1, bPos.Row);
+                tLayout.Controls.Remove(curPicBox);
+                tLayout.Controls.Add(newPicBox, bPos.Column - 1, bPos.Row);
+                tLayout.Refresh();
+
+                SetLayer(spButton.Text, Color.FromRgb(layColor.R, layColor.G, layColor.B));
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+            }
         }
 
         /// <summary>
@@ -368,21 +363,28 @@ namespace RabCab.Commands.PaletteKit
         /// <param name="e"></param>
         private void Button_Click(object sender, EventArgs e)
         {
-            var item = (Button)sender;
-            if (item == null) return;
+            try
+            {
+                var item = (Button) sender;
+                if (item == null) return;
 
-            if (!(item.Parent is TableLayoutPanel tLayout)) return;
-            var bPos = tLayout.GetCellPosition(item);
-            var picBox = tLayout.GetControlFromPosition(bPos.Column - 1, bPos.Row);
+                if (!(item.Parent is TableLayoutPanel tLayout)) return;
+                var bPos = tLayout.GetCellPosition(item);
+                var picBox = tLayout.GetControlFromPosition(bPos.Column - 1, bPos.Row);
 
-            if (picBox == null) return;
+                if (picBox == null) return;
 
-            var b = new Bitmap(picBox.ClientSize.Width, picBox.Height);
-            picBox.DrawToBitmap(b, picBox.ClientRectangle);
-            var layColor = b.GetPixel(_squareSize.Width / 2, _squareSize.Height / 2);
-            b.Dispose();
+                var b = new Bitmap(picBox.ClientSize.Width, picBox.Height);
+                picBox.DrawToBitmap(b, picBox.ClientRectangle);
+                var layColor = b.GetPixel(_squareSize.Width / 2, _squareSize.Height / 2);
+                b.Dispose();
 
-            SetLayer(item.Text, Color.FromRgb(layColor.R, layColor.G, layColor.B));
+                SetLayer(item.Text, Color.FromRgb(layColor.R, layColor.G, layColor.B));
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+            }
         }
 
         /// <summary>
@@ -402,7 +404,6 @@ namespace RabCab.Commands.PaletteKit
         /// <param name="e"></param>
         private void Load_Click(object sender, EventArgs e)
         {
-
             try
             {
                 //Get the current document utilities
@@ -426,8 +427,6 @@ namespace RabCab.Commands.PaletteKit
 
                         PopulatePal();
                     }
-
-
                 }
             }
             catch (Exception exception)
@@ -437,42 +436,47 @@ namespace RabCab.Commands.PaletteKit
         }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="layerName"></param>
         /// <param name="acColor"></param>
         private void SetLayer(string layerName, Color acColor)
         {
-            //Get the current document utilities
-            var acCurDoc = Application.DocumentManager.MdiActiveDocument;
-            if (acCurDoc == null) return;
-
-            var acCurDb = acCurDoc.Database;
-            var acCurEd = acCurDoc.Editor;
-
-            using (acCurDoc.LockDocument())
+            try
             {
-                Autodesk.AutoCAD.Internal.Utils.SetFocusToDwgView();
-                var objIds = acCurEd.GetAllSelection(false);
+                //Get the current document utilities
+                var acCurDoc = Application.DocumentManager.MdiActiveDocument;
+                if (acCurDoc == null) return;
 
-                using (var acTrans = acCurDb.TransactionManager.StartTransaction())
+                var acCurDb = acCurDoc.Database;
+                var acCurEd = acCurDoc.Editor;
+
+                using (acCurDoc.LockDocument())
                 {
-                    acCurDb.AddLayer(layerName, acColor, SettingsUser.RcVisibleLT, acTrans);
+                    Utils.SetFocusToDwgView();
+                    var objIds = acCurEd.GetAllSelection(false);
 
-                    foreach (var obj in objIds)
+                    using (var acTrans = acCurDb.TransactionManager.StartTransaction())
                     {
-                        var acEnt = acTrans.GetObject(obj, OpenMode.ForWrite) as Entity;
-                        if (acEnt == null) continue;
+                        acCurDb.AddLayer(layerName, acColor, SettingsUser.RcVisibleLT, acTrans);
 
-                        acEnt.Layer = layerName;
-                        acEnt.Color = Color.FromColorIndex(ColorMethod.ByLayer, 256);
+                        foreach (var obj in objIds)
+                        {
+                            var acEnt = acTrans.GetObject(obj, OpenMode.ForWrite) as Entity;
+                            if (acEnt == null) continue;
+
+                            acEnt.Layer = layerName;
+                            acEnt.Color = Color.FromColorIndex(ColorMethod.ByLayer, 256);
+                        }
+
+                        acTrans.Commit();
                     }
-
-                    acTrans.Commit();
                 }
-
             }
-
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
         }
 
         #endregion
@@ -492,7 +496,7 @@ namespace RabCab.Commands.PaletteKit
             var squareImage = new Bitmap(_squareSize.Width, _squareSize.Height);
             using (var graphics = Graphics.FromImage(squareImage))
             {
-                var pen = new Pen(outlineColor, 1) { Alignment = PenAlignment.Center };
+                var pen = new Pen(outlineColor, 1) {Alignment = PenAlignment.Center};
                 graphics.FillRectangle(brush, 3, 3, _squareSize.Width, _squareSize.Height);
                 graphics.DrawRectangle(pen, 3, 3, _squareSize.Width - 4, _squareSize.Height - 4);
                 graphics.CompositingQuality = CompositingQuality.HighQuality;
@@ -518,7 +522,7 @@ namespace RabCab.Commands.PaletteKit
             var squareImage = new Bitmap(_squareSize.Width, _squareSize.Height);
             using (var graphics = Graphics.FromImage(squareImage))
             {
-                var pen = new Pen(outlineColor, 1) { Alignment = PenAlignment.Center };
+                var pen = new Pen(outlineColor, 1) {Alignment = PenAlignment.Center};
                 graphics.FillRectangle(brush, 3, 3, _squareSize.Width, _squareSize.Height);
                 graphics.DrawRectangle(pen, 3, 3, _squareSize.Width - 4, _squareSize.Height - 4);
                 graphics.CompositingQuality = CompositingQuality.HighQuality;

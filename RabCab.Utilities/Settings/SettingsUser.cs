@@ -25,6 +25,9 @@ namespace RabCab.Settings
         public static bool PrioritizeRightAngles = false;
         public static bool UseFields = false;
 
+        //Palette Enablers
+        public static bool EnableSelectionParse = true;
+
         //SortingOptions
         public static bool ResetPartCount = true;
         public static string NamingConvention = "";
