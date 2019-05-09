@@ -55,10 +55,12 @@ namespace RabCab.Commands.AnnotationSuite
             var acCurDb = acCurDoc.Database;
             var acCurEd = acCurDoc.Editor;
 
-            var pId = acCurEd.GetFilteredSelection(Enums.DxfNameEnum.Dimension, true, null, "\nSelect baseline dimension: ");
+            var pId = acCurEd.GetFilteredSelection(Enums.DxfNameEnum.Dimension, true, null,
+                "\nSelect baseline dimension: ");
             if (pId.Length <= 0) return;
 
-            var objIds = acCurEd.GetFilteredSelection(Enums.DxfNameEnum.Dimension, false, null, "\nSelect dimensions to space: ");
+            var objIds = acCurEd.GetFilteredSelection(Enums.DxfNameEnum.Dimension, false, null,
+                "\nSelect dimensions to space: ");
             if (objIds.Length <= 0) return;
 
             var pDim = SelectionSet.FromObjectIds(pId);

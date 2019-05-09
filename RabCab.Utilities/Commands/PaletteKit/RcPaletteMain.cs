@@ -21,9 +21,9 @@ namespace RabCab.Commands.PaletteKit
 {
     internal class RcPaletteMain
     {
-        private PaletteSet RcPal;
+        private readonly string PalName = "RabCab";
         private UserControl PalPanel;
-        private string PalName = "RabCab";
+        private PaletteSet RcPal;
 
         /// <summary>
         /// </summary>
@@ -64,7 +64,7 @@ namespace RabCab.Commands.PaletteKit
         #region Pal Initialization
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         private void CreatePal()
         {
@@ -88,11 +88,10 @@ namespace RabCab.Commands.PaletteKit
         }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         private void PopulatePal()
         {
-
         }
 
         #endregion

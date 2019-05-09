@@ -24,10 +24,10 @@ namespace RabCab.Commands.PaletteKit
 {
     internal class RcPaletteLayer
     {
-        private PaletteSet _rcPal;
-        private UserControl _palPanel;
         private readonly string _palName = "Layers";
         private readonly Size _squareSize = new Size(18, 18);
+        private UserControl _palPanel;
+        private PaletteSet _rcPal;
 
         /// <summary>
         /// </summary>
@@ -60,6 +60,76 @@ namespace RabCab.Commands.PaletteKit
         public void Cmd_RcLayerPal()
         {
             CreatePal();
+        }
+
+        /// <summary>
+        ///     TODO
+        /// </summary>
+        /// <param name="acColor"></param>
+        /// <returns></returns>
+        private Image GetLayerImage(Color acColor)
+        {
+            var brush = new SolidBrush(AcadColorAciToDrawingColor(acColor));
+            var outlineColor = System.Drawing.Color.Black;
+
+            if (AcVars.ColorTheme == Enums.ColorTheme.Dark) outlineColor = System.Drawing.Color.White;
+
+            var squareImage = new Bitmap(_squareSize.Width, _squareSize.Height);
+            using (var graphics = Graphics.FromImage(squareImage))
+            {
+                var pen = new Pen(outlineColor, 1) {Alignment = PenAlignment.Center};
+                graphics.FillRectangle(brush, 3, 3, _squareSize.Width, _squareSize.Height);
+                graphics.DrawRectangle(pen, 3, 3, _squareSize.Width - 4, _squareSize.Height - 4);
+                graphics.CompositingQuality = CompositingQuality.HighQuality;
+                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                graphics.SmoothingMode = SmoothingMode.HighQuality;
+            }
+
+            return squareImage;
+        }
+
+        /// <summary>
+        ///     TODO
+        /// </summary>
+        /// <param name="acColor"></param>
+        /// <returns></returns>
+        private Image GetLayerImage(System.Drawing.Color acColor)
+        {
+            var brush = new SolidBrush(acColor);
+            var outlineColor = System.Drawing.Color.Black;
+
+            if (AcVars.ColorTheme == Enums.ColorTheme.Dark) outlineColor = System.Drawing.Color.White;
+
+            var squareImage = new Bitmap(_squareSize.Width, _squareSize.Height);
+            using (var graphics = Graphics.FromImage(squareImage))
+            {
+                var pen = new Pen(outlineColor, 1) {Alignment = PenAlignment.Center};
+                graphics.FillRectangle(brush, 3, 3, _squareSize.Width, _squareSize.Height);
+                graphics.DrawRectangle(pen, 3, 3, _squareSize.Width - 4, _squareSize.Height - 4);
+                graphics.CompositingQuality = CompositingQuality.HighQuality;
+                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                graphics.SmoothingMode = SmoothingMode.HighQuality;
+            }
+
+            return squareImage;
+        }
+
+        /// <summary>
+        ///     TODO
+        /// </summary>
+        /// <param name="color"></param>
+        /// <returns></returns>
+        private System.Drawing.Color AcadColorAciToDrawingColor(Color color)
+        {
+            var aci = Convert.ToByte(color.ColorIndex);
+            var aRgb = EntityColor.LookUpRgb(aci);
+            var ch = BitConverter.GetBytes(aRgb);
+            if (!BitConverter.IsLittleEndian) Array.Reverse(ch);
+            int r = ch[2];
+            int g = ch[1];
+            int b = ch[0];
+
+            return System.Drawing.Color.FromArgb(r, g, b);
         }
 
         #region Pal Initialization
@@ -480,75 +550,5 @@ namespace RabCab.Commands.PaletteKit
         }
 
         #endregion
-
-        /// <summary>
-        ///     TODO
-        /// </summary>
-        /// <param name="acColor"></param>
-        /// <returns></returns>
-        private Image GetLayerImage(Color acColor)
-        {
-            var brush = new SolidBrush(AcadColorAciToDrawingColor(acColor));
-            var outlineColor = System.Drawing.Color.Black;
-
-            if (AcVars.ColorTheme == Enums.ColorTheme.Dark) outlineColor = System.Drawing.Color.White;
-
-            var squareImage = new Bitmap(_squareSize.Width, _squareSize.Height);
-            using (var graphics = Graphics.FromImage(squareImage))
-            {
-                var pen = new Pen(outlineColor, 1) {Alignment = PenAlignment.Center};
-                graphics.FillRectangle(brush, 3, 3, _squareSize.Width, _squareSize.Height);
-                graphics.DrawRectangle(pen, 3, 3, _squareSize.Width - 4, _squareSize.Height - 4);
-                graphics.CompositingQuality = CompositingQuality.HighQuality;
-                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                graphics.SmoothingMode = SmoothingMode.HighQuality;
-            }
-
-            return squareImage;
-        }
-
-        /// <summary>
-        ///     TODO
-        /// </summary>
-        /// <param name="acColor"></param>
-        /// <returns></returns>
-        private Image GetLayerImage(System.Drawing.Color acColor)
-        {
-            var brush = new SolidBrush(acColor);
-            var outlineColor = System.Drawing.Color.Black;
-
-            if (AcVars.ColorTheme == Enums.ColorTheme.Dark) outlineColor = System.Drawing.Color.White;
-
-            var squareImage = new Bitmap(_squareSize.Width, _squareSize.Height);
-            using (var graphics = Graphics.FromImage(squareImage))
-            {
-                var pen = new Pen(outlineColor, 1) {Alignment = PenAlignment.Center};
-                graphics.FillRectangle(brush, 3, 3, _squareSize.Width, _squareSize.Height);
-                graphics.DrawRectangle(pen, 3, 3, _squareSize.Width - 4, _squareSize.Height - 4);
-                graphics.CompositingQuality = CompositingQuality.HighQuality;
-                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                graphics.SmoothingMode = SmoothingMode.HighQuality;
-            }
-
-            return squareImage;
-        }
-
-        /// <summary>
-        ///     TODO
-        /// </summary>
-        /// <param name="color"></param>
-        /// <returns></returns>
-        private System.Drawing.Color AcadColorAciToDrawingColor(Color color)
-        {
-            var aci = Convert.ToByte(color.ColorIndex);
-            var aRgb = EntityColor.LookUpRgb(aci);
-            var ch = BitConverter.GetBytes(aRgb);
-            if (!BitConverter.IsLittleEndian) Array.Reverse(ch);
-            int r = ch[2];
-            int g = ch[1];
-            int b = ch[0];
-
-            return System.Drawing.Color.FromArgb(r, g, b);
-        }
     }
 }

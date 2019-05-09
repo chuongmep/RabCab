@@ -57,25 +57,10 @@ namespace RabCab.Commands.PaletteKit
 {
     internal class RcPaletteNet
     {
-        private PaletteSet _rcPal;
-        private UserControl _palPanel;
         private const string PalName = "Web Browser";
         private readonly double _zoomIncrement = 0.5;
-
-        #region Variables
-
-        private ChromiumWebBrowser _wBrowser;
-
-        private ToolStrip _menuStrip;
-
-        private ToolStripButton
-            _searchButton,
-            _refreshButton,
-            _homeButton,
-            _zoomIn,
-            _zoomOut;
-
-        #endregion
+        private UserControl _palPanel;
+        private PaletteSet _rcPal;
 
         /// <summary>
         /// </summary>
@@ -109,6 +94,21 @@ namespace RabCab.Commands.PaletteKit
         {
             CreatePal();
         }
+
+        #region Variables
+
+        private ChromiumWebBrowser _wBrowser;
+
+        private ToolStrip _menuStrip;
+
+        private ToolStripButton
+            _searchButton,
+            _refreshButton,
+            _homeButton,
+            _zoomIn,
+            _zoomOut;
+
+        #endregion
 
         #region Pal Initialization
 

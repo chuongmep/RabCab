@@ -22,10 +22,13 @@ namespace RabCab.Commands.PaletteKit
 {
     internal class RcPaletteNotebook
     {
-        private PaletteSet _rcPal;
-        private UserControl _palPanel;
         private const string PalName = "Notebook";
-        private TextBox _noteBox;
+        private const string Name = "NoteBox";
+        private static UserControl _palPanel;
+        private static bool _reWriteData = true;
+        private static TextBox _noteBox;
+        private PaletteSet _rcPal;
+
 
         /// <summary>
         /// </summary>
@@ -60,35 +63,7 @@ namespace RabCab.Commands.PaletteKit
             CreatePal();
         }
 
-        /// <summary>
-        /// </summary>
-        [CommandMethod(SettingsInternal.CommandGroup, "_UPDNOTEPAL",
-            CommandFlags.Modal
-            //| CommandFlags.Transparent
-            //| CommandFlags.UsePickSet
-            //| CommandFlags.Redraw
-            //| CommandFlags.NoPerspective
-            //| CommandFlags.NoMultiple
-            //| CommandFlags.NoTileMode
-            //| CommandFlags.NoPaperSpace
-            //| CommandFlags.NoOem
-            //| CommandFlags.Undefined
-            //| CommandFlags.InProgress
-            //| CommandFlags.Defun
-            //| CommandFlags.NoNewStack
-            //| CommandFlags.NoInternalLock
-            //| CommandFlags.DocReadLock
-            //| CommandFlags.DocExclusiveLock
-            //| CommandFlags.Session
-            //| CommandFlags.Interruptible
-            //| CommandFlags.NoHistory
-            //| CommandFlags.NoUndoMarker
-            //| CommandFlags.NoBlockEditor
-            //| CommandFlags.NoActionRecording
-            //| CommandFlags.ActionMacro
-            //| CommandFlags.NoInferConstraint 
-        )]
-        public void Cmd_UpdNotePal()
+        public static void UpdNotePal()
         {
             UpdatePal();
         }
@@ -133,12 +108,17 @@ namespace RabCab.Commands.PaletteKit
                 AcceptsReturn = true,
                 AcceptsTab = true,
                 WordWrap = true,
-                Dock = DockStyle.Fill
+                Dock = DockStyle.Fill,
+                Name = Name
             };
 
             var resBuf = XDataAgent.GetXrecord(SettingsInternal.CommandGroup, PalName);
-            var contents = (string) resBuf.AsArray()[0].Value;
-            _noteBox.Text = contents;
+
+            if (resBuf != null && resBuf.AsArray().Length > 0)
+            {
+                var contents = (string) resBuf.AsArray()[0].Value;
+                _noteBox.Text = contents;
+            }
 
             _noteBox.TextChanged += text_TextChanged;
 
@@ -148,11 +128,23 @@ namespace RabCab.Commands.PaletteKit
         /// <summary>
         ///     TODO
         /// </summary>
-        private void UpdatePal()
+        private static void UpdatePal()
         {
+            _reWriteData = false;
+
             var resBuf = XDataAgent.GetXrecord(SettingsInternal.CommandGroup, PalName);
-            var contents = (string) resBuf.AsArray()[0].Value;
-            _noteBox.Text = contents;
+
+            if (resBuf != null && resBuf.AsArray().Length > 0)
+            {
+                var contents = (string) resBuf.AsArray()[0].Value;
+                _noteBox.Text = contents;
+            }
+            else
+            {
+                _noteBox.Text = "";
+            }
+
+            _reWriteData = true;
         }
 
         /// <summary>
@@ -162,6 +154,7 @@ namespace RabCab.Commands.PaletteKit
         /// <param name="e"></param>
         private void text_TextChanged(object sender, EventArgs e)
         {
+            if (!_reWriteData) return;
             if (!(sender is TextBox tBox)) return;
 
             try

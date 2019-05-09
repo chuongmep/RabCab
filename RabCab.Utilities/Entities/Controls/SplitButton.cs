@@ -3,21 +3,20 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
-using RabCab.Settings;
 
 namespace RabCab.Entities.Controls
 {
     public class SplitButton : Button
     {
-        private PushButtonState _state;
         private const int PushButtonWidth = 14;
         private static readonly int BorderSize = SystemInformation.Border3DSize.Width * 2;
-
-        private bool _skipNextOpen;
 
         private Rectangle _dropDownRectangle;
 
         private bool _showSplit = true;
+
+        private bool _skipNextOpen;
+        private PushButtonState _state;
 
 
         public SplitButton()

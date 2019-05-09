@@ -9,7 +9,6 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
-using System.Linq;
 using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Runtime;
@@ -56,17 +55,18 @@ namespace RabCab.Commands.AnnotationSuite
             var acCurDb = acCurDoc.Database;
             var acCurEd = acCurDoc.Editor;
 
-            var objIds = acCurEd.GetFilteredSelection(Enums.DxfNameEnum.Dimension, false, null, "\nSelect dimensions to align: ");
+            var objIds = acCurEd.GetFilteredSelection(Enums.DxfNameEnum.Dimension, false, null,
+                "\nSelect dimensions to align: ");
             if (objIds.Length <= 0) return;
 
-            var pId = acCurEd.GetFilteredSelection(Enums.DxfNameEnum.Dimension, true, null, "\nSelect baseline dimension: ");
+            var pId = acCurEd.GetFilteredSelection(Enums.DxfNameEnum.Dimension, true, null,
+                "\nSelect baseline dimension: ");
             if (pId.Length <= 0) return;
 
             var pDim = SelectionSet.FromObjectIds(pId);
             var dims = SelectionSet.FromObjectIds(objIds);
 
             acCurEd.Command("_.Dimspace", pDim, dims, "", 0);
-
         }
     }
 }

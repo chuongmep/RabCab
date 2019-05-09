@@ -17,6 +17,31 @@ namespace RabCab.Engine.Enumerators
     public static class Enums
     {
         /// <summary>
+        ///     TODO
+        /// </summary>
+        public enum Arrowhead
+        {
+            _ClosedBlank,
+            _Closed,
+            _Dot,
+            _ArchTick,
+            _Oblique,
+            _Open,
+            _Origin,
+            _Origin2,
+            _Open90,
+            _Open30,
+            _DotSmall,
+            _DotBlank,
+            _Small,
+            _BoxBlank,
+            _BoxFilled,
+            _DatumFilled,
+            _Integral,
+            _None
+        }
+
+        /// <summary>
         ///     Color codes for use in Cad Colors
         /// </summary>
         public enum CadColor
@@ -90,31 +115,6 @@ namespace RabCab.Engine.Enumerators
             Viewport,
             Wipeout,
             Xline
-        }
-
-        /// <summary>
-        /// TODO
-        /// </summary>
-        public enum Arrowhead
-        {
-        _ClosedBlank,
-        _Closed,
-        _Dot,
-        _ArchTick,
-        _Oblique,
-        _Open,
-        _Origin,
-        _Origin2,
-        _Open90,
-        _Open30,
-        _DotSmall,
-        _DotBlank,
-        _Small,
-        _BoxBlank,
-        _BoxFilled,
-        _DatumFilled,
-        _Integral,
-        _None
         }
 
         public enum GridMode
