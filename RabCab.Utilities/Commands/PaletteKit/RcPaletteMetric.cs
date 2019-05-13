@@ -160,6 +160,7 @@ namespace RabCab.Commands.PaletteKit
         {
             var rowCount = 0;
 
+            var backColor = Colors.GetCadBackColor();
             var foreColor = Colors.GetCadForeColor();
             var textColor = Colors.GetCadTextColor();
 
@@ -170,7 +171,7 @@ namespace RabCab.Commands.PaletteKit
             {
                 AutoScroll = true,
                 AutoSizeMode = AutoSizeMode.GrowAndShrink,
-                BackColor = foreColor,
+                BackColor = backColor,
                 ForeColor = foreColor,
                 ColumnCount = 3,
                 Dock = DockStyle.Fill
@@ -183,90 +184,90 @@ namespace RabCab.Commands.PaletteKit
             _rcNameLab = new Label
             {
                 Text = "Name:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
-                BackColor = foreColor, ForeColor = textColor
+                BackColor = backColor, ForeColor = textColor
             };
             _rcInfoLab = new Label
             {
                 Text = "Info:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
-                BackColor = foreColor, ForeColor = textColor
+                BackColor = backColor, ForeColor = textColor
             };
             _rcLengthLab = new Label
             {
                 Text = "Length:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
-                BackColor = foreColor, ForeColor = textColor
+                BackColor = backColor, ForeColor = textColor
             };
             _rcWidthLab = new Label
             {
                 Text = "Width:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
-                BackColor = foreColor, ForeColor = textColor
+                BackColor = backColor, ForeColor = textColor
             };
             _rcThickLab = new Label
             {
                 Text = "Thickness:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
-                BackColor = foreColor, ForeColor = textColor
+                BackColor = backColor, ForeColor = textColor
             };
             _rcVolLab = new Label
             {
                 Text = "Volume:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
-                BackColor = foreColor, ForeColor = textColor
+                BackColor = backColor, ForeColor = textColor
             };
             _rcAreaLab = new Label
             {
                 Text = "Area:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
-                BackColor = foreColor, ForeColor = textColor
+                BackColor = backColor, ForeColor = textColor
             };
             _rcPerimLab = new Label
             {
                 Text = "Perimeter:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
-                BackColor = foreColor, ForeColor = textColor
+                BackColor = backColor, ForeColor = textColor
             };
             _rcAsymLab = new Label
             {
                 Text = "Asym:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
-                BackColor = foreColor, ForeColor = textColor
+                BackColor = backColor, ForeColor = textColor
             };
             _rcAsymStrLab = new Label
             {
                 Text = "Asym V:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
-                BackColor = foreColor, ForeColor = textColor
+                BackColor = backColor, ForeColor = textColor
             };
             _rcQtyOfLab = new Label
             {
                 Text = "Qty Of:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
-                BackColor = foreColor, ForeColor = textColor
+                BackColor = backColor, ForeColor = textColor
             };
             _rcQtyTotalLab = new Label
             {
                 Text = "Qty Total:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
-                BackColor = foreColor, ForeColor = textColor
+                BackColor = backColor, ForeColor = textColor
             };
             _rcNumChangesLab = new Label
             {
                 Text = "Changes:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
-                BackColor = foreColor, ForeColor = textColor
+                BackColor = backColor, ForeColor = textColor
             };
             _rcParentLab = new Label
             {
                 Text = "Parent: ", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
-                BackColor = foreColor, ForeColor = textColor
+                BackColor = backColor, ForeColor = textColor
             };
             _rcChildLab = new Label
             {
                 Text = "Children: ", TextAlign = ContentAlignment.TopLeft,
                 Anchor = AnchorStyles.None,
-                BackColor = foreColor, ForeColor = textColor
+                BackColor = backColor, ForeColor = textColor
             };
             _rcTxDirLab = new Label
             {
                 Text = "Texture: ", TextAlign = ContentAlignment.TopLeft,
                 Anchor = AnchorStyles.None,
-                BackColor = foreColor, ForeColor = textColor
+                BackColor = backColor, ForeColor = textColor
             };
             _prodTypLab = new Label
             {
                 Text = "Production: ", TextAlign = ContentAlignment.TopLeft,
                 Anchor = AnchorStyles.None,
-                BackColor = foreColor, ForeColor = textColor
+                BackColor = backColor, ForeColor = textColor
             };
 
             _stText = new ToolStripLabel {Text = "No Objects Selects", BackColor = foreColor, ForeColor = textColor};
@@ -312,14 +313,14 @@ namespace RabCab.Commands.PaletteKit
 
             _rcIsSweepChk = new CheckBox
             {
-                Text = "Is Sweep", Dock = DockStyle.Fill, AutoSize = false, BackColor = foreColor, ForeColor = textColor
+                Text = "Is Sweep", Dock = DockStyle.Fill, AutoSize = false, BackColor = backColor, ForeColor = textColor
             };
 
             _rcIsSweepChk.Click += sweep_CheckClick;
 
             _rcIsiMirChk = new CheckBox
             {
-                Text = "Is Mirror", Dock = DockStyle.Fill, AutoSize = false, BackColor = foreColor,
+                Text = "Is Mirror", Dock = DockStyle.Fill, AutoSize = false, BackColor = backColor,
                 ForeColor = textColor
             };
 
@@ -327,7 +328,7 @@ namespace RabCab.Commands.PaletteKit
 
             _rcHasHolesChk = new CheckBox
             {
-                Text = "Has Holes", Dock = DockStyle.Fill, AutoSize = false, BackColor = foreColor,
+                Text = "Has Holes", Dock = DockStyle.Fill, AutoSize = false, BackColor = backColor,
                 ForeColor = textColor
             };
 
@@ -369,7 +370,7 @@ namespace RabCab.Commands.PaletteKit
             {
                 AutoScroll = true,
                 AutoSizeMode = AutoSizeMode.GrowAndShrink,
-                BackColor = foreColor,
+                BackColor = backColor,
                 ForeColor = foreColor,
                 ColumnCount = 4,
                 RowCount = 1,
@@ -425,7 +426,7 @@ namespace RabCab.Commands.PaletteKit
             {
                 AutoScroll = false,
                 AutoSizeMode = AutoSizeMode.GrowAndShrink,
-                BackColor = foreColor,
+                BackColor = backColor,
                 ForeColor = foreColor,
                 ColumnCount = 4,
                 RowCount = 1,

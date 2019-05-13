@@ -131,7 +131,6 @@ namespace RabCab.Commands.PaletteKit
                 Cef.Initialize(new CefSettings());
                 _wBrowser = new ChromiumWebBrowser(SettingsUser.NetHomePage) {Dock = DockStyle.Fill};
                 PopulatePal();
-                _wBrowser.SetZoomLevel(0.5);
                 _palPanel.UpdateTheme();
                 _rcPal.Add(PalName, _palPanel);
             }

@@ -67,7 +67,7 @@ namespace RabCab.Handlers
         private static void BeginDocClose(object senderObj,
             DocumentCollectionEventArgs docBegClsEvtArgs)
         {
-           //TODO
+            Application.DocumentManager.CurrentDocument.ImpliedSelectionChanged -= Doc_ImpliedSelectionChanged;
         }
 
         /// <summary>
@@ -82,6 +82,11 @@ namespace RabCab.Handlers
             if (SettingsInternal.EnNotePal)
             {
                 RcPaletteNotebook.UpdNotePal();
+            }
+
+            if (Application.DocumentManager.CurrentDocument != null)
+            {
+                Application.DocumentManager.CurrentDocument.ImpliedSelectionChanged += Doc_ImpliedSelectionChanged;
             }
         }
 
