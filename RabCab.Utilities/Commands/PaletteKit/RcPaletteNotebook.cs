@@ -99,7 +99,8 @@ namespace RabCab.Commands.PaletteKit
         /// </summary>
         private void PopulatePal()
         {
-            // Create an instance of a TextBox control.
+            var foreColor = Colors.GetCadForeColor();
+            var textColor = Colors.GetCadTextColor();
 
             _noteBox = new TextBox
             {
@@ -109,7 +110,10 @@ namespace RabCab.Commands.PaletteKit
                 AcceptsTab = true,
                 WordWrap = true,
                 Dock = DockStyle.Fill,
-                Name = Name
+                Name = Name,
+                BackColor =  foreColor,
+                ForeColor =  textColor
+
             };
 
             var resBuf = XDataAgent.GetXrecord(SettingsInternal.CommandGroup, PalName);

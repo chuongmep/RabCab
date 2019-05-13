@@ -9,7 +9,10 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
+using System;
 using Autodesk.AutoCAD.ApplicationServices;
+using Autodesk.AutoCAD.DatabaseServices;
+using Autodesk.AutoCAD.EditorInput;
 using RabCab.Commands.PaletteKit;
 using RabCab.Settings;
 using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
@@ -28,10 +31,15 @@ namespace RabCab.Handlers
         {
             // Get the current document
             var acDocMan = Application.DocumentManager;
+            var acDoc = acDocMan.MdiActiveDocument;
 
+            //Doc Manager Handlers
             acDocMan.DocumentToBeDeactivated +=  BeginDocClose;
             acDocMan.DocumentActivated += DocActivated;
-            
+
+            //Doc Handlers
+            acDoc.ImpliedSelectionChanged += Doc_ImpliedSelectionChanged;
+
         }
 
         /// <summary>
@@ -41,9 +49,14 @@ namespace RabCab.Handlers
         {
             // Get the current document
             var acDocMan = Application.DocumentManager;
+            var acDoc = acDocMan.MdiActiveDocument;
 
+            //Doc Manager Handlers
             acDocMan.DocumentToBeDeactivated -= BeginDocClose;
             acDocMan.DocumentActivated -= DocActivated;
+
+            //Doc Handlers
+            acDoc.ImpliedSelectionChanged -= Doc_ImpliedSelectionChanged;
         }
 
         /// <summary>
@@ -70,6 +83,38 @@ namespace RabCab.Handlers
             {
                 RcPaletteNotebook.UpdNotePal();
             }
+        }
+
+        /// <summary>
+        ///     Handler used to populate RC Pallette when selections are changed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private static void Doc_ImpliedSelectionChanged(object sender, EventArgs e)
+        {
+            if (SettingsInternal.EnMetPal == false) return;
+
+            if (RcPaletteMetric._rcPal == null) return;
+
+            var acCurDoc = Application.DocumentManager.MdiActiveDocument;
+            if (acCurDoc == null) return;
+
+            var acCurDb = acCurDoc.Database;
+            var acCurEd = acCurDoc.Editor;
+
+            var selRes = acCurEd.SelectImplied();
+
+            if (selRes.Status == PromptStatus.OK)
+            {
+                var objIds = selRes.Value.GetObjectIds();
+                RcPaletteMetric.ParseAndFill(objIds, acCurDb);
+            }
+            else
+            {
+                RcPaletteMetric.ParseAndFill(new ObjectId[0], acCurDb);
+            }
+
+           
         }
     }
 }

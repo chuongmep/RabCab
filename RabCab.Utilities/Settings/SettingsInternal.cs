@@ -22,7 +22,7 @@ namespace RabCab.Settings
         //Palette Init
         internal static bool EnDwgPal = true;
         internal static bool EnLayerPal = true;
-        internal static bool EnMainPal = true;
+        internal static bool EnMetPal = true;
         internal static bool EnNotePal = true;
         internal static bool EnSnapPal = true;
 

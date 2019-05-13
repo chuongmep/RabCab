@@ -131,6 +131,7 @@ namespace RabCab.Commands.PaletteKit
                 Cef.Initialize(new CefSettings());
                 _wBrowser = new ChromiumWebBrowser(SettingsUser.NetHomePage) {Dock = DockStyle.Fill};
                 PopulatePal();
+                _wBrowser.SetZoomLevel(0.5);
                 _palPanel.UpdateTheme();
                 _rcPal.Add(PalName, _palPanel);
             }
@@ -185,7 +186,6 @@ namespace RabCab.Commands.PaletteKit
             _searchButton.Click += searchButton_Click;
             _zoomIn.Click += zoomIn_Click;
             _zoomOut.Click += zoomOut_Click;
-
 
             _menuStrip.BackColor = foreColor;
             _menuStrip.ForeColor = textColor;

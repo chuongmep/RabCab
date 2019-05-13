@@ -12,10 +12,16 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using Autodesk.AutoCAD.DatabaseServices;
+using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Runtime;
 using Autodesk.AutoCAD.Windows;
 using RabCab.Agents;
+using RabCab.Calculators;
+using RabCab.Engine.Enumerators;
 using RabCab.Settings;
+using static Autodesk.AutoCAD.ApplicationServices.Core.Application;
+using Exception = System.Exception;
 
 namespace RabCab.Commands.PaletteKit
 {
@@ -23,14 +29,14 @@ namespace RabCab.Commands.PaletteKit
     {
         private readonly string _palName = "Metrics";
         private UserControl _palPanel;
-        private PaletteSet _rcPal;
+        internal static PaletteSet _rcPal;
         private const int ctrlHeight = 25;
         private const int labColumn = 0;
         private const int infoColumn = 1;
 
-        private TableLayoutPanel tbLayout;
+        private static TableLayoutPanel tbLayout;
 
-        private Label _rcNameLab,
+        private static Label _rcNameLab,
             _rcInfoLab,
             _rcLengthLab,
             _rcWidthLab,
@@ -48,7 +54,7 @@ namespace RabCab.Commands.PaletteKit
             _rcTxDirLab,
             _prodTypLab;
 
-        private TextBox
+        private static TextBox
             _rcNameTxt,
             _rcInfoTxt,
             _rcLengthTxt,
@@ -64,9 +70,9 @@ namespace RabCab.Commands.PaletteKit
             _rcNumChangesTxt,
             _rcParentTxt;
 
-        private ListBox _rcChildList;
+        private static ListBox _rcChildList;
 
-        private CheckBox _rcIsSweepChk,
+        private static CheckBox _rcIsSweepChk,
             _rcIsiMirChk,
             _rcHasHolesChk,
             _txDirUnknown,
@@ -78,11 +84,11 @@ namespace RabCab.Commands.PaletteKit
             _prodMOne,
             _prodMMany;
 
-        private Button _selParent, _selChildren, _updChildren, _upSiblings;
+        private static Button _selParent, _selChildren, _updChildren, _upSiblings;
 
-        private StatusStrip _stStrip;
+        private static StatusStrip _stStrip;
 
-        private ToolStripLabel _stText;
+        private static ToolStripLabel _stText;
 
         /// <summary>
         /// </summary>
@@ -150,15 +156,17 @@ namespace RabCab.Commands.PaletteKit
         {
             var rowCount = 0;
 
-            var backColor = Colors.GetCadBackColor();
             var foreColor = Colors.GetCadForeColor();
             var textColor = Colors.GetCadTextColor();
+
+            _palPanel.BackColor = foreColor;
+            _palPanel.ForeColor = foreColor;
 
             tbLayout = new TableLayoutPanel
             {
                 AutoScroll = true,
                 AutoSizeMode = AutoSizeMode.GrowAndShrink,
-                BackColor = backColor,
+                BackColor = foreColor,
                 ForeColor = foreColor,
                 ColumnCount = 3,
                 Dock = DockStyle.Fill
@@ -171,152 +179,183 @@ namespace RabCab.Commands.PaletteKit
             _rcNameLab = new Label
             {
                 Text = "Name:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
-                BackColor = backColor, ForeColor = textColor
+                BackColor = foreColor, ForeColor = textColor
             };
             _rcInfoLab = new Label
             {
                 Text = "Info:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
-                BackColor = backColor, ForeColor = textColor
+                BackColor = foreColor, ForeColor = textColor
             };
             _rcLengthLab = new Label
             {
                 Text = "Length:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
-                BackColor = backColor, ForeColor = textColor
+                BackColor = foreColor, ForeColor = textColor
             };
             _rcWidthLab = new Label
             {
                 Text = "Width:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
-                BackColor = backColor, ForeColor = textColor
+                BackColor = foreColor, ForeColor = textColor
             };
             _rcThickLab = new Label
             {
                 Text = "Thickness:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
-                BackColor = backColor, ForeColor = textColor
+                BackColor = foreColor, ForeColor = textColor
             };
             _rcVolLab = new Label
             {
                 Text = "Volume:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
-                BackColor = backColor, ForeColor = textColor
+                BackColor = foreColor, ForeColor = textColor
             };
             _rcAreaLab = new Label
             {
                 Text = "Area:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
-                BackColor = backColor, ForeColor = textColor
+                BackColor = foreColor, ForeColor = textColor
             };
             _rcPerimLab = new Label
             {
                 Text = "Perimeter:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
-                BackColor = backColor, ForeColor = textColor
+                BackColor = foreColor, ForeColor = textColor
             };
             _rcAsymLab = new Label
             {
                 Text = "Asym:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
-                BackColor = backColor, ForeColor = textColor
+                BackColor = foreColor, ForeColor = textColor
             };
             _rcAsymStrLab = new Label
             {
                 Text = "Asym V:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
-                BackColor = backColor, ForeColor = textColor
+                BackColor = foreColor, ForeColor = textColor
             };
             _rcQtyOfLab = new Label
             {
                 Text = "Qty Of:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
-                BackColor = backColor, ForeColor = textColor
+                BackColor = foreColor, ForeColor = textColor
             };
             _rcQtyTotalLab = new Label
             {
                 Text = "Qty Total:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
-                BackColor = backColor, ForeColor = textColor
+                BackColor = foreColor, ForeColor = textColor
             };
             _rcNumChangesLab = new Label
             {
                 Text = "Changes:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
-                BackColor = backColor, ForeColor = textColor
+                BackColor = foreColor, ForeColor = textColor
             };
             _rcParentLab = new Label
             {
                 Text = "Parent: ", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
-                BackColor = backColor, ForeColor = textColor
+                BackColor = foreColor, ForeColor = textColor
             };
             _rcChildLab = new Label
             {
                 Text = "Children: ", TextAlign = ContentAlignment.TopLeft,
                 Anchor = AnchorStyles.None,
-                BackColor = backColor, ForeColor = textColor
+                BackColor = foreColor, ForeColor = textColor
             };
             _rcTxDirLab = new Label
             {
                 Text = "Texture: ", TextAlign = ContentAlignment.TopLeft,
                 Anchor = AnchorStyles.None,
-                BackColor = backColor, ForeColor = textColor
+                BackColor = foreColor, ForeColor = textColor
             };
             _prodTypLab = new Label
             {
                 Text = "Production: ", TextAlign = ContentAlignment.TopLeft,
                 Anchor = AnchorStyles.None,
-                BackColor = backColor, ForeColor = textColor
+                BackColor = foreColor, ForeColor = textColor
             };
 
-            _stText = new ToolStripLabel {Text = "Status", BackColor = foreColor, ForeColor = textColor};
-            _rcNameTxt = new TextBox {Dock = DockStyle.Fill, BackColor = backColor, ForeColor = textColor};
-            _rcInfoTxt = new TextBox {Dock = DockStyle.Fill, BackColor = backColor, ForeColor = textColor};
-            _rcLengthTxt = new TextBox {Dock = DockStyle.Fill, ReadOnly = true, BackColor = backColor, ForeColor = textColor};
-            _rcWidthTxt = new TextBox {Dock = DockStyle.Fill, ReadOnly = true, BackColor = backColor, ForeColor = textColor};
-            _rcThickTxt = new TextBox {Dock = DockStyle.Fill, ReadOnly = true, BackColor = backColor, ForeColor = textColor};
-            _rcVolTxt = new TextBox {Dock = DockStyle.Fill, ReadOnly = true, BackColor = backColor, ForeColor = textColor};
-            _rcAreaTxt = new TextBox {Dock = DockStyle.Fill, ReadOnly = true, BackColor = backColor, ForeColor = textColor};
-            _rcPerimTxt = new TextBox {Dock = DockStyle.Fill, ReadOnly = true, BackColor = backColor, ForeColor = textColor};
-            _rcAsymTxt = new TextBox {Dock = DockStyle.Fill, ReadOnly = true, BackColor = backColor, ForeColor = textColor};
-            _rcAsymStrTxt = new TextBox {Dock = DockStyle.Fill, ReadOnly = true, BackColor = backColor, ForeColor = textColor};
-            _rcQtyOfTxt = new TextBox {Dock = DockStyle.Fill, ReadOnly = true, BackColor = backColor, ForeColor = textColor};
-            _rcQtyTotalTxt = new TextBox {Dock = DockStyle.Fill, ReadOnly = true, BackColor = backColor, ForeColor = textColor};
-            _rcNumChangesTxt = new TextBox {Dock = DockStyle.Fill, ReadOnly = true, BackColor = backColor, ForeColor = textColor};
-            _rcParentTxt = new TextBox {Dock = DockStyle.Fill, ReadOnly = true, BackColor = backColor, ForeColor = textColor};
+            _stText = new ToolStripLabel {Text = "No Objects Selects", BackColor = foreColor, ForeColor = textColor};
+            _rcNameTxt = new TextBox {Dock = DockStyle.Fill, BackColor = foreColor, ForeColor = textColor};
+            _rcInfoTxt = new TextBox {Dock = DockStyle.Fill, BackColor = foreColor, ForeColor = textColor};
+            _rcLengthTxt = new TextBox
+                {Dock = DockStyle.Fill, ReadOnly = true, BackColor = foreColor, ForeColor = textColor};
+            _rcWidthTxt = new TextBox
+                {Dock = DockStyle.Fill, ReadOnly = true, BackColor = foreColor, ForeColor = textColor};
+            _rcThickTxt = new TextBox
+                {Dock = DockStyle.Fill, ReadOnly = true, BackColor = foreColor, ForeColor = textColor};
+            _rcVolTxt = new TextBox
+                {Dock = DockStyle.Fill, ReadOnly = true, BackColor = foreColor, ForeColor = textColor};
+            _rcAreaTxt = new TextBox
+                {Dock = DockStyle.Fill, ReadOnly = true, BackColor = foreColor, ForeColor = textColor};
+            _rcPerimTxt = new TextBox
+                {Dock = DockStyle.Fill, ReadOnly = true, BackColor = foreColor, ForeColor = textColor};
+            _rcAsymTxt = new TextBox
+                {Dock = DockStyle.Fill, ReadOnly = true, BackColor = foreColor, ForeColor = textColor};
+            _rcAsymStrTxt = new TextBox
+                {Dock = DockStyle.Fill, ReadOnly = true, BackColor = foreColor, ForeColor = textColor};
+            _rcQtyOfTxt = new TextBox
+                {Dock = DockStyle.Fill, ReadOnly = true, BackColor = foreColor, ForeColor = textColor};
+            _rcQtyTotalTxt = new TextBox
+                {Dock = DockStyle.Fill, ReadOnly = true, BackColor = foreColor, ForeColor = textColor};
+            _rcNumChangesTxt = new TextBox
+                {Dock = DockStyle.Fill, ReadOnly = true, BackColor = foreColor, ForeColor = textColor};
+            _rcParentTxt = new TextBox
+                {Dock = DockStyle.Fill, ReadOnly = true, BackColor = foreColor, ForeColor = textColor};
 
 
-            _rcChildList = new ListBox {Dock = DockStyle.Fill, BackColor = backColor, ForeColor = textColor};
+            _rcChildList = new ListBox {Dock = DockStyle.Fill, BackColor = foreColor, ForeColor = textColor};
 
             _rcIsSweepChk = new CheckBox
             {
-                Text = "Is Sweep", Dock = DockStyle.Fill, AutoSize = false, BackColor = backColor, ForeColor = textColor
+                Text = "Is Sweep", Dock = DockStyle.Fill, AutoSize = false, BackColor = foreColor, ForeColor = textColor
             };
+
+            _rcIsSweepChk.Click += sweep_CheckClick;
+
             _rcIsiMirChk = new CheckBox
             {
-                Text = "Is Mirror", Dock = DockStyle.Fill, AutoSize = false, BackColor = backColor,
-                ForeColor = textColor
-            };
-            _rcHasHolesChk = new CheckBox
-            {
-                Text = "Has Holes", Dock = DockStyle.Fill, AutoSize = false, BackColor = backColor,
+                Text = "Is Mirror", Dock = DockStyle.Fill, AutoSize = false, BackColor = foreColor,
                 ForeColor = textColor
             };
 
+            _rcIsiMirChk.Click += mirror_CheckClick;
+
+            _rcHasHolesChk = new CheckBox
+            {
+                Text = "Has Holes", Dock = DockStyle.Fill, AutoSize = false, BackColor = foreColor,
+                ForeColor = textColor
+            };
+
+            _rcHasHolesChk.Click += holes_CheckClick;
 
             _txDirUnknown = new CheckBox
             {
                 Text = "UN", Appearance = Appearance.Button, Dock = DockStyle.Fill, BackColor = foreColor,
                 ForeColor = textColor
             };
+
+            _txDirUnknown.Click += texture_CheckClick;
+
             _txDirNone = new CheckBox
             {
                 Text = "NO", Appearance = Appearance.Button, Dock = DockStyle.Fill, BackColor = foreColor,
                 ForeColor = textColor
             };
+
+            _txDirNone.Click += texture_CheckClick;
+
             _txDirHor = new CheckBox
             {
                 Text = "HZ", Appearance = Appearance.Button, Dock = DockStyle.Fill, BackColor = foreColor,
                 ForeColor = textColor
             };
+
+            _txDirHor.Click += texture_CheckClick;
+
             _txDirVer = new CheckBox
             {
                 Text = "VT", Appearance = Appearance.Button, Dock = DockStyle.Fill, BackColor = foreColor,
                 ForeColor = textColor
             };
+
+            _txDirVer.Click += texture_CheckClick;
+
             var txLayout = new TableLayoutPanel
             {
                 AutoScroll = true,
                 AutoSizeMode = AutoSizeMode.GrowAndShrink,
-                BackColor = backColor,
+                BackColor = foreColor,
                 ForeColor = foreColor,
                 ColumnCount = 4,
                 RowCount = 1,
@@ -341,26 +380,38 @@ namespace RabCab.Commands.PaletteKit
                 Text = "UN", Appearance = Appearance.Button, Dock = DockStyle.Fill, BackColor = foreColor,
                 ForeColor = textColor
             };
+
+            _prodUnkown.Click += prod_CheckClick;
+
             _prodS4S = new CheckBox
             {
                 Text = "S4", Dock = DockStyle.Fill, Appearance = Appearance.Button, BackColor = foreColor,
                 ForeColor = textColor
             };
+
+            _prodS4S.Click += prod_CheckClick;
+
             _prodMOne = new CheckBox
             {
                 Text = "OS", Appearance = Appearance.Button, Dock = DockStyle.Fill, BackColor = foreColor,
                 ForeColor = textColor
             };
+
+            _prodMOne.Click += prod_CheckClick;
+
             _prodMMany = new CheckBox
             {
                 Text = "MS", Appearance = Appearance.Button, Dock = DockStyle.Fill, BackColor = foreColor,
                 ForeColor = textColor
             };
+
+            _prodMMany.Click += prod_CheckClick;
+
             var prodLayout = new TableLayoutPanel
             {
                 AutoScroll = false,
                 AutoSizeMode = AutoSizeMode.GrowAndShrink,
-                BackColor = backColor,
+                BackColor = foreColor,
                 ForeColor = foreColor,
                 ColumnCount = 5,
                 RowCount = 1,
@@ -441,6 +492,452 @@ namespace RabCab.Commands.PaletteKit
             tbLayout.Controls.Add(ctrl1, labColumn, rowCount);
             tbLayout.Controls.Add(ctr2, infoColumn, rowCount);
             rowCount++;
+        }
+
+        #endregion
+
+        internal static void ParseAndFill(ObjectId[] objIds, Database acCurDb)
+        {
+            var objCount = objIds.Length;
+
+            switch (objCount)
+            {
+                case 0:
+                    _stText.Text = "No Objects Selected";
+
+                    ClearText(_rcNameTxt);
+                    ClearText(_rcInfoTxt);
+                    ClearText(_rcQtyOfTxt);
+                    ClearText(_rcQtyTotalTxt);
+                    ClearText(_rcLengthTxt);
+                    ClearText(_rcWidthTxt);
+                    ClearText(_rcThickTxt);
+                    ClearText(_rcVolTxt);
+                    ClearText(_rcAreaTxt);
+                    ClearText(_rcPerimTxt);
+                    ClearText(_rcAsymTxt);
+                    ClearText(_rcAsymStrTxt);
+                    ClearText(_rcNumChangesTxt);
+                    ClearText(_rcParentTxt);
+
+                    _rcChildList.Items.Clear();
+
+                    _txDirUnknown.Checked = false;
+                    _txDirNone.Checked = false;
+                    _txDirHor.Checked = false;
+                    _txDirVer.Checked = false;
+
+                    _prodUnkown.Checked = false;
+                    _prodS4S.Checked = false;
+                    _prodMOne.Checked = false;
+                    _prodMMany.Checked = false;
+
+                    _rcIsSweepChk.Checked = false;
+                    _rcIsiMirChk.Checked = false;
+                    _rcHasHolesChk.Checked = false;
+
+                    break;
+
+                case 1:
+
+                    using (var acTrans = acCurDb.TransactionManager.StartTransaction())
+                    {
+                        var acEnt = acTrans.GetObject(objIds[0], OpenMode.ForRead) as Entity;
+                        if (acEnt != null)
+                        {
+                            AddText(_rcNameTxt, acEnt.GetPartName());
+                            AddText(_rcInfoTxt, acEnt.GetPartInfo());
+                            AddText(_rcQtyOfTxt, acEnt.GetQtyOf().ToString());
+                            AddText(_rcQtyTotalTxt, acEnt.GetQtyTotal().ToString());
+                            AddText(_rcLengthTxt, acCurDb.ConvertToDwgUnits(acEnt.GetPartLength()));
+                            AddText(_rcWidthTxt, acCurDb.ConvertToDwgUnits(acEnt.GetPartWidth()));
+                            AddText(_rcThickTxt, acCurDb.ConvertToDwgUnits(acEnt.GetPartThickness()));
+                            AddText(_rcVolTxt, acEnt.GetPartVolume().ToString());
+                            AddText(_rcAreaTxt, acEnt.GetPartArea().ToString());
+                            AddText(_rcPerimTxt, acEnt.GetPartPerimeter().ToString());
+                            AddText(_rcAsymTxt, acEnt.GetPartAsymmetry().ToString());
+                            AddText(_rcAsymStrTxt, acEnt.GetAsymVector());
+                            AddText(_rcNumChangesTxt, acEnt.GetNumChanges().ToString());
+                            AddText(_rcParentTxt, acEnt.GetParent().ToString());
+
+                            var txDir = acEnt.GetTextureDirection();
+
+                            switch (txDir)
+                            {
+                                case Enums.TextureDirection.Unknown:
+                                    _txDirUnknown.Checked = true;
+                                    break;
+                                case Enums.TextureDirection.None:
+                                    _txDirNone.Checked = true;
+                                    break;
+                                case Enums.TextureDirection.Horizontal:
+                                    _txDirHor.Checked = true;
+                                    break;
+                                case Enums.TextureDirection.Vertical:
+                                    _txDirVer.Checked = true;
+                                    break;
+                                default:
+                                    _txDirUnknown.Checked = true;
+                                    break;
+                            }
+
+                            var prodType = acEnt.GetProductionType();
+
+                            switch (prodType)
+                            {
+                                case Enums.ProductionType.Unknown:
+                                    _prodUnkown.Checked = true;
+                                    break;
+                                case Enums.ProductionType.S4S:
+                                    _prodS4S.Checked = true;
+                                    break;
+                                case Enums.ProductionType.MillingOneSide:
+                                    _prodMOne.Checked = true;
+                                    break;
+                                case Enums.ProductionType.MillingManySide:
+                                    _prodMMany.Checked = true;
+                                    break;
+                                case Enums.ProductionType.Box:
+                                    _prodS4S.Checked = true;
+                                    break;
+                                case Enums.ProductionType.Sweep:
+                                    _prodUnkown.Checked = true;
+                                    break;
+                                default:
+                                    _prodUnkown.Checked = true;
+                                    break;
+                            }
+
+                            _rcIsSweepChk.Checked = acEnt.GetIsSweep();
+                            _rcIsiMirChk.Checked = acEnt.GetIsMirror();
+                            _rcHasHolesChk.Checked = acEnt.GetHasHoles();
+                        }
+
+                        acTrans.Commit();
+                    }
+
+                    break;
+            }
+        }
+
+        #region CheckHandling
+
+        /// <summary>
+        ///     TODO
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void texture_CheckClick(object sender, EventArgs e)
+        {
+            var nonChecked = false;
+
+            if (!(sender is CheckBox chk)) return;
+            if (!chk.Checked) nonChecked = true;
+
+            var acCurDoc = DocumentManager.MdiActiveDocument;
+            if (acCurDoc == null) return;
+
+            using (acCurDoc.LockDocument())
+            {
+                var acCurDb = acCurDoc.Database;
+                var acCurEd = acCurDoc.Editor;
+
+                var selRes = acCurEd.SelectImplied();
+
+                if (selRes.Status == PromptStatus.OK)
+                    using (var acTrans = acCurDb.TransactionManager.StartTransaction())
+                    {
+                        foreach (var id in selRes.Value.GetObjectIds())
+                        {
+                            var ent = acTrans.GetObject(id, OpenMode.ForWrite) as Entity;
+                            if (ent != null)
+                            {
+                                if (chk == _txDirUnknown || nonChecked)
+                                    ent.UpdateXData(
+                                        Enums.TextureDirection.Unknown,
+                                        Enums.XDataCode.TextureDirection,
+                                        acCurDb,
+                                        acTrans);
+                                else if (chk == _txDirNone)
+                                    ent.UpdateXData(
+                                        Enums.TextureDirection.None,
+                                        Enums.XDataCode.TextureDirection,
+                                        acCurDb,
+                                        acTrans);
+                                else if (chk == _txDirHor)
+                                    ent.UpdateXData(
+                                        Enums.TextureDirection.Horizontal,
+                                        Enums.XDataCode.TextureDirection,
+                                        acCurDb,
+                                        acTrans);
+                                else if (chk == _txDirVer)
+                                    ent.UpdateXData(
+                                        Enums.TextureDirection.Vertical,
+                                        Enums.XDataCode.TextureDirection,
+                                        acCurDb,
+                                        acTrans);
+                            }
+                        }
+
+                        acTrans.Commit();
+                    }
+
+                if (chk == _txDirUnknown || nonChecked)
+                {
+                    _txDirNone.Checked = false;
+                    _txDirHor.Checked = false;
+                    _txDirVer.Checked = false;
+
+                    if (nonChecked)
+                        _txDirUnknown.Checked = true;
+                }
+                else if (chk == _txDirNone)
+                {
+                    _txDirUnknown.Checked = false;
+                    _txDirHor.Checked = false;
+                    _txDirVer.Checked = false;
+                }
+                else if (chk == _txDirHor)
+                {
+                    _txDirNone.Checked = false;
+                    _txDirUnknown.Checked = false;
+                    _txDirVer.Checked = false;
+                }
+                else if (chk == _txDirVer)
+                {
+                    _txDirNone.Checked = false;
+                    _txDirHor.Checked = false;
+                    _txDirUnknown.Checked = false;
+                }
+            }
+        }
+
+        /// <summary>
+        ///     TODO
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void prod_CheckClick(object sender, EventArgs e)
+        {
+            var nonChecked = false;
+
+            if (!(sender is CheckBox chk)) return;
+            if (!chk.Checked) nonChecked = true;
+
+            var acCurDoc = DocumentManager.MdiActiveDocument;
+            if (acCurDoc == null) return;
+
+            using (acCurDoc.LockDocument())
+            {
+                var acCurDb = acCurDoc.Database;
+                var acCurEd = acCurDoc.Editor;
+
+                var selRes = acCurEd.SelectImplied();
+
+                if (selRes.Status == PromptStatus.OK)
+                    using (var acTrans = acCurDb.TransactionManager.StartTransaction())
+                    {
+                        foreach (var id in selRes.Value.GetObjectIds())
+                        {
+                            var ent = acTrans.GetObject(id, OpenMode.ForWrite) as Entity;
+                            if (ent != null)
+                            {
+                                if (chk == _prodUnkown || nonChecked)
+                                    ent.UpdateXData(
+                                        Enums.ProductionType.Unknown,
+                                        Enums.XDataCode.ProductionType,
+                                        acCurDb,
+                                        acTrans);
+                                else if (chk == _prodS4S)
+                                    ent.UpdateXData(
+                                        Enums.ProductionType.S4S,
+                                        Enums.XDataCode.ProductionType,
+                                        acCurDb,
+                                        acTrans);
+                                else if (chk == _prodMOne)
+                                    ent.UpdateXData(
+                                        Enums.ProductionType.MillingOneSide,
+                                        Enums.XDataCode.ProductionType,
+                                        acCurDb,
+                                        acTrans);
+                                else if (chk == _prodMMany)
+                                    ent.UpdateXData(
+                                        Enums.ProductionType.MillingManySide,
+                                        Enums.XDataCode.ProductionType,
+                                        acCurDb,
+                                        acTrans);
+                            }
+                        }
+
+                        acTrans.Commit();
+                    }
+
+                if (chk == _prodUnkown || nonChecked)
+                {
+                    _prodS4S.Checked = false;
+                    _prodMOne.Checked = false;
+                    _prodMMany.Checked = false;
+
+                    if (nonChecked)
+                        _prodUnkown.Checked = true;
+                }
+                else if (chk == _prodS4S)
+                {
+                    _prodUnkown.Checked = false;
+                    _prodMOne.Checked = false;
+                    _prodMMany.Checked = false;
+                }
+                else if (chk == _prodMOne)
+                {
+                    _prodS4S.Checked = false;
+                    _prodUnkown.Checked = false;
+                    _prodMMany.Checked = false;
+                }
+                else if (chk == _prodMMany)
+                {
+                    _prodS4S.Checked = false;
+                    _prodMOne.Checked = false;
+                    _prodUnkown.Checked = false;
+                }
+            }
+        }
+
+        /// <summary>
+        ///     TODO
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void sweep_CheckClick(object sender, EventArgs e)
+        {
+            if (!(sender is CheckBox chk)) return;
+
+            var acCurDoc = DocumentManager.MdiActiveDocument;
+            if (acCurDoc == null) return;
+
+            using (acCurDoc.LockDocument())
+            {
+                var acCurDb = acCurDoc.Database;
+                var acCurEd = acCurDoc.Editor;
+
+                var selRes = acCurEd.SelectImplied();
+
+                if (selRes.Status != PromptStatus.OK) return;
+
+                using (var acTrans = acCurDb.TransactionManager.StartTransaction())
+                {
+                    foreach (var id in selRes.Value.GetObjectIds())
+                    {
+                        var ent = acTrans.GetObject(id, OpenMode.ForWrite) as Entity;
+                        if (ent != null)
+                            ent.UpdateXData(
+                                chk.Checked,
+                                Enums.XDataCode.IsSweep,
+                                acCurDb,
+                                acTrans);
+                    }
+
+                    acTrans.Commit();
+                }
+            }
+        }
+
+        /// <summary>
+        ///     TODO
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void mirror_CheckClick(object sender, EventArgs e)
+        {
+            if (!(sender is CheckBox chk)) return;
+
+            var acCurDoc = DocumentManager.MdiActiveDocument;
+            if (acCurDoc == null) return;
+
+            using (acCurDoc.LockDocument())
+            {
+                var acCurDb = acCurDoc.Database;
+                var acCurEd = acCurDoc.Editor;
+
+                var selRes = acCurEd.SelectImplied();
+
+                if (selRes.Status != PromptStatus.OK) return;
+
+                using (var acTrans = acCurDb.TransactionManager.StartTransaction())
+                {
+                    foreach (var id in selRes.Value.GetObjectIds())
+                    {
+                        var ent = acTrans.GetObject(id, OpenMode.ForWrite) as Entity;
+                        if (ent != null)
+                            ent.UpdateXData(
+                                chk.Checked,
+                                Enums.XDataCode.IsMirror,
+                                acCurDb,
+                                acTrans);
+                    }
+
+                    acTrans.Commit();
+                }
+            }
+        }
+
+        /// <summary>
+        ///     TODO
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void holes_CheckClick(object sender, EventArgs e)
+        {
+            if (!(sender is CheckBox chk)) return;
+
+            var acCurDoc = DocumentManager.MdiActiveDocument;
+            if (acCurDoc == null) return;
+
+            using (acCurDoc.LockDocument())
+            {
+                var acCurDb = acCurDoc.Database;
+                var acCurEd = acCurDoc.Editor;
+
+                var selRes = acCurEd.SelectImplied();
+
+                if (selRes.Status != PromptStatus.OK) return;
+
+                using (var acTrans = acCurDb.TransactionManager.StartTransaction())
+                {
+                    foreach (var id in selRes.Value.GetObjectIds())
+                    {
+                        var ent = acTrans.GetObject(id, OpenMode.ForWrite) as Entity;
+                        if (ent != null)
+                            ent.UpdateXData(
+                                chk.Checked,
+                                Enums.XDataCode.HasHoles,
+                                acCurDb,
+                                acTrans);
+                    }
+
+                    acTrans.Commit();
+                }
+            }
+        }
+
+        #endregion
+
+        #region Text Handling
+
+        private static void ClearText(TextBox txtBox)
+        {
+            txtBox.Text = "";
+        }
+
+        private static void AddText(TextBox txtBox, string text)
+        {
+            try
+            {
+                txtBox.Text = text;
+            }
+            catch (Exception)
+            {
+                ClearText(txtBox);
+            }
         }
 
         #endregion

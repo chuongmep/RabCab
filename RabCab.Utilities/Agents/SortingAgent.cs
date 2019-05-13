@@ -498,7 +498,7 @@ namespace RabCab.Agents
                     //acText.Layer = ;
                     //acText.ColorIndex = ;                           
 
-                    //Parse the insertion point and text alignment
+                    //ParseAndFill the insertion point and text alignment
                     double zPt = 0;
 
                     //Default Lay Above

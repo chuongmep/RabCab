@@ -346,7 +346,7 @@ namespace RabCab.Extensions
 
             var subentityIdPe = RXObject.Create(subentIdPe, false) as AssocPersSubentityIdPE;
 
-            // Parse all faces of the Solid
+            // ParseAndFill all faces of the Solid
             if (subentityIdPe == null) return dbCollect;
 
             var faceIds = subentityIdPe.GetAllSubentities(acSol, SubentityType.Face);
@@ -427,7 +427,7 @@ namespace RabCab.Extensions
 
             var subentityIdPe = RXObject.Create(subentIdPe, false) as AssocPersSubentityIdPE;
 
-            // Parse all edges of the Solid
+            // ParseAndFill all edges of the Solid
             if (subentityIdPe == null) return dbCollect;
 
             var edgeIds = subentityIdPe.GetAllSubentities(acSol, SubentityType.Edge);
@@ -508,7 +508,7 @@ namespace RabCab.Extensions
 
             var subentityIdPe = RXObject.Create(subentIdPe, false) as AssocPersSubentityIdPE;
 
-            // Parse all vertexs of the Solid
+            // ParseAndFill all vertexs of the Solid
             if (subentityIdPe == null) return dbCollect;
 
             var vertexIds = subentityIdPe.GetAllSubentities(acSol, SubentityType.Vertex);
@@ -1424,7 +1424,7 @@ namespace RabCab.Extensions
                 acText.Layer = RcAnno;
                 acText.ColorIndex = 256;
 
-                //Parse the insertion point and text alignment
+                //ParseAndFill the insertion point and text alignment
                 if (LayTextLeft)
                 {
                     acText.Attachment = AttachmentPoint.TopLeft;
