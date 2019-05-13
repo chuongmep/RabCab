@@ -53,6 +53,11 @@ namespace RabCab.Commands.AnalysisSuite
         )]
         public void Cmd_Traverse()
         {
+            Traverse();
+        }
+
+        internal static void Traverse(bool reselect = false)
+        {
             //Get the current document utilities
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;
             var acCurDb = acCurDoc.Database;
@@ -86,7 +91,10 @@ namespace RabCab.Commands.AnalysisSuite
 
                         var entInfo = new EntInfo(acSol, acCurDb, acTrans);
                         acSol.AddXData(entInfo, acCurDb, acTrans);
+
+                        if (!reselect)
                         acCurEd.WriteMessage("\n" + entInfo.PrintInfo(false, parseCount));
+
                         parseCount++;
 
                         #region Debug Testing
@@ -138,6 +146,9 @@ namespace RabCab.Commands.AnalysisSuite
 
                         #endregion
                     }
+
+                    if (reselect)
+                        acCurEd.SetImpliedSelection(acSet.GetObjectIds());
                 }
 
                 acTrans.Commit();

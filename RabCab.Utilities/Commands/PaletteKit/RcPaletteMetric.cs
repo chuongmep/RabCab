@@ -14,10 +14,12 @@ using System.Drawing;
 using System.Windows.Forms;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
+using Autodesk.AutoCAD.Internal;
 using Autodesk.AutoCAD.Runtime;
 using Autodesk.AutoCAD.Windows;
 using RabCab.Agents;
 using RabCab.Calculators;
+using RabCab.Commands.AnalysisSuite;
 using RabCab.Engine.Enumerators;
 using RabCab.Settings;
 using static Autodesk.AutoCAD.ApplicationServices.Core.Application;
@@ -33,7 +35,7 @@ namespace RabCab.Commands.PaletteKit
         private const int ctrlHeight = 25;
         private const int labColumn = 0;
         private const int infoColumn = 1;
-        private static bool ignoreTextChange = false;
+        private static bool ignoreTextChange;
 
         private static TableLayoutPanel tbLayout;
 
@@ -85,11 +87,12 @@ namespace RabCab.Commands.PaletteKit
             _prodMOne,
             _prodMMany;
 
-        private static Button _selParent, _selChildren, _updChildren, _upSiblings;
+        private static Button _travButton, _selParent, _selChildren, _updChildren, _updSiblings;
 
         private static StatusStrip _stStrip;
+        private static Panel _btPanel;
 
-        private static ToolStripLabel _stText;
+        private static ToolStripLabel _stText, _reqUpdate;
 
         /// <summary>
         /// </summary>
@@ -267,11 +270,17 @@ namespace RabCab.Commands.PaletteKit
             };
 
             _stText = new ToolStripLabel {Text = "No Objects Selects", BackColor = foreColor, ForeColor = textColor};
+            _reqUpdate = new ToolStripLabel {Text = "", BackColor = foreColor, ForeColor = textColor};
 
             _rcNameTxt = new TextBox {Dock = DockStyle.Fill, BackColor = foreColor, ForeColor = textColor};
             _rcNameTxt.TextChanged += name_TextChanged;
 
-            _rcInfoTxt = new TextBox {Dock = DockStyle.Fill, WordWrap = true, Multiline =  true, BackColor = foreColor, ForeColor = textColor};
+            _rcInfoTxt = new TextBox
+            {
+                Dock = DockStyle.Fill, WordWrap = true, Multiline = true,
+                ScrollBars = ScrollBars.Vertical,
+                BackColor = foreColor, ForeColor = textColor
+            };
             _rcInfoTxt.TextChanged += info_TextChanged;
 
             _rcLengthTxt = new TextBox
@@ -418,7 +427,7 @@ namespace RabCab.Commands.PaletteKit
                 AutoSizeMode = AutoSizeMode.GrowAndShrink,
                 BackColor = foreColor,
                 ForeColor = foreColor,
-                ColumnCount = 5,
+                ColumnCount = 4,
                 RowCount = 1,
                 Dock = DockStyle.Fill
             };
@@ -435,16 +444,59 @@ namespace RabCab.Commands.PaletteKit
             prodLayout.Controls.Add(_prodMOne, 2, 0);
             prodLayout.Controls.Add(_prodMMany, 3, 0);
 
+            _travButton = new Button
+                {Text = "TR", Dock = DockStyle.Fill, BackColor = foreColor, ForeColor = textColor};
+            _travButton.Click += traverse_Click;
+
             _selParent = new Button
-                {Text = "Select Parent", Dock = DockStyle.Fill, BackColor = foreColor, ForeColor = textColor};
+                {Text = "SP", Dock = DockStyle.Fill, BackColor = foreColor, ForeColor = textColor};
+            _selParent.Click += selParent_Click;
+
             _selChildren = new Button
-                {Text = "Select Children", Dock = DockStyle.Fill, BackColor = foreColor, ForeColor = textColor};
+                {Text = "SC", Dock = DockStyle.Fill, BackColor = foreColor, ForeColor = textColor};
+            _selChildren.Click += selChildren_Click;
+
             _updChildren = new Button
-                {Text = "Update Children", Dock = DockStyle.Fill, BackColor = foreColor, ForeColor = textColor};
-            _upSiblings = new Button
-                {Text = "Update Siblings", Dock = DockStyle.Fill, BackColor = foreColor, ForeColor = textColor};
+                {Text = "UC", Dock = DockStyle.Fill, BackColor = foreColor, ForeColor = textColor};
+            _updChildren.Click += updChildren_Click;
+
+            _updSiblings = new Button
+                {Text = "US", Dock = DockStyle.Fill, BackColor = foreColor, ForeColor = textColor};
+            _updSiblings.Click += updSiblings_Click;
+
+            _btPanel = new Panel
+            {
+                Dock = DockStyle.Bottom, Height = ctrlHeight, AutoSize = false, BackColor = foreColor,
+                ForeColor = textColor
+            };
+            var btLayout = new TableLayoutPanel
+            {
+                AutoScroll = false,
+                AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                BackColor = foreColor,
+                ForeColor = foreColor,
+                ColumnCount = 5,
+                RowCount = 1,
+                Dock = DockStyle.Fill
+            };
+
+            btLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            btLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            btLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            btLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            btLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            btLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, ctrlHeight + 5));
+
+            btLayout.Controls.Add(_travButton, 0, 0);
+            btLayout.Controls.Add(_selParent, 1, 0);
+            btLayout.Controls.Add(_selChildren, 2, 0);
+            btLayout.Controls.Add(_updChildren, 3, 0);
+            btLayout.Controls.Add(_updSiblings, 4, 0);
+
+            _btPanel.Controls.Add(btLayout);
 
             _stStrip = new StatusStrip {Dock = DockStyle.Bottom, BackColor = foreColor, ForeColor = textColor};
+            _stStrip.Items.Add(_reqUpdate);
             _stStrip.Items.Add(_stText);
 
             #region AddInfoToTable
@@ -479,6 +531,7 @@ namespace RabCab.Commands.PaletteKit
 
             _palPanel.Controls.Add(tbLayout);
             _palPanel.Controls.Add(_stStrip);
+            _palPanel.Controls.Add(_btPanel);
         }
 
         /// <summary>
@@ -502,7 +555,7 @@ namespace RabCab.Commands.PaletteKit
         #endregion
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="objIds"></param>
         /// <param name="acCurDb"></param>
@@ -515,14 +568,13 @@ namespace RabCab.Commands.PaletteKit
             switch (objCount)
             {
                 case 0:
-                  
+
                     ClearInformation();
                     break;
 
                 case 1:
 
-                   ParseSingleObject(objIds, acCurDb);
-
+                    ParseSingleObject(objIds, acCurDb);
                     break;
             }
 
@@ -530,12 +582,14 @@ namespace RabCab.Commands.PaletteKit
         }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
-        private static void ClearInformation()
+        private static void ClearInformation(bool clearStatus = true)
         {
-            _stText.Text = "No Objects Selected";
+            if (clearStatus)
+                _stText.Text = "No Objects Selected";
 
+            ClearUpdateIcon();
             ClearText(_rcNameTxt);
             ClearText(_rcInfoTxt);
             ClearText(_rcQtyOfTxt);
@@ -569,7 +623,7 @@ namespace RabCab.Commands.PaletteKit
         }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="objIds"></param>
         /// <param name="acCurDb"></param>
@@ -588,6 +642,16 @@ namespace RabCab.Commands.PaletteKit
 
                     if (acEnt.HasXData())
                     {
+                        //Check for changes
+                        var acSol = acEnt as Solid3d;
+                        if (acSol != null)
+                        {
+                            if (acSol.NumChanges != acEnt.GetNumChanges())
+                                ShowUpdateIcon();
+                            else
+                                ClearUpdateIcon();
+                        }
+
                         AddText(_rcNameTxt, acEnt.GetPartName());
                         AddText(_rcInfoTxt, acEnt.GetPartInfo());
                         AddText(_rcQtyOfTxt, acEnt.GetQtyOf().ToString());
@@ -667,14 +731,24 @@ namespace RabCab.Commands.PaletteKit
                     }
                     else
                     {
-                        ClearInformation();
+                        ClearInformation(false);
                     }
-                    
                 }
 
                 acTrans.Commit();
             }
         }
+
+        private static void ShowUpdateIcon()
+        {
+            _reqUpdate.Text = "!!!";
+        }
+
+        private static void ClearUpdateIcon()
+        {
+            _reqUpdate.Text = "";
+        }
+
         #region CheckHandling
 
         /// <summary>
@@ -684,7 +758,6 @@ namespace RabCab.Commands.PaletteKit
         /// <param name="e"></param>
         private void texture_CheckClick(object sender, EventArgs e)
         {
-
             var nonChecked = false;
 
             if (!(sender is CheckBox chk)) return;
@@ -865,7 +938,6 @@ namespace RabCab.Commands.PaletteKit
         /// <param name="e"></param>
         private void sweep_CheckClick(object sender, EventArgs e)
         {
-
             if (!(sender is CheckBox chk)) return;
 
             var acCurDoc = DocumentManager.MdiActiveDocument;
@@ -905,7 +977,6 @@ namespace RabCab.Commands.PaletteKit
         /// <param name="e"></param>
         private void mirror_CheckClick(object sender, EventArgs e)
         {
-
             if (!(sender is CheckBox chk)) return;
 
             var acCurDoc = DocumentManager.MdiActiveDocument;
@@ -945,7 +1016,6 @@ namespace RabCab.Commands.PaletteKit
         /// <param name="e"></param>
         private void holes_CheckClick(object sender, EventArgs e)
         {
-
             if (!(sender is CheckBox chk)) return;
 
             var acCurDoc = DocumentManager.MdiActiveDocument;
@@ -981,9 +1051,9 @@ namespace RabCab.Commands.PaletteKit
         #endregion
 
         #region Text Handling
-       
+
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -991,10 +1061,7 @@ namespace RabCab.Commands.PaletteKit
         {
             if (ignoreTextChange) return;
 
-            if (_rcNameTxt.Text == SettingsInternal.VariesTxt)
-            {
-                return;
-            }
+            if (_rcNameTxt.Text == SettingsInternal.VariesTxt) return;
 
             var acCurDoc = DocumentManager.MdiActiveDocument;
             if (acCurDoc == null) return;
@@ -1013,10 +1080,7 @@ namespace RabCab.Commands.PaletteKit
                     foreach (var id in selRes.Value.GetObjectIds())
                     {
                         var ent = acTrans.GetObject(id, OpenMode.ForWrite) as Entity;
-                        if (ent != null)
-                        {
-                            ent.UpdateXData(_rcNameTxt.Text, Enums.XDataCode.Name, acCurDb, acTrans);
-                        }
+                        if (ent != null) ent.UpdateXData(_rcNameTxt.Text, Enums.XDataCode.Name, acCurDb, acTrans);
                     }
 
                     acTrans.Commit();
@@ -1025,7 +1089,7 @@ namespace RabCab.Commands.PaletteKit
         }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -1033,10 +1097,7 @@ namespace RabCab.Commands.PaletteKit
         {
             if (ignoreTextChange) return;
 
-            if (_rcInfoTxt.Text == SettingsInternal.VariesTxt)
-            {
-                return;
-            }
+            if (_rcInfoTxt.Text == SettingsInternal.VariesTxt) return;
 
             var acCurDoc = DocumentManager.MdiActiveDocument;
             if (acCurDoc == null) return;
@@ -1055,10 +1116,7 @@ namespace RabCab.Commands.PaletteKit
                     foreach (var id in selRes.Value.GetObjectIds())
                     {
                         var ent = acTrans.GetObject(id, OpenMode.ForWrite) as Entity;
-                        if (ent != null)
-                        {
-                            ent.UpdateXData(_rcInfoTxt.Text, Enums.XDataCode.Info, acCurDb, acTrans);
-                        }
+                        if (ent != null) ent.UpdateXData(_rcInfoTxt.Text, Enums.XDataCode.Info, acCurDb, acTrans);
                     }
 
                     acTrans.Commit();
@@ -1067,7 +1125,7 @@ namespace RabCab.Commands.PaletteKit
         }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="txtBox"></param>
         private static void ClearText(TextBox txtBox)
@@ -1076,7 +1134,7 @@ namespace RabCab.Commands.PaletteKit
         }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="txtBox"></param>
         /// <param name="text"></param>
@@ -1089,6 +1147,91 @@ namespace RabCab.Commands.PaletteKit
             catch (Exception)
             {
                 ClearText(txtBox);
+            }
+        }
+
+        #endregion
+
+        #region ButtonHandling
+
+        /// <summary>
+        ///     TODO
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void traverse_Click(object sender, EventArgs e)
+        {
+            //Get the current document utilities
+            var acCurDoc = DocumentManager.MdiActiveDocument;
+
+            using (acCurDoc.LockDocument())
+            {
+                Utils.SetFocusToDwgView();
+                RcTraverse.Traverse(true);
+            }
+        }
+
+        /// <summary>
+        ///     TODO
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void selParent_Click(object sender, EventArgs e)
+        {
+            var acCurDoc = DocumentManager.MdiActiveDocument;
+
+            using (acCurDoc.LockDocument())
+            {
+                Utils.SetFocusToDwgView();
+                //TODO
+            }
+        }
+
+        /// <summary>
+        ///     TODO
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void selChildren_Click(object sender, EventArgs e)
+        {
+            var acCurDoc = DocumentManager.MdiActiveDocument;
+
+            using (acCurDoc.LockDocument())
+            {
+                Utils.SetFocusToDwgView();
+                //TODO
+            }
+        }
+
+        /// <summary>
+        ///     TODO
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void updChildren_Click(object sender, EventArgs e)
+        {
+            var acCurDoc = DocumentManager.MdiActiveDocument;
+
+            using (acCurDoc.LockDocument())
+            {
+                Utils.SetFocusToDwgView();
+                //TODO
+            }
+        }
+
+        /// <summary>
+        ///     TODO
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void updSiblings_Click(object sender, EventArgs e)
+        {
+            var acCurDoc = DocumentManager.MdiActiveDocument;
+
+            using (acCurDoc.LockDocument())
+            {
+                Utils.SetFocusToDwgView();
+                //TODO
             }
         }
 

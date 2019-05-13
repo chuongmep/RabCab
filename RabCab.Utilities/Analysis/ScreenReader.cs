@@ -8,6 +8,10 @@ namespace RabCab.Analysis
 {
     public static class ScreenReader
     {
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <returns></returns>
         public static double GetSreenSize()
         {
             var acCurEd = Application.DocumentManager.MdiActiveDocument.Editor;
