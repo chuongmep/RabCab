@@ -157,14 +157,10 @@ namespace RabCab.Agents
         /// <param name="eInfo"></param>
         /// <param name="acCurDb"></param>
         /// <param name="acTrans"></param>
-        public static bool HasXData(this Entity acEnt, Database acCurDb, Transaction acTrans)
+        public static bool HasXData(this Entity acEnt)
         {
-            //If solid is not open for write, open it for write
-            acEnt.Upgrade();
-            // Open the Registered Applications table for read
-            var acRegAppTbl = acTrans.GetObject(acCurDb.RegAppTableId, OpenMode.ForRead) as RegAppTable;
-            // Check to see if the Registered Applications table record for the custom app exists
-            return acRegAppTbl != null && acRegAppTbl.Has(SettingsInternal.CommandGroup);
+            var rb = acEnt.GetXDataForApplication(SettingsInternal.CommandGroup);
+            return rb != null;
         }
 
         /// <summary>

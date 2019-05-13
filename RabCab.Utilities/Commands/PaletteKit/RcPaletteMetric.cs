@@ -271,7 +271,7 @@ namespace RabCab.Commands.PaletteKit
             _rcNameTxt = new TextBox {Dock = DockStyle.Fill, BackColor = foreColor, ForeColor = textColor};
             _rcNameTxt.TextChanged += name_TextChanged;
 
-            _rcInfoTxt = new TextBox {Dock = DockStyle.Fill, BackColor = foreColor, ForeColor = textColor};
+            _rcInfoTxt = new TextBox {Dock = DockStyle.Fill, WordWrap = true, Multiline =  true, BackColor = foreColor, ForeColor = textColor};
             _rcInfoTxt.TextChanged += info_TextChanged;
 
             _rcLengthTxt = new TextBox
@@ -450,7 +450,7 @@ namespace RabCab.Commands.PaletteKit
             #region AddInfoToTable
 
             AddToTable(_rcNameLab, _rcNameTxt, ctrlHeight, ref rowCount);
-            AddToTable(_rcInfoLab, _rcInfoTxt, ctrlHeight, ref rowCount);
+            AddToTable(_rcInfoLab, _rcInfoTxt, ctrlHeight * 2, ref rowCount);
             AddToTable(_rcQtyOfLab, _rcQtyOfTxt, ctrlHeight, ref rowCount);
             AddToTable(_rcQtyTotalLab, _rcQtyTotalTxt, ctrlHeight, ref rowCount);
             AddToTable(_rcLengthLab, _rcLengthTxt, ctrlHeight, ref rowCount);
@@ -581,7 +581,12 @@ namespace RabCab.Commands.PaletteKit
 
                 if (acEnt != null)
                 {
-                    if (acEnt.HasXData(acCurDb, acTrans))
+                    var idStr = acEnt.Id.ToString();
+                    idStr = idStr.Replace("(", "");
+                    idStr = idStr.Replace(")", "");
+                    _stText.Text = acEnt.Id.ObjectClass.DxfName + @" #" + idStr;
+
+                    if (acEnt.HasXData())
                     {
                         AddText(_rcNameTxt, acEnt.GetPartName());
                         AddText(_rcInfoTxt, acEnt.GetPartInfo());

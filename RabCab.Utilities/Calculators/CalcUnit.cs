@@ -26,10 +26,17 @@ namespace RabCab.Calculators
         /// <returns></returns>
         public static string ConvertToDwgUnits(this Database acCurDb, double val)
         {
-            if (acCurDb.Luprec != (int) SettingsUser.UserTol)
-                acCurDb.Luprec = (int) SettingsUser.UserTol;
+            try
+            {
+                if (acCurDb.Luprec != (int) SettingsUser.UserTol)
+                    acCurDb.Luprec = (int) SettingsUser.UserTol;
 
-            return Converter.DistanceToString(val, DistanceUnitFormat.Current, acCurDb.Luprec);
+                return Converter.DistanceToString(val, DistanceUnitFormat.Current, acCurDb.Luprec);
+            }
+            catch (Autodesk.AutoCAD.Runtime.Exception)
+            {
+                return val.ToString();
+            }
         }
 
         /// <summary>
