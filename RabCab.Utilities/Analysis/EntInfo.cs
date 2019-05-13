@@ -31,7 +31,7 @@ namespace RabCab.Analysis
         #region ObjectProperties
 
         //Assembly & Reference Information
-        public Handle BaseHandle;
+        public Handle ParentHandle;
         public List<Handle> ChildHandles;
 
 
@@ -136,7 +136,7 @@ namespace RabCab.Analysis
             LayMatrix = Matrix3d.Identity;
             AsymmetryVector = new Vector3d();
             NumberOfChanges = acSol.NumChanges;
-            BaseHandle = acSol.Handle;
+            ParentHandle = acSol.Handle;
             ChildHandles = new List<Handle>();
             ReadEntity(acSol, acCurDb, acTrans);
         }
@@ -165,7 +165,7 @@ namespace RabCab.Analysis
             LayMatrix = Matrix3d.Identity;
             AsymmetryVector = new Vector3d();
             NumberOfChanges = acSol.NumChanges;
-            BaseHandle = acSol.Handle;
+            ParentHandle = acSol.Handle;
             ChildHandles = new List<Handle>();
             ReadEntity(acSol, acCurDb, acTrans);
         }
@@ -368,7 +368,7 @@ namespace RabCab.Analysis
         private void ReadEntity(Solid3d acSol, Database acCurDb, Transaction acTrans)
         {
             RcName = acSol.GetPartName();
-            BaseHandle = acSol.GetParent();
+            ParentHandle = acSol.GetParent();
             ChildHandles = acSol.GetChildren();
             IsSweep = acSol.GetIsSweep();
             IsMirror = acSol.GetIsMirror();

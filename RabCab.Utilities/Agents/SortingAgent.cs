@@ -575,7 +575,7 @@ namespace RabCab.Agents
                 if (baseInfo.Hndl.ToString() != handle.ToString())
                 {
                     eInfo.IsChild = true;
-                    eInfo.BaseHandle = baseInfo.Hndl;
+                    eInfo.ParentHandle = baseInfo.Hndl;
                     baseInfo.ChildHandles.Add(handle);
                     baseSolid.UpdateXData(baseInfo.ChildHandles, Enums.XDataCode.ChildObjects, acCurDb, acTrans);
                 }

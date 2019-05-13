@@ -142,7 +142,7 @@ namespace RabCab.Agents
                 rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataInteger32, Convert.ToInt32(eInfo.HasHoles)));
                 rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataInteger32, eInfo.TxDirection));
                 rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataInteger32, eInfo.ProdType));
-                rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataHandle, eInfo.BaseHandle));
+                rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataHandle, eInfo.ParentHandle));
                 rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataAsciiString,
                     string.Join(",", eInfo.ChildHandles)));
                 // Append the extended data to the object
