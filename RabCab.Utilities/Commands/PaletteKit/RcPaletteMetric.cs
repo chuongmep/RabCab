@@ -33,6 +33,7 @@ namespace RabCab.Commands.PaletteKit
         private const int ctrlHeight = 25;
         private const int labColumn = 0;
         private const int infoColumn = 1;
+        private static bool ignoreTextChange = false;
 
         private static TableLayoutPanel tbLayout;
 
@@ -266,8 +267,13 @@ namespace RabCab.Commands.PaletteKit
             };
 
             _stText = new ToolStripLabel {Text = "No Objects Selects", BackColor = foreColor, ForeColor = textColor};
+
             _rcNameTxt = new TextBox {Dock = DockStyle.Fill, BackColor = foreColor, ForeColor = textColor};
+            _rcNameTxt.TextChanged += name_TextChanged;
+
             _rcInfoTxt = new TextBox {Dock = DockStyle.Fill, BackColor = foreColor, ForeColor = textColor};
+            _rcInfoTxt.TextChanged += info_TextChanged;
+
             _rcLengthTxt = new TextBox
                 {Dock = DockStyle.Fill, ReadOnly = true, BackColor = foreColor, ForeColor = textColor};
             _rcWidthTxt = new TextBox
@@ -292,7 +298,6 @@ namespace RabCab.Commands.PaletteKit
                 {Dock = DockStyle.Fill, ReadOnly = true, BackColor = foreColor, ForeColor = textColor};
             _rcParentTxt = new TextBox
                 {Dock = DockStyle.Fill, ReadOnly = true, BackColor = foreColor, ForeColor = textColor};
-
 
             _rcChildList = new ListBox {Dock = DockStyle.Fill, BackColor = foreColor, ForeColor = textColor};
 
@@ -496,130 +501,175 @@ namespace RabCab.Commands.PaletteKit
 
         #endregion
 
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="objIds"></param>
+        /// <param name="acCurDb"></param>
         internal static void ParseAndFill(ObjectId[] objIds, Database acCurDb)
         {
+            ignoreTextChange = true;
+
             var objCount = objIds.Length;
 
             switch (objCount)
             {
                 case 0:
-                    _stText.Text = "No Objects Selected";
-
-                    ClearText(_rcNameTxt);
-                    ClearText(_rcInfoTxt);
-                    ClearText(_rcQtyOfTxt);
-                    ClearText(_rcQtyTotalTxt);
-                    ClearText(_rcLengthTxt);
-                    ClearText(_rcWidthTxt);
-                    ClearText(_rcThickTxt);
-                    ClearText(_rcVolTxt);
-                    ClearText(_rcAreaTxt);
-                    ClearText(_rcPerimTxt);
-                    ClearText(_rcAsymTxt);
-                    ClearText(_rcAsymStrTxt);
-                    ClearText(_rcNumChangesTxt);
-                    ClearText(_rcParentTxt);
-
-                    _rcChildList.Items.Clear();
-
-                    _txDirUnknown.Checked = false;
-                    _txDirNone.Checked = false;
-                    _txDirHor.Checked = false;
-                    _txDirVer.Checked = false;
-
-                    _prodUnkown.Checked = false;
-                    _prodS4S.Checked = false;
-                    _prodMOne.Checked = false;
-                    _prodMMany.Checked = false;
-
-                    _rcIsSweepChk.Checked = false;
-                    _rcIsiMirChk.Checked = false;
-                    _rcHasHolesChk.Checked = false;
-
+                  
+                    ClearInformation();
                     break;
 
                 case 1:
 
-                    using (var acTrans = acCurDb.TransactionManager.StartTransaction())
-                    {
-                        var acEnt = acTrans.GetObject(objIds[0], OpenMode.ForRead) as Entity;
-                        if (acEnt != null)
-                        {
-                            AddText(_rcNameTxt, acEnt.GetPartName());
-                            AddText(_rcInfoTxt, acEnt.GetPartInfo());
-                            AddText(_rcQtyOfTxt, acEnt.GetQtyOf().ToString());
-                            AddText(_rcQtyTotalTxt, acEnt.GetQtyTotal().ToString());
-                            AddText(_rcLengthTxt, acCurDb.ConvertToDwgUnits(acEnt.GetPartLength()));
-                            AddText(_rcWidthTxt, acCurDb.ConvertToDwgUnits(acEnt.GetPartWidth()));
-                            AddText(_rcThickTxt, acCurDb.ConvertToDwgUnits(acEnt.GetPartThickness()));
-                            AddText(_rcVolTxt, acEnt.GetPartVolume().ToString());
-                            AddText(_rcAreaTxt, acEnt.GetPartArea().ToString());
-                            AddText(_rcPerimTxt, acEnt.GetPartPerimeter().ToString());
-                            AddText(_rcAsymTxt, acEnt.GetPartAsymmetry().ToString());
-                            AddText(_rcAsymStrTxt, acEnt.GetAsymVector());
-                            AddText(_rcNumChangesTxt, acEnt.GetNumChanges().ToString());
-                            AddText(_rcParentTxt, acEnt.GetParent().ToString());
-
-                            var txDir = acEnt.GetTextureDirection();
-
-                            switch (txDir)
-                            {
-                                case Enums.TextureDirection.Unknown:
-                                    _txDirUnknown.Checked = true;
-                                    break;
-                                case Enums.TextureDirection.None:
-                                    _txDirNone.Checked = true;
-                                    break;
-                                case Enums.TextureDirection.Horizontal:
-                                    _txDirHor.Checked = true;
-                                    break;
-                                case Enums.TextureDirection.Vertical:
-                                    _txDirVer.Checked = true;
-                                    break;
-                                default:
-                                    _txDirUnknown.Checked = true;
-                                    break;
-                            }
-
-                            var prodType = acEnt.GetProductionType();
-
-                            switch (prodType)
-                            {
-                                case Enums.ProductionType.Unknown:
-                                    _prodUnkown.Checked = true;
-                                    break;
-                                case Enums.ProductionType.S4S:
-                                    _prodS4S.Checked = true;
-                                    break;
-                                case Enums.ProductionType.MillingOneSide:
-                                    _prodMOne.Checked = true;
-                                    break;
-                                case Enums.ProductionType.MillingManySide:
-                                    _prodMMany.Checked = true;
-                                    break;
-                                case Enums.ProductionType.Box:
-                                    _prodS4S.Checked = true;
-                                    break;
-                                case Enums.ProductionType.Sweep:
-                                    _prodUnkown.Checked = true;
-                                    break;
-                                default:
-                                    _prodUnkown.Checked = true;
-                                    break;
-                            }
-
-                            _rcIsSweepChk.Checked = acEnt.GetIsSweep();
-                            _rcIsiMirChk.Checked = acEnt.GetIsMirror();
-                            _rcHasHolesChk.Checked = acEnt.GetHasHoles();
-                        }
-
-                        acTrans.Commit();
-                    }
+                   ParseSingleObject(objIds, acCurDb);
 
                     break;
             }
+
+            ignoreTextChange = false;
         }
 
+        /// <summary>
+        /// TODO
+        /// </summary>
+        private static void ClearInformation()
+        {
+            _stText.Text = "No Objects Selected";
+
+            ClearText(_rcNameTxt);
+            ClearText(_rcInfoTxt);
+            ClearText(_rcQtyOfTxt);
+            ClearText(_rcQtyTotalTxt);
+            ClearText(_rcLengthTxt);
+            ClearText(_rcWidthTxt);
+            ClearText(_rcThickTxt);
+            ClearText(_rcVolTxt);
+            ClearText(_rcAreaTxt);
+            ClearText(_rcPerimTxt);
+            ClearText(_rcAsymTxt);
+            ClearText(_rcAsymStrTxt);
+            ClearText(_rcNumChangesTxt);
+            ClearText(_rcParentTxt);
+
+            _rcChildList.Items.Clear();
+
+            _txDirUnknown.Checked = false;
+            _txDirNone.Checked = false;
+            _txDirHor.Checked = false;
+            _txDirVer.Checked = false;
+
+            _prodUnkown.Checked = false;
+            _prodS4S.Checked = false;
+            _prodMOne.Checked = false;
+            _prodMMany.Checked = false;
+
+            _rcIsSweepChk.Checked = false;
+            _rcIsiMirChk.Checked = false;
+            _rcHasHolesChk.Checked = false;
+        }
+
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="objIds"></param>
+        /// <param name="acCurDb"></param>
+        private static void ParseSingleObject(ObjectId[] objIds, Database acCurDb)
+        {
+            using (var acTrans = acCurDb.TransactionManager.StartTransaction())
+            {
+                var acEnt = acTrans.GetObject(objIds[0], OpenMode.ForRead) as Entity;
+
+                if (acEnt != null)
+                {
+                    if (acEnt.HasXData(acCurDb, acTrans))
+                    {
+                        AddText(_rcNameTxt, acEnt.GetPartName());
+                        AddText(_rcInfoTxt, acEnt.GetPartInfo());
+                        AddText(_rcQtyOfTxt, acEnt.GetQtyOf().ToString());
+                        AddText(_rcQtyTotalTxt, acEnt.GetQtyTotal().ToString());
+                        AddText(_rcLengthTxt, acCurDb.ConvertToDwgUnits(acEnt.GetPartLength()));
+                        AddText(_rcWidthTxt, acCurDb.ConvertToDwgUnits(acEnt.GetPartWidth()));
+                        AddText(_rcThickTxt, acCurDb.ConvertToDwgUnits(acEnt.GetPartThickness()));
+                        AddText(_rcVolTxt, acEnt.GetPartVolume().ToString());
+                        AddText(_rcAreaTxt, acEnt.GetPartArea().ToString());
+                        AddText(_rcPerimTxt, acEnt.GetPartPerimeter().ToString());
+                        AddText(_rcAsymTxt, acEnt.GetPartAsymmetry().ToString());
+                        AddText(_rcAsymStrTxt, acEnt.GetAsymVector());
+                        AddText(_rcNumChangesTxt, acEnt.GetNumChanges().ToString());
+                        AddText(_rcParentTxt, acEnt.GetParent().ToString());
+
+                        var txDir = acEnt.GetTextureDirection();
+
+                        _txDirUnknown.Checked = false;
+                        _txDirNone.Checked = false;
+                        _txDirHor.Checked = false;
+                        _txDirVer.Checked = false;
+
+                        switch (txDir)
+                        {
+                            case Enums.TextureDirection.Unknown:
+                                _txDirUnknown.Checked = true;
+                                break;
+                            case Enums.TextureDirection.None:
+                                _txDirNone.Checked = true;
+                                break;
+                            case Enums.TextureDirection.Horizontal:
+                                _txDirHor.Checked = true;
+                                break;
+                            case Enums.TextureDirection.Vertical:
+                                _txDirVer.Checked = true;
+                                break;
+                            default:
+                                _txDirUnknown.Checked = true;
+                                break;
+                        }
+
+                        var prodType = acEnt.GetProductionType();
+
+                        _prodUnkown.Checked = false;
+                        _prodS4S.Checked = false;
+                        _prodMOne.Checked = false;
+                        _prodMMany.Checked = false;
+
+                        switch (prodType)
+                        {
+                            case Enums.ProductionType.Unknown:
+                                _prodUnkown.Checked = true;
+                                break;
+                            case Enums.ProductionType.S4S:
+                                _prodS4S.Checked = true;
+                                break;
+                            case Enums.ProductionType.MillingOneSide:
+                                _prodMOne.Checked = true;
+                                break;
+                            case Enums.ProductionType.MillingManySide:
+                                _prodMMany.Checked = true;
+                                break;
+                            case Enums.ProductionType.Box:
+                                _prodS4S.Checked = true;
+                                break;
+                            case Enums.ProductionType.Sweep:
+                                _prodUnkown.Checked = true;
+                                break;
+                            default:
+                                _prodUnkown.Checked = true;
+                                break;
+                        }
+
+                        _rcIsSweepChk.Checked = acEnt.GetIsSweep();
+                        _rcIsiMirChk.Checked = acEnt.GetIsMirror();
+                        _rcHasHolesChk.Checked = acEnt.GetHasHoles();
+                    }
+                    else
+                    {
+                        ClearInformation();
+                    }
+                    
+                }
+
+                acTrans.Commit();
+            }
+        }
         #region CheckHandling
 
         /// <summary>
@@ -629,6 +679,7 @@ namespace RabCab.Commands.PaletteKit
         /// <param name="e"></param>
         private void texture_CheckClick(object sender, EventArgs e)
         {
+
             var nonChecked = false;
 
             if (!(sender is CheckBox chk)) return;
@@ -809,6 +860,7 @@ namespace RabCab.Commands.PaletteKit
         /// <param name="e"></param>
         private void sweep_CheckClick(object sender, EventArgs e)
         {
+
             if (!(sender is CheckBox chk)) return;
 
             var acCurDoc = DocumentManager.MdiActiveDocument;
@@ -848,6 +900,7 @@ namespace RabCab.Commands.PaletteKit
         /// <param name="e"></param>
         private void mirror_CheckClick(object sender, EventArgs e)
         {
+
             if (!(sender is CheckBox chk)) return;
 
             var acCurDoc = DocumentManager.MdiActiveDocument;
@@ -887,6 +940,7 @@ namespace RabCab.Commands.PaletteKit
         /// <param name="e"></param>
         private void holes_CheckClick(object sender, EventArgs e)
         {
+
             if (!(sender is CheckBox chk)) return;
 
             var acCurDoc = DocumentManager.MdiActiveDocument;
@@ -922,12 +976,105 @@ namespace RabCab.Commands.PaletteKit
         #endregion
 
         #region Text Handling
+       
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void name_TextChanged(object sender, EventArgs e)
+        {
+            if (ignoreTextChange) return;
 
+            if (_rcNameTxt.Text == SettingsInternal.VariesTxt)
+            {
+                return;
+            }
+
+            var acCurDoc = DocumentManager.MdiActiveDocument;
+            if (acCurDoc == null) return;
+
+            using (acCurDoc.LockDocument())
+            {
+                var acCurDb = acCurDoc.Database;
+                var acCurEd = acCurDoc.Editor;
+
+                var selRes = acCurEd.SelectImplied();
+
+                if (selRes.Status != PromptStatus.OK) return;
+
+                using (var acTrans = acCurDb.TransactionManager.StartTransaction())
+                {
+                    foreach (var id in selRes.Value.GetObjectIds())
+                    {
+                        var ent = acTrans.GetObject(id, OpenMode.ForWrite) as Entity;
+                        if (ent != null)
+                        {
+                            ent.UpdateXData(_rcNameTxt.Text, Enums.XDataCode.Name, acCurDb, acTrans);
+                        }
+                    }
+
+                    acTrans.Commit();
+                }
+            }
+        }
+
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void info_TextChanged(object sender, EventArgs e)
+        {
+            if (ignoreTextChange) return;
+
+            if (_rcInfoTxt.Text == SettingsInternal.VariesTxt)
+            {
+                return;
+            }
+
+            var acCurDoc = DocumentManager.MdiActiveDocument;
+            if (acCurDoc == null) return;
+
+            using (acCurDoc.LockDocument())
+            {
+                var acCurDb = acCurDoc.Database;
+                var acCurEd = acCurDoc.Editor;
+
+                var selRes = acCurEd.SelectImplied();
+
+                if (selRes.Status != PromptStatus.OK) return;
+
+                using (var acTrans = acCurDb.TransactionManager.StartTransaction())
+                {
+                    foreach (var id in selRes.Value.GetObjectIds())
+                    {
+                        var ent = acTrans.GetObject(id, OpenMode.ForWrite) as Entity;
+                        if (ent != null)
+                        {
+                            ent.UpdateXData(_rcInfoTxt.Text, Enums.XDataCode.Info, acCurDb, acTrans);
+                        }
+                    }
+
+                    acTrans.Commit();
+                }
+            }
+        }
+
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="txtBox"></param>
         private static void ClearText(TextBox txtBox)
         {
             txtBox.Text = "";
         }
 
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="txtBox"></param>
+        /// <param name="text"></param>
         private static void AddText(TextBox txtBox, string text)
         {
             try

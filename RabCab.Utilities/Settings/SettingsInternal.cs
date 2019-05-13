@@ -15,6 +15,7 @@ namespace RabCab.Settings
     {
         //Setting For Command Methods
         internal const string CommandGroup = "RABCAB";
+        internal const string VariesTxt = "*VARIES*";
 
         //Settings for Tolerance
         internal static double TolVector = 0.0017453292519943296;
