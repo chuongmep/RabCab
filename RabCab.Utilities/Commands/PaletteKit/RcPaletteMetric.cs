@@ -16,13 +16,12 @@ using Autodesk.AutoCAD.Runtime;
 using Autodesk.AutoCAD.Windows;
 using RabCab.Agents;
 using RabCab.Settings;
-using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
 
 namespace RabCab.Commands.PaletteKit
 {
-    internal class RcPaletteMain
+    internal class RcPaletteMetric
     {
-        private readonly string _palName = "RabCab";
+        private readonly string _palName = "Metrics";
         private UserControl _palPanel;
         private PaletteSet _rcPal;
         private const int ctrlHeight = 25;
@@ -49,7 +48,7 @@ namespace RabCab.Commands.PaletteKit
             _rcTxDirLab,
             _prodTypLab;
 
-        private TextBox _statusInfo,
+        private TextBox
             _rcNameTxt,
             _rcInfoTxt,
             _rcLengthTxt,
@@ -67,17 +66,14 @@ namespace RabCab.Commands.PaletteKit
 
         private ListBox _rcChildList;
 
-        private CheckBox _rcIsSweepChk, _rcIsiMirChk, _rcHasHolesChk;
-
-        private GroupBox _rcTxDirGrp, _rcProdTypGrp;
-
-        private RadioButton _txDirUnknown,
+        private CheckBox _rcIsSweepChk,
+            _rcIsiMirChk,
+            _rcHasHolesChk,
+            _txDirUnknown,
             _txDirNone,
             _txDirHor,
             _txDirVer,
             _prodUnkown,
-            _prodBox,
-            _prodSweep,
             _prodS4S,
             _prodMOne,
             _prodMMany;
@@ -86,9 +82,11 @@ namespace RabCab.Commands.PaletteKit
 
         private StatusStrip _stStrip;
 
+        private ToolStripLabel _stText;
+
         /// <summary>
         /// </summary>
-        [CommandMethod(SettingsInternal.CommandGroup, "_RCMAINPAL",
+        [CommandMethod(SettingsInternal.CommandGroup, "_RCMETPAL",
             CommandFlags.Modal
             //| CommandFlags.Transparent
             //| CommandFlags.UsePickSet
@@ -114,7 +112,7 @@ namespace RabCab.Commands.PaletteKit
             //| CommandFlags.ActionMacro
             //| CommandFlags.NoInferConstraint 
         )]
-        public void Cmd_RcMainPal()
+        public void Cmd_RcMetPal()
         {
             CreatePal();
         }
@@ -166,160 +164,220 @@ namespace RabCab.Commands.PaletteKit
                 Dock = DockStyle.Fill
             };
 
-            tbLayout.MouseEnter += (s, e) => tbLayout.Focus();
-
-            tbLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 50F));
+            tbLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 80F));
             tbLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             tbLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 5F));
 
             _rcNameLab = new Label
             {
                 Text = "Name:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
-                BackColor = foreColor, ForeColor = textColor
+                BackColor = backColor, ForeColor = textColor
             };
             _rcInfoLab = new Label
             {
                 Text = "Info:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
-                BackColor = foreColor, ForeColor = textColor
+                BackColor = backColor, ForeColor = textColor
             };
             _rcLengthLab = new Label
             {
                 Text = "Length:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
-                BackColor = foreColor, ForeColor = textColor
+                BackColor = backColor, ForeColor = textColor
             };
             _rcWidthLab = new Label
             {
                 Text = "Width:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
-                BackColor = foreColor, ForeColor = textColor
+                BackColor = backColor, ForeColor = textColor
             };
             _rcThickLab = new Label
             {
                 Text = "Thickness:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
-                BackColor = foreColor, ForeColor = textColor
+                BackColor = backColor, ForeColor = textColor
             };
             _rcVolLab = new Label
             {
                 Text = "Volume:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
-                BackColor = foreColor, ForeColor = textColor
+                BackColor = backColor, ForeColor = textColor
             };
             _rcAreaLab = new Label
             {
                 Text = "Area:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
-                BackColor = foreColor, ForeColor = textColor
+                BackColor = backColor, ForeColor = textColor
             };
             _rcPerimLab = new Label
             {
                 Text = "Perimeter:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
-                BackColor = foreColor, ForeColor = textColor
+                BackColor = backColor, ForeColor = textColor
             };
             _rcAsymLab = new Label
             {
-                Text = "Asymmetry:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
-                BackColor = foreColor, ForeColor = textColor
+                Text = "Asym:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
+                BackColor = backColor, ForeColor = textColor
             };
             _rcAsymStrLab = new Label
             {
-                Text = "Asym Vector:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
-                BackColor = foreColor, ForeColor = textColor
+                Text = "Asym V:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
+                BackColor = backColor, ForeColor = textColor
             };
             _rcQtyOfLab = new Label
             {
                 Text = "Qty Of:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
-                BackColor = foreColor, ForeColor = textColor
+                BackColor = backColor, ForeColor = textColor
             };
             _rcQtyTotalLab = new Label
             {
                 Text = "Qty Total:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
-                BackColor = foreColor, ForeColor = textColor
+                BackColor = backColor, ForeColor = textColor
             };
             _rcNumChangesLab = new Label
             {
-                Text = "Num Changes:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
-                BackColor = foreColor, ForeColor = textColor
+                Text = "Changes:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
+                BackColor = backColor, ForeColor = textColor
             };
             _rcParentLab = new Label
             {
                 Text = "Parent: ", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
-                BackColor = foreColor, ForeColor = textColor
+                BackColor = backColor, ForeColor = textColor
             };
             _rcChildLab = new Label
             {
-                Text = "Children: ", TextAlign = ContentAlignment.TopLeft, Anchor = AnchorStyles.None,
-                BackColor = foreColor, ForeColor = textColor
+                Text = "Children: ", TextAlign = ContentAlignment.TopLeft,
+                Anchor = AnchorStyles.None,
+                BackColor = backColor, ForeColor = textColor
             };
             _rcTxDirLab = new Label
             {
-                Text = "Texture: ", TextAlign = ContentAlignment.TopLeft, Anchor = AnchorStyles.None,
-                BackColor = foreColor, ForeColor = textColor
+                Text = "Texture: ", TextAlign = ContentAlignment.TopLeft,
+                Anchor = AnchorStyles.None,
+                BackColor = backColor, ForeColor = textColor
             };
             _prodTypLab = new Label
             {
-                Text = "Production: ", TextAlign = ContentAlignment.TopLeft, Anchor = AnchorStyles.None,
-                BackColor = foreColor, ForeColor = textColor
+                Text = "Production: ", TextAlign = ContentAlignment.TopLeft,
+                Anchor = AnchorStyles.None,
+                BackColor = backColor, ForeColor = textColor
             };
 
-            _statusInfo = new TextBox {Dock = DockStyle.Fill, BackColor = foreColor, ForeColor = textColor};
-            _rcNameTxt = new TextBox {Dock = DockStyle.Fill, BackColor = foreColor, ForeColor = textColor};
-            _rcInfoTxt = new TextBox {Dock = DockStyle.Fill, BackColor = foreColor, ForeColor = textColor};
-            _rcLengthTxt = new TextBox {Dock = DockStyle.Fill, BackColor = foreColor, ForeColor = textColor};
-            _rcWidthTxt = new TextBox {Dock = DockStyle.Fill, BackColor = foreColor, ForeColor = textColor};
-            _rcThickTxt = new TextBox {Dock = DockStyle.Fill, BackColor = foreColor, ForeColor = textColor};
-            _rcVolTxt = new TextBox {Dock = DockStyle.Fill, BackColor = foreColor, ForeColor = textColor};
-            _rcAreaTxt = new TextBox {Dock = DockStyle.Fill, BackColor = foreColor, ForeColor = textColor};
-            _rcPerimTxt = new TextBox {Dock = DockStyle.Fill, BackColor = foreColor, ForeColor = textColor};
-            _rcAsymTxt = new TextBox {Dock = DockStyle.Fill, BackColor = foreColor, ForeColor = textColor};
-            _rcAsymStrTxt = new TextBox {Dock = DockStyle.Fill, BackColor = foreColor, ForeColor = textColor};
-            _rcQtyOfTxt = new TextBox {Dock = DockStyle.Fill, BackColor = foreColor, ForeColor = textColor};
-            _rcQtyTotalTxt = new TextBox {Dock = DockStyle.Fill, BackColor = foreColor, ForeColor = textColor};
-            _rcNumChangesTxt = new TextBox {Dock = DockStyle.Fill, BackColor = foreColor, ForeColor = textColor};
-            _rcParentTxt = new TextBox {Dock = DockStyle.Fill, BackColor = foreColor, ForeColor = textColor};
+            _stText = new ToolStripLabel {Text = "Status", BackColor = foreColor, ForeColor = textColor};
+            _rcNameTxt = new TextBox {Dock = DockStyle.Fill, BackColor = backColor, ForeColor = textColor};
+            _rcInfoTxt = new TextBox {Dock = DockStyle.Fill, BackColor = backColor, ForeColor = textColor};
+            _rcLengthTxt = new TextBox {Dock = DockStyle.Fill, ReadOnly = true, BackColor = backColor, ForeColor = textColor};
+            _rcWidthTxt = new TextBox {Dock = DockStyle.Fill, ReadOnly = true, BackColor = backColor, ForeColor = textColor};
+            _rcThickTxt = new TextBox {Dock = DockStyle.Fill, ReadOnly = true, BackColor = backColor, ForeColor = textColor};
+            _rcVolTxt = new TextBox {Dock = DockStyle.Fill, ReadOnly = true, BackColor = backColor, ForeColor = textColor};
+            _rcAreaTxt = new TextBox {Dock = DockStyle.Fill, ReadOnly = true, BackColor = backColor, ForeColor = textColor};
+            _rcPerimTxt = new TextBox {Dock = DockStyle.Fill, ReadOnly = true, BackColor = backColor, ForeColor = textColor};
+            _rcAsymTxt = new TextBox {Dock = DockStyle.Fill, ReadOnly = true, BackColor = backColor, ForeColor = textColor};
+            _rcAsymStrTxt = new TextBox {Dock = DockStyle.Fill, ReadOnly = true, BackColor = backColor, ForeColor = textColor};
+            _rcQtyOfTxt = new TextBox {Dock = DockStyle.Fill, ReadOnly = true, BackColor = backColor, ForeColor = textColor};
+            _rcQtyTotalTxt = new TextBox {Dock = DockStyle.Fill, ReadOnly = true, BackColor = backColor, ForeColor = textColor};
+            _rcNumChangesTxt = new TextBox {Dock = DockStyle.Fill, ReadOnly = true, BackColor = backColor, ForeColor = textColor};
+            _rcParentTxt = new TextBox {Dock = DockStyle.Fill, ReadOnly = true, BackColor = backColor, ForeColor = textColor};
 
 
-            _rcChildList = new ListBox {Dock = DockStyle.Fill, BackColor = foreColor, ForeColor = textColor};
+            _rcChildList = new ListBox {Dock = DockStyle.Fill, BackColor = backColor, ForeColor = textColor};
 
             _rcIsSweepChk = new CheckBox
-                {Text = "Is Sweep", Dock = DockStyle.Fill, BackColor = foreColor, ForeColor = textColor};
+            {
+                Text = "Is Sweep", Dock = DockStyle.Fill, AutoSize = false, BackColor = backColor, ForeColor = textColor
+            };
             _rcIsiMirChk = new CheckBox
-                {Text = "Is Mirror", Dock = DockStyle.Fill, BackColor = foreColor, ForeColor = textColor};
+            {
+                Text = "Is Mirror", Dock = DockStyle.Fill, AutoSize = false, BackColor = backColor,
+                ForeColor = textColor
+            };
             _rcHasHolesChk = new CheckBox
-                {Text = "Has Holes", Dock = DockStyle.Fill, BackColor = foreColor, ForeColor = textColor};
-
-            _rcTxDirGrp = new GroupBox {Text = "", BackColor = foreColor, ForeColor = textColor};
-            _rcProdTypGrp = new GroupBox {Text = "", BackColor = foreColor, ForeColor = textColor};
-
-            _txDirUnknown = new RadioButton {Text = "Unknown", BackColor = foreColor, ForeColor = textColor};
-            _txDirNone = new RadioButton {Text = "None", BackColor = foreColor, ForeColor = textColor};
-            _txDirHor = new RadioButton {Text = "Horizontal", BackColor = foreColor, ForeColor = textColor};
-            _txDirVer = new RadioButton {Text = "Vertical", BackColor = foreColor, ForeColor = textColor};
-
-            _rcTxDirGrp.Controls.Add(new FlowLayoutPanel
             {
-                FlowDirection = FlowDirection.TopDown, Dock = DockStyle.Fill, BackColor = foreColor,
+                Text = "Has Holes", Dock = DockStyle.Fill, AutoSize = false, BackColor = backColor,
                 ForeColor = textColor
-            });
-            _rcTxDirGrp.Controls.Add(_txDirUnknown);
-            _rcTxDirGrp.Controls.Add(_txDirNone);
-            _rcTxDirGrp.Controls.Add(_txDirHor);
-            _rcTxDirGrp.Controls.Add(_txDirVer);
+            };
 
-            _prodUnkown = new RadioButton {Text = "Unknown", BackColor = foreColor, ForeColor = textColor};
-            _prodBox = new RadioButton {Text = "Box", BackColor = foreColor, ForeColor = textColor};
-            _prodSweep = new RadioButton {Text = "Sweep", BackColor = foreColor, ForeColor = textColor};
-            _prodS4S = new RadioButton {Text = "S4S", BackColor = foreColor, ForeColor = textColor};
-            _prodMOne = new RadioButton {Text = "Milling - One Side", BackColor = foreColor, ForeColor = textColor};
-            _prodMMany = new RadioButton {Text = "Milling - Many Side", BackColor = foreColor, ForeColor = textColor};
 
-            _rcProdTypGrp.Controls.Add(new FlowLayoutPanel
+            _txDirUnknown = new CheckBox
             {
-                FlowDirection = FlowDirection.TopDown, Dock = DockStyle.Fill, BackColor = foreColor,
+                Text = "UN", Appearance = Appearance.Button, Dock = DockStyle.Fill, BackColor = foreColor,
                 ForeColor = textColor
-            });
-            _rcProdTypGrp.Controls.Add(_prodUnkown);
-            _rcProdTypGrp.Controls.Add(_prodBox);
-            _rcProdTypGrp.Controls.Add(_prodSweep);
-            _rcProdTypGrp.Controls.Add(_prodS4S);
-            _rcProdTypGrp.Controls.Add(_prodMOne);
-            _rcProdTypGrp.Controls.Add(_prodMMany);
+            };
+            _txDirNone = new CheckBox
+            {
+                Text = "NO", Appearance = Appearance.Button, Dock = DockStyle.Fill, BackColor = foreColor,
+                ForeColor = textColor
+            };
+            _txDirHor = new CheckBox
+            {
+                Text = "HZ", Appearance = Appearance.Button, Dock = DockStyle.Fill, BackColor = foreColor,
+                ForeColor = textColor
+            };
+            _txDirVer = new CheckBox
+            {
+                Text = "VT", Appearance = Appearance.Button, Dock = DockStyle.Fill, BackColor = foreColor,
+                ForeColor = textColor
+            };
+            var txLayout = new TableLayoutPanel
+            {
+                AutoScroll = true,
+                AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                BackColor = backColor,
+                ForeColor = foreColor,
+                ColumnCount = 4,
+                RowCount = 1,
+                Dock = DockStyle.Fill
+            };
+
+            txLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            txLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            txLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            txLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+
+            txLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+
+            txLayout.Controls.Add(_txDirUnknown, 0, 0);
+            txLayout.Controls.Add(_txDirNone, 1, 0);
+            txLayout.Controls.Add(_txDirHor, 2, 0);
+            txLayout.Controls.Add(_txDirVer, 3, 0);
+
+
+            _prodUnkown = new CheckBox
+            {
+                Text = "UN", Appearance = Appearance.Button, Dock = DockStyle.Fill, BackColor = foreColor,
+                ForeColor = textColor
+            };
+            _prodS4S = new CheckBox
+            {
+                Text = "S4", Dock = DockStyle.Fill, Appearance = Appearance.Button, BackColor = foreColor,
+                ForeColor = textColor
+            };
+            _prodMOne = new CheckBox
+            {
+                Text = "OS", Appearance = Appearance.Button, Dock = DockStyle.Fill, BackColor = foreColor,
+                ForeColor = textColor
+            };
+            _prodMMany = new CheckBox
+            {
+                Text = "MS", Appearance = Appearance.Button, Dock = DockStyle.Fill, BackColor = foreColor,
+                ForeColor = textColor
+            };
+            var prodLayout = new TableLayoutPanel
+            {
+                AutoScroll = false,
+                AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                BackColor = backColor,
+                ForeColor = foreColor,
+                ColumnCount = 5,
+                RowCount = 1,
+                Dock = DockStyle.Fill
+            };
+
+            prodLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            prodLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            prodLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            prodLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+
+            prodLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+
+            prodLayout.Controls.Add(_prodUnkown, 0, 0);
+            prodLayout.Controls.Add(_prodS4S, 1, 0);
+            prodLayout.Controls.Add(_prodMOne, 2, 0);
+            prodLayout.Controls.Add(_prodMMany, 3, 0);
 
             _selParent = new Button
                 {Text = "Select Parent", Dock = DockStyle.Fill, BackColor = foreColor, ForeColor = textColor};
@@ -331,7 +389,7 @@ namespace RabCab.Commands.PaletteKit
                 {Text = "Update Siblings", Dock = DockStyle.Fill, BackColor = foreColor, ForeColor = textColor};
 
             _stStrip = new StatusStrip {Dock = DockStyle.Bottom, BackColor = foreColor, ForeColor = textColor};
-            _stStrip.Controls.Add(_statusInfo);
+            _stStrip.Items.Add(_stText);
 
             #region AddInfoToTable
 
@@ -349,15 +407,17 @@ namespace RabCab.Commands.PaletteKit
             AddToTable(_rcAsymStrLab, _rcAsymStrTxt, ctrlHeight, ref rowCount);
             AddToTable(_rcNumChangesLab, _rcNumChangesTxt, ctrlHeight, ref rowCount);
 
+            AddToTable(_rcParentLab, _rcParentTxt, ctrlHeight, ref rowCount);
+            AddToTable(_rcChildLab, _rcChildList, ctrlHeight * 5, ref rowCount);
+
+            AddToTable(_rcTxDirLab, txLayout, ctrlHeight + 10, ref rowCount);
+            AddToTable(_prodTypLab, prodLayout, ctrlHeight + 10, ref rowCount);
+
             AddToTable(new Label(), _rcIsSweepChk, ctrlHeight, ref rowCount);
             AddToTable(new Label(), _rcIsiMirChk, ctrlHeight, ref rowCount);
             AddToTable(new Label(), _rcHasHolesChk, ctrlHeight, ref rowCount);
 
-            AddToTable(_rcParentLab, _rcParentTxt, ctrlHeight, ref rowCount);
-            AddToTable(_rcChildLab, _rcChildList, ctrlHeight * 6, ref rowCount);
-
-            AddToTable(_rcTxDirLab, _rcTxDirGrp, ctrlHeight * 4, ref rowCount);
-            AddToTable(_prodTypLab, _rcProdTypGrp, ctrlHeight * 6, ref rowCount);
+            AddToTable(new Label(), new Label(), ctrlHeight, ref rowCount);
 
             #endregion
 
@@ -378,8 +438,8 @@ namespace RabCab.Commands.PaletteKit
             if (ctr2 == null) throw new ArgumentNullException(nameof(ctr2));
 
             tbLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, ctHeight));
-            tbLayout.Controls.Add(_rcNameLab, labColumn, rowCount);
-            tbLayout.Controls.Add(_rcNameTxt, infoColumn, rowCount);
+            tbLayout.Controls.Add(ctrl1, labColumn, rowCount);
+            tbLayout.Controls.Add(ctr2, infoColumn, rowCount);
             rowCount++;
         }
 

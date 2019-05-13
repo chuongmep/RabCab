@@ -293,7 +293,7 @@
     <Compile Include="Gui\PaletteLayerRepo.Designer.cs">
       <DependentUpon>PaletteLayerRepo.cs</DependentUpon>
     </Compile>
-    <Compile Include="Commands\PaletteKit\RcPaletteMain.cs" />
+    <Compile Include="Commands\PaletteKit\RcPaletteMetric.cs" />
     <Compile Include="Commands\PaletteKit\RcPaletteNet.cs" />
     <Compile Include="Commands\PaletteKit\RcPaletteNotebook.cs" />
     <Compile Include="Commands\PaletteKit\RcPaletteSnap.cs" />

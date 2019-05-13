@@ -212,7 +212,7 @@ using RabCab.Commands.TidySuite;
 //Palette Kit
 [assembly: CommandClass(typeof(RcPaletteDwg))]
 [assembly: CommandClass(typeof(RcPaletteLayer))]
-[assembly: CommandClass(typeof(RcPaletteMain))]
+[assembly: CommandClass(typeof(RcPaletteMetric))]
 [assembly: CommandClass(typeof(RcPaletteNet))]
 [assembly: CommandClass(typeof(RcPaletteNotebook))]
 [assembly: CommandClass(typeof(RcPaletteSnap))]
