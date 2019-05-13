@@ -11,12 +11,20 @@
 
 namespace RabCab.Settings
 {
-    public static class SettingsInternal
+    internal class SettingsInternal
     {
         //Setting For Command Methods
-        public const string CommandGroup = "RABCAB";
+        internal const string CommandGroup = "RABCAB";
 
         //Settings for Tolerance
-        public static double TolVector = 0.0017453292519943296;
+        internal static double TolVector = 0.0017453292519943296;
+
+        //Palette Init
+        internal static bool EnDwgPal = true;
+        internal static bool EnLayerPal = true;
+        internal static bool EnMainPal = true;
+        internal static bool EnNotePal = true;
+        internal static bool EnSnapPal = true;
+
     }
 }

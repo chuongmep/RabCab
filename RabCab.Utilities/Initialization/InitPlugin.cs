@@ -10,6 +10,7 @@
 // -----------------------------------------------------------------------------------
 
 using Autodesk.AutoCAD.Runtime;
+using RabCab.Handlers;
 using RabCab.Initialization;
 
 // This line is not mandatory, but improves loading performances
@@ -43,11 +44,13 @@ namespace RabCab.Initialization
             // as well as some of the existing AutoCAD managed apps.
 
             // Initialize your plug-in application here
+
+            DocumentHandlers.AddDocEvents();
         }
 
         void IExtensionApplication.Terminate()
         {
-            // Do plug-in application clean up here
+            DocumentHandlers.RemoveDocEvents();
         }
     }
 }

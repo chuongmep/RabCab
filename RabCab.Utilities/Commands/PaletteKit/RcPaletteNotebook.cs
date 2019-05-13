@@ -63,7 +63,7 @@ namespace RabCab.Commands.PaletteKit
             CreatePal();
         }
 
-        public static void UpdNotePal()
+        internal static void UpdNotePal()
         {
             UpdatePal();
         }
