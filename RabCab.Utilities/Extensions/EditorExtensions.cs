@@ -1752,12 +1752,12 @@ namespace RabCab.Extensions
         /// <param name="acCurEd">The current working editor.</param>
         /// <param name="subEntType">The type of subentities to be selected.</param>
         /// <returns>Returns a tuple value of the subentity ids and their parent objectIds.</returns>
-        public static List<Tuple<ObjectId, SubentityId>> SelectSubentities(this Editor acCurEd,
+        public static List<Tuple<ObjectId, List<SubentityId>>> SelectSubentities(this Editor acCurEd,
             SubentityType subEntType)
         {
             //Set the ObjectId and SubentId to Null
 
-            var entList = new List<Tuple<ObjectId, SubentityId>>();
+            var entList = new List<Tuple<ObjectId, List<SubentityId>>>();
 
             //Convert the DXFName enum value to its string value
             var subEntName = EnumAgent.GetNameOf(subEntType);
@@ -1818,19 +1818,26 @@ namespace RabCab.Extensions
 
                     if (!objId.IsNull || !objId.IsErased)
                     {
+                        var subList = new List<SubentityId>();
                         //Get the entity path to the sub entity
                         var subEnts = selObj.GetSubentities();
-                        var fsPath = subEnts[0].FullSubentityPath;
-                        var subEntId = fsPath.SubentId;
-                        var subType = subEntId.Type;
 
-                        if (subType == subEntType)
+                        foreach (var subEnt in subEnts)
                         {
-                            var subId = subEntId;
+                            var fsPath = subEnt.FullSubentityPath;
+                            var subEntId = fsPath.SubentId;
+                            var subType = subEntId.Type;
 
-                            //Add the new tuple value to the list
-                            entList.Add(Tuple.Create(objId, subId));
+                            if (subType == subEntType)
+                            {
+                                subList.Add(subEntId);
+                            }
+
                         }
+
+                        //Add the new tuple value to the list
+                        entList.Add(Tuple.Create(objId, subList));
+                        
                     }
                 }
 

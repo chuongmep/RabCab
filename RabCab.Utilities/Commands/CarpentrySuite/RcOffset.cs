@@ -89,17 +89,28 @@ namespace RabCab.Commands.CarpentrySuite
                 //Start a transaction
                 using (var acTrans = acCurDb.TransactionManager.StartTransaction())
                 {
-                    foreach (var (objectId, subentityId) in userSel)
+                    foreach (var (objectId, subEntList) in userSel)
                     {
                         if (objList.Any(n => n.ObjId == objectId))
                         {
                             var offsetObject = objList.Find(i => i.ObjId == objectId);
-                            offsetObject?.SubentIds.Add(subentityId);
+
+                            foreach (var subentityId in subEntList)
+                            {
+                                offsetObject?.SubentIds.Add(subentityId);
+                            }
+                            
                         }
                         else
                         {
                             var offsetObject = new OffsetObject(objectId);
-                            offsetObject.SubentIds.Add(subentityId);
+
+                            foreach (var subentityId in subEntList)
+                            {
+                                offsetObject?.SubentIds.Add(subentityId);
+                            }
+
+                            objList.Add(offsetObject);
                         }
                     }
 
