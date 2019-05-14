@@ -65,8 +65,8 @@ namespace RabCab.Settings
         //Layers
         public static char LayerDelimiter = '-';
         public static string RcVisible = "RCVisible";
-        public static string RcHidden = "RcHidden";
-        public static string RcAnno = "RcAnno";
+        public static string RcHidden = "RCHidden";
+        public static string RcAnno = "RCAnnotation";
 
         //Linetypes
         public static string RcVisibleLT = "CONTINUOUS";
