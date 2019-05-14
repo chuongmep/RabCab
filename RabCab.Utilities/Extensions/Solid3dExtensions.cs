@@ -898,14 +898,11 @@ namespace RabCab.Extensions
                     subtToList.Add(acSol);
             }
 
-            // Create a utility object
-
-
             // Open the Block table record in model space for write
             var acBlkTblRec = acTrans.GetObject(acCurDb.GetBlockTable(acTrans, 0)
                 [BlockTableRecord.ModelSpace], OpenMode.ForWrite) as BlockTableRecord;
 
-            //Subtract solids from BoolId2 fromt BoolId1
+            //Subtract solids from BoolId2 from BoolId1
             foreach (var acSol in subtFromList)
             {
                 foreach (var subtSol in subtToList)

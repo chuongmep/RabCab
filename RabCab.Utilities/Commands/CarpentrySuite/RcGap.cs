@@ -10,7 +10,10 @@
 // -----------------------------------------------------------------------------------
 
 using Autodesk.AutoCAD.ApplicationServices.Core;
+using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Runtime;
+using RabCab.Engine.Enumerators;
+using RabCab.Extensions;
 using RabCab.Settings;
 
 namespace RabCab.Commands.CarpentrySuite
@@ -19,7 +22,7 @@ namespace RabCab.Commands.CarpentrySuite
     {
         /// <summary>
         /// </summary>
-        [CommandMethod(SettingsInternal.CommandGroup, "_CMDDEFAULT",
+        [CommandMethod(SettingsInternal.CommandGroup, "_RCGAP",
             CommandFlags.Modal
             //| CommandFlags.Transparent
             //| CommandFlags.UsePickSet
@@ -27,7 +30,7 @@ namespace RabCab.Commands.CarpentrySuite
             //| CommandFlags.NoPerspective
             //| CommandFlags.NoMultiple
             //| CommandFlags.NoTileMode
-            //| CommandFlags.NoPaperSpace
+            | CommandFlags.NoPaperSpace
             //| CommandFlags.NoOem
             //| CommandFlags.Undefined
             //| CommandFlags.InProgress
@@ -45,12 +48,55 @@ namespace RabCab.Commands.CarpentrySuite
             //| CommandFlags.ActionMacro
             //| CommandFlags.NoInferConstraint 
         )]
-        public void Cmd_Default()
+        public void Cmd_RcGap()
         {
             //Get the current document utilities
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;
             var acCurDb = acCurDoc.Database;
             var acCurEd = acCurDoc.Editor;
+
+            try
+            {
+                // Begin Transaction
+                using (var acTrans = acCurDb.TransactionManager.StartTransaction())
+                {
+                    //Prompt To Select Solids to perform Boolean Operations On
+                    var boolRes1 = acCurEd.GetFilteredSelection(Enums.DxfNameEnum._3Dsolid, false, null,
+                        "\nSelect 3DSOLIDS to be subtracted from: ");
+
+                    if (boolRes1.Length <= 0) return;
+
+                    //Prompt To Select Solids to perform Boolean Operations On
+                    var boolRes2 = acCurEd.GetFilteredSelection(Enums.DxfNameEnum._3Dsolid, false, null,
+                        "\nSelect 3DSOLIDS to be used as gap criteria: ");
+
+                    if (boolRes2.Length <= 0) return;
+
+                    var prSelOpts = new PromptDistanceOptions("\nEnter gap distance: ")
+                    {
+                        AllowNone = false,
+                        AllowZero = true,
+                        AllowNegative = true,
+                        DefaultValue = SettingsUser.RcGapDepth
+                    };
+
+                    //Get the offset distance
+                    var prSelRes = acCurEd.GetDistance(prSelOpts);
+
+                    if (prSelRes.Status != PromptStatus.OK) return;
+
+                    SettingsUser.RcGapDepth = prSelRes.Value;
+
+                        boolRes1.SolidGap( boolRes2, acCurDb, acTrans, false, SettingsUser.RcGapDepth);
+
+                        // Commit Transaction
+                    acTrans.Commit();
+                }
+            }
+            catch (Exception e)
+            {
+                acCurEd.WriteMessage(e.Message);
+            }
         }
     }
 }

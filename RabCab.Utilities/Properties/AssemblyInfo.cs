@@ -163,6 +163,7 @@ using RabCab.Commands.TidySuite;
 [assembly: CommandClass(typeof(RcOffset))]
 [assembly: CommandClass(typeof(RcRevolve))]
 [assembly: CommandClass(typeof(RcSlice))]
+[assembly: CommandClass(typeof(RcFlip))]
 
 //CNC Suite
 [assembly: CommandClass(typeof(RcAutoPrep))]

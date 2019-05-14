@@ -78,6 +78,7 @@ namespace RabCab.Settings
         public static double RcJointDepth = 0;
         public static double RcOffsetDepth = 0;
         public static double RcSliceDepth = 0;
+        public static double RcGapDepth = 0;
 
         public static RoundTolerance UserTol { set; get; } = RoundTolerance.SixDecimals;
     }
