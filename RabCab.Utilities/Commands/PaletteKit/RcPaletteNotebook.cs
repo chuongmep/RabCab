@@ -27,7 +27,7 @@ namespace RabCab.Commands.PaletteKit
         private static UserControl _palPanel;
         private static bool _reWriteData = true;
         private static TextBox _noteBox;
-        private PaletteSet _rcPal;
+        private static PaletteSet _rcPal;
 
 
         /// <summary>
@@ -134,6 +134,8 @@ namespace RabCab.Commands.PaletteKit
         /// </summary>
         private static void UpdatePal()
         {
+            if (_rcPal == null) return;
+
             _reWriteData = false;
 
             var resBuf = XDataAgent.GetXrecord(SettingsInternal.CommandGroup, PalName);

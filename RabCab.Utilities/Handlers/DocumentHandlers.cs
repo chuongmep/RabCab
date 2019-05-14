@@ -29,16 +29,24 @@ namespace RabCab.Handlers
         /// </summary>
         internal static void AddDocEvents()
         {
-            // Get the current document
-            var acDocMan = Application.DocumentManager;
-            var acDoc = acDocMan.MdiActiveDocument;
+            try
+            {
+                // Get the current document
+                var acDocMan = Application.DocumentManager;
+                var acDoc = acDocMan.MdiActiveDocument;
 
-            //Doc Manager Handlers
-            acDocMan.DocumentToBeDeactivated +=  BeginDocClose;
-            acDocMan.DocumentActivated += DocActivated;
+                //Doc Manager Handlers
+                acDocMan.DocumentToBeDeactivated +=  BeginDocClose;
+                acDocMan.DocumentActivated += DocActivated;
 
-            //Doc Handlers
-            acDoc.ImpliedSelectionChanged += Doc_ImpliedSelectionChanged;
+                //Doc Handlers
+                acDoc.ImpliedSelectionChanged += Doc_ImpliedSelectionChanged;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
 
         }
 
@@ -47,16 +55,24 @@ namespace RabCab.Handlers
         /// </summary>
         internal static void RemoveDocEvents()
         {
-            // Get the current document
-            var acDocMan = Application.DocumentManager;
-            var acDoc = acDocMan.MdiActiveDocument;
+            try
+            {
+                // Get the current document
+                var acDocMan = Application.DocumentManager;
+                var acDoc = acDocMan.MdiActiveDocument;
 
-            //Doc Manager Handlers
-            acDocMan.DocumentToBeDeactivated -= BeginDocClose;
-            acDocMan.DocumentActivated -= DocActivated;
+                //Doc Manager Handlers
+                acDocMan.DocumentToBeDeactivated -= BeginDocClose;
+                acDocMan.DocumentActivated -= DocActivated;
 
-            //Doc Handlers
-            acDoc.ImpliedSelectionChanged -= Doc_ImpliedSelectionChanged;
+                //Doc Handlers
+                acDoc.ImpliedSelectionChanged -= Doc_ImpliedSelectionChanged;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         /// <summary>
@@ -67,7 +83,15 @@ namespace RabCab.Handlers
         private static void BeginDocClose(object senderObj,
             DocumentCollectionEventArgs docBegClsEvtArgs)
         {
-            Application.DocumentManager.CurrentDocument.ImpliedSelectionChanged -= Doc_ImpliedSelectionChanged;
+            try
+            {
+                Application.DocumentManager.CurrentDocument.ImpliedSelectionChanged -= Doc_ImpliedSelectionChanged;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         /// <summary>
@@ -78,15 +102,23 @@ namespace RabCab.Handlers
         private static void DocActivated(object senderObj,
             DocumentCollectionEventArgs docActEvent)
         {
-            //Notebook Handlers
-            if (SettingsInternal.EnNotePal)
+            try
             {
-                RcPaletteNotebook.UpdNotePal();
-            }
+                //Notebook Handlers
+                if (SettingsInternal.EnNotePal)
+                {
+                    RcPaletteNotebook.UpdNotePal();
+                }
 
-            if (Application.DocumentManager.CurrentDocument != null)
+                if (Application.DocumentManager.CurrentDocument != null)
+                {
+                    Application.DocumentManager.CurrentDocument.ImpliedSelectionChanged += Doc_ImpliedSelectionChanged;
+                }
+            }
+            catch (Exception e)
             {
-                Application.DocumentManager.CurrentDocument.ImpliedSelectionChanged += Doc_ImpliedSelectionChanged;
+                Console.WriteLine(e);
+                throw;
             }
         }
 
@@ -97,26 +129,34 @@ namespace RabCab.Handlers
         /// <param name="e"></param>
         private static void Doc_ImpliedSelectionChanged(object sender, EventArgs e)
         {
-            if (SettingsInternal.EnMetPal == false) return;
-
-            if (RcPaletteMetric._rcPal == null) return;
-
-            var acCurDoc = Application.DocumentManager.MdiActiveDocument;
-            if (acCurDoc == null) return;
-
-            var acCurDb = acCurDoc.Database;
-            var acCurEd = acCurDoc.Editor;
-
-            var selRes = acCurEd.SelectImplied();
-
-            if (selRes.Status == PromptStatus.OK)
+            try
             {
-                var objIds = selRes.Value.GetObjectIds();
-                RcPaletteMetric.ParseAndFill(objIds, acCurDb);
+                if (SettingsInternal.EnMetPal == false) return;
+
+                if (RcPaletteMetric._rcPal == null) return;
+
+                var acCurDoc = Application.DocumentManager.MdiActiveDocument;
+                if (acCurDoc == null) return;
+
+                var acCurDb = acCurDoc.Database;
+                var acCurEd = acCurDoc.Editor;
+
+                var selRes = acCurEd.SelectImplied();
+
+                if (selRes.Status == PromptStatus.OK)
+                {
+                    var objIds = selRes.Value.GetObjectIds();
+                    RcPaletteMetric.ParseAndFill(objIds, acCurDb);
+                }
+                else
+                {
+                    RcPaletteMetric.ParseAndFill(new ObjectId[0], acCurDb);
+                }
             }
-            else
+            catch (Exception exception)
             {
-                RcPaletteMetric.ParseAndFill(new ObjectId[0], acCurDb);
+                Console.WriteLine(exception);
+                throw;
             }
 
         }
