@@ -105,9 +105,9 @@ namespace RabCab.Commands.AnnotationSuite
                             var acPreview = new Circle();
                             var acLine = new Line(new Point3d(0, 0, 0), new Point3d(0, 0, 0));
 
-                            acCirc.Color = Colors.LayerColorPreview;
-                            acPreview.Color = Colors.LayerColorPreview;
-                            acLine.Color = Colors.LayerColorPreview;
+                            acCirc.Color = SettingsUser.DynPreviewColor;
+                            acPreview.Color = SettingsUser.DynPreviewColor;
+                            acLine.Color = SettingsUser.DynPreviewColor;
 
                             var integerCollections = new IntegerCollection(nArray);
 
