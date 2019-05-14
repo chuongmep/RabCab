@@ -10,6 +10,8 @@
 // -----------------------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
@@ -81,16 +83,33 @@ namespace RabCab.Commands.CarpentrySuite
 
             try
             {
+
+                var objList = new List<OffsetObject>();
+
                 //Start a transaction
                 using (var acTrans = acCurDb.TransactionManager.StartTransaction())
                 {
                     foreach (var (objectId, subentityId) in userSel)
                     {
-                        var acSol = acTrans.GetObject(objectId, OpenMode.ForWrite) as Solid3d;
-                        SubentityId[] subIds = { subentityId };
+                        if (objList.Any(n => n.ObjId == objectId))
+                        {
+                            var offsetObject = objList.Find(i => i.ObjId == objectId);
+                            offsetObject?.SubentIds.Add(subentityId);
+                        }
+                        else
+                        {
+                            var offsetObject = new OffsetObject(objectId);
+                            offsetObject.SubentIds.Add(subentityId);
+                        }
+                    }
 
-                        //Offset the face
-                        acSol?.OffsetFaces(subIds, SettingsUser.RcOffsetDepth);
+                    foreach (var obj in objList)
+                    {
+                        var acSol = acTrans.GetObject(obj.ObjId, OpenMode.ForWrite) as Solid3d;
+
+                        if (obj.SubentIds.Count > 0)
+                        //Offset the faces
+                        acSol?.OffsetFaces(obj.SubentIds.ToArray(), SettingsUser.RcOffsetDepth);
                     }
                     
                     //Commit the transaction
@@ -101,6 +120,18 @@ namespace RabCab.Commands.CarpentrySuite
             {
                 acCurEd.WriteMessage(e.Message);
             }
+        }
+    }
+
+    internal class OffsetObject
+    {
+        public ObjectId ObjId;
+        public List<SubentityId> SubentIds;
+
+        public OffsetObject(ObjectId objId)
+        {
+            this.ObjId = objId;
+            this.SubentIds = new List<SubentityId>();
         }
     }
 }
