@@ -527,6 +527,29 @@ namespace RabCab.Extensions
         }
 
         /// <summary>
+        ///     Utility Method For Getting A Subentity as an Entity - Given the solid and SubentityID
+        /// </summary>
+        /// <param name="acSol">The Solid to parse for the subentity</param>
+        /// <param name="subId">The Subentity ID of the subentity to be parsed</param>
+        /// <returns></returns>
+        public static Entity GetSubentity(this Solid3d acSol, SubentityId subId)
+        {
+            //If the solid is not null
+            if (acSol == null)
+                return null;
+
+            var objId = acSol.ObjectId;
+
+            if (objId == ObjectId.Null || acSol.IsErased)
+                return null;
+
+            //Create an objID array to use with FullSubEntityPath
+            var objIds = new[] { objId };
+
+            return acSol.GetSubentity(new FullSubentityPath(objIds, subId));
+        }
+
+        /// <summary>
         ///     TODO
         /// </summary>
         /// <param name="acSol"></param>

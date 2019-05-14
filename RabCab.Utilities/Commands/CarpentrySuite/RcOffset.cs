@@ -9,9 +9,14 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
+using System;
 using Autodesk.AutoCAD.ApplicationServices.Core;
+using Autodesk.AutoCAD.DatabaseServices;
+using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Runtime;
+using RabCab.Extensions;
 using RabCab.Settings;
+using Exception = Autodesk.AutoCAD.Runtime.Exception;
 
 namespace RabCab.Commands.CarpentrySuite
 {
@@ -19,7 +24,7 @@ namespace RabCab.Commands.CarpentrySuite
     {
         /// <summary>
         /// </summary>
-        [CommandMethod(SettingsInternal.CommandGroup, "_CMDDEFAULT",
+        [CommandMethod(SettingsInternal.CommandGroup, "_RCOFFSET",
             CommandFlags.Modal
             //| CommandFlags.Transparent
             //| CommandFlags.UsePickSet
@@ -27,7 +32,7 @@ namespace RabCab.Commands.CarpentrySuite
             //| CommandFlags.NoPerspective
             //| CommandFlags.NoMultiple
             //| CommandFlags.NoTileMode
-            //| CommandFlags.NoPaperSpace
+            | CommandFlags.NoPaperSpace
             //| CommandFlags.NoOem
             //| CommandFlags.Undefined
             //| CommandFlags.InProgress
@@ -45,12 +50,57 @@ namespace RabCab.Commands.CarpentrySuite
             //| CommandFlags.ActionMacro
             //| CommandFlags.NoInferConstraint 
         )]
-        public void Cmd_Default()
+        public void Cmd_RcOFfset()
         {
             //Get the current document utilities
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;
             var acCurDb = acCurDoc.Database;
             var acCurEd = acCurDoc.Editor;
+
+
+            //Prompt user to select a 3dFace
+            var userSel = acCurEd.SelectSubentities(SubentityType.Face);
+
+            if (userSel.Count <= 0) return;
+
+            //Get the offset distance from the user
+            var prSelOpts = new PromptDistanceOptions("\nEnter offset distance: ")
+            {
+                AllowNone = false,
+                AllowZero = false,
+                AllowNegative = true,
+                DefaultValue = SettingsUser.RcOffsetDepth
+            };
+
+            var prSelRes = acCurEd.GetDistance(prSelOpts);
+
+            if (prSelRes.Status != PromptStatus.OK) return;
+
+            //Set the offset variable
+            SettingsUser.RcOffsetDepth = prSelRes.Value;
+
+            try
+            {
+                //Start a transaction
+                using (var acTrans = acCurDb.TransactionManager.StartTransaction())
+                {
+                    foreach (var (objectId, subentityId) in userSel)
+                    {
+                        var acSol = acTrans.GetObject(objectId, OpenMode.ForWrite) as Solid3d;
+                        SubentityId[] subIds = { subentityId };
+
+                        //Offset the face
+                        acSol?.OffsetFaces(subIds, SettingsUser.RcOffsetDepth);
+                    }
+                    
+                    //Commit the transaction
+                    acTrans.Commit();
+                }
+            }
+            catch (Exception e)
+            {
+                acCurEd.WriteMessage(e.Message);
+            }
         }
     }
 }

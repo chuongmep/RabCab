@@ -119,7 +119,6 @@ namespace RabCab.Handlers
                 RcPaletteMetric.ParseAndFill(new ObjectId[0], acCurDb);
             }
 
-           
         }
     }
 }

@@ -190,7 +190,6 @@
     <Compile Include="Commands\AnnotationSuite\RcDimExtend.cs" />
     <Compile Include="Commands\AnnotationSuite\RcDimAdd.cs" />
     <Compile Include="Commands\AnnotationSuite\RcDimMove.cs" />
-    <Compile Include="Commands\AnnotationSuite\RcDimMultEdit.cs" />
     <Compile Include="Commands\AnnotationSuite\RcDimPrec.cs" />
     <Compile Include="Commands\AnnotationSuite\RcDimSnap.cs" />
     <Compile Include="Commands\AnnotationSuite\RcDimDelete.cs" />
@@ -206,7 +205,6 @@
     <Compile Include="Commands\AssemblySuite\RcAssemble.cs" />
     <Compile Include="Commands\AssemblySuite\RcBom.cs" />
     <Compile Include="Commands\AssemblySuite\RcExplode.cs" />
-    <Compile Include="Commands\AssemblySuite\RcIdentifiers.cs" />
     <Compile Include="Commands\AssemblySuite\RcLayParts.cs" />
     <Compile Include="Commands\AssemblySuite\RcNameParts.cs" />
     <Compile Include="Commands\AssemblySuite\RcPartMark.cs" />

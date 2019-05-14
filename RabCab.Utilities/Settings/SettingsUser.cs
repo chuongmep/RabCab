@@ -74,6 +74,11 @@ namespace RabCab.Settings
         public static string RcAnnoLt = "CONTINUOUS";
         public static string RcDimLt = "CENTER";
 
+        //Carpentry
+        public static double RcJointDepth = 0;
+        public static double RcOffsetDepth = 0;
+        public static double RcSliceDepth = 0;
+
         public static RoundTolerance UserTol { set; get; } = RoundTolerance.SixDecimals;
     }
 }
