@@ -23,6 +23,7 @@ using RabCab.Agents;
 using RabCab.Calculators;
 using RabCab.Commands.AnalysisSuite;
 using RabCab.Engine.Enumerators;
+using RabCab.Entities.Controls;
 using RabCab.Extensions;
 using RabCab.Settings;
 using static Autodesk.AutoCAD.ApplicationServices.Core.Application;
@@ -62,7 +63,9 @@ namespace RabCab.Commands.PaletteKit
 
         private static TextBox
             _rcNameTxt,
-            _rcInfoTxt,
+            _rcInfoTxt;
+
+        private static ReadOnlyTextBox
             _rcLengthTxt,
             _rcWidthTxt,
             _rcThickTxt,
@@ -75,6 +78,7 @@ namespace RabCab.Commands.PaletteKit
             _rcQtyTotalTxt,
             _rcNumChangesTxt,
             _rcParentTxt;
+
 
         private static ListBox _rcChildList;
 
@@ -287,32 +291,35 @@ namespace RabCab.Commands.PaletteKit
             };
             _rcInfoTxt.TextChanged += info_TextChanged;
 
-            _rcLengthTxt = new TextBox
+            _rcLengthTxt = new ReadOnlyTextBox
                 {Dock = DockStyle.Fill, ReadOnly = true, BackColor = foreColor, ForeColor = textColor};
-            _rcWidthTxt = new TextBox
+            _rcWidthTxt = new ReadOnlyTextBox
                 {Dock = DockStyle.Fill, ReadOnly = true, BackColor = foreColor, ForeColor = textColor};
-            _rcThickTxt = new TextBox
+            _rcThickTxt = new ReadOnlyTextBox
                 {Dock = DockStyle.Fill, ReadOnly = true, BackColor = foreColor, ForeColor = textColor};
-            _rcVolTxt = new TextBox
+            _rcVolTxt = new ReadOnlyTextBox
                 {Dock = DockStyle.Fill, ReadOnly = true, BackColor = foreColor, ForeColor = textColor};
-            _rcAreaTxt = new TextBox
+            _rcAreaTxt = new ReadOnlyTextBox
                 {Dock = DockStyle.Fill, ReadOnly = true, BackColor = foreColor, ForeColor = textColor};
-            _rcPerimTxt = new TextBox
+            _rcPerimTxt = new ReadOnlyTextBox
                 {Dock = DockStyle.Fill, ReadOnly = true, BackColor = foreColor, ForeColor = textColor};
-            _rcAsymTxt = new TextBox
+            _rcAsymTxt = new ReadOnlyTextBox
                 {Dock = DockStyle.Fill, ReadOnly = true, BackColor = foreColor, ForeColor = textColor};
-            _rcAsymStrTxt = new TextBox
+            _rcAsymStrTxt = new ReadOnlyTextBox
                 {Dock = DockStyle.Fill, ReadOnly = true, BackColor = foreColor, ForeColor = textColor};
-            _rcQtyOfTxt = new TextBox
+            _rcQtyOfTxt = new ReadOnlyTextBox
                 {Dock = DockStyle.Fill, ReadOnly = true, BackColor = foreColor, ForeColor = textColor};
-            _rcQtyTotalTxt = new TextBox
+            _rcQtyTotalTxt = new ReadOnlyTextBox
                 {Dock = DockStyle.Fill, ReadOnly = true, BackColor = foreColor, ForeColor = textColor};
-            _rcNumChangesTxt = new TextBox
+            _rcNumChangesTxt = new ReadOnlyTextBox
                 {Dock = DockStyle.Fill, ReadOnly = true, BackColor = foreColor, ForeColor = textColor};
-            _rcParentTxt = new TextBox
+            _rcParentTxt = new ReadOnlyTextBox
                 {Dock = DockStyle.Fill, ReadOnly = true, BackColor = foreColor, ForeColor = textColor};
 
             _rcChildList = new ListBox {Dock = DockStyle.Fill, BackColor = foreColor, ForeColor = textColor};
+            _rcChildList.Sorted = true;
+            _rcChildList.DisplayMember = "Text";
+            _rcChildList.MouseDoubleClick += childList_MouseDoubleClick;
 
             _rcIsSweepChk = new CheckBox
             {
@@ -722,14 +729,8 @@ namespace RabCab.Commands.PaletteKit
                         var cHandles = acEnt.GetChildren();
 
                         if (cHandles.Count > 0)
-                        {
                             foreach (var cH in cHandles)
-                            {
-                                var lItem = new ListViewItem();
-                                lItem.Text = cH.ToString();
-                                _rcChildList.Items.Add(lItem);
-                            }
-                        }
+                                _rcChildList.Items.Add(new ListBoxItem(cH.ToString(), cH.ToString()));
 
                         var txDir = acEnt.GetTextureDirection();
 
@@ -843,7 +844,7 @@ namespace RabCab.Commands.PaletteKit
                         var numChangesList = new List<string>();
                         var parentList = new List<string>();
                         var childList = new List<List<Handle>>();
-                        var txDirList    = new List<Enums.TextureDirection>();
+                        var txDirList = new List<Enums.TextureDirection>();
                         var prodTypeList = new List<Enums.ProductionType>();
                         var isSweepList = new List<bool>();
                         var isMirList = new List<bool>();
@@ -862,14 +863,14 @@ namespace RabCab.Commands.PaletteKit
                             infoList.Add(acEnt.GetPartInfo());
                             qtyOfList.Add(acEnt.GetQtyOf().ToString());
                             qtyTotList.Add(acEnt.GetQtyTotal().ToString());
-                            lengthList.Add( acCurDb.ConvertToDwgUnits(acEnt.GetPartLength()));
-                            widthList.Add( acCurDb.ConvertToDwgUnits(acEnt.GetPartWidth()));
-                            thickList.Add( acCurDb.ConvertToDwgUnits(acEnt.GetPartThickness()));
-                            volList.Add( acEnt.GetPartVolume().ToString());
-                            areaList.Add( acEnt.GetPartArea().ToString());
-                            perimList.Add( acEnt.GetPartPerimeter().ToString());
-                            asymList.Add( acEnt.GetPartAsymmetry().ToString());
-                            asymStrList.Add( acEnt.GetAsymVector());
+                            lengthList.Add(acCurDb.ConvertToDwgUnits(acEnt.GetPartLength()));
+                            widthList.Add(acCurDb.ConvertToDwgUnits(acEnt.GetPartWidth()));
+                            thickList.Add(acCurDb.ConvertToDwgUnits(acEnt.GetPartThickness()));
+                            volList.Add(acEnt.GetPartVolume().ToString());
+                            areaList.Add(acEnt.GetPartArea().ToString());
+                            perimList.Add(acEnt.GetPartPerimeter().ToString());
+                            asymList.Add(acEnt.GetPartAsymmetry().ToString());
+                            asymStrList.Add(acEnt.GetAsymVector());
                             numChangesList.Add(acEnt.GetNumChanges().ToString());
                             parentList.Add(acEnt.GetParent().ToString());
                             childList.Add(acEnt.GetChildren());
@@ -895,7 +896,8 @@ namespace RabCab.Commands.PaletteKit
                         _rcPerimTxt.Text = perimList.Distinct().Count() == 1 ? perimList.First() : varyText;
                         _rcAsymTxt.Text = asymList.Distinct().Count() == 1 ? asymList.First() : varyText;
                         _rcAsymStrTxt.Text = asymStrList.Distinct().Count() == 1 ? asymStrList.First() : varyText;
-                        _rcNumChangesTxt.Text = numChangesList.Distinct().Count() == 1 ? numChangesList.First() : varyText;
+                        _rcNumChangesTxt.Text =
+                            numChangesList.Distinct().Count() == 1 ? numChangesList.First() : varyText;
                         _rcParentTxt.Text = parentList.Distinct().Count() == 1 ? parentList.First() : varyText;
 
                         _rcChildList.Items.Clear();
@@ -905,20 +907,12 @@ namespace RabCab.Commands.PaletteKit
                             var cHandles = childList.First();
 
                             if (cHandles.Count > 0)
-                            {
                                 foreach (var cH in cHandles)
-                                {
-                                    var lItem = new ListViewItem();
-                                    lItem.Text = cH.ToString();
-                                    _rcChildList.Items.Add(lItem);
-                                }
-                            }
+                                    _rcChildList.Items.Add(new ListBoxItem(cH.ToString(), cH.ToString()));
                         }
                         else
                         {
-                            var lItem = new ListViewItem();
-                            lItem.Text = varyText;
-                            _rcChildList.Items.Add(lItem);
+                            _rcChildList.Items.Add(new ListBoxItem("*VARIES*", "VAR"));
                         }
 
                         _txDirUnknown.Checked = false;
@@ -927,7 +921,6 @@ namespace RabCab.Commands.PaletteKit
                         _txDirVer.Checked = false;
 
                         if (txDirList.Distinct().Count() == 1)
-                        {
                             switch (txDirList.First())
                             {
                                 case Enums.TextureDirection.Unknown:
@@ -946,7 +939,6 @@ namespace RabCab.Commands.PaletteKit
                                     _txDirUnknown.Checked = true;
                                     break;
                             }
-                        }
 
                         _prodUnkown.Checked = false;
                         _prodS4S.Checked = false;
@@ -954,7 +946,6 @@ namespace RabCab.Commands.PaletteKit
                         _prodMMany.Checked = false;
 
                         if (prodTypeList.Distinct().Count() == 1)
-                        {
                             switch (prodTypeList.First())
                             {
                                 case Enums.ProductionType.Unknown:
@@ -980,35 +971,20 @@ namespace RabCab.Commands.PaletteKit
                                     break;
                             }
 
-                        }
-
                         if (isSweepList.Distinct().Count() == 1)
-                        {
                             _rcIsSweepChk.Checked = isSweepList.First();
-                        }
                         else
-                        {
                             _rcIsSweepChk.CheckState = CheckState.Indeterminate;
-                        }
 
                         if (isMirList.Distinct().Count() == 1)
-                        {
                             _rcIsiMirChk.Checked = isMirList.First();
-                        }
                         else
-                        {
                             _rcIsiMirChk.CheckState = CheckState.Indeterminate;
-                        }
 
                         if (hasHolesList.Distinct().Count() == 1)
-                        {
                             _rcHasHolesChk.Checked = hasHolesList.First();
-                        }
                         else
-                        {
                             _rcHasHolesChk.CheckState = CheckState.Indeterminate;
-                        }
-
                     }
                     else
                     {
@@ -1019,7 +995,6 @@ namespace RabCab.Commands.PaletteKit
                 }
             }
         }
-
 
 
         private static void ShowUpdateIcon()
@@ -1527,6 +1502,47 @@ namespace RabCab.Commands.PaletteKit
             }
         }
 
+        private void childList_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            var index = _rcChildList.IndexFromPoint(e.Location);
+            if (index == ListBox.NoMatches) return;
+            try
+            {
+                var acCurDoc = DocumentManager.MdiActiveDocument;
+
+                if (acCurDoc == null) return;
+
+                using (acCurDoc.LockDocument())
+                {
+                    var acCurDb = acCurDoc.Database;
+                    var acCurEd = acCurDoc.Editor;
+
+                    using (var acTrans = acCurDb.TransactionManager.StartTransaction())
+                    {
+                        var hdlString = ((ListBoxItem) _rcChildList.Items[index]).Text;
+                        acCurEd.SelectByHandle(hdlString, acCurDb, acTrans);
+                        acTrans.Commit();
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+            }
+        }
+
         #endregion
+    }
+
+    internal class ListBoxItem
+    {
+        public string Text { get; private set; }
+        private string Tag { get; set; }
+
+        public ListBoxItem(string text, string tag)
+        {
+            Text = text;
+            Tag = tag;
+        }
     }
 }

@@ -276,6 +276,9 @@
     <Compile Include="Engine\Enumerators\IEnumerables.cs" />
     <Compile Include="Entities\Annotation\SysPoint.cs" />
     <Compile Include="Entities\Annotation\DimSystem.cs" />
+    <Compile Include="Entities\Controls\ReadOnlyTextbox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Entities\Controls\SplitButton.cs">
       <SubType>Component</SubType>
     </Compile>

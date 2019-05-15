@@ -2026,6 +2026,179 @@ namespace RabCab.Extensions
             //Transform the selected object by the displacement vector
             acEnt?.TransformBy(Matrix3d.Displacement(transVec3D));
         }
+
         #endregion
+
+        #region Handle Extensions
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="acCurEd"></param>
+        /// <param name="hdl"></param>
+        /// <param name="acCurDb"></param>
+        /// <param name="acTrans"></param>
+        public static void SelectByHandle(this Editor acCurEd, string hlString, Database acCurDb, Transaction acTrans)
+        {
+            long ln = Convert.ToInt64(hlString, 16);
+            Handle hdl = new Handle(ln);
+            ObjectId objId = acCurDb.GetObjectId(false, hdl, 0);
+            acCurEd.SetImpliedSelection(new ObjectId[] { objId });
+        }
+
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="acCurEd"></param>
+        /// <param name="hdls"></param>
+        /// <param name="acCurDb"></param>
+        /// <param name="acTrans"></param>
+        public static void SelectByHandle(this Editor acCurEd, List<string> hdlStrings, Database acCurDb, Transaction acTrans)
+        {
+            var objIds = new List<ObjectId>();
+
+            foreach (var hdlString in hdlStrings)
+            {
+                long ln = Convert.ToInt64(hdlString, 16);
+                Handle hdl = new Handle(ln);
+                ObjectId objId = acCurDb.GetObjectId(false, hdl, 0);
+                if (objId != ObjectId.Null)
+                    objIds.Add(objId);
+            }
+
+            if (objIds.Count > 0)
+                acCurEd.SetImpliedSelection(objIds.ToArray());
+        }
+
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="acCurEd"></param>
+        /// <param name="hdl"></param>
+        /// <param name="acCurDb"></param>
+        /// <param name="acTrans"></param>
+        public static void SelectByHandle(this Editor acCurEd, Handle hdl, Database acCurDb, Transaction acTrans)
+        {
+            ObjectId objId = acCurDb.GetObjectId(false, hdl, 0);
+            acCurEd.SetImpliedSelection(new ObjectId[] { objId });
+        }
+
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="acCurEd"></param>
+        /// <param name="hdls"></param>
+        /// <param name="acCurDb"></param>
+        /// <param name="acTrans"></param>
+        public static void SelectByHandle(this Editor acCurEd, List<Handle> hdls, Database acCurDb, Transaction acTrans)
+        {
+            var objIds = new List<ObjectId>();
+
+            foreach (var hdl in hdls)
+            {
+                ObjectId objId = acCurDb.GetObjectId(false, hdl, 0);
+                if (objId != ObjectId.Null)
+                    objIds.Add(objId);
+            }
+
+            if (objIds.Count > 0)
+                acCurEd.SetImpliedSelection(objIds.ToArray());
+        }
+
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="acCurEd"></param>
+        /// <param name="hdl"></param>
+        /// <param name="acCurDb"></param>
+        /// <param name="acTrans"></param>
+        public static void HighlightByHandle(this Editor acCurEd, string hlString, Database acCurDb, Transaction acTrans)
+        {
+            long ln = Convert.ToInt64(hlString, 16);
+            Handle hdl = new Handle(ln);
+            ObjectId objId = acCurDb.GetObjectId(false, hdl, 0);
+
+            var ent = acTrans.GetObject(objId, OpenMode.ForRead) as Entity;
+            if (ent != null)
+            ent.Highlight();
+        }
+
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="acCurEd"></param>
+        /// <param name="hdls"></param>
+        /// <param name="acCurDb"></param>
+        /// <param name="acTrans"></param>
+        public static void HighlightByHandle(this Editor acCurEd, List<string> hdlStrings, Database acCurDb, Transaction acTrans)
+        {
+            var objIds = new List<ObjectId>();
+
+            foreach (var hdlString in hdlStrings)
+            {
+                long ln = Convert.ToInt64(hdlString, 16);
+                Handle hdl = new Handle(ln);
+                ObjectId objId = acCurDb.GetObjectId(false, hdl, 0);
+                if (objId != ObjectId.Null)
+                    objIds.Add(objId);
+            }
+
+            if (objIds.Count <= 0) return;
+            {
+                foreach (var objId in objIds)
+                {
+                    var ent = acTrans.GetObject(objId, OpenMode.ForRead) as Entity;
+                    if (ent != null)
+                        ent.Highlight();
+                }
+            }
+        }
+
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="acCurEd"></param>
+        /// <param name="hdl"></param>
+        /// <param name="acCurDb"></param>
+        /// <param name="acTrans"></param>
+        public static void HighlightByHandle(this Editor acCurEd, Handle hdl, Database acCurDb, Transaction acTrans)
+        {
+            ObjectId objId = acCurDb.GetObjectId(false, hdl, 0);
+            var ent = acTrans.GetObject(objId, OpenMode.ForRead) as Entity;
+            if (ent != null)
+                ent.Highlight();
+        }
+
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="acCurEd"></param>
+        /// <param name="hdls"></param>
+        /// <param name="acCurDb"></param>
+        /// <param name="acTrans"></param>
+        public static void HighlightByHandle(this Editor acCurEd, List<Handle> hdls, Database acCurDb, Transaction acTrans)
+        {
+            var objIds = new List<ObjectId>();
+
+            foreach (var hdl in hdls)
+            {
+                ObjectId objId = acCurDb.GetObjectId(false, hdl, 0);
+                if (objId != ObjectId.Null)
+                    objIds.Add(objId);
+            }
+
+            if (objIds.Count <= 0) return;
+            {
+                foreach (var objId in objIds)
+                {
+                    var ent = acTrans.GetObject(objId, OpenMode.ForRead) as Entity;
+                    if (ent != null)
+                        ent.Highlight();
+                }
+            }
+
+
+        }
+        #endregion
+
     }
 }
