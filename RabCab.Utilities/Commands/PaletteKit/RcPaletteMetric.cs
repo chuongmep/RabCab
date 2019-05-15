@@ -10,7 +10,9 @@
 // -----------------------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
@@ -31,13 +33,13 @@ namespace RabCab.Commands.PaletteKit
     {
         private readonly string _palName = "Metrics";
         private UserControl _palPanel;
-        internal static PaletteSet _rcPal;
-        private const int ctrlHeight = 25;
-        private const int labColumn = 0;
-        private const int infoColumn = 1;
-        private static bool ignoreTextChange;
+        internal static PaletteSet RcPal;
+        private const int CtrlHeight = 25;
+        private const int LabColumn = 0;
+        private const int InfoColumn = 1;
+        private static bool _ignoreTextChange;
 
-        private static TableLayoutPanel tbLayout;
+        private static TableLayoutPanel _tbLayout;
 
         private static Label _rcNameLab,
             _rcInfoLab,
@@ -134,9 +136,9 @@ namespace RabCab.Commands.PaletteKit
         /// </summary>
         private void CreatePal()
         {
-            if (_rcPal == null)
+            if (RcPal == null)
             {
-                _rcPal = new PaletteSet(_palName, new Guid())
+                RcPal = new PaletteSet(_palName, new Guid())
                 {
                     Style = PaletteSetStyles.ShowPropertiesMenu
                             | PaletteSetStyles.ShowAutoHideButton
@@ -147,10 +149,10 @@ namespace RabCab.Commands.PaletteKit
 
                 PopulatePal();
                 _palPanel.UpdateTheme();
-                _rcPal.Add(_palName, _palPanel);
+                RcPal.Add(_palName, _palPanel);
             }
 
-            _rcPal.Visible = true;
+            RcPal.Visible = true;
         }
 
         /// <summary>
@@ -167,7 +169,7 @@ namespace RabCab.Commands.PaletteKit
             _palPanel.BackColor = foreColor;
             _palPanel.ForeColor = foreColor;
 
-            tbLayout = new TableLayoutPanel
+            _tbLayout = new TableLayoutPanel
             {
                 AutoScroll = true,
                 AutoSizeMode = AutoSizeMode.GrowAndShrink,
@@ -177,9 +179,9 @@ namespace RabCab.Commands.PaletteKit
                 Dock = DockStyle.Fill
             };
 
-            tbLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 80F));
-            tbLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tbLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 5F));
+            _tbLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 80F));
+            _tbLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            _tbLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 5F));
 
             _rcNameLab = new Label
             {
@@ -467,7 +469,7 @@ namespace RabCab.Commands.PaletteKit
 
             _btPanel = new Panel
             {
-                Dock = DockStyle.Bottom, Height = ctrlHeight, AutoSize = false, BackColor = foreColor,
+                Dock = DockStyle.Bottom, Height = CtrlHeight, AutoSize = false, BackColor = foreColor,
                 ForeColor = textColor
             };
             var btLayout = new TableLayoutPanel
@@ -486,7 +488,7 @@ namespace RabCab.Commands.PaletteKit
             btLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             btLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             btLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            btLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, ctrlHeight + 5));
+            btLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, CtrlHeight + 5));
 
             btLayout.Controls.Add(_travButton, 0, 0);
             btLayout.Controls.Add(_selParent, 1, 0);
@@ -502,35 +504,35 @@ namespace RabCab.Commands.PaletteKit
 
             #region AddInfoToTable
 
-            AddToTable(_rcNameLab, _rcNameTxt, ctrlHeight, ref rowCount);
-            AddToTable(_rcInfoLab, _rcInfoTxt, ctrlHeight * 2, ref rowCount);
-            AddToTable(_rcQtyOfLab, _rcQtyOfTxt, ctrlHeight, ref rowCount);
-            AddToTable(_rcQtyTotalLab, _rcQtyTotalTxt, ctrlHeight, ref rowCount);
-            AddToTable(_rcLengthLab, _rcLengthTxt, ctrlHeight, ref rowCount);
-            AddToTable(_rcWidthLab, _rcWidthTxt, ctrlHeight, ref rowCount);
-            AddToTable(_rcThickLab, _rcThickTxt, ctrlHeight, ref rowCount);
-            AddToTable(_rcVolLab, _rcVolTxt, ctrlHeight, ref rowCount);
-            AddToTable(_rcAreaLab, _rcAreaTxt, ctrlHeight, ref rowCount);
-            AddToTable(_rcPerimLab, _rcPerimTxt, ctrlHeight, ref rowCount);
-            AddToTable(_rcAsymLab, _rcAsymTxt, ctrlHeight, ref rowCount);
-            AddToTable(_rcAsymStrLab, _rcAsymStrTxt, ctrlHeight, ref rowCount);
-            AddToTable(_rcNumChangesLab, _rcNumChangesTxt, ctrlHeight, ref rowCount);
+            AddToTable(_rcNameLab, _rcNameTxt, CtrlHeight, ref rowCount);
+            AddToTable(_rcInfoLab, _rcInfoTxt, CtrlHeight * 2, ref rowCount);
+            AddToTable(_rcQtyOfLab, _rcQtyOfTxt, CtrlHeight, ref rowCount);
+            AddToTable(_rcQtyTotalLab, _rcQtyTotalTxt, CtrlHeight, ref rowCount);
+            AddToTable(_rcLengthLab, _rcLengthTxt, CtrlHeight, ref rowCount);
+            AddToTable(_rcWidthLab, _rcWidthTxt, CtrlHeight, ref rowCount);
+            AddToTable(_rcThickLab, _rcThickTxt, CtrlHeight, ref rowCount);
+            AddToTable(_rcVolLab, _rcVolTxt, CtrlHeight, ref rowCount);
+            AddToTable(_rcAreaLab, _rcAreaTxt, CtrlHeight, ref rowCount);
+            AddToTable(_rcPerimLab, _rcPerimTxt, CtrlHeight, ref rowCount);
+            AddToTable(_rcAsymLab, _rcAsymTxt, CtrlHeight, ref rowCount);
+            AddToTable(_rcAsymStrLab, _rcAsymStrTxt, CtrlHeight, ref rowCount);
+            AddToTable(_rcNumChangesLab, _rcNumChangesTxt, CtrlHeight, ref rowCount);
 
-            AddToTable(_rcParentLab, _rcParentTxt, ctrlHeight, ref rowCount);
-            AddToTable(_rcChildLab, _rcChildList, ctrlHeight * 5, ref rowCount);
+            AddToTable(_rcParentLab, _rcParentTxt, CtrlHeight, ref rowCount);
+            AddToTable(_rcChildLab, _rcChildList, CtrlHeight * 5, ref rowCount);
 
-            AddToTable(_rcTxDirLab, txLayout, ctrlHeight + 10, ref rowCount);
-            AddToTable(_prodTypLab, prodLayout, ctrlHeight + 10, ref rowCount);
+            AddToTable(_rcTxDirLab, txLayout, CtrlHeight + 10, ref rowCount);
+            AddToTable(_prodTypLab, prodLayout, CtrlHeight + 10, ref rowCount);
 
-            AddToTable(new Label(), _rcIsSweepChk, ctrlHeight, ref rowCount);
-            AddToTable(new Label(), _rcIsiMirChk, ctrlHeight, ref rowCount);
-            AddToTable(new Label(), _rcHasHolesChk, ctrlHeight, ref rowCount);
+            AddToTable(new Label(), _rcIsSweepChk, CtrlHeight, ref rowCount);
+            AddToTable(new Label(), _rcIsiMirChk, CtrlHeight, ref rowCount);
+            AddToTable(new Label(), _rcHasHolesChk, CtrlHeight, ref rowCount);
 
-            AddToTable(new Label(), new Label(), ctrlHeight, ref rowCount);
+            AddToTable(new Label(), new Label(), CtrlHeight, ref rowCount);
 
             #endregion
 
-            _palPanel.Controls.Add(tbLayout);
+            _palPanel.Controls.Add(_tbLayout);
             _palPanel.Controls.Add(_stStrip);
             _palPanel.Controls.Add(_btPanel);
         }
@@ -547,9 +549,9 @@ namespace RabCab.Commands.PaletteKit
             if (ctrl1 == null) throw new ArgumentNullException(nameof(ctrl1));
             if (ctr2 == null) throw new ArgumentNullException(nameof(ctr2));
 
-            tbLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, ctHeight));
-            tbLayout.Controls.Add(ctrl1, labColumn, rowCount);
-            tbLayout.Controls.Add(ctr2, infoColumn, rowCount);
+            _tbLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, ctHeight));
+            _tbLayout.Controls.Add(ctrl1, LabColumn, rowCount);
+            _tbLayout.Controls.Add(ctr2, InfoColumn, rowCount);
             rowCount++;
         }
 
@@ -562,7 +564,7 @@ namespace RabCab.Commands.PaletteKit
         /// <param name="acCurDb"></param>
         internal static void ParseAndFill(ObjectId[] objIds, Database acCurDb)
         {
-            ignoreTextChange = true;
+            _ignoreTextChange = true;
 
             var objCount = objIds.Length;
 
@@ -577,9 +579,14 @@ namespace RabCab.Commands.PaletteKit
 
                     ParseSingleObject(objIds, acCurDb);
                     break;
+
+                default:
+
+                    ParseManyObjects(objIds, acCurDb);
+                    break;
             }
 
-            ignoreTextChange = false;
+            _ignoreTextChange = false;
         }
 
         /// <summary>
@@ -605,6 +612,44 @@ namespace RabCab.Commands.PaletteKit
             ClearText(_rcAsymStrTxt);
             ClearText(_rcNumChangesTxt);
             ClearText(_rcParentTxt);
+
+            _rcChildList.Items.Clear();
+
+            _txDirUnknown.Checked = false;
+            _txDirNone.Checked = false;
+            _txDirHor.Checked = false;
+            _txDirVer.Checked = false;
+
+            _prodUnkown.Checked = false;
+            _prodS4S.Checked = false;
+            _prodMOne.Checked = false;
+            _prodMMany.Checked = false;
+
+            _rcIsSweepChk.Checked = false;
+            _rcIsiMirChk.Checked = false;
+            _rcHasHolesChk.Checked = false;
+        }
+
+        /// <summary>
+        ///     TODO
+        /// </summary>
+        private static void VaryInformation()
+        {
+            ClearUpdateIcon();
+            VaryText(_rcNameTxt);
+            VaryText(_rcInfoTxt);
+            VaryText(_rcQtyOfTxt);
+            VaryText(_rcQtyTotalTxt);
+            VaryText(_rcLengthTxt);
+            VaryText(_rcWidthTxt);
+            VaryText(_rcThickTxt);
+            VaryText(_rcVolTxt);
+            VaryText(_rcAreaTxt);
+            VaryText(_rcPerimTxt);
+            VaryText(_rcAsymTxt);
+            VaryText(_rcAsymStrTxt);
+            VaryText(_rcNumChangesTxt);
+            VaryText(_rcParentTxt);
 
             _rcChildList.Items.Clear();
 
@@ -736,9 +781,205 @@ namespace RabCab.Commands.PaletteKit
                     }
                 }
 
-                acTrans.Commit();
+                acTrans.Abort();
             }
         }
+
+        /// <summary>
+        ///     TODO
+        /// </summary>
+        /// <param name="objIds"></param>
+        /// <param name="acCurDb"></param>
+        private static void ParseManyObjects(ObjectId[] objIds, Database acCurDb)
+        {
+            if (objIds.Length > 1)
+            {
+                _stText.Text = objIds.Length + " Objects Selected";
+
+                using (var acTrans = acCurDb.TransactionManager.StartTransaction())
+                {
+                    var allHaveXData = true;
+
+                    foreach (var objId in objIds)
+                    {
+                        var acEnt = acTrans.GetObject(objId, OpenMode.ForRead) as Entity;
+                        if (acEnt.HasXData()) continue;
+                        allHaveXData = false;
+                        break;
+                    }
+
+                    if (allHaveXData)
+                    {
+                        var nameList = new List<string>();
+                        var infoList = new List<string>();
+                        var qtyOfList = new List<string>();
+                        var qtyTotList = new List<string>();
+                        var lengthList = new List<string>();
+                        var widthList = new List<string>();
+                        var thickList = new List<string>();
+                        var volList = new List<string>();
+                        var areaList = new List<string>();
+                        var perimList = new List<string>();
+                        var asymList = new List<string>();
+                        var asymStrList = new List<string>();
+                        var numChangesList = new List<string>();
+                        var parentList = new List<string>();
+                        var childList = new List<string>();
+                        var txDirList    = new List<Enums.TextureDirection>();
+                        var prodTypeList = new List<Enums.ProductionType>();
+                        var isSweepList = new List<bool>();
+                        var isMirList = new List<bool>();
+                        var hasHolesList = new List<bool>();
+
+                        foreach (var objId in objIds)
+                        {
+                            var acEnt = acTrans.GetObject(objId, OpenMode.ForRead) as Entity;
+                            if (acEnt == null)
+                            {
+                                VaryInformation();
+                                break;
+                            }
+
+                            nameList.Add(acEnt.GetPartName());
+                            infoList.Add(acEnt.GetPartInfo());
+                            qtyOfList.Add(acEnt.GetQtyOf().ToString());
+                            qtyTotList.Add(acEnt.GetQtyTotal().ToString());
+                            lengthList.Add( acCurDb.ConvertToDwgUnits(acEnt.GetPartLength()));
+                            widthList.Add( acCurDb.ConvertToDwgUnits(acEnt.GetPartWidth()));
+                            thickList.Add( acCurDb.ConvertToDwgUnits(acEnt.GetPartThickness()));
+                            volList.Add( acEnt.GetPartVolume().ToString());
+                            areaList.Add( acEnt.GetPartArea().ToString());
+                            perimList.Add( acEnt.GetPartPerimeter().ToString());
+                            asymList.Add( acEnt.GetPartAsymmetry().ToString());
+                            asymStrList.Add( acEnt.GetAsymVector());
+                            numChangesList.Add(acEnt.GetNumChanges().ToString());
+                            parentList.Add(acEnt.GetParent().ToString());
+                            childList.Add(acEnt.GetChildren().ToString());
+                            txDirList.Add(acEnt.GetTextureDirection());
+                            prodTypeList.Add(acEnt.GetProductionType());
+                            isSweepList.Add(acEnt.GetIsSweep());
+                            isMirList.Add(acEnt.GetIsMirror());
+                            hasHolesList.Add(acEnt.GetHasHoles());
+                        }
+
+                        var varyText = "*VARIES*";
+
+                        //Check list sizes
+                        _rcNameTxt.Text = nameList.Distinct().Count() == 1 ? nameList.First() : varyText;
+                        _rcInfoTxt.Text = infoList.Distinct().Count() == 1 ? infoList.First() : varyText;
+                        _rcQtyOfTxt.Text = qtyOfList.Distinct().Count() == 1 ? qtyOfList.First() : varyText;
+                        _rcQtyTotalTxt.Text = qtyTotList.Distinct().Count() == 1 ? qtyTotList.First() : varyText;
+                        _rcLengthTxt.Text = lengthList.Distinct().Count() == 1 ? lengthList.First() : varyText;
+                        _rcWidthTxt.Text = widthList.Distinct().Count() == 1 ? widthList.First() : varyText;
+                        _rcThickTxt.Text = thickList.Distinct().Count() == 1 ? thickList.First() : varyText;
+                        _rcVolTxt.Text = volList.Distinct().Count() == 1 ? volList.First() : varyText;
+                        _rcAreaTxt.Text = areaList.Distinct().Count() == 1 ? areaList.First() : varyText;
+                        _rcPerimTxt.Text = perimList.Distinct().Count() == 1 ? perimList.First() : varyText;
+                        _rcAsymTxt.Text = asymList.Distinct().Count() == 1 ? asymList.First() : varyText;
+                        _rcAsymStrTxt.Text = asymStrList.Distinct().Count() == 1 ? asymStrList.First() : varyText;
+                        _rcNumChangesTxt.Text = numChangesList.Distinct().Count() == 1 ? numChangesList.First() : varyText;
+                        _rcParentTxt.Text = parentList.Distinct().Count() == 1 ? parentList.First() : varyText;
+
+                        _txDirUnknown.Checked = false;
+                        _txDirNone.Checked = false;
+                        _txDirHor.Checked = false;
+                        _txDirVer.Checked = false;
+
+                        if (txDirList.Distinct().Count() == 1)
+                        {
+                            switch (txDirList.First())
+                            {
+                                case Enums.TextureDirection.Unknown:
+                                    _txDirUnknown.Checked = true;
+                                    break;
+                                case Enums.TextureDirection.None:
+                                    _txDirNone.Checked = true;
+                                    break;
+                                case Enums.TextureDirection.Horizontal:
+                                    _txDirHor.Checked = true;
+                                    break;
+                                case Enums.TextureDirection.Vertical:
+                                    _txDirVer.Checked = true;
+                                    break;
+                                default:
+                                    _txDirUnknown.Checked = true;
+                                    break;
+                            }
+                        }
+
+                        _prodUnkown.Checked = false;
+                        _prodS4S.Checked = false;
+                        _prodMOne.Checked = false;
+                        _prodMMany.Checked = false;
+
+                        if (prodTypeList.Distinct().Count() == 1)
+                        {
+                            switch (prodTypeList.First())
+                            {
+                                case Enums.ProductionType.Unknown:
+                                    _prodUnkown.Checked = true;
+                                    break;
+                                case Enums.ProductionType.S4S:
+                                    _prodS4S.Checked = true;
+                                    break;
+                                case Enums.ProductionType.MillingOneSide:
+                                    _prodMOne.Checked = true;
+                                    break;
+                                case Enums.ProductionType.MillingManySide:
+                                    _prodMMany.Checked = true;
+                                    break;
+                                case Enums.ProductionType.Box:
+                                    _prodS4S.Checked = true;
+                                    break;
+                                case Enums.ProductionType.Sweep:
+                                    _prodUnkown.Checked = true;
+                                    break;
+                                default:
+                                    _prodUnkown.Checked = true;
+                                    break;
+                            }
+
+                        }
+
+                        if (isSweepList.Distinct().Count() == 1)
+                        {
+                            _rcIsSweepChk.Checked = isSweepList.First();
+                        }
+                        else
+                        {
+                            _rcIsSweepChk.CheckState = CheckState.Indeterminate;
+                        }
+
+                        if (isMirList.Distinct().Count() == 1)
+                        {
+                            _rcIsiMirChk.Checked = isMirList.First();
+                        }
+                        else
+                        {
+                            _rcIsiMirChk.CheckState = CheckState.Indeterminate;
+                        }
+
+                        if (hasHolesList.Distinct().Count() == 1)
+                        {
+                            _rcHasHolesChk.Checked = hasHolesList.First();
+                        }
+                        else
+                        {
+                            _rcHasHolesChk.CheckState = CheckState.Indeterminate;
+                        }
+
+                    }
+                    else
+                    {
+                        VaryInformation();
+                    }
+
+                    acTrans.Abort();
+                }
+            }
+        }
+
+
 
         private static void ShowUpdateIcon()
         {
@@ -1060,7 +1301,7 @@ namespace RabCab.Commands.PaletteKit
         /// <param name="e"></param>
         private void name_TextChanged(object sender, EventArgs e)
         {
-            if (ignoreTextChange) return;
+            if (_ignoreTextChange) return;
 
             if (_rcNameTxt.Text == SettingsInternal.VariesTxt) return;
 
@@ -1096,7 +1337,7 @@ namespace RabCab.Commands.PaletteKit
         /// <param name="e"></param>
         private void info_TextChanged(object sender, EventArgs e)
         {
-            if (ignoreTextChange) return;
+            if (_ignoreTextChange) return;
 
             if (_rcInfoTxt.Text == SettingsInternal.VariesTxt) return;
 
@@ -1132,6 +1373,15 @@ namespace RabCab.Commands.PaletteKit
         private static void ClearText(TextBox txtBox)
         {
             txtBox.Text = "";
+        }
+
+        /// <summary>
+        ///     TODO
+        /// </summary>
+        /// <param name="txtBox"></param>
+        private static void VaryText(TextBox txtBox)
+        {
+            txtBox.Text = "*VARIES*";
         }
 
         /// <summary>

@@ -133,7 +133,7 @@ namespace RabCab.Handlers
             {
                 if (SettingsInternal.EnMetPal == false) return;
 
-                if (RcPaletteMetric._rcPal == null) return;
+                if (RcPaletteMetric.RcPal == null) return;
 
                 var acCurDoc = Application.DocumentManager.MdiActiveDocument;
                 if (acCurDoc == null) return;

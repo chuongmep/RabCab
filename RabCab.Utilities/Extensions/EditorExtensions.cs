@@ -2007,5 +2007,25 @@ namespace RabCab.Extensions
         }
 
         #endregion
+
+        #region Selected Object Extensions
+        /// <summary>
+        ///     Method to Move A Selected Objects by a Vector3D Displacement
+        /// </summary>
+        /// <param name="acTrans">The Current Working Transaction</param>
+        /// <param name="acSsObj">The Selected Object</param>
+        /// <param name="transVec3D">The Vector3D To Displace The Object By</param>
+        public static void DisplaceByVector(this SelectedObject acSsObj, Transaction acTrans,Vector3d transVec3D)
+        {
+            // Check if a valid SelectedObject was returned
+            if (acSsObj == null) return;
+
+            // Open the selected object for write
+            var acEnt = acTrans.GetObject(acSsObj.ObjectId, OpenMode.ForWrite) as Entity;
+
+            //Transform the selected object by the displacement vector
+            acEnt?.TransformBy(Matrix3d.Displacement(transVec3D));
+        }
+        #endregion
     }
 }

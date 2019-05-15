@@ -427,6 +427,8 @@ namespace RabCab.Analysis
                 AsymmetryVector = AsymmetryVector.RoundToTolerance();
 
                 if (Asymmetry > 0) FixMatrix(boxCen);
+
+                AsymString = AsymVStr(AsymmetryVector);
             }
 
             //Get length, width, thickness
