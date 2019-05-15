@@ -4,7 +4,7 @@ using RabCab.Settings;
 
 namespace RabCab.Commands.AssemblySuite
 {
-    internal class RcUpdateParent
+    internal class RcUpdateSiblings
     {
         /// <summary>
         /// </summary>

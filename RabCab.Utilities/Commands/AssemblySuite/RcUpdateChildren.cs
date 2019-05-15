@@ -55,6 +55,12 @@ namespace RabCab.Commands.AssemblySuite
 
         }
 
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="objIds"></param>
+        /// <param name="acCurEd"></param>
+        /// <param name="acCurDb"></param>
         internal static void UpdateChildren(ObjectId[] objIds, Editor acCurEd, Database acCurDb)
         {
             using (var acTrans = acCurDb.TransactionManager.StartTransaction())

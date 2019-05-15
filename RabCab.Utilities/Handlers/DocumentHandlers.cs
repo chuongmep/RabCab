@@ -27,6 +27,9 @@ namespace RabCab.Handlers
     /// </summary>
     internal static class DocumentHandlers
     {
+
+        #region Handler Init
+
         /// <summary>
         ///     TODO
         /// </summary>
@@ -46,6 +49,9 @@ namespace RabCab.Handlers
                 acDoc.ImpliedSelectionChanged += Doc_ImpliedSelectionChanged;
                 acDoc.Database.ObjectModified += Database_ObjectModified;
                 acDoc.Database.ObjectErased += Database_ObjectErased;
+
+                acDoc.CommandWillStart += Doc_CommandWillStart;
+                acDoc.CommandEnded += Doc_CommandEnded;
             }
             catch (Exception e)
             {
@@ -73,6 +79,9 @@ namespace RabCab.Handlers
                 acDoc.ImpliedSelectionChanged -= Doc_ImpliedSelectionChanged;
                 acDoc.Database.ObjectModified -= Database_ObjectModified;
                 acDoc.Database.ObjectErased -= Database_ObjectErased;
+
+                acDoc.CommandWillStart -= Doc_CommandWillStart;
+                acDoc.CommandEnded -= Doc_CommandEnded;
             }
             catch (Exception e)
             {
@@ -81,20 +90,30 @@ namespace RabCab.Handlers
             }
         }
 
+        #endregion
+
+        #region Main Doc Handlers
+
         private static void DocActivated(object senderObj,
             DocumentCollectionEventArgs docActEvent)
         {
             try
             {
+                // Get the current document
+                var acDocMan = Application.DocumentManager;
+                var acDoc = acDocMan.MdiActiveDocument;
+
+                if (acDoc == null) return;
+
                 //Notebook Handlers
                 if (SettingsInternal.EnNotePal) RcPaletteNotebook.UpdNotePal();
 
-                if (Application.DocumentManager.CurrentDocument != null)
-                {
-                    Application.DocumentManager.CurrentDocument.ImpliedSelectionChanged += Doc_ImpliedSelectionChanged;
-                    Application.DocumentManager.CurrentDocument.Database.ObjectModified += Database_ObjectModified;
-                    Application.DocumentManager.CurrentDocument.Database.ObjectErased += Database_ObjectErased;
-                }
+                acDoc.ImpliedSelectionChanged += Doc_ImpliedSelectionChanged;
+                acDoc.Database.ObjectModified += Database_ObjectModified;
+                acDoc.Database.ObjectErased += Database_ObjectErased;
+
+                acDoc.CommandWillStart += Doc_CommandWillStart;
+                acDoc.CommandEnded += Doc_CommandEnded;
             }
             catch (Exception e)
             {
@@ -113,12 +132,17 @@ namespace RabCab.Handlers
         {
             try
             {
-                if (Application.DocumentManager.CurrentDocument != null)
-                {
-                    Application.DocumentManager.CurrentDocument.ImpliedSelectionChanged -= Doc_ImpliedSelectionChanged;
-                    Application.DocumentManager.CurrentDocument.Database.ObjectModified -= Database_ObjectModified;
-                    Application.DocumentManager.CurrentDocument.Database.ObjectErased -= Database_ObjectErased;
-                }
+                // Get the current document
+                var acDocMan = Application.DocumentManager;
+                var acDoc = acDocMan.MdiActiveDocument;
+
+                if (acDoc == null) return;
+                acDoc.ImpliedSelectionChanged -= Doc_ImpliedSelectionChanged;
+                acDoc.Database.ObjectModified -= Database_ObjectModified;
+                acDoc.Database.ObjectErased -= Database_ObjectErased;
+
+                acDoc.CommandWillStart -= Doc_CommandWillStart;
+                acDoc.CommandEnded -= Doc_CommandEnded;
             }
             catch (Exception e)
             {
@@ -127,9 +151,18 @@ namespace RabCab.Handlers
             }
         }
 
+        #endregion
 
+        #region Secondary Doc Handlers
+
+        /// <summary>
+        ///     TODO
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private static void Doc_ImpliedSelectionChanged(object sender, EventArgs e)
         {
+
             try
             {
                 if (SettingsInternal.EnMetPal == false) return;
@@ -161,9 +194,36 @@ namespace RabCab.Handlers
             }
         }
 
+        /// <summary>
+        ///     TODO
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private static void Doc_CommandWillStart(object sender, CommandEventArgs e)
+        {
+        }
 
+        /// <summary>
+        ///     TODO
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private static void Doc_CommandEnded(object sender, CommandEventArgs e)
+        {
+        }
+
+        #endregion
+
+        #region Database Handlers
+
+        /// <summary>
+        ///     TODO
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private static void Database_ObjectModified(object sender, ObjectEventArgs e)
         {
+
             var acCurDb = (Database) sender;
             if (acCurDb == null || acCurDb.IsDisposed)
                 return;
@@ -172,61 +232,65 @@ namespace RabCab.Handlers
 
             if (dbObj == null || dbObj.IsDisposed || dbObj.IsErased)
                 return;
-
-            if (dbObj is Solid3d acSol) acSol.Update(acCurDb);
         }
 
+        /// <summary>
+        ///     TODO
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private static void Database_ObjectErased(object sender, ObjectErasedEventArgs e)
         {
+
             var acCurDb = (Database) sender;
             if (acCurDb == null || acCurDb.IsDisposed)
                 return;
 
             var dbObj = e.DBObject;
 
-            if (dbObj == null || dbObj.IsDisposed || dbObj.IsErased)
-                return;
-
-            if (dbObj is Solid3d acSol)
-            {
-                var acCurDoc = Application.DocumentManager.MdiActiveDocument;
-                var acCurEd = acCurDoc.Editor;
-                var handle = acSol.Handle;
-
-                using (var acTrans = acCurDb.TransactionManager.StartTransaction())
+            if (dbObj.IsErased)
+                if (dbObj is Solid3d acSol)
                 {
-                    var objs = acCurEd.SelectAllOfType("3DSOLID", acTrans);
+                    var acCurDoc = Application.DocumentManager.MdiActiveDocument;
+                    var acCurEd = acCurDoc.Editor;
+                    var handle = acSol.Handle;
 
-                    foreach (var obj in objs)
+                    using (var acTrans = acCurDb.TransactionManager.StartTransaction())
                     {
-                        var cSol = acTrans.GetObject(obj, OpenMode.ForRead) as Solid3d;
-                        if (cSol == null) continue;
+                        var objs = acCurEd.SelectAllOfType("3DSOLID", acTrans);
 
-                        if (!cSol.HasXData()) continue;
-                        cSol.Upgrade();
+                        foreach (var obj in objs)
+                        {
+                            var cSol = acTrans.GetObject(obj, OpenMode.ForRead) as Solid3d;
+                            if (cSol == null) continue;
 
-                        var cHandles = cSol.GetChildren();
-                        var pHandle = cSol.GetParent();
+                            if (!cSol.HasXData()) continue;
+                            cSol.Upgrade();
 
-                        if (cHandles.Count > 0)
-                            if (cHandles.Contains(handle))
-                            {
-                                cHandles.Remove(handle);
+                            var cHandles = cSol.GetChildren();
+                            var pHandle = cSol.GetParent();
 
-                                cSol.UpdateXData(cHandles, Enums.XDataCode.ChildObjects, acCurDb, acTrans);
-                            }
+                            if (cHandles.Count > 0)
+                                if (cHandles.Contains(handle))
+                                {
+                                    cHandles.Remove(handle);
 
-                        if (pHandle == handle)
-                            cSol.UpdateXData(default(Handle), Enums.XDataCode.ParentObject, acCurDb, acTrans);
+                                    cSol.UpdateXData(cHandles, Enums.XDataCode.ChildObjects, acCurDb, acTrans);
+                                }
 
-                        cSol.Update(acCurDb);
+                            if (pHandle == handle)
+                                cSol.UpdateXData(default(Handle), Enums.XDataCode.ParentObject, acCurDb, acTrans);
 
-                        cSol.Downgrade();
+                            cSol.Update(acCurDb);
+
+                            cSol.Downgrade();
+                        }
+
+                        acTrans.Commit();
                     }
-
-                    acTrans.Commit();
                 }
-            }
         }
+
+        #endregion
     }
 }
