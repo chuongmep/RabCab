@@ -23,6 +23,7 @@ using RabCab.Agents;
 using RabCab.Calculators;
 using RabCab.Commands.AnalysisSuite;
 using RabCab.Engine.Enumerators;
+using RabCab.Extensions;
 using RabCab.Settings;
 using static Autodesk.AutoCAD.ApplicationServices.Core.Application;
 using Exception = System.Exception;
@@ -652,6 +653,9 @@ namespace RabCab.Commands.PaletteKit
             VaryText(_rcParentTxt);
 
             _rcChildList.Items.Clear();
+            var lItem = new ListViewItem();
+            lItem.Text = "*VARIES*";
+            _rcChildList.Items.Add(lItem);
 
             _txDirUnknown.Checked = false;
             _txDirNone.Checked = false;
@@ -712,6 +716,20 @@ namespace RabCab.Commands.PaletteKit
                         AddText(_rcAsymStrTxt, acEnt.GetAsymVector());
                         AddText(_rcNumChangesTxt, acEnt.GetNumChanges().ToString());
                         AddText(_rcParentTxt, acEnt.GetParent().ToString());
+                        _rcChildList.Items.Clear();
+
+                        //Fill Child List Pane
+                        var cHandles = acEnt.GetChildren();
+
+                        if (cHandles.Count > 0)
+                        {
+                            foreach (var cH in cHandles)
+                            {
+                                var lItem = new ListViewItem();
+                                lItem.Text = cH.ToString();
+                                _rcChildList.Items.Add(lItem);
+                            }
+                        }
 
                         var txDir = acEnt.GetTextureDirection();
 
@@ -824,7 +842,7 @@ namespace RabCab.Commands.PaletteKit
                         var asymStrList = new List<string>();
                         var numChangesList = new List<string>();
                         var parentList = new List<string>();
-                        var childList = new List<string>();
+                        var childList = new List<List<Handle>>();
                         var txDirList    = new List<Enums.TextureDirection>();
                         var prodTypeList = new List<Enums.ProductionType>();
                         var isSweepList = new List<bool>();
@@ -854,7 +872,7 @@ namespace RabCab.Commands.PaletteKit
                             asymStrList.Add( acEnt.GetAsymVector());
                             numChangesList.Add(acEnt.GetNumChanges().ToString());
                             parentList.Add(acEnt.GetParent().ToString());
-                            childList.Add(acEnt.GetChildren().ToString());
+                            childList.Add(acEnt.GetChildren());
                             txDirList.Add(acEnt.GetTextureDirection());
                             prodTypeList.Add(acEnt.GetProductionType());
                             isSweepList.Add(acEnt.GetIsSweep());
@@ -879,6 +897,29 @@ namespace RabCab.Commands.PaletteKit
                         _rcAsymStrTxt.Text = asymStrList.Distinct().Count() == 1 ? asymStrList.First() : varyText;
                         _rcNumChangesTxt.Text = numChangesList.Distinct().Count() == 1 ? numChangesList.First() : varyText;
                         _rcParentTxt.Text = parentList.Distinct().Count() == 1 ? parentList.First() : varyText;
+
+                        _rcChildList.Items.Clear();
+
+                        if (childList.AreAllSame())
+                        {
+                            var cHandles = childList.First();
+
+                            if (cHandles.Count > 0)
+                            {
+                                foreach (var cH in cHandles)
+                                {
+                                    var lItem = new ListViewItem();
+                                    lItem.Text = cH.ToString();
+                                    _rcChildList.Items.Add(lItem);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            var lItem = new ListViewItem();
+                            lItem.Text = varyText;
+                            _rcChildList.Items.Add(lItem);
+                        }
 
                         _txDirUnknown.Checked = false;
                         _txDirNone.Checked = false;

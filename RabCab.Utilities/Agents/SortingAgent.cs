@@ -480,11 +480,15 @@ namespace RabCab.Agents
                 if (acSol == null) continue;
 
                 var cloneSol = acSol.Clone() as Solid3d;
-
+ 
                 cloneSol?.TransformBy(e.LayMatrix);
                 acCurDb.AppendEntity(cloneSol, acTrans);
                 var yStep = cloneSol.TopLeftTo(layPoint.Convert3D());
 
+                var cloneHandle = cloneSol.Handle;
+                e.ChildHandles.Add(cloneHandle);
+
+                acSol.UpdateXData(e.ChildHandles, Enums.XDataCode.ChildObjects, acCurDb, acTrans);
                 cloneSol.UpdateXData(acSol.Handle, Enums.XDataCode.ParentObject, acCurDb, acTrans);
                 cloneSol.UpdateXData("", Enums.XDataCode.ChildObjects, acCurDb, acTrans);
 
