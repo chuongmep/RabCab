@@ -4,11 +4,11 @@ using RabCab.Settings;
 
 namespace RabCab.Commands.AssemblySuite
 {
-    internal class RcReferenceAssembly
+    internal class RcUpdateParent
     {
         /// <summary>
         /// </summary>
-        [CommandMethod(SettingsInternal.CommandGroup, "_CMDDEFAULT",
+        [CommandMethod(SettingsInternal.CommandGroup, "_RCUPDPARENT",
             CommandFlags.Modal
             //| CommandFlags.Transparent
             //| CommandFlags.UsePickSet
@@ -16,7 +16,7 @@ namespace RabCab.Commands.AssemblySuite
             //| CommandFlags.NoPerspective
             //| CommandFlags.NoMultiple
             //| CommandFlags.NoTileMode
-            //| CommandFlags.NoPaperSpace
+            | CommandFlags.NoPaperSpace
             //| CommandFlags.NoOem
             //| CommandFlags.Undefined
             //| CommandFlags.InProgress
@@ -29,12 +29,12 @@ namespace RabCab.Commands.AssemblySuite
             //| CommandFlags.Interruptible
             //| CommandFlags.NoHistory
             //| CommandFlags.NoUndoMarker
-            //| CommandFlags.NoBlockEditor
-            //| CommandFlags.NoActionRecording
-            //| CommandFlags.ActionMacro
+            | CommandFlags.NoBlockEditor
+            | CommandFlags.NoActionRecording
+            | CommandFlags.ActionMacro
             //| CommandFlags.NoInferConstraint 
         )]
-        public void Cmd_Default()
+        public void Cmd_RcUpdateParent()
         {
             //Get the current document utilities
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;

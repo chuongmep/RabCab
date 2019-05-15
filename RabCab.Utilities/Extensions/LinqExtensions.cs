@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace RabCab.Extensions
 {
@@ -27,6 +28,22 @@ namespace RabCab.Extensions
                 while (enumerator.MoveNext())
                     if (toCompare != null && !toCompare.Equals(enumerator.Current))
                         return false;
+            }
+
+            return true;
+        }
+
+        public static bool AreListsSame<T>(this List<List<T>> iList)
+        {
+            if (iList.Count <= 0) return false;
+            if (iList.Count == 1) return true;
+
+            var baseList = iList.First();
+
+            foreach (var lst in iList)
+            {
+                if (!lst.SequenceEqual(baseList))
+                    return false;
             }
 
             return true;

@@ -231,7 +231,7 @@ namespace RabCab.Commands.PaletteKit
                                 };
 
                                 spButton.Click += Button_Click;
-                                spButton.FlatAppearance.BorderColor = SystemColors.WindowFrame;
+                                spButton.FlatAppearance.BorderColor = Colors.GetCadBorderColor();
                                 spButton.FlatAppearance.BorderSize = 1;
                                 spButton.ContextMenuStrip.BackColor = foreColor;
                                 spButton.ContextMenuStrip.ForeColor = textColor;
@@ -288,7 +288,7 @@ namespace RabCab.Commands.PaletteKit
                                 };
 
                                 button.Click += Button_Click;
-                                button.FlatAppearance.BorderColor = SystemColors.WindowFrame;
+                                button.FlatAppearance.BorderColor = Colors.GetCadBorderColor();
                                 button.FlatAppearance.BorderSize = 1;
 
                                 var picBox = new PictureBox
@@ -352,7 +352,7 @@ namespace RabCab.Commands.PaletteKit
                     loadButton.Dock = DockStyle.Fill;
                     loadButton.Height = 30;
                     loadButton.FlatStyle = FlatStyle.Flat;
-                    loadButton.FlatAppearance.BorderColor = SystemColors.WindowFrame;
+                    loadButton.FlatAppearance.BorderColor = Colors.GetCadBorderColor();
                     loadButton.FlatAppearance.BorderSize = 1;
 
                     var updButton = new Button();
@@ -363,7 +363,7 @@ namespace RabCab.Commands.PaletteKit
                     updButton.Dock = DockStyle.Fill;
                     loadButton.Height = 30;
                     updButton.FlatStyle = FlatStyle.Flat;
-                    updButton.FlatAppearance.BorderColor = SystemColors.WindowFrame;
+                    updButton.FlatAppearance.BorderColor = Colors.GetCadBorderColor();
                     updButton.FlatAppearance.BorderSize = 1;
 
                     bLayout.Controls.Add(loadButton, 0, 0);

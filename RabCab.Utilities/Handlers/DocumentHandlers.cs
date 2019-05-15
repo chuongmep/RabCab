@@ -13,19 +13,22 @@ using System;
 using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
+using RabCab.Agents;
 using RabCab.Commands.PaletteKit;
+using RabCab.Engine.Enumerators;
+using RabCab.Extensions;
 using RabCab.Settings;
 using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
 
 namespace RabCab.Handlers
 {
     /// <summary>
-    /// TODO
+    ///     TODO
     /// </summary>
     internal static class DocumentHandlers
     {
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         internal static void AddDocEvents()
         {
@@ -36,22 +39,23 @@ namespace RabCab.Handlers
                 var acDoc = acDocMan.MdiActiveDocument;
 
                 //Doc Manager Handlers
-                acDocMan.DocumentToBeDeactivated +=  BeginDocClose;
+                acDocMan.DocumentToBeDeactivated += BeginDocClose;
                 acDocMan.DocumentActivated += DocActivated;
 
                 //Doc Handlers
                 acDoc.ImpliedSelectionChanged += Doc_ImpliedSelectionChanged;
+                acDoc.Database.ObjectModified += Database_ObjectModified;
+                acDoc.Database.ObjectErased += Database_ObjectErased;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
                 throw;
             }
-
         }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         internal static void RemoveDocEvents()
         {
@@ -67,6 +71,30 @@ namespace RabCab.Handlers
 
                 //Doc Handlers
                 acDoc.ImpliedSelectionChanged -= Doc_ImpliedSelectionChanged;
+                acDoc.Database.ObjectModified -= Database_ObjectModified;
+                acDoc.Database.ObjectErased -= Database_ObjectErased;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        private static void DocActivated(object senderObj,
+            DocumentCollectionEventArgs docActEvent)
+        {
+            try
+            {
+                //Notebook Handlers
+                if (SettingsInternal.EnNotePal) RcPaletteNotebook.UpdNotePal();
+
+                if (Application.DocumentManager.CurrentDocument != null)
+                {
+                    Application.DocumentManager.CurrentDocument.ImpliedSelectionChanged += Doc_ImpliedSelectionChanged;
+                    Application.DocumentManager.CurrentDocument.Database.ObjectModified += Database_ObjectModified;
+                    Application.DocumentManager.CurrentDocument.Database.ObjectErased += Database_ObjectErased;
+                }
             }
             catch (Exception e)
             {
@@ -76,7 +104,7 @@ namespace RabCab.Handlers
         }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="senderObj"></param>
         /// <param name="docBegClsEvtArgs"></param>
@@ -85,34 +113,11 @@ namespace RabCab.Handlers
         {
             try
             {
-                Application.DocumentManager.CurrentDocument.ImpliedSelectionChanged -= Doc_ImpliedSelectionChanged;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// TODO
-        /// </summary>
-        /// <param name="senderObj"></param>
-        /// <param name="docActEvent"></param>
-        private static void DocActivated(object senderObj,
-            DocumentCollectionEventArgs docActEvent)
-        {
-            try
-            {
-                //Notebook Handlers
-                if (SettingsInternal.EnNotePal)
-                {
-                    RcPaletteNotebook.UpdNotePal();
-                }
-
                 if (Application.DocumentManager.CurrentDocument != null)
                 {
-                    Application.DocumentManager.CurrentDocument.ImpliedSelectionChanged += Doc_ImpliedSelectionChanged;
+                    Application.DocumentManager.CurrentDocument.ImpliedSelectionChanged -= Doc_ImpliedSelectionChanged;
+                    Application.DocumentManager.CurrentDocument.Database.ObjectModified -= Database_ObjectModified;
+                    Application.DocumentManager.CurrentDocument.Database.ObjectErased -= Database_ObjectErased;
                 }
             }
             catch (Exception e)
@@ -122,11 +127,7 @@ namespace RabCab.Handlers
             }
         }
 
-        /// <summary>
-        ///     Handler used to populate RC Pallette when selections are changed
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+
         private static void Doc_ImpliedSelectionChanged(object sender, EventArgs e)
         {
             try
@@ -158,7 +159,74 @@ namespace RabCab.Handlers
                 Console.WriteLine(exception);
                 throw;
             }
+        }
 
+
+        private static void Database_ObjectModified(object sender, ObjectEventArgs e)
+        {
+            var acCurDb = (Database) sender;
+            if (acCurDb == null || acCurDb.IsDisposed)
+                return;
+
+            var dbObj = e.DBObject;
+
+            if (dbObj == null || dbObj.IsDisposed || dbObj.IsErased)
+                return;
+
+            if (dbObj is Solid3d acSol) acSol.Update(acCurDb);
+        }
+
+        private static void Database_ObjectErased(object sender, ObjectErasedEventArgs e)
+        {
+            var acCurDb = (Database) sender;
+            if (acCurDb == null || acCurDb.IsDisposed)
+                return;
+
+            var dbObj = e.DBObject;
+
+            if (dbObj == null || dbObj.IsDisposed || dbObj.IsErased)
+                return;
+
+            if (dbObj is Solid3d acSol)
+            {
+                var acCurDoc = Application.DocumentManager.MdiActiveDocument;
+                var acCurEd = acCurDoc.Editor;
+                var handle = acSol.Handle;
+
+                using (var acTrans = acCurDb.TransactionManager.StartTransaction())
+                {
+                    var objs = acCurEd.SelectAllOfType("3DSOLID", acTrans);
+
+                    foreach (var obj in objs)
+                    {
+                        var cSol = acTrans.GetObject(obj, OpenMode.ForRead) as Solid3d;
+                        if (cSol == null) continue;
+
+                        if (!cSol.HasXData()) continue;
+                        cSol.Upgrade();
+
+                        var cHandles = cSol.GetChildren();
+                        var pHandle = cSol.GetParent();
+
+                        if (cHandles.Count > 0)
+                            if (cHandles.Contains(handle))
+                            {
+                                cHandles.Remove(handle);
+
+                                cSol.UpdateXData(cHandles, Enums.XDataCode.ChildObjects, acCurDb, acTrans);
+                            }
+
+                        if (pHandle == handle)
+                            cSol.UpdateXData(default(Handle), Enums.XDataCode.ParentObject, acCurDb, acTrans);
+
+                        cSol.Update(acCurDb);
+
+                        cSol.Downgrade();
+                    }
+
+                    acTrans.Commit();
+                }
+            }
         }
     }
 }

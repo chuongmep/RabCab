@@ -157,7 +157,7 @@ namespace RabCab.Commands.CarpentrySuite
                                             {
                                                 checkJoiner.GetFsPath(jointFace.SubentityPath.SubentId).SubentId
                                             };
-                                            checkJoiner?.OffsetFaces(subentId, CalcTol.ReturnCurrentTolerance());
+                                            checkJoiner?.OffsetFaces(subentId, 0.001);
 
                                             foreach (var checkSol in joinToSols)
                                             {

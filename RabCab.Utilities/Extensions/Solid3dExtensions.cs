@@ -39,6 +39,16 @@ namespace RabCab.Extensions
             acSol.TransformBy(Matrix3d.Displacement(from.GetVectorTo(to)));
         }
 
+        public static void Update(this Solid3d acSol, Database acCurDb)
+        {
+            using (var acTrans = acCurDb.TransactionManager.StartTransaction())
+            {
+                var entInfo = new EntInfo(acSol, acCurDb, acTrans);
+                acSol.AddXData(entInfo, acCurDb, acTrans);
+                acTrans.Commit();
+            }
+            
+        }
 
         public static void MinToOrigin(this Solid3d acSol)
         {

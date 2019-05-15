@@ -2039,10 +2039,17 @@ namespace RabCab.Extensions
         /// <param name="acTrans"></param>
         public static void SelectByHandle(this Editor acCurEd, string hlString, Database acCurDb, Transaction acTrans)
         {
-            long ln = Convert.ToInt64(hlString, 16);
-            Handle hdl = new Handle(ln);
-            ObjectId objId = acCurDb.GetObjectId(false, hdl, 0);
-            acCurEd.SetImpliedSelection(new ObjectId[] { objId });
+            try
+            {
+                long ln = Convert.ToInt64(hlString, 16);
+                Handle hdl = new Handle(ln);
+                ObjectId objId = acCurDb.GetObjectId(false, hdl, 0);
+                acCurEd.SetImpliedSelection(new ObjectId[] { objId });
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
         }
 
         /// <summary>
@@ -2054,19 +2061,27 @@ namespace RabCab.Extensions
         /// <param name="acTrans"></param>
         public static void SelectByHandle(this Editor acCurEd, List<string> hdlStrings, Database acCurDb, Transaction acTrans)
         {
-            var objIds = new List<ObjectId>();
-
-            foreach (var hdlString in hdlStrings)
+            try
             {
-                long ln = Convert.ToInt64(hdlString, 16);
-                Handle hdl = new Handle(ln);
-                ObjectId objId = acCurDb.GetObjectId(false, hdl, 0);
-                if (objId != ObjectId.Null)
-                    objIds.Add(objId);
-            }
 
-            if (objIds.Count > 0)
-                acCurEd.SetImpliedSelection(objIds.ToArray());
+                var objIds = new List<ObjectId>();
+
+                foreach (var hdlString in hdlStrings)
+                {
+                    long ln = Convert.ToInt64(hdlString, 16);
+                    Handle hdl = new Handle(ln);
+                    ObjectId objId = acCurDb.GetObjectId(false, hdl, 0);
+                    if (objId != ObjectId.Null)
+                        objIds.Add(objId);
+                }
+
+                if (objIds.Count > 0)
+                    acCurEd.SetImpliedSelection(objIds.ToArray());
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
         }
 
         /// <summary>
@@ -2078,8 +2093,15 @@ namespace RabCab.Extensions
         /// <param name="acTrans"></param>
         public static void SelectByHandle(this Editor acCurEd, Handle hdl, Database acCurDb, Transaction acTrans)
         {
-            ObjectId objId = acCurDb.GetObjectId(false, hdl, 0);
-            acCurEd.SetImpliedSelection(new ObjectId[] { objId });
+            try
+            {
+                ObjectId objId = acCurDb.GetObjectId(false, hdl, 0);
+                acCurEd.SetImpliedSelection(new ObjectId[] { objId });
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
         }
 
         /// <summary>
@@ -2091,17 +2113,24 @@ namespace RabCab.Extensions
         /// <param name="acTrans"></param>
         public static void SelectByHandle(this Editor acCurEd, List<Handle> hdls, Database acCurDb, Transaction acTrans)
         {
-            var objIds = new List<ObjectId>();
-
-            foreach (var hdl in hdls)
+            try
             {
-                ObjectId objId = acCurDb.GetObjectId(false, hdl, 0);
-                if (objId != ObjectId.Null)
-                    objIds.Add(objId);
-            }
+                var objIds = new List<ObjectId>();
 
-            if (objIds.Count > 0)
-                acCurEd.SetImpliedSelection(objIds.ToArray());
+                foreach (var hdl in hdls)
+                {
+                    ObjectId objId = acCurDb.GetObjectId(false, hdl, 0);
+                    if (objId != ObjectId.Null)
+                        objIds.Add(objId);
+                }
+
+                if (objIds.Count > 0)
+                    acCurEd.SetImpliedSelection(objIds.ToArray());
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
         }
 
         /// <summary>

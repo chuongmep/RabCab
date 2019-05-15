@@ -211,8 +211,8 @@
     <Compile Include="Commands\AssemblySuite\RcLayParts.cs" />
     <Compile Include="Commands\AssemblySuite\RcNameParts.cs" />
     <Compile Include="Commands\AssemblySuite\RcPartMark.cs" />
-    <Compile Include="Commands\AssemblySuite\RcReferenceAssembly.cs" />
-    <Compile Include="Commands\AssemblySuite\RcReferencePart.cs" />
+    <Compile Include="Commands\AssemblySuite\RcUpdateParent.cs" />
+    <Compile Include="Commands\AssemblySuite\RcUpdateChildren.cs" />
     <Compile Include="Commands\AssemblySuite\RcRevision.cs" />
     <Compile Include="Commands\AssemblySuite\RcScatter.cs" />
     <Compile Include="Commands\AssemblySuite\RcSelection.cs" />
@@ -276,6 +276,12 @@
     <Compile Include="Engine\Enumerators\IEnumerables.cs" />
     <Compile Include="Entities\Annotation\SysPoint.cs" />
     <Compile Include="Entities\Annotation\DimSystem.cs" />
+    <Compile Include="Entities\Controls\ChildBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Entities\Controls\EntryBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Entities\Controls\ReadOnlyTextbox.cs">
       <SubType>Component</SubType>
     </Compile>
