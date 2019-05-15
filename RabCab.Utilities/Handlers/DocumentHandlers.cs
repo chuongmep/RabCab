@@ -232,6 +232,7 @@ namespace RabCab.Handlers
 
             if (dbObj == null || dbObj.IsDisposed || dbObj.IsErased)
                 return;
+            
         }
 
         /// <summary>
@@ -255,38 +256,45 @@ namespace RabCab.Handlers
                     var acCurEd = acCurDoc.Editor;
                     var handle = acSol.Handle;
 
-                    using (var acTrans = acCurDb.TransactionManager.StartTransaction())
+                    try
                     {
-                        var objs = acCurEd.SelectAllOfType("3DSOLID", acTrans);
-
-                        foreach (var obj in objs)
+                        using (var acTrans = acCurDb.TransactionManager.StartTransaction())
                         {
-                            var cSol = acTrans.GetObject(obj, OpenMode.ForRead) as Solid3d;
-                            if (cSol == null) continue;
+                            var objs = acCurEd.SelectAllOfType("3DSOLID", acTrans);
 
-                            if (!cSol.HasXData()) continue;
-                            cSol.Upgrade();
+                            foreach (var obj in objs)
+                            {
+                                var cSol = acTrans.GetObject(obj, OpenMode.ForRead) as Solid3d;
+                                if (cSol == null) continue;
 
-                            var cHandles = cSol.GetChildren();
-                            var pHandle = cSol.GetParent();
+                                if (!cSol.HasXData()) continue;
+                                cSol.Upgrade();
 
-                            if (cHandles.Count > 0)
-                                if (cHandles.Contains(handle))
-                                {
-                                    cHandles.Remove(handle);
+                                var cHandles = cSol.GetChildren();
+                                var pHandle = cSol.GetParent();
 
-                                    cSol.UpdateXData(cHandles, Enums.XDataCode.ChildObjects, acCurDb, acTrans);
-                                }
+                                if (cHandles.Count > 0)
+                                    if (cHandles.Contains(handle))
+                                    {
+                                        cHandles.Remove(handle);
 
-                            if (pHandle == handle)
-                                cSol.UpdateXData(default(Handle), Enums.XDataCode.ParentObject, acCurDb, acTrans);
+                                        cSol.UpdateXData(cHandles, Enums.XDataCode.ChildObjects, acCurDb, acTrans);
+                                    }
 
-                            cSol.Update(acCurDb);
+                                if (pHandle == handle)
+                                    cSol.UpdateXData(default(Handle), Enums.XDataCode.ParentObject, acCurDb, acTrans);
 
-                            cSol.Downgrade();
+                                cSol.Update(acCurDb);
+
+                                cSol.Downgrade();
+                            }
+
+                            acTrans.Commit();
                         }
-
-                        acTrans.Commit();
+                    }
+                    catch (Exception exception)
+                    {
+                        Console.WriteLine(exception);
                     }
                 }
         }

@@ -143,6 +143,8 @@ using RabCab.Commands.TidySuite;
 [assembly: CommandClass(typeof(RcScatter))]
 [assembly: CommandClass(typeof(RcSelection))]
 [assembly: CommandClass(typeof(RcUpdate))]
+[assembly: CommandClass(typeof(RcSetChild))]
+[assembly: CommandClass(typeof(RcSetParent))]
 
 //Automation Suite
 [assembly: CommandClass(typeof(RcAutoLayer))]
