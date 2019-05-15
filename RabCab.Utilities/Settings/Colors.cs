@@ -9,7 +9,6 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
-using System.Drawing;
 using Autodesk.AutoCAD.Colors;
 using RabCab.Engine.Enumerators;
 using RabCab.Engine.System;
@@ -28,6 +27,7 @@ namespace RabCab.Settings
         {
             return AcVars.ColorTheme == 0 ? DarkFore : LightFore;
         }
+
         public static Color GetCadEntryColor()
         {
             return AcVars.ColorTheme == 0 ? DarkEntry : LightEntry;
@@ -48,7 +48,7 @@ namespace RabCab.Settings
         public static Color DarkBorder = Color.Black;
         public static Color LightBorder = Color.DarkGray;
 
-        public static Color Focus = Color.FromArgb(6 ,150, 215);
+        public static Color Focus = Color.FromArgb(6, 150, 215);
 
         public static Color DarkBack = Color.FromArgb(34, 41, 51);
         public static Color DarkFore = Color.FromArgb(59, 68, 83);

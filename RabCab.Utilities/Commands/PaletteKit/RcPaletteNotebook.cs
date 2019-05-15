@@ -111,9 +111,8 @@ namespace RabCab.Commands.PaletteKit
                 WordWrap = true,
                 Dock = DockStyle.Fill,
                 Name = Name,
-                BackColor =  foreColor,
-                ForeColor =  textColor
-
+                BackColor = foreColor,
+                ForeColor = textColor
             };
 
             var resBuf = XDataAgent.GetXrecord(SettingsInternal.CommandGroup, PalName);

@@ -27,7 +27,6 @@ namespace RabCab.Handlers
     /// </summary>
     internal static class DocumentHandlers
     {
-
         #region Handler Init
 
         /// <summary>
@@ -162,7 +161,6 @@ namespace RabCab.Handlers
         /// <param name="e"></param>
         private static void Doc_ImpliedSelectionChanged(object sender, EventArgs e)
         {
-
             try
             {
                 if (SettingsInternal.EnMetPal == false) return;
@@ -223,7 +221,6 @@ namespace RabCab.Handlers
         /// <param name="e"></param>
         private static void Database_ObjectModified(object sender, ObjectEventArgs e)
         {
-
             var acCurDb = (Database) sender;
             if (acCurDb == null || acCurDb.IsDisposed)
                 return;
@@ -232,7 +229,6 @@ namespace RabCab.Handlers
 
             if (dbObj == null || dbObj.IsDisposed || dbObj.IsErased)
                 return;
-            
         }
 
         /// <summary>
@@ -242,7 +238,6 @@ namespace RabCab.Handlers
         /// <param name="e"></param>
         private static void Database_ObjectErased(object sender, ObjectErasedEventArgs e)
         {
-
             var acCurDb = (Database) sender;
             if (acCurDb == null || acCurDb.IsDisposed)
                 return;

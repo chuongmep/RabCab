@@ -52,11 +52,10 @@ namespace RabCab.Commands.AssemblySuite
             if (objIds.Length <= 0) return;
 
             UpdateChildren(objIds, acCurEd, acCurDb);
-
         }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="objIds"></param>
         /// <param name="acCurEd"></param>

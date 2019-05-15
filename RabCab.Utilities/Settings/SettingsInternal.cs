@@ -26,6 +26,5 @@ namespace RabCab.Settings
         internal static bool EnMetPal = true;
         internal static bool EnNotePal = true;
         internal static bool EnSnapPal = true;
-
     }
 }

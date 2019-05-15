@@ -41,10 +41,8 @@ namespace RabCab.Extensions
             var baseList = iList.First();
 
             foreach (var lst in iList)
-            {
                 if (!lst.SequenceEqual(baseList))
                     return false;
-            }
 
             return true;
         }

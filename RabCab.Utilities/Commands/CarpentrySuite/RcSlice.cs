@@ -103,7 +103,7 @@ namespace RabCab.Commands.CarpentrySuite
                         {
                             sliceSol = acSol?.Slice(sliceSurf, true);
                             sliceSol?.SetPropertiesFrom(acSol);
-                            acCurDb.AppendEntity(sliceSol,acTrans);
+                            acCurDb.AppendEntity(sliceSol, acTrans);
                             sliceSurf?.Dispose();
                         }
                         catch (Exception)
@@ -116,17 +116,17 @@ namespace RabCab.Commands.CarpentrySuite
 
                                 //Clone the input solid
                                 var subtSol = acSol?.Clone() as Solid3d;
-                                SubentityId[] subIds = { userSel.Item2 };
+                                SubentityId[] subIds = {userSel.Item2};
 
                                 //Offset the cloned solids face and append it to the database
                                 subtSol?.OffsetFaces(subIds, -SettingsUser.RcSliceDepth);
 
-                                acCurDb.AppendEntity(subtSol,  acTrans);
+                                acCurDb.AppendEntity(subtSol, acTrans);
 
                                 //Subtract the offset solid from the input solid, but don't delete it
                                 Debug.Assert(acSol != null, "acSol != null");
                                 Debug.Assert(subtSol != null, "subtSol != null");
-                                new[] { acSol.ObjectId }.SolidSubtrahend( new[] { subtSol.ObjectId }, acCurDb, acTrans,
+                                new[] {acSol.ObjectId}.SolidSubtrahend(new[] {subtSol.ObjectId}, acCurDb, acTrans,
                                     false);
                             }
                             catch (Exception e)

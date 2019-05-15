@@ -23,6 +23,7 @@ using RabCab.Engine.Enumerators;
 using static RabCab.Settings.Colors;
 using static RabCab.Settings.SettingsUser;
 using AcBr = Autodesk.AutoCAD.BoundaryRepresentation;
+using Exception = System.Exception;
 
 namespace RabCab.Extensions
 {
@@ -44,19 +45,16 @@ namespace RabCab.Extensions
             try
             {
                 using (var acTrans = acCurDb.TransactionManager.StartTransaction())
-            {
-                
+                {
                     var entInfo = new EntInfo(acSol, acCurDb, acTrans);
                     acSol.AddXData(entInfo, acCurDb, acTrans);
                     acTrans.Commit();
                 }
-               
             }
-            catch (System.Exception)
+            catch (Exception)
             {
                 //ignored
             }
-
         }
 
         public static void MinToOrigin(this Solid3d acSol)
@@ -563,7 +561,7 @@ namespace RabCab.Extensions
                 return null;
 
             //Create an objID array to use with FullSubEntityPath
-            var objIds = new[] { objId };
+            var objIds = new[] {objId};
 
             return acSol.GetSubentity(new FullSubentityPath(objIds, subId));
         }

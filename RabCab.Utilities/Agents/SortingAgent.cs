@@ -480,7 +480,7 @@ namespace RabCab.Agents
                 if (acSol == null) continue;
 
                 var cloneSol = acSol.Clone() as Solid3d;
- 
+
                 cloneSol?.TransformBy(e.LayMatrix);
                 acCurDb.AppendEntity(cloneSol, acTrans);
                 var yStep = cloneSol.TopLeftTo(layPoint.Convert3D());

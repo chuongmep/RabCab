@@ -137,7 +137,7 @@ using RabCab.Commands.TidySuite;
 [assembly: CommandClass(typeof(RcLayParts))]
 [assembly: CommandClass(typeof(RcNameParts))]
 [assembly: CommandClass(typeof(RcPartMark))]
-[assembly: CommandClass(typeof(RcUpdateSiblings))]
+[assembly: CommandClass(typeof(RcUpdateParent))]
 [assembly: CommandClass(typeof(RcUpdateChildren))]
 [assembly: CommandClass(typeof(RcRevision))]
 [assembly: CommandClass(typeof(RcScatter))]

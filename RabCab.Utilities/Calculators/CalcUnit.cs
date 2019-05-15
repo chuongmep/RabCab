@@ -13,6 +13,7 @@ using System;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Runtime;
 using RabCab.Settings;
+using Exception = Autodesk.AutoCAD.Runtime.Exception;
 
 namespace RabCab.Calculators
 {
@@ -33,7 +34,7 @@ namespace RabCab.Calculators
 
                 return Converter.DistanceToString(val, DistanceUnitFormat.Current, acCurDb.Luprec);
             }
-            catch (Autodesk.AutoCAD.Runtime.Exception)
+            catch (Exception)
             {
                 return val.ToString();
             }

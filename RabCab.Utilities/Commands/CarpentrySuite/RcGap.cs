@@ -87,9 +87,9 @@ namespace RabCab.Commands.CarpentrySuite
 
                     SettingsUser.RcGapDepth = prSelRes.Value;
 
-                        boolRes1.SolidGap( boolRes2, acCurDb, acTrans, false, SettingsUser.RcGapDepth);
+                    boolRes1.SolidGap(boolRes2, acCurDb, acTrans, false, SettingsUser.RcGapDepth);
 
-                        // Commit Transaction
+                    // Commit Transaction
                     acTrans.Commit();
                 }
             }

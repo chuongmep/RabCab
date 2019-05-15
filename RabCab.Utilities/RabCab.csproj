@@ -213,7 +213,7 @@
     <Compile Include="Commands\AssemblySuite\RcPartMark.cs" />
     <Compile Include="Commands\AssemblySuite\RcSetChild.cs" />
     <Compile Include="Commands\AssemblySuite\RcSetParent.cs" />
-    <Compile Include="Commands\AssemblySuite\RcUpdateSiblings.cs" />
+    <Compile Include="Commands\AssemblySuite\RcUpdateParent.cs" />
     <Compile Include="Commands\AssemblySuite\RcUpdateChildren.cs" />
     <Compile Include="Commands\AssemblySuite\RcRevision.cs" />
     <Compile Include="Commands\AssemblySuite\RcScatter.cs" />

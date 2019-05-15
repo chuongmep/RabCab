@@ -35,12 +35,10 @@ namespace RabCab.Commands.PaletteKit
 {
     internal class RcPaletteMetric
     {
-        private readonly string _palName = "Metrics";
-        private UserControl _palPanel;
-        internal static PaletteSet RcPal;
         private const int CtrlHeight = 25;
         private const int LabColumn = 0;
         private const int InfoColumn = 1;
+        internal static PaletteSet RcPal;
         private static bool _ignoreTextChange;
 
         private static TableLayoutPanel _tbLayout;
@@ -96,12 +94,14 @@ namespace RabCab.Commands.PaletteKit
             _prodMOne,
             _prodMMany;
 
-        private static Button _travButton, _selParent, _selChildren, _updChildren, _updSiblings;
+        private static Button _travButton, _selParent, _selChildren, _updChildren, _updParent;
 
         private static StatusStrip _stStrip;
         private static Panel _btPanel;
 
         private static ToolStripLabel _stText, _reqUpdate;
+        private readonly string _palName = "Metrics";
+        private UserControl _palPanel;
 
         /// <summary>
         /// </summary>
@@ -135,489 +135,6 @@ namespace RabCab.Commands.PaletteKit
         {
             CreatePal();
         }
-
-        #region Pal Initialization
-
-        /// <summary>
-        ///     TODO
-        /// </summary>
-        private void CreatePal()
-        {
-            if (RcPal == null)
-            {
-                RcPal = new PaletteSet(_palName, new Guid())
-                {
-                    Style = PaletteSetStyles.ShowPropertiesMenu
-                            | PaletteSetStyles.ShowAutoHideButton
-                            | PaletteSetStyles.ShowCloseButton
-                };
-
-                _palPanel = new UserControl();
-
-                PopulatePal();
-                _palPanel.UpdateTheme();
-                RcPal.Add(_palName, _palPanel);
-            }
-
-            RcPal.Visible = true;
-        }
-
-        /// <summary>
-        ///     TODO
-        /// </summary>
-        private void PopulatePal()
-        {
-            var rowCount = 0;
-
-            var backColor = Colors.GetCadBackColor();
-            var foreColor = Colors.GetCadForeColor();
-            var entryColor = Colors.GetCadEntryColor();
-            var textColor = Colors.GetCadTextColor();
-
-            _palPanel.BackColor = foreColor;
-            _palPanel.ForeColor = foreColor;
-
-            _tbLayout = new TableLayoutPanel
-            {
-                AutoScroll = true,
-                AutoSizeMode = AutoSizeMode.GrowAndShrink,
-                BackColor = foreColor,
-                ForeColor = foreColor,
-                ColumnCount = 3,
-                Dock = DockStyle.Fill
-            };
-
-            _tbLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 70F));
-            _tbLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            _tbLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 5F));
-
-            _rcNameLab = new Label
-            {
-                Text = "Name:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
-                BackColor = foreColor, ForeColor = textColor
-            };
-            _rcInfoLab = new Label
-            {
-                Text = "Info:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
-                BackColor = foreColor, ForeColor = textColor
-            };
-            _rcLengthLab = new Label
-            {
-                Text = "Length:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
-                BackColor = foreColor, ForeColor = textColor
-            };
-            _rcWidthLab = new Label
-            {
-                Text = "Width:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
-                BackColor = foreColor, ForeColor = textColor
-            };
-            _rcThickLab = new Label
-            {
-                Text = "Thickness:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
-                BackColor = foreColor, ForeColor = textColor
-            };
-            _rcVolLab = new Label
-            {
-                Text = "Volume:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
-                BackColor = foreColor, ForeColor = textColor
-            };
-            _rcAreaLab = new Label
-            {
-                Text = "Area:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
-                BackColor = foreColor, ForeColor = textColor
-            };
-            _rcPerimLab = new Label
-            {
-                Text = "Perimeter:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
-                BackColor = foreColor, ForeColor = textColor
-            };
-            _rcAsymLab = new Label
-            {
-                Text = "Asym:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
-                BackColor = foreColor, ForeColor = textColor
-            };
-            _rcAsymStrLab = new Label
-            {
-                Text = "Asym V:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
-                BackColor = foreColor, ForeColor = textColor
-            };
-            _rcQtyOfLab = new Label
-            {
-                Text = "Qty Of:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
-                BackColor = foreColor, ForeColor = textColor
-            };
-            _rcQtyTotalLab = new Label
-            {
-                Text = "Qty Total:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
-                BackColor = foreColor, ForeColor = textColor
-            };
-            _rcNumChangesLab = new Label
-            {
-                Text = "Changes:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
-                BackColor = foreColor, ForeColor = textColor
-            };
-            _rcParentLab = new Label
-            {
-                Text = "Parent: ", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
-                BackColor = foreColor, ForeColor = textColor
-            };
-            _rcChildLab = new Label
-            {
-                Text = "Children: ", TextAlign = ContentAlignment.TopLeft,
-                Anchor = AnchorStyles.None,
-                BackColor = foreColor, ForeColor = textColor
-            };
-            _rcTxDirLab = new Label
-            {
-                Text = "Texture: ", TextAlign = ContentAlignment.TopLeft,
-                Anchor = AnchorStyles.None,
-                BackColor = foreColor, ForeColor = textColor
-            };
-            _prodTypLab = new Label
-            {
-                Text = "Production: ", TextAlign = ContentAlignment.TopLeft,
-                Anchor = AnchorStyles.None,
-                BackColor = foreColor, ForeColor = textColor
-            };
-
-            _stText = new ToolStripLabel {Text = "No Objects Selected", BackColor = foreColor, ForeColor = textColor};
-            _reqUpdate = new ToolStripLabel {Text = "", BackColor = entryColor, ForeColor = textColor};
-
-            _rcNameTxt = new EntryBox {Dock = DockStyle.Fill, BackColor = entryColor, ForeColor = textColor};
-            _rcNameTxt.TextChanged += name_TextChanged;
-
-            _rcInfoTxt = new EntryBox
-            {
-                Dock = DockStyle.Fill, WordWrap = true, Multiline = true,
-                ScrollBars = ScrollBars.Vertical,
-                BackColor = entryColor, ForeColor = textColor
-            };
-            _rcInfoTxt.TextChanged += info_TextChanged;
-
-            _rcLengthTxt = new ReadOnlyTextBox
-                {Dock = DockStyle.Fill, ReadOnly = true,  BackColor = entryColor, ForeColor = textColor};
-            _rcWidthTxt = new ReadOnlyTextBox
-                {Dock = DockStyle.Fill, ReadOnly = true, BackColor = entryColor, ForeColor = textColor};
-            _rcThickTxt = new ReadOnlyTextBox
-                {Dock = DockStyle.Fill, ReadOnly = true, BackColor = entryColor, ForeColor = textColor};
-            _rcVolTxt = new ReadOnlyTextBox
-                {Dock = DockStyle.Fill, ReadOnly = true, BackColor = entryColor, ForeColor = textColor};
-            _rcAreaTxt = new ReadOnlyTextBox
-                {Dock = DockStyle.Fill, ReadOnly = true, BackColor = entryColor, ForeColor = textColor};
-            _rcPerimTxt = new ReadOnlyTextBox
-                {Dock = DockStyle.Fill, ReadOnly = true, BackColor = entryColor, ForeColor = textColor};
-            _rcAsymTxt = new ReadOnlyTextBox
-                {Dock = DockStyle.Fill, ReadOnly = true, BackColor = entryColor, ForeColor = textColor};
-            _rcAsymStrTxt = new ReadOnlyTextBox
-                {Dock = DockStyle.Fill, ReadOnly = true, BackColor = entryColor, ForeColor = textColor};
-            _rcQtyOfTxt = new ReadOnlyTextBox
-                {Dock = DockStyle.Fill, ReadOnly = true, BackColor = entryColor, ForeColor = textColor};
-            _rcQtyTotalTxt = new ReadOnlyTextBox
-                {Dock = DockStyle.Fill, ReadOnly = true, BackColor = entryColor, ForeColor = textColor};
-            _rcNumChangesTxt = new ReadOnlyTextBox
-                {Dock = DockStyle.Fill, ReadOnly = true, BackColor = entryColor, ForeColor = textColor};
-            _rcParentTxt = new ReadOnlyTextBox
-                {Dock = DockStyle.Fill, ReadOnly = true, BackColor = entryColor, ForeColor = textColor};
-
-            _rcChildList = new ChildBox {Dock = DockStyle.Fill, BackColor = entryColor, ForeColor = textColor};
-            _rcChildList.Sorted = true;
-            _rcChildList.DisplayMember = "Text";
-            _rcChildList.MouseDoubleClick += childList_MouseDoubleClick;
-
-            _rcIsSweepChk = new CheckBox
-            {
-                Text = "Is Sweep", Dock = DockStyle.Fill, AutoSize = false, BackColor = foreColor, ForeColor = textColor
-            };
-
-            _rcIsSweepChk.Click += sweep_CheckClick;
-
-            _rcIsiMirChk = new CheckBox
-            {
-                Text = "Is Mirror", Dock = DockStyle.Fill, AutoSize = false, BackColor = foreColor,
-                ForeColor = textColor
-            };
-
-            _rcIsiMirChk.Click += mirror_CheckClick;
-
-            _rcHasHolesChk = new CheckBox
-            {
-                Text = "Has Holes", Dock = DockStyle.Fill, AutoSize = false, BackColor = foreColor,
-                ForeColor = textColor
-            };
-
-            _rcHasHolesChk.Click += holes_CheckClick;
-
-            _txDirUnknown = new CheckBox
-            {
-                Text = "UN", Appearance = Appearance.Button, Dock = DockStyle.Fill, BackColor = entryColor,
-                ForeColor = textColor
-            };
-
-            _txDirUnknown.Click += texture_CheckClick;
-
-            _txDirNone = new CheckBox
-            {
-                Text = "NO", Appearance = Appearance.Button, Dock = DockStyle.Fill, BackColor = entryColor,
-                ForeColor = textColor
-            };
-
-            _txDirNone.Click += texture_CheckClick;
-
-            _txDirHor = new CheckBox
-            {
-                Text = "HZ", Appearance = Appearance.Button, Dock = DockStyle.Fill, BackColor = entryColor,
-                ForeColor = textColor
-            };
-
-            _txDirHor.Click += texture_CheckClick;
-
-            _txDirVer = new CheckBox
-            {
-                Text = "VT", Appearance = Appearance.Button, Dock = DockStyle.Fill, BackColor = entryColor,
-                ForeColor = textColor
-            };
-
-            _txDirVer.Click += texture_CheckClick;
-
-            var txLayout = new TableLayoutPanel
-            {
-                AutoScroll = true,
-                AutoSizeMode = AutoSizeMode.GrowAndShrink,
-                BackColor = foreColor,
-                ForeColor = foreColor,
-                ColumnCount = 4,
-                RowCount = 1,
-                Dock = DockStyle.Fill
-            };
-
-            txLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            txLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            txLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            txLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-
-            txLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-
-            txLayout.Controls.Add(_txDirUnknown, 0, 0);
-            txLayout.Controls.Add(_txDirNone, 1, 0);
-            txLayout.Controls.Add(_txDirHor, 2, 0);
-            txLayout.Controls.Add(_txDirVer, 3, 0);
-
-            _txDirUnknown.FlatStyle = FlatStyle.Flat;
-            _txDirUnknown.FlatAppearance.BorderColor = Colors.GetCadBorderColor();
-            _txDirUnknown.FlatAppearance.BorderSize = 1;
-
-            _txDirNone.FlatStyle = FlatStyle.Flat;
-            _txDirNone.FlatAppearance.BorderColor = Colors.GetCadBorderColor();
-            _txDirNone.FlatAppearance.BorderSize = 1;
-
-            _txDirHor.FlatStyle = FlatStyle.Flat;
-            _txDirHor.FlatAppearance.BorderColor = Colors.GetCadBorderColor();
-            _txDirHor.FlatAppearance.BorderSize = 1;
-
-            _txDirVer.FlatStyle = FlatStyle.Flat;
-            _txDirVer.FlatAppearance.BorderColor = Colors.GetCadBorderColor();
-            _txDirVer.FlatAppearance.BorderSize = 1;
-
-            _prodUnkown = new CheckBox
-            {
-                Text = "UN", Appearance = Appearance.Button, Dock = DockStyle.Fill, BackColor = entryColor,
-                ForeColor = textColor
-            };
-
-            _prodUnkown.Click += prod_CheckClick;
-
-            _prodS4S = new CheckBox
-            {
-                Text = "S4", Dock = DockStyle.Fill, Appearance = Appearance.Button, BackColor = entryColor,
-                ForeColor = textColor
-            };
-
-            _prodS4S.Click += prod_CheckClick;
-
-            _prodMOne = new CheckBox
-            {
-                Text = "OS", Appearance = Appearance.Button, Dock = DockStyle.Fill, BackColor = entryColor,
-                ForeColor = textColor
-            };
-
-            _prodMOne.Click += prod_CheckClick;
-
-            _prodMMany = new CheckBox
-            {
-                Text = "MS", Appearance = Appearance.Button, Dock = DockStyle.Fill, BackColor = entryColor,
-                ForeColor = textColor
-            };
-
-            _prodMMany.Click += prod_CheckClick;
-
-            var prodLayout = new TableLayoutPanel
-            {
-                AutoScroll = false,
-                AutoSizeMode = AutoSizeMode.GrowAndShrink,
-                BackColor = foreColor,
-                ForeColor = foreColor,
-                ColumnCount = 4,
-                RowCount = 1,
-                Dock = DockStyle.Fill
-            };
-
-            prodLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            prodLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            prodLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            prodLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-
-            prodLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-
-            prodLayout.Controls.Add(_prodUnkown, 0, 0);
-            prodLayout.Controls.Add(_prodS4S, 1, 0);
-            prodLayout.Controls.Add(_prodMOne, 2, 0);
-            prodLayout.Controls.Add(_prodMMany, 3, 0);
-
-            _prodUnkown.FlatStyle = FlatStyle.Flat;
-            _prodUnkown.FlatAppearance.BorderColor = Colors.GetCadBorderColor();
-            _prodUnkown.FlatAppearance.BorderSize = 1;
-
-            _prodS4S.FlatStyle = FlatStyle.Flat;
-            _prodS4S.FlatAppearance.BorderColor = Colors.GetCadBorderColor();
-            _prodS4S.FlatAppearance.BorderSize = 1;
-
-            _prodMOne.FlatStyle = FlatStyle.Flat;
-            _prodMOne.FlatAppearance.BorderColor = Colors.GetCadBorderColor();
-            _prodMOne.FlatAppearance.BorderSize = 1;
-
-            _prodMMany.FlatStyle = FlatStyle.Flat;
-            _prodMMany.FlatAppearance.BorderColor = Colors.GetCadBorderColor();
-            _prodMMany.FlatAppearance.BorderSize = 1;
-
-            _travButton = new Button
-                {Text = "TR", Dock = DockStyle.Fill, BackColor = entryColor, ForeColor = textColor};
-            _travButton.Click += traverse_Click;
-
-            _selParent = new Button
-                {Text = "SP", Dock = DockStyle.Fill, BackColor = entryColor, ForeColor = textColor};
-            _selParent.Click += selParent_Click;
-
-            _selChildren = new Button
-                {Text = "SC", Dock = DockStyle.Fill, BackColor = entryColor, ForeColor = textColor};
-            _selChildren.Click += selChildren_Click;
-
-            _updChildren = new Button
-                {Text = "UC", Dock = DockStyle.Fill, BackColor = entryColor, ForeColor = textColor};
-            _updChildren.Click += updChildren_Click;
-
-            _updSiblings = new Button
-                {Text = "US", Dock = DockStyle.Fill, BackColor = entryColor, ForeColor = textColor};
-            _updSiblings.Click += updSiblings_Click;
-
-            _btPanel = new Panel
-            {
-                Dock = DockStyle.Bottom, Height = CtrlHeight, AutoSize = false, BackColor = foreColor,
-                ForeColor = textColor
-            };
-            var btLayout = new TableLayoutPanel
-            {
-                AutoScroll = false,
-                AutoSizeMode = AutoSizeMode.GrowAndShrink,
-                BackColor = foreColor,
-                ForeColor = foreColor,
-                ColumnCount = 5,
-                RowCount = 1,
-                Dock = DockStyle.Fill
-            };
-
-            btLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            btLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            btLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            btLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            btLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            btLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, CtrlHeight + 5));
-
-            btLayout.Controls.Add(_travButton, 0, 0);
-            btLayout.Controls.Add(_selParent, 1, 0);
-            btLayout.Controls.Add(_selChildren, 2, 0);
-            btLayout.Controls.Add(_updChildren, 3, 0);
-            btLayout.Controls.Add(_updSiblings, 4, 0);
-
-            _travButton.FlatStyle = FlatStyle.Flat;
-            _travButton.FlatAppearance.BorderColor = Colors.GetCadBorderColor();
-            _travButton.FlatAppearance.BorderSize = 1;
-
-            _selParent.FlatStyle = FlatStyle.Flat;
-            _selParent.FlatAppearance.BorderColor = Colors.GetCadBorderColor();
-            _selParent.FlatAppearance.BorderSize = 1;
-
-            _selChildren.FlatStyle = FlatStyle.Flat;
-            _selChildren.FlatAppearance.BorderColor = Colors.GetCadBorderColor();
-            _selChildren.FlatAppearance.BorderSize = 1;
-
-            _updChildren.FlatStyle = FlatStyle.Flat;
-            _updChildren.FlatAppearance.BorderColor = Colors.GetCadBorderColor();
-            _updChildren.FlatAppearance.BorderSize = 1;
-
-            _updSiblings.FlatStyle = FlatStyle.Flat;
-            _updSiblings.FlatAppearance.BorderColor = Colors.GetCadBorderColor();
-            _updSiblings.FlatAppearance.BorderSize = 1;
-
-            _btPanel.Controls.Add(btLayout);
-
-            _stStrip = new StatusStrip {Dock = DockStyle.Bottom, BackColor = foreColor, ForeColor = textColor};
-            _stStrip.Items.Add(_reqUpdate);
-            _stStrip.Items.Add(_stText);
-
-            #region AddInfoToTable
-
-            AddToTable(_rcNameLab, _rcNameTxt, CtrlHeight, ref rowCount);
-            AddToTable(_rcInfoLab, _rcInfoTxt, CtrlHeight * 2, ref rowCount);
-            AddToTable(_rcQtyOfLab, _rcQtyOfTxt, CtrlHeight, ref rowCount);
-            AddToTable(_rcQtyTotalLab, _rcQtyTotalTxt, CtrlHeight, ref rowCount);
-            AddToTable(_rcLengthLab, _rcLengthTxt, CtrlHeight, ref rowCount);
-            AddToTable(_rcWidthLab, _rcWidthTxt, CtrlHeight, ref rowCount);
-            AddToTable(_rcThickLab, _rcThickTxt, CtrlHeight, ref rowCount);
-            AddToTable(_rcVolLab, _rcVolTxt, CtrlHeight, ref rowCount);
-            AddToTable(_rcAreaLab, _rcAreaTxt, CtrlHeight, ref rowCount);
-            AddToTable(_rcPerimLab, _rcPerimTxt, CtrlHeight, ref rowCount);
-            AddToTable(_rcAsymLab, _rcAsymTxt, CtrlHeight, ref rowCount);
-            AddToTable(_rcAsymStrLab, _rcAsymStrTxt, CtrlHeight, ref rowCount);
-            AddToTable(_rcNumChangesLab, _rcNumChangesTxt, CtrlHeight, ref rowCount);
-
-            AddToTable(_rcParentLab, _rcParentTxt, CtrlHeight, ref rowCount);
-            AddToTable(_rcChildLab, _rcChildList, CtrlHeight * 5, ref rowCount);
-
-            AddToTable(_rcTxDirLab, txLayout, CtrlHeight + 10, ref rowCount);
-            AddToTable(_prodTypLab, prodLayout, CtrlHeight + 10, ref rowCount);
-
-            AddToTable(new Label(), _rcIsSweepChk, CtrlHeight, ref rowCount);
-            AddToTable(new Label(), _rcIsiMirChk, CtrlHeight, ref rowCount);
-            AddToTable(new Label(), _rcHasHolesChk, CtrlHeight, ref rowCount);
-
-            AddToTable(new Label(), new Label(), CtrlHeight, ref rowCount);
-
-            #endregion
-
-            _palPanel.Controls.Add(_tbLayout);
-            _palPanel.Controls.Add(_stStrip);
-            _palPanel.Controls.Add(_btPanel);
-        }
-
-        /// <summary>
-        ///     TODO
-        /// </summary>
-        /// <param name="ctrl1"></param>
-        /// <param name="ctr2"></param>
-        /// <param name="ctHeight"></param>
-        /// <param name="rowCount"></param>
-        private void AddToTable(Control ctrl1, Control ctr2, float ctHeight, ref int rowCount)
-        {
-            if (ctrl1 == null) throw new ArgumentNullException(nameof(ctrl1));
-            if (ctr2 == null) throw new ArgumentNullException(nameof(ctr2));
-
-            _tbLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, ctHeight));
-            _tbLayout.Controls.Add(ctrl1, LabColumn, rowCount);
-            _tbLayout.Controls.Add(ctr2, InfoColumn, rowCount);
-            rowCount++;
-        }
-
-        #endregion
 
         /// <summary>
         ///     TODO
@@ -1059,6 +576,489 @@ namespace RabCab.Commands.PaletteKit
         {
             _reqUpdate.Text = "";
         }
+
+        #region Pal Initialization
+
+        /// <summary>
+        ///     TODO
+        /// </summary>
+        private void CreatePal()
+        {
+            if (RcPal == null)
+            {
+                RcPal = new PaletteSet(_palName, new Guid())
+                {
+                    Style = PaletteSetStyles.ShowPropertiesMenu
+                            | PaletteSetStyles.ShowAutoHideButton
+                            | PaletteSetStyles.ShowCloseButton
+                };
+
+                _palPanel = new UserControl();
+
+                PopulatePal();
+                _palPanel.UpdateTheme();
+                RcPal.Add(_palName, _palPanel);
+            }
+
+            RcPal.Visible = true;
+        }
+
+        /// <summary>
+        ///     TODO
+        /// </summary>
+        private void PopulatePal()
+        {
+            var rowCount = 0;
+
+            var backColor = Colors.GetCadBackColor();
+            var foreColor = Colors.GetCadForeColor();
+            var entryColor = Colors.GetCadEntryColor();
+            var textColor = Colors.GetCadTextColor();
+
+            _palPanel.BackColor = foreColor;
+            _palPanel.ForeColor = foreColor;
+
+            _tbLayout = new TableLayoutPanel
+            {
+                AutoScroll = true,
+                AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                BackColor = foreColor,
+                ForeColor = foreColor,
+                ColumnCount = 3,
+                Dock = DockStyle.Fill
+            };
+
+            _tbLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 70F));
+            _tbLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            _tbLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 5F));
+
+            _rcNameLab = new Label
+            {
+                Text = "Name:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
+                BackColor = foreColor, ForeColor = textColor
+            };
+            _rcInfoLab = new Label
+            {
+                Text = "Info:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
+                BackColor = foreColor, ForeColor = textColor
+            };
+            _rcLengthLab = new Label
+            {
+                Text = "Length:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
+                BackColor = foreColor, ForeColor = textColor
+            };
+            _rcWidthLab = new Label
+            {
+                Text = "Width:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
+                BackColor = foreColor, ForeColor = textColor
+            };
+            _rcThickLab = new Label
+            {
+                Text = "Thickness:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
+                BackColor = foreColor, ForeColor = textColor
+            };
+            _rcVolLab = new Label
+            {
+                Text = "Volume:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
+                BackColor = foreColor, ForeColor = textColor
+            };
+            _rcAreaLab = new Label
+            {
+                Text = "Area:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
+                BackColor = foreColor, ForeColor = textColor
+            };
+            _rcPerimLab = new Label
+            {
+                Text = "Perimeter:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
+                BackColor = foreColor, ForeColor = textColor
+            };
+            _rcAsymLab = new Label
+            {
+                Text = "Asym:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
+                BackColor = foreColor, ForeColor = textColor
+            };
+            _rcAsymStrLab = new Label
+            {
+                Text = "Asym V:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
+                BackColor = foreColor, ForeColor = textColor
+            };
+            _rcQtyOfLab = new Label
+            {
+                Text = "Qty Of:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
+                BackColor = foreColor, ForeColor = textColor
+            };
+            _rcQtyTotalLab = new Label
+            {
+                Text = "Qty Total:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
+                BackColor = foreColor, ForeColor = textColor
+            };
+            _rcNumChangesLab = new Label
+            {
+                Text = "Changes:", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
+                BackColor = foreColor, ForeColor = textColor
+            };
+            _rcParentLab = new Label
+            {
+                Text = "Parent: ", TextAlign = ContentAlignment.MiddleLeft, Anchor = AnchorStyles.None,
+                BackColor = foreColor, ForeColor = textColor
+            };
+            _rcChildLab = new Label
+            {
+                Text = "Children: ", TextAlign = ContentAlignment.TopLeft,
+                Anchor = AnchorStyles.None,
+                BackColor = foreColor, ForeColor = textColor
+            };
+            _rcTxDirLab = new Label
+            {
+                Text = "Texture: ", TextAlign = ContentAlignment.TopLeft,
+                Anchor = AnchorStyles.None,
+                BackColor = foreColor, ForeColor = textColor
+            };
+            _prodTypLab = new Label
+            {
+                Text = "Production: ", TextAlign = ContentAlignment.TopLeft,
+                Anchor = AnchorStyles.None,
+                BackColor = foreColor, ForeColor = textColor
+            };
+
+            _stText = new ToolStripLabel {Text = "No Objects Selected", BackColor = foreColor, ForeColor = textColor};
+            _reqUpdate = new ToolStripLabel {Text = "", BackColor = entryColor, ForeColor = textColor};
+
+            _rcNameTxt = new EntryBox {Dock = DockStyle.Fill, BackColor = entryColor, ForeColor = textColor};
+            _rcNameTxt.TextChanged += name_TextChanged;
+
+            _rcInfoTxt = new EntryBox
+            {
+                Dock = DockStyle.Fill, WordWrap = true, Multiline = true,
+                ScrollBars = ScrollBars.Vertical,
+                BackColor = entryColor, ForeColor = textColor
+            };
+            _rcInfoTxt.TextChanged += info_TextChanged;
+
+            _rcLengthTxt = new ReadOnlyTextBox
+                {Dock = DockStyle.Fill, ReadOnly = true, BackColor = entryColor, ForeColor = textColor};
+            _rcWidthTxt = new ReadOnlyTextBox
+                {Dock = DockStyle.Fill, ReadOnly = true, BackColor = entryColor, ForeColor = textColor};
+            _rcThickTxt = new ReadOnlyTextBox
+                {Dock = DockStyle.Fill, ReadOnly = true, BackColor = entryColor, ForeColor = textColor};
+            _rcVolTxt = new ReadOnlyTextBox
+                {Dock = DockStyle.Fill, ReadOnly = true, BackColor = entryColor, ForeColor = textColor};
+            _rcAreaTxt = new ReadOnlyTextBox
+                {Dock = DockStyle.Fill, ReadOnly = true, BackColor = entryColor, ForeColor = textColor};
+            _rcPerimTxt = new ReadOnlyTextBox
+                {Dock = DockStyle.Fill, ReadOnly = true, BackColor = entryColor, ForeColor = textColor};
+            _rcAsymTxt = new ReadOnlyTextBox
+                {Dock = DockStyle.Fill, ReadOnly = true, BackColor = entryColor, ForeColor = textColor};
+            _rcAsymStrTxt = new ReadOnlyTextBox
+                {Dock = DockStyle.Fill, ReadOnly = true, BackColor = entryColor, ForeColor = textColor};
+            _rcQtyOfTxt = new ReadOnlyTextBox
+                {Dock = DockStyle.Fill, ReadOnly = true, BackColor = entryColor, ForeColor = textColor};
+            _rcQtyTotalTxt = new ReadOnlyTextBox
+                {Dock = DockStyle.Fill, ReadOnly = true, BackColor = entryColor, ForeColor = textColor};
+            _rcNumChangesTxt = new ReadOnlyTextBox
+                {Dock = DockStyle.Fill, ReadOnly = true, BackColor = entryColor, ForeColor = textColor};
+            _rcParentTxt = new ReadOnlyTextBox
+                {Dock = DockStyle.Fill, ReadOnly = true, BackColor = entryColor, ForeColor = textColor};
+
+            _rcChildList = new ChildBox {Dock = DockStyle.Fill, BackColor = entryColor, ForeColor = textColor};
+            _rcChildList.Sorted = true;
+            _rcChildList.DisplayMember = "Text";
+            _rcChildList.MouseDoubleClick += childList_MouseDoubleClick;
+
+            _rcIsSweepChk = new CheckBox
+            {
+                Text = "Is Sweep", Dock = DockStyle.Fill, AutoSize = false, BackColor = foreColor, ForeColor = textColor
+            };
+
+            _rcIsSweepChk.Click += sweep_CheckClick;
+
+            _rcIsiMirChk = new CheckBox
+            {
+                Text = "Is Mirror", Dock = DockStyle.Fill, AutoSize = false, BackColor = foreColor,
+                ForeColor = textColor
+            };
+
+            _rcIsiMirChk.Click += mirror_CheckClick;
+
+            _rcHasHolesChk = new CheckBox
+            {
+                Text = "Has Holes", Dock = DockStyle.Fill, AutoSize = false, BackColor = foreColor,
+                ForeColor = textColor
+            };
+
+            _rcHasHolesChk.Click += holes_CheckClick;
+
+            _txDirUnknown = new CheckBox
+            {
+                Text = "UN", Appearance = Appearance.Button, Dock = DockStyle.Fill, BackColor = entryColor,
+                ForeColor = textColor
+            };
+
+            _txDirUnknown.Click += texture_CheckClick;
+
+            _txDirNone = new CheckBox
+            {
+                Text = "NO", Appearance = Appearance.Button, Dock = DockStyle.Fill, BackColor = entryColor,
+                ForeColor = textColor
+            };
+
+            _txDirNone.Click += texture_CheckClick;
+
+            _txDirHor = new CheckBox
+            {
+                Text = "HZ", Appearance = Appearance.Button, Dock = DockStyle.Fill, BackColor = entryColor,
+                ForeColor = textColor
+            };
+
+            _txDirHor.Click += texture_CheckClick;
+
+            _txDirVer = new CheckBox
+            {
+                Text = "VT", Appearance = Appearance.Button, Dock = DockStyle.Fill, BackColor = entryColor,
+                ForeColor = textColor
+            };
+
+            _txDirVer.Click += texture_CheckClick;
+
+            var txLayout = new TableLayoutPanel
+            {
+                AutoScroll = true,
+                AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                BackColor = foreColor,
+                ForeColor = foreColor,
+                ColumnCount = 4,
+                RowCount = 1,
+                Dock = DockStyle.Fill
+            };
+
+            txLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            txLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            txLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            txLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+
+            txLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+
+            txLayout.Controls.Add(_txDirUnknown, 0, 0);
+            txLayout.Controls.Add(_txDirNone, 1, 0);
+            txLayout.Controls.Add(_txDirHor, 2, 0);
+            txLayout.Controls.Add(_txDirVer, 3, 0);
+
+            _txDirUnknown.FlatStyle = FlatStyle.Flat;
+            _txDirUnknown.FlatAppearance.BorderColor = Colors.GetCadBorderColor();
+            _txDirUnknown.FlatAppearance.BorderSize = 1;
+
+            _txDirNone.FlatStyle = FlatStyle.Flat;
+            _txDirNone.FlatAppearance.BorderColor = Colors.GetCadBorderColor();
+            _txDirNone.FlatAppearance.BorderSize = 1;
+
+            _txDirHor.FlatStyle = FlatStyle.Flat;
+            _txDirHor.FlatAppearance.BorderColor = Colors.GetCadBorderColor();
+            _txDirHor.FlatAppearance.BorderSize = 1;
+
+            _txDirVer.FlatStyle = FlatStyle.Flat;
+            _txDirVer.FlatAppearance.BorderColor = Colors.GetCadBorderColor();
+            _txDirVer.FlatAppearance.BorderSize = 1;
+
+            _prodUnkown = new CheckBox
+            {
+                Text = "UN", Appearance = Appearance.Button, Dock = DockStyle.Fill, BackColor = entryColor,
+                ForeColor = textColor
+            };
+
+            _prodUnkown.Click += prod_CheckClick;
+
+            _prodS4S = new CheckBox
+            {
+                Text = "S4", Dock = DockStyle.Fill, Appearance = Appearance.Button, BackColor = entryColor,
+                ForeColor = textColor
+            };
+
+            _prodS4S.Click += prod_CheckClick;
+
+            _prodMOne = new CheckBox
+            {
+                Text = "OS", Appearance = Appearance.Button, Dock = DockStyle.Fill, BackColor = entryColor,
+                ForeColor = textColor
+            };
+
+            _prodMOne.Click += prod_CheckClick;
+
+            _prodMMany = new CheckBox
+            {
+                Text = "MS", Appearance = Appearance.Button, Dock = DockStyle.Fill, BackColor = entryColor,
+                ForeColor = textColor
+            };
+
+            _prodMMany.Click += prod_CheckClick;
+
+            var prodLayout = new TableLayoutPanel
+            {
+                AutoScroll = false,
+                AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                BackColor = foreColor,
+                ForeColor = foreColor,
+                ColumnCount = 4,
+                RowCount = 1,
+                Dock = DockStyle.Fill
+            };
+
+            prodLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            prodLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            prodLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            prodLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+
+            prodLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+
+            prodLayout.Controls.Add(_prodUnkown, 0, 0);
+            prodLayout.Controls.Add(_prodS4S, 1, 0);
+            prodLayout.Controls.Add(_prodMOne, 2, 0);
+            prodLayout.Controls.Add(_prodMMany, 3, 0);
+
+            _prodUnkown.FlatStyle = FlatStyle.Flat;
+            _prodUnkown.FlatAppearance.BorderColor = Colors.GetCadBorderColor();
+            _prodUnkown.FlatAppearance.BorderSize = 1;
+
+            _prodS4S.FlatStyle = FlatStyle.Flat;
+            _prodS4S.FlatAppearance.BorderColor = Colors.GetCadBorderColor();
+            _prodS4S.FlatAppearance.BorderSize = 1;
+
+            _prodMOne.FlatStyle = FlatStyle.Flat;
+            _prodMOne.FlatAppearance.BorderColor = Colors.GetCadBorderColor();
+            _prodMOne.FlatAppearance.BorderSize = 1;
+
+            _prodMMany.FlatStyle = FlatStyle.Flat;
+            _prodMMany.FlatAppearance.BorderColor = Colors.GetCadBorderColor();
+            _prodMMany.FlatAppearance.BorderSize = 1;
+
+            _travButton = new Button
+                {Text = "TR", Dock = DockStyle.Fill, BackColor = entryColor, ForeColor = textColor};
+            _travButton.Click += traverse_Click;
+
+            _selParent = new Button
+                {Text = "SP", Dock = DockStyle.Fill, BackColor = entryColor, ForeColor = textColor};
+            _selParent.Click += selParent_Click;
+
+            _selChildren = new Button
+                {Text = "SC", Dock = DockStyle.Fill, BackColor = entryColor, ForeColor = textColor};
+            _selChildren.Click += selChildren_Click;
+
+            _updChildren = new Button
+                {Text = "UC", Dock = DockStyle.Fill, BackColor = entryColor, ForeColor = textColor};
+            _updChildren.Click += updChildren_Click;
+
+            _updParent = new Button
+                {Text = "UP", Dock = DockStyle.Fill, BackColor = entryColor, ForeColor = textColor};
+            _updParent.Click += UpdParentClick;
+
+            _btPanel = new Panel
+            {
+                Dock = DockStyle.Bottom, Height = CtrlHeight, AutoSize = false, BackColor = foreColor,
+                ForeColor = textColor
+            };
+            var btLayout = new TableLayoutPanel
+            {
+                AutoScroll = false,
+                AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                BackColor = foreColor,
+                ForeColor = foreColor,
+                ColumnCount = 5,
+                RowCount = 1,
+                Dock = DockStyle.Fill
+            };
+
+            btLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            btLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            btLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            btLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            btLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            btLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, CtrlHeight + 5));
+
+            btLayout.Controls.Add(_travButton, 0, 0);
+            btLayout.Controls.Add(_selParent, 1, 0);
+            btLayout.Controls.Add(_selChildren, 2, 0);
+            btLayout.Controls.Add(_updParent, 3, 0);
+            btLayout.Controls.Add(_updChildren, 4, 0);
+
+            _travButton.FlatStyle = FlatStyle.Flat;
+            _travButton.FlatAppearance.BorderColor = Colors.GetCadBorderColor();
+            _travButton.FlatAppearance.BorderSize = 1;
+
+            _selParent.FlatStyle = FlatStyle.Flat;
+            _selParent.FlatAppearance.BorderColor = Colors.GetCadBorderColor();
+            _selParent.FlatAppearance.BorderSize = 1;
+
+            _selChildren.FlatStyle = FlatStyle.Flat;
+            _selChildren.FlatAppearance.BorderColor = Colors.GetCadBorderColor();
+            _selChildren.FlatAppearance.BorderSize = 1;
+
+            _updChildren.FlatStyle = FlatStyle.Flat;
+            _updChildren.FlatAppearance.BorderColor = Colors.GetCadBorderColor();
+            _updChildren.FlatAppearance.BorderSize = 1;
+
+            _updParent.FlatStyle = FlatStyle.Flat;
+            _updParent.FlatAppearance.BorderColor = Colors.GetCadBorderColor();
+            _updParent.FlatAppearance.BorderSize = 1;
+
+            _btPanel.Controls.Add(btLayout);
+
+            _stStrip = new StatusStrip {Dock = DockStyle.Bottom, BackColor = foreColor, ForeColor = textColor};
+            _stStrip.Items.Add(_reqUpdate);
+            _stStrip.Items.Add(_stText);
+
+            #region AddInfoToTable
+
+            AddToTable(_rcNameLab, _rcNameTxt, CtrlHeight, ref rowCount);
+            AddToTable(_rcInfoLab, _rcInfoTxt, CtrlHeight * 2, ref rowCount);
+            AddToTable(_rcQtyOfLab, _rcQtyOfTxt, CtrlHeight, ref rowCount);
+            AddToTable(_rcQtyTotalLab, _rcQtyTotalTxt, CtrlHeight, ref rowCount);
+            AddToTable(_rcLengthLab, _rcLengthTxt, CtrlHeight, ref rowCount);
+            AddToTable(_rcWidthLab, _rcWidthTxt, CtrlHeight, ref rowCount);
+            AddToTable(_rcThickLab, _rcThickTxt, CtrlHeight, ref rowCount);
+            AddToTable(_rcVolLab, _rcVolTxt, CtrlHeight, ref rowCount);
+            AddToTable(_rcAreaLab, _rcAreaTxt, CtrlHeight, ref rowCount);
+            AddToTable(_rcPerimLab, _rcPerimTxt, CtrlHeight, ref rowCount);
+            AddToTable(_rcAsymLab, _rcAsymTxt, CtrlHeight, ref rowCount);
+            AddToTable(_rcAsymStrLab, _rcAsymStrTxt, CtrlHeight, ref rowCount);
+            AddToTable(_rcNumChangesLab, _rcNumChangesTxt, CtrlHeight, ref rowCount);
+
+            AddToTable(_rcParentLab, _rcParentTxt, CtrlHeight, ref rowCount);
+            AddToTable(_rcChildLab, _rcChildList, CtrlHeight * 5, ref rowCount);
+
+            AddToTable(_rcTxDirLab, txLayout, CtrlHeight + 10, ref rowCount);
+            AddToTable(_prodTypLab, prodLayout, CtrlHeight + 10, ref rowCount);
+
+            AddToTable(new Label(), _rcIsSweepChk, CtrlHeight, ref rowCount);
+            AddToTable(new Label(), _rcIsiMirChk, CtrlHeight, ref rowCount);
+            AddToTable(new Label(), _rcHasHolesChk, CtrlHeight, ref rowCount);
+
+            AddToTable(new Label(), new Label(), CtrlHeight, ref rowCount);
+
+            #endregion
+
+            _palPanel.Controls.Add(_tbLayout);
+            _palPanel.Controls.Add(_stStrip);
+            _palPanel.Controls.Add(_btPanel);
+        }
+
+        /// <summary>
+        ///     TODO
+        /// </summary>
+        /// <param name="ctrl1"></param>
+        /// <param name="ctr2"></param>
+        /// <param name="ctHeight"></param>
+        /// <param name="rowCount"></param>
+        private void AddToTable(Control ctrl1, Control ctr2, float ctHeight, ref int rowCount)
+        {
+            if (ctrl1 == null) throw new ArgumentNullException(nameof(ctrl1));
+            if (ctr2 == null) throw new ArgumentNullException(nameof(ctr2));
+
+            _tbLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, ctHeight));
+            _tbLayout.Controls.Add(ctrl1, LabColumn, rowCount);
+            _tbLayout.Controls.Add(ctr2, InfoColumn, rowCount);
+            rowCount++;
+        }
+
+        #endregion
 
         #region CheckHandling
 
@@ -1508,14 +1508,14 @@ namespace RabCab.Commands.PaletteKit
 
                 var hdlString = _rcParentTxt.Text;
 
-                if (string.IsNullOrEmpty(hdlString) || hdlString == "0" || hdlString == "" || hdlString == "*VARIES*") return;
+                if (string.IsNullOrEmpty(hdlString) || hdlString == "0" || hdlString == "" ||
+                    hdlString == "*VARIES*") return;
 
                 using (var acTrans = acCurDb.TransactionManager.StartTransaction())
                 {
                     acCurEd.SelectByHandle(hdlString, acCurDb, acTrans);
                     acTrans.Commit();
                 }
-
             }
         }
 
@@ -1542,11 +1542,10 @@ namespace RabCab.Commands.PaletteKit
                     {
                         var hdlString = lBItem.Text;
 
-                        if (string.IsNullOrEmpty(hdlString) || hdlString == "0" || hdlString == "" || hdlString == "*VARIES*") return;
+                        if (string.IsNullOrEmpty(hdlString) || hdlString == "0" || hdlString == "" ||
+                            hdlString == "*VARIES*") return;
                         cList.Add(hdlString);
                     }
-
-                   
                 }
 
                 if (cList.Count <= 0) return;
@@ -1588,7 +1587,7 @@ namespace RabCab.Commands.PaletteKit
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void updSiblings_Click(object sender, EventArgs e)
+        private void UpdParentClick(object sender, EventArgs e)
         {
             var acCurDoc = DocumentManager.MdiActiveDocument;
 
@@ -1633,13 +1632,13 @@ namespace RabCab.Commands.PaletteKit
 
     internal class ListBoxItem
     {
-        public string Text { get; private set; }
-        private string Tag { get; set; }
-
         public ListBoxItem(string text, string tag)
         {
             Text = text;
             Tag = tag;
         }
+
+        public string Text { get; }
+        private string Tag { get; }
     }
 }

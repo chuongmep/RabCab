@@ -93,7 +93,7 @@ namespace RabCab.Commands.AnalysisSuite
                         acSol.AddXData(entInfo, acCurDb, acTrans);
 
                         if (!reselect)
-                        acCurEd.WriteMessage("\n" + entInfo.PrintInfo(false, parseCount));
+                            acCurEd.WriteMessage("\n" + entInfo.PrintInfo(false, parseCount));
 
                         parseCount++;
 

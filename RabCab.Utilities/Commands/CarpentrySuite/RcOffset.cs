@@ -83,46 +83,36 @@ namespace RabCab.Commands.CarpentrySuite
 
             try
             {
-
                 var objList = new List<OffsetObject>();
 
                 //Start a transaction
                 using (var acTrans = acCurDb.TransactionManager.StartTransaction())
                 {
                     foreach (var (objectId, subEntList) in userSel)
-                    {
                         if (objList.Any(n => n.ObjId == objectId))
                         {
                             var offsetObject = objList.Find(i => i.ObjId == objectId);
 
-                            foreach (var subentityId in subEntList)
-                            {
-                                offsetObject?.SubentIds.Add(subentityId);
-                            }
-                            
+                            foreach (var subentityId in subEntList) offsetObject?.SubentIds.Add(subentityId);
                         }
                         else
                         {
                             var offsetObject = new OffsetObject(objectId);
 
-                            foreach (var subentityId in subEntList)
-                            {
-                                offsetObject?.SubentIds.Add(subentityId);
-                            }
+                            foreach (var subentityId in subEntList) offsetObject?.SubentIds.Add(subentityId);
 
                             objList.Add(offsetObject);
                         }
-                    }
 
                     foreach (var obj in objList)
                     {
                         var acSol = acTrans.GetObject(obj.ObjId, OpenMode.ForWrite) as Solid3d;
 
                         if (obj.SubentIds.Count > 0)
-                        //Offset the faces
-                        acSol?.OffsetFaces(obj.SubentIds.ToArray(), SettingsUser.RcOffsetDepth);
+                            //Offset the faces
+                            acSol?.OffsetFaces(obj.SubentIds.ToArray(), SettingsUser.RcOffsetDepth);
                     }
-                    
+
                     //Commit the transaction
                     acTrans.Commit();
                 }
@@ -141,8 +131,8 @@ namespace RabCab.Commands.CarpentrySuite
 
         public OffsetObject(ObjectId objId)
         {
-            this.ObjId = objId;
-            this.SubentIds = new List<SubentityId>();
+            ObjId = objId;
+            SubentIds = new List<SubentityId>();
         }
     }
 }

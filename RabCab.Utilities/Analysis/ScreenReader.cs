@@ -9,7 +9,7 @@ namespace RabCab.Analysis
     public static class ScreenReader
     {
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <returns></returns>
         public static double GetSreenSize()

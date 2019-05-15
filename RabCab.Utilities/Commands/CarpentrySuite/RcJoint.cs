@@ -19,7 +19,6 @@ using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Runtime;
 using RabCab.Agents;
-using RabCab.Calculators;
 using RabCab.Engine.Enumerators;
 using RabCab.Extensions;
 using RabCab.Settings;
@@ -123,7 +122,7 @@ namespace RabCab.Commands.CarpentrySuite
                             var subIds = new List<SubentityId>();
 
                             //Get Full Subentity Path
-                            ObjectId[] objIds = { joinSol.ObjectId };
+                            ObjectId[] objIds = {joinSol.ObjectId};
                             var fSubPath = new FullSubentityPath(objIds,
                                 new SubentityId(SubentityType.Null, IntPtr.Zero));
 
@@ -164,9 +163,7 @@ namespace RabCab.Commands.CarpentrySuite
                                                 var tempCheckSol =
                                                     tempTrans.GetObject(checkSol.ObjectId, OpenMode.ForRead) as Solid3d;
                                                 if (checkJoiner != null && checkJoiner.CheckInterference(tempCheckSol))
-                                                {
                                                     subIds.Add(subentId[0]);
-                                                }
                                             }
 
                                             //Do not commit the transaction
@@ -177,10 +174,7 @@ namespace RabCab.Commands.CarpentrySuite
                             }
 
                             //If touching faces found, add them to the group list
-                            if (subIds.Count > 0)
-                            {
-                                joinerGroup.Add(Tuple.Create(joinSol, subIds));
-                            }
+                            if (subIds.Count > 0) joinerGroup.Add(Tuple.Create(joinSol, subIds));
                         }
                     }
                     catch (Exception e)

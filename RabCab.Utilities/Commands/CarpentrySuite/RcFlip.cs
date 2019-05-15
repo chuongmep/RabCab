@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
@@ -15,7 +11,7 @@ using RabCab.Settings;
 
 namespace RabCab.Commands.CarpentrySuite
 {
-    class RcFlip
+    internal class RcFlip
     {
         /// <summary>
         /// </summary>
@@ -131,6 +127,7 @@ namespace RabCab.Commands.CarpentrySuite
                                         acSol?.TransformBy(eInfo.X270);
                                         break;
                                 }
+
                                 break;
                             case "Y":
                                 switch (flipDegKey)
@@ -145,6 +142,7 @@ namespace RabCab.Commands.CarpentrySuite
                                         acSol?.TransformBy(eInfo.Y270);
                                         break;
                                 }
+
                                 break;
                             case "Z":
                                 switch (flipDegKey)
@@ -159,6 +157,7 @@ namespace RabCab.Commands.CarpentrySuite
                                         acSol?.TransformBy(eInfo.Z270);
                                         break;
                                 }
+
                                 break;
                         }
                     }

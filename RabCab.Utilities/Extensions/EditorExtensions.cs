@@ -275,6 +275,28 @@ namespace RabCab.Extensions
             return ss.GetObjectIds();
         }
 
+        #region Selected Object Extensions
+
+        /// <summary>
+        ///     Method to Move A Selected Objects by a Vector3D Displacement
+        /// </summary>
+        /// <param name="acTrans">The Current Working Transaction</param>
+        /// <param name="acSsObj">The Selected Object</param>
+        /// <param name="transVec3D">The Vector3D To Displace The Object By</param>
+        public static void DisplaceByVector(this SelectedObject acSsObj, Transaction acTrans, Vector3d transVec3D)
+        {
+            // Check if a valid SelectedObject was returned
+            if (acSsObj == null) return;
+
+            // Open the selected object for write
+            var acEnt = acTrans.GetObject(acSsObj.ObjectId, OpenMode.ForWrite) as Entity;
+
+            //Transform the selected object by the displacement vector
+            acEnt?.TransformBy(Matrix3d.Displacement(transVec3D));
+        }
+
+        #endregion
+
         #region Prompt Angle Options
 
         /// <summary>
@@ -1828,16 +1850,11 @@ namespace RabCab.Extensions
                             var subEntId = fsPath.SubentId;
                             var subType = subEntId.Type;
 
-                            if (subType == subEntType)
-                            {
-                                subList.Add(subEntId);
-                            }
-
+                            if (subType == subEntType) subList.Add(subEntId);
                         }
 
                         //Add the new tuple value to the list
                         entList.Add(Tuple.Create(objId, subList));
-                        
                     }
                 }
 
@@ -2008,30 +2025,10 @@ namespace RabCab.Extensions
 
         #endregion
 
-        #region Selected Object Extensions
-        /// <summary>
-        ///     Method to Move A Selected Objects by a Vector3D Displacement
-        /// </summary>
-        /// <param name="acTrans">The Current Working Transaction</param>
-        /// <param name="acSsObj">The Selected Object</param>
-        /// <param name="transVec3D">The Vector3D To Displace The Object By</param>
-        public static void DisplaceByVector(this SelectedObject acSsObj, Transaction acTrans,Vector3d transVec3D)
-        {
-            // Check if a valid SelectedObject was returned
-            if (acSsObj == null) return;
-
-            // Open the selected object for write
-            var acEnt = acTrans.GetObject(acSsObj.ObjectId, OpenMode.ForWrite) as Entity;
-
-            //Transform the selected object by the displacement vector
-            acEnt?.TransformBy(Matrix3d.Displacement(transVec3D));
-        }
-
-        #endregion
-
         #region Handle Extensions
+
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="acCurEd"></param>
         /// <param name="hdl"></param>
@@ -2041,10 +2038,10 @@ namespace RabCab.Extensions
         {
             try
             {
-                long ln = Convert.ToInt64(hlString, 16);
-                Handle hdl = new Handle(ln);
-                ObjectId objId = acCurDb.GetObjectId(false, hdl, 0);
-                acCurEd.SetImpliedSelection(new ObjectId[] { objId });
+                var ln = Convert.ToInt64(hlString, 16);
+                var hdl = new Handle(ln);
+                var objId = acCurDb.GetObjectId(false, hdl, 0);
+                acCurEd.SetImpliedSelection(new[] {objId});
             }
             catch (Exception e)
             {
@@ -2053,24 +2050,24 @@ namespace RabCab.Extensions
         }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="acCurEd"></param>
         /// <param name="hdls"></param>
         /// <param name="acCurDb"></param>
         /// <param name="acTrans"></param>
-        public static void SelectByHandle(this Editor acCurEd, List<string> hdlStrings, Database acCurDb, Transaction acTrans)
+        public static void SelectByHandle(this Editor acCurEd, List<string> hdlStrings, Database acCurDb,
+            Transaction acTrans)
         {
             try
             {
-
                 var objIds = new List<ObjectId>();
 
                 foreach (var hdlString in hdlStrings)
                 {
-                    long ln = Convert.ToInt64(hdlString, 16);
-                    Handle hdl = new Handle(ln);
-                    ObjectId objId = acCurDb.GetObjectId(false, hdl, 0);
+                    var ln = Convert.ToInt64(hdlString, 16);
+                    var hdl = new Handle(ln);
+                    var objId = acCurDb.GetObjectId(false, hdl, 0);
                     if (objId != ObjectId.Null)
                         objIds.Add(objId);
                 }
@@ -2085,7 +2082,7 @@ namespace RabCab.Extensions
         }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="acCurEd"></param>
         /// <param name="hdl"></param>
@@ -2095,8 +2092,8 @@ namespace RabCab.Extensions
         {
             try
             {
-                ObjectId objId = acCurDb.GetObjectId(false, hdl, 0);
-                acCurEd.SetImpliedSelection(new ObjectId[] { objId });
+                var objId = acCurDb.GetObjectId(false, hdl, 0);
+                acCurEd.SetImpliedSelection(new[] {objId});
             }
             catch (Exception e)
             {
@@ -2105,7 +2102,7 @@ namespace RabCab.Extensions
         }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="acCurEd"></param>
         /// <param name="hdls"></param>
@@ -2119,7 +2116,7 @@ namespace RabCab.Extensions
 
                 foreach (var hdl in hdls)
                 {
-                    ObjectId objId = acCurDb.GetObjectId(false, hdl, 0);
+                    var objId = acCurDb.GetObjectId(false, hdl, 0);
                     if (objId != ObjectId.Null)
                         objIds.Add(objId);
                 }
@@ -2134,39 +2131,41 @@ namespace RabCab.Extensions
         }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="acCurEd"></param>
         /// <param name="hdl"></param>
         /// <param name="acCurDb"></param>
         /// <param name="acTrans"></param>
-        public static void HighlightByHandle(this Editor acCurEd, string hlString, Database acCurDb, Transaction acTrans)
+        public static void HighlightByHandle(this Editor acCurEd, string hlString, Database acCurDb,
+            Transaction acTrans)
         {
-            long ln = Convert.ToInt64(hlString, 16);
-            Handle hdl = new Handle(ln);
-            ObjectId objId = acCurDb.GetObjectId(false, hdl, 0);
+            var ln = Convert.ToInt64(hlString, 16);
+            var hdl = new Handle(ln);
+            var objId = acCurDb.GetObjectId(false, hdl, 0);
 
             var ent = acTrans.GetObject(objId, OpenMode.ForRead) as Entity;
             if (ent != null)
-            ent.Highlight();
+                ent.Highlight();
         }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="acCurEd"></param>
         /// <param name="hdls"></param>
         /// <param name="acCurDb"></param>
         /// <param name="acTrans"></param>
-        public static void HighlightByHandle(this Editor acCurEd, List<string> hdlStrings, Database acCurDb, Transaction acTrans)
+        public static void HighlightByHandle(this Editor acCurEd, List<string> hdlStrings, Database acCurDb,
+            Transaction acTrans)
         {
             var objIds = new List<ObjectId>();
 
             foreach (var hdlString in hdlStrings)
             {
-                long ln = Convert.ToInt64(hdlString, 16);
-                Handle hdl = new Handle(ln);
-                ObjectId objId = acCurDb.GetObjectId(false, hdl, 0);
+                var ln = Convert.ToInt64(hdlString, 16);
+                var hdl = new Handle(ln);
+                var objId = acCurDb.GetObjectId(false, hdl, 0);
                 if (objId != ObjectId.Null)
                     objIds.Add(objId);
             }
@@ -2183,7 +2182,7 @@ namespace RabCab.Extensions
         }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="acCurEd"></param>
         /// <param name="hdl"></param>
@@ -2191,26 +2190,27 @@ namespace RabCab.Extensions
         /// <param name="acTrans"></param>
         public static void HighlightByHandle(this Editor acCurEd, Handle hdl, Database acCurDb, Transaction acTrans)
         {
-            ObjectId objId = acCurDb.GetObjectId(false, hdl, 0);
+            var objId = acCurDb.GetObjectId(false, hdl, 0);
             var ent = acTrans.GetObject(objId, OpenMode.ForRead) as Entity;
             if (ent != null)
                 ent.Highlight();
         }
 
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="acCurEd"></param>
         /// <param name="hdls"></param>
         /// <param name="acCurDb"></param>
         /// <param name="acTrans"></param>
-        public static void HighlightByHandle(this Editor acCurEd, List<Handle> hdls, Database acCurDb, Transaction acTrans)
+        public static void HighlightByHandle(this Editor acCurEd, List<Handle> hdls, Database acCurDb,
+            Transaction acTrans)
         {
             var objIds = new List<ObjectId>();
 
             foreach (var hdl in hdls)
             {
-                ObjectId objId = acCurDb.GetObjectId(false, hdl, 0);
+                var objId = acCurDb.GetObjectId(false, hdl, 0);
                 if (objId != ObjectId.Null)
                     objIds.Add(objId);
             }
@@ -2224,10 +2224,8 @@ namespace RabCab.Extensions
                         ent.Highlight();
                 }
             }
-
-
         }
-        #endregion
 
+        #endregion
     }
 }
