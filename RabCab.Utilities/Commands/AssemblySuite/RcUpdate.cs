@@ -1,5 +1,6 @@
 ﻿using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.Runtime;
+using RabCab.Extensions;
 using RabCab.Settings;
 
 namespace RabCab.Commands.AssemblySuite
@@ -8,7 +9,7 @@ namespace RabCab.Commands.AssemblySuite
     {
         /// <summary>
         /// </summary>
-        [CommandMethod(SettingsInternal.CommandGroup, "_RcUpdate",
+        [CommandMethod(SettingsInternal.CommandGroup, "_RCUPDATE",
             CommandFlags.Modal
             //| CommandFlags.Transparent
             //| CommandFlags.UsePickSet
@@ -40,6 +41,8 @@ namespace RabCab.Commands.AssemblySuite
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;
             var acCurDb = acCurDoc.Database;
             var acCurEd = acCurDoc.Editor;
+
+            
         }
     }
 }

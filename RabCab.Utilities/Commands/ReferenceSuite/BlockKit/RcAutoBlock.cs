@@ -98,40 +98,40 @@ namespace RabCab.Commands.ReferenceSuite.BlockKit
 
                 #region TODO replace with xml reading
 
-                //Add attribute definitions
-                //TODO read XML to get attributes to add
-                //For now we'll use a test value
+                ////Add attribute definitions
+                ////TODO read XML to get attributes to add
+                ////For now we'll use a test value
 
-                var attTag = new AttributeDefinition
-                {
-                    Justify = AttachmentPoint.MiddleCenter,
-                    AlignmentPoint = extents.MinPoint,
-                    Prompt = "TAG:",
-                    Tag = "TAG",
-                    TextString = bName,
-                    Height = 1,
-                    Invisible = true,
-                    LockPositionInBlock = true
-                };
+                //var attTag = new AttributeDefinition
+                //{
+                //    Justify = AttachmentPoint.MiddleCenter,
+                //    AlignmentPoint = extents.MinPoint,
+                //    Prompt = "TAG:",
+                //    Tag = "TAG",
+                //    TextString = bName,
+                //    Height = 1,
+                //    Invisible = true,
+                //    LockPositionInBlock = true
+                //};
 
-                var attCrate = new AttributeDefinition
-                {
-                    Justify = AttachmentPoint.MiddleCenter,
-                    AlignmentPoint = extents.MinPoint,
-                    Prompt = "CRATE:",
-                    Tag = "CRATE",
-                    TextString = "",
-                    Height = 1,
-                    Invisible = true,
-                    LockPositionInBlock = true
-                };
+                //var attCrate = new AttributeDefinition
+                //{
+                //    Justify = AttachmentPoint.MiddleCenter,
+                //    AlignmentPoint = extents.MinPoint,
+                //    Prompt = "CRATE:",
+                //    Tag = "CRATE",
+                //    TextString = "",
+                //    Height = 1,
+                //    Invisible = true,
+                //    LockPositionInBlock = true
+                //};
 
                 #endregion
 
                 var blockId = acBlkTbl.Add(acBtr);
 
-                acBtr.AppendEntity(attTag);
-                acBtr.AppendEntity(attCrate);
+                //acBtr.AppendEntity(attTag);
+                //acBtr.AppendEntity(attCrate);
                 acTrans.AddNewlyCreatedDBObject(acBtr, true);
 
                 var map = new IdMapping();
@@ -144,8 +144,6 @@ namespace RabCab.Commands.ReferenceSuite.BlockKit
                     var ent = acTrans.GetObject(pair.Value, OpenMode.ForWrite) as Entity;
 
                     if (ent == null) continue;
-                    ent.Layer = "0";
-                    ent.ColorIndex = 0;
                     objCol2.Add(ent.ObjectId);
                 }
 

@@ -242,56 +242,56 @@ namespace RabCab.Handlers
             if (acCurDb == null || acCurDb.IsDisposed)
                 return;
 
-            var dbObj = e.DBObject;
+            //var dbObj = e.DBObject;
 
-            if (dbObj.IsErased)
-                if (dbObj is Solid3d acSol)
-                {
-                    var acCurDoc = Application.DocumentManager.MdiActiveDocument;
-                    var acCurEd = acCurDoc.Editor;
-                    var handle = acSol.Handle;
+            //if (dbObj.IsErased)
+            //    if (dbObj is Solid3d acSol)
+            //    {
+            //        var acCurDoc = Application.DocumentManager.MdiActiveDocument;
+            //        var acCurEd = acCurDoc.Editor;
+            //        var handle = acSol.Handle;
 
-                    try
-                    {
-                        using (var acTrans = acCurDb.TransactionManager.StartTransaction())
-                        {
-                            var objs = acCurEd.SelectAllOfType("3DSOLID", acTrans);
+            //        try
+            //        {
+            //            using (var acTrans = acCurDb.TransactionManager.StartTransaction())
+            //            {
+            //                var objs = acCurEd.SelectAllOfType("3DSOLID", acTrans);
 
-                            foreach (var obj in objs)
-                            {
-                                var cSol = acTrans.GetObject(obj, OpenMode.ForRead) as Solid3d;
-                                if (cSol == null) continue;
+            //                foreach (var obj in objs)
+            //                {
+            //                    var cSol = acTrans.GetObject(obj, OpenMode.ForRead) as Solid3d;
+            //                    if (cSol == null) continue;
 
-                                if (!cSol.HasXData()) continue;
-                                cSol.Upgrade();
+            //                    if (!cSol.HasXData()) continue;
+            //                    cSol.Upgrade();
 
-                                var cHandles = cSol.GetChildren();
-                                var pHandle = cSol.GetParent();
+            //                    var cHandles = cSol.GetChildren();
+            //                    var pHandle = cSol.GetParent();
 
-                                if (cHandles.Count > 0)
-                                    if (cHandles.Contains(handle))
-                                    {
-                                        cHandles.Remove(handle);
+            //                    if (cHandles.Count > 0)
+            //                        if (cHandles.Contains(handle))
+            //                        {
+            //                            cHandles.Remove(handle);
 
-                                        cSol.UpdateXData(cHandles, Enums.XDataCode.ChildObjects, acCurDb, acTrans);
-                                    }
+            //                            cSol.UpdateXData(cHandles, Enums.XDataCode.ChildObjects, acCurDb, acTrans);
+            //                        }
 
-                                if (pHandle == handle)
-                                    cSol.UpdateXData(default(Handle), Enums.XDataCode.ParentObject, acCurDb, acTrans);
+            //                    if (pHandle == handle)
+            //                        cSol.UpdateXData(default(Handle), Enums.XDataCode.ParentObject, acCurDb, acTrans);
 
-                                cSol.Update(acCurDb);
+            //                    cSol.Update(acCurDb);
 
-                                cSol.Downgrade();
-                            }
+            //                    cSol.Downgrade();
+            //                }
 
-                            acTrans.Commit();
-                        }
-                    }
-                    catch (Exception exception)
-                    {
-                        Console.WriteLine(exception);
-                    }
-                }
+            //                acTrans.Commit();
+            //            }
+            //        }
+            //        catch (Exception exception)
+            //        {
+            //            Console.WriteLine(exception);
+            //        }
+            //    }
         }
 
         #endregion
