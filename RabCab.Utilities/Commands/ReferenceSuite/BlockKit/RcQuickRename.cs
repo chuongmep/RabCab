@@ -11,7 +11,7 @@ namespace RabCab.Commands.ReferenceSuite.BlockKit
     {
         /// <summary>
         /// </summary>
-        [CommandMethod(SettingsInternal.CommandGroup, "_QRename",
+        [CommandMethod(SettingsInternal.CommandGroup, "_QRENAME",
             CommandFlags.Modal
             //| CommandFlags.Transparent
             //| CommandFlags.UsePickSet

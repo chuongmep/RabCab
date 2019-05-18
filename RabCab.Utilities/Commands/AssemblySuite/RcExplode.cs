@@ -47,8 +47,8 @@ namespace RabCab.Commands.AssemblySuite
             //| CommandFlags.NoHistory
             //| CommandFlags.NoUndoMarker
             //| CommandFlags.NoBlockEditor
-            //| CommandFlags.NoActionRecording
-            //| CommandFlags.ActionMacro
+            | CommandFlags.NoActionRecording
+            | CommandFlags.ActionMacro
             //| CommandFlags.NoInferConstraint 
         )]
         public void Cmd_RcExplode()

@@ -50,6 +50,8 @@ namespace RabCab.Commands.AnnotationSuite
         )]
         public void Cmd_DimSpace()
         {
+            //TODO Add option to space baseline dimension
+            
             //Get the current document utilities
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;
             var acCurDb = acCurDoc.Database;

@@ -1,14 +1,25 @@
-﻿using Autodesk.AutoCAD.ApplicationServices.Core;
+﻿// -----------------------------------------------------------------------------------
+//     <copyright file="RcSimulate.cs" company="CraterSpace">
+//     Copyright (c) 2019 CraterSpace - All Rights Reserved 
+//     </copyright>
+//     <author>Zach Ayers</author>
+//     <date>04/09/2019</date>
+//     Description:    
+//     Notes:  
+//     References:          
+// -----------------------------------------------------------------------------------
+
+using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.Runtime;
 using RabCab.Settings;
 
-namespace RabCab.Commands.AssemblySuite
+namespace RabCab.Commands.CNCSuite
 {
-    internal class RcSetChild
+    internal class RcDogEar
     {
         /// <summary>
         /// </summary>
-        [CommandMethod(SettingsInternal.CommandGroup, "_SETCHILD",
+        [CommandMethod(SettingsInternal.CommandGroup, "_CMDDEFAULT",
             CommandFlags.Modal
             //| CommandFlags.Transparent
             //| CommandFlags.UsePickSet
@@ -16,7 +27,7 @@ namespace RabCab.Commands.AssemblySuite
             //| CommandFlags.NoPerspective
             //| CommandFlags.NoMultiple
             //| CommandFlags.NoTileMode
-            | CommandFlags.NoPaperSpace
+            //| CommandFlags.NoPaperSpace
             //| CommandFlags.NoOem
             //| CommandFlags.Undefined
             //| CommandFlags.InProgress
@@ -29,12 +40,12 @@ namespace RabCab.Commands.AssemblySuite
             //| CommandFlags.Interruptible
             //| CommandFlags.NoHistory
             //| CommandFlags.NoUndoMarker
-            | CommandFlags.NoBlockEditor
-            | CommandFlags.NoActionRecording
-            | CommandFlags.ActionMacro
+            //| CommandFlags.NoBlockEditor
+            //| CommandFlags.NoActionRecording
+            //| CommandFlags.ActionMacro
             //| CommandFlags.NoInferConstraint 
         )]
-        public void Cmd_SetChild()
+        public void Cmd_Default()
         {
             //Get the current document utilities
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;

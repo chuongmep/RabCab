@@ -21,10 +21,6 @@ using RabCab.Commands.CNCSuite;
 using RabCab.Commands.CombineSuite;
 using RabCab.Commands.ContentLibrary;
 using RabCab.Commands.MeshSuite;
-using RabCab.Commands.OutputSuite.InventorKit;
-using RabCab.Commands.OutputSuite.MaxKit;
-using RabCab.Commands.OutputSuite.PlotKit;
-using RabCab.Commands.OutputSuite.RenderKit;
 using RabCab.Commands.PaletteKit;
 using RabCab.Commands.ReferenceSuite.BlockKit;
 using RabCab.Commands.ReferenceSuite.OleKit;
@@ -101,7 +97,6 @@ using RabCab.Initialization;
 [assembly: CommandClass(typeof(Debugging))]
 
 //Analysis Suite
-[assembly: CommandClass(typeof(RcAnalyzeParts))]
 [assembly: CommandClass(typeof(RcDump))]
 [assembly: CommandClass(typeof(RcFilter))]
 [assembly: CommandClass(typeof(RcShowBounds))]
@@ -120,11 +115,9 @@ using RabCab.Initialization;
 [assembly: CommandClass(typeof(RcDimAdd))]
 [assembly: CommandClass(typeof(RcDimMove))]
 [assembly: CommandClass(typeof(RcDimPrec))]
-[assembly: CommandClass(typeof(RcDimSnap))]
 [assembly: CommandClass(typeof(RcDimDelete))]
 [assembly: CommandClass(typeof(RcGenDims))]
 [assembly: CommandClass(typeof(RcDimSelect))]
-[assembly: CommandClass(typeof(RcGenTags))]
 [assembly: CommandClass(typeof(RcGenViews))]
 [assembly: CommandClass(typeof(RcMatchViews))]
 [assembly: CommandClass(typeof(RcPartFinder))]
@@ -134,7 +127,6 @@ using RabCab.Initialization;
 [assembly: CommandClass(typeof(RcWeldSymbol))]
 
 //Assembly Suite
-[assembly: CommandClass(typeof(RcAssemble))]
 [assembly: CommandClass(typeof(RcBom))]
 [assembly: CommandClass(typeof(RcExplode))]
 [assembly: CommandClass(typeof(RcLayParts))]
@@ -145,21 +137,15 @@ using RabCab.Initialization;
 [assembly: CommandClass(typeof(RcScatter))]
 [assembly: CommandClass(typeof(RcSelection))]
 [assembly: CommandClass(typeof(RcUpdate))]
-[assembly: CommandClass(typeof(RcSetChild))]
-[assembly: CommandClass(typeof(RcSetParent))]
 
 //Automation Suite
 [assembly: CommandClass(typeof(RcAutoLayer))]
-[assembly: CommandClass(typeof(RcAutoScale))]
-[assembly: CommandClass(typeof(RcAutoVar))]
 [assembly: CommandClass(typeof(RcBatchWork))]
 [assembly: CommandClass(typeof(RcLayerToolbar))]
 [assembly: CommandClass(typeof(RcPageNumber))]
 [assembly: CommandClass(typeof(RcTContents))]
-[assembly: CommandClass(typeof(RcTurbo))]
 
 //Carpentry Suite
-[assembly: CommandClass(typeof(RcAccess))]
 [assembly: CommandClass(typeof(RcChop))]
 [assembly: CommandClass(typeof(RcDrill))]
 [assembly: CommandClass(typeof(RcGap))]
@@ -172,7 +158,6 @@ using RabCab.Initialization;
 //CNC Suite
 [assembly: CommandClass(typeof(RcAutoPrep))]
 [assembly: CommandClass(typeof(RcBreakPoints))]
-[assembly: CommandClass(typeof(RcCheckBit))]
 [assembly: CommandClass(typeof(RcCheckWork))]
 [assembly: CommandClass(typeof(RcExportParts))]
 [assembly: CommandClass(typeof(RcExportPaths))]
@@ -180,7 +165,7 @@ using RabCab.Initialization;
 [assembly: CommandClass(typeof(RcLoopBit))]
 [assembly: CommandClass(typeof(RcLoopInner))]
 [assembly: CommandClass(typeof(RcLoopOuter))]
-[assembly: CommandClass(typeof(RcSimulate))]
+[assembly: CommandClass(typeof(RcDogEar))]
 
 //Combine Suite
 [assembly: CommandClass(typeof(Rc3DBoundary))]
@@ -200,17 +185,6 @@ using RabCab.Initialization;
 //Mesh Suite
 [assembly: CommandClass(typeof(RcMeshConvert))]
 [assembly: CommandClass(typeof(RcMeshExplode))]
-
-//Output Suite
-[assembly: CommandClass(typeof(RcImportInventor))]
-[assembly: CommandClass(typeof(RcOutputInventor))]
-[assembly: CommandClass(typeof(RcInputMax))]
-[assembly: CommandClass(typeof(RcOutputMax))]
-[assembly: CommandClass(typeof(RcPlot))]
-[assembly: CommandClass(typeof(RcPublish))]
-[assembly: CommandClass(typeof(RcMaterial))]
-[assembly: CommandClass(typeof(RcRender))]
-[assembly: CommandClass(typeof(RcUvMap))]
 
 //Palette Kit
 [assembly: CommandClass(typeof(RcPaletteDwg))]

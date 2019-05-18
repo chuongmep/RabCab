@@ -13,14 +13,11 @@ using System;
 using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
-using RabCab.Agents;
 using RabCab.Commands.PaletteKit;
-using RabCab.Engine.Enumerators;
-using RabCab.Extensions;
 using RabCab.Settings;
 using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
 
-namespace RabCab.Handlers
+namespace RabCab.Engine.System
 {
     /// <summary>
     ///     TODO
