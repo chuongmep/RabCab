@@ -98,7 +98,6 @@ namespace RabCab.Commands.AnnotationSuite
                                     // now extract the viewport geometry
                                     psVp.GetGripPoints(psVpPnts, new IntegerCollection(), new IntegerCollection());
 
-
                                     // let's assume a rectangular vport for now, make the cross-direction grips square
                                     var tmp = psVpPnts[2];
                                     psVpPnts[2] = psVpPnts[1];
@@ -156,7 +155,12 @@ namespace RabCab.Commands.AnnotationSuite
 
                                     try
                                     {
-                                        CreateBaseViewFromVp(selectionresult, psVp, acCurEd, acCurDb, layout);
+                                        var ext = acTrans.GetExtents(selectionresult.Value.GetObjectIds());
+                                        var cenPt = Solid3DExtensions.GetBoxCenter(ext.MinPoint, ext.MaxPoint);
+                                        var insPt = cenPt.TransformBy(psVp.Ms2Ps());
+
+                                        CreateBaseViewFromVp(selectionresult, psVp, acCurEd, acCurDb, layout, insPt);
+
                                         deleteVps = true;
                                     }
                                     catch (Exception e)
@@ -189,10 +193,11 @@ namespace RabCab.Commands.AnnotationSuite
         /// <param name="prRes"></param>
         /// <param name="acVp"></param>
         /// <param name="acCurEd"></param>
-        /// <param name="db"></param>
+        /// <param name="acCurDb"></param>
         /// <param name="curLayout"></param>
-        private void CreateBaseViewFromVp(PromptSelectionResult prRes, Viewport acVp, Editor acCurEd, Database db,
-            Layout curLayout)
+        /// <param name="insertPoint"></param>
+        private void CreateBaseViewFromVp(PromptSelectionResult prRes, Viewport acVp, Editor acCurEd, Database acCurDb,
+            Layout curLayout, Point3d insertPoint)
         {
             LayoutManager.Current.CurrentLayout = "Model";
 
@@ -203,11 +208,11 @@ namespace RabCab.Commands.AnnotationSuite
                 // ReSharper disable once SpecifyACultureInStringConversionExplicitly
                 scaleString = acVp.CustomScale.ToString();
 
-            var extents = db.TileMode
-                ? new Extents3d(db.Extmin, db.Extmax)
+            var extents = acCurDb.TileMode
+                ? new Extents3d(acCurDb.Extmin, acCurDb.Extmax)
                 : (int) Application.GetSystemVariable("CVPORT") == 1
-                    ? new Extents3d(db.Pextmin, db.Pextmax)
-                    : new Extents3d(db.Extmin, db.Extmax);
+                    ? new Extents3d(acCurDb.Pextmin, acCurDb.Pextmax)
+                    : new Extents3d(acCurDb.Extmin, acCurDb.Extmax);
 
             using (var view = acCurEd.GetCurrentView())
             {
@@ -230,9 +235,7 @@ namespace RabCab.Commands.AnnotationSuite
 
             LayoutManager.Current.CurrentLayout = curLayout.LayoutName;
 
-            //TODO GET INSERT POINT FROM CENTER OF SELECTION SET
-            
-            acCurEd.Command("_VIEWBASE", "M", "T", "B", "E", "R", "ALL", "A", ss, "", "O", "C", acVp.CenterPoint, "H",
+            acCurEd.Command("_VIEWBASE", "M", "T", "B", "E", "R", "ALL", "A", ss, "", "O", "C", insertPoint, "H",
                 "V", "V", "I", "Y", "TA", "Y", "N", "X", "S", scaleString, "", "");
         }
 
