@@ -41,6 +41,12 @@ namespace RabCab.Engine.Enumerators
             _None
         }
 
+        public enum CmdEcho
+        {
+            Off = 0,
+            On = 1
+        }
+
         /// <summary>
         ///     Color codes for use in Cad Colors
         /// </summary>

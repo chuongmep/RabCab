@@ -80,6 +80,15 @@ namespace RabCab.Engine.System
             set => Application.SetSystemVariable("COLORTHEME", (short) value);
         }
 
+        /// <summary>
+        ///     Controls whether the acad.lsp file is loaded into every drawing or just the first drawing opened in a session.
+        /// </summary>
+        public static Enums.CmdEcho CmdEcho
+        {
+            get { return (Enums.CmdEcho)(short)Application.GetSystemVariable("CMDECHO"); }
+            set { Application.SetSystemVariable("CMDECHO", (short)value); }
+        }
+        
         #region Unit Checker
 
         /// <summary>
