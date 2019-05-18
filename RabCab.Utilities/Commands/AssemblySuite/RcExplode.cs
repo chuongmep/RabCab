@@ -68,7 +68,7 @@ namespace RabCab.Commands.AssemblySuite
             {
                 var extents = acTrans.GetExtents(objIds, acCurDb);
                 var extCen = Solid3DExtensions.GetBoxCenter(extents.MinPoint, extents.MaxPoint);
-                var centryMove = extCen.GetVectorTo(explodePoint.Convert3D());
+                var centryMove = extCen.GetVectorTo(new Point3d(explodePoint.X, explodePoint.Y, extCen.Z));
 
                 foreach (var obj in objIds)
                 {
@@ -98,7 +98,7 @@ namespace RabCab.Commands.AssemblySuite
                     var cPower = extCen.GetVectorTo(cCen).MultiplyBy(SettingsUser.ExplodePower);
 
                     cSol.TransformBy(Matrix3d.Displacement(cPower));
-                    //cSol.TransformBy(Matrix3d.Displacement(centryMove));
+                    cSol.TransformBy(Matrix3d.Displacement(centryMove));
                     
                 }
 
