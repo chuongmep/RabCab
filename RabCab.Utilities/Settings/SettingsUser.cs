@@ -40,6 +40,9 @@ namespace RabCab.Settings
         public static bool SplitByLayer = true;
         public static bool MixS4S = false;
 
+        //Explode Options
+        public static double ExplodePower = 2;
+
         //Laying Options
         public static int LayStep = 10;
         public static double LayTextHeight = 2;
