@@ -300,12 +300,6 @@
     <Compile Include="Extensions\LinqExtensions.cs" />
     <Compile Include="Extensions\Vector2dExtensions.cs" />
     <Compile Include="Extensions\VertExt.cs" />
-    <Compile Include="Gui\PaletteLayerRepo.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Gui\PaletteLayerRepo.Designer.cs">
-      <DependentUpon>PaletteLayerRepo.cs</DependentUpon>
-    </Compile>
     <Compile Include="Commands\PaletteKit\RcPaletteMetric.cs" />
     <Compile Include="Commands\PaletteKit\RcPaletteNet.cs" />
     <Compile Include="Commands\PaletteKit\RcPaletteNotebook.cs" />
@@ -351,18 +345,6 @@
     </Compile>
     <Compile Include="Gui\PaletteBrowser.Designer.cs">
       <DependentUpon>PaletteBrowser.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Gui\PaletteNet.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Gui\PaletteNet.Designer.cs">
-      <DependentUpon>PaletteNet.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Gui\PaletteNotebook.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Gui\PaletteNotebook.Designer.cs">
-      <DependentUpon>PaletteNotebook.cs</DependentUpon>
     </Compile>
     <Compile Include="Gui\PaletteContentLibrary.cs">
       <SubType>UserControl</SubType>
@@ -479,12 +461,6 @@
     </Compile>
     <Compile Include="Gui\GuiGenerator.Designer.cs">
       <DependentUpon>GuiGenerator.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Gui\PaletteMain.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Gui\PaletteMain.Designer.cs">
-      <DependentUpon>PaletteMain.cs</DependentUpon>
     </Compile>
     <Compile Include="Gui\GuiPlotHelper.cs">
       <SubType>Form</SubType>

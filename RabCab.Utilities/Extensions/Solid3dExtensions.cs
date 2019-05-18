@@ -57,6 +57,22 @@ namespace RabCab.Extensions
             }
         }
 
+        public static void Update(this Solid3d acSol, Database acCurDb, Transaction acTrans)
+        {
+            try
+            {
+          
+                    var entInfo = new EntInfo(acSol, acCurDb, acTrans);
+                    acSol.AddXData(entInfo, acCurDb, acTrans);
+
+                
+            }
+            catch (Exception)
+            {
+                //ignored
+            }
+        }
+
         public static void MinToOrigin(this Solid3d acSol)
         {
             acSol.Upgrade();

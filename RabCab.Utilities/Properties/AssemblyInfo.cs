@@ -31,6 +31,7 @@ using RabCab.Commands.ReferenceSuite.OleKit;
 using RabCab.Commands.ReferenceSuite.XRefKit;
 using RabCab.Commands.StructuralSuite;
 using RabCab.Commands.TidySuite;
+using RabCab.Initialization;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
@@ -96,6 +97,8 @@ using RabCab.Commands.TidySuite;
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 
 [assembly: Guid("12540a60-474b-4908-8781-f758acf78931")]
+
+[assembly: CommandClass(typeof(Debugging))]
 
 //Analysis Suite
 [assembly: CommandClass(typeof(RcAnalyzeParts))]

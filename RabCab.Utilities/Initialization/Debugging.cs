@@ -9,13 +9,18 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
+using System;
+using System.Security.Cryptography;
+using Autodesk.AutoCAD.ApplicationServices;
+using Autodesk.AutoCAD.DatabaseServices;
+using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.Runtime;
+using RabCab.Extensions;
 using RabCab.External.XmlAgent;
 using RabCab.Initialization;
+using RabCab.Settings;
 
 // This line is not mandatory, but improves loading performances
-
-[assembly: CommandClass(typeof(Debugging))]
 
 namespace RabCab.Initialization
 {
@@ -23,9 +28,9 @@ namespace RabCab.Initialization
     // a command is called by the user the first time in the context
     // of a given document. In other words, non static data in this class
     // is implicitly per-document!
-    public static class Debugging
+    public class Debugging
     {
-        public static void Cmd_TestXml()
+        public void Cmd_TestXml()
         {
             var reader = new XmlAgent();
             var cols =
@@ -41,7 +46,7 @@ namespace RabCab.Initialization
                 Sandbox.WriteLine("  " + att.LocalName + " - " + att.Value);
         }
 
-        public static void Cmd_TestMats()
+        public void Cmd_TestMats()
         {
             var reader = new XmlAgent();
             var cols =
@@ -55,6 +60,78 @@ namespace RabCab.Initialization
             foreach (var attCol in cols)
             foreach (var att in attCol)
                 Sandbox.WriteLine("  " + att.LocalName + " - " + att.Value);
+        }
+
+        /// <summary>
+        /// </summary>
+        [CommandMethod(SettingsInternal.CommandGroup, "_DEBUGBOXES",
+            CommandFlags.Modal
+            //| CommandFlags.Transparent
+            //| CommandFlags.UsePickSet
+            //| CommandFlags.Redraw
+            //| CommandFlags.NoPerspective
+            //| CommandFlags.NoMultiple
+            //| CommandFlags.NoTileMode
+            | CommandFlags.NoPaperSpace
+            //| CommandFlags.NoOem
+            //| CommandFlags.Undefined
+            //| CommandFlags.InProgress
+            //| CommandFlags.Defun
+            //| CommandFlags.NoNewStack
+            //| CommandFlags.NoInternalLock
+            //| CommandFlags.DocReadLock
+            //| CommandFlags.DocExclusiveLock
+            //| CommandFlags.Session
+            //| CommandFlags.Interruptible
+            //| CommandFlags.NoHistory
+            //| CommandFlags.NoUndoMarker
+            | CommandFlags.NoBlockEditor
+            | CommandFlags.NoActionRecording
+            | CommandFlags.ActionMacro
+            //| CommandFlags.NoInferConstraint 
+        )]
+        public void Cmd_DEBUGBOXES()
+        {
+            //Get the current document utilities
+            var acCurDoc = Application.DocumentManager.MdiActiveDocument;
+            var acCurDb = acCurDoc.Database;
+            var acCurEd = acCurDoc.Editor;
+
+            var boxCount = 500;
+            var maxSize = 40;
+            var minSize = 5;
+
+            var minX = -500;
+            var minY = -500;
+            var minZ = -500;
+
+            var maxX = 500;
+            var maxY = 500;
+            var maxZ = 500;
+            Random random = new Random();
+
+            using (var acTrans = acCurDb.TransactionManager.StartTransaction())
+            {
+                for (int i = 0; i < boxCount; i++)
+                {
+                    var acSol = new Solid3d();
+                    
+                    var length = random.Next(minSize, maxSize);
+                    var width = random.Next(minSize, maxSize); ;
+                    var height = random.Next(minSize, maxSize); ;
+
+                    acSol.CreateBox(length, width, height);
+
+                    var insertPoint = new Point3d(random.Next(minX, maxX), random.Next(minY, maxY), random.Next(minZ, maxZ));
+
+                    acCurDb.AppendEntity(acSol);
+
+                    acSol.Move(acSol.GetBoxCenter(), insertPoint);
+                    acSol.CleanBody();
+                }
+
+                acTrans.Commit();
+            }
         }
     }
 }

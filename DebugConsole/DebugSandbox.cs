@@ -47,10 +47,10 @@ namespace DebugConsole
                 switch (input?.ToUpper())
                 {
                     case "REPOFASTENERS":
-                        Debugging.Cmd_TestXml();
+                        //Debugging.Cmd_TestXml();
                         break;
                     case "REPOMATERIALS":
-                        Debugging.Cmd_TestMats();
+                        //Debugging.Cmd_TestMats();
                         break;
                     case "EXIT":
                         listening = false;

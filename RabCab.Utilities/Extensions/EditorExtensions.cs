@@ -2034,18 +2034,19 @@ namespace RabCab.Extensions
         /// <param name="hdl"></param>
         /// <param name="acCurDb"></param>
         /// <param name="acTrans"></param>
-        public static void SelectByHandle(this Editor acCurEd, string hlString, Database acCurDb, Transaction acTrans)
+        public static ObjectId SelectByHandle(this Editor acCurEd, string hlString, Database acCurDb, Transaction acTrans)
         {
             try
             {
                 var ln = Convert.ToInt64(hlString, 16);
                 var hdl = new Handle(ln);
                 var objId = acCurDb.GetObjectId(false, hdl, 0);
-                acCurEd.SetImpliedSelection(new[] {objId});
+                return objId;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
+                return ObjectId.Null;
             }
         }
 

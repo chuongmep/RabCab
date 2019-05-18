@@ -94,7 +94,7 @@ namespace RabCab.Commands.PaletteKit
             _prodMOne,
             _prodMMany;
 
-        private static Button _travButton, _selParent, _selChildren, _updChildren, _updParent;
+        private static Button _travButton, _selParent, _selChildren, _updChildren;
 
         private static StatusStrip _stStrip;
         private static Panel _btPanel;
@@ -387,18 +387,7 @@ namespace RabCab.Commands.PaletteKit
 
                 using (var acTrans = acCurDb.TransactionManager.StartTransaction())
                 {
-                    var allHaveXData = true;
-
-                    foreach (var objId in objIds)
-                    {
-                        var acEnt = acTrans.GetObject(objId, OpenMode.ForRead) as Entity;
-                        if (acEnt.HasXData()) continue;
-                        allHaveXData = false;
-                        break;
-                    }
-
-                    if (allHaveXData)
-                    {
+                   
                         var nameList = new List<string>();
                         var infoList = new List<string>();
                         var qtyOfList = new List<string>();
@@ -433,9 +422,9 @@ namespace RabCab.Commands.PaletteKit
                             infoList.Add(acEnt.GetPartInfo());
                             qtyOfList.Add(acEnt.GetQtyOf().ToString());
                             qtyTotList.Add(acEnt.GetQtyTotal().ToString());
-                            lengthList.Add(acCurDb.ConvertToDwgUnits(acEnt.GetPartLength()));
-                            widthList.Add(acCurDb.ConvertToDwgUnits(acEnt.GetPartWidth()));
-                            thickList.Add(acCurDb.ConvertToDwgUnits(acEnt.GetPartThickness()));
+                            lengthList.Add(acEnt.GetPartLength().ToString());
+                            widthList.Add(acEnt.GetPartWidth().ToString());
+                            thickList.Add(acEnt.GetPartThickness().ToString());
                             volList.Add(acEnt.GetPartVolume().ToString());
                             areaList.Add(acEnt.GetPartArea().ToString());
                             perimList.Add(acEnt.GetPartPerimeter().ToString());
@@ -443,7 +432,7 @@ namespace RabCab.Commands.PaletteKit
                             asymStrList.Add(acEnt.GetAsymVector());
                             numChangesList.Add(acEnt.GetNumChanges().ToString());
                             parentList.Add(acEnt.GetParent().ToString());
-                            childList.Add(acEnt.GetChildren());
+                            //childList.Add(acEnt.GetChildren());
                             txDirList.Add(acEnt.GetTextureDirection());
                             prodTypeList.Add(acEnt.GetProductionType());
                             isSweepList.Add(acEnt.GetIsSweep());
@@ -472,20 +461,20 @@ namespace RabCab.Commands.PaletteKit
 
                         _rcChildList.Items.Clear();
 
-                        if (childList.AreListsSame())
-                        {
-                            var cHandles = childList.First();
+                    //if (childList.AreListsSame())
+                    //{
+                    //    var cHandles = childList.First();
 
-                            if (cHandles.Count > 0)
-                                foreach (var cH in cHandles)
-                                    _rcChildList.Items.Add(new ListBoxItem(cH.ToString(), cH.ToString()));
-                        }
-                        else
-                        {
-                            _rcChildList.Items.Add(new ListBoxItem("*VARIES*", "VAR"));
-                        }
+                    //    if (cHandles.Count > 0)
+                    //        foreach (var cH in cHandles)
+                    //            _rcChildList.Items.Add(new ListBoxItem(cH.ToString(), cH.ToString()));
+                    //}
+                    //else
+                    //{
+                    //    _rcChildList.Items.Add(new ListBoxItem("*VARIES*", "VAR"));
+                    //}
 
-                        _txDirUnknown.Checked = false;
+                    _txDirUnknown.Checked = false;
                         _txDirNone.Checked = false;
                         _txDirHor.Checked = false;
                         _txDirVer.Checked = false;
@@ -555,13 +544,9 @@ namespace RabCab.Commands.PaletteKit
                             _rcHasHolesChk.Checked = hasHolesList.First();
                         else
                             _rcHasHolesChk.CheckState = CheckState.Indeterminate;
-                    }
-                    else
-                    {
-                        VaryInformation();
-                    }
+           
 
-                    acTrans.Abort();
+                acTrans.Abort();
                 }
             }
         }
@@ -946,10 +931,6 @@ namespace RabCab.Commands.PaletteKit
                 {Text = "UC", Dock = DockStyle.Fill, BackColor = entryColor, ForeColor = textColor};
             _updChildren.Click += updChildren_Click;
 
-            _updParent = new Button
-                {Text = "UP", Dock = DockStyle.Fill, BackColor = entryColor, ForeColor = textColor};
-            _updParent.Click += UpdParentClick;
-
             _btPanel = new Panel
             {
                 Dock = DockStyle.Bottom, Height = CtrlHeight, AutoSize = false, BackColor = foreColor,
@@ -961,12 +942,11 @@ namespace RabCab.Commands.PaletteKit
                 AutoSizeMode = AutoSizeMode.GrowAndShrink,
                 BackColor = foreColor,
                 ForeColor = foreColor,
-                ColumnCount = 5,
+                ColumnCount = 4,
                 RowCount = 1,
                 Dock = DockStyle.Fill
             };
 
-            btLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             btLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             btLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             btLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
@@ -976,8 +956,7 @@ namespace RabCab.Commands.PaletteKit
             btLayout.Controls.Add(_travButton, 0, 0);
             btLayout.Controls.Add(_selParent, 1, 0);
             btLayout.Controls.Add(_selChildren, 2, 0);
-            btLayout.Controls.Add(_updParent, 3, 0);
-            btLayout.Controls.Add(_updChildren, 4, 0);
+            btLayout.Controls.Add(_updChildren, 3, 0);
 
             _travButton.FlatStyle = FlatStyle.Flat;
             _travButton.FlatAppearance.BorderColor = Colors.GetCadBorderColor();
@@ -994,10 +973,6 @@ namespace RabCab.Commands.PaletteKit
             _updChildren.FlatStyle = FlatStyle.Flat;
             _updChildren.FlatAppearance.BorderColor = Colors.GetCadBorderColor();
             _updChildren.FlatAppearance.BorderSize = 1;
-
-            _updParent.FlatStyle = FlatStyle.Flat;
-            _updParent.FlatAppearance.BorderColor = Colors.GetCadBorderColor();
-            _updParent.FlatAppearance.BorderSize = 1;
 
             _btPanel.Controls.Add(btLayout);
 
@@ -1513,7 +1488,8 @@ namespace RabCab.Commands.PaletteKit
 
                 using (var acTrans = acCurDb.TransactionManager.StartTransaction())
                 {
-                    acCurEd.SelectByHandle(hdlString, acCurDb, acTrans);
+                    var obj = acCurEd.SelectByHandle(hdlString, acCurDb, acTrans);
+                    acCurEd.SetImpliedSelection(new []{obj});
                     acTrans.Commit();
                 }
             }
@@ -1582,22 +1558,6 @@ namespace RabCab.Commands.PaletteKit
             }
         }
 
-        /// <summary>
-        ///     TODO
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void UpdParentClick(object sender, EventArgs e)
-        {
-            var acCurDoc = DocumentManager.MdiActiveDocument;
-
-            using (acCurDoc.LockDocument())
-            {
-                Utils.SetFocusToDwgView();
-                //TODO
-            }
-        }
-
         private void childList_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             var index = _rcChildList.IndexFromPoint(e.Location);
@@ -1616,7 +1576,17 @@ namespace RabCab.Commands.PaletteKit
                     using (var acTrans = acCurDb.TransactionManager.StartTransaction())
                     {
                         var hdlString = ((ListBoxItem) _rcChildList.Items[index]).Text;
-                        acCurEd.SelectByHandle(hdlString, acCurDb, acTrans);
+                        var objId = acCurEd.SelectByHandle(hdlString, acCurDb, acTrans);
+
+                        if (objId != ObjectId.Null)
+                        {
+                            acCurEd.SetImpliedSelection(new []{objId});
+                        }
+                        else
+                        {
+                            //TODO Delete Child from list?
+                        }
+
                         acTrans.Commit();
                     }
                 }

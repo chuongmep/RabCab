@@ -1,5 +1,9 @@
-﻿using Autodesk.AutoCAD.ApplicationServices.Core;
+﻿using System.Threading;
+using Autodesk.AutoCAD.ApplicationServices.Core;
+using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Runtime;
+using RabCab.Agents;
+using RabCab.Analysis;
 using RabCab.Extensions;
 using RabCab.Settings;
 
@@ -17,7 +21,7 @@ namespace RabCab.Commands.AssemblySuite
             //| CommandFlags.NoPerspective
             //| CommandFlags.NoMultiple
             //| CommandFlags.NoTileMode
-            //| CommandFlags.NoPaperSpace
+            | CommandFlags.NoPaperSpace
             //| CommandFlags.NoOem
             //| CommandFlags.Undefined
             //| CommandFlags.InProgress
@@ -30,9 +34,9 @@ namespace RabCab.Commands.AssemblySuite
             //| CommandFlags.Interruptible
             //| CommandFlags.NoHistory
             //| CommandFlags.NoUndoMarker
-            //| CommandFlags.NoBlockEditor
-            //| CommandFlags.NoActionRecording
-            //| CommandFlags.ActionMacro
+            | CommandFlags.NoBlockEditor
+            | CommandFlags.NoActionRecording
+            | CommandFlags.ActionMacro
             //| CommandFlags.NoInferConstraint 
         )]
         public void Cmd_RcUpdate()
@@ -42,7 +46,31 @@ namespace RabCab.Commands.AssemblySuite
             var acCurDb = acCurDoc.Database;
             var acCurEd = acCurDoc.Editor;
 
-            
+            using (var acTrans = acCurDb.TransactionManager.StartTransaction())
+            {
+                var objIds = acCurEd.SelectAllOfType("3DSOLID", acTrans);
+
+                using (var pWorker = new ProgressAgent("Updating Solids:", objIds.Length, false))
+                {
+                    foreach (var obj in objIds)
+                    {
+                        if (!pWorker.Tick())
+                        {
+                            acTrans.Abort();
+                            return;
+                        }
+
+                        var acSol = acTrans.GetObject(obj, OpenMode.ForRead) as Solid3d;
+                        if (acSol == null) continue;
+
+                        acSol.Update(acCurDb, acTrans);
+                    }
+                }
+
+                acCurEd.WriteMessage($"\n{objIds.Length} objects updated.");
+                acTrans.Commit();
+            }
+               
         }
     }
 }
