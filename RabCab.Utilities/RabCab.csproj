@@ -157,12 +157,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Agents\BatchAgent.cs" />
-    <Compile Include="Agents\CadAgent.cs" />
     <Compile Include="Agents\CuiAgent.cs" />
-    <Compile Include="Agents\EnumAgnet.cs" />
+    <Compile Include="Agents\EnumAgent.cs" />
     <Compile Include="Agents\GuiAgent.cs" />
     <Compile Include="Agents\LicensingAgent.cs" />
-    <Compile Include="Agents\PageAgent.cs" />
     <Compile Include="Agents\ProgressAgent.cs" />
     <Compile Include="Agents\ProxyAgent.cs" />
     <Compile Include="Agents\SortingAgent.cs" />

@@ -1605,7 +1605,7 @@ namespace RabCab.Extensions
             string msgForRemoval = null)
         {
             //Convert the DXFName enum value to its string value
-            var dxfName = EnumAgent.GetNameOf(filterArg);
+            var dxfName = Engine.Enumerators.EnumAgent.GetNameOf(filterArg);
 
             //Remove underscores from the enum name
             dxfName = dxfName.Replace("_", "");
@@ -1669,7 +1669,7 @@ namespace RabCab.Extensions
             var subId = SubentityId.Null;
 
             //Convert the DXFName enum value to its string value
-            var subEntName = EnumAgent.GetNameOf(subEntType);
+            var subEntName = Engine.Enumerators.EnumAgent.GetNameOf(subEntType);
 
             var prSelOpts = new PromptSelectionOptions
             {
@@ -1782,7 +1782,7 @@ namespace RabCab.Extensions
             var entList = new List<Tuple<ObjectId, List<SubentityId>>>();
 
             //Convert the DXFName enum value to its string value
-            var subEntName = EnumAgent.GetNameOf(subEntType);
+            var subEntName = Engine.Enumerators.EnumAgent.GetNameOf(subEntType);
 
             var prSelOpts = new PromptSelectionOptions
             {
@@ -1878,7 +1878,7 @@ namespace RabCab.Extensions
             foreach (var filterArg in filterArgs)
             {
                 //Convert the DXFName enum value to its string value
-                var dxfName = EnumAgent.GetNameOf(filterArg);
+                var dxfName = Engine.Enumerators.EnumAgent.GetNameOf(filterArg);
 
                 //Remove underscores from the enum name
                 dxfName = dxfName.Replace("_", "");

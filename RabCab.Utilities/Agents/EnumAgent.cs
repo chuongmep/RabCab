@@ -18,7 +18,7 @@ namespace RabCab.Agents
     /// <summary>
     ///     Static class used to get enums by their string name or int location
     /// </summary>
-    public static class EnumAgnet
+    public static class EnumAgent
     {
         public static IEnumerable<T> GetValues<T>()
         {
