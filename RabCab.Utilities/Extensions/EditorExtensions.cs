@@ -19,6 +19,7 @@ using RabCab.Agents;
 using RabCab.Calculators;
 using RabCab.Engine.Enumerators;
 using RabCab.Engine.System;
+using RabCab.Settings;
 using AcRx = Autodesk.AutoCAD.Runtime;
 
 // ReSharper disable CompareOfFloatsByEqualityOperator
@@ -158,6 +159,54 @@ namespace RabCab.Extensions
             }
 
             return importDb;
+        }
+
+        /// <summary>
+        ///     Method Returns The Database of a Selected DWG
+        /// </summary>
+        /// <param name="acCurEd">The Current Working Editor</param>
+        /// <returns>Returns an External aCAD Database</returns>
+        public static Database GetTemplate(this Editor acCurEd, ref string templatePointer)
+        {
+            // Create Database Object
+            var importDb = new Database(false, true);
+
+            if (string.IsNullOrEmpty(templatePointer) || templatePointer == "" || !File.Exists(templatePointer))
+            {
+                var fileRes = acCurEd.GetFileResult();
+
+                if (fileRes.Status == PromptStatus.OK)
+                {
+                    templatePointer = fileRes.StringResult;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+           
+             acCurEd.WriteMessage("\nParsing File: \"{0}\".", templatePointer);
+
+             //Read the import DWG file
+             importDb.ReadDwgFile(templatePointer, FileShare.Read, true, "");
+
+
+            return importDb;
+        }
+
+        private static PromptFileNameResult GetFileResult(this Editor acCurEd)
+        {
+            //Prompt User To Select A File
+            var fileOpts = new PromptOpenFileOptions("Select file to import: ")
+            {
+                Filter = "Drawing (*.dwg)|*.dwg|" +
+                         "Design Interchange Format (*.dxf)|*.dxf|" +
+                         "Drawing Template (*.dwt)|*.dwt|" +
+                         "Drawing Standards (*.dws)|*.dws"
+            };
+
+
+            return acCurEd.GetFileNameForOpen(fileOpts);
         }
 
         #endregion

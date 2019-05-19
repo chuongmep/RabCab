@@ -24,6 +24,9 @@ namespace RabCab.Settings
         public static bool KeepSelection = false;
         public static bool PrioritizeRightAngles = false;
         public static bool UseFields = false;
+        
+        //External Paths
+        public static string ViewTemplatePath = "";
 
         //Palette Enablers
         public static bool EnableSelectionParse = true;

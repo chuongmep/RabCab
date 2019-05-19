@@ -59,5 +59,12 @@ namespace RabCab.Calculators
         {
             return Math.PI / 180 * degrees;
         }
+
+        public static double GetProportion(double val1, double val2, double propVar)
+        {
+            var valL = val1 * propVar;
+            var valX = valL / val2;
+            return valX;
+        }
     }
 }

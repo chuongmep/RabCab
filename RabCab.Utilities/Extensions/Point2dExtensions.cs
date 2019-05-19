@@ -21,6 +21,17 @@ namespace RabCab.Extensions
     public static class Point2DExtensions
     {
         /// <summary>
+        ///     Reverses the order of the X and Y properties of a Point2d.
+        /// </summary>
+        /// <param name="pt"></param>
+        /// <param name="flip">Boolean indicating whether to reverse or not.</param>
+        /// <returns>The original Point2d or the reversed version.</returns>
+        public static Point2d Swap(this Point2d pt, bool flip = true)
+        {
+            return flip ? new Point2d(pt.Y, pt.X) : pt;
+        }
+
+        /// <summary>
         ///     Converts a 2d point into a 3d point with Z coodinate equal to 0.
         /// </summary>
         /// <param name="pt">The instance to which the method applies.</param>
