@@ -99,12 +99,10 @@ namespace RabCab.Commands.AssemblySuite
 
                     cSol.TransformBy(Matrix3d.Displacement(cPower));
                     cSol.TransformBy(Matrix3d.Displacement(centryMove));
-                    
                 }
 
                 acTrans.Commit();
             }
-
         }
     }
 }

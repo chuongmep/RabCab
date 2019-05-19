@@ -48,16 +48,15 @@ using System;
 using System.Windows.Forms;
 using Autodesk.AutoCAD.Runtime;
 using Autodesk.AutoCAD.Windows;
-//using CefSharp;
-//using CefSharp.WinForms;
 using RabCab.Agents;
 using RabCab.Settings;
+//using CefSharp;
+//using CefSharp.WinForms;
 
 namespace RabCab.Commands.PaletteKit
 {
     internal class RcPaletteNet
     {
-
         #region WPF Version
 
         private PaletteSet _rcPal;

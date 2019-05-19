@@ -10,14 +10,12 @@
 // -----------------------------------------------------------------------------------
 
 using System;
-using System.Security.Cryptography;
-using Autodesk.AutoCAD.ApplicationServices;
+using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.Runtime;
 using RabCab.Extensions;
 using RabCab.External.XmlAgent;
-using RabCab.Initialization;
 using RabCab.Settings;
 
 // This line is not mandatory, but improves loading performances
@@ -108,21 +106,24 @@ namespace RabCab.Initialization
             var maxX = 500;
             var maxY = 500;
             var maxZ = 500;
-            Random random = new Random();
+            var random = new Random();
 
             using (var acTrans = acCurDb.TransactionManager.StartTransaction())
             {
-                for (int i = 0; i < boxCount; i++)
+                for (var i = 0; i < boxCount; i++)
                 {
                     var acSol = new Solid3d();
-                    
+
                     var length = random.Next(minSize, maxSize);
-                    var width = random.Next(minSize, maxSize); ;
-                    var height = random.Next(minSize, maxSize); ;
+                    var width = random.Next(minSize, maxSize);
+                    ;
+                    var height = random.Next(minSize, maxSize);
+                    ;
 
                     acSol.CreateBox(length, width, height);
 
-                    var insertPoint = new Point3d(random.Next(minX, maxX), random.Next(minY, maxY), random.Next(minZ, maxZ));
+                    var insertPoint = new Point3d(random.Next(minX, maxX), random.Next(minY, maxY),
+                        random.Next(minZ, maxZ));
 
                     acCurDb.AppendEntity(acSol);
 

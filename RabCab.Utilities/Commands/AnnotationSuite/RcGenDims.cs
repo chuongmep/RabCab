@@ -79,9 +79,9 @@ namespace RabCab.Commands.AnnotationSuite
 
                         var minPt = extents.MinPoint;
                         var maxPt = extents.MaxPoint;
-                       
+
                         // Create the rotated dimension
-                        using (RotatedDimension acXDim = new RotatedDimension())
+                        using (var acXDim = new RotatedDimension())
                         {
                             acXDim.XLine1Point = new Point3d(minPt.X, minPt.Y, 0);
                             acXDim.XLine2Point = new Point3d(maxPt.X, minPt.Y, 0);
@@ -93,7 +93,7 @@ namespace RabCab.Commands.AnnotationSuite
                         }
 
                         // Create the rotated dimension
-                        using (RotatedDimension acYDim = new RotatedDimension())
+                        using (var acYDim = new RotatedDimension())
                         {
                             acYDim.XLine1Point = new Point3d(minPt.X, minPt.Y, 0);
                             acYDim.XLine2Point = new Point3d(minPt.X, maxPt.Y, 0);
@@ -104,13 +104,11 @@ namespace RabCab.Commands.AnnotationSuite
                             // Add the new object to Model space and the transaction
                             acCurDb.AppendEntity(acYDim);
                         }
-
                     }
 
                     acTrans.Commit();
                 }
             }
-          
         }
     }
 }

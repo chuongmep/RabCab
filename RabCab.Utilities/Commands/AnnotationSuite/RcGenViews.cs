@@ -9,17 +9,17 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
+using System;
+using System.Collections.Generic;
+using System.Threading;
 using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.Runtime;
-using RabCab.Settings;
-using System;
-using System.Collections.Generic;
-using System.Threading;
 using RabCab.Calculators;
 using RabCab.Extensions;
+using RabCab.Settings;
 using Exception = Autodesk.AutoCAD.BoundaryRepresentation.Exception;
 
 namespace RabCab.Commands.AnnotationSuite
@@ -77,10 +77,10 @@ namespace RabCab.Commands.AnnotationSuite
 
                 //Get all Layouts in the Drawing
                 var layoutList = new List<Layout>();
-                var dbDict = (DBDictionary)acTrans.GetObject(acCurDb.LayoutDictionaryId, OpenMode.ForRead);
+                var dbDict = (DBDictionary) acTrans.GetObject(acCurDb.LayoutDictionaryId, OpenMode.ForRead);
                 foreach (var curEntry in dbDict)
                 {
-                    var layout = (Layout)acTrans.GetObject(curEntry.Value, OpenMode.ForRead);
+                    var layout = (Layout) acTrans.GetObject(curEntry.Value, OpenMode.ForRead);
                     if (layout != null)
                         layoutList.Add(layout);
                 }
@@ -94,7 +94,6 @@ namespace RabCab.Commands.AnnotationSuite
                 var keyDict = new Dictionary<string, string>();
 
                 foreach (var layout in layoutList)
-                {
                     if (layout.LayoutName != "Model")
                     {
                         keyDict.Add(layout.LayoutName, iterator.ToString());
@@ -102,7 +101,6 @@ namespace RabCab.Commands.AnnotationSuite
                             iterator + ": " + layout.LayoutName.ToLower());
                         iterator++;
                     }
-                }
 
                 pKeyOpts.AllowNone = false;
 
@@ -115,16 +113,16 @@ namespace RabCab.Commands.AnnotationSuite
                 var layoutName = "";
 
                 foreach (var entry in keyDict)
-                {
                     if (entry.Value == returnIterator)
                     {
                         layoutName = entry.Key;
                         break;
                     }
-                }
 
                 if (dbDict.Contains(layoutName))
+                {
                     id = dbDict.GetAt(layoutName);
+                }
                 else
                 {
                     acCurEd.WriteMessage("\nLayout not found. Cannot continue.");
@@ -138,10 +136,7 @@ namespace RabCab.Commands.AnnotationSuite
                 // Reference the Layout Manager
                 var acLayoutMgr = LayoutManager.Current;
                 // Set the layout current if it is not already
-                if (chosenLayout.TabSelected == false)
-                {
-                    acLayoutMgr.CurrentLayout = chosenLayout.LayoutName;
-                }
+                if (chosenLayout.TabSelected == false) acLayoutMgr.CurrentLayout = chosenLayout.LayoutName;
 
                 acCurEd.SwitchToPaperSpace();
 
@@ -152,15 +147,13 @@ namespace RabCab.Commands.AnnotationSuite
                 var vStyles = acTrans.GetObject(acCurDb.VisualStyleDictionaryId, OpenMode.ForRead) as DBDictionary;
 
                 if (iPorts.Count > 0)
-                {
                     foreach (var iPort in iPorts)
                     {
                         var vPort = new Viewport
                         {
                             Height = CalcUnit.GetProportion(iPort.VHeight, importSize.Height, layOutSize.Height),
                             Width = CalcUnit.GetProportion(iPort.VWidth, importSize.Width, layOutSize.Width),
-                            ViewDirection = iPort.ViewDirection,
-
+                            ViewDirection = iPort.ViewDirection
                         };
 
                         var importPt = iPort.InsertPoint;
@@ -181,7 +174,6 @@ namespace RabCab.Commands.AnnotationSuite
                         vPort.Visible = true;
                         vPort.On = true;
                     }
-                }
 
                 boundBox.Dispose();
 
@@ -191,6 +183,7 @@ namespace RabCab.Commands.AnnotationSuite
                     view.CopyFrom(modelView);
                     acCurEd.SetCurrentView(view);
                 }
+
                 try
                 {
                     Thread.Sleep(100);
@@ -236,17 +229,17 @@ namespace RabCab.Commands.AnnotationSuite
 
             try
             {
-                using (var exDb = acCurEd.GetTemplate(ref SettingsUser.ViewTemplatePath)) 
+                using (var exDb = acCurEd.GetTemplate(ref SettingsUser.ViewTemplatePath))
                 {
                     var exLayouts = new List<Layout>();
 
                     using (var exTrans = exDb.TransactionManager.StartTransaction())
                     {
                         var dbDict =
-                            (DBDictionary)exTrans.GetObject(exDb.LayoutDictionaryId, OpenMode.ForRead);
+                            (DBDictionary) exTrans.GetObject(exDb.LayoutDictionaryId, OpenMode.ForRead);
                         foreach (var curEntry in dbDict)
                         {
-                            var exLayout = (Layout)exTrans.GetObject(curEntry.Value, OpenMode.ForRead);
+                            var exLayout = (Layout) exTrans.GetObject(curEntry.Value, OpenMode.ForRead);
 
                             exLayouts.Add(exLayout);
                         }
@@ -260,7 +253,6 @@ namespace RabCab.Commands.AnnotationSuite
                         var keyDict = new Dictionary<string, string>();
 
                         foreach (var layout in exLayouts)
-                        {
                             if (layout.LayoutName != "Model")
                             {
                                 keyDict.Add(layout.LayoutName, iterator.ToString());
@@ -268,7 +260,6 @@ namespace RabCab.Commands.AnnotationSuite
                                     iterator + ": " + layout.LayoutName.ToLower());
                                 iterator++;
                             }
-                        }
 
                         pKeyOpts.AllowNone = false;
 
@@ -281,16 +272,16 @@ namespace RabCab.Commands.AnnotationSuite
                         var layoutName = "";
 
                         foreach (var entry in keyDict)
-                        {
                             if (entry.Value == returnIterator)
                             {
                                 layoutName = entry.Key;
                                 break;
                             }
-                        }
 
                         if (dbDict.Contains(layoutName))
+                        {
                             id = dbDict.GetAt(layoutName);
+                        }
                         else
                         {
                             acCurEd.WriteMessage("\nLayout contains no viewports.");
@@ -308,7 +299,7 @@ namespace RabCab.Commands.AnnotationSuite
                         using (
                             var blkTblRec =
                                 exTrans.GetObject(chosenLayout.BlockTableRecordId, OpenMode.ForRead) as BlockTableRecord
-                            )
+                        )
                         {
                             if (blkTblRec != null)
                                 foreach (var objId in blkTblRec)
@@ -322,7 +313,8 @@ namespace RabCab.Commands.AnnotationSuite
                                         var vWidth = exView.Width;
                                         var vCen = exView.CenterPoint;
 
-                                        viewports.Add(new ImportedViewport(vHeight, vWidth, vCen, exView.ViewDirection));
+                                        viewports.Add(new ImportedViewport(vHeight, vWidth, vCen,
+                                            exView.ViewDirection));
                                     }
                                 }
                         }
@@ -345,12 +337,12 @@ namespace RabCab.Commands.AnnotationSuite
         /// <param name="acCurDb"></param>
         /// <param name="acCurVp"></param>
         /// <param name="acEnt"></param>
-        private  void ZoomViewport(Database acCurDb, Viewport acCurVp, Entity acEnt = null)
+        private void ZoomViewport(Database acCurDb, Viewport acCurVp, Entity acEnt = null)
         {
             // get the screen aspect ratio to calculate
             // the height and width
             // width/height
-            var mScrRatio = (acCurVp.Width / acCurVp.Height);
+            var mScrRatio = acCurVp.Width / acCurVp.Height;
             var mMaxExt = acCurDb.Extmax;
             var mMinExt = acCurDb.Extmin;
 
@@ -374,20 +366,20 @@ namespace RabCab.Commands.AnnotationSuite
             mExtents.TransformBy(matWcs2Dcs);
 
             // width of the extents in current view
-            var mWidth = (mExtents.MaxPoint.X - mExtents.MinPoint.X);
+            var mWidth = mExtents.MaxPoint.X - mExtents.MinPoint.X;
 
             // height of the extents in current view
-            var mHeight = (mExtents.MaxPoint.Y - mExtents.MinPoint.Y);
+            var mHeight = mExtents.MaxPoint.Y - mExtents.MinPoint.Y;
 
             // get the view center point
             var mCentPt = new Point2d(
-                ((mExtents.MaxPoint.X + mExtents.MinPoint.X) * 0.5),
-                ((mExtents.MaxPoint.Y + mExtents.MinPoint.Y) * 0.5));
+                (mExtents.MaxPoint.X + mExtents.MinPoint.X) * 0.5,
+                (mExtents.MaxPoint.Y + mExtents.MinPoint.Y) * 0.5);
 
             // check if the width 'fits' in current window,
             // if not then get the new height as
             // per the viewports aspect ratio
-            if (mWidth > (mHeight * mScrRatio))
+            if (mWidth > mHeight * mScrRatio)
                 mHeight = mWidth / mScrRatio;
 
             // set the view height - adjusted by view Identifier
@@ -396,14 +388,12 @@ namespace RabCab.Commands.AnnotationSuite
             // set the view center
             acCurVp.ViewCenter = mCentPt;
         }
-
-
     }
 
     internal class ImportedViewport
     {
-        public double VHeight;
         public Point3d InsertPoint;
+        public double VHeight;
         public Vector3d ViewDirection;
         public double VWidth;
 
@@ -418,8 +408,8 @@ namespace RabCab.Commands.AnnotationSuite
 
     internal class LayoutSize
     {
-        public double Width;
         public double Height;
+        public double Width;
 
         public LayoutSize(double width, double height)
         {

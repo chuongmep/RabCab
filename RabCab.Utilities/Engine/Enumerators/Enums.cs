@@ -41,12 +41,6 @@ namespace RabCab.Engine.Enumerators
             _None
         }
 
-        public enum CmdEcho
-        {
-            Off = 0,
-            On = 1
-        }
-
         /// <summary>
         ///     Color codes for use in Cad Colors
         /// </summary>
@@ -62,6 +56,12 @@ namespace RabCab.Engine.Enumerators
             DarkGrey = 8,
             LightGrey = 9,
             BoundsGreen = 85
+        }
+
+        public enum CmdEcho
+        {
+            Off = 0,
+            On = 1
         }
 
         public enum ColorTheme
@@ -196,6 +196,15 @@ namespace RabCab.Engine.Enumerators
             Face = 3,
             History = 4,
             View = 5
+        }
+
+        public enum Substitution
+        {
+            Name,
+            View,
+            Scale,
+            Part,
+            Qty
         }
 
         /// <summary>

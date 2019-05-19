@@ -24,7 +24,10 @@ namespace RabCab.Settings
         public static bool KeepSelection = false;
         public static bool PrioritizeRightAngles = false;
         public static bool UseFields = false;
-        
+
+        //PartFinder
+        public static bool PartLeaderEnabled = true;
+
         //External Paths
         public static string ViewTemplatePath = "";
 

@@ -9,17 +9,17 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
-using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.Runtime;
+using RabCab.Entities.Annotation;
 using RabCab.Settings;
 
 namespace RabCab.Commands.AnnotationSuite
 {
-    internal class RcPartFinder
+    internal class RcUpdateLeader
     {
         /// <summary>
         /// </summary>
-        [CommandMethod(SettingsInternal.CommandGroup, "_CMDDEFAULT",
+        [CommandMethod(SettingsInternal.CommandGroup, "_UPDLEADERS",
             CommandFlags.Modal
             //| CommandFlags.Transparent
             //| CommandFlags.UsePickSet
@@ -45,12 +45,9 @@ namespace RabCab.Commands.AnnotationSuite
             //| CommandFlags.ActionMacro
             //| CommandFlags.NoInferConstraint 
         )]
-        public void Cmd_Default()
+        public void Cmd_RcUpdLeaders()
         {
-            //Get the current document utilities
-            var acCurDoc = Application.DocumentManager.MdiActiveDocument;
-            var acCurDb = acCurDoc.Database;
-            var acCurEd = acCurDoc.Editor;
+            RcLeader.UpdateMleaders();
         }
     }
 }

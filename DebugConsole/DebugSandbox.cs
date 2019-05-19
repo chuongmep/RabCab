@@ -10,7 +10,6 @@
 // -----------------------------------------------------------------------------------
 
 using System;
-using RabCab.Initialization;
 
 namespace DebugConsole
 {

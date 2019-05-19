@@ -85,10 +85,10 @@ namespace RabCab.Engine.System
         /// </summary>
         public static Enums.CmdEcho CmdEcho
         {
-            get { return (Enums.CmdEcho)(short)Application.GetSystemVariable("CMDECHO"); }
-            set { Application.SetSystemVariable("CMDECHO", (short)value); }
+            get => (Enums.CmdEcho) (short) Application.GetSystemVariable("CMDECHO");
+            set => Application.SetSystemVariable("CMDECHO", (short) value);
         }
-        
+
         #region Unit Checker
 
         /// <summary>

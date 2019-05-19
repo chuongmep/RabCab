@@ -57,15 +57,69 @@ namespace RabCab.Extensions
             }
         }
 
+        public static Point3dCollection ExtPoints(this Extents3d ext)
+        {
+            var point3dCollections = new Point3dCollection {ext.MinPoint.Flatten()};
+            var minPoint = ext.MinPoint;
+            var x = minPoint.X;
+            minPoint = ext.MaxPoint;
+            point3dCollections.Add(new Point3d(x, minPoint.Y, 0));
+            point3dCollections.Add(ext.MaxPoint.Flatten());
+            minPoint = ext.MaxPoint;
+            var num = minPoint.X;
+            minPoint = ext.MinPoint;
+            point3dCollections.Add(new Point3d(num, minPoint.Y, 0));
+            return point3dCollections;
+        }
+
+        public static bool IsInside(this Extents2d obj, Extents2d ext, Tolerance tol)
+        {
+            if ((obj.MinPoint.X < ext.MinPoint.X || obj.MinPoint.Y < ext.MinPoint.Y) &&
+                !obj.MinPoint.IsEqualTo(ext.MinPoint, tol)) return false;
+            if (obj.MaxPoint.X > ext.MaxPoint.X || obj.MaxPoint.Y > ext.MaxPoint.Y)
+                return obj.MaxPoint.IsEqualTo(ext.MaxPoint, tol);
+            return true;
+        }
+
+        public static bool IsInside(this Extents3d thisExt, Extents3d overExt, Tolerance tol)
+        {
+            if ((thisExt.MinPoint.X < overExt.MinPoint.X || thisExt.MinPoint.Y < overExt.MinPoint.Y ||
+                 thisExt.MinPoint.Z < overExt.MinPoint.Z) &&
+                !thisExt.MinPoint.IsEqualTo(overExt.MinPoint, tol)) return false;
+            if (thisExt.MaxPoint.X > overExt.MaxPoint.X || thisExt.MaxPoint.Y > overExt.MaxPoint.Y ||
+                thisExt.MaxPoint.Z > overExt.MaxPoint.Z) return thisExt.MaxPoint.IsEqualTo(overExt.MaxPoint, tol);
+            return true;
+        }
+
+        public static bool Intersects(this Extents2d thisExt, Extents2d overExt, Tolerance tol)
+        {
+            if (thisExt.MaxPoint.X < overExt.MinPoint.X - tol.EqualPoint ||
+                thisExt.MinPoint.X > overExt.MaxPoint.X + tol.EqualPoint) return false;
+            return thisExt.MaxPoint.Y >= overExt.MinPoint.Y - tol.EqualPoint &&
+                   thisExt.MinPoint.Y <= overExt.MaxPoint.Y + tol.EqualPoint;
+        }
+
+        public static bool Intersects(this Extents3d thisExt, Extents3d overExt, Tolerance tol)
+        {
+            if (thisExt.MaxPoint.X < overExt.MinPoint.X - tol.EqualPoint ||
+                thisExt.MinPoint.X > overExt.MaxPoint.X + tol.EqualPoint) return false;
+            if (thisExt.MaxPoint.Y < overExt.MinPoint.Y - tol.EqualPoint ||
+                thisExt.MinPoint.Y > overExt.MaxPoint.Y + tol.EqualPoint) return false;
+            return thisExt.MaxPoint.Z >= overExt.MinPoint.Z - tol.EqualPoint &&
+                   thisExt.MinPoint.Z <= overExt.MaxPoint.Z + tol.EqualPoint;
+        }
+
+        public static Extents2d Convert2d(this Extents3d ext)
+        {
+            return new Extents2d(ext.MinPoint.Convert2D(), ext.MaxPoint.Convert2D());
+        }
+
         public static void Update(this Solid3d acSol, Database acCurDb, Transaction acTrans)
         {
             try
             {
-          
-                    var entInfo = new EntInfo(acSol, acCurDb, acTrans);
-                    acSol.AddXData(entInfo, acCurDb, acTrans);
-
-                
+                var entInfo = new EntInfo(acSol, acCurDb, acTrans);
+                acSol.AddXData(entInfo, acCurDb, acTrans);
             }
             catch (Exception)
             {
@@ -1100,7 +1154,6 @@ namespace RabCab.Extensions
         /// <param name="hidden"></param>
         /// <param name="translate"></param>
         /// <param name="userCoordSystem"></param>
-        /// <param name="pWorker"></param>
         public static void Flatten(this Entity acEnt, Transaction acTrans, Database acCurDb, Editor acCurEd,
             bool visible, bool hidden, bool translate, Matrix3d userCoordSystem)
         {

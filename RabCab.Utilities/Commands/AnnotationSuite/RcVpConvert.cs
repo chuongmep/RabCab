@@ -52,7 +52,7 @@ namespace RabCab.Commands.AnnotationSuite
             | CommandFlags.ActionMacro
             //| CommandFlags.NoInferConstraint 
         )]
-        public void Cmd_Default()
+        public void Cmd_VpToVb()
         {
             //Get the current document utilities
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;

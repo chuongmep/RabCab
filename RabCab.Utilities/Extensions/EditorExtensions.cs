@@ -19,7 +19,6 @@ using RabCab.Agents;
 using RabCab.Calculators;
 using RabCab.Engine.Enumerators;
 using RabCab.Engine.System;
-using RabCab.Settings;
 using AcRx = Autodesk.AutoCAD.Runtime;
 
 // ReSharper disable CompareOfFloatsByEqualityOperator
@@ -118,95 +117,6 @@ namespace RabCab.Extensions
 
             //Transform the vector by the current UCS and return it
             return acVec3D.TransformBy(acCurEd.CurrentUserCoordinateSystem);
-        }
-
-        #endregion
-
-        #region Methods To Read/Add Data From A Selected DWG File
-
-        /// <summary>
-        ///     Method Returns The Database of a Selected DWG
-        /// </summary>
-        /// <param name="acCurEd">The Current Working Editor</param>
-        /// <returns>Returns an External aCAD Database</returns>
-        public static Database GetExternalDatabase(this Editor acCurEd)
-        {
-            // Create Database Object
-            var importDb = new Database(false, true);
-
-            //Prompt User To Select A File
-            var fileOpts = new PromptOpenFileOptions("Select file to import: ")
-            {
-                Filter = "Drawing (*.dwg)|*.dwg|" +
-                         "Design Interchange Format (*.dxf)|*.dxf|" +
-                         "Drawing Template (*.dwt)|*.dwt|" +
-                         "Drawing Standards (*.dws)|*.dws"
-            };
-
-
-            var fileRes = acCurEd.GetFileNameForOpen(fileOpts);
-
-            if (fileRes.Status == PromptStatus.OK)
-            {
-                acCurEd.WriteMessage("\nParsing File: \"{0}\".", fileRes.StringResult);
-
-                //Read the import DWG file
-                importDb.ReadDwgFile(fileRes.StringResult, FileShare.Read, true, "");
-            }
-            else
-            {
-                importDb = null;
-            }
-
-            return importDb;
-        }
-
-        /// <summary>
-        ///     Method Returns The Database of a Selected DWG
-        /// </summary>
-        /// <param name="acCurEd">The Current Working Editor</param>
-        /// <returns>Returns an External aCAD Database</returns>
-        public static Database GetTemplate(this Editor acCurEd, ref string templatePointer)
-        {
-            // Create Database Object
-            var importDb = new Database(false, true);
-
-            if (string.IsNullOrEmpty(templatePointer) || templatePointer == "" || !File.Exists(templatePointer))
-            {
-                var fileRes = acCurEd.GetFileResult();
-
-                if (fileRes.Status == PromptStatus.OK)
-                {
-                    templatePointer = fileRes.StringResult;
-                }
-                else
-                {
-                    return null;
-                }
-            }
-           
-             acCurEd.WriteMessage("\nParsing File: \"{0}\".", templatePointer);
-
-             //Read the import DWG file
-             importDb.ReadDwgFile(templatePointer, FileShare.Read, true, "");
-
-
-            return importDb;
-        }
-
-        private static PromptFileNameResult GetFileResult(this Editor acCurEd)
-        {
-            //Prompt User To Select A File
-            var fileOpts = new PromptOpenFileOptions("Select file to import: ")
-            {
-                Filter = "Drawing (*.dwg)|*.dwg|" +
-                         "Design Interchange Format (*.dxf)|*.dxf|" +
-                         "Drawing Template (*.dwt)|*.dwt|" +
-                         "Drawing Standards (*.dws)|*.dws"
-            };
-
-
-            return acCurEd.GetFileNameForOpen(fileOpts);
         }
 
         #endregion
@@ -342,6 +252,91 @@ namespace RabCab.Extensions
 
             //Transform the selected object by the displacement vector
             acEnt?.TransformBy(Matrix3d.Displacement(transVec3D));
+        }
+
+        #endregion
+
+        #region Methods To Read/Add Data From A Selected DWG File
+
+        /// <summary>
+        ///     Method Returns The Database of a Selected DWG
+        /// </summary>
+        /// <param name="acCurEd">The Current Working Editor</param>
+        /// <returns>Returns an External aCAD Database</returns>
+        public static Database GetExternalDatabase(this Editor acCurEd)
+        {
+            // Create Database Object
+            var importDb = new Database(false, true);
+
+            //Prompt User To Select A File
+            var fileOpts = new PromptOpenFileOptions("Select file to import: ")
+            {
+                Filter = "Drawing (*.dwg)|*.dwg|" +
+                         "Design Interchange Format (*.dxf)|*.dxf|" +
+                         "Drawing Template (*.dwt)|*.dwt|" +
+                         "Drawing Standards (*.dws)|*.dws"
+            };
+
+
+            var fileRes = acCurEd.GetFileNameForOpen(fileOpts);
+
+            if (fileRes.Status == PromptStatus.OK)
+            {
+                acCurEd.WriteMessage("\nParsing File: \"{0}\".", fileRes.StringResult);
+
+                //Read the import DWG file
+                importDb.ReadDwgFile(fileRes.StringResult, FileShare.Read, true, "");
+            }
+            else
+            {
+                importDb = null;
+            }
+
+            return importDb;
+        }
+
+        /// <summary>
+        ///     Method Returns The Database of a Selected DWG
+        /// </summary>
+        /// <param name="acCurEd">The Current Working Editor</param>
+        /// <returns>Returns an External aCAD Database</returns>
+        public static Database GetTemplate(this Editor acCurEd, ref string templatePointer)
+        {
+            // Create Database Object
+            var importDb = new Database(false, true);
+
+            if (string.IsNullOrEmpty(templatePointer) || templatePointer == "" || !File.Exists(templatePointer))
+            {
+                var fileRes = acCurEd.GetFileResult();
+
+                if (fileRes.Status == PromptStatus.OK)
+                    templatePointer = fileRes.StringResult;
+                else
+                    return null;
+            }
+
+            acCurEd.WriteMessage("\nParsing File: \"{0}\".", templatePointer);
+
+            //Read the import DWG file
+            importDb.ReadDwgFile(templatePointer, FileShare.Read, true, "");
+
+
+            return importDb;
+        }
+
+        private static PromptFileNameResult GetFileResult(this Editor acCurEd)
+        {
+            //Prompt User To Select A File
+            var fileOpts = new PromptOpenFileOptions("Select file to import: ")
+            {
+                Filter = "Drawing (*.dwg)|*.dwg|" +
+                         "Design Interchange Format (*.dxf)|*.dxf|" +
+                         "Drawing Template (*.dwt)|*.dwt|" +
+                         "Drawing Standards (*.dws)|*.dws"
+            };
+
+
+            return acCurEd.GetFileNameForOpen(fileOpts);
         }
 
         #endregion
@@ -1654,7 +1649,7 @@ namespace RabCab.Extensions
             string msgForRemoval = null)
         {
             //Convert the DXFName enum value to its string value
-            var dxfName = Engine.Enumerators.EnumAgent.GetNameOf(filterArg);
+            var dxfName = EnumAgent.GetNameOf(filterArg);
 
             //Remove underscores from the enum name
             dxfName = dxfName.Replace("_", "");
@@ -1718,7 +1713,7 @@ namespace RabCab.Extensions
             var subId = SubentityId.Null;
 
             //Convert the DXFName enum value to its string value
-            var subEntName = Engine.Enumerators.EnumAgent.GetNameOf(subEntType);
+            var subEntName = EnumAgent.GetNameOf(subEntType);
 
             var prSelOpts = new PromptSelectionOptions
             {
@@ -1831,7 +1826,7 @@ namespace RabCab.Extensions
             var entList = new List<Tuple<ObjectId, List<SubentityId>>>();
 
             //Convert the DXFName enum value to its string value
-            var subEntName = Engine.Enumerators.EnumAgent.GetNameOf(subEntType);
+            var subEntName = EnumAgent.GetNameOf(subEntType);
 
             var prSelOpts = new PromptSelectionOptions
             {
@@ -1927,7 +1922,7 @@ namespace RabCab.Extensions
             foreach (var filterArg in filterArgs)
             {
                 //Convert the DXFName enum value to its string value
-                var dxfName = Engine.Enumerators.EnumAgent.GetNameOf(filterArg);
+                var dxfName = EnumAgent.GetNameOf(filterArg);
 
                 //Remove underscores from the enum name
                 dxfName = dxfName.Replace("_", "");
@@ -2083,7 +2078,8 @@ namespace RabCab.Extensions
         /// <param name="hdl"></param>
         /// <param name="acCurDb"></param>
         /// <param name="acTrans"></param>
-        public static ObjectId SelectByHandle(this Editor acCurEd, string hlString, Database acCurDb, Transaction acTrans)
+        public static ObjectId SelectByHandle(this Editor acCurEd, string hlString, Database acCurDb,
+            Transaction acTrans)
         {
             try
             {

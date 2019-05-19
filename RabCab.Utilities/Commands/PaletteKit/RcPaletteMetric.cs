@@ -387,79 +387,78 @@ namespace RabCab.Commands.PaletteKit
 
                 using (var acTrans = acCurDb.TransactionManager.StartTransaction())
                 {
-                   
-                        var nameList = new List<string>();
-                        var infoList = new List<string>();
-                        var qtyOfList = new List<string>();
-                        var qtyTotList = new List<string>();
-                        var lengthList = new List<string>();
-                        var widthList = new List<string>();
-                        var thickList = new List<string>();
-                        var volList = new List<string>();
-                        var areaList = new List<string>();
-                        var perimList = new List<string>();
-                        var asymList = new List<string>();
-                        var asymStrList = new List<string>();
-                        var numChangesList = new List<string>();
-                        var parentList = new List<string>();
-                        var childList = new List<List<Handle>>();
-                        var txDirList = new List<Enums.TextureDirection>();
-                        var prodTypeList = new List<Enums.ProductionType>();
-                        var isSweepList = new List<bool>();
-                        var isMirList = new List<bool>();
-                        var hasHolesList = new List<bool>();
+                    var nameList = new List<string>();
+                    var infoList = new List<string>();
+                    var qtyOfList = new List<string>();
+                    var qtyTotList = new List<string>();
+                    var lengthList = new List<string>();
+                    var widthList = new List<string>();
+                    var thickList = new List<string>();
+                    var volList = new List<string>();
+                    var areaList = new List<string>();
+                    var perimList = new List<string>();
+                    var asymList = new List<string>();
+                    var asymStrList = new List<string>();
+                    var numChangesList = new List<string>();
+                    var parentList = new List<string>();
+                    var childList = new List<List<Handle>>();
+                    var txDirList = new List<Enums.TextureDirection>();
+                    var prodTypeList = new List<Enums.ProductionType>();
+                    var isSweepList = new List<bool>();
+                    var isMirList = new List<bool>();
+                    var hasHolesList = new List<bool>();
 
-                        foreach (var objId in objIds)
+                    foreach (var objId in objIds)
+                    {
+                        var acEnt = acTrans.GetObject(objId, OpenMode.ForRead) as Entity;
+                        if (acEnt == null)
                         {
-                            var acEnt = acTrans.GetObject(objId, OpenMode.ForRead) as Entity;
-                            if (acEnt == null)
-                            {
-                                VaryInformation();
-                                break;
-                            }
-
-                            nameList.Add(acEnt.GetPartName());
-                            infoList.Add(acEnt.GetPartInfo());
-                            qtyOfList.Add(acEnt.GetQtyOf().ToString());
-                            qtyTotList.Add(acEnt.GetQtyTotal().ToString());
-                            lengthList.Add(acEnt.GetPartLength().ToString());
-                            widthList.Add(acEnt.GetPartWidth().ToString());
-                            thickList.Add(acEnt.GetPartThickness().ToString());
-                            volList.Add(acEnt.GetPartVolume().ToString());
-                            areaList.Add(acEnt.GetPartArea().ToString());
-                            perimList.Add(acEnt.GetPartPerimeter().ToString());
-                            asymList.Add(acEnt.GetPartAsymmetry().ToString());
-                            asymStrList.Add(acEnt.GetAsymVector());
-                            numChangesList.Add(acEnt.GetNumChanges().ToString());
-                            parentList.Add(acEnt.GetParent().ToString());
-                            //childList.Add(acEnt.GetChildren());
-                            txDirList.Add(acEnt.GetTextureDirection());
-                            prodTypeList.Add(acEnt.GetProductionType());
-                            isSweepList.Add(acEnt.GetIsSweep());
-                            isMirList.Add(acEnt.GetIsMirror());
-                            hasHolesList.Add(acEnt.GetHasHoles());
+                            VaryInformation();
+                            break;
                         }
 
-                        var varyText = "*VARIES*";
+                        nameList.Add(acEnt.GetPartName());
+                        infoList.Add(acEnt.GetPartInfo());
+                        qtyOfList.Add(acEnt.GetQtyOf().ToString());
+                        qtyTotList.Add(acEnt.GetQtyTotal().ToString());
+                        lengthList.Add(acEnt.GetPartLength().ToString());
+                        widthList.Add(acEnt.GetPartWidth().ToString());
+                        thickList.Add(acEnt.GetPartThickness().ToString());
+                        volList.Add(acEnt.GetPartVolume().ToString());
+                        areaList.Add(acEnt.GetPartArea().ToString());
+                        perimList.Add(acEnt.GetPartPerimeter().ToString());
+                        asymList.Add(acEnt.GetPartAsymmetry().ToString());
+                        asymStrList.Add(acEnt.GetAsymVector());
+                        numChangesList.Add(acEnt.GetNumChanges().ToString());
+                        parentList.Add(acEnt.GetParent().ToString());
+                        //childList.Add(acEnt.GetChildren());
+                        txDirList.Add(acEnt.GetTextureDirection());
+                        prodTypeList.Add(acEnt.GetProductionType());
+                        isSweepList.Add(acEnt.GetIsSweep());
+                        isMirList.Add(acEnt.GetIsMirror());
+                        hasHolesList.Add(acEnt.GetHasHoles());
+                    }
 
-                        //Check list sizes
-                        _rcNameTxt.Text = nameList.Distinct().Count() == 1 ? nameList.First() : varyText;
-                        _rcInfoTxt.Text = infoList.Distinct().Count() == 1 ? infoList.First() : varyText;
-                        _rcQtyOfTxt.Text = qtyOfList.Distinct().Count() == 1 ? qtyOfList.First() : varyText;
-                        _rcQtyTotalTxt.Text = qtyTotList.Distinct().Count() == 1 ? qtyTotList.First() : varyText;
-                        _rcLengthTxt.Text = lengthList.Distinct().Count() == 1 ? lengthList.First() : varyText;
-                        _rcWidthTxt.Text = widthList.Distinct().Count() == 1 ? widthList.First() : varyText;
-                        _rcThickTxt.Text = thickList.Distinct().Count() == 1 ? thickList.First() : varyText;
-                        _rcVolTxt.Text = volList.Distinct().Count() == 1 ? volList.First() : varyText;
-                        _rcAreaTxt.Text = areaList.Distinct().Count() == 1 ? areaList.First() : varyText;
-                        _rcPerimTxt.Text = perimList.Distinct().Count() == 1 ? perimList.First() : varyText;
-                        _rcAsymTxt.Text = asymList.Distinct().Count() == 1 ? asymList.First() : varyText;
-                        _rcAsymStrTxt.Text = asymStrList.Distinct().Count() == 1 ? asymStrList.First() : varyText;
-                        _rcNumChangesTxt.Text =
-                            numChangesList.Distinct().Count() == 1 ? numChangesList.First() : varyText;
-                        _rcParentTxt.Text = parentList.Distinct().Count() == 1 ? parentList.First() : varyText;
+                    var varyText = "*VARIES*";
 
-                        _rcChildList.Items.Clear();
+                    //Check list sizes
+                    _rcNameTxt.Text = nameList.Distinct().Count() == 1 ? nameList.First() : varyText;
+                    _rcInfoTxt.Text = infoList.Distinct().Count() == 1 ? infoList.First() : varyText;
+                    _rcQtyOfTxt.Text = qtyOfList.Distinct().Count() == 1 ? qtyOfList.First() : varyText;
+                    _rcQtyTotalTxt.Text = qtyTotList.Distinct().Count() == 1 ? qtyTotList.First() : varyText;
+                    _rcLengthTxt.Text = lengthList.Distinct().Count() == 1 ? lengthList.First() : varyText;
+                    _rcWidthTxt.Text = widthList.Distinct().Count() == 1 ? widthList.First() : varyText;
+                    _rcThickTxt.Text = thickList.Distinct().Count() == 1 ? thickList.First() : varyText;
+                    _rcVolTxt.Text = volList.Distinct().Count() == 1 ? volList.First() : varyText;
+                    _rcAreaTxt.Text = areaList.Distinct().Count() == 1 ? areaList.First() : varyText;
+                    _rcPerimTxt.Text = perimList.Distinct().Count() == 1 ? perimList.First() : varyText;
+                    _rcAsymTxt.Text = asymList.Distinct().Count() == 1 ? asymList.First() : varyText;
+                    _rcAsymStrTxt.Text = asymStrList.Distinct().Count() == 1 ? asymStrList.First() : varyText;
+                    _rcNumChangesTxt.Text =
+                        numChangesList.Distinct().Count() == 1 ? numChangesList.First() : varyText;
+                    _rcParentTxt.Text = parentList.Distinct().Count() == 1 ? parentList.First() : varyText;
+
+                    _rcChildList.Items.Clear();
 
                     //if (childList.AreListsSame())
                     //{
@@ -475,78 +474,78 @@ namespace RabCab.Commands.PaletteKit
                     //}
 
                     _txDirUnknown.Checked = false;
-                        _txDirNone.Checked = false;
-                        _txDirHor.Checked = false;
-                        _txDirVer.Checked = false;
+                    _txDirNone.Checked = false;
+                    _txDirHor.Checked = false;
+                    _txDirVer.Checked = false;
 
-                        if (txDirList.Distinct().Count() == 1)
-                            switch (txDirList.First())
-                            {
-                                case Enums.TextureDirection.Unknown:
-                                    _txDirUnknown.Checked = true;
-                                    break;
-                                case Enums.TextureDirection.None:
-                                    _txDirNone.Checked = true;
-                                    break;
-                                case Enums.TextureDirection.Horizontal:
-                                    _txDirHor.Checked = true;
-                                    break;
-                                case Enums.TextureDirection.Vertical:
-                                    _txDirVer.Checked = true;
-                                    break;
-                                default:
-                                    _txDirUnknown.Checked = true;
-                                    break;
-                            }
+                    if (txDirList.Distinct().Count() == 1)
+                        switch (txDirList.First())
+                        {
+                            case Enums.TextureDirection.Unknown:
+                                _txDirUnknown.Checked = true;
+                                break;
+                            case Enums.TextureDirection.None:
+                                _txDirNone.Checked = true;
+                                break;
+                            case Enums.TextureDirection.Horizontal:
+                                _txDirHor.Checked = true;
+                                break;
+                            case Enums.TextureDirection.Vertical:
+                                _txDirVer.Checked = true;
+                                break;
+                            default:
+                                _txDirUnknown.Checked = true;
+                                break;
+                        }
 
-                        _prodUnkown.Checked = false;
-                        _prodS4S.Checked = false;
-                        _prodMOne.Checked = false;
-                        _prodMMany.Checked = false;
+                    _prodUnkown.Checked = false;
+                    _prodS4S.Checked = false;
+                    _prodMOne.Checked = false;
+                    _prodMMany.Checked = false;
 
-                        if (prodTypeList.Distinct().Count() == 1)
-                            switch (prodTypeList.First())
-                            {
-                                case Enums.ProductionType.Unknown:
-                                    _prodUnkown.Checked = true;
-                                    break;
-                                case Enums.ProductionType.S4S:
-                                    _prodS4S.Checked = true;
-                                    break;
-                                case Enums.ProductionType.MillingOneSide:
-                                    _prodMOne.Checked = true;
-                                    break;
-                                case Enums.ProductionType.MillingManySide:
-                                    _prodMMany.Checked = true;
-                                    break;
-                                case Enums.ProductionType.Box:
-                                    _prodS4S.Checked = true;
-                                    break;
-                                case Enums.ProductionType.Sweep:
-                                    _prodUnkown.Checked = true;
-                                    break;
-                                default:
-                                    _prodUnkown.Checked = true;
-                                    break;
-                            }
+                    if (prodTypeList.Distinct().Count() == 1)
+                        switch (prodTypeList.First())
+                        {
+                            case Enums.ProductionType.Unknown:
+                                _prodUnkown.Checked = true;
+                                break;
+                            case Enums.ProductionType.S4S:
+                                _prodS4S.Checked = true;
+                                break;
+                            case Enums.ProductionType.MillingOneSide:
+                                _prodMOne.Checked = true;
+                                break;
+                            case Enums.ProductionType.MillingManySide:
+                                _prodMMany.Checked = true;
+                                break;
+                            case Enums.ProductionType.Box:
+                                _prodS4S.Checked = true;
+                                break;
+                            case Enums.ProductionType.Sweep:
+                                _prodUnkown.Checked = true;
+                                break;
+                            default:
+                                _prodUnkown.Checked = true;
+                                break;
+                        }
 
-                        if (isSweepList.Distinct().Count() == 1)
-                            _rcIsSweepChk.Checked = isSweepList.First();
-                        else
-                            _rcIsSweepChk.CheckState = CheckState.Indeterminate;
+                    if (isSweepList.Distinct().Count() == 1)
+                        _rcIsSweepChk.Checked = isSweepList.First();
+                    else
+                        _rcIsSweepChk.CheckState = CheckState.Indeterminate;
 
-                        if (isMirList.Distinct().Count() == 1)
-                            _rcIsiMirChk.Checked = isMirList.First();
-                        else
-                            _rcIsiMirChk.CheckState = CheckState.Indeterminate;
+                    if (isMirList.Distinct().Count() == 1)
+                        _rcIsiMirChk.Checked = isMirList.First();
+                    else
+                        _rcIsiMirChk.CheckState = CheckState.Indeterminate;
 
-                        if (hasHolesList.Distinct().Count() == 1)
-                            _rcHasHolesChk.Checked = hasHolesList.First();
-                        else
-                            _rcHasHolesChk.CheckState = CheckState.Indeterminate;
-           
+                    if (hasHolesList.Distinct().Count() == 1)
+                        _rcHasHolesChk.Checked = hasHolesList.First();
+                    else
+                        _rcHasHolesChk.CheckState = CheckState.Indeterminate;
 
-                acTrans.Abort();
+
+                    acTrans.Abort();
                 }
             }
         }
@@ -1489,7 +1488,7 @@ namespace RabCab.Commands.PaletteKit
                 using (var acTrans = acCurDb.TransactionManager.StartTransaction())
                 {
                     var obj = acCurEd.SelectByHandle(hdlString, acCurDb, acTrans);
-                    acCurEd.SetImpliedSelection(new []{obj});
+                    acCurEd.SetImpliedSelection(new[] {obj});
                     acTrans.Commit();
                 }
             }
@@ -1580,11 +1579,7 @@ namespace RabCab.Commands.PaletteKit
 
                         if (objId != ObjectId.Null)
                         {
-                            acCurEd.SetImpliedSelection(new []{objId});
-                        }
-                        else
-                        {
-                            //TODO Delete Child from list?
+                            acCurEd.SetImpliedSelection(new[] {objId});
                         }
 
                         acTrans.Commit();

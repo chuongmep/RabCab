@@ -40,8 +40,6 @@ namespace RabCab.Commands.TidySuite
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;
             var acCurDb = acCurDoc.Database;
             var acCurEd = acCurDoc.Editor;
-
-
         }
     }
 }

@@ -14,6 +14,7 @@ using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using RabCab.Commands.PaletteKit;
+using RabCab.Entities.Annotation;
 using RabCab.Settings;
 using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
 
@@ -24,131 +25,6 @@ namespace RabCab.Engine.System
     /// </summary>
     internal static class DocumentHandlers
     {
-        #region Handler Init
-
-        /// <summary>
-        ///     TODO
-        /// </summary>
-        internal static void AddDocEvents()
-        {
-            try
-            {
-                // Get the current document
-                var acDocMan = Application.DocumentManager;
-                var acDoc = acDocMan.MdiActiveDocument;
-
-                //Doc Manager Handlers
-                acDocMan.DocumentToBeDeactivated += BeginDocClose;
-                acDocMan.DocumentActivated += DocActivated;
-
-                //Doc Handlers
-                acDoc.ImpliedSelectionChanged += Doc_ImpliedSelectionChanged;
-                acDoc.Database.ObjectModified += Database_ObjectModified;
-                acDoc.Database.ObjectErased += Database_ObjectErased;
-
-                acDoc.CommandWillStart += Doc_CommandWillStart;
-                acDoc.CommandEnded += Doc_CommandEnded;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-        }
-
-        /// <summary>
-        ///     TODO
-        /// </summary>
-        internal static void RemoveDocEvents()
-        {
-            try
-            {
-                // Get the current document
-                var acDocMan = Application.DocumentManager;
-                var acDoc = acDocMan.MdiActiveDocument;
-
-                //Doc Manager Handlers
-                acDocMan.DocumentToBeDeactivated -= BeginDocClose;
-                acDocMan.DocumentActivated -= DocActivated;
-
-                //Doc Handlers
-                acDoc.ImpliedSelectionChanged -= Doc_ImpliedSelectionChanged;
-                acDoc.Database.ObjectModified -= Database_ObjectModified;
-                acDoc.Database.ObjectErased -= Database_ObjectErased;
-
-                acDoc.CommandWillStart -= Doc_CommandWillStart;
-                acDoc.CommandEnded -= Doc_CommandEnded;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-        }
-
-        #endregion
-
-        #region Main Doc Handlers
-
-        private static void DocActivated(object senderObj,
-            DocumentCollectionEventArgs docActEvent)
-        {
-            try
-            {
-                // Get the current document
-                var acDocMan = Application.DocumentManager;
-                var acDoc = acDocMan.MdiActiveDocument;
-
-                if (acDoc == null) return;
-
-                //Notebook Handlers
-                if (SettingsInternal.EnNotePal) RcPaletteNotebook.UpdNotePal();
-
-                acDoc.ImpliedSelectionChanged += Doc_ImpliedSelectionChanged;
-                acDoc.Database.ObjectModified += Database_ObjectModified;
-                acDoc.Database.ObjectErased += Database_ObjectErased;
-
-                acDoc.CommandWillStart += Doc_CommandWillStart;
-                acDoc.CommandEnded += Doc_CommandEnded;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-        }
-
-        /// <summary>
-        ///     TODO
-        /// </summary>
-        /// <param name="senderObj"></param>
-        /// <param name="docBegClsEvtArgs"></param>
-        private static void BeginDocClose(object senderObj,
-            DocumentCollectionEventArgs docBegClsEvtArgs)
-        {
-            try
-            {
-                // Get the current document
-                var acDocMan = Application.DocumentManager;
-                var acDoc = acDocMan.MdiActiveDocument;
-
-                if (acDoc == null) return;
-                acDoc.ImpliedSelectionChanged -= Doc_ImpliedSelectionChanged;
-                acDoc.Database.ObjectModified -= Database_ObjectModified;
-                acDoc.Database.ObjectErased -= Database_ObjectErased;
-
-                acDoc.CommandWillStart -= Doc_CommandWillStart;
-                acDoc.CommandEnded -= Doc_CommandEnded;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-        }
-
-        #endregion
-
         #region Secondary Doc Handlers
 
         /// <summary>
@@ -189,106 +65,125 @@ namespace RabCab.Engine.System
             }
         }
 
+        #endregion
+
+        #region Handler Init
+
         /// <summary>
         ///     TODO
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private static void Doc_CommandWillStart(object sender, CommandEventArgs e)
+        internal static void AddDocEvents()
         {
+            try
+            {
+                // Get the current document
+                var acDocMan = Application.DocumentManager;
+                var acDoc = acDocMan.MdiActiveDocument;
+
+                //Doc Manager Handlers
+                acDocMan.DocumentToBeDeactivated += BeginDocClose;
+                acDocMan.DocumentActivated += DocActivated;
+
+                //Doc Handlers
+                acDoc.ImpliedSelectionChanged += Doc_ImpliedSelectionChanged;
+
+                acDoc.CommandWillStart += RcLeader.rcLeader_CommandWillStart;
+                acDoc.CommandEnded += RcLeader.rcLeader_CommandEnded;
+                acDoc.Database.ObjectModified += RcLeader.rcLeader_ObjectModified;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         /// <summary>
         ///     TODO
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private static void Doc_CommandEnded(object sender, CommandEventArgs e)
+        internal static void RemoveDocEvents()
         {
+            try
+            {
+                // Get the current document
+                var acDocMan = Application.DocumentManager;
+                var acDoc = acDocMan.MdiActiveDocument;
+
+                //Doc Manager Handlers
+                acDocMan.DocumentToBeDeactivated -= BeginDocClose;
+                acDocMan.DocumentActivated -= DocActivated;
+
+                //Doc Handlers
+                acDoc.ImpliedSelectionChanged -= Doc_ImpliedSelectionChanged;
+
+                acDoc.CommandWillStart -= RcLeader.rcLeader_CommandWillStart;
+                acDoc.CommandEnded -= RcLeader.rcLeader_CommandEnded;
+                acDoc.Database.ObjectModified -= RcLeader.rcLeader_ObjectModified;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         #endregion
 
-        #region Database Handlers
+        #region Main Doc Handlers
 
-        /// <summary>
-        ///     TODO
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private static void Database_ObjectModified(object sender, ObjectEventArgs e)
+        private static void DocActivated(object senderObj,
+            DocumentCollectionEventArgs docActEvent)
         {
-            var acCurDb = (Database) sender;
-            if (acCurDb == null || acCurDb.IsDisposed)
-                return;
+            try
+            {
+                // Get the current document
+                var acDocMan = Application.DocumentManager;
+                var acDoc = acDocMan.MdiActiveDocument;
 
-            var dbObj = e.DBObject;
+                if (acDoc == null) return;
 
-            if (dbObj == null || dbObj.IsDisposed || dbObj.IsErased)
-                return;
+                //Notebook Handlers
+                if (SettingsInternal.EnNotePal) RcPaletteNotebook.UpdNotePal();
+
+                acDoc.ImpliedSelectionChanged += Doc_ImpliedSelectionChanged;
+
+                acDoc.CommandWillStart += RcLeader.rcLeader_CommandWillStart;
+                acDoc.CommandEnded += RcLeader.rcLeader_CommandEnded;
+                acDoc.Database.ObjectModified += RcLeader.rcLeader_ObjectModified;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         /// <summary>
         ///     TODO
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private static void Database_ObjectErased(object sender, ObjectErasedEventArgs e)
+        /// <param name="senderObj"></param>
+        /// <param name="docBegClsEvtArgs"></param>
+        private static void BeginDocClose(object senderObj,
+            DocumentCollectionEventArgs docBegClsEvtArgs)
         {
-            var acCurDb = (Database) sender;
-            if (acCurDb == null || acCurDb.IsDisposed)
-                return;
+            try
+            {
+                // Get the current document
+                var acDocMan = Application.DocumentManager;
+                var acDoc = acDocMan.MdiActiveDocument;
 
-            //var dbObj = e.DBObject;
+                if (acDoc == null) return;
+                acDoc.ImpliedSelectionChanged -= Doc_ImpliedSelectionChanged;
 
-            //if (dbObj.IsErased)
-            //    if (dbObj is Solid3d acSol)
-            //    {
-            //        var acCurDoc = Application.DocumentManager.MdiActiveDocument;
-            //        var acCurEd = acCurDoc.Editor;
-            //        var handle = acSol.Handle;
-
-            //        try
-            //        {
-            //            using (var acTrans = acCurDb.TransactionManager.StartTransaction())
-            //            {
-            //                var objs = acCurEd.SelectAllOfType("3DSOLID", acTrans);
-
-            //                foreach (var obj in objs)
-            //                {
-            //                    var cSol = acTrans.GetObject(obj, OpenMode.ForRead) as Solid3d;
-            //                    if (cSol == null) continue;
-
-            //                    if (!cSol.HasXData()) continue;
-            //                    cSol.Upgrade();
-
-            //                    var cHandles = cSol.GetChildren();
-            //                    var pHandle = cSol.GetParent();
-
-            //                    if (cHandles.Count > 0)
-            //                        if (cHandles.Contains(handle))
-            //                        {
-            //                            cHandles.Remove(handle);
-
-            //                            cSol.UpdateXData(cHandles, Enums.XDataCode.ChildObjects, acCurDb, acTrans);
-            //                        }
-
-            //                    if (pHandle == handle)
-            //                        cSol.UpdateXData(default(Handle), Enums.XDataCode.ParentObject, acCurDb, acTrans);
-
-            //                    cSol.Update(acCurDb);
-
-            //                    cSol.Downgrade();
-            //                }
-
-            //                acTrans.Commit();
-            //            }
-            //        }
-            //        catch (Exception exception)
-            //        {
-            //            Console.WriteLine(exception);
-            //        }
-            //    }
+                acDoc.CommandWillStart -= RcLeader.rcLeader_CommandWillStart;
+                acDoc.CommandEnded -= RcLeader.rcLeader_CommandEnded;
+                acDoc.Database.ObjectModified -= RcLeader.rcLeader_ObjectModified;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         #endregion

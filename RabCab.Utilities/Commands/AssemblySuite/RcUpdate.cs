@@ -1,9 +1,8 @@
-﻿using System.Threading;
-using Autodesk.AutoCAD.ApplicationServices.Core;
+﻿using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Runtime;
 using RabCab.Agents;
-using RabCab.Analysis;
+using RabCab.Entities.Annotation;
 using RabCab.Extensions;
 using RabCab.Settings;
 
@@ -21,7 +20,7 @@ namespace RabCab.Commands.AssemblySuite
             //| CommandFlags.NoPerspective
             //| CommandFlags.NoMultiple
             //| CommandFlags.NoTileMode
-            | CommandFlags.NoPaperSpace
+            //| CommandFlags.NoPaperSpace
             //| CommandFlags.NoOem
             //| CommandFlags.Undefined
             //| CommandFlags.InProgress
@@ -37,7 +36,7 @@ namespace RabCab.Commands.AssemblySuite
             | CommandFlags.NoBlockEditor
             | CommandFlags.NoActionRecording
             | CommandFlags.ActionMacro
-            //| CommandFlags.NoInferConstraint 
+        //| CommandFlags.NoInferConstraint 
         )]
         public void Cmd_RcUpdate()
         {
@@ -50,7 +49,7 @@ namespace RabCab.Commands.AssemblySuite
             {
                 var objIds = acCurEd.SelectAllOfType("3DSOLID", acTrans);
 
-                using (var pWorker = new ProgressAgent("Updating Solids:", objIds.Length, false))
+                using (var pWorker = new ProgressAgent("Updating Solids:", objIds.Length))
                 {
                     foreach (var obj in objIds)
                     {
@@ -70,7 +69,8 @@ namespace RabCab.Commands.AssemblySuite
                 acCurEd.WriteMessage($"\n{objIds.Length} objects updated.");
                 acTrans.Commit();
             }
-               
+
+            RcLeader.UpdateMleaders();
         }
     }
 }
