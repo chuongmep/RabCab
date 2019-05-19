@@ -94,9 +94,9 @@ namespace RabCab.Commands.AutomationSuite
                         var acLyrTbl = acTrans.GetObject(acCurDb.LayerTableId,
                             OpenMode.ForRead) as LayerTable;
 
-                        string sLayerName = SettingsUser.RcAnno;
+                        var sLayerName = SettingsUser.RcAnno;
 
-                        if (acLyrTbl != null && acLyrTbl.Has(sLayerName) == true)
+                        if (acLyrTbl != null && acLyrTbl.Has(sLayerName))
                         {
                             // Set the layer Center current
                             acCurDb.Clayer = acLyrTbl[sLayerName];
@@ -111,7 +111,6 @@ namespace RabCab.Commands.AutomationSuite
                     Console.WriteLine(exception);
                 }
             }
-
         }
 
         /// <summary>
