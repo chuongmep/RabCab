@@ -10,11 +10,14 @@
 // -----------------------------------------------------------------------------------
 
 using System;
+using System.Windows.Forms;
 using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
+using RabCab.Commands.AutomationSuite;
 using RabCab.Commands.PaletteKit;
 using RabCab.Entities.Annotation;
+using RabCab.Extensions;
 using RabCab.Settings;
 using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
 
@@ -87,9 +90,18 @@ namespace RabCab.Engine.System
                 //Doc Handlers
                 acDoc.ImpliedSelectionChanged += Doc_ImpliedSelectionChanged;
 
+                //RCLEADER
                 acDoc.CommandWillStart += RcLeader.rcLeader_CommandWillStart;
                 acDoc.CommandEnded += RcLeader.rcLeader_CommandEnded;
+                acDoc.CommandCancelled += RcLeader.rcLeader_CommandEnded;
+                acDoc.CommandFailed += RcLeader.rcLeader_CommandEnded;
                 acDoc.Database.ObjectModified += RcLeader.rcLeader_ObjectModified;
+
+                //AUTOLAYER
+                acDoc.CommandWillStart += RcAutoLayer.autoLayer_CommandWillStart;
+                acDoc.CommandEnded += RcAutoLayer.autoLayer_CommandEnded;
+                acDoc.CommandCancelled += RcAutoLayer.autoLayer_CommandEnded;
+                acDoc.CommandFailed += RcAutoLayer.autoLayer_CommandEnded;
             }
             catch (Exception e)
             {
@@ -116,9 +128,19 @@ namespace RabCab.Engine.System
                 //Doc Handlers
                 acDoc.ImpliedSelectionChanged -= Doc_ImpliedSelectionChanged;
 
+                //RCLEADER
                 acDoc.CommandWillStart -= RcLeader.rcLeader_CommandWillStart;
                 acDoc.CommandEnded -= RcLeader.rcLeader_CommandEnded;
+                acDoc.CommandCancelled -= RcLeader.rcLeader_CommandEnded;
+                acDoc.CommandFailed -= RcLeader.rcLeader_CommandEnded;
                 acDoc.Database.ObjectModified -= RcLeader.rcLeader_ObjectModified;
+
+                //AUTOLAYER
+                acDoc.CommandWillStart -= RcAutoLayer.autoLayer_CommandWillStart;
+                acDoc.CommandEnded -= RcAutoLayer.autoLayer_CommandEnded;
+                acDoc.CommandCancelled -= RcAutoLayer.autoLayer_CommandEnded;
+                acDoc.CommandFailed -= RcAutoLayer.autoLayer_CommandEnded;
+
             }
             catch (Exception e)
             {
@@ -147,9 +169,19 @@ namespace RabCab.Engine.System
 
                 acDoc.ImpliedSelectionChanged += Doc_ImpliedSelectionChanged;
 
+                //RCLEADER
                 acDoc.CommandWillStart += RcLeader.rcLeader_CommandWillStart;
                 acDoc.CommandEnded += RcLeader.rcLeader_CommandEnded;
+                acDoc.CommandCancelled += RcLeader.rcLeader_CommandEnded;
+                acDoc.CommandFailed += RcLeader.rcLeader_CommandEnded;
+
                 acDoc.Database.ObjectModified += RcLeader.rcLeader_ObjectModified;
+
+                //AUTOLAYER
+                acDoc.CommandWillStart += RcAutoLayer.autoLayer_CommandWillStart;
+                acDoc.CommandEnded += RcAutoLayer.autoLayer_CommandEnded;
+                acDoc.CommandCancelled += RcAutoLayer.autoLayer_CommandEnded;
+                acDoc.CommandFailed += RcAutoLayer.autoLayer_CommandEnded;
             }
             catch (Exception e)
             {
@@ -174,10 +206,19 @@ namespace RabCab.Engine.System
 
                 if (acDoc == null) return;
                 acDoc.ImpliedSelectionChanged -= Doc_ImpliedSelectionChanged;
-
+               
+                //RCLEADER
                 acDoc.CommandWillStart -= RcLeader.rcLeader_CommandWillStart;
                 acDoc.CommandEnded -= RcLeader.rcLeader_CommandEnded;
+                acDoc.CommandCancelled -= RcLeader.rcLeader_CommandEnded;
+                acDoc.CommandFailed -= RcLeader.rcLeader_CommandEnded;
                 acDoc.Database.ObjectModified -= RcLeader.rcLeader_ObjectModified;
+                
+                //AUTOLAYER
+                acDoc.CommandWillStart -= RcAutoLayer.autoLayer_CommandWillStart;
+                acDoc.CommandEnded -= RcAutoLayer.autoLayer_CommandEnded;
+                acDoc.CommandCancelled -= RcAutoLayer.autoLayer_CommandEnded;
+                acDoc.CommandFailed -= RcAutoLayer.autoLayer_CommandEnded;
             }
             catch (Exception e)
             {

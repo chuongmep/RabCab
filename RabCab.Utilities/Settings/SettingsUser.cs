@@ -9,6 +9,8 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
+using System.Collections.Generic;
+using System.Windows.Documents;
 using Autodesk.AutoCAD.Colors;
 using static RabCab.Engine.Enumerators.Enums;
 
@@ -27,6 +29,30 @@ namespace RabCab.Settings
 
         //PartFinder
         public static bool PartLeaderEnabled = true;
+        
+        //Automation
+        public static bool AutoLayerEnabled = true;
+
+        public static List<string> LayerCommandList { get; set; } = new List<string>()
+        {
+            "TEXT",
+            "DTEXT",
+            "MTEXT",
+            "MLEADER",
+            "DIM",
+            "DIMLINEAR",
+            "DIMALIGNED",
+            "DIMANGULAR",
+            "DIMARC",
+            "DIMRADIUS",
+            "DIMDIAMETER",
+            "DIMJOGGED",
+            "DIMORDINATE",
+            "QDIM",
+            "DIMCONTINUE",
+            "DIMBASELINE",
+            "TABLE"
+        };
 
         //External Paths
         public static string ViewTemplatePath = "";
