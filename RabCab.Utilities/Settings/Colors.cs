@@ -85,6 +85,9 @@ namespace RabCab.Settings
         public static Autodesk.AutoCAD.Colors.Color LayerColorPreview =
             Autodesk.AutoCAD.Colors.Color.FromColorIndex(ColorMethod.ByAci, (int) Enums.CadColor.Magenta);
 
+        public static Autodesk.AutoCAD.Colors.Color LayerColorHoles =
+            Autodesk.AutoCAD.Colors.Color.FromColorIndex(ColorMethod.ByAci, (int)Enums.CadColor.Red);
+
         #endregion
     }
 }

@@ -10,14 +10,13 @@
 // -----------------------------------------------------------------------------------
 
 using System;
-using System.Windows.Media.Media3D;
 using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.BoundaryRepresentation;
+using Autodesk.AutoCAD.Colors;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.Runtime;
-using RabCab.Analysis;
 using RabCab.Calculators;
 using RabCab.Extensions;
 using RabCab.Settings;
@@ -36,7 +35,7 @@ namespace RabCab.Commands.CarpentrySuite
             //| CommandFlags.NoPerspective
             //| CommandFlags.NoMultiple
             //| CommandFlags.NoTileMode
-            //| CommandFlags.NoPaperSpace
+            | CommandFlags.NoPaperSpace
             //| CommandFlags.NoOem
             //| CommandFlags.Undefined
             //| CommandFlags.InProgress
@@ -63,9 +62,9 @@ namespace RabCab.Commands.CarpentrySuite
 
             //Call user to select a face
             var userSel = acCurEd.SelectSubentity(SubentityType.Edge);
-
             if (userSel == null) return;
-
+            if (userSel.Item1 == ObjectId.Null) return;
+            if (userSel.Item2 == SubentityId.Null) return;
 
             //Open a transaction
             using (var acTrans = acCurDb.TransactionManager.StartTransaction())
@@ -101,17 +100,20 @@ namespace RabCab.Commands.CarpentrySuite
                                 };
 
 
-                                //TODO change base point by selecting next
+                                acCurDb.AddLayer(SettingsUser.RcHoles, Colors.LayerColorHoles, SettingsUser.RcHolesLt,
+                                    acTrans);
 
-                                var sol = new Solid3d();
-                                sol.CreateSweptSolid(acCirc, acLine, sOptsBuilder.ToSweepOptions());
+                                var dSol = new Solid3d();
+                                dSol.CreateSweptSolid(acCirc, acLine, sOptsBuilder.ToSweepOptions());
+                                dSol.Layer = SettingsUser.RcHoles;
+                                dSol.Transparency = new Transparency(75);
 
-                                acCurDb.AppendEntity(sol, acTrans);
+                                acCurDb.AppendEntity(dSol, acTrans);
 
                                 var closestPt = new Point3d(double.MaxValue, double.MaxValue, double.MaxValue);
-                                double maxDis = closestPt.DistanceTo(startPt);
-                                
-                                using (var solRep = new Brep(sol))
+                                var maxDis = closestPt.DistanceTo(startPt);
+
+                                using (var solRep = new Brep(dSol))
                                 {
                                     foreach (var vtx in solRep.Vertices)
                                     {
@@ -124,12 +126,9 @@ namespace RabCab.Commands.CarpentrySuite
                                     }
                                 }
 
-                                Vector3d rotVector;
-
                                 if (closestPt != new Point3d(double.MaxValue, double.MaxValue, double.MaxValue))
                                 {
-                                    rotVector = closestPt.GetVectorTo(startPt);
-                                    sol.TransformBy(Matrix3d.Displacement(closestPt.GetVectorTo(startPt)));
+                                    dSol.TransformBy(Matrix3d.Displacement(closestPt.GetVectorTo(startPt)));
                                 }
                                 else
                                 {
@@ -141,8 +140,9 @@ namespace RabCab.Commands.CarpentrySuite
 
                                 while (cont == false)
                                 {
-                                    var prKeyOpts = new PromptKeywordOptions("Enter option: ");
-                                    prKeyOpts.Keywords.Add("Rotate");
+                                    var prKeyOpts = new PromptKeywordOptions("Define placement: ");
+                                    prKeyOpts.Keywords.Add("Next");
+                                    prKeyOpts.Keywords.Add("Back");
                                     prKeyOpts.Keywords.Add("Continue");
                                     prKeyOpts.Keywords.Add("Exit");
                                     prKeyOpts.AllowNone = false;
@@ -152,18 +152,22 @@ namespace RabCab.Commands.CarpentrySuite
                                     if (prKeyRes.Status == PromptStatus.OK)
                                     {
                                         var strResult = prKeyRes.StringResult;
+                                        var xAxis = startPt.GetVectorTo(endPt);
 
                                         switch (strResult)
                                         {
-                                            case "Rotate":
-
-                                                sol.TransformBy(Matrix3d.Rotation(CalcUnit.ConvertToRadians(90),
-                                                    rotVector, startPt));
-
-                                                acCurDb.TransactionManager.QueueForGraphicsFlush();
-
+                                            case "Next":
+                                                dSol.TransformBy(Matrix3d.Rotation(CalcUnit.ConvertToRadians(90),
+                                                    xAxis, startPt));
+                                                break;
+                                            case "Back":
+                                                dSol.TransformBy(Matrix3d.Rotation(CalcUnit.ConvertToRadians(-90),
+                                                    xAxis, startPt));
                                                 break;
                                             case "Continue":
+                                                var mainIds = new[] {acSol.ObjectId};
+                                                var dIds = new[] {dSol.ObjectId};
+                                                mainIds.SolidSubtrahend(dIds, acCurDb, acTrans, true);
                                                 cont = true;
                                                 break;
                                             default:
@@ -177,12 +181,9 @@ namespace RabCab.Commands.CarpentrySuite
                                         return;
                                     }
 
+                                    acCurDb.TransactionManager.QueueForGraphicsFlush();
                                 }
-                                
-                                //TODO cut solid
-
                             }
-
                         }
                 }
 

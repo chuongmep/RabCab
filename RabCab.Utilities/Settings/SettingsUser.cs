@@ -101,13 +101,15 @@ namespace RabCab.Settings
         public static char LayerDelimiter = '-';
         public static string RcVisible = "RCVisible";
         public static string RcHidden = "RCHidden";
-        public static string RcAnno = "RCAnnotation";
+        public static string RcAnno = "RCAnno";
+        public static string RcHoles = "RCHoles";
 
         //Linetypes
         public static string RcVisibleLT = "CONTINUOUS";
         public static string RcHiddenLT = "HIDDEN";
         public static string RcAnnoLt = "CONTINUOUS";
         public static string RcDimLt = "CENTER";
+        public static string RcHolesLt = "HIDDEN";
 
         //Carpentry
         public static double RcJointDepth = 0;
