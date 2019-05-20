@@ -75,6 +75,9 @@ namespace RabCab.Settings
         //Explode Options
         public static double ExplodePower = 2;
 
+        //Mark Options
+        public static double MarkTextHeight = 0.09;
+        
         //Laying Options
         public static int LayStep = 10;
         public static double LayTextHeight = 2;

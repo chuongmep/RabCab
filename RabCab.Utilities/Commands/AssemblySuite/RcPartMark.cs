@@ -122,12 +122,13 @@ namespace RabCab.Commands.AssemblySuite
 
                                             using (var acText = new MText())
                                             {
-                                                //acText.TextHeight = SettingsUser.LayTextHeight;
+                                                acText.TextHeight = SettingsUser.MarkTextHeight;
                                                 acText.Contents = solName;
                                                 acText.BackgroundFill = true;
                                                 acText.UseBackgroundColor = true;
                                                 acText.ShowBorders = true;
                                                 acText.Location = insPt;
+                                                acText.Attachment = AttachmentPoint.MiddleCenter;
                                                 //acText.Layer = ;
                                                 //acText.ColorIndex = ;                           
 

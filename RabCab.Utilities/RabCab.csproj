@@ -203,7 +203,6 @@
     <Compile Include="Commands\CarpentrySuite\RcGap.cs" />
     <Compile Include="Commands\CarpentrySuite\RcJoint.cs" />
     <Compile Include="Commands\CarpentrySuite\RcOffset.cs" />
-    <Compile Include="Commands\CarpentrySuite\RcRevolve.cs" />
     <Compile Include="Commands\CarpentrySuite\RcSlice.cs" />
     <Compile Include="Commands\CNCSuite\RcAutoPrep.cs" />
     <Compile Include="Commands\CNCSuite\RcBreakPoints.cs" />
@@ -228,7 +227,6 @@
     <Compile Include="Commands\ContentLibrary\RcTechSpec.cs" />
     <Compile Include="Commands\MeshSuite\RcMeshConvert.cs" />
     <Compile Include="Commands\MeshSuite\RcMeshExplode.cs" />
-    <Compile Include="Commands\PaletteKit\RcPaletteDwg.cs" />
     <Compile Include="Commands\PaletteKit\RcPaletteLayer.cs" />
     <Compile Include="Commands\ReferenceSuite\BlockKit\RcAutoAtt.cs" />
     <Compile Include="Commands\ReferenceSuite\BlockKit\RcAutoBlock.cs" />
@@ -263,7 +261,6 @@
     <Compile Include="Commands\PaletteKit\RcPaletteMetric.cs" />
     <Compile Include="Commands\PaletteKit\RcPaletteNet.cs" />
     <Compile Include="Commands\PaletteKit\RcPaletteNotebook.cs" />
-    <Compile Include="Commands\PaletteKit\RcPaletteSnap.cs" />
     <Compile Include="Commands\ReferenceSuite\BlockKit\RcBlockReplace.cs" />
     <Compile Include="Commands\ReferenceSuite\BlockKit\RcBlockToXref.cs" />
     <Compile Include="Commands\ReferenceSuite\OleKit\RcOleBind.cs" />

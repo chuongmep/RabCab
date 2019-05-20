@@ -151,7 +151,6 @@ using RabCab.Initialization;
 [assembly: CommandClass(typeof(RcGap))]
 [assembly: CommandClass(typeof(RcJoint))]
 [assembly: CommandClass(typeof(RcOffset))]
-[assembly: CommandClass(typeof(RcRevolve))]
 [assembly: CommandClass(typeof(RcSlice))]
 [assembly: CommandClass(typeof(RcFlip))]
 
@@ -187,12 +186,10 @@ using RabCab.Initialization;
 [assembly: CommandClass(typeof(RcMeshExplode))]
 
 //Palette Kit
-[assembly: CommandClass(typeof(RcPaletteDwg))]
 [assembly: CommandClass(typeof(RcPaletteLayer))]
 [assembly: CommandClass(typeof(RcPaletteMetric))]
 [assembly: CommandClass(typeof(RcPaletteNet))]
 [assembly: CommandClass(typeof(RcPaletteNotebook))]
-[assembly: CommandClass(typeof(RcPaletteSnap))]
 
 //Reference Suite
 [assembly: CommandClass(typeof(RcAutoAtt))]
