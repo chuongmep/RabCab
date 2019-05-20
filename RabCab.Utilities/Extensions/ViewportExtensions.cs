@@ -180,14 +180,14 @@ namespace RabCab.Extensions
             Point3dCollection pts;
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;
             var acCurEd = acCurDoc.Editor;
-            int number;
+            int curPort;
             using (var acTrans = acCurDoc.Database.TransactionManager.StartTransaction())
             {
-                var vp = acTrans.GetObject(viewportId, OpenMode.ForRead) as Viewport;
-                if (vp != null)
+                var vPort = acTrans.GetObject(viewportId, OpenMode.ForRead) as Viewport;
+                if (vPort != null)
                 {
-                    number = vp.Number;
-                    pts = vp.PaperToModel(vp.GetClipPoints(acTrans));
+                    curPort = vPort.Number;
+                    pts = vPort.P2M(vPort.GetExtents(acTrans));
                     acTrans.Commit();
                 }
                 else
@@ -197,14 +197,14 @@ namespace RabCab.Extensions
             }
 
             acCurEd.SwitchToModelSpace();
-            Application.SetSystemVariable("CVPORT", number);
-            var polygon = new Point3dCollection();
-            var leftSide = acCurEd.CurrentUserCoordinateSystem.Inverse();
-            foreach (Point3d pt in pts) polygon.Add(pt.TransformBy(leftSide));
+            Application.SetSystemVariable("CVPORT", curPort);
+            var selArea = new Point3dCollection();
+            var xForm = acCurEd.CurrentUserCoordinateSystem.Inverse();
+            foreach (Point3d pt in pts) selArea.Add(pt.TransformBy(xForm));
 
             var result = selectionFilter == null
-                ? acCurEd.SelectCrossingPolygon(polygon)
-                : acCurEd.SelectCrossingPolygon(polygon, selectionFilter);
+                ? acCurEd.SelectCrossingPolygon(selArea)
+                : acCurEd.SelectCrossingPolygon(selArea, selectionFilter);
 
             acCurEd.SwitchToPaperSpace();
 
@@ -215,90 +215,86 @@ namespace RabCab.Extensions
 
         public static ObjectIdCollection GetPaperObjects(this ObjectId viewportId)
         {
-            var ids = new ObjectIdCollection();
-            if (viewportId.IsNull) return ids;
+            var objCol = new ObjectIdCollection();
+            if (viewportId.IsNull) return objCol;
 
-            if (viewportId.IsErased || viewportId.Database == null) return ids;
+            if (viewportId.IsErased || viewportId.Database == null) return objCol;
 
             using (var acTrans = viewportId.Database.TransactionManager.StartTransaction())
             {
-                var viewport = acTrans.GetObject(viewportId, OpenMode.ForRead) as Viewport;
-                if (viewport != null)
+                var vPort = acTrans.GetObject(viewportId, OpenMode.ForRead) as Viewport;
+
+                if (vPort != null)
                 {
-                    if (viewport.Number == 1) throw new NotSupportedException("Viewport.Number == 1");
+                    if (vPort.Number == 1) return objCol;
                     var unitVector = CalcTol.UnitVector;
-                    using (var enumerator =
-                        (acTrans.GetObject(viewport.BlockId, OpenMode.ForRead) as BlockTableRecord)
-                        ?.GetEnumerator())
+
+                    foreach (var objId in (BlockTableRecord) acTrans.GetObject(vPort.BlockId, OpenMode.ForRead))
                     {
-                        while (true)
+                        if (objId.IsNull || objId.IsErased || objId == viewportId ||
+                            objId.ObjectClass == RXObject.GetClass(typeof(Viewport)) ||
+                            objId.ObjectClass == RXObject.GetClass(typeof(AttributeDefinition)) ||
+                            objId.ObjectClass == RXObject.GetClass(typeof(AttributeReference)) ||
+                            objId.ObjectClass == RXObject.GetClass(typeof(ProxyEntity))) continue;
+
+                        var entity = acTrans.GetObject(objId, OpenMode.ForRead) as Entity;
+
+                        if (entity == null) continue;
+                        
+                        Extents2d ext2d;
+                        try
                         {
-                            if (enumerator != null && !enumerator.MoveNext()) break;
-                            if (enumerator == null) continue;
-                            var current = enumerator.Current;
-                            if (current.IsNull || current.IsErased || current == viewportId ||
-                                current.ObjectClass == RXObject.GetClass(typeof(Viewport)) ||
-                                current.ObjectClass == RXObject.GetClass(typeof(AttributeDefinition)) ||
-                                current.ObjectClass == RXObject.GetClass(typeof(AttributeReference)) ||
-                                current.ObjectClass == RXObject.GetClass(typeof(ProxyEntity))) continue;
-                            var entity = acTrans.GetObject(current, OpenMode.ForRead) as Entity;
-                            if (entity != null)
-                            {
-                                var ext2d = new Extents2d();
-                                try
-                                {
-                                    ext2d = entity.GeometricExtents.Convert2d();
-                                }
-                                catch
-                                {
-                                    // ignored
-                                }
-
-                                var extentsd3 = new Extents2d();
-                                if (ext2d != extentsd3 &&
-                                    (ext2d.IsInside(ext2d, unitVector) ||
-                                     ext2d.Intersects(ext2d, unitVector))) ids.Add(current);
-                                continue;
-                            }
-
-                            return ids;
+                            ext2d = entity.GeometricExtents.Convert2d();
                         }
+                        catch
+                        {
+                            return objCol;
+                        }
+
+                        if (ext2d != new Extents2d() && (ext2d.IsInside(ext2d, unitVector) || ext2d.Intersects(ext2d, unitVector)))
+                            objCol.Add(objId);
                     }
 
-                    acTrans.Commit();
                 }
                 else
                 {
-                    return ids;
+                    return objCol;
                 }
+
+                acTrans.Commit();
             }
 
-            return ids;
+            return objCol;
         }
 
         #endregion
 
         #region Viewport Points
 
-        public static Point3dCollection GetClipPoints(this Viewport vp, Transaction tr)
+        private static Point3dCollection GetExtents(this Viewport vp, Transaction tr)
         {
             if (!vp.NonRectClipOn) return vp.GeometricExtents.ExtPoints();
-            var psVpPnts = new Point3dCollection();
+            
+            var vpPnts = new Point3dCollection();
+            
             using (var entity = tr.GetObject(vp.NonRectClipEntityId, OpenMode.ForRead) as Entity)
             {
                 var curve = entity as Curve;
                 if (curve == null) throw new WarningException();
-                AddCurvePoints(curve, psVpPnts);
+
+                AddCurvePoints(curve, vpPnts);
             }
 
-            return psVpPnts;
+            return vpPnts;
         }
 
         private static void AddCurvePoints(Curve curve, Point3dCollection psVpPnts)
         {
             var startParam = curve.StartParam;
             var endParam = curve.EndParam;
+            
             var lNum = (endParam - startParam) / 100.0;
+
             for (var i = startParam; i < endParam; i += lNum)
             {
                 var pointAtParameter = curve.GetPointAtParameter(i);
@@ -310,43 +306,43 @@ namespace RabCab.Extensions
 
         #region PointCoversions
 
-        public static Matrix3d ModelToPaper(this Viewport vp)
+        public static Matrix3d M2P(this Viewport vp)
         {
-            if (vp.PerspectiveOn) throw new NotSupportedException();
-            if (vp.Number == 1) throw new NotSupportedException("Viewport.Number == 1");
+            if (vp.PerspectiveOn) return new Matrix3d();
+            if (vp.Number == 1) return new Matrix3d();
             return vp.Dcs2Psdcs() * vp.Dcs2Wcs().Inverse();
         }
 
         public static Point3d ModelToPaper(this Viewport vp, Point3d modelPoint)
         {
-            return modelPoint.TransformBy(vp.ModelToPaper());
+            return modelPoint.TransformBy(vp.M2P());
         }
 
-        public static Point3dCollection ModelToPaper(this Viewport vp, Point3dCollection modelPoints)
+        public static Point3dCollection M2P(this Viewport vp, Point3dCollection modelPoints)
         {
             var pts = new Point3dCollection();
-            var leftSide = vp.ModelToPaper();
-            foreach (Point3d pt in modelPoints) pts.Add(pt.TransformBy(leftSide));
+            var xForm = vp.M2P();
+            foreach (Point3d pt in modelPoints) pts.Add(pt.TransformBy(xForm));
             return pts;
         }
 
-        public static Matrix3d PaperToModel(this Viewport vp)
+        public static Matrix3d P2M(this Viewport vp)
         {
-            if (vp.PerspectiveOn) throw new NotSupportedException();
-            if (vp.Number == 1) throw new NotSupportedException("Viewport.Number == 1");
+            if (vp.PerspectiveOn) return new Matrix3d();
+            if (vp.Number == 1) return new Matrix3d();
             return vp.Dcs2Wcs() * vp.Dcs2Psdcs().Inverse();
         }
 
-        public static Point3d PaperToModel(this Viewport vp, Point3d paperPoint)
+        public static Point3d P2M(this Viewport vp, Point3d paperPoint)
         {
-            return paperPoint.TransformBy(vp.PaperToModel());
+            return paperPoint.TransformBy(vp.P2M());
         }
 
-        public static Point3dCollection PaperToModel(this Viewport vp, Point3dCollection paperPoints)
+        public static Point3dCollection P2M(this Viewport vp, Point3dCollection paperPoints)
         {
             var pts = new Point3dCollection();
-            var leftSide = vp.PaperToModel();
-            foreach (Point3d pt in paperPoints) pts.Add(pt.TransformBy(leftSide));
+            var xForm = vp.P2M();
+            foreach (Point3d pt in paperPoints) pts.Add(pt.TransformBy(xForm));
             return pts;
         }
 

@@ -15,7 +15,7 @@ using RabCab.Settings;
 
 namespace RabCab.Commands.AnnotationSuite
 {
-    internal class RcUpdateLeader
+    internal class RcUpdateLeaders
     {
         /// <summary>
         /// </summary>

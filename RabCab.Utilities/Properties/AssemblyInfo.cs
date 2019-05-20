@@ -120,7 +120,7 @@ using RabCab.Initialization;
 [assembly: CommandClass(typeof(RcDimSelect))]
 [assembly: CommandClass(typeof(RcGenViews))]
 [assembly: CommandClass(typeof(RcMatchViews))]
-[assembly: CommandClass(typeof(RcUpdateLeader))]
+[assembly: CommandClass(typeof(RcUpdateLeaders))]
 [assembly: CommandClass(typeof(RcSpaceViews))]
 [assembly: CommandClass(typeof(RcSurfaceTag))]
 [assembly: CommandClass(typeof(RcVpConvert))]

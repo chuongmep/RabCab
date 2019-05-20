@@ -177,7 +177,7 @@
     <Compile Include="Commands\AnnotationSuite\RcGenDims.cs" />
     <Compile Include="Commands\AnnotationSuite\RcGenViews.cs" />
     <Compile Include="Commands\AnnotationSuite\RcMatchViews.cs" />
-    <Compile Include="Commands\AnnotationSuite\RcUpdateLeader.cs" />
+    <Compile Include="Commands\AnnotationSuite\RcUpdateLeaders.cs" />
     <Compile Include="Commands\AnnotationSuite\RcSpaceViews.cs" />
     <Compile Include="Commands\AnnotationSuite\RcSurfaceTag.cs" />
     <Compile Include="Commands\AnnotationSuite\RcVpConvert.cs" />
@@ -214,7 +214,7 @@
     <Compile Include="Commands\CNCSuite\RcLoopInner.cs" />
     <Compile Include="Commands\CNCSuite\RcLoopBit.cs" />
     <Compile Include="Commands\CNCSuite\RcLoopOuter.cs" />
-    <Compile Include="Commands\CNCSuite\RcDogEar.cs" />
+    <Compile Include="Commands\CarpentrySuite\RcDogEar.cs" />
     <Compile Include="Commands\CombineSuite\Rc3DBoundary.cs" />
     <Compile Include="Commands\CombineSuite\RcConverge.cs" />
     <Compile Include="Commands\CombineSuite\RcFuse.cs" />

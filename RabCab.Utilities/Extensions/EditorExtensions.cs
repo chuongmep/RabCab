@@ -1706,7 +1706,7 @@ namespace RabCab.Extensions
         /// <param name="acCurEd">The current working editor.</param>
         /// <param name="subEntType">The type of subentity to be selected.</param>
         /// <returns>Returns a tuple value of the subentity id and its parent objectId.</returns>
-        public static Tuple<ObjectId, SubentityId> SelectSubentity(this Editor acCurEd, SubentityType subEntType)
+        public static Tuple<ObjectId, SubentityId> SelectSubentity(this Editor acCurEd, SubentityType subEntType, string prompt = null)
         {
             //Set the ObjectId and SubentId to Null
             var objId = ObjectId.Null;
@@ -1728,6 +1728,8 @@ namespace RabCab.Extensions
                 MessageForRemoval = "Select " + subEntName.ToTitleCase() + " objects to remove: "
             };
 
+            if (prompt != null)
+                prSelOpts.MessageForAdding = prompt;
 
             PromptSelectionResult prRes;
 
