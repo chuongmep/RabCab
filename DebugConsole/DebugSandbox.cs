@@ -10,6 +10,10 @@
 // -----------------------------------------------------------------------------------
 
 using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Windows.Forms;
+using RabCab.Settings;
 
 namespace DebugConsole
 {
@@ -21,9 +25,18 @@ namespace DebugConsole
         /// <param name="args"></param>
         private static void Main()
         {
-            Console.WriteLine("-------- RabCab Debugger --------\n");
-            Console.WriteLine("Please enter commands to test...");
-            ListenForInput();
+
+            var form = new Form();
+
+            var settingsGui = new SettingsGui();
+            form.Controls.Add(settingsGui);
+
+            Application.EnableVisualStyles();
+            Application.Run(form);
+
+            //Console.WriteLine("-------- RabCab Debugger --------\n");
+            //Console.WriteLine("Please enter commands to test...");
+            //ListenForInput();
         }
 
         /// <summary>

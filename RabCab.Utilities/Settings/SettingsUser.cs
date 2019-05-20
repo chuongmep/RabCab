@@ -51,7 +51,8 @@ namespace RabCab.Settings
             "QDIM",
             "DIMCONTINUE",
             "DIMBASELINE",
-            "TABLE"
+            "TABLE", 
+            "GENDIMS"
         };
 
         //External Paths

@@ -391,6 +391,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Settings\Colors.cs" />
+    <Compile Include="Settings\SettingsGui.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Settings\SettingsInternal.cs" />
     <Compile Include="Settings\SettingsUser.cs" />
   </ItemGroup>

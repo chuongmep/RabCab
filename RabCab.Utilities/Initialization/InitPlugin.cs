@@ -9,9 +9,11 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
+using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.Runtime;
 using RabCab.Engine.System;
 using RabCab.Initialization;
+using RabCab.Settings;
 
 // This line is not mandatory, but improves loading performances
 
@@ -24,6 +26,7 @@ namespace RabCab.Initialization
     // then you should remove this class.
     public class InitPlugin : IExtensionApplication
     {
+        
         void IExtensionApplication.Initialize()
         {
             // Add one time initialization here
@@ -44,13 +47,46 @@ namespace RabCab.Initialization
             // as well as some of the existing AutoCAD managed apps.
 
             // Initialize your plug-in application here
-
+            Application.DisplayingOptionDialog += new TabbedDialogEventHandler(Application_DisplayingOptionDialog);
             DocumentHandlers.AddDocEvents();
         }
 
         void IExtensionApplication.Terminate()
         {
+            Application.DisplayingOptionDialog -= new TabbedDialogEventHandler(Application_DisplayingOptionDialog);
             DocumentHandlers.RemoveDocEvents();
         }
+
+        #region Options Panel Addition
+
+        static SettingsGui _gSettings;
+
+        private static void Application_DisplayingOptionDialog(object sender, TabbedDialogEventArgs e)
+        {
+            if (_gSettings == null)
+                _gSettings = new SettingsGui();
+            
+            var tde = new TabbedDialogExtension(_gSettings, OnOK, OnCancel, OnHelp, OnApply);
+
+            e.AddTab(SettingsInternal.CommandGroup, tde);
+        }
+
+        private static void OnOK()
+        {
+        }
+
+        private static void OnCancel()
+        {
+        }
+
+        private static void OnHelp()
+        {
+        }
+
+        private static void OnApply()
+        {
+        }
+
+        #endregion
     }
 }
