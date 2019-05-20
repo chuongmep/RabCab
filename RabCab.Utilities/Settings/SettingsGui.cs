@@ -173,7 +173,6 @@ namespace RabCab.Settings
                 Text = "NAN"
             };
 
-
             tLayout.Controls.Add(pBox, 0, 0);
             tLayout.Controls.Add(lbl, 1, 0);
             tLayout.Controls.Add(templates, 2, 0);

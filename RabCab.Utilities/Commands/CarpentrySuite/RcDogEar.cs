@@ -133,6 +133,7 @@ namespace RabCab.Commands.CarpentrySuite
                                 else
                                 {
                                     acTrans.Abort();
+                                    acLine.Erase();
                                     return;
                                 }
 
@@ -172,21 +173,25 @@ namespace RabCab.Commands.CarpentrySuite
                                                 break;
                                             default:
                                                 acTrans.Abort();
+                                                acLine.Erase();
                                                 return;
                                         }
                                     }
                                     else
                                     {
                                         acTrans.Abort();
+                                        acLine.Erase();
                                         return;
                                     }
 
                                     acCurDb.TransactionManager.QueueForGraphicsFlush();
                                 }
                             }
+
+                            acLine.Erase();
                         }
                 }
-
+                
                 acTrans.Commit();
             }
         }
