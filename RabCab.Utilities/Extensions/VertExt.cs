@@ -13,20 +13,20 @@ namespace RabCab.Extensions
         private readonly bool _rightAngle;
         private readonly bool _rightCs;
         private readonly double _vertAngle;
-        private readonly Point3d _vertPoint;
-        private readonly EdgeExt _xEdge;
-        private readonly EdgeExt _yEdge;
-        private readonly EdgeExt _zEdge;
-        private Vector3d _normal;
+        public Point3d VertPoint;
+        public EdgeExt XEdge;
+        public EdgeExt YEdge;
+        public EdgeExt ZEdge;
+        public Vector3d Normal;
 
         //TODO
         public VertExt(Vertex vtx, BoundaryLoop owner)
         {
-            _vertPoint = vtx.Point;
-            _xEdge = new EdgeExt();
-            _yEdge = new EdgeExt();
-            _zEdge = new EdgeExt();
-            _normal = new Vector3d();
+            VertPoint = vtx.Point;
+            XEdge = new EdgeExt();
+            YEdge = new EdgeExt();
+            ZEdge = new EdgeExt();
+            Normal = new Vector3d();
             _vertAngle = 0.0;
             _rightAngle = false;
             _rightCs = false;
@@ -39,57 +39,57 @@ namespace RabCab.Extensions
 
                 if (eInfo.OnLoop)
                 {
-                    if (_xEdge.IsNull)
+                    if (XEdge.IsNull)
                     {
-                        _xEdge = eInfo;
+                        XEdge = eInfo;
                     }
-                    else if (_xEdge.Length >= eInfo.Length)
+                    else if (XEdge.Length >= eInfo.Length)
                     {
-                        _yEdge = eInfo;
+                        YEdge = eInfo;
                     }
                     else
                     {
-                        _yEdge = _xEdge;
-                        _xEdge = eInfo;
+                        YEdge = XEdge;
+                        XEdge = eInfo;
                     }
 
-                    if (!_normal.IsLessThanTol()) continue;
+                    if (!Normal.IsLessThanTol()) continue;
 
-                    _normal = eInfo.Normal;
+                    Normal = eInfo.Normal;
                 }
                 else
                 {
-                    _zEdge = eInfo;
+                    ZEdge = eInfo;
                 }
             }
 
-            if (_xEdge.Length < SettingsUser.TolPoint) return;
+            if (XEdge.Length < SettingsUser.TolPoint) return;
 
-            if (_yEdge.Length > SettingsUser.TolPoint)
+            if (YEdge.Length > SettingsUser.TolPoint)
             {
-                _vertAngle = _xEdge.Tangent.GetAngleTo(_yEdge.Tangent);
+                _vertAngle = XEdge.Tangent.GetAngleTo(YEdge.Tangent);
                 if (_vertAngle <= SettingsInternal.TolVector * 10 ||
                     _vertAngle >= 3.14159265358979 - SettingsInternal.TolVector * 10)
                 {
-                    _yEdge = new EdgeExt();
+                    YEdge = new EdgeExt();
                 }
                 else
                 {
                     if (SettingsUser.PrioritizeRightAngles)
                         _rightAngle = Math.Abs(_vertAngle - 1.5707963267949) < SettingsInternal.TolVector;
 
-                    if (_normal.IsLessThanTol()) _normal = _xEdge.Tangent.CrossProduct(_yEdge.Tangent);
+                    if (Normal.IsLessThanTol()) Normal = XEdge.Tangent.CrossProduct(YEdge.Tangent);
                 }
             }
 
-            if (_zEdge.Length < SettingsUser.TolPoint) return;
+            if (ZEdge.Length < SettingsUser.TolPoint) return;
 
-            if (!_normal.IsLessThanTol())
+            if (!Normal.IsLessThanTol())
             {
-                if (_normal.GetAngleTo(_zEdge.Tangent) > 1.5707963267949) _normal = _normal.Negate();
+                if (Normal.GetAngleTo(ZEdge.Tangent) > 1.5707963267949) Normal = Normal.Negate();
 
-                if (_yEdge.Length > SettingsUser.TolPoint)
-                    _rightCs = _yEdge.Tangent.GetAngleTo(_normal.CrossProduct(_xEdge.Tangent)) <
+                if (YEdge.Length > SettingsUser.TolPoint)
+                    _rightCs = YEdge.Tangent.GetAngleTo(Normal.CrossProduct(XEdge.Tangent)) <
                                1.5707963267949;
             }
         }
@@ -144,20 +144,20 @@ namespace RabCab.Extensions
 
             if (num != 0) return num;
 
-            if (!_xEdge.Length.IsEqualSize(other._xEdge.Length)) return _xEdge.Length.CompareTo(other._xEdge.Length);
+            if (!XEdge.Length.IsEqualSize(other.XEdge.Length)) return XEdge.Length.CompareTo(other.XEdge.Length);
 
             num = _rightCs.CompareTo(other._rightCs);
 
             if (num == 0)
 
                 if (Math.Abs(_vertAngle - other._vertAngle) <= SettingsInternal.TolVector)
-                    if (Math.Abs(_yEdge.Length - other._yEdge.Length) <= SettingsUser.TolPoint)
-                        if (Math.Abs(_zEdge.Length - other._zEdge.Length) <= SettingsUser.TolPoint)
+                    if (Math.Abs(YEdge.Length - other.YEdge.Length) <= SettingsUser.TolPoint)
+                        if (Math.Abs(ZEdge.Length - other.ZEdge.Length) <= SettingsUser.TolPoint)
                             return 0;
                         else
-                            return _zEdge.Length.CompareTo(other._zEdge.Length);
+                            return ZEdge.Length.CompareTo(other.ZEdge.Length);
                     else
-                        return _yEdge.Length.CompareTo(other._yEdge.Length);
+                        return YEdge.Length.CompareTo(other.YEdge.Length);
                 else
                     return _vertAngle.CompareTo(other._vertAngle);
             return num;
@@ -175,7 +175,7 @@ namespace RabCab.Extensions
             Matrix3d matrix3D;
             Vector3d vector;
 
-            if (_xEdge.Length < SettingsUser.TolPoint)
+            if (XEdge.Length < SettingsUser.TolPoint)
             {
                 matrix3D = new Matrix3d();
                 return matrix3D;
@@ -183,17 +183,17 @@ namespace RabCab.Extensions
 
             if (!_rightAngle)
             {
-                vector = _xEdge.Eaxis.ToVector();
+                vector = XEdge.Eaxis.ToVector();
                 normal = vector.GetNormal();
             }
             else
             {
-                normal = _xEdge.Tangent.GetNormal();
+                normal = XEdge.Tangent.GetNormal();
             }
 
-            if (!_normal.IsLessThanTol())
+            if (!Normal.IsLessThanTol())
             {
-                normal1 = _normal.GetNormal();
+                normal1 = Normal.GetNormal();
                 vector = normal1.CrossProduct(normal);
                 vector3D = vector.GetNormal();
                 vector = normal.CrossProduct(vector3D);
@@ -201,20 +201,20 @@ namespace RabCab.Extensions
             }
             else
             {
-                if (_yEdge.Length < SettingsUser.TolPoint)
+                if (YEdge.Length < SettingsUser.TolPoint)
                 {
                     matrix3D = new Matrix3d();
                     return matrix3D;
                 }
 
-                vector3D = _yEdge.Tangent.GetNormal();
-                vector = normal.CrossProduct(_yEdge.Tangent);
+                vector3D = YEdge.Tangent.GetNormal();
+                vector = normal.CrossProduct(YEdge.Tangent);
                 normal1 = vector.GetNormal();
                 vector = normal1.CrossProduct(normal);
                 vector3D = vector.GetNormal();
             }
 
-            return Matrix3d.AlignCoordinateSystem(_vertPoint, normal, vector3D, normal1, Point3d.Origin, Vector3d.XAxis,
+            return Matrix3d.AlignCoordinateSystem(VertPoint, normal, vector3D, normal1, Point3d.Origin, Vector3d.XAxis,
                 Vector3d.YAxis, Vector3d.ZAxis);
         }
     }

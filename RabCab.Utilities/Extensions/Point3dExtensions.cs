@@ -69,8 +69,8 @@ namespace RabCab.Extensions
 
         public static Point3d GetAlong(this Point3d pt1, Point3d pt2, double distance)
         {
-            var direction = pt1.GetVectorTo(pt2).GetNormal();
-            return pt1 + direction * distance;
+            var direction = pt1.GetVectorTo(pt2);
+            return pt1 + (direction.GetNormal() * distance);
         }
 
         /// <summary>

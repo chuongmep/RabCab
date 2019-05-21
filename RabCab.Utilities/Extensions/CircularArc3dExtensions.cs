@@ -10,6 +10,9 @@
 // -----------------------------------------------------------------------------------
 
 using System;
+using System.Windows.Forms.VisualStyles;
+using Autodesk.AutoCAD.DatabaseServices;
+using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.Runtime;
 using Exception = Autodesk.AutoCAD.Runtime.Exception;
@@ -63,6 +66,50 @@ namespace RabCab.Extensions
             }
 
             return result;
+        }
+
+        public static Arc CreateArcFromRadius(this Editor acCurEd, Point3d startPoint, Point3d endPoint, double radius)
+        {
+            Arc arc = null;
+            var ucsMat = acCurEd.CurrentUserCoordinateSystem;
+            var vNormal = ucsMat.CoordinateSystem3d.Zaxis;
+            var pStart = startPoint.TransformBy(ucsMat); // Start point in WCS
+            var pEnd = endPoint.TransformBy(ucsMat); // End point in WCS
+            //  Finding center point of arc. 
+            var circ1 = new CircularArc3d(pStart, vNormal, radius);
+            var circ2 = new CircularArc3d(pEnd, vNormal, radius);
+            var pts = circ1.IntersectWith(circ2);
+
+            circ1.Dispose();
+            circ2.Dispose();
+
+            try
+            {
+                if (pts.Length < 1)
+                {
+                    return null;
+                }
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+            
+            var pCenter = pts[0];
+            Vector3d v1 = pStart - pCenter, v2 = pEnd - pCenter;
+            if (v1.CrossProduct(v2).DotProduct(vNormal) < 0) pCenter = pts[1];
+            var cCirc = new CircularArc3d(pCenter, vNormal, radius);
+            var parStart = cCirc.GetParameterOf(pStart);
+            var parEnd = cCirc.GetParameterOf(pEnd);
+            var parMid = (parStart + parEnd) * 0.5;
+            var pMid = cCirc.EvaluatePoint(parMid);
+            cCirc.Dispose();
+            var cArc = new CircularArc3d(pStart, pMid, pEnd);
+            var angle =
+                cArc.ReferenceVector.AngleOnPlane(new Plane(cArc.Center, cArc.Normal));
+            arc = new Arc(cArc.Center, cArc.Normal, cArc.Radius, cArc.StartAngle + angle, cArc.EndAngle + angle);
+            cArc.Dispose();
+            return arc;
         }
 
         /// <summary>
