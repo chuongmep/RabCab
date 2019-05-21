@@ -25,7 +25,7 @@ namespace RabCab.Commands.ContentLibrary
             //| CommandFlags.NoPerspective
             //| CommandFlags.NoMultiple
             //| CommandFlags.NoTileMode
-            | CommandFlags.NoPaperSpace
+            //| CommandFlags.NoPaperSpace
         //| CommandFlags.NoOem
         //| CommandFlags.Undefined
         //| CommandFlags.InProgress
