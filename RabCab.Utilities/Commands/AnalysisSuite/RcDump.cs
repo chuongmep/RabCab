@@ -6,6 +6,7 @@ using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Runtime;
+using RabCab.Extensions;
 using RabCab.Settings;
 using AcAp = Autodesk.AutoCAD.ApplicationServices.Application;
 using Exception = System.Exception;
@@ -18,29 +19,29 @@ namespace RabCab.Commands.AnalysisSuite
         /// </summary>
         [CommandMethod(SettingsInternal.CommandGroup, "_DUMPALLPROPS",
             CommandFlags.Modal
-            //| CommandFlags.Transparent
-            //| CommandFlags.UsePickSet
-            //| CommandFlags.Redraw
-            //| CommandFlags.NoPerspective
-            //| CommandFlags.NoMultiple
-            //| CommandFlags.NoTileMode
-            //| CommandFlags.NoPaperSpace
-            //| CommandFlags.NoOem
-            //| CommandFlags.Undefined
-            //| CommandFlags.InProgress
-            //| CommandFlags.Defun
-            //| CommandFlags.NoNewStack
-            //| CommandFlags.NoInternalLock
-            //| CommandFlags.DocReadLock
-            //| CommandFlags.DocExclusiveLock
-            //| CommandFlags.Session
-            //| CommandFlags.Interruptible
-            //| CommandFlags.NoHistory
-            //| CommandFlags.NoUndoMarker
-            //| CommandFlags.NoBlockEditor
-            //| CommandFlags.NoActionRecording
-            //| CommandFlags.ActionMacro
-            //| CommandFlags.NoInferConstraint 
+        //| CommandFlags.Transparent
+        //| CommandFlags.UsePickSet
+        //| CommandFlags.Redraw
+        //| CommandFlags.NoPerspective
+        //| CommandFlags.NoMultiple
+        //| CommandFlags.NoTileMode
+        //| CommandFlags.NoPaperSpace
+        //| CommandFlags.NoOem
+        //| CommandFlags.Undefined
+        //| CommandFlags.InProgress
+        //| CommandFlags.Defun
+        //| CommandFlags.NoNewStack
+        //| CommandFlags.NoInternalLock
+        //| CommandFlags.DocReadLock
+        //| CommandFlags.DocExclusiveLock
+        //| CommandFlags.Session
+        //| CommandFlags.Interruptible
+        //| CommandFlags.NoHistory
+        //| CommandFlags.NoUndoMarker
+        //| CommandFlags.NoBlockEditor
+        //| CommandFlags.NoActionRecording
+        //| CommandFlags.ActionMacro
+        //| CommandFlags.NoInferConstraint 
         )]
         public void Dump()
         {
@@ -60,29 +61,29 @@ namespace RabCab.Commands.AnalysisSuite
         /// </summary>
         [CommandMethod(SettingsInternal.CommandGroup, "_DUMPCOMPROPS",
             CommandFlags.Modal
-            //| CommandFlags.Transparent
-            //| CommandFlags.UsePickSet
-            //| CommandFlags.Redraw
-            //| CommandFlags.NoPerspective
-            //| CommandFlags.NoMultiple
-            //| CommandFlags.NoTileMode
-            //| CommandFlags.NoPaperSpace
-            //| CommandFlags.NoOem
-            //| CommandFlags.Undefined
-            //| CommandFlags.InProgress
-            //| CommandFlags.Defun
-            //| CommandFlags.NoNewStack
-            //| CommandFlags.NoInternalLock
-            //| CommandFlags.DocReadLock
-            //| CommandFlags.DocExclusiveLock
-            //| CommandFlags.Session
-            //| CommandFlags.Interruptible
-            //| CommandFlags.NoHistory
-            //| CommandFlags.NoUndoMarker
-            //| CommandFlags.NoBlockEditor
-            //| CommandFlags.NoActionRecording
-            //| CommandFlags.ActionMacro
-            //| CommandFlags.NoInferConstraint 
+        //| CommandFlags.Transparent
+        //| CommandFlags.UsePickSet
+        //| CommandFlags.Redraw
+        //| CommandFlags.NoPerspective
+        //| CommandFlags.NoMultiple
+        //| CommandFlags.NoTileMode
+        //| CommandFlags.NoPaperSpace
+        //| CommandFlags.NoOem
+        //| CommandFlags.Undefined
+        //| CommandFlags.InProgress
+        //| CommandFlags.Defun
+        //| CommandFlags.NoNewStack
+        //| CommandFlags.NoInternalLock
+        //| CommandFlags.DocReadLock
+        //| CommandFlags.DocExclusiveLock
+        //| CommandFlags.Session
+        //| CommandFlags.Interruptible
+        //| CommandFlags.NoHistory
+        //| CommandFlags.NoUndoMarker
+        //| CommandFlags.NoBlockEditor
+        //| CommandFlags.NoActionRecording
+        //| CommandFlags.ActionMacro
+        //| CommandFlags.NoInferConstraint 
         )]
         public static void ListComProps()
         {
@@ -97,7 +98,7 @@ namespace RabCab.Commands.AnalysisSuite
 
             using (Transaction acTrans = acCurDoc.TransactionManager.StartOpenCloseTransaction())
             {
-                var acEnt = (Entity) acTrans.GetObject(res.ObjectId, OpenMode.ForRead);
+                var acEnt = (Entity)acTrans.GetObject(res.ObjectId, OpenMode.ForRead);
                 var acadObj = acEnt.AcadObject;
                 var props = TypeDescriptor.GetProperties(acadObj);
                 foreach (PropertyDescriptor prop in props)
@@ -151,6 +152,59 @@ namespace RabCab.Commands.AnalysisSuite
 
                 tr.Commit();
             }
+        }
+
+        /// <summary>
+        /// </summary>
+        [CommandMethod(SettingsInternal.CommandGroup, "_DUMPBLOCKREFS",
+            CommandFlags.Modal
+        //| CommandFlags.Transparent
+        //| CommandFlags.UsePickSet
+        //| CommandFlags.Redraw
+        //| CommandFlags.NoPerspective
+        //| CommandFlags.NoMultiple
+        //| CommandFlags.NoTileMode
+        //| CommandFlags.NoPaperSpace
+        //| CommandFlags.NoOem
+        //| CommandFlags.Undefined
+        //| CommandFlags.InProgress
+        //| CommandFlags.Defun
+        //| CommandFlags.NoNewStack
+        //| CommandFlags.NoInternalLock
+        //| CommandFlags.DocReadLock
+        //| CommandFlags.DocExclusiveLock
+        //| CommandFlags.Session
+        //| CommandFlags.Interruptible
+        //| CommandFlags.NoHistory
+        //| CommandFlags.NoUndoMarker
+        //| CommandFlags.NoBlockEditor
+        //| CommandFlags.NoActionRecording
+        //| CommandFlags.ActionMacro
+        //| CommandFlags.NoInferConstraint 
+        )]
+        public void DumpBlockRefs()
+        {
+            var acCurDoc = Application.DocumentManager.MdiActiveDocument;
+            var acCurDb = acCurDoc.Database;
+            var acCurEd = acCurDoc.Editor;
+
+
+            using (Transaction acTrans = acCurDb.TransactionManager.StartTransaction())
+            {
+                BlockTable blkTable = (BlockTable)acTrans.GetObject(acCurDb.BlockTableId, OpenMode.ForRead);
+                foreach (ObjectId id in blkTable)
+                {
+                    BlockTableRecord btRecord = (BlockTableRecord) acTrans.GetObject(id, OpenMode.ForRead);
+                    foreach (var bR in btRecord.GetBlockReferences())
+                    {
+                        acCurEd.WriteMessage("\n" + bR.Name);
+                    }
+                }
+
+                acTrans.Commit();
+            }
+
+
         }
     }
 }
