@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--Application Information-->
+<ApplicationPackage
+  SchemaVersion="1.0"
+  ProductType="Application"
+  Name="TEMP"
+  AppVersion="1.0.0"
+  FriendlyVersion="1.0.0"
+  Description="TEMP"
+  Author="Zachariah Ayers"
+  Icon="./Contents/Resources/Icon.ico"
+
+  HelpFile="./Contents/Help/HelpEnu.htm"
+  HelpFileChs="./Contents/Help/HelpChs.htm"
+  HelpFileCht="./Contents/Help/HelpCht.htm"
+  HelpFileCsy="./Contents/Help/HelpCsy.htm"
+  HelpFileDeu="./Contents/Help/HelpDeu.htm"
+  HelpFileEsp="./Contents/Help/HelpEsp.htm"
+  HelpFileFra="./Contents/Help/HelpFra.htm"
+  HelpFileHun="./Contents/Help/HelpHun.htm"
+  HelpFileIta="./Contents/Help/HelpIta.htm"
+  HelpFileJpn="./Contents/Help/HelpJpn.htm"
+  HelpFileKor="./Contents/Help/HelpKor.htm"
+  HelpFilePlk="./Contents/Help/HelpPlk.htm"
+  HelpFileRus="./Contents/Help/HelpRus.htm"
+
+  OnlineDocumentation="TEMP"
+  SupportedLocales="Enu|Chs|Cht|Csy|Deu|Esp|Fra|Hun|Ita|Jpn|Kor|Plk|Rus"
+
+  ProductCode="{TEMP}"
+  UpgradeCode="{TEMP}">
+
+  <!--Company Information-->
+  <CompanyDetails
+    Name="TEMP"
+    Phone="TEMP"
+    Url="TEMP"
+    Email="TEMP" />
+
+  <!--Component pointers for AutoCAD 2013-2014-->
+  <Components Description="AutoCAD 2013-2014">
+
+    <RuntimeRequirements
+      SupportPath="./Contents"
+      OS="Win32|Win64"
+      Platform="AutoCAD*"
+      SeriesMin="R19"
+      SeriesMax="R19.1" />
+
+    <!--Component Entry For OBJECT ARX Libraries (Delete if unused)-->
+    <ComponentEntry
+      AppName="ObjectARX library"
+      AppDescription="TEMP"
+      Version="1.0.0"
+      ModuleName32="./Contents/Win32/TEMP_2013x32.arx"
+      ModuleName64="./Contents/Win64/TEMP_2013x64.arx"
+      LoadOnAutoCADStartup="true" />
+
+    <!--Component Entry For CUI Library (Delete if unused)-->
+    <ComponentEntry
+      AppName="TEMP"
+      AppDescription="TEMP"
+      Version="1.0.0"
+      ModuleName="./Contents/Resources/TEMP_CUI.cuix"
+      LoadOnAutoCADStartup="true" />
+
+    <!--Component Entry For .DLL Locatind (Delete if unused)-->
+    <ComponentEntry
+      AppName="TEMP"
+      AppDescription="TEMP"
+      Version="1.0.0"
+      ModuleName32="./Contents/Win32/TEMP_2013x32.dll"
+      ModuleName64="./Contents/Win64/TEMP_2013x64.dll"
+      LoadOnAutoCADStartup="true"
+      LoadOnCommandInvocation="true">
+
+      <!--Component Methods (Delete if unused)-->
+      <Commands GroupName="TEMP">
+        <Command Local="TEMP" Global="TEMP" />
+      </Commands>
+
+    </ComponentEntry>
+
+  </Components>
+
+  <!--Component pointers for Autocad 2015-2016-->
+  <Components Description="AutoCAD 2015-2016">
+
+    <RuntimeRequirements
+      SupportPath="./Contents"
+      OS="Win32|Win64"
+      Platform="AutoCAD*"
+      SeriesMin="R20"
+      SeriesMax="R20.1" />
+
+    <!--Component Entry For OBJECT ARX Libraries (Delete if unused)-->
+    <ComponentEntry
+      AppName="ObjectARX library"
+      AppDescription="TEMP"
+      Version="1.0.0"
+      ModuleName32="./Contents/Win32/TEMP_2015x32.arx"
+      ModuleName64="./Contents/Win64/TEMP_2015x64.arx"
+      LoadOnAutoCADStartup="true" />
+
+    <!--Component Entry For CUI Library (Delete if unused)-->
+    <ComponentEntry
+      AppName="TEMP"
+      AppDescription="TEMP"
+      Version="1.0.0"
+      ModuleName="./Contents/Resources/TEMP_CUI.cuix"
+      LoadOnAutoCADStartup="true" />
+
+    <!--Component Entry For .DLL Locatind (Delete if unused)-->
+    <ComponentEntry
+      AppName="TEMP"
+      AppDescription="TEMP"
+      Version="1.0.0"
+      ModuleName32="./Contents/Win32/TEMP_2015x32.dll"
+      ModuleName64="./Contents/Win64/TEMP_2015x64.dll"
+      LoadOnAutoCADStartup="true"
+      LoadOnCommandInvocation="true">
+
+      <!--Component Methods (Delete if unused)-->
+      <Commands GroupName="TEMP">
+        <Command Local="TEMP" Global="TEMP" />
+      </Commands>
+
+    </ComponentEntry>
+
+  </Components>
+
+  <!--Component pointers for Autocad 2017-->
+  <Components Description="AutoCAD 2017">
+
+    <RuntimeRequirements
+      SupportPath="./Contents"
+      OS="Win32|Win64"
+      Platform="AutoCAD*"
+      SeriesMin="R21.0"
+      SeriesMax="R21.1" />
+
+    <!--Component Entry For OBJECT ARX Libraries (Delete if unused)-->
+    <ComponentEntry
+      AppName="ObjectARX library"
+      AppDescription="TEMP"
+      Version="1.0.0"
+      ModuleName32="./Contents/Win32/TEMP_2017x32.arx"
+      ModuleName64="./Contents/Win64/TEMP_2017x64.arx"
+      LoadOnAutoCADStartup="true" />
+
+    <!--Component Entry For CUI Library (Delete if unused)-->
+    <ComponentEntry
+      AppName="TEMP"
+      AppDescription="TEMP"
+      Version="1.0.0"
+      ModuleName="./Contents/Resources/TEMP_CUI.cuix"
+      LoadOnAutoCADStartup="true" />
+
+    <!--Component Entry For .DLL Locatind (Delete if unused)-->
+    <ComponentEntry
+      AppName="TEMP"
+      AppDescription="TEMP"
+      Version="1.0.0"
+      ModuleName32="./Contents/Win32/TEMP_2017x32.dll"
+      ModuleName64="./Contents/Win64/TEMP_2017x64.dll"
+      LoadOnAutoCADStartup="true"
+      LoadOnCommandInvocation="true">
+
+      <!--Component Methods (Delete if unused)-->
+      <Commands GroupName="TEMP">
+        <Command Local="TEMP" Global="TEMP" />
+      </Commands>
+
+    </ComponentEntry>
+
+  </Components>
+
+  <!--Component pointers for Autocad 2018-->
+  <Components Description="AutoCAD 2018">
+
+    <RuntimeRequirements
+      SupportPath="./Contents"
+      OS="Win32|Win64"
+      Platform="AutoCAD*"
+      SeriesMin="R22.0"
+      SeriesMax="R22.1" />
+
+    <!--Component Entry For OBJECT ARX Libraries (Delete if unused)-->
+    <ComponentEntry
+      AppName="ObjectARX library"
+      AppDescription="TEMP"
+      Version="1.0.0"
+      ModuleName32="./Contents/Win32/TEMP_2018x32.arx"
+      ModuleName64="./Contents/Win64/TEMP_2018x64.arx"
+      LoadOnAutoCADStartup="true" />
+
+    <!--Component Entry For CUI Library (Delete if unused)-->
+    <ComponentEntry
+      AppName="TEMP"
+      AppDescription="TEMP"
+      Version="1.0.0"
+      ModuleName="./Contents/Resources/TEMP_CUI.cuix"
+      LoadOnAutoCADStartup="true" />
+
+    <!--Component Entry For .DLL Locatind (Delete if unused)-->
+    <ComponentEntry
+      AppName="TEMP"
+      AppDescription="TEMP"
+      Version="1.0.0"
+      ModuleName32="./Contents/Win32/TEMP_2018x32.dll"
+      ModuleName64="./Contents/Win64/TEMP_2018x64.dll"
+      LoadOnAutoCADStartup="true"
+      LoadOnCommandInvocation="true">
+
+      <!--Component Methods (Delete if unused)-->
+      <Commands GroupName="TEMP">
+        <Command Local="TEMP" Global="TEMP" />
+      </Commands>
+
+    </ComponentEntry>
+
+  </Components>
+
+  <!--Component pointers for Autocad 2019-2020-->
+  <Components Description="AutoCAD 2019-2020">
+
+    <RuntimeRequirements
+      SupportPath="./Contents"
+      OS="Win32|Win64"
+      Platform="AutoCAD*"
+      SeriesMin="R23.0"
+      SeriesMax="R23.1" />
+
+    <!--Component Entry For OBJECT ARX Libraries (Delete if unused)-->
+    <ComponentEntry
+      AppName="ObjectARX library"
+      AppDescription="TEMP"
+      Version="1.0.0"
+      ModuleName32="./Contents/Win32/TEMP_2019x32.arx"
+      ModuleName64="./Contents/Win64/TEMP_2019x64.arx"
+      LoadOnAutoCADStartup="true" />
+
+    <!--Component Entry For CUI Library (Delete if unused)-->
+    <ComponentEntry
+      AppName="TEMP"
+      AppDescription="TEMP"
+      Version="1.0.0"
+      ModuleName="./Contents/Resources/TEMP_CUI.cuix"
+      LoadOnAutoCADStartup="true" />
+
+    <!--Component Entry For .DLL Locatind (Delete if unused)-->
+    <ComponentEntry
+      AppName="TEMP"
+      AppDescription="TEMP"
+      Version="1.0.0"
+      ModuleName32="./Contents/Win32/TEMP_2019x32.dll"
+      ModuleName64="./Contents/Win64/TEMP_2019x64.dll"
+      LoadOnAutoCADStartup="true"
+      LoadOnCommandInvocation="true">
+
+      <!--Component Methods (Delete if unused)-->
+      <Commands GroupName="TEMP">
+        <Command Local="TEMP" Global="TEMP" />
+      </Commands>
+
+    </ComponentEntry>
+
+  </Components>
+
+
+</ApplicationPackage>
