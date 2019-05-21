@@ -224,6 +224,7 @@
     <Compile Include="Commands\ContentLibrary\RcContentManager.cs" />
     <Compile Include="Commands\ContentLibrary\RcContentNew.cs" />
     <Compile Include="Commands\ContentLibrary\RcContentUpd.cs" />
+    <Compile Include="Commands\ContentLibrary\RcNewContent.cs" />
     <Compile Include="Commands\ContentLibrary\RcTechSpec.cs" />
     <Compile Include="Commands\MeshSuite\RcMeshConvert.cs" />
     <Compile Include="Commands\MeshSuite\RcMeshExplode.cs" />

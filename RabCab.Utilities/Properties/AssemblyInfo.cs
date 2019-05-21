@@ -180,6 +180,7 @@ using RabCab.Initialization;
 [assembly: CommandClass(typeof(RcContentPalette))]
 [assembly: CommandClass(typeof(RcContentUpd))]
 [assembly: CommandClass(typeof(RcTechSpec))]
+[assembly: CommandClass(typeof(RcNewContent))]
 
 //Mesh Suite
 [assembly: CommandClass(typeof(RcMeshConvert))]

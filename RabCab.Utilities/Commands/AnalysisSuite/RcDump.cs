@@ -204,7 +204,7 @@ namespace RabCab.Commands.AnalysisSuite
                 acTrans.Commit();
             }
 
-
         }
+
     }
 }
