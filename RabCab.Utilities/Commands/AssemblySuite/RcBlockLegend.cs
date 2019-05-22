@@ -60,7 +60,6 @@ namespace RabCab.Commands.AssemblySuite
             {
                 var acBTable = (BlockTable)acTrans.GetObject(acCurDb.BlockTableId, OpenMode.ForRead);
 
-                // Create the table, set its style and default row/column size
                 var acTable = new Table();
                 acTable.TableStyle = acCurDb.Tablestyle;
                 acTable.SetRowHeight(rowHeight);
@@ -73,16 +72,13 @@ namespace RabCab.Commands.AssemblySuite
                 header.Alignment = CellAlignment.MiddleCenter;
                 header.TextHeight = textHeight;
 
-                // Insert an additional column
                 acTable.InsertColumns(0, colWidth, 1);
 
                 var bList = new List<BlockTableRecord>();
 
-                // Loop through the blocks in the drawing, creating rows
                 foreach (var id in acBTable)
                 {
                     var btr = (BlockTableRecord)acTrans.GetObject(id, OpenMode.ForRead);
-                    // Only care about user-insertable blocks
 
                     if (!btr.IsLayout && !btr.IsAnonymous)
                     {

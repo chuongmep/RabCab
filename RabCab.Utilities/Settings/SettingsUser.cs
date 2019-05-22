@@ -9,9 +9,8 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
-using System.Collections.Generic;
-using System.Windows.Documents;
 using Autodesk.AutoCAD.Colors;
+using System.Collections.Generic;
 using static RabCab.Engine.Enumerators.Enums;
 
 namespace RabCab.Settings
@@ -29,7 +28,7 @@ namespace RabCab.Settings
 
         //PartFinder
         public static bool PartLeaderEnabled = true;
-        
+
         //Automation
         public static bool AutoLayerEnabled = true;
 
@@ -51,10 +50,10 @@ namespace RabCab.Settings
             "QDIM",
             "DIMCONTINUE",
             "DIMBASELINE",
-            "TABLE", 
+            "TABLE",
             "GENDIMS"
         };
-        
+
         //TableOptions
         public static double TableRowHeight = .035;
         public static double TableColumnWidth = 0.5;
@@ -86,7 +85,7 @@ namespace RabCab.Settings
 
         //Mark Options
         public static double MarkTextHeight = 0.09;
-        
+
         //Laying Options
         public static int LayStep = 10;
         public static double LayTextHeight = 2;

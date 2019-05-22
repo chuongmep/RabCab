@@ -1,22 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing.Drawing2D;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Autodesk.AutoCAD.ApplicationServices;
+﻿using System.IO;
+using System.Windows.Forms;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.DataExtraction;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Runtime;
 using RabCab.Extensions;
 using RabCab.Settings;
+using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
+using Exception = System.Exception;
+using OpenFileDialog = Autodesk.AutoCAD.Windows.OpenFileDialog;
 
 namespace RabCab.Commands.AssemblySuite
 {
-    class RcDataExtract
+    internal class RcDataExtract
     {
         /// <summary>
         /// </summary>
@@ -42,149 +38,151 @@ namespace RabCab.Commands.AssemblySuite
             //| CommandFlags.NoHistory
             //| CommandFlags.NoUndoMarker
             | CommandFlags.NoBlockEditor
-            //| CommandFlags.NoActionRecording
-            //| CommandFlags.ActionMacro
-            //| CommandFlags.NoInferConstraint 
+        //| CommandFlags.NoActionRecording
+        //| CommandFlags.ActionMacro
+        //| CommandFlags.NoInferConstraint 
         )]
         public void Cmd_DataExtract()
         {
             var rowHeight = SettingsUser.TableRowHeight;
             var colWidth = SettingsUser.TableColumnWidth;
             var textHeight = SettingsUser.TableTextHeight;
-            
+
             //Get the current document utilities
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;
             var acCurDb = acCurDoc.Database;
             var acCurEd = acCurDoc.Editor;
-            // Copy the attached "MyBlock.dwg" to C:\Temp for testing
 
-            // The Dxe file will be created at runtime in C:\Temp if not found
-            //Ask user to select the data extraction file to use
             var dwgFolder = Path.GetDirectoryName(acCurDoc.Name);
             var dwgName = Path.GetFileName(acCurDoc.Name);
-            var dxeName = Path.GetFileNameWithoutExtension(acCurDoc.Name) + ".dxe";
-            var dxePath = dwgFolder + "\\" + dxeName;
 
-            if (System.IO.File.Exists(dxePath))
+            DxExtractionSettings extractionSettings = null;
+
+            if (SelectTemplateFileAndLoad(ref extractionSettings, out var templatePath))
             {
-                File.Delete(dxePath);
-            }
+                var xmlName = Path.GetFileNameWithoutExtension(templatePath);
+                var xmlPath = dwgFolder + "\\" + xmlName + ".csv";
 
-            // Create the DXE file with the information that we want to extract
-                DxExtractionSettings setting = new DxExtractionSettings();
+                var destPath = dwgFolder + "\\" + Path.GetFileName(templatePath);
+                File.Copy(templatePath, destPath, true);
 
-               IDxFileReference dxFileReference = new DxFileReference(dwgFolder, dwgFolder + "\\" + dwgName);
+                extractionSettings = DxExtractionSettings.FromFile(destPath) as DxExtractionSettings;
 
-                setting.DrawingDataExtractor.Settings.DrawingList.AddFile(dxFileReference);
-                setting.DrawingDataExtractor.DiscoverTypesAndProperties(dwgFolder + dwgName);
-                setting.WizardSettings.DisplayOptions = DisplayOptions.DisplayUsedTypesOnly | DisplayOptions.Block;
+                var dwgList = extractionSettings.DrawingDataExtractor.Settings.DrawingList as DxFileList;
 
-                List<IDxTypeDescriptor> types = setting.DrawingDataExtractor.DiscoveredTypesAndProperties;
-                List<string> selectedTypes = new List<string>();
-                List<string> selectedProps = new List<string>();
+                foreach (var dwg in dwgList.Files)
+                    extractionSettings.DrawingDataExtractor.Settings.DrawingList.RemoveFile(dwg);
 
-                foreach (IDxTypeDescriptor td in types)
+
+                var dxFileReference = new DxFileReference(dwgFolder, dwgFolder + "\\" + dwgName);
+                extractionSettings.DrawingDataExtractor.Settings.DrawingList.AddFile(dxFileReference);
+                dwgList.CurrentFile = dxFileReference;
+
+                extractionSettings.Save(destPath);
+
+                //Create a DataLink
+                ObjectId dlId;
+                var dlm = acCurDb.DataLinkManager;
+                using (var dl = new DataLink())
                 {
-                    var globalName = td.GlobalName;
-                    var displayName = td.DisplayName;
-                    Debug.WriteLine(globalName + " - " + td.DisplayName);
-                    
+                    var dataLinkName = "MyDataLink2";
+                    dlId = dlm.GetDataLink(dataLinkName);
 
-                    if (globalName.Equals("BlockReferenceTypeDescriptor." + displayName))
-                        selectedTypes.Add(td.GlobalName);
-
-                    foreach (IDxPropertyDescriptor pd in td.Properties)
+                    if (dlId.IsNull)
                     {
-                        if (pd.GlobalName.Equals("AcDxObjectTypeGlobalName") ||
-                            pd.GlobalName.Equals("AcDxObjectTypeName"))
-                        {
-                            if (!selectedProps.Contains(pd.GlobalName))
-                                selectedProps.Add(pd.GlobalName);
-                        }
+                        // create a datalink
+                        dl.ConnectionString = destPath;
+                        dl.ToolTip = "My Data Link";
+                        dl.Name = dataLinkName;
 
-                        //TODO check for user defined properties for blocks here
+                        var da = DataAdapterManager.GetDataAdapter("Autodesk.AutoCAD.DataExtraction.DxDataLinkAdapter");
 
+                        if (da != null)
+                            dl.DataAdapterId = da.DataAdapterId;
+
+                        dlId = dlm.AddDataLink(dl);
                     }
                 }
 
-                setting.DrawingDataExtractor.Settings.ExtractFlags
-                    = ExtractFlags.Nested | 
-                      ExtractFlags.Xref | 
-                      ExtractFlags.ExtractBlockOnly | 
-                      ExtractFlags.ModelSpaceOnly;
-
-                setting.DrawingDataExtractor.Settings.SetSelectedTypesAndProperties
-                    (types, selectedTypes, selectedProps);
-
-            
-                setting.OutputSettings.DataCellStyle = "Data";
-                setting.OutputSettings.HeaderCellStyle = "Header";
-                setting.OutputSettings.ManuallySetupTable = true;
-                setting.OutputSettings.OuputFlags = DxOuputFlags.Table;
-                setting.OutputSettings.TableStyleId = acCurDb.Tablestyle;
-                setting.OutputSettings.TableStyleName = "Standard";
-                setting.OutputSettings.TitleCellStyle = "Title";
-                setting.OutputSettings.UsePropertyNameAsColumnHeader = false;
-                setting.OutputSettings. = DxCombineMode.Sum;
-
-                setting.Save(dxePath);
-                
-            //Create a DataLink
-            ObjectId dlId = ObjectId.Null;
-            DataLinkManager dlm = acCurDb.DataLinkManager;
-            using (DataLink dl = new DataLink())
-            {
-                String dataLinkName = "TestLink";
-                dlId = dlm.GetDataLink(dataLinkName);
-
-                if (dlId.IsNull)
+                // Ask for the table insertion point
+                var pr = acCurEd.GetPoint("\nEnter table insertion point: ");
+                if (pr.Status == PromptStatus.OK)
                 {
-                    // create a datalink
-                    dl.ConnectionString = dxePath;
-                    dl.ToolTip = "TestLink";
-                    dl.Name = dataLinkName;
-                    
-                    DataAdapter da = DataAdapterManager.GetDataAdapter("Autodesk.AutoCAD.DataExtraction.DxDataLinkAdapter");
+                    // Create a table
+                    var tableId = ObjectId.Null;
+                    using (var acTrans = acCurDb.TransactionManager.StartTransaction())
+                    {
+                        var acTable = new Table();
+                        acTable.Position = pr.Value;
+                        acTable.TableStyle = acCurDb.Tablestyle;
+                        acTable.SetSize(2, 1);
+                        acTable.SetRowHeight(rowHeight);
+                        acTable.SetColumnWidth(colWidth);
 
-                    if (da != null)
-                        dl.DataAdapterId = da.DataAdapterId;
+                        var header = acTable.Cells[0, 0];
+                        header.Value = "";
+                        header.Alignment = CellAlignment.MiddleCenter;
+                        header.TextHeight = textHeight;
 
-                    dlId = dlm.AddDataLink(dl);
+                        acTable.Cells[1, 0].DataLink = dlId;
+
+                        acCurDb.AppendEntity(acTable, acTrans);
+
+                        //Generate the layout
+                        acTable.GenerateLayout();
+                        acTrans.MoveToAttachment(acTable, SettingsUser.TableAttach, pr.Value, SettingsUser.TableXOffset,
+                            SettingsUser.TableYOffset);
+                        acTrans.Commit();
+                    }
                 }
             }
+        }
 
-            // Ask for the table insertion point
-            PromptPointResult pr = acCurEd.GetPoint("\nEnter table insertion point: ");
-            if (pr.Status == PromptStatus.OK)
-            {
-                // Create a table
-                ObjectId tableId = ObjectId.Null;
-                using (Transaction acTrans = acCurDb.TransactionManager.StartTransaction())
+        private bool SelectTemplateFileAndLoad(ref DxExtractionSettings extractionSettings, out string fileName)
+        {
+            // set no urls or ftp sites
+            var flags = OpenFileDialog.OpenFileDialogFlags.NoUrls | OpenFileDialog.OpenFileDialogFlags.NoFtpSites;
+            // create a new select dialog
+            var ofd = new OpenFileDialog("Select Template file", "", "dxe", "BrowseTemplateFile", flags);
+
+            var bCheckFile = true;
+            while (bCheckFile)
+                if (ofd.ShowDialog() == DialogResult.OK)
                 {
-                    Table acTable = new Table();
-                    acTable.Position = pr.Value;
-                    acTable.TableStyle = acCurDb.Tablestyle;
-                    acTable.SetSize(2, 1);
-                    acTable.SetRowHeight(rowHeight);
-                    acTable.SetColumnWidth(colWidth);
-                    
-                    var dl = acTrans.GetObject(dlId, OpenMode.ForRead) as DataLink;
-                    var tabName = dl.Name;
+                    fileName = ofd.Filename;
 
-                    var header = acTable.Cells[0, 0];
-                    header.Value = tabName.ToUpper();
-                    header.Alignment = CellAlignment.MiddleCenter;
-                    header.TextHeight = textHeight;
+                    if (LoadTemplateFromFile(ofd.Filename, ref extractionSettings))
+                    {
+                        bCheckFile = false;
+                        return true;
+                    }
 
-                    acTable.Cells[1, 0].DataLink = dlId;
-                    acCurDb.AppendEntity(acTable, acTrans);
-
-                    //Generate the layout
-                    acTable.GenerateLayout();
-                    acTrans.MoveToAttachment(acTable, SettingsUser.TableAttach, pr.Value, SettingsUser.TableXOffset, SettingsUser.TableYOffset);
-                    acTrans.Commit();
+                    MessageBox.Show("Failed to open that template file, please try again...");
                 }
+                else
+                {
+                    bCheckFile = false;
+                }
+
+            fileName = null;
+
+            return false;
+        }
+
+        private bool LoadTemplateFromFile(string fileName, ref DxExtractionSettings extractionSettings)
+        {
+            try
+            {
+                extractionSettings = (DxExtractionSettings)DxExtractionSettings.FromFile(fileName);
+                return extractionSettings != null;
             }
+            catch (Exception e)
+            {
+                var ed = Application.DocumentManager.MdiActiveDocument.Editor;
+                ed.WriteMessage("\nProblem reading template " + fileName + "\n" + e.Message);
+            }
+
+            return false;
         }
     }
 }
