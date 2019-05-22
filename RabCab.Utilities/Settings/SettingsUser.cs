@@ -54,6 +54,14 @@ namespace RabCab.Settings
             "TABLE", 
             "GENDIMS"
         };
+        
+        //TableOptions
+        public static double TableRowHeight = .035;
+        public static double TableColumnWidth = 0.5;
+        public static double TableTextHeight = 0.09;
+        public static double TableXOffset = 0.125;
+        public static double TableYOffset = 0.125;
+        public static AttachmentPoint TableAttach = AttachmentPoint.TopRight;
 
         //External Paths
         public static string ViewTemplatePath = "";

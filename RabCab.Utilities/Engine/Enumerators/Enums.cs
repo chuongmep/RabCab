@@ -41,6 +41,18 @@ namespace RabCab.Engine.Enumerators
             _None
         }
 
+        public enum AttachmentPoint
+        {
+            TopLeft,
+            TopRight,
+            BottomLeft,
+            BottomRight,
+            TopCenter,
+            BottomCenter,
+            LeftCenter,
+            RightCenter
+        }
+
         /// <summary>
         ///     Color codes for use in Cad Colors
         /// </summary>

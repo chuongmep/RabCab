@@ -182,7 +182,9 @@
     <Compile Include="Commands\AnnotationSuite\RcSurfaceTag.cs" />
     <Compile Include="Commands\AnnotationSuite\RcVpConvert.cs" />
     <Compile Include="Commands\AnnotationSuite\RcWeldSymbol.cs" />
+    <Compile Include="Commands\AssemblySuite\RcBlockLegend.cs" />
     <Compile Include="Commands\AssemblySuite\RcBom.cs" />
+    <Compile Include="Commands\AssemblySuite\RcDataExtract.cs" />
     <Compile Include="Commands\AssemblySuite\RcExplode.cs" />
     <Compile Include="Commands\AssemblySuite\RcLayParts.cs" />
     <Compile Include="Commands\AssemblySuite\RcNameParts.cs" />
@@ -480,6 +482,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="PackageContents.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Repository\RepoDataExtraction.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

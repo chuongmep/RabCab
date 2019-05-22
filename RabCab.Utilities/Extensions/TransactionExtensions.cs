@@ -12,6 +12,7 @@
 using System;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Geometry;
+using RabCab.Engine.Enumerators;
 
 namespace RabCab.Extensions
 
@@ -84,6 +85,58 @@ namespace RabCab.Extensions
                 Matrix3d.Displacement(sol.GeometricExtents.MinPoint.GetVectorTo(new Point3d(minX, minY, minZ))));
 
             return sol;
+        }
+
+
+        public static void MoveToAttachment(this Transaction acTrans, Entity acEnt,
+            Enums.AttachmentPoint attachmentPoint, Point3d initPoint, double xOffset = 0, double yOffset = 0)
+        {
+            var ext = acEnt.GeometricExtents;
+            var extMin = ext.MinPoint;
+            var extMax = ext.MaxPoint;
+
+            var fromPoint = new Point3d();
+
+            switch (attachmentPoint)
+            {
+                case Enums.AttachmentPoint.TopLeft:
+                    fromPoint = new Point3d(extMin.X - xOffset, extMax.Y + yOffset, 0);
+                    break;
+                case Enums.AttachmentPoint.TopRight:
+                    fromPoint = new Point3d(extMax.X + xOffset, extMax.Y + yOffset, 0);
+                    break;
+                case Enums.AttachmentPoint.BottomLeft:
+                    fromPoint = new Point3d(extMin.X - xOffset, extMin.Y - yOffset, 0);
+                    break;
+                case Enums.AttachmentPoint.BottomRight:
+                    fromPoint = new Point3d(extMax.X + xOffset, extMin.Y - yOffset, 0);
+                    break;
+                case Enums.AttachmentPoint.TopCenter:
+                    var leftTc = new Point3d(extMin.X, extMax.Y + yOffset, 0);
+                    var rightTc = new Point3d(extMax.X, extMax.Y + yOffset, 0);
+                    fromPoint = leftTc.GetMidPoint(rightTc);
+                    break;
+                case Enums.AttachmentPoint.BottomCenter:
+                    var leftBc = new Point3d(extMin.X, extMin.Y - yOffset, 0);
+                    var rightBc = new Point3d(extMax.X, extMin.Y - yOffset, 0);
+                    fromPoint = leftBc.GetMidPoint(rightBc);
+                    break;
+                case Enums.AttachmentPoint.LeftCenter:
+                    var botLc = new Point3d(extMin.X - xOffset, extMin.Y, 0);
+                    var topLc = new Point3d(extMin.X - xOffset, extMax.Y, 0);
+                    fromPoint = botLc.GetMidPoint(topLc);
+                    break;
+                case Enums.AttachmentPoint.RightCenter:
+                    var botRc = new Point3d(extMax.X - xOffset, extMin.Y, 0);
+                    var topRc = new Point3d(extMax.X - xOffset, extMax.Y, 0);
+                    fromPoint = botRc.GetMidPoint(topRc);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(attachmentPoint), attachmentPoint, null);
+            }
+
+            acEnt.Upgrade();
+            acEnt.TransformBy(Matrix3d.Displacement(fromPoint.GetVectorTo(initPoint)));
         }
     }
 }

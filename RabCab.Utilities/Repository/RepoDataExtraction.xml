@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<!--Xml Document To Hold Dxe Template Information-->
+<dxeTemplates>
+
+    <template name="Test"
+              path =""
+              />
+
+</dxeTemplates>

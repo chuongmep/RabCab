@@ -128,6 +128,8 @@ using RabCab.Initialization;
 
 //Assembly Suite
 [assembly: CommandClass(typeof(RcBom))]
+[assembly: CommandClass(typeof(RcBlockLegend))]
+[assembly: CommandClass(typeof(RcDataExtract))]
 [assembly: CommandClass(typeof(RcExplode))]
 [assembly: CommandClass(typeof(RcLayParts))]
 [assembly: CommandClass(typeof(RcNameParts))]
