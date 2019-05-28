@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
+using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
@@ -459,6 +461,188 @@ namespace RabCab.Agents
                     Console.WriteLine(e);
                     throw;
                 }
+        }
+
+        /// <summary>
+        ///     TODO
+        /// </summary>
+        /// <param name="eList"></param>
+        /// <param name="pWorker"></param>
+        /// <param name="acCurDb"></param>
+        /// <param name="acCurEd"></param>
+        /// <param name="acTrans"></param>
+        public static void SortAndExport(this List<EntInfo> eList, string mainPath, ProgressAgent pWorker,
+            Document acCurDoc, Database acCurDb, Editor acCurEd, Transaction acTrans, int multAmount = 1)
+        {
+            var sCrit = GetSCrit();
+
+            var groups = eList.GroupBy(x => new
+            {
+                Box = sCrit.HasFlag(MixS4S) && x.IsBox,
+                Name = sCrit.HasFlag(Name) ? x.RcName : null,
+                Layer = sCrit.HasFlag(Layer) ? x.EntLayer : null,
+                Color = sCrit.HasFlag(Color) ? x.EntColor : null,
+                Thickness = sCrit.HasFlag(Thickness) ? x.Thickness : double.NaN,
+                x.Length,
+                x.Width,
+                x.Volume,
+                x.Asymmetry,
+                x.TxDirection
+            });
+
+
+            var enumerable = groups.ToList();
+            var gList = enumerable.OrderBy(e => e.Key.Name)
+                .ThenByIf(sCrit.HasFlag(MixS4S), e => e.Key.Box)
+                .ThenByIf(sCrit.HasFlag(Layer), e => e.Key.Layer)
+                .ThenByIf(sCrit.HasFlag(Color), e => e.Key.Color)
+                .ThenByDescendingIf(sCrit.HasFlag(Thickness), e => e.Key.Thickness)
+                .ThenByDescending(e => e.Key.Length)
+                .ThenByDescending(e => e.Key.Width)
+                .ThenByDescending(e => e.Key.Volume).ToList();
+            ;
+
+            pWorker.Reset("Exporting Parts: ");
+            pWorker.SetTotalOperations(gList.Count());
+
+            if (gList.Count > 0)
+                try
+                {
+                    foreach (var group in gList)
+                    {
+                        //Tick progress bar or exit if ESC has been pressed
+                        if (!pWorker.Tick())
+                        {
+                            acTrans.Abort();
+                            return;
+                        }
+
+                        var baseInfo = group.First();
+
+                        var nonMirrors = new List<EntInfo>();
+                        var mirrors = new List<EntInfo>();
+
+                        var firstParse = true;
+
+                        //Find Mirrors
+                        foreach (var eInfo in group)
+                        {
+                            if (firstParse)
+                            {
+                                nonMirrors.Add(eInfo);
+                                firstParse = false;
+                                continue;
+                            }
+
+                            if (eInfo.IsMirrorOf(baseInfo))
+                                mirrors.Add(eInfo);
+                            else
+                                nonMirrors.Add(eInfo);
+                        }
+
+                        nonMirrors.UpdatePartData(false, acCurEd, acCurDb, acTrans);
+                        nonMirrors.ExportParts(sCrit, mainPath, acCurDoc, acCurDb, multAmount);
+                        mirrors.UpdatePartData(false, acCurEd, acCurDb, acTrans);
+                        mirrors.ExportParts(sCrit, mainPath, acCurDoc, acCurDb, multAmount);
+                    }
+                }
+                catch (Autodesk.AutoCAD.Runtime.Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+        }
+
+        private static void ExportParts(this List<EntInfo> eList, Enums.SortBy sCrit, string filePath, Document acCurDoc, Database acCurDb, int multAmount)
+        {
+            foreach (var e in eList)
+            {
+                if (e.IsChild) continue;
+
+                var saveDirectory = filePath;
+
+                if (sCrit.HasFlag(Layer))
+                {
+                    saveDirectory += ("\\" + e.EntLayer);
+
+                    if (Directory.Exists(saveDirectory) == false)
+                    {
+                        Directory.CreateDirectory(saveDirectory);
+                    }
+                }
+                var ePath = saveDirectory + "\\" + e.RcName + ".dwg";
+
+                if (e.RcName == "" || string.IsNullOrEmpty(e.RcName))
+                {
+                    ePath = ePath.Replace(".dwg", "#.dwg");
+                }
+                
+
+                var exists = true;
+                var count = 0;
+
+                while (exists)
+                {
+                    if (File.Exists(ePath))
+                    {
+                        var oldCount = count;
+                        count++;
+
+                        if (ePath.Contains(oldCount.ToString() + ".dwg"))
+                        {
+                            ePath = ePath.Replace(oldCount.ToString(), count.ToString());
+                        }
+                        else
+                        {
+                            ePath = ePath.Replace(".dwg", "_" + count.ToString() + ".dwg");
+                        }
+                       
+                        continue;
+                    }
+
+                    exists = false;
+                }
+
+                Solid3d entClone = null;
+                var objectIdCol = new ObjectIdCollection();
+                
+                using (var acTrans = acCurDb.TransactionManager.StartTransaction())
+                {
+                    var acEnt = acTrans.GetObject(e.ObjId, OpenMode.ForRead) as Solid3d;
+                    if (acEnt != null)
+                    {
+                        entClone = acEnt.Clone() as Solid3d;
+
+                        if (entClone != null)
+                        {
+                            entClone.TransformBy(e.LayMatrix);
+                            acCurDb.AppendEntity(entClone, acTrans);
+                            entClone.TopLeftToOrigin();
+                            objectIdCol.Add(entClone.ObjectId);
+                        }
+
+                    }
+
+                    acTrans.Commit();
+                }
+
+                if (entClone != null)
+                {
+                    
+                    //TODO use old style of creating a database and exporting parts
+                    
+                    //Find out why parts are showing up as the same part
+
+                    using (var acTrans = acCurDb.TransactionManager.StartOpenCloseTransaction())
+                    {
+                        entClone = acTrans.GetObject(entClone.ObjectId, OpenMode.ForWrite) as Solid3d;
+                        entClone.Erase();
+                        entClone.Dispose();
+                        acTrans.Commit();
+                    }
+
+                   
+                }
+            }
         }
 
         /// <summary>

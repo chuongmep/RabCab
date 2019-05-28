@@ -54,5 +54,10 @@ namespace RabCab.External
         {
             return Path.GetDirectoryName(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
         }
+
+        public bool IsDirectoryEmpty(string path)
+        {
+            return !Directory.EnumerateFileSystemEntries(path).Any();
+        }
     }
 }

@@ -14,6 +14,7 @@ using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.Colors;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
+using Autodesk.AutoCAD.Geometry;
 
 namespace RabCab.Extensions
 {
@@ -144,6 +145,55 @@ namespace RabCab.Extensions
 
             //Dispose of the Block Table Record
             extBlkRec?.Dispose();
+        }
+
+        /// <summary>
+        ///     Method to zoom a extens on a newly created Database
+        /// </summary>
+        /// <param name="myDb"></param>
+        public static void ZoomExtents(this Database myDb)
+        {
+            myDb.Orthomode = false;
+            myDb.Isolines = 4;
+            myDb.Ltscale = 1;
+            myDb.Pdmode = 3;
+            myDb.Visretain = true;
+
+
+            using (var tm = myDb.TransactionManager.StartTransaction())
+            {
+                try
+                {
+                    if (myDb.TileMode)
+                    {
+                        var vpt = tm.GetObject(myDb.ViewportTableId, OpenMode.ForRead) as ViewportTable;
+                        if (vpt != null)
+                        {
+                            var vptr = tm.GetObject(vpt["*Active"], OpenMode.ForWrite) as ViewportTableRecord;
+                            myDb.UpdateExt(true);
+                            var pt3Max = myDb.Extmax;
+                            var pt3Min = myDb.Extmin;
+                            var pt2Max = new Point2d(pt3Max.X, pt3Max.Y);
+                            var pt2Min = new Point2d(pt3Min.X, pt3Min.Y);
+                            if (vptr != null)
+                            {
+                                vptr.CenterPoint = (pt2Min + (pt2Max - pt2Min) / 2.0);
+                                vptr.Height = (pt2Max.Y - pt2Min.Y) * 1.2;
+                                vptr.Width = (pt2Max.X - pt2Min.X) * 1.2;
+                            }
+                        }
+                    }
+                }
+                catch (Autodesk.AutoCAD.Runtime.Exception)
+                {
+                    //Ignored
+                }
+                finally
+                {
+                    tm.Commit();
+                    tm.Dispose();
+                }
+            }
         }
 
         #endregion

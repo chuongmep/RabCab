@@ -11,6 +11,8 @@
 
 using Autodesk.AutoCAD.Colors;
 using System.Collections.Generic;
+using Autodesk.AutoCAD.DatabaseServices;
+using RabCab.Engine.Enumerators;
 using static RabCab.Engine.Enumerators.Enums;
 
 namespace RabCab.Settings
@@ -60,11 +62,19 @@ namespace RabCab.Settings
         public static double TableTextHeight = 0.09;
         public static double TableXOffset = 0.125;
         public static double TableYOffset = 0.125;
-        public static AttachmentPoint TableAttach = AttachmentPoint.TopRight;
+        public static Enums.AttachmentPoint TableAttach = Enums.AttachmentPoint.TopRight;
 
         //External Paths
         public static string ViewTemplatePath = "";
-
+        public static string ExportTemplatePath = @"T:\Construction\Construction Standards\STAK Machining Standards\_Templates\MachineTemplate.dwt";
+        
+        //CSV Options
+        public static string NamedPartsFileName = "NamedParts";
+        public static string UnNamedPartsFileName = "UnNamedParts";
+        
+        //Save Version
+        public static DwgVersion SaveVersion = DwgVersion.AC1800;
+        
         //Palette Enablers
         public static bool EnableSelectionParse = true;
         public static string NetHomePage = "www.google.com";

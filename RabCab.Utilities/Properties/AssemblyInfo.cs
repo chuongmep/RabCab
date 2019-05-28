@@ -149,6 +149,7 @@ using RabCab.Initialization;
 
 //Carpentry Suite
 [assembly: CommandClass(typeof(RcChop))]
+[assembly: CommandClass(typeof(RcChop))]
 [assembly: CommandClass(typeof(RcDrill))]
 [assembly: CommandClass(typeof(RcGap))]
 [assembly: CommandClass(typeof(RcJoint))]

@@ -9,9 +9,23 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
-using Autodesk.AutoCAD.ApplicationServices.Core;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Windows.Forms;
+using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Runtime;
+using CsvHelper;
+using RabCab.Agents;
+using RabCab.Analysis;
+using RabCab.Engine.Enumerators;
+using RabCab.Entities.Controls;
+using RabCab.Extensions;
+using RabCab.External;
 using RabCab.Settings;
+using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
+using Exception = Autodesk.AutoCAD.Runtime.Exception;
 
 namespace RabCab.Commands.CNCSuite
 {
@@ -19,15 +33,15 @@ namespace RabCab.Commands.CNCSuite
     {
         /// <summary>
         /// </summary>
-        [CommandMethod(SettingsInternal.CommandGroup, "_CMDDEFAULT",
-            CommandFlags.Modal
+        [CommandMethod(SettingsInternal.CommandGroup, "_EXPORTPARTS",
+            //|CommandFlags.Modal
             //| CommandFlags.Transparent
             //| CommandFlags.UsePickSet
             //| CommandFlags.Redraw
             //| CommandFlags.NoPerspective
             //| CommandFlags.NoMultiple
             //| CommandFlags.NoTileMode
-            //| CommandFlags.NoPaperSpace
+            CommandFlags.NoPaperSpace
             //| CommandFlags.NoOem
             //| CommandFlags.Undefined
             //| CommandFlags.InProgress
@@ -36,21 +50,191 @@ namespace RabCab.Commands.CNCSuite
             //| CommandFlags.NoInternalLock
             //| CommandFlags.DocReadLock
             //| CommandFlags.DocExclusiveLock
-            //| CommandFlags.Session
+            | CommandFlags.Session
             //| CommandFlags.Interruptible
-            //| CommandFlags.NoHistory
-            //| CommandFlags.NoUndoMarker
-            //| CommandFlags.NoBlockEditor
-            //| CommandFlags.NoActionRecording
-            //| CommandFlags.ActionMacro
+            | CommandFlags.NoHistory
+            | CommandFlags.NoUndoMarker
+            | CommandFlags.NoBlockEditor
+            | CommandFlags.NoActionRecording
+            | CommandFlags.ActionMacro
             //| CommandFlags.NoInferConstraint 
         )]
-        public void Cmd_Default()
+        public void Cmd_OutputParts()
         {
             //Get the current document utilities
+            // Get the current document
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;
-            var acCurDb = acCurDoc.Database;
-            var acCurEd = acCurDoc.Editor;
+
+            if (acCurDoc == null) return;
+
+            using (acCurDoc.LockDocument())
+            {
+                //Get the current database and editor
+                var acCurDb = acCurDoc.Database;
+                var acCurEd = acCurDoc.Editor;
+
+                var objIds = acCurEd.GetFilteredSelection(Enums.DxfNameEnum._3Dsolid, false, null,
+                    "\nSelect 3D Solids to save out into separate files: ");
+                if (objIds.Length <= 0) return;
+
+
+                //Tell the user we are going to open a dialog window to select a directory
+                acCurEd.WriteMessage("\nSelect directory to export parts to");
+
+                var dirSelected = false;
+
+                // Get the directory to save to
+                var fDirectory = "";
+
+                //While user has not chosen a directory, or until user cancels - show a dialog window for directory selection
+                while (dirSelected == false)
+                {
+                    //Create the folder browser
+                    var fBrowser = new FolderBrowser();
+                    var result = fBrowser.ShowDialog(new AcadMainWindow());
+
+                    //If the folder browser selection worked:
+                    if (result != DialogResult.OK)
+                    {
+                        if (result == DialogResult.Cancel)
+                        {
+                            acCurEd.WriteMessage("\nOperation cancelled by user.");
+                            return;
+                        }
+
+                        acCurEd.WriteMessage("\nError in selection - Aborting operation.");
+                        return;
+                    }
+
+                    fDirectory = fBrowser.DirectoryPath;
+                    dirSelected = true;
+                }
+
+                #region Old File Handling
+
+                if (!new PathFinder().IsDirectoryEmpty(fDirectory))
+                {
+                    var subPath = "\\OldVersions" + DateTime.Now.ToString(" MM.dd [HH.mm.ss]");
+
+                    var exists = Directory.Exists(fDirectory + subPath);
+
+                    if (exists) return;
+
+                    try
+                    {
+                        // Ensure the source directory exists
+                        if (Directory.Exists(fDirectory))
+                            // Ensure the destination directory doesn't already exist
+                            if (Directory.Exists(fDirectory + subPath) == false)
+                            {
+                                var destDir = fDirectory + subPath;
+
+                                Directory.CreateDirectory(destDir);
+
+                                var files = Directory.EnumerateFiles(fDirectory, "*")
+                                    .Select(path => new FileInfo(path));
+
+                                var folders = Directory.EnumerateDirectories(fDirectory, "*")
+                                    .Select(path => new DirectoryInfo(path));
+
+                                foreach (var file in files)
+                                    try
+                                    {
+                                        file.MoveTo(Path.Combine(destDir, file.Name));
+                                    }
+                                    catch (Exception e)
+                                    {
+                                        Console.WriteLine(e);
+                                    }
+
+                                foreach (var folder in folders)
+                                    try
+                                    {
+                                        if (!folder.Name.Contains("OldVersions"))
+                                        folder.MoveTo(Path.Combine(destDir, folder.Name));
+                                    }
+                                    catch (Exception e)
+                                    {
+                                        Console.WriteLine(e);
+                                    }
+
+                                var csvName = destDir + "\\NamedParts.csv";
+                                if (File.Exists(csvName))
+                                {
+                                    var namedList = new List<EntInfo>();
+
+                                    using (var reader = new StreamReader(csvName))
+                                    {
+                                        using (var csv = new CsvReader(reader))
+                                        {
+                                            csv.Configuration.RegisterClassMap<EntMap>();
+                                            var records = csv.GetRecords<EntInfo>();
+
+                                            foreach (var rec in records)
+                                            {
+                                                rec.FilePath = destDir + Path.GetFileName(rec.FilePath);
+                                                namedList.Add(rec);
+                                            }
+                                        }
+                                    }
+
+                                    File.Delete(csvName);
+
+                                    //Write a CSV file containing information from the named entities
+                                    using (var writer = new StreamWriter(csvName))
+                                    {
+                                        using (var csv = new CsvWriter(writer))
+                                        {
+                                            csv.Configuration.RegisterClassMap<EntMap>();
+                                            csv.WriteRecords(namedList);
+                                        }
+                                    }
+                                }
+                            }
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show(e.Message);
+                        return;
+                    }
+                }
+
+                #endregion
+
+                acCurEd.WriteMessage("\nDirectory selected: " + fDirectory);
+                var eList = new List<EntInfo>();
+
+                var multAmount = 1;
+
+                if (SettingsUser.PromptForMultiplication)
+                    multAmount = acCurEd.GetPositiveInteger("\nEnter number to multiply parts by: ", 1);
+
+                using (var pWorker = new ProgressAgent("Parsing Solids: ", objIds.Length))
+                {
+                    using (var acTrans = acCurDb.TransactionManager.StartTransaction())
+                    {
+                        foreach (var objId in objIds)
+                        {
+                            //Tick progress bar or exit if ESC has been pressed
+                            if (!pWorker.Tick())
+                            {
+                                acTrans.Abort();
+                                return;
+                            }
+
+                            var acSol = acTrans.GetObject(objId, OpenMode.ForRead) as Solid3d;
+
+                            if (acSol == null) continue;
+
+                            eList.Add(new EntInfo(acSol, acCurDb, acTrans));
+                        }
+
+                        eList.SortAndExport(fDirectory, pWorker, acCurDoc, acCurDb, acCurEd, acTrans, multAmount);
+
+                        acTrans.Commit();
+                    }
+                }
+            }
         }
     }
 }
