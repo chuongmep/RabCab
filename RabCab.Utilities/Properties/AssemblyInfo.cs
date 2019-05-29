@@ -139,6 +139,8 @@ using RabCab.Initialization;
 [assembly: CommandClass(typeof(RcScatter))]
 [assembly: CommandClass(typeof(RcSelection))]
 [assembly: CommandClass(typeof(RcUpdate))]
+[assembly: CommandClass(typeof(RcExportParts))]
+
 
 //Automation Suite
 [assembly: CommandClass(typeof(RcAutoLayer))]
@@ -161,7 +163,6 @@ using RabCab.Initialization;
 [assembly: CommandClass(typeof(RcAutoPrep))]
 [assembly: CommandClass(typeof(RcBreakPoints))]
 [assembly: CommandClass(typeof(RcCheckWork))]
-[assembly: CommandClass(typeof(RcExportParts))]
 [assembly: CommandClass(typeof(RcExportPaths))]
 [assembly: CommandClass(typeof(RcFlatten))]
 [assembly: CommandClass(typeof(RcLoopBit))]

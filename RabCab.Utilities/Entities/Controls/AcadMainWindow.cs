@@ -6,9 +6,6 @@ namespace RabCab.Entities.Controls
 {
     internal class AcadMainWindow : IWin32Window
     {
-        public IntPtr Handle
-        {
-            get { return Application.MainWindow.Handle; }
-        }
+        public IntPtr Handle => Application.MainWindow.Handle;
     }
 }

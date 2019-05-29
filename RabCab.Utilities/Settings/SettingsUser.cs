@@ -9,11 +9,10 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
-using Autodesk.AutoCAD.Colors;
 using System.Collections.Generic;
+using Autodesk.AutoCAD.Colors;
 using Autodesk.AutoCAD.DatabaseServices;
 using RabCab.Engine.Enumerators;
-using static RabCab.Engine.Enumerators.Enums;
 
 namespace RabCab.Settings
 {
@@ -34,28 +33,6 @@ namespace RabCab.Settings
         //Automation
         public static bool AutoLayerEnabled = true;
 
-        public static List<string> LayerCommandList { get; set; } = new List<string>()
-        {
-            "TEXT",
-            "DTEXT",
-            "MTEXT",
-            "MLEADER",
-            "DIM",
-            "DIMLINEAR",
-            "DIMALIGNED",
-            "DIMANGULAR",
-            "DIMARC",
-            "DIMRADIUS",
-            "DIMDIAMETER",
-            "DIMJOGGED",
-            "DIMORDINATE",
-            "QDIM",
-            "DIMCONTINUE",
-            "DIMBASELINE",
-            "TABLE",
-            "GENDIMS"
-        };
-
         //TableOptions
         public static double TableRowHeight = .035;
         public static double TableColumnWidth = 0.5;
@@ -66,15 +43,16 @@ namespace RabCab.Settings
 
         //External Paths
         public static string ViewTemplatePath = "";
-        public static string ExportTemplatePath = @"T:\Construction\Construction Standards\STAK Machining Standards\_Templates\MachineTemplate.dwt";
-        
+
+        public static string ExportTemplatePath =
+            @"T:\Construction\Construction Standards\STAK Machining Standards\_Templates\MachineTemplate.dwt";
+
         //CSV Options
-        public static string NamedPartsFileName = "NamedParts";
-        public static string UnNamedPartsFileName = "UnNamedParts";
-        
+        public static string NamedPartsFileName = "PartList";
+
         //Save Version
         public static DwgVersion SaveVersion = DwgVersion.AC1800;
-        
+
         //Palette Enablers
         public static bool EnableSelectionParse = true;
         public static string NetHomePage = "www.google.com";
@@ -82,7 +60,7 @@ namespace RabCab.Settings
         //SortingOptions
         public static bool ResetPartCount = true;
         public static string NamingConvention = "";
-        public static bool SortByLayer = true;
+        public static bool SortByLayer = false;
         public static bool SortByColor = false;
         public static bool SortByThickness = true;
         public static bool SortByName = true;
@@ -110,7 +88,7 @@ namespace RabCab.Settings
         //Annotation Options
         public static double ViewSpacing = 0;
         public static Color DynPreviewColor = Colors.LayerColorPreview;
-        public static Arrowhead ArwHead = Arrowhead._None;
+        public static Enums.Arrowhead ArwHead = Enums.Arrowhead._None;
         public static double AnnoSpacing = 0.3125;
 
         //Flatshot Options
@@ -139,6 +117,28 @@ namespace RabCab.Settings
         public static double RcGapDepth = 0;
         public static double DogEarDiam = 0.50;
 
-        public static RoundTolerance UserTol { set; get; } = RoundTolerance.SixDecimals;
+        public static List<string> LayerCommandList { get; set; } = new List<string>
+        {
+            "TEXT",
+            "DTEXT",
+            "MTEXT",
+            "MLEADER",
+            "DIM",
+            "DIMLINEAR",
+            "DIMALIGNED",
+            "DIMANGULAR",
+            "DIMARC",
+            "DIMRADIUS",
+            "DIMDIAMETER",
+            "DIMJOGGED",
+            "DIMORDINATE",
+            "QDIM",
+            "DIMCONTINUE",
+            "DIMBASELINE",
+            "TABLE",
+            "GENDIMS"
+        };
+
+        public static Enums.RoundTolerance UserTol { set; get; } = Enums.RoundTolerance.SixDecimals;
     }
 }

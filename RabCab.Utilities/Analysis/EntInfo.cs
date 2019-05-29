@@ -41,66 +41,66 @@ namespace RabCab.Analysis
         //Object Information
         public ObjectId ObjId { get; set; }
         public Handle Hndl { get; set; }
-        public int FaceCount{ get; set; }
-        public int NumberOfChanges{ get; set; }
+        public int FaceCount { get; set; }
+        public int NumberOfChanges { get; set; }
 
         //Subentity Information
-        public SubentityId SubId{ get; set; }
-        public double SubArea{ get; set; }
-        public double SubPerimeter{ get; set; }
+        public SubentityId SubId { get; set; }
+        public double SubArea { get; set; }
+        public double SubPerimeter { get; set; }
 
         //Extents
-        public Extents3d Extents{ get; set; }
-        public Point3d MinExt{ get; set; }
-        public Point3d MaxExt{ get; set; }
-        public Point3d Centroid{ get; set; }
+        public Extents3d Extents { get; set; }
+        public Point3d MinExt { get; set; }
+        public Point3d MaxExt { get; set; }
+        public Point3d Centroid { get; set; }
 
         //Sizing
-        public double Length{ get; set; }
-        public double Width{ get; set; }
-        public double Thickness{ get; set; }
-        public double Volume{ get; set; }
-        public double Box{ get; set; }
+        public double Length { get; set; }
+        public double Width { get; set; }
+        public double Thickness { get; set; }
+        public double Volume { get; set; }
+        public double Box { get; set; }
 
-        public double MaxArea{ get; set; }
-        public double MaxPerimeter{ get; set; }
+        public double MaxArea { get; set; }
+        public double MaxPerimeter { get; set; }
 
         //CNC Information
-        public Matrix3d LayMatrix{ get; set; }
+        public Matrix3d LayMatrix { get; set; }
 
         //Asymmetry
-        public double Asymmetry{ get; set; }
-        public Vector3d AsymmetryVector{ get; set; }
-        public string AsymString{ get; set; }
+        public double Asymmetry { get; set; }
+        public Vector3d AsymmetryVector { get; set; }
+        public string AsymString { get; set; }
 
         //Ent Information
-        public string EntLayer{ get; set; }
-        public Color EntColor{ get; set; }
-        public string EntMaterial{ get; set; }
+        public string EntLayer { get; set; }
+        public Color EntColor { get; set; }
+        public string EntMaterial { get; set; }
 
         //XData Information
-        public string RcName{ get; set; }
-        public bool IsSweep{ get; set; }
-        public bool IsMirror{ get; set; }
-        public bool IsChild{ get; set; }
-        public string RcInfo{ get; set; }
-        public int RcQtyOf{ get; set; }
-        public int RcQtyTotal{ get; set; }
-        public bool HasNonFlatFaces{ get; set; }
-        public bool HasHoles{ get; set; }
-        public bool Has3DFaces{ get; set; }
-        public TextureDirection TxDirection{ get; set; }
+        public string RcName { get; set; }
+        public bool IsSweep { get; set; }
+        public bool IsMirror { get; set; }
+        public bool IsChild { get; set; }
+        public string RcInfo { get; set; }
+        public int RcQtyOf { get; set; }
+        public int RcQtyTotal { get; set; }
+        public bool HasNonFlatFaces { get; set; }
+        public bool HasHoles { get; set; }
+        public bool Has3DFaces { get; set; }
+        public TextureDirection TxDirection { get; set; }
 
         //Rotation Matrices
-        public Matrix3d X90{ get; set; }
-        public Matrix3d Y90{ get; set; }
-        public Matrix3d Z90{ get; set; }
-        public Matrix3d X180{ get; set; }
-        public Matrix3d Y180{ get; set; }
-        public Matrix3d Z180{ get; set; }
-        public Matrix3d X270{ get; set; }
-        public Matrix3d Y270{ get; set; }
-        public Matrix3d Z270{ get; set; }
+        public Matrix3d X90 { get; set; }
+        public Matrix3d Y90 { get; set; }
+        public Matrix3d Z90 { get; set; }
+        public Matrix3d X180 { get; set; }
+        public Matrix3d Y180 { get; set; }
+        public Matrix3d Z180 { get; set; }
+        public Matrix3d X270 { get; set; }
+        public Matrix3d Y270 { get; set; }
+        public Matrix3d Z270 { get; set; }
 
         public ProductionType ProdType
         {

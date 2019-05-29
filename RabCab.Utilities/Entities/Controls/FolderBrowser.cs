@@ -6,13 +6,14 @@ namespace RabCab.Entities.Controls
 {
     public class FolderBrowser
     {
+        private const uint ERROR_CANCELLED = 0x800704C7;
         public string DirectoryPath { get; set; }
 
         public DialogResult ShowDialog(IWin32Window owner)
         {
-            IntPtr hwndOwner = owner != null ? owner.Handle : GetActiveWindow();
+            var hwndOwner = owner != null ? owner.Handle : GetActiveWindow();
 
-            IFileOpenDialog dialog = (IFileOpenDialog)new FileOpenDialog();
+            var dialog = (IFileOpenDialog) new FileOpenDialog();
             try
             {
                 IShellItem item;
@@ -22,15 +23,13 @@ namespace RabCab.Entities.Controls
                     uint atts = 0;
                     if (SHILCreateFromPath(DirectoryPath, out idl, ref atts) == 0)
                     {
-                        if (SHCreateShellItem(IntPtr.Zero, IntPtr.Zero, idl, out item) == 0)
-                        {
-                            dialog.SetFolder(item);
-                        }
+                        if (SHCreateShellItem(IntPtr.Zero, IntPtr.Zero, idl, out item) == 0) dialog.SetFolder(item);
                         Marshal.FreeCoTaskMem(idl);
                     }
                 }
+
                 dialog.SetOptions(FOS.FOS_PICKFOLDERS | FOS.FOS_FORCEFILESYSTEM);
-                uint hr = dialog.Show(hwndOwner);
+                var hr = dialog.Show(hwndOwner);
                 if (hr == ERROR_CANCELLED)
                     return DialogResult.Cancel;
 
@@ -50,15 +49,15 @@ namespace RabCab.Entities.Controls
         }
 
         [DllImport("shell32.dll")]
-        private static extern int SHILCreateFromPath([MarshalAs(UnmanagedType.LPWStr)] string pszPath, out IntPtr ppIdl, ref uint rgflnOut);
+        private static extern int SHILCreateFromPath([MarshalAs(UnmanagedType.LPWStr)] string pszPath, out IntPtr ppIdl,
+            ref uint rgflnOut);
 
         [DllImport("shell32.dll")]
-        private static extern int SHCreateShellItem(IntPtr pidlParent, IntPtr psfParent, IntPtr pidl, out IShellItem ppsi);
+        private static extern int SHCreateShellItem(IntPtr pidlParent, IntPtr psfParent, IntPtr pidl,
+            out IShellItem ppsi);
 
         [DllImport("user32.dll")]
         private static extern IntPtr GetActiveWindow();
-
-        private const uint ERROR_CANCELLED = 0x800704C7;
 
         [ComImport]
         [Guid("DC1C5A9C-E88A-4dde-A5A1-60F82A20AEF7")]
@@ -73,7 +72,8 @@ namespace RabCab.Entities.Controls
         {
             [PreserveSig]
             uint Show([In] IntPtr parent); // IModalWindow
-            void SetFileTypes();  // not fully defined
+
+            void SetFileTypes(); // not fully defined
             void SetFileTypeIndex([In] uint iFileType);
             void GetFileTypeIndex(out uint piFileType);
             void Advise(); // not fully defined
@@ -84,16 +84,16 @@ namespace RabCab.Entities.Controls
             void SetFolder(IShellItem psi);
             void GetFolder(out IShellItem ppsi);
             void GetCurrentSelection(out IShellItem ppsi);
-            void SetFileName([In, MarshalAs(UnmanagedType.LPWStr)] string pszName);
+            void SetFileName([In] [MarshalAs(UnmanagedType.LPWStr)] string pszName);
             void GetFileName([MarshalAs(UnmanagedType.LPWStr)] out string pszName);
-            void SetTitle([In, MarshalAs(UnmanagedType.LPWStr)] string pszTitle);
-            void SetOkButtonLabel([In, MarshalAs(UnmanagedType.LPWStr)] string pszText);
-            void SetFileNameLabel([In, MarshalAs(UnmanagedType.LPWStr)] string pszLabel);
+            void SetTitle([In] [MarshalAs(UnmanagedType.LPWStr)] string pszTitle);
+            void SetOkButtonLabel([In] [MarshalAs(UnmanagedType.LPWStr)] string pszText);
+            void SetFileNameLabel([In] [MarshalAs(UnmanagedType.LPWStr)] string pszLabel);
             void GetResult(out IShellItem ppsi);
             void AddPlace(IShellItem psi, int alignment);
-            void SetDefaultExtension([In, MarshalAs(UnmanagedType.LPWStr)] string pszDefaultExtension);
+            void SetDefaultExtension([In] [MarshalAs(UnmanagedType.LPWStr)] string pszDefaultExtension);
             void Close(int hr);
-            void SetClientGuid();  // not fully defined
+            void SetClientGuid(); // not fully defined
             void ClearClientData();
             void SetFilter([MarshalAs(UnmanagedType.Interface)] IntPtr pFilter);
             void GetResults([MarshalAs(UnmanagedType.Interface)] out IntPtr ppenum); // not fully defined
@@ -108,8 +108,8 @@ namespace RabCab.Entities.Controls
             void BindToHandler(); // not fully defined
             void GetParent(); // not fully defined
             void GetDisplayName([In] SIGDN sigdnName, [MarshalAs(UnmanagedType.LPWStr)] out string ppszName);
-            void GetAttributes();  // not fully defined
-            void Compare();  // not fully defined
+            void GetAttributes(); // not fully defined
+            void Compare(); // not fully defined
         }
 
         private enum SIGDN : uint

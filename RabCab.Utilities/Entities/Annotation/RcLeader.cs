@@ -30,7 +30,7 @@ namespace RabCab.Entities.Annotation
         {
             if (!SettingsUser.PartLeaderEnabled) return;
 
-            var curDb = (Database)sender;
+            var curDb = (Database) sender;
             if (curDb == null || curDb.IsDisposed)
                 return;
 
@@ -59,7 +59,7 @@ namespace RabCab.Entities.Annotation
         {
             if (!SettingsUser.PartLeaderEnabled) return;
 
-            var acCurDoc = (Document)sender;
+            var acCurDoc = (Document) sender;
 
             if (acCurDoc == null || acCurDoc.IsDisposed || !acCurDoc.IsActive) return;
 
@@ -161,8 +161,8 @@ namespace RabCab.Entities.Annotation
             {
                 if (leaderInd.Count != 0)
                 {
-                    var leaderLineInd = mLeader.GetLeaderLineIndexes((int)leaderInd[0]);
-                    var arrowPt = mLeader.GetFirstVertex((int)leaderLineInd[0]);
+                    var leaderLineInd = mLeader.GetLeaderLineIndexes((int) leaderInd[0]);
+                    var arrowPt = mLeader.GetFirstVertex((int) leaderLineInd[0]);
 
                     SelectionSet ss = null;
 
@@ -186,7 +186,7 @@ namespace RabCab.Entities.Annotation
 
                         using (var acTrans = acCurDb.TransactionManager.StartTransaction())
                         {
-                            var dbDict = (DBDictionary)acTrans.GetObject(acCurDb.LayoutDictionaryId, OpenMode.ForRead);
+                            var dbDict = (DBDictionary) acTrans.GetObject(acCurDb.LayoutDictionaryId, OpenMode.ForRead);
 
                             if (dbDict.Contains(layoutName))
                             {
@@ -312,7 +312,7 @@ namespace RabCab.Entities.Annotation
             {
                 var counter = 0;
 
-                var dbDict = (DBDictionary)acTrans.GetObject(acCurDb.LayoutDictionaryId, OpenMode.ForRead);
+                var dbDict = (DBDictionary) acTrans.GetObject(acCurDb.LayoutDictionaryId, OpenMode.ForRead);
 
                 if (dbDict.Contains(layoutName))
                 {

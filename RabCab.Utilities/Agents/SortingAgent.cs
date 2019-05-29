@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using Autodesk.AutoCAD.ApplicationServices;
+using System.Windows.Forms;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
+using CsvHelper;
 using RabCab.Analysis;
 using RabCab.Calculators;
 using RabCab.Engine.Enumerators;
+using RabCab.Entities.Controls;
 using RabCab.Extensions;
 using RabCab.Settings;
 using static RabCab.Engine.Enumerators.Enums.SortBy;
@@ -472,7 +475,7 @@ namespace RabCab.Agents
         /// <param name="acCurEd"></param>
         /// <param name="acTrans"></param>
         public static void SortAndExport(this List<EntInfo> eList, string mainPath, ProgressAgent pWorker,
-            Document acCurDoc, Database acCurDb, Editor acCurEd, Transaction acTrans, int multAmount = 1)
+            Database acCurDb, Editor acCurEd, Transaction acTrans, int multAmount = 1)
         {
             var sCrit = GetSCrit();
 
@@ -500,10 +503,16 @@ namespace RabCab.Agents
                 .ThenByDescending(e => e.Key.Length)
                 .ThenByDescending(e => e.Key.Width)
                 .ThenByDescending(e => e.Key.Volume).ToList();
-            ;
+
 
             pWorker.Reset("Exporting Parts: ");
             pWorker.SetTotalOperations(gList.Count());
+
+            var exportList = new List<EntInfo>();
+            if (!File.Exists(SettingsUser.ExportTemplatePath))
+                MessageBox.Show(new AcadMainWindow(),
+                    @"Maching Template File Not Found - Please check directory: " +
+                    SettingsUser.ExportTemplatePath);
 
             if (gList.Count > 0)
                 try
@@ -541,10 +550,27 @@ namespace RabCab.Agents
                         }
 
                         nonMirrors.UpdatePartData(false, acCurEd, acCurDb, acTrans);
-                        nonMirrors.ExportParts(sCrit, mainPath, acCurDoc, acCurDb, multAmount);
+                        nonMirrors.ExportParts(mainPath, acCurDb, ref exportList);
                         mirrors.UpdatePartData(false, acCurEd, acCurDb, acTrans);
-                        mirrors.ExportParts(sCrit, mainPath, acCurDoc, acCurDb, multAmount);
+                        mirrors.ExportParts(mainPath, acCurDb, ref exportList);
                     }
+
+                    var csvName = mainPath + "\\" + SettingsUser.NamedPartsFileName + ".csv";
+
+                    if (File.Exists(csvName)) File.Delete(csvName);
+
+                    //Write a CSV file containing information from the named entities
+                    using (var writer = new StreamWriter(csvName))
+                    {
+                        using (var csv = new CsvWriter(writer))
+                        {
+                            csv.Configuration.RegisterClassMap<EntMap>();
+                            csv.WriteRecords(exportList);
+                        }
+                    }
+
+                    acCurEd.WriteMessage("\nParts saved out - opening directory.");
+                    Process.Start(mainPath);
                 }
                 catch (Autodesk.AutoCAD.Runtime.Exception e)
                 {
@@ -552,30 +578,22 @@ namespace RabCab.Agents
                 }
         }
 
-        private static void ExportParts(this List<EntInfo> eList, Enums.SortBy sCrit, string filePath, Document acCurDoc, Database acCurDb, int multAmount)
+        private static void ExportParts(this List<EntInfo> eList, string filePath,
+            Database acCurDb, ref List<EntInfo> xPortList)
         {
             foreach (var e in eList)
             {
                 if (e.IsChild) continue;
 
-                var saveDirectory = filePath;
+                var saveDirectory = filePath + "\\" + e.EntLayer;
+                ;
 
-                if (sCrit.HasFlag(Layer))
-                {
-                    saveDirectory += ("\\" + e.EntLayer);
+                if (Directory.Exists(saveDirectory) == false) Directory.CreateDirectory(saveDirectory);
 
-                    if (Directory.Exists(saveDirectory) == false)
-                    {
-                        Directory.CreateDirectory(saveDirectory);
-                    }
-                }
                 var ePath = saveDirectory + "\\" + e.RcName + ".dwg";
 
-                if (e.RcName == "" || string.IsNullOrEmpty(e.RcName))
-                {
-                    ePath = ePath.Replace(".dwg", "#.dwg");
-                }
-                
+                if (e.RcName == "" || string.IsNullOrEmpty(e.RcName)) ePath = ePath.Replace(".dwg", "#.dwg");
+
 
                 var exists = true;
                 var count = 0;
@@ -587,15 +605,11 @@ namespace RabCab.Agents
                         var oldCount = count;
                         count++;
 
-                        if (ePath.Contains(oldCount.ToString() + ".dwg"))
-                        {
+                        if (ePath.Contains(oldCount + ".dwg"))
                             ePath = ePath.Replace(oldCount.ToString(), count.ToString());
-                        }
                         else
-                        {
-                            ePath = ePath.Replace(".dwg", "_" + count.ToString() + ".dwg");
-                        }
-                       
+                            ePath = ePath.Replace(".dwg", "_" + count + ".dwg");
+
                         continue;
                     }
 
@@ -604,7 +618,7 @@ namespace RabCab.Agents
 
                 Solid3d entClone = null;
                 var objectIdCol = new ObjectIdCollection();
-                
+
                 using (var acTrans = acCurDb.TransactionManager.StartTransaction())
                 {
                     var acEnt = acTrans.GetObject(e.ObjId, OpenMode.ForRead) as Solid3d;
@@ -619,29 +633,82 @@ namespace RabCab.Agents
                             entClone.TopLeftToOrigin();
                             objectIdCol.Add(entClone.ObjectId);
                         }
-
                     }
 
                     acTrans.Commit();
                 }
 
-                if (entClone != null)
-                {
-                    
-                    //TODO use old style of creating a database and exporting parts
-                    
-                    //Find out why parts are showing up as the same part
+                if (entClone == null) continue;
 
-                    using (var acTrans = acCurDb.TransactionManager.StartOpenCloseTransaction())
+                using (var newDb = new Database(true, false))
+                {
+                    try
                     {
-                        entClone = acTrans.GetObject(entClone.ObjectId, OpenMode.ForWrite) as Solid3d;
-                        entClone.Erase();
-                        entClone.Dispose();
-                        acTrans.Commit();
+                        newDb.ReadDwgFile(
+                            SettingsUser.ExportTemplatePath,
+                            FileOpenMode.OpenForReadAndAllShare, false, null);
+                    }
+                    catch (Exception)
+                    {
+                        // ignored
                     }
 
-                   
+                    var objIdCol = new ObjectIdCollection {entClone.ObjectId};
+                    acCurDb.Wblock(newDb, objIdCol, Point3d.Origin, DuplicateRecordCloning.Replace);
+
+                    using (var tr = newDb.TransactionManager.StartTransaction())
+                    {
+                        tr.TransactionManager.QueueForGraphicsFlush();
+
+                        var btr =
+                            (BlockTableRecord)
+                            tr.GetObject(SymbolUtilityServices.GetBlockModelSpaceId(newDb), OpenMode.ForRead);
+                        foreach (var curId in btr)
+                        {
+                            var ent = (Solid3d) tr.GetObject(curId, OpenMode.ForWrite);
+
+                            if (ent != null)
+                            {
+                                ent.CleanBody();
+                                ent.TransformBy(
+                                    Matrix3d.Displacement(
+                                        ent.GeometricExtents.MinPoint.GetVectorTo(Point3d.Origin)));
+                            }
+                        }
+
+                        tr.Commit();
+                    }
+
+                    newDb.ZoomExtents();
+
+                    //save as 2004 version dwg
+                    try
+                    {
+                        newDb.SaveAs(ePath, SettingsUser.SaveVersion);
+                    }
+                    catch (Exception)
+                    {
+                        // ignored
+                    }
+
+                    newDb.CloseInput(true);
+                    e.FilePath = ePath;
                 }
+
+                using (var acTrans = acCurDb.TransactionManager.StartOpenCloseTransaction())
+                {
+                    entClone = acTrans.GetObject(entClone.ObjectId, OpenMode.ForWrite) as Solid3d;
+
+                    if (entClone != null)
+                    {
+                        entClone.Erase();
+                        entClone.Dispose();
+                    }
+
+                    acTrans.Commit();
+                }
+
+                xPortList.Add(e);
             }
         }
 

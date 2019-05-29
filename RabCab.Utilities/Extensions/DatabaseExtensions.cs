@@ -15,6 +15,7 @@ using Autodesk.AutoCAD.Colors;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
+using Autodesk.AutoCAD.Runtime;
 
 namespace RabCab.Extensions
 {
@@ -177,14 +178,14 @@ namespace RabCab.Extensions
                             var pt2Min = new Point2d(pt3Min.X, pt3Min.Y);
                             if (vptr != null)
                             {
-                                vptr.CenterPoint = (pt2Min + (pt2Max - pt2Min) / 2.0);
+                                vptr.CenterPoint = pt2Min + (pt2Max - pt2Min) / 2.0;
                                 vptr.Height = (pt2Max.Y - pt2Min.Y) * 1.2;
                                 vptr.Width = (pt2Max.X - pt2Min.X) * 1.2;
                             }
                         }
                     }
                 }
-                catch (Autodesk.AutoCAD.Runtime.Exception)
+                catch (Exception)
                 {
                     //Ignored
                 }

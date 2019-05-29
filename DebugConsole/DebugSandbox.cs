@@ -10,8 +10,6 @@
 // -----------------------------------------------------------------------------------
 
 using System;
-using System.ComponentModel;
-using System.Drawing;
 using System.Windows.Forms;
 using RabCab.Settings;
 
@@ -25,7 +23,6 @@ namespace DebugConsole
         /// <param name="args"></param>
         private static void Main()
         {
-
             var form = new Form();
 
             var settingsGui = new SettingsGui();

@@ -10,11 +10,11 @@
 // -----------------------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
-using System.Collections.Generic;
 
 namespace RabCab.Extensions
 {
@@ -59,13 +59,13 @@ namespace RabCab.Extensions
         }
 
         /// <summary>
-        /// Get all references to the given BlockTableRecord, including 
-        /// references to anonymous dynamic BlockTableRecords.
+        ///     Get all references to the given BlockTableRecord, including
+        ///     references to anonymous dynamic BlockTableRecords.
         /// </summary>
         public static IEnumerable<BlockReference> GetBlockReferences(
-           this BlockTableRecord btr,
-           OpenMode mode = OpenMode.ForRead,
-           bool directOnly = true)
+            this BlockTableRecord btr,
+            OpenMode mode = OpenMode.ForRead,
+            bool directOnly = true)
         {
             if (btr == null)
                 throw new ArgumentNullException("btr");
@@ -73,28 +73,24 @@ namespace RabCab.Extensions
             if (tr == null)
                 throw new InvalidOperationException("No transaction");
             var ids = btr.GetBlockReferenceIds(directOnly, true);
-            int cnt = ids.Count;
-            for (int i = 0; i < cnt; i++)
-            {
+            var cnt = ids.Count;
+            for (var i = 0; i < cnt; i++)
                 yield return (BlockReference)
-                   tr.GetObject(ids[i], mode, false, false);
-            }
+                    tr.GetObject(ids[i], mode, false, false);
             if (btr.IsDynamicBlock)
             {
                 BlockTableRecord btr2 = null;
                 var blockIds = btr.GetAnonymousBlockIds();
                 cnt = blockIds.Count;
-                for (int i = 0; i < cnt; i++)
+                for (var i = 0; i < cnt; i++)
                 {
-                    btr2 = (BlockTableRecord)tr.GetObject(blockIds[i],
-                       OpenMode.ForRead, false, false);
+                    btr2 = (BlockTableRecord) tr.GetObject(blockIds[i],
+                        OpenMode.ForRead, false, false);
                     ids = btr2.GetBlockReferenceIds(directOnly, true);
-                    int cnt2 = ids.Count;
-                    for (int j = 0; j < cnt2; j++)
-                    {
+                    var cnt2 = ids.Count;
+                    for (var j = 0; j < cnt2; j++)
                         yield return (BlockReference)
-                           tr.GetObject(ids[j], mode, false, false);
-                    }
+                            tr.GetObject(ids[j], mode, false, false);
                 }
             }
         }

@@ -10,7 +10,6 @@
 // -----------------------------------------------------------------------------------
 
 using System;
-using System.Windows.Forms.VisualStyles;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
@@ -85,16 +84,13 @@ namespace RabCab.Extensions
 
             try
             {
-                if (pts.Length < 1)
-                {
-                    return null;
-                }
+                if (pts.Length < 1) return null;
             }
             catch (Exception e)
             {
                 return null;
             }
-            
+
             var pCenter = pts[0];
             Vector3d v1 = pStart - pCenter, v2 = pEnd - pCenter;
             if (v1.CrossProduct(v2).DotProduct(vNormal) < 0) pCenter = pts[1];

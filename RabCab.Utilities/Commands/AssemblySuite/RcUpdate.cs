@@ -36,7 +36,7 @@ namespace RabCab.Commands.AssemblySuite
             | CommandFlags.NoBlockEditor
             | CommandFlags.NoActionRecording
             | CommandFlags.ActionMacro
-        //| CommandFlags.NoInferConstraint 
+            //| CommandFlags.NoInferConstraint 
         )]
         public void Cmd_RcUpdate()
         {

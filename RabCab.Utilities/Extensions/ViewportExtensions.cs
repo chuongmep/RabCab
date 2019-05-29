@@ -240,7 +240,7 @@ namespace RabCab.Extensions
                         var entity = acTrans.GetObject(objId, OpenMode.ForRead) as Entity;
 
                         if (entity == null) continue;
-                        
+
                         Extents2d ext2d;
                         try
                         {
@@ -251,10 +251,10 @@ namespace RabCab.Extensions
                             return objCol;
                         }
 
-                        if (ext2d != new Extents2d() && (ext2d.IsInside(ext2d, unitVector) || ext2d.Intersects(ext2d, unitVector)))
+                        if (ext2d != new Extents2d() &&
+                            (ext2d.IsInside(ext2d, unitVector) || ext2d.Intersects(ext2d, unitVector)))
                             objCol.Add(objId);
                     }
-
                 }
                 else
                 {
@@ -274,9 +274,9 @@ namespace RabCab.Extensions
         private static Point3dCollection GetExtents(this Viewport vp, Transaction tr)
         {
             if (!vp.NonRectClipOn) return vp.GeometricExtents.ExtPoints();
-            
+
             var vpPnts = new Point3dCollection();
-            
+
             using (var entity = tr.GetObject(vp.NonRectClipEntityId, OpenMode.ForRead) as Entity)
             {
                 var curve = entity as Curve;
@@ -292,7 +292,7 @@ namespace RabCab.Extensions
         {
             var startParam = curve.StartParam;
             var endParam = curve.EndParam;
-            
+
             var lNum = (endParam - startParam) / 100.0;
 
             for (var i = startParam; i < endParam; i += lNum)

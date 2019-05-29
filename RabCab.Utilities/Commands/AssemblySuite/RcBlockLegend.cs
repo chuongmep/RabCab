@@ -15,29 +15,29 @@ namespace RabCab.Commands.AssemblySuite
         /// </summary>
         [CommandMethod(SettingsInternal.CommandGroup, "_BLOCKLEGEND",
             CommandFlags.Modal
-        //| CommandFlags.Transparent
-        //| CommandFlags.UsePickSet
-        //| CommandFlags.Redraw
-        //| CommandFlags.NoPerspective
-        //| CommandFlags.NoMultiple
-        //| CommandFlags.NoTileMode
-        //| CommandFlags.NoPaperSpace
-        //| CommandFlags.NoOem
-        //| CommandFlags.Undefined
-        //| CommandFlags.InProgress
-        //| CommandFlags.Defun
-        //| CommandFlags.NoNewStack
-        //| CommandFlags.NoInternalLock
-        //| CommandFlags.DocReadLock
-        //| CommandFlags.DocExclusiveLock
-        //| CommandFlags.Session
-        //| CommandFlags.Interruptible
-        //| CommandFlags.NoHistory
-        //| CommandFlags.NoUndoMarker
-        //| CommandFlags.NoBlockEditor
-        //| CommandFlags.NoActionRecording
-        //| CommandFlags.ActionMacro
-        //| CommandFlags.NoInferConstraint 
+            //| CommandFlags.Transparent
+            //| CommandFlags.UsePickSet
+            //| CommandFlags.Redraw
+            //| CommandFlags.NoPerspective
+            //| CommandFlags.NoMultiple
+            //| CommandFlags.NoTileMode
+            //| CommandFlags.NoPaperSpace
+            //| CommandFlags.NoOem
+            //| CommandFlags.Undefined
+            //| CommandFlags.InProgress
+            //| CommandFlags.Defun
+            //| CommandFlags.NoNewStack
+            //| CommandFlags.NoInternalLock
+            //| CommandFlags.DocReadLock
+            //| CommandFlags.DocExclusiveLock
+            //| CommandFlags.Session
+            //| CommandFlags.Interruptible
+            //| CommandFlags.NoHistory
+            //| CommandFlags.NoUndoMarker
+            //| CommandFlags.NoBlockEditor
+            //| CommandFlags.NoActionRecording
+            //| CommandFlags.ActionMacro
+            //| CommandFlags.NoInferConstraint 
         )]
         public void Cmd_BlockLegend()
         {
@@ -58,7 +58,7 @@ namespace RabCab.Commands.AssemblySuite
 
             using (var acTrans = acCurDoc.TransactionManager.StartTransaction())
             {
-                var acBTable = (BlockTable)acTrans.GetObject(acCurDb.BlockTableId, OpenMode.ForRead);
+                var acBTable = (BlockTable) acTrans.GetObject(acCurDb.BlockTableId, OpenMode.ForRead);
 
                 var acTable = new Table();
                 acTable.TableStyle = acCurDb.Tablestyle;
@@ -78,12 +78,9 @@ namespace RabCab.Commands.AssemblySuite
 
                 foreach (var id in acBTable)
                 {
-                    var btr = (BlockTableRecord)acTrans.GetObject(id, OpenMode.ForRead);
+                    var btr = (BlockTableRecord) acTrans.GetObject(id, OpenMode.ForRead);
 
-                    if (!btr.IsLayout && !btr.IsAnonymous)
-                    {
-                        bList.Add(btr);
-                    }
+                    if (!btr.IsLayout && !btr.IsAnonymous) bList.Add(btr);
                 }
 
                 var sortedBlocks = bList.OrderBy(e => e.Name);
@@ -107,13 +104,14 @@ namespace RabCab.Commands.AssemblySuite
                 }
 
                 // Now we add the table to the current space
-                var curSpace = (BlockTableRecord)acTrans.GetObject(acCurDb.CurrentSpaceId, OpenMode.ForWrite);
+                var curSpace = (BlockTableRecord) acTrans.GetObject(acCurDb.CurrentSpaceId, OpenMode.ForWrite);
                 curSpace.AppendEntity(acTable);
 
                 // And to the transaction, which we then commit
                 acTrans.AddNewlyCreatedDBObject(acTable, true);
                 acTable.GenerateLayout();
-                acTrans.MoveToAttachment(acTable, SettingsUser.TableAttach, prRes.Value, SettingsUser.TableXOffset, SettingsUser.TableYOffset);
+                acTrans.MoveToAttachment(acTable, SettingsUser.TableAttach, prRes.Value, SettingsUser.TableXOffset,
+                    SettingsUser.TableYOffset);
                 acTrans.Commit();
             }
         }

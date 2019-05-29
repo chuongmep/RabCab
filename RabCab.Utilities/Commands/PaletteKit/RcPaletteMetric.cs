@@ -1577,10 +1577,7 @@ namespace RabCab.Commands.PaletteKit
                         var hdlString = ((ListBoxItem) _rcChildList.Items[index]).Text;
                         var objId = acCurEd.SelectByHandle(hdlString, acCurDb, acTrans);
 
-                        if (objId != ObjectId.Null)
-                        {
-                            acCurEd.SetImpliedSelection(new[] {objId});
-                        }
+                        if (objId != ObjectId.Null) acCurEd.SetImpliedSelection(new[] {objId});
 
                         acTrans.Commit();
                     }

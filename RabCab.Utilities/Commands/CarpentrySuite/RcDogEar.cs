@@ -10,19 +10,12 @@
 // -----------------------------------------------------------------------------------
 
 using System;
-using System.Runtime.Remoting.Channels;
-using Autodesk.AutoCAD.ApplicationServices;
+using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.BoundaryRepresentation;
-using Autodesk.AutoCAD.Colors;
 using Autodesk.AutoCAD.DatabaseServices;
-using Autodesk.AutoCAD.EditorInput;
-using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.Runtime;
-using RabCab.Calculators;
 using RabCab.Extensions;
 using RabCab.Settings;
-using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
-using Exception = Autodesk.AutoCAD.Runtime.Exception;
 
 namespace RabCab.Commands.CarpentrySuite
 {
@@ -89,34 +82,29 @@ namespace RabCab.Commands.CarpentrySuite
                 VertExt sweepInfo2 = null;
                 VertExt dirInfo1 = null;
                 VertExt dirInfo2 = null;
-                
+
                 using (var brep = new Brep(solPath))
                 {
                     foreach (var face in brep.Faces)
+                    foreach (var loop in face.Loops)
+                    foreach (var edge in loop.Edges)
                     {
-                        foreach (var loop in face.Loops)
-                        {
-                            foreach (var edge in loop.Edges)
-                            {
-                                var eId = edge.SubentityPath.SubentId;
+                        var eId = edge.SubentityPath.SubentId;
 
-                                if (sweepSubId == eId)
-                                {
-                                    sweepInfo1 = new VertExt(edge.Vertex1, loop);
-                                    sweepInfo2 = new VertExt(edge.Vertex2, loop);
-                                }
-                                else if (dirSubId == eId)
-                                {
-                                    dirInfo1 = new VertExt(edge.Vertex1, loop);
-                                    dirInfo2 = new VertExt(edge.Vertex2, loop);
-                                }
-                            }
+                        if (sweepSubId == eId)
+                        {
+                            sweepInfo1 = new VertExt(edge.Vertex1, loop);
+                            sweepInfo2 = new VertExt(edge.Vertex2, loop);
+                        }
+                        else if (dirSubId == eId)
+                        {
+                            dirInfo1 = new VertExt(edge.Vertex1, loop);
+                            dirInfo2 = new VertExt(edge.Vertex2, loop);
                         }
                     }
-
                 }
-               
- if (sweepInfo1 != null && sweepInfo2 != null && dirInfo1 != null && dirInfo2 != null)
+
+                if (sweepInfo1 != null && sweepInfo2 != null && dirInfo1 != null && dirInfo2 != null)
                 {
                     var cutDiam = SettingsUser.DogEarDiam;
                     var cutRad = cutDiam / 2;
@@ -124,9 +112,9 @@ namespace RabCab.Commands.CarpentrySuite
                     var sw2 = sweepInfo2.VertPoint;
                     var dr1 = dirInfo1.VertPoint;
                     var dr2 = dirInfo2.VertPoint;
-                 
+
                     var rotAxis = sw1.GetVectorTo(sw2);
-                    
+
                     var vertsMatch = false;
 
                     while (!vertsMatch)
@@ -169,7 +157,6 @@ namespace RabCab.Commands.CarpentrySuite
 
                         acTrans.Abort();
                         return;
-
                     }
 
                     var dr3 = dr1.GetAlong(dr2, cutDiam);
@@ -203,8 +190,6 @@ namespace RabCab.Commands.CarpentrySuite
                 acTrans.Commit();
             }
         }
-
-        
     }
 }
 

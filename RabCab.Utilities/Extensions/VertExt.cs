@@ -13,11 +13,11 @@ namespace RabCab.Extensions
         private readonly bool _rightAngle;
         private readonly bool _rightCs;
         private readonly double _vertAngle;
+        public Vector3d Normal;
         public Point3d VertPoint;
         public EdgeExt XEdge;
         public EdgeExt YEdge;
         public EdgeExt ZEdge;
-        public Vector3d Normal;
 
         //TODO
         public VertExt(Vertex vtx, BoundaryLoop owner)

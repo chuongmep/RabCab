@@ -16,7 +16,6 @@ using System.Linq;
 using System.Windows.Forms;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Runtime;
-using CsvHelper;
 using RabCab.Agents;
 using RabCab.Analysis;
 using RabCab.Engine.Enumerators;
@@ -27,21 +26,21 @@ using RabCab.Settings;
 using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
 using Exception = Autodesk.AutoCAD.Runtime.Exception;
 
-namespace RabCab.Commands.CNCSuite
+namespace RabCab.Commands.AssemblySuite
 {
     internal class RcExportParts
     {
         /// <summary>
         /// </summary>
         [CommandMethod(SettingsInternal.CommandGroup, "_EXPORTPARTS",
-            //|CommandFlags.Modal
+            CommandFlags.Modal
             //| CommandFlags.Transparent
             //| CommandFlags.UsePickSet
             //| CommandFlags.Redraw
             //| CommandFlags.NoPerspective
             //| CommandFlags.NoMultiple
             //| CommandFlags.NoTileMode
-            CommandFlags.NoPaperSpace
+            | CommandFlags.NoPaperSpace
             //| CommandFlags.NoOem
             //| CommandFlags.Undefined
             //| CommandFlags.InProgress
@@ -50,13 +49,13 @@ namespace RabCab.Commands.CNCSuite
             //| CommandFlags.NoInternalLock
             //| CommandFlags.DocReadLock
             //| CommandFlags.DocExclusiveLock
-            | CommandFlags.Session
+            // | CommandFlags.Session
             //| CommandFlags.Interruptible
             | CommandFlags.NoHistory
             | CommandFlags.NoUndoMarker
             | CommandFlags.NoBlockEditor
             | CommandFlags.NoActionRecording
-            | CommandFlags.ActionMacro
+            //| CommandFlags.ActionMacro
             //| CommandFlags.NoInferConstraint 
         )]
         public void Cmd_OutputParts()
@@ -151,45 +150,12 @@ namespace RabCab.Commands.CNCSuite
                                     try
                                     {
                                         if (!folder.Name.Contains("OldVersions"))
-                                        folder.MoveTo(Path.Combine(destDir, folder.Name));
+                                            folder.MoveTo(Path.Combine(destDir, folder.Name));
                                     }
                                     catch (Exception e)
                                     {
                                         Console.WriteLine(e);
                                     }
-
-                                var csvName = destDir + "\\NamedParts.csv";
-                                if (File.Exists(csvName))
-                                {
-                                    var namedList = new List<EntInfo>();
-
-                                    using (var reader = new StreamReader(csvName))
-                                    {
-                                        using (var csv = new CsvReader(reader))
-                                        {
-                                            csv.Configuration.RegisterClassMap<EntMap>();
-                                            var records = csv.GetRecords<EntInfo>();
-
-                                            foreach (var rec in records)
-                                            {
-                                                rec.FilePath = destDir + Path.GetFileName(rec.FilePath);
-                                                namedList.Add(rec);
-                                            }
-                                        }
-                                    }
-
-                                    File.Delete(csvName);
-
-                                    //Write a CSV file containing information from the named entities
-                                    using (var writer = new StreamWriter(csvName))
-                                    {
-                                        using (var csv = new CsvWriter(writer))
-                                        {
-                                            csv.Configuration.RegisterClassMap<EntMap>();
-                                            csv.WriteRecords(namedList);
-                                        }
-                                    }
-                                }
                             }
                     }
                     catch (Exception e)
@@ -229,7 +195,7 @@ namespace RabCab.Commands.CNCSuite
                             eList.Add(new EntInfo(acSol, acCurDb, acTrans));
                         }
 
-                        eList.SortAndExport(fDirectory, pWorker, acCurDoc, acCurDb, acCurEd, acTrans, multAmount);
+                        eList.SortAndExport(fDirectory, pWorker, acCurDb, acCurEd, acTrans, multAmount);
 
                         acTrans.Commit();
                     }

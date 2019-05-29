@@ -38,9 +38,9 @@ namespace RabCab.Commands.AssemblySuite
             //| CommandFlags.NoHistory
             //| CommandFlags.NoUndoMarker
             | CommandFlags.NoBlockEditor
-        //| CommandFlags.NoActionRecording
-        //| CommandFlags.ActionMacro
-        //| CommandFlags.NoInferConstraint 
+            //| CommandFlags.NoActionRecording
+            //| CommandFlags.ActionMacro
+            //| CommandFlags.NoInferConstraint 
         )]
         public void Cmd_DataExtract()
         {
@@ -173,7 +173,7 @@ namespace RabCab.Commands.AssemblySuite
         {
             try
             {
-                extractionSettings = (DxExtractionSettings)DxExtractionSettings.FromFile(fileName);
+                extractionSettings = (DxExtractionSettings) DxExtractionSettings.FromFile(fileName);
                 return extractionSettings != null;
             }
             catch (Exception e)
