@@ -19,12 +19,8 @@ using RabCab.Commands.AutomationSuite;
 using RabCab.Commands.CarpentrySuite;
 using RabCab.Commands.CNCSuite;
 using RabCab.Commands.CombineSuite;
-using RabCab.Commands.ContentLibrary;
-using RabCab.Commands.MeshSuite;
 using RabCab.Commands.PaletteKit;
 using RabCab.Commands.ReferenceSuite.BlockKit;
-using RabCab.Commands.ReferenceSuite.OleKit;
-using RabCab.Commands.ReferenceSuite.XRefKit;
 using RabCab.Commands.StructuralSuite;
 using RabCab.Commands.TidySuite;
 using RabCab.Initialization;
@@ -122,9 +118,7 @@ using RabCab.Initialization;
 [assembly: CommandClass(typeof(RcMatchViews))]
 [assembly: CommandClass(typeof(RcUpdateLeaders))]
 [assembly: CommandClass(typeof(RcSpaceViews))]
-[assembly: CommandClass(typeof(RcSurfaceTag))]
 [assembly: CommandClass(typeof(RcVpConvert))]
-[assembly: CommandClass(typeof(RcWeldSymbol))]
 
 //Assembly Suite
 [assembly: CommandClass(typeof(RcBom))]
@@ -145,7 +139,6 @@ using RabCab.Initialization;
 //Automation Suite
 [assembly: CommandClass(typeof(RcAutoLayer))]
 [assembly: CommandClass(typeof(RcBatchWork))]
-[assembly: CommandClass(typeof(RcLayerToolbar))]
 [assembly: CommandClass(typeof(RcPageNumber))]
 [assembly: CommandClass(typeof(RcTContents))]
 
@@ -177,18 +170,6 @@ using RabCab.Initialization;
 [assembly: CommandClass(typeof(RcSeparate))]
 [assembly: CommandClass(typeof(RcSubtrahend))]
 
-//Content Library
-[assembly: CommandClass(typeof(RcChangeRepresentation))]
-[assembly: CommandClass(typeof(RcContentManager))]
-[assembly: CommandClass(typeof(RcContentNew))]
-[assembly: CommandClass(typeof(RcContentPalette))]
-[assembly: CommandClass(typeof(RcContentUpd))]
-[assembly: CommandClass(typeof(RcTechSpec))]
-[assembly: CommandClass(typeof(RcNewContent))]
-
-//Mesh Suite
-[assembly: CommandClass(typeof(RcMeshConvert))]
-[assembly: CommandClass(typeof(RcMeshExplode))]
 
 //Palette Kit
 [assembly: CommandClass(typeof(RcPaletteLayer))]
@@ -202,21 +183,13 @@ using RabCab.Initialization;
 [assembly: CommandClass(typeof(RcBlockReplace))]
 [assembly: CommandClass(typeof(RcBlockToXref))]
 [assembly: CommandClass(typeof(RcQuickRename))]
-[assembly: CommandClass(typeof(RcOleBind))]
-[assembly: CommandClass(typeof(RcOleDeskew))]
-[assembly: CommandClass(typeof(RcOleToDwg))]
-[assembly: CommandClass(typeof(RcXrefAttach))]
-[assembly: CommandClass(typeof(RcXrefBind))]
-[assembly: CommandClass(typeof(RcXrefCopy))]
-[assembly: CommandClass(typeof(RcXrefDetach))]
-[assembly: CommandClass(typeof(RcXrefLoad))]
-[assembly: CommandClass(typeof(RcXrefUnload))]
 
 //Structural Suite
 [assembly: CommandClass(typeof(RcAlign))]
 [assembly: CommandClass(typeof(RcConnect))]
 [assembly: CommandClass(typeof(RcFloor))]
 [assembly: CommandClass(typeof(RcGenFrame))]
+[assembly: CommandClass(typeof(RcGenFastener))]
 [assembly: CommandClass(typeof(RcGenMember))]
 [assembly: CommandClass(typeof(RcUnfold))]
 [assembly: CommandClass(typeof(RcWeldBead))]
