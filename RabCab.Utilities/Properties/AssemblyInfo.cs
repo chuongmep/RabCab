@@ -162,7 +162,6 @@ using RabCab.Initialization;
 [assembly: CommandClass(typeof(RcDogEar))]
 
 //Combine Suite
-[assembly: CommandClass(typeof(Rc3DBoundary))]
 [assembly: CommandClass(typeof(RcConverge))]
 [assembly: CommandClass(typeof(RcFuse))]
 [assembly: CommandClass(typeof(RcSeparate))]
