@@ -115,8 +115,8 @@ namespace RabCab.Commands.AnalysisSuite
                         //acSol.UpdateXData(false, Enums.XDataCode.IsSweep, acCurDb, acTrans); //14
                         //acSol.UpdateXData(true, Enums.XDataCode.IsMirror, acCurDb, acTrans); //15
                         //acSol.UpdateXData(false, Enums.XDataCode.HasHoles, acCurDb, acTrans); //16
-                        //acSol.UpdateXData(Enums.TextureDirection.Vertical, Enums.XDataCode.TextureDirection, acCurDb, acTrans); //17
-                        //acSol.UpdateXData(Enums.ProductionType.MillingManySide, Enums.XDataCode.ProductionType, acCurDb, acTrans); //18
+                        //acSol.UpdateXData(Enums.Texture.Vertical, Enums.XDataCode.Texture, acCurDb, acTrans); //17
+                        //acSol.UpdateXData(Enums.Production.MillingManySide, Enums.XDataCode.Production, acCurDb, acTrans); //18
                         //acSol.UpdateXData(acSol.Handle, Enums.XDataCode.ParentObject, acCurDb, acTrans); //19
                         //acSol.UpdateXData(new List<Handle>() {acSol.Handle, acSol.Handle , acSol.Handle}, 
                         //Enums.XDataCode.ChildObjects, acCurDb, acTrans); //20

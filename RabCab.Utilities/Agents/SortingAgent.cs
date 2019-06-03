@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using System.Windows.Media.Animation;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
@@ -224,11 +225,11 @@ namespace RabCab.Agents
             if (filter.Contains("HasHoles"))
                 propDict.Add("Has Holes", acEnt.GetHasHoles().ToString());
             //TXDIRECTION
-            if (filter.Contains("TextureDirection"))
+            if (filter.Contains("Texture"))
                 propDict.Add("Texture Direction", acEnt.GetTextureDirection().ToString());
             //PRODTYPE
-            if (filter.Contains("ProductionType"))
-                propDict.Add("ProductionType", acEnt.GetProductionType().ToString());
+            if (filter.Contains("Production"))
+                propDict.Add("Production", acEnt.GetProductionType().ToString());
             //BASEHANDLE
             if (filter.Contains("ParentHandle"))
                 propDict.Add("Parent Handle", acEnt.GetParent().ToString());
@@ -287,6 +288,84 @@ namespace RabCab.Agents
             if (!SettingsUser.MixS4S) sCrit -= MixS4S;
 
             return sCrit;
+        }
+
+        private static Enums.TableHeader GetTCrit(out int count)
+        {
+            count = 10;
+            
+            Enums.TableHeader tCrit = Enums.TableHeader.Layer |
+                                      Enums.TableHeader.Color |
+                                      Enums.TableHeader.Name |
+                                      Enums.TableHeader.Width |
+                                      Enums.TableHeader.Length |
+                                      Enums.TableHeader.Thickness |
+                                      Enums.TableHeader.Volume |
+                                      Enums.TableHeader.Texture |
+                                      Enums.TableHeader.Production |
+                                      Enums.TableHeader.Qty;
+
+            if (!SettingsUser.BomLayer)
+            {
+                tCrit -= Enums.TableHeader.Layer;
+                count--;
+            }
+
+            if (!SettingsUser.BomColor)
+            {
+                tCrit -= Enums.TableHeader.Color;
+                count--;
+            }
+
+            if (!SettingsUser.BomName)
+            {
+                tCrit -= Enums.TableHeader.Name;
+                count--;
+            }
+
+            if (!SettingsUser.BomWidth)
+            {
+                tCrit -= Enums.TableHeader.Width;
+                count--;
+            }
+
+            if (!SettingsUser.BomLength)
+            {
+                tCrit -= Enums.TableHeader.Length;
+                count--;
+            }
+
+            if (!SettingsUser.BomThickness)
+            {
+                tCrit -= Enums.TableHeader.Thickness;
+                count--;
+            }
+
+            if (!SettingsUser.BomVolume)
+            {
+                tCrit -= Enums.TableHeader.Volume;
+                count--;
+            }
+
+            if (!SettingsUser.BomTextureDirection)
+            {
+                tCrit -= Enums.TableHeader.Texture;
+                count--;
+            }
+
+            if (!SettingsUser.BomProductionType)
+            {
+                tCrit -= Enums.TableHeader.Production;
+                count--;
+            }
+
+            if (!SettingsUser.BomQty)
+            {
+                tCrit -= Enums.TableHeader.Qty;
+                count--;
+            }
+
+            return tCrit;
         }
 
         /// <summary>
@@ -550,9 +629,9 @@ namespace RabCab.Agents
                         }
 
                         nonMirrors.UpdatePartData(false, acCurEd, acCurDb, acTrans);
-                        nonMirrors.ExportParts(mainPath, acCurDb, ref exportList);
+                        nonMirrors.ExportParts(mainPath, acCurDb, ref exportList, multAmount);
                         mirrors.UpdatePartData(false, acCurEd, acCurDb, acTrans);
-                        mirrors.ExportParts(mainPath, acCurDb, ref exportList);
+                        mirrors.ExportParts(mainPath, acCurDb, ref exportList, multAmount);
                     }
 
                     var csvName = mainPath + "\\" + SettingsUser.NamedPartsFileName + ".csv";
@@ -578,15 +657,213 @@ namespace RabCab.Agents
                 }
         }
 
+        /// <summary>
+        ///     TODO
+        /// </summary>
+        /// <param name="eList"></param>
+        /// <param name="pWorker"></param>
+        /// <param name="acCurDb"></param>
+        /// <param name="acCurEd"></param>
+        /// <param name="acTrans"></param>
+        public static void SortToTable(this List<EntInfo> eList, ProgressAgent pWorker,
+            Database acCurDb, Editor acCurEd, Transaction acTrans, Table acTable, int multAmount = 1)
+        {
+            var sCrit = GetSCrit();
+
+            var groups = eList.GroupBy(x => new
+            {
+                Box = sCrit.HasFlag(MixS4S) && x.IsBox,
+                Name = sCrit.HasFlag(Name) ? x.RcName : null,
+                Layer = sCrit.HasFlag(Layer) ? x.EntLayer : null,
+                Color = sCrit.HasFlag(Color) ? x.EntColor : null,
+                Thickness = sCrit.HasFlag(Thickness) ? x.Thickness : double.NaN,
+                x.Length,
+                x.Width,
+                x.Volume,
+                x.Asymmetry,
+                x.TxDirection
+            });
+
+
+            var enumerable = groups.ToList();
+            var gList = enumerable.OrderBy(e => e.Key.Name)
+                .ThenByIf(sCrit.HasFlag(MixS4S), e => e.Key.Box)
+                .ThenByIf(sCrit.HasFlag(Layer), e => e.Key.Layer)
+                .ThenByIf(sCrit.HasFlag(Color), e => e.Key.Color)
+                .ThenByDescendingIf(sCrit.HasFlag(Thickness), e => e.Key.Thickness)
+                .ThenByDescending(e => e.Key.Length)
+                .ThenByDescending(e => e.Key.Width)
+                .ThenByDescending(e => e.Key.Volume).ToList();
+            
+
+            pWorker.Reset("Sorting Solids: ");
+            pWorker.SetTotalOperations(gList.Count());
+
+            var partList = new List<EntInfo>();
+
+            if (gList.Count <= 0) return;
+            {
+                try
+                {
+                    foreach (var group in gList)
+                    {
+                        //Tick progress bar or exit if ESC has been pressed
+                        if (!pWorker.Tick())
+                        {
+                            acTrans.Abort();
+                            return;
+                        }
+
+                        var baseInfo = @group.First();
+
+                        var nonMirrors = new List<EntInfo>();
+                        var mirrors = new List<EntInfo>();
+
+                        var firstParse = true;
+
+                        //Find Mirrors
+                        foreach (var eInfo in @group)
+                        {
+                            if (firstParse)
+                            {
+                                nonMirrors.Add(eInfo);
+                                firstParse = false;
+                                continue;
+                            }
+
+                            if (eInfo.IsMirrorOf(baseInfo))
+                                mirrors.Add(eInfo);
+                            else
+                                nonMirrors.Add(eInfo);
+                        }
+
+                        nonMirrors.UpdatePartData(false, acCurEd, acCurDb, acTrans);
+
+                        foreach (var e in nonMirrors)
+                        {
+                            if (e.IsChild) continue;
+                            partList.Add(e);
+                        }
+
+                        mirrors.UpdatePartData(false, acCurEd, acCurDb, acTrans);
+
+                        foreach (var e in mirrors)
+                        {
+                            if (e.IsChild) continue;
+                            partList.Add(e);
+                        };
+                    }
+                }
+                catch (Autodesk.AutoCAD.Runtime.Exception e)
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
+            }
+
+            if (partList.Count <= 0) return;
+
+            var tCrit = GetTCrit(out var count);
+
+            var colCount = count;
+            var rowCount = partList.Count + 2;
+
+            acTable.SetSize(rowCount, colCount);
+ 
+            var rowHeight = SettingsUser.TableRowHeight;
+            var colWidth = SettingsUser.TableColumnWidth;
+            var textHeight = SettingsUser.TableTextHeight;
+
+            acTable.SetRowHeight(rowHeight);
+
+            var header = acTable.Cells[0, 0];
+            header.Value = SettingsUser.BomTitle;
+            header.Alignment = CellAlignment.MiddleCenter;
+            header.TextHeight = textHeight;
+
+            var counter = 1;
+
+            var headers = new List<string>();
+
+            //Create Headers
+
+            foreach (Enum value in Enum.GetValues(tCrit.GetType()))
+                if (tCrit.HasFlag(value))
+                    headers.Add(value.ToString());
+
+            for (int i = 0; i < headers.Count; i++)
+            {
+                acTable.Cells[counter, i].TextString = headers[i];
+            }
+
+            counter++;
+
+            foreach (var p in partList)
+            {
+                for (int i = 0; i < headers.Count; i++)
+                {
+                    var hText = headers[i];
+                    var tString = "";
+
+                    switch (hText)
+                    {
+                        case "Layer":
+                            tString = p.EntLayer;
+                            break;
+
+                        case "Color":
+                            tString = p.EntColor.ToString();
+                            break;
+                        case "Name":
+                            tString = p.RcName;
+                            break;
+
+                        case "Width":
+                            tString = acCurDb.ConvertToDwgUnits(p.Width);
+                            break;
+                        case "Length":
+                            tString = acCurDb.ConvertToDwgUnits(p.Length);
+                            break;
+
+                        case "Thickness":
+                            tString = acCurDb.ConvertToDwgUnits(p.Thickness);
+                            break;
+
+                        case "Volume":
+                            tString = acCurDb.ConvertToDwgUnits(p.Volume);
+                            break;
+
+                        case "Texture":
+                            tString = EnumAgent.GetNameOf(p.TxDirection);
+                            break;
+
+                        case "Production":
+                            tString = EnumAgent.GetNameOf(p.ProdType);
+                            break;
+                        case "Qty":
+                            tString = (p.RcQtyTotal * multAmount).ToString();
+                            break;
+                    }
+
+                    if (string.IsNullOrEmpty(tString))
+                        tString = "";
+
+                    acTable.Cells[counter, i].TextString = tString;
+                }
+
+                counter++;
+            }
+        }
+
         private static void ExportParts(this List<EntInfo> eList, string filePath,
-            Database acCurDb, ref List<EntInfo> xPortList)
+            Database acCurDb, ref List<EntInfo> xPortList, int multAmount)
         {
             foreach (var e in eList)
             {
                 if (e.IsChild) continue;
 
                 var saveDirectory = filePath + "\\" + e.EntLayer;
-                ;
+                
 
                 if (Directory.Exists(saveDirectory) == false) Directory.CreateDirectory(saveDirectory);
 
@@ -594,8 +871,7 @@ namespace RabCab.Agents
 
                 if (e.RcName == "" || string.IsNullOrEmpty(e.RcName)) ePath = ePath.Replace(".dwg", "#.dwg");
 
-
-                var exists = true;
+              var exists = true;
                 var count = 0;
 
                 while (exists)
@@ -708,6 +984,7 @@ namespace RabCab.Agents
                     acTrans.Commit();
                 }
 
+                e.RcQtyTotal *= multAmount;
                 xPortList.Add(e);
             }
         }

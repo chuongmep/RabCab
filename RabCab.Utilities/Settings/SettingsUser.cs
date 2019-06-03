@@ -57,6 +57,19 @@ namespace RabCab.Settings
         public static bool EnableSelectionParse = true;
         public static string NetHomePage = "www.google.com";
 
+        //BOM options
+        public static string BomTitle = "Bill Of Materials";
+        public static bool BomLayer = true;
+        public static bool BomColor = true;
+        public static bool BomName = true;
+        public static bool BomWidth = true;
+        public static bool BomLength = true;
+        public static bool BomThickness = true;
+        public static bool BomVolume = true;
+        public static bool BomTextureDirection = true;
+        public static bool BomProductionType = true;
+        public static bool BomQty = true;
+
         //SortingOptions
         public static bool ResetPartCount = true;
         public static string NamingConvention = "";
