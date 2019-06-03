@@ -197,12 +197,10 @@
     <Compile Include="Commands\AssemblySuite\RcNameParts.cs" />
     <Compile Include="Commands\AssemblySuite\RcPartMark.cs" />
     <Compile Include="Commands\AssemblySuite\RcUpdateChildren.cs" />
-    <Compile Include="Commands\AssemblySuite\RcRevision.cs" />
     <Compile Include="Commands\AssemblySuite\RcScatter.cs" />
     <Compile Include="Commands\AssemblySuite\RcSelection.cs" />
     <Compile Include="Commands\AssemblySuite\RcUpdate.cs" />
     <Compile Include="Commands\AutomationSuite\RcAutoLayer.cs" />
-    <Compile Include="Commands\AutomationSuite\RcBatchWork.cs" />
     <Compile Include="Commands\AutomationSuite\RcPageNumber.cs" />
     <Compile Include="Commands\AutomationSuite\RcTContents.cs" />
     <Compile Include="Commands\CarpentrySuite\RcChop.cs" />

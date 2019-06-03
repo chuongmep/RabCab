@@ -129,7 +129,6 @@ using RabCab.Initialization;
 [assembly: CommandClass(typeof(RcNameParts))]
 [assembly: CommandClass(typeof(RcPartMark))]
 [assembly: CommandClass(typeof(RcUpdateChildren))]
-[assembly: CommandClass(typeof(RcRevision))]
 [assembly: CommandClass(typeof(RcScatter))]
 [assembly: CommandClass(typeof(RcSelection))]
 [assembly: CommandClass(typeof(RcUpdate))]
@@ -138,7 +137,6 @@ using RabCab.Initialization;
 
 //Automation Suite
 [assembly: CommandClass(typeof(RcAutoLayer))]
-[assembly: CommandClass(typeof(RcBatchWork))]
 [assembly: CommandClass(typeof(RcPageNumber))]
 [assembly: CommandClass(typeof(RcTContents))]
 
