@@ -79,7 +79,7 @@ namespace RabCab.Commands.AssemblySuite
                     {
                         foreach (var objId in res.Value.GetObjectIds())
                         {
-                            if (!pWorker.Tick())
+                            if (!pWorker.Progress())
                             {
                                 acTrans.Abort();
                                 return;

@@ -113,8 +113,8 @@ namespace RabCab.Agents
             {
                 foreach (var objId in objIds)
                 {
-                    //Tick progress bar or exit if ESC has been pressed
-                    if (!pWorker.Tick()) return mList;
+                    //Progress progress bar or exit if ESC has been pressed
+                    if (!pWorker.Progress()) return mList;
 
                     var acSol = acTrans.GetObject(objId, OpenMode.ForRead) as Solid3d;
 
@@ -144,8 +144,8 @@ namespace RabCab.Agents
             {
                 foreach (var objId in acCurSpaceBlkTblRec)
                 {
-                    //Tick progress bar or exit if ESC has been pressed
-                    if (!pWorker.Tick())
+                    //Progress progress bar or exit if ESC has been pressed
+                    if (!pWorker.Progress())
                     {
                         acTrans.Abort();
                         return new[] {ObjectId.Null};
@@ -413,8 +413,8 @@ namespace RabCab.Agents
                 {
                     foreach (var group in gList)
                     {
-                        //Tick progress bar or exit if ESC has been pressed
-                        if (!pWorker.Tick())
+                        //Progress progress bar or exit if ESC has been pressed
+                        if (!pWorker.Progress())
                         {
                             acTrans.Abort();
                             return;
@@ -502,8 +502,8 @@ namespace RabCab.Agents
                 {
                     foreach (var group in gList)
                     {
-                        //Tick progress bar or exit if ESC has been pressed
-                        if (!pWorker.Tick())
+                        //Progress progress bar or exit if ESC has been pressed
+                        if (!pWorker.Progress())
                         {
                             acTrans.Abort();
                             return;
@@ -598,8 +598,8 @@ namespace RabCab.Agents
                 {
                     foreach (var group in gList)
                     {
-                        //Tick progress bar or exit if ESC has been pressed
-                        if (!pWorker.Tick())
+                        //Progress progress bar or exit if ESC has been pressed
+                        if (!pWorker.Progress())
                         {
                             acTrans.Abort();
                             return;
@@ -707,8 +707,8 @@ namespace RabCab.Agents
                 {
                     foreach (var group in gList)
                     {
-                        //Tick progress bar or exit if ESC has been pressed
-                        if (!pWorker.Tick())
+                        //Progress progress bar or exit if ESC has been pressed
+                        if (!pWorker.Progress())
                         {
                             acTrans.Abort();
                             return;

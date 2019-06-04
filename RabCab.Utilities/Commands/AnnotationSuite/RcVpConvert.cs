@@ -82,7 +82,7 @@ namespace RabCab.Commands.AnnotationSuite
 
                         foreach (var objId in res.Value.GetObjectIds())
                         {
-                            if (!pWorker.Tick())
+                            if (!pWorker.Progress())
                             {
                                 acTrans.Abort();
                                 return;

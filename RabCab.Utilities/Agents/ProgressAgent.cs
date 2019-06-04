@@ -114,7 +114,7 @@ namespace RabCab.Agents
             _pm.Start(_pmMsgBar);
         }
 
-        public bool Tick()
+        public bool Progress()
         {
             if (_pm == null || _pm.IsDisposed)
                 return false;
@@ -145,7 +145,7 @@ namespace RabCab.Agents
 
         public void TickOrEsc()
         {
-            if (!Tick())
+            if (!Progress())
                 throw new CancelException();
         }
 

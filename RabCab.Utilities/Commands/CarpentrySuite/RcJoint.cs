@@ -140,8 +140,8 @@ namespace RabCab.Commands.CarpentrySuite
                                     //Offset each face and see if it interferes with a join to solid
                                     foreach (var jointFace in faceCollection)
                                     {
-                                        //Tick progress bar or exit if ESC has been pressed
-                                        if (!pWorker.Tick())
+                                        //Progress progress bar or exit if ESC has been pressed
+                                        if (!pWorker.Progress())
                                         {
                                             acTrans.Abort();
                                             return;

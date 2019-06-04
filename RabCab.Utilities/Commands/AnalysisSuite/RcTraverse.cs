@@ -78,8 +78,8 @@ namespace RabCab.Commands.AnalysisSuite
 
                     foreach (var objId in acSet.GetObjectIds())
                     {
-                        //Tick progress bar or exit if ESC has been pressed
-                        if (!pWorker.Tick())
+                        //Progress progress bar or exit if ESC has been pressed
+                        if (!pWorker.Progress())
                         {
                             acTrans.Abort();
                             return;

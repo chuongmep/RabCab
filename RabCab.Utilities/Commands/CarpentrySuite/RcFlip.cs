@@ -94,8 +94,8 @@ namespace RabCab.Commands.CarpentrySuite
                     //Parse Data for each solid in the list
                     foreach (var acSolId in solObjIds)
                     {
-                        //Tick progress bar or exit if ESC has been pressed
-                        if (!pWorker.Tick())
+                        //Progress progress bar or exit if ESC has been pressed
+                        if (!pWorker.Progress())
                         {
                             acTrans.Abort();
                             return;

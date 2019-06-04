@@ -181,8 +181,8 @@ namespace RabCab.Commands.AssemblySuite
                     {
                         foreach (var objId in objIds)
                         {
-                            //Tick progress bar or exit if ESC has been pressed
-                            if (!pWorker.Tick())
+                            //Progress progress bar or exit if ESC has been pressed
+                            if (!pWorker.Progress())
                             {
                                 acTrans.Abort();
                                 return;

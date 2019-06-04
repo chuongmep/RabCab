@@ -66,7 +66,7 @@ namespace RabCab.Commands.AnnotationSuite
                 {
                     foreach (var obj in objIds)
                     {
-                        if (!pWorker.Tick())
+                        if (!pWorker.Progress())
                         {
                             acTrans.Abort();
                             return;

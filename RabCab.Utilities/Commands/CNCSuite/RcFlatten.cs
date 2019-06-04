@@ -98,7 +98,7 @@ namespace RabCab.Commands.CNCSuite
 
                     foreach (var obj in objIds)
                     {
-                        if (!pWorker.Tick()) acTrans.Abort();
+                        if (!pWorker.Progress()) acTrans.Abort();
 
                         using (var acSol = acTrans.GetObject(obj, OpenMode.ForWrite) as Solid3d)
                         {

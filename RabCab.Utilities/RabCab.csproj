@@ -204,6 +204,7 @@
     <Compile Include="Commands\AutomationSuite\RcPageNumber.cs" />
     <Compile Include="Commands\AutomationSuite\RcTContents.cs" />
     <Compile Include="Commands\CarpentrySuite\RcChop.cs" />
+    <Compile Include="Commands\CarpentrySuite\RcSolDivide.cs" />
     <Compile Include="Commands\CarpentrySuite\RcDrill.cs" />
     <Compile Include="Commands\CarpentrySuite\RcFlip.cs" />
     <Compile Include="Commands\CarpentrySuite\RcGap.cs" />

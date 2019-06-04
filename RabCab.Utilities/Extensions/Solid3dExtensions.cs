@@ -1105,8 +1105,8 @@ namespace RabCab.Extensions
             {
                 foreach (var objId in objIds)
                 {
-                    //Tick progress bar or exit if ESC has been pressed
-                    if (!pWorker.Tick()) return;
+                    //Progress progress bar or exit if ESC has been pressed
+                    if (!pWorker.Progress()) return;
 
                     var acSol = acTrans.GetObject(objId, OpenMode.ForWrite) as Solid3d;
                     if (acSol == null) continue;
@@ -1128,8 +1128,8 @@ namespace RabCab.Extensions
             {
                 foreach (var objId in objIds)
                 {
-                    //Tick progress bar or exit if ESC has been pressed
-                    if (!pWorker.Tick()) return;
+                    //Progress progress bar or exit if ESC has been pressed
+                    if (!pWorker.Progress()) return;
 
                     var acSol = acTrans.GetObject(objId, OpenMode.ForWrite) as Solid3d;
                     if (acSol == null) continue;
