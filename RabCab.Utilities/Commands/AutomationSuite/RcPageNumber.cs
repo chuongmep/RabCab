@@ -90,7 +90,7 @@ namespace RabCab.Commands.AutomationSuite
                     }
                 }
 
-                acTrans.Commit();
+                acTrans.Commit( );
             }
         }
     }
