@@ -10,7 +10,9 @@
 // -----------------------------------------------------------------------------------
 
 using Autodesk.AutoCAD.ApplicationServices.Core;
+using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Runtime;
+using RabCab.Extensions;
 using RabCab.Settings;
 
 namespace RabCab.Commands.AutomationSuite
@@ -19,7 +21,7 @@ namespace RabCab.Commands.AutomationSuite
     {
         /// <summary>
         /// </summary>
-        [CommandMethod(SettingsInternal.CommandGroup, "_CMDDEFAULT",
+        [CommandMethod(SettingsInternal.CommandGroup, "_PAGENUM",
             CommandFlags.Modal
             //| CommandFlags.Transparent
             //| CommandFlags.UsePickSet
@@ -45,12 +47,51 @@ namespace RabCab.Commands.AutomationSuite
             //| CommandFlags.ActionMacro
             //| CommandFlags.NoInferConstraint 
         )]
-        public void Cmd_Default()
+        public void Cmd_PageNum()
         {
             //Get the current document utilities
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;
             var acCurDb = acCurDoc.Database;
             var acCurEd = acCurDoc.Editor;
+
+
+            using (var acTrans = acCurDb.TransactionManager.StartTransaction())
+            {
+                var dbDict = (DBDictionary) acTrans.GetObject(acCurDb.LayoutDictionaryId, OpenMode.ForRead);
+                var dCount = dbDict.Count - 1;
+
+
+                foreach (var curEntry in dbDict)
+                {
+                    var layout = (Layout) acTrans.GetObject(curEntry.Value, OpenMode.ForRead);
+
+                    if (layout.LayoutName == "Model") continue;
+
+                    using (
+                        var blkTblRec =
+                            acTrans.GetObject(layout.BlockTableRecordId, OpenMode.ForRead) as
+                                BlockTableRecord)
+                    {
+                        if (blkTblRec == null) continue;
+
+                        foreach (var objId in blkTblRec)
+                        {
+                            var bRef = acTrans.GetObject(objId, OpenMode.ForRead) as BlockReference;
+
+                            if (bRef == null) continue;
+
+                            var curOrder = layout.TabOrder;
+
+                            bRef.UpdateAttributeByTag(SettingsUser.PageNoOf, curOrder.ToString(), acCurDoc, acCurEd,
+                                acTrans);
+                            bRef.UpdateAttributeByTag(SettingsUser.PageNoTotal, dCount.ToString(), acCurDoc, acCurEd,
+                                acTrans);
+                        }
+                    }
+                }
+
+                acTrans.Commit();
+            }
         }
     }
 }

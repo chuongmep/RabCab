@@ -130,6 +130,7 @@ namespace RabCab.Settings
         public static double RcGapDepth = 0;
         public static double DogEarDiam = 0.50;
 
+        //AutoLayer Options
         public static List<string> LayerCommandList { get; set; } = new List<string>
         {
             "TEXT",
@@ -152,6 +153,11 @@ namespace RabCab.Settings
             "GENDIMS"
         };
 
+        //Page Number Options
+        public static string PageNoOf = "PAGE";
+        public static string PageNoTotal = "PAGECOUNT";
+
+        //Rounding Options
         public static Enums.RoundTolerance UserTol { set; get; } = Enums.RoundTolerance.SixDecimals;
     }
 }

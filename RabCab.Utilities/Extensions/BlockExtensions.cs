@@ -166,6 +166,39 @@ namespace RabCab.Extensions
         }
 
         /// <summary>
+        ///     Method to replace an Attribute by its name
+        /// </summary>
+        /// <param name="br"></param>
+        /// <param name="attbName"></param>
+        /// <param name="attbValue"></param>
+        /// <param name="acCurDoc"></param>
+        /// <param name="acCurEd"></param>
+        public static void UpdateAttributeByTag(this BlockReference br, string attbName, string attbValue,
+            Document acCurDoc, Editor acCurEd, Transaction acTrans)
+        {
+           
+                // Check each of the attributes...
+                foreach (ObjectId arId in br.AttributeCollection)
+                {
+                    var obj = acTrans.GetObject(arId, OpenMode.ForRead);
+
+                    var ar = obj as AttributeReference;
+
+                    if (ar == null) continue;
+                    if (ar.Tag.ToUpper() == attbName)
+                    {
+                        // If so, update the value
+                        // and increment the counter
+                        ar.UpgradeOpen();
+                        ar.TextString = attbValue;
+                        ar.DowngradeOpen();
+                    }
+                }
+
+                acCurEd.Regen();
+        }
+
+        /// <summary>
         ///     Method to replace an attribute text by substitution
         /// </summary>
         /// <param name="br"></param>
