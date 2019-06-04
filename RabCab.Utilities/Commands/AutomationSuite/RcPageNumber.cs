@@ -49,6 +49,11 @@ namespace RabCab.Commands.AutomationSuite
         )]
         public void Cmd_PageNum()
         {
+           NumberPages();
+        }
+
+        public static void NumberPages()
+        {
             //Get the current document utilities
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;
             var acCurDb = acCurDoc.Database;
@@ -57,13 +62,13 @@ namespace RabCab.Commands.AutomationSuite
 
             using (var acTrans = acCurDb.TransactionManager.StartTransaction())
             {
-                var dbDict = (DBDictionary) acTrans.GetObject(acCurDb.LayoutDictionaryId, OpenMode.ForRead);
+                var dbDict = (DBDictionary)acTrans.GetObject(acCurDb.LayoutDictionaryId, OpenMode.ForRead);
                 var dCount = dbDict.Count - 1;
 
 
                 foreach (var curEntry in dbDict)
                 {
-                    var layout = (Layout) acTrans.GetObject(curEntry.Value, OpenMode.ForRead);
+                    var layout = (Layout)acTrans.GetObject(curEntry.Value, OpenMode.ForRead);
 
                     if (layout.LayoutName == "Model") continue;
 
@@ -90,7 +95,8 @@ namespace RabCab.Commands.AutomationSuite
                     }
                 }
 
-                acTrans.Commit( );
+                acCurEd.Regen();
+                acTrans.Commit();
             }
         }
     }

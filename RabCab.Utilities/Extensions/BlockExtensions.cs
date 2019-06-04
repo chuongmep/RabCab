@@ -195,7 +195,7 @@ namespace RabCab.Extensions
                     }
                 }
 
-                acCurEd.Regen();
+                //acCurEd.Regen();
         }
 
         /// <summary>
