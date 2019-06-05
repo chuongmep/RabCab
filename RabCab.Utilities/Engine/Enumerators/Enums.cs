@@ -197,22 +197,6 @@ namespace RabCab.Engine.Enumerators
             MixS4S = 64
         }
 
-        [Flags]
-        public enum TableHeader
-        {
-            Layer = 1,
-            Color = 2,
-            Name = 4,
-            Width = 8,
-            Length = 16,
-            Thickness = 32,
-            Volume = 64,
-            Texture = 128,
-            Production = 256,
-            Qty = 512
-
-        }
-
         /// <summary>
         ///     Sub Object Selection Modes
         /// </summary>
@@ -233,6 +217,21 @@ namespace RabCab.Engine.Enumerators
             Scale,
             Part,
             Qty
+        }
+
+        [Flags]
+        public enum TableHeader
+        {
+            Layer = 1,
+            Color = 2,
+            Name = 4,
+            Width = 8,
+            Length = 16,
+            Thickness = 32,
+            Volume = 64,
+            Texture = 128,
+            Production = 256,
+            Qty = 512
         }
 
         /// <summary>

@@ -11,7 +11,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Windows.Documents;
 using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
@@ -177,26 +176,25 @@ namespace RabCab.Extensions
         public static void UpdateAttributeByTag(this BlockReference br, string attbName, string attbValue,
             Document acCurDoc, Editor acCurEd, Transaction acTrans)
         {
-           
-                // Check each of the attributes...
-                foreach (ObjectId arId in br.AttributeCollection)
+            // Check each of the attributes...
+            foreach (ObjectId arId in br.AttributeCollection)
+            {
+                var obj = acTrans.GetObject(arId, OpenMode.ForRead);
+
+                var ar = obj as AttributeReference;
+
+                if (ar == null) continue;
+                if (ar.Tag.ToUpper() == attbName)
                 {
-                    var obj = acTrans.GetObject(arId, OpenMode.ForRead);
-
-                    var ar = obj as AttributeReference;
-
-                    if (ar == null) continue;
-                    if (ar.Tag.ToUpper() == attbName)
-                    {
-                        // If so, update the value
-                        // and increment the counter
-                        ar.UpgradeOpen();
-                        ar.TextString = attbValue;
-                        ar.DowngradeOpen();
-                    }
+                    // If so, update the value
+                    // and increment the counter
+                    ar.UpgradeOpen();
+                    ar.TextString = attbValue;
+                    ar.DowngradeOpen();
                 }
+            }
 
-                //acCurEd.Regen();
+            //acCurEd.Regen();
         }
 
         /// <summary>
@@ -418,10 +416,9 @@ namespace RabCab.Extensions
             return false;
         }
 
-        public static ObjectIdCollection ExplodeBlock(this BlockReference br, Transaction tr, Database db,  bool erase = true)
+        public static ObjectIdCollection ExplodeBlock(this BlockReference br, Transaction tr, Database db,
+            bool erase = true)
         {
-
-
             // We'll collect the BlockReferences created in a collection
             var toExplode = new ObjectIdCollection();
             var objIds = new ObjectIdCollection();
@@ -452,14 +449,11 @@ namespace RabCab.Extensions
 
             foreach (ObjectId bid in toExplode)
             {
-                var nBr = (BlockReference)tr.GetObject(bid, OpenMode.ForRead);
+                var nBr = (BlockReference) tr.GetObject(bid, OpenMode.ForRead);
 
-                var exIds = nBr.ExplodeBlock(tr, db, true);
+                var exIds = nBr.ExplodeBlock(tr, db);
 
-                foreach (ObjectId id in exIds)
-                {
-                    objIds.Add(id);
-                }
+                foreach (ObjectId id in exIds) objIds.Add(id);
             }
 
 
@@ -477,8 +471,6 @@ namespace RabCab.Extensions
             }
 
             return objIds;
-
         }
-
     }
 }

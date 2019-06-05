@@ -22,22 +22,22 @@ namespace RabCab.Commands.CarpentrySuite
             //| CommandFlags.NoMultiple
             //| CommandFlags.NoTileMode
             | CommandFlags.NoPaperSpace
-            //| CommandFlags.NoOem
-            //| CommandFlags.Undefined
-            //| CommandFlags.InProgress
-            //| CommandFlags.Defun
-            //| CommandFlags.NoNewStack
-            //| CommandFlags.NoInternalLock
-            //| CommandFlags.DocReadLock
-            //| CommandFlags.DocExclusiveLock
-            //| CommandFlags.Session
-            //| CommandFlags.Interruptible
-            //| CommandFlags.NoHistory
-            //| CommandFlags.NoUndoMarker
-            //| CommandFlags.NoBlockEditor
-            //| CommandFlags.NoActionRecording
-            //| CommandFlags.ActionMacro
-            //| CommandFlags.NoInferConstraint 
+        //| CommandFlags.NoOem
+        //| CommandFlags.Undefined
+        //| CommandFlags.InProgress
+        //| CommandFlags.Defun
+        //| CommandFlags.NoNewStack
+        //| CommandFlags.NoInternalLock
+        //| CommandFlags.DocReadLock
+        //| CommandFlags.DocExclusiveLock
+        //| CommandFlags.Session
+        //| CommandFlags.Interruptible
+        //| CommandFlags.NoHistory
+        //| CommandFlags.NoUndoMarker
+        //| CommandFlags.NoBlockEditor
+        //| CommandFlags.NoActionRecording
+        //| CommandFlags.ActionMacro
+        //| CommandFlags.NoInferConstraint 
         )]
         public void Cmd_RCChop()
         {

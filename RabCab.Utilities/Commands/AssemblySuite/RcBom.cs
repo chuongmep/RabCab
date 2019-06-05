@@ -142,7 +142,7 @@ namespace RabCab.Commands.AssemblySuite
                     {
                         Console.WriteLine(e);
                     }
-    
+
 
                 // Ask for the table insertion point
                 var pr = acCurEd.GetPoint("\nEnter table insertion point: ");

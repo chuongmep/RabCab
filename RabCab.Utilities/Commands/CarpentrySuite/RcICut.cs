@@ -1,9 +1,7 @@
-﻿using System.Collections.Generic;
-using Autodesk.AutoCAD.ApplicationServices.Core;
+﻿using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Runtime;
-using RabCab.Agents;
 using RabCab.Extensions;
 using RabCab.Settings;
 
@@ -65,7 +63,7 @@ namespace RabCab.Commands.CarpentrySuite
             var insetRes = acCurEd.GetDistance(insetOpts);
 
             if (insetRes.Status != PromptStatus.OK) return;
-            
+
             SettingsUser.RcICutInset = insetRes.Value;
 
             var prSelOpts2 = new PromptDistanceOptions("\nEnter cut depth: ")
@@ -85,7 +83,7 @@ namespace RabCab.Commands.CarpentrySuite
 
             // ReSharper disable once CompareOfFloatsByEqualityOperator
             if (SettingsUser.RcICutDepth <= 0 || SettingsUser.RcICutInset <= 0) return;
-            
+
             Entity faceEnt = null;
             Surface tempSurf = null;
             Solid3d tempSol = null;
@@ -134,4 +132,4 @@ namespace RabCab.Commands.CarpentrySuite
             }
         }
     }
-    }
+}

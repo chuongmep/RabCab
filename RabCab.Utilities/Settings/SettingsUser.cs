@@ -133,6 +133,10 @@ namespace RabCab.Settings
         public static double RcICutDepth = 0;
         public static double RcICutInset = 0;
 
+        //Page Number Options
+        public static string PageNoOf = "PAGE";
+        public static string PageNoTotal = "PAGECOUNT";
+
         //AutoLayer Options
         public static List<string> LayerCommandList { get; set; } = new List<string>
         {
@@ -155,10 +159,6 @@ namespace RabCab.Settings
             "TABLE",
             "GENDIMS"
         };
-
-        //Page Number Options
-        public static string PageNoOf = "PAGE";
-        public static string PageNoTotal = "PAGECOUNT";
 
         //Rounding Options
         public static Enums.RoundTolerance UserTol { set; get; } = Enums.RoundTolerance.SixDecimals;

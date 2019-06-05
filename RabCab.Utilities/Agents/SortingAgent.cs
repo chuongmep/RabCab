@@ -5,7 +5,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using System.Windows.Media.Animation;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
@@ -293,17 +292,17 @@ namespace RabCab.Agents
         private static Enums.TableHeader GetTCrit(out int count)
         {
             count = 10;
-            
-            Enums.TableHeader tCrit = Enums.TableHeader.Layer |
-                                      Enums.TableHeader.Color |
-                                      Enums.TableHeader.Name |
-                                      Enums.TableHeader.Width |
-                                      Enums.TableHeader.Length |
-                                      Enums.TableHeader.Thickness |
-                                      Enums.TableHeader.Volume |
-                                      Enums.TableHeader.Texture |
-                                      Enums.TableHeader.Production |
-                                      Enums.TableHeader.Qty;
+
+            var tCrit = Enums.TableHeader.Layer |
+                        Enums.TableHeader.Color |
+                        Enums.TableHeader.Name |
+                        Enums.TableHeader.Width |
+                        Enums.TableHeader.Length |
+                        Enums.TableHeader.Thickness |
+                        Enums.TableHeader.Volume |
+                        Enums.TableHeader.Texture |
+                        Enums.TableHeader.Production |
+                        Enums.TableHeader.Qty;
 
             if (!SettingsUser.BomLayer)
             {
@@ -694,7 +693,7 @@ namespace RabCab.Agents
                 .ThenByDescending(e => e.Key.Length)
                 .ThenByDescending(e => e.Key.Width)
                 .ThenByDescending(e => e.Key.Volume).ToList();
-            
+
 
             pWorker.Reset("Sorting Solids: ");
             pWorker.SetTotalOperations(gList.Count());
@@ -714,7 +713,7 @@ namespace RabCab.Agents
                             return;
                         }
 
-                        var baseInfo = @group.First();
+                        var baseInfo = group.First();
 
                         var nonMirrors = new List<EntInfo>();
                         var mirrors = new List<EntInfo>();
@@ -722,7 +721,7 @@ namespace RabCab.Agents
                         var firstParse = true;
 
                         //Find Mirrors
-                        foreach (var eInfo in @group)
+                        foreach (var eInfo in group)
                         {
                             if (firstParse)
                             {
@@ -751,7 +750,9 @@ namespace RabCab.Agents
                         {
                             if (e.IsChild) continue;
                             partList.Add(e);
-                        };
+                        }
+
+                        ;
                     }
                 }
                 catch (Autodesk.AutoCAD.Runtime.Exception e)
@@ -769,7 +770,7 @@ namespace RabCab.Agents
             var rowCount = partList.Count + 2;
 
             acTable.SetSize(rowCount, colCount);
- 
+
             var rowHeight = SettingsUser.TableRowHeight;
             var colWidth = SettingsUser.TableColumnWidth;
             var textHeight = SettingsUser.TableTextHeight;
@@ -791,16 +792,13 @@ namespace RabCab.Agents
                 if (tCrit.HasFlag(value))
                     headers.Add(value.ToString());
 
-            for (int i = 0; i < headers.Count; i++)
-            {
-                acTable.Cells[counter, i].TextString = headers[i];
-            }
+            for (var i = 0; i < headers.Count; i++) acTable.Cells[counter, i].TextString = headers[i];
 
             counter++;
 
             foreach (var p in partList)
             {
-                for (int i = 0; i < headers.Count; i++)
+                for (var i = 0; i < headers.Count; i++)
                 {
                     var hText = headers[i];
                     var tString = "";
@@ -863,7 +861,7 @@ namespace RabCab.Agents
                 if (e.IsChild) continue;
 
                 var saveDirectory = filePath + "\\" + e.EntLayer;
-                
+
 
                 if (Directory.Exists(saveDirectory) == false) Directory.CreateDirectory(saveDirectory);
 
@@ -871,7 +869,7 @@ namespace RabCab.Agents
 
                 if (e.RcName == "" || string.IsNullOrEmpty(e.RcName)) ePath = ePath.Replace(".dwg", "#.dwg");
 
-              var exists = true;
+                var exists = true;
                 var count = 0;
 
                 while (exists)

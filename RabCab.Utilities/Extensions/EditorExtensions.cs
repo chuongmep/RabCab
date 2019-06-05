@@ -1752,7 +1752,7 @@ namespace RabCab.Extensions
                 dxfName = dxfName.ToUpper();
                 dxfNames.Add(dxfName);
             }
-            
+
 
             var prSelOpts = new PromptSelectionOptions
             {
@@ -1784,17 +1784,17 @@ namespace RabCab.Extensions
 
             var tvs = new List<TypedValue>();
 
-            tvs.Add(new TypedValue( (int)DxfCode.Operator,"<or"));
+            tvs.Add(new TypedValue((int) DxfCode.Operator, "<or"));
 
             foreach (var dxfName in dxfNames)
             {
-                tvs.Add(new TypedValue((int)DxfCode.Operator, "<and"));
-                tvs.Add(new TypedValue((int)DxfCode.Start, dxfName));
-                tvs.Add(new TypedValue((int)DxfCode.Operator, "and>"));
+                tvs.Add(new TypedValue((int) DxfCode.Operator, "<and"));
+                tvs.Add(new TypedValue((int) DxfCode.Start, dxfName));
+                tvs.Add(new TypedValue((int) DxfCode.Operator, "and>"));
             }
 
-            tvs.Add(new TypedValue((int)DxfCode.Operator, "or>"));
-            
+            tvs.Add(new TypedValue((int) DxfCode.Operator, "or>"));
+
             //Create a selection filter to only allow the specified object
             var selFilter = new SelectionFilter(tvs.ToArray());
 

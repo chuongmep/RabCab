@@ -56,10 +56,10 @@ namespace RabCab.Commands.AutomationSuite
             var acCurEd = acCurDoc.Editor;
 
             RcPageNumber.NumberPages();
-            
+
             using (var acTrans = acCurDb.TransactionManager.StartTransaction())
             {
-                var dbDict = (DBDictionary)acTrans.GetObject(acCurDb.LayoutDictionaryId, OpenMode.ForRead);
+                var dbDict = (DBDictionary) acTrans.GetObject(acCurDb.LayoutDictionaryId, OpenMode.ForRead);
 
                 var pr = acCurEd.GetPoint("\nEnter table insertion point: ");
                 if (pr.Status == PromptStatus.OK)
@@ -88,7 +88,7 @@ namespace RabCab.Commands.AutomationSuite
 
                     foreach (var curEntry in dbDict)
                     {
-                        var layout = (Layout)acTrans.GetObject(curEntry.Value, OpenMode.ForRead);
+                        var layout = (Layout) acTrans.GetObject(curEntry.Value, OpenMode.ForRead);
 
                         if (layout.LayoutName == "Model") continue;
                         var curOrder = layout.TabOrder;

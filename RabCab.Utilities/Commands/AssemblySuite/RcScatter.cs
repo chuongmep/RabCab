@@ -14,9 +14,6 @@ using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.Runtime;
-using RabCab.Agents;
-using RabCab.Analysis;
-using RabCab.Engine.Enumerators;
 using RabCab.Extensions;
 using RabCab.Settings;
 
@@ -63,7 +60,7 @@ namespace RabCab.Commands.AssemblySuite
             if (objIds.Length <= 0) return;
 
             var random = new Random();
-            
+
             using (var acTrans = acCurDb.TransactionManager.StartTransaction())
             {
                 var extents = acTrans.GetExtents(objIds, acCurDb);
@@ -74,9 +71,9 @@ namespace RabCab.Commands.AssemblySuite
                     var acEnt = acTrans.GetObject(obj, OpenMode.ForWrite) as Entity;
                     if (acEnt == null) continue;
 
-                    var entExt = acTrans.GetExtents(new []{acEnt.ObjectId}, acCurDb);
+                    var entExt = acTrans.GetExtents(new[] {acEnt.ObjectId}, acCurDb);
                     var entCen = Solid3DExtensions.GetBoxCenter(entExt.MinPoint, entExt.MaxPoint);
-                    
+
                     var cPower = extCen.GetVectorTo(entCen).MultiplyBy(random.NextDouble());
 
                     acEnt.TransformBy(Matrix3d.Displacement(cPower));
