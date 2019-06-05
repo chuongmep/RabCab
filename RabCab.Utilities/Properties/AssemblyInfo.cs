@@ -142,7 +142,6 @@ using RabCab.Initialization;
 
 //Carpentry Suite
 [assembly: CommandClass(typeof(RcSolDivide))]
-[assembly: CommandClass(typeof(RcSolDivide))]
 [assembly: CommandClass(typeof(RcDrill))]
 [assembly: CommandClass(typeof(RcChop))]
 [assembly: CommandClass(typeof(RcGap))]
@@ -151,17 +150,18 @@ using RabCab.Initialization;
 [assembly: CommandClass(typeof(RcSlice))]
 [assembly: CommandClass(typeof(RcFlip))]
 [assembly: CommandClass(typeof(RcICut))]
+[assembly: CommandClass(typeof(RcDogEar))]
 
 //CNC Suite
-[assembly: CommandClass(typeof(RcAutoPrep))]
-[assembly: CommandClass(typeof(RcBreakPoints))]
-[assembly: CommandClass(typeof(RcCheckWork))]
-[assembly: CommandClass(typeof(RcExportPaths))]
-[assembly: CommandClass(typeof(RcFlatten))]
-[assembly: CommandClass(typeof(RcLoopBit))]
-[assembly: CommandClass(typeof(RcLoopInner))]
-[assembly: CommandClass(typeof(RcLoopOuter))]
-[assembly: CommandClass(typeof(RcDogEar))]
+//[assembly: CommandClass(typeof(RcAutoPrep))]
+//[assembly: CommandClass(typeof(RcBreakPoints))]
+//[assembly: CommandClass(typeof(RcCheckWork))]
+//[assembly: CommandClass(typeof(RcExportPaths))]
+//[assembly: CommandClass(typeof(RcFlatten))]
+//[assembly: CommandClass(typeof(RcLoopBit))]
+//[assembly: CommandClass(typeof(RcLoopInner))]
+//[assembly: CommandClass(typeof(RcLoopOuter))]
+
 
 //Combine Suite
 [assembly: CommandClass(typeof(RcConverge))]

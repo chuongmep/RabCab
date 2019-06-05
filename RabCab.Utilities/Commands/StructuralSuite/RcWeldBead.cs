@@ -111,7 +111,6 @@ namespace RabCab.Commands.StructuralSuite
 
             }
 
-           
         }
 
     }
