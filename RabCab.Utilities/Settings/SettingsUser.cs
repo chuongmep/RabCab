@@ -129,6 +129,7 @@ namespace RabCab.Settings
         public static double RcSliceDepth = 0;
         public static double RcGapDepth = 0;
         public static double DogEarDiam = 0.50;
+        public static double RcChopDepth = 0;
 
         //AutoLayer Options
         public static List<string> LayerCommandList { get; set; } = new List<string>

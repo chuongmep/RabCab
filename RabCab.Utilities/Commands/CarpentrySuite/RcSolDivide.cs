@@ -74,7 +74,6 @@ namespace RabCab.Commands.CarpentrySuite
                 var acSol = acTrans.GetObject(userSel.Item1, OpenMode.ForWrite) as Solid3d;
                 var subEntId = userSel.Item2;
 
-
                 //Creates entity path to generate Brep object from it
 
                 var entityPath = new FullSubentityPath(
@@ -92,7 +91,6 @@ namespace RabCab.Commands.CarpentrySuite
                                 {
                                     acTrans.Abort();
                                     return;
-                                    ;
                                 }
 
                                 var c = acSol.GetSubentity(subEntId) as Curve;
@@ -111,7 +109,7 @@ namespace RabCab.Commands.CarpentrySuite
                                     var plane = new Plane(p1, ang);
 
                                     var obj = chopSol.Slice(plane, true);
-
+                                    obj.SetPropertiesFrom(acSol);
                                     acCurDb.AppendEntity(obj);
 
 
