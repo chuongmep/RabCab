@@ -113,6 +113,7 @@ namespace RabCab.Commands.CarpentrySuite
                             tempSol.OffsetBody(-SettingsUser.RcICutInset);
 
                             var cutSol = tempSol.Slice(tempSurf, true);
+                            cutSol.Dispose();
 
                             acSol.BooleanOperation(BooleanOperationType.BoolSubtract, tempSol);
                         }
