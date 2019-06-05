@@ -185,12 +185,10 @@ using RabCab.Initialization;
 
 //Structural Suite
 [assembly: CommandClass(typeof(RcAlign))]
-[assembly: CommandClass(typeof(RcConnect))]
 [assembly: CommandClass(typeof(RcFloor))]
 [assembly: CommandClass(typeof(RcGenFrame))]
 [assembly: CommandClass(typeof(RcGenFastener))]
 [assembly: CommandClass(typeof(RcGenMember))]
-[assembly: CommandClass(typeof(RcUnfold))]
 [assembly: CommandClass(typeof(RcWeldBead))]
 
 //Tidy Suite
@@ -199,5 +197,3 @@ using RabCab.Initialization;
 [assembly: CommandClass(typeof(RcCleanSols))]
 [assembly: CommandClass(typeof(RcCleanVars))]
 [assembly: CommandClass(typeof(RcEmptyDwg))]
-[assembly: CommandClass(typeof(RcPurge))]
-[assembly: CommandClass(typeof(RcPurgeBatch))]

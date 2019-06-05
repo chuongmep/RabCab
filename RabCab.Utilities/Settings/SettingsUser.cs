@@ -115,6 +115,7 @@ namespace RabCab.Settings
         public static string RcHidden = "RCHidden";
         public static string RcAnno = "RCAnno";
         public static string RcHoles = "RCHoles";
+        public static string RcWelds = "RCWelds";
 
         //Linetypes
         public static string RcVisibleLT = "CONTINUOUS";
@@ -122,6 +123,7 @@ namespace RabCab.Settings
         public static string RcAnnoLt = "CONTINUOUS";
         public static string RcDimLt = "CENTER";
         public static string RcHolesLt = "HIDDEN";
+        public static string RcWeldsLt = "HIDDEN";
 
         //Carpentry
         public static double RcJointDepth = 0;
@@ -132,6 +134,7 @@ namespace RabCab.Settings
         public static double RcChopDepth = 0;
         public static double RcICutDepth = 0;
         public static double RcICutInset = 0;
+        public static double WeldBeadSize = 0;
 
         //Page Number Options
         public static string PageNoOf = "PAGE";
