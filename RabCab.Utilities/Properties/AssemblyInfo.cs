@@ -186,7 +186,6 @@ using RabCab.Initialization;
 //Structural Suite
 [assembly: CommandClass(typeof(RcAlign))]
 [assembly: CommandClass(typeof(RcFloor))]
-[assembly: CommandClass(typeof(RcGenFrame))]
 [assembly: CommandClass(typeof(RcGenFastener))]
 [assembly: CommandClass(typeof(RcGenMember))]
 [assembly: CommandClass(typeof(RcWeldBead))]

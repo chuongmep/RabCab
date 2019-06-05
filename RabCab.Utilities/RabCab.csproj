@@ -267,7 +267,6 @@
     <Compile Include="Commands\ReferenceSuite\BlockKit\RcBlockToXref.cs" />
     <Compile Include="Commands\StructuralSuite\RcAlign.cs" />
     <Compile Include="Commands\StructuralSuite\RcFloor.cs" />
-    <Compile Include="Commands\StructuralSuite\RcGenFrame.cs" />
     <Compile Include="Commands\StructuralSuite\RcGenMember.cs" />
     <Compile Include="Commands\StructuralSuite\RcWeldBead.cs" />
     <Compile Include="Commands\TidySuite\RcCleanVars.cs" />
