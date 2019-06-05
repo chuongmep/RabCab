@@ -86,7 +86,7 @@ namespace RabCab.Extensions
             {
                 if (pts.Length < 1) return null;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return null;
             }

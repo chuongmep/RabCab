@@ -150,6 +150,7 @@ using RabCab.Initialization;
 [assembly: CommandClass(typeof(RcOffset))]
 [assembly: CommandClass(typeof(RcSlice))]
 [assembly: CommandClass(typeof(RcFlip))]
+[assembly: CommandClass(typeof(RcICut))]
 
 //CNC Suite
 [assembly: CommandClass(typeof(RcAutoPrep))]
