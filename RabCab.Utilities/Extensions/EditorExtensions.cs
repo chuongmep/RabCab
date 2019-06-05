@@ -1731,6 +1731,85 @@ namespace RabCab.Extensions
         }
 
         /// <summary>
+        ///     Method to prompt the user to select a specific type of object (by DXF name)
+        /// </summary>
+        /// <param name="acCurEd">The current working editor.</param>
+        /// <param name="filterArg">The DXF name to filter by.</param>
+        /// <param name="singleSelection"></param>
+        /// <param name="keyList"></param>
+        /// <returns>Returns an objectID collection of the selected objects.</returns>
+        public static ObjectId[] GetFilteredSelection(this Editor acCurEd, Enums.DxfNameEnum[] filterArg,
+            bool singleSelection, List<KeywordAgent> keyList = null, string msgForAdding = null,
+            string msgForRemoval = null)
+        {
+            var dxfNames = new List<string>();
+
+            foreach (var fArg in filterArg)
+            {
+                //Convert the DXFName enum value to its string value
+                var dxfName = EnumAgent.GetNameOf(fArg);
+                dxfName = dxfName.Replace("_", "");
+                dxfName = dxfName.ToUpper();
+                dxfNames.Add(dxfName);
+            }
+            
+
+            var prSelOpts = new PromptSelectionOptions
+            {
+                AllowDuplicates = false,
+                AllowSubSelections = true,
+                RejectObjectsFromNonCurrentSpace = true,
+                RejectObjectsOnLockedLayers = true,
+                SingleOnly = singleSelection,
+                SinglePickInSpace = singleSelection,
+                MessageForAdding = singleSelection
+                    ? "Select object to add: "
+                    : "Select objects to add: ",
+                MessageForRemoval = singleSelection
+                    ? "Select object to remove: "
+                    : "Select objects to remove: "
+            };
+
+            if (msgForAdding != null)
+                prSelOpts.MessageForAdding = msgForAdding;
+
+            if (msgForRemoval != null)
+                prSelOpts.MessageForRemoval = msgForRemoval;
+
+            #region KeywordAgent
+
+            HandleKeywords(keyList, prSelOpts);
+
+            #endregion
+
+            var tvs = new List<TypedValue>();
+
+            tvs.Add(new TypedValue( (int)DxfCode.Operator,"<or"));
+
+            foreach (var dxfName in dxfNames)
+            {
+                tvs.Add(new TypedValue((int)DxfCode.Operator, "<and"));
+                tvs.Add(new TypedValue((int)DxfCode.Start, dxfName));
+                tvs.Add(new TypedValue((int)DxfCode.Operator, "and>"));
+            }
+
+            tvs.Add(new TypedValue((int)DxfCode.Operator, "or>"));
+            
+            //Create a selection filter to only allow the specified object
+            var selFilter = new SelectionFilter(tvs.ToArray());
+
+            //Get the selection from the user
+            var prSelRes = acCurEd.GetSelection(prSelOpts, selFilter);
+
+            //If bad input -> return empty array
+            if (prSelRes.Status != PromptStatus.OK) return new ObjectId[0];
+
+            //Get the array of object Id's and return the value;
+            var objIds = prSelRes.Value.GetObjectIds();
+            return objIds;
+        }
+
+        /// <summary>
         ///     Method to prompt the user to select a specific type of subentity = only allows single selection.
         /// </summary>
         /// <param name="acCurEd">The current working editor.</param>

@@ -11,6 +11,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Windows.Documents;
 using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
@@ -416,5 +417,68 @@ namespace RabCab.Extensions
 
             return false;
         }
+
+        public static ObjectIdCollection ExplodeBlock(this BlockReference br, Transaction tr, Database db,  bool erase = true)
+        {
+
+
+            // We'll collect the BlockReferences created in a collection
+            var toExplode = new ObjectIdCollection();
+            var objIds = new ObjectIdCollection();
+
+            // Define our handler to capture the nested block references
+            void Handler(object s, ObjectEventArgs e)
+            {
+                switch (e.DBObject)
+                {
+                    case BlockReference _:
+                        toExplode.Add(e.DBObject.ObjectId);
+                        break;
+                    default:
+                        objIds.Add(e.DBObject.ObjectId);
+                        break;
+                }
+            }
+
+            // Add our handler around the explode call, removing it
+            // directly afterwards
+
+            db.ObjectAppended += Handler;
+            br.ExplodeToOwnerSpace();
+            db.ObjectAppended -= Handler;
+
+            // Go through the results and recurse, exploding the
+            // contents
+
+            foreach (ObjectId bid in toExplode)
+            {
+                var nBr = (BlockReference)tr.GetObject(bid, OpenMode.ForRead);
+
+                var exIds = nBr.ExplodeBlock(tr, db, true);
+
+                foreach (ObjectId id in exIds)
+                {
+                    objIds.Add(id);
+                }
+            }
+
+
+            // We might also just let it drop out of scope
+            toExplode.Clear();
+
+            // To replicate the explode command, we're delete the
+            // original entity
+
+            if (erase)
+            {
+                br.UpgradeOpen();
+                br.Erase();
+                br.DowngradeOpen();
+            }
+
+            return objIds;
+
+        }
+
     }
 }
