@@ -194,5 +194,4 @@ using RabCab.Initialization;
 [assembly: CommandClass(typeof(RcBurstAll))]
 [assembly: CommandClass(typeof(RcCleanDirectory))]
 [assembly: CommandClass(typeof(RcCleanSols))]
-[assembly: CommandClass(typeof(RcCleanVars))]
 [assembly: CommandClass(typeof(RcEmptyDwg))]

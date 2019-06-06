@@ -269,7 +269,6 @@
     <Compile Include="Commands\StructuralSuite\RcFloor.cs" />
     <Compile Include="Commands\StructuralSuite\RcGenMember.cs" />
     <Compile Include="Commands\StructuralSuite\RcWeldBead.cs" />
-    <Compile Include="Commands\TidySuite\RcCleanVars.cs" />
     <Compile Include="Commands\TidySuite\RcCleanSols.cs" />
     <Compile Include="Commands\TidySuite\RcCleanDirectory.cs" />
     <Compile Include="Commands\TidySuite\RcEmptyDwg.cs" />

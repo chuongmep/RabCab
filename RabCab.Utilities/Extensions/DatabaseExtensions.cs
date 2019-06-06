@@ -9,6 +9,7 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
+using System;
 using System.Collections.Generic;
 using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.Colors;
@@ -16,6 +17,8 @@ using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.Runtime;
+using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
+using Exception = Autodesk.AutoCAD.Runtime.Exception;
 
 namespace RabCab.Extensions
 {
@@ -1085,6 +1088,129 @@ namespace RabCab.Extensions
             }
         }
 
+        #endregion
+
+        #region Purge
+
+        public static bool PurgeSymbolTables(Database db, ObjectIdCollection tableIds, bool silent)
+        {
+            var itemsPurged = false;
+            var ed = Application.DocumentManager.MdiActiveDocument.Editor;
+
+            var purgeableIds = new ObjectIdCollection();
+            using (var tr = db.TransactionManager.StartTransaction())
+            {
+                foreach (ObjectId tableId in tableIds)
+                {
+                    var table = (SymbolTable) tr.GetObject(tableId, OpenMode.ForRead, false);
+                    foreach (var recordId in table)
+                        purgeableIds.Add(recordId);
+                }
+
+                db.Purge(purgeableIds);
+
+                if (purgeableIds.Count == 0) return false;
+                itemsPurged = true;
+
+                foreach (ObjectId id in purgeableIds)
+                    try
+                    {
+                        var record = (SymbolTableRecord) tr.GetObject(id, OpenMode.ForWrite);
+                        var recordName = record.Name;
+                        record.Erase();
+                        if (!silent)
+                            if (!recordName.Contains("|"))
+                                ed.WriteMessage("\nPurging " + record.GetType().Name + " " + recordName);
+                    }
+                    catch (Exception e)
+                    {
+                        if (e.ErrorStatus == ErrorStatus.CannotBeErasedByCaller ||
+                            e.ErrorStatus == (ErrorStatus) 20072)
+                            itemsPurged = false;
+                        else
+                            throw e;
+                    }
+
+                tr.Commit();
+            }
+
+            return itemsPurged;
+        }
+
+        public static bool PurgeDictionaries(Database db, ObjectIdCollection dictIds, bool silent)
+        {
+            var itemsPurged = false;
+            var ed = Application.DocumentManager.MdiActiveDocument.Editor;
+
+            var purgeableIds = new ObjectIdCollection();
+            using (var tr = db.TransactionManager.StartTransaction())
+            {
+                foreach (ObjectId dictId in dictIds)
+                {
+                    var dict = (DBDictionary) tr.GetObject(dictId, OpenMode.ForRead, false);
+                    foreach (var entry in dict) purgeableIds.Add(entry.m_value);
+                }
+
+                db.Purge(purgeableIds);
+
+                if (purgeableIds.Count == 0) return false;
+                itemsPurged = true;
+
+                var nod = (DBDictionary) tr.GetObject(db.NamedObjectsDictionaryId, OpenMode.ForRead);
+                foreach (ObjectId id in purgeableIds)
+                    try
+                    {
+                        var obj = tr.GetObject(id, OpenMode.ForWrite);
+                        obj.Erase();
+                        if (!silent)
+                            foreach (ObjectId dictId in dictIds)
+                            {
+                                var dict = (DBDictionary) tr.GetObject(dictId, OpenMode.ForRead, false);
+                                var dictName = nod.NameAt(dictId);
+                                if (dict.Contains(id))
+                                {
+                                    ed.WriteMessage("\nPurging " + dict.NameAt(id) + " from " + dictName);
+                                    break;
+                                }
+                            }
+                    }
+                    catch (Exception e)
+                    {
+                        if (e.ErrorStatus == ErrorStatus.CannotBeErasedByCaller ||
+                            e.ErrorStatus == (ErrorStatus) 20072)
+                            itemsPurged = false;
+                        else
+                            throw e;
+                    }
+
+                tr.Commit();
+            }
+
+            return itemsPurged;
+        }
+
+        public static void PurgeAll(this Database db, bool silent)
+        {
+            var tableIds = new ObjectIdCollection();
+            tableIds.Add(db.BlockTableId);
+            tableIds.Add(db.DimStyleTableId);
+            tableIds.Add(db.LayerTableId);
+            tableIds.Add(db.LinetypeTableId);
+            tableIds.Add(db.RegAppTableId);
+            tableIds.Add(db.TextStyleTableId);
+            tableIds.Add(db.UcsTableId);
+            tableIds.Add(db.ViewportTableId);
+            tableIds.Add(db.ViewTableId);
+            var dictIds = new ObjectIdCollection();
+            dictIds.Add(db.MaterialDictionaryId);
+            dictIds.Add(db.MLStyleDictionaryId);
+            dictIds.Add(db.MLeaderStyleDictionaryId);
+            dictIds.Add(db.PlotStyleNameDictionaryId);
+            dictIds.Add(db.TableStyleDictionaryId);
+            dictIds.Add(db.VisualStyleDictionaryId);
+            while (PurgeSymbolTables(db, tableIds, silent) || PurgeDictionaries(db, dictIds, silent))
+                continue;
+        }
         #endregion
     }
 }
