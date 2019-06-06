@@ -9,7 +9,6 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
-using System;
 using System.Collections.Generic;
 using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.Colors;
@@ -18,7 +17,6 @@ using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.Runtime;
 using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
-using Exception = Autodesk.AutoCAD.Runtime.Exception;
 
 namespace RabCab.Extensions
 {
@@ -1211,6 +1209,7 @@ namespace RabCab.Extensions
             while (PurgeSymbolTables(db, tableIds, silent) || PurgeDictionaries(db, dictIds, silent))
                 continue;
         }
+
         #endregion
     }
 }

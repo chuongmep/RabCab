@@ -1,11 +1,9 @@
 ﻿using System;
-using Autodesk.AutoCAD.ApplicationServices;
+using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.DatabaseServices;
-using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Runtime;
 using RabCab.Extensions;
 using RabCab.Settings;
-using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
 using Exception = Autodesk.AutoCAD.Runtime.Exception;
 
 namespace RabCab.Commands.TidySuite
@@ -48,7 +46,7 @@ namespace RabCab.Commands.TidySuite
             var newLayoutName = "BlankLayout";
             LayoutManager.Current.CurrentLayout = "Model";
 
-            using (Transaction acTrans = acCurDb.TransactionManager.StartTransaction())
+            using (var acTrans = acCurDb.TransactionManager.StartTransaction())
             {
                 try
                 {
@@ -59,17 +57,15 @@ namespace RabCab.Commands.TidySuite
                     Console.WriteLine(e);
                 }
 
-                DBDictionary layoutDict =
+                var layoutDict =
                     acTrans.GetObject(acCurDb.LayoutDictionaryId, OpenMode.ForRead) as DBDictionary;
 
                 if (layoutDict != null)
-                    foreach (DBDictionaryEntry de in layoutDict)
+                    foreach (var de in layoutDict)
                     {
-                        string layoutName = de.Key;
+                        var layoutName = de.Key;
                         if (layoutName != "Model" && layoutName != newLayoutName)
-                        {
                             LayoutManager.Current.DeleteLayout(layoutName);
-                        }
                     }
 
                 acTrans.Commit();
@@ -77,7 +73,5 @@ namespace RabCab.Commands.TidySuite
 
             acCurDb.PurgeAll(true);
         }
-
-        
     }
 }

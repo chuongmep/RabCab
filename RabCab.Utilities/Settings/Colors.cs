@@ -89,7 +89,7 @@ namespace RabCab.Settings
             Autodesk.AutoCAD.Colors.Color.FromColorIndex(ColorMethod.ByAci, (int) Enums.CadColor.Red);
 
         public static Autodesk.AutoCAD.Colors.Color LayerColorWelds =
-            Autodesk.AutoCAD.Colors.Color.FromColorIndex(ColorMethod.ByAci, (int)Enums.CadColor.Magenta);
+            Autodesk.AutoCAD.Colors.Color.FromColorIndex(ColorMethod.ByAci, (int) Enums.CadColor.Magenta);
 
         #endregion
     }

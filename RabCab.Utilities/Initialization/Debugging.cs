@@ -116,7 +116,7 @@ namespace RabCab.Initialization
 
                     var length = random.Next(minSize, maxSize);
                     var width = random.Next(minSize, maxSize);
-                    
+
                     var height = random.Next(minSize, maxSize);
 
                     acSol.CreateBox(length, width, height);
@@ -133,6 +133,5 @@ namespace RabCab.Initialization
                 acTrans.Commit();
             }
         }
-
     }
 }

@@ -1,944 +1,866 @@
 ﻿<ResourceDictionary
-  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-  xmlns:src="clr-namespace:Autodesk.Windows;assembly=AdWindows">
-  
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCDUMP">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCDUMP.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCFILTER">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCFILTER.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCSHOWBOUNDS">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCSHOWBOUNDS.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCTRAVERSE">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCTRAVERSE.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCWEIGHT">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCWEIGHT.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCALIGNVIEWS">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCALIGNVIEWS.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCDIMADD">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCDIMADD.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCDIMALIGN">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCDIMALIGN.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCDIMARROW">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCDIMARROW.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCDIMBREAK">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCDIMBREAK.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCDIMDELETE">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCDIMDELETE.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCDIMEXTEND">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCDIMEXTEND.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCDIMLT">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCDIMLT.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCDIMMOVE">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCDIMMOVE.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCDIMPREC">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCDIMPREC.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCDIMSELECT">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCDIMSELECT.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCDIMSPACE">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCDIMSPACE.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCDIMTOGGLE">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCDIMTOGGLE.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCGENDIMS">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCGENDIMS.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCMATCHVIEWS">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCMATCHVIEWS.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCSPACEVIEWS">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCSPACEVIEWS.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCUPDATELEADERS">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCUPDATELEADERS.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCVPCONVERT">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCVPCONVERT.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCBLOCKLEGEND">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCBLOCKLEGEND.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCBOM">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCBOM.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCDATAEXTRACT">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCDATAEXTRACT.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCEXPLODE">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCEXPLODE.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCEXPORTPARTS">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCEXPORTPARTS.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCLAYPARTS">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCLAYPARTS.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCNAMEPARTS">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCNAMEPARTS.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCPARTMARK">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCPARTMARK.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCSCATTER">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCSCATTER.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCSELECTION">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCSELECTION.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCUPDATE">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCUPDATE.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCUPDATECHILDREN">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCUPDATECHILDREN.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCAUTOLAYER">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCAUTOLAYER.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCPAGENUMBER">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCPAGENUMBER.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCTCONTENT">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCTCONTENT.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCSOLDIVIDE">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCSOLDIVIDE.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCCHOP">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCCHOP.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCDOGEAR">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCDOGEAR.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCDRILL">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCDRILL.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCFLIP">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCFLIP.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCGAP">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCGAP.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCICUT">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCICUT.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCJOINT">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCJOINT.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCOFFSET">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCOFFSET.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCSLICE">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCSLICE.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCAUTOPREP">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCAUTOPREP.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCBREAKPOINTS">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCBREAKPOINTS.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCCHECKWORK">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCCHECKWORK.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCEXPORTPATHS">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCEXPORTPATHS.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCFLATTEN">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCFLATTEN.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCLOOPBIT">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCLOOPBIT.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCLOOPOUTER">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCLOOPOUTER.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCLOOPINNER">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCLOOPINNER.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCCONVERGE">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCCONVERGE.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCFUSE">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCFUSE.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCSEPARATE">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCSEPARATE.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCSUBTRAHEND">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCSUBTRAHEND.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCLAYERPAL">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCPALETTElAYER.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCMETRICPAL">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCMETRICPAL.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCNETPAL">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCNETPAL.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCNOTEPAL">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCNOTEPAL.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCAUTOATT">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCAUTOATT.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCAUTOBLOCK">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCAUTOBLOCK.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCBLOCKREPLACE">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCBLOCKREPLACE.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCBLOCKTOX">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCBLOCKTOX.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCQUICKRENAME">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCQUICKRENAME.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCALIGN">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCALIGN.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCFLOOR">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCFLOOR.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCGENFASTENER">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCGENFASTENER.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCGENMEMBER">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCGENMEMBER.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCWELDBEAD">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCWELDBEAD.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCBURSTALL">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCBURSTALL.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCCLEANDIRECTORY">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCCLEANDIRECTORY.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCCLEANSOLS">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCCLEANSOLS.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-
-  <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCEMPTYDIRECTORY">
-    <src:RibbonToolTip.ExpandedContent>
-      <StackPanel>
-        <TextBlock Background="AntiqueWhite" TextAlignment="Left">
-          COMMAND DESCRIPTION
-        </TextBlock>
-        <Image Source="[ExtHelp]RCEMPTYDIRECTORY.png" Width="Auto" Height="Auto">
-        </Image>
-      </StackPanel>
-    </src:RibbonToolTip.ExpandedContent>
-  </src:RibbonToolTip>
-  
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:src="clr-namespace:Autodesk.Windows;assembly=AdWindows">
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCDUMP">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCDUMP.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCFILTER">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCFILTER.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCSHOWBOUNDS">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCSHOWBOUNDS.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCTRAVERSE">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCTRAVERSE.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCWEIGHT">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCWEIGHT.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCALIGNVIEWS">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCALIGNVIEWS.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCDIMADD">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCDIMADD.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCDIMALIGN">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCDIMALIGN.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCDIMARROW">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCDIMARROW.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCDIMBREAK">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCDIMBREAK.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCDIMDELETE">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCDIMDELETE.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCDIMEXTEND">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCDIMEXTEND.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCDIMLT">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCDIMLT.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCDIMMOVE">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCDIMMOVE.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCDIMPREC">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCDIMPREC.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCDIMSELECT">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCDIMSELECT.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCDIMSPACE">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCDIMSPACE.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCDIMTOGGLE">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCDIMTOGGLE.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCGENDIMS">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCGENDIMS.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCMATCHVIEWS">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCMATCHVIEWS.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCSPACEVIEWS">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCSPACEVIEWS.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCUPDATELEADERS">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCUPDATELEADERS.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCVPCONVERT">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCVPCONVERT.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCBLOCKLEGEND">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCBLOCKLEGEND.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCBOM">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCBOM.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCDATAEXTRACT">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCDATAEXTRACT.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCEXPLODE">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCEXPLODE.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCEXPORTPARTS">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCEXPORTPARTS.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCLAYPARTS">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCLAYPARTS.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCNAMEPARTS">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCNAMEPARTS.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCPARTMARK">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCPARTMARK.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCSCATTER">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCSCATTER.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCSELECTION">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCSELECTION.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCUPDATE">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCUPDATE.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCUPDATECHILDREN">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCUPDATECHILDREN.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCAUTOLAYER">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCAUTOLAYER.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCPAGENUMBER">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCPAGENUMBER.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCTCONTENT">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCTCONTENT.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCSOLDIVIDE">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCSOLDIVIDE.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCCHOP">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCCHOP.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCDOGEAR">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCDOGEAR.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCDRILL">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCDRILL.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCFLIP">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCFLIP.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCGAP">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCGAP.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCICUT">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCICUT.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCJOINT">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCJOINT.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCOFFSET">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCOFFSET.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCSLICE">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCSLICE.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCAUTOPREP">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCAUTOPREP.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCBREAKPOINTS">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCBREAKPOINTS.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCCHECKWORK">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCCHECKWORK.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCEXPORTPATHS">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCEXPORTPATHS.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCFLATTEN">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCFLATTEN.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCLOOPBIT">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCLOOPBIT.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCLOOPOUTER">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCLOOPOUTER.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCLOOPINNER">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCLOOPINNER.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCCONVERGE">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCCONVERGE.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCFUSE">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCFUSE.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCSEPARATE">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCSEPARATE.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCSUBTRAHEND">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCSUBTRAHEND.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCLAYERPAL">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCPALETTElAYER.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCMETRICPAL">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCMETRICPAL.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCNETPAL">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCNETPAL.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCNOTEPAL">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCNOTEPAL.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCAUTOATT">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCAUTOATT.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCAUTOBLOCK">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCAUTOBLOCK.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCBLOCKREPLACE">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCBLOCKREPLACE.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCBLOCKTOX">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCBLOCKTOX.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCQUICKRENAME">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCQUICKRENAME.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCALIGN">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCALIGN.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCFLOOR">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCFLOOR.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCGENFASTENER">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCGENFASTENER.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCGENMEMBER">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCGENMEMBER.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCWELDBEAD">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCWELDBEAD.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCBURSTALL">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCBURSTALL.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCCLEANDIRECTORY">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCCLEANDIRECTORY.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCCLEANSOLS">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCCLEANSOLS.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
+    <src:RibbonToolTip x:Key="RC_TOOLS_CMD_RCEMPTYDIRECTORY">
+        <src:RibbonToolTip.ExpandedContent>
+            <StackPanel>
+                <TextBlock Background="AntiqueWhite" TextAlignment="Left">
+                    COMMAND DESCRIPTION
+                </TextBlock>
+                <Image Source="[ExtHelp]RCEMPTYDIRECTORY.png" Width="Auto" Height="Auto" />
+            </StackPanel>
+        </src:RibbonToolTip.ExpandedContent>
+    </src:RibbonToolTip>
+
 </ResourceDictionary>

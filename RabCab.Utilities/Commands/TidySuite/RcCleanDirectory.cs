@@ -8,6 +8,7 @@ using RabCab.Agents;
 using RabCab.Entities.Controls;
 using RabCab.Settings;
 using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
+using Exception = System.Exception;
 
 namespace RabCab.Commands.TidySuite
 {
@@ -49,13 +50,13 @@ namespace RabCab.Commands.TidySuite
             var acCurEd = acCurDoc.Editor;
 
             var extensions = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase)
-                { ".bak", ".lck", ".dwl" , ".dwl2", ".log"};
-            
+                {".bak", ".lck", ".dwl", ".dwl2", ".log"};
+
             //Tell the user we are going to open a dialog window to select a directory
             acCurEd.WriteMessage("\nSelect directory to clean");
 
             var dirSelected = false;
-            
+
             // Get the directory to save to
             var fDirectory = "";
 
@@ -89,25 +90,16 @@ namespace RabCab.Commands.TidySuite
 
             foreach (var file in files)
             {
-                if (extensions.Contains(file.Extension))
-                {
-                    deletableFiles.Add(file);
-                }
+                if (extensions.Contains(file.Extension)) deletableFiles.Add(file);
 
-                if (file.FullName.Contains(".dwg") && file.FullName.Contains(".idw"))
-                {
-                    deletableFiles.Add(file);
-                }
+                if (file.FullName.Contains(".dwg") && file.FullName.Contains(".idw")) deletableFiles.Add(file);
             }
 
             using (var pWorker = new ProgressAgent("Cleaning Directory: ", deletableFiles.Count()))
             {
                 foreach (var file in deletableFiles)
                 {
-                    if (!pWorker.Progress())
-                    {
-                        return;
-                    }
+                    if (!pWorker.Progress()) return;
 
                     // try/catch if you really need, but I'd recommend catching a more
                     // specific exception
@@ -117,7 +109,7 @@ namespace RabCab.Commands.TidySuite
                         File.Delete(file.FullName);
                         acCurEd.WriteMessage($"\nDeleting File: {file.Name}");
                     }
-                    catch (System.Exception e)
+                    catch (Exception e)
                     {
                         acCurEd.WriteMessage($"\nFile: {file.Name} could not be deleted!");
                     }

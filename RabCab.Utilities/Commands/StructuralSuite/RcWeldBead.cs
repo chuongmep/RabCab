@@ -9,17 +9,11 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Autodesk.AutoCAD.ApplicationServices.Core;
-using Autodesk.AutoCAD.BoundaryRepresentation;
 using Autodesk.AutoCAD.Colors;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.Runtime;
-using RabCab.Engine.Enumerators;
-using RabCab.Entities.Linework;
 using RabCab.Extensions;
 using RabCab.Settings;
 
@@ -88,7 +82,7 @@ namespace RabCab.Commands.StructuralSuite
                             var sOptsBuilder = new SweepOptionsBuilder
                             {
                                 Align = SweepOptionsAlignOption.AlignSweepEntityToPath,
-                                BasePoint = weldBead.Center,
+                                BasePoint = weldBead.Center
                             };
 
                             var dSol = new Solid3d();
@@ -108,10 +102,7 @@ namespace RabCab.Commands.StructuralSuite
 
                     acTrans.Commit();
                 }
-
             }
-
         }
-
     }
 }
