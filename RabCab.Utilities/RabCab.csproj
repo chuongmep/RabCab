@@ -460,9 +460,6 @@
     <Resource Include="Repository\RepoAttributes.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Help\ExtendedHelp.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="PackageContents.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -471,6 +468,12 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Resources\Help\ExtendedHelp.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
