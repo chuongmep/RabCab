@@ -9,21 +9,20 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
-using System.Reflection;
-using System.Runtime.InteropServices;
 using Autodesk.AutoCAD.Runtime;
 using RabCab.Commands.AnalysisSuite;
 using RabCab.Commands.AnnotationSuite;
 using RabCab.Commands.AssemblySuite;
 using RabCab.Commands.AutomationSuite;
 using RabCab.Commands.CarpentrySuite;
-using RabCab.Commands.CNCSuite;
 using RabCab.Commands.CombineSuite;
 using RabCab.Commands.PaletteKit;
 using RabCab.Commands.ReferenceSuite.BlockKit;
 using RabCab.Commands.StructuralSuite;
 using RabCab.Commands.TidySuite;
 using RabCab.Initialization;
+using System.Reflection;
+using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
