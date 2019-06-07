@@ -363,6 +363,16 @@ namespace RabCab.Analysis
 
         #region Parsing Methods
 
+        public double GetLargestMeasurement()
+        {
+            var db = new List<double>
+                { Length, Width, Thickness};
+
+            db.Sort();
+
+            return db.Last();
+        }
+
         /// <summary>
         ///     TODO
         /// </summary>
