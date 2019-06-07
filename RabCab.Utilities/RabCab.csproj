@@ -558,7 +558,21 @@
     <None Include="Resources\DwgRepo\[DWG]RcVpConvert.dwg" />
     <None Include="Resources\DwgRepo\[DWG]RcWeight.dwg" />
     <None Include="Resources\DwgRepo\[DWG]RcWeldBead.dwg" />
-    <None Include="Resources\DwgRepo\[DWG]RxExportParts.dwg" />
+    <None Include="Resources\DwgRepo\[DWG]RcLaminate.dwg" />
+    <None Include="Resources\DwgRepo\[DWG]RcEdgeBand.dwg" />
+    <None Include="Resources\DwgRepo\[DWG]RcCrossJoint.dwg" />
+    <None Include="Resources\DwgRepo\[DWG]RcMiter.dwg" />
+    <None Include="Resources\DwgRepo\[DWG]RcDovetail.dwg" />
+    <None Include="Resources\DwgRepo\[DWG]RcRoute.dwg" />
+    <None Include="Resources\DwgRepo\[DWG]RcPartLeader.dwg" />
+    <None Include="Resources\DwgRepo\[DWG]RcWeldMark.dwg" />
+    <None Include="Resources\DwgRepo\[DWG]RcShrinkWrap.dwg" />
+    <None Include="Resources\DwgRepo\[DWG]RcDimEdit.dwg" />
+    <None Include="Resources\DwgRepo\[DWG]RcDimUpdate.dwg" />
+    <None Include="Resources\DwgRepo\[DWG]RcConnection.dwg" />
+    <None Include="Resources\DwgRepo\[DWG]RcGenFrame.dwg" />
+    <None Include="Resources\DwgRepo\[DWG]RcUnfold.dwg" />
+    <None Include="Resources\DwgRepo\[DWG]RcExportParts.dwg" />
     <None Include="Resources\Icons\[AI]RcAlign.ai" />
     <None Include="Resources\Icons\[AI]RcAlignViews.ai" />
     <None Include="Resources\Icons\[AI]RcAutoAtt.ai" />
@@ -635,8 +649,22 @@
     <None Include="Resources\Icons\[AI]RcUpdateLeaders.ai" />
     <None Include="Resources\Icons\[AI]RcVpConvert.ai" />
     <None Include="Resources\Icons\[AI]RcWeight.ai" />
+    <None Include="Resources\Icons\[AI]RcLaminate.ai" />
+    <None Include="Resources\Icons\[AI]RcEdgeband.ai" />
+    <None Include="Resources\Icons\[AI]RcCrossJoint.ai" />
+    <None Include="Resources\Icons\[AI]RcMiter.ai" />
+    <None Include="Resources\Icons\[AI]RcDovetail.ai" />
+    <None Include="Resources\Icons\[AI]RcRoute.ai" />
+    <None Include="Resources\Icons\[AI]RcPartLeader.ai" />
+    <None Include="Resources\Icons\[AI]RcUnfold.ai" />
+    <None Include="Resources\Icons\[AI]RcWeldMark.ai" />
+    <None Include="Resources\Icons\[AI]RcShrinkwrap.ai" />
+    <None Include="Resources\Icons\[AI]RcDimEdit.ai" />
+    <None Include="Resources\Icons\[AI]RcDimUpdate.ai" />
+    <None Include="Resources\Icons\[AI]RcConnection.ai" />
+    <None Include="Resources\Icons\[AI]RcGenFrame.ai" />
     <None Include="Resources\Icons\[AI]RcWeldBead.ai" />
-    <None Include="Resources\Icons\[AI]RxExportParts.ai" />
+    <None Include="Resources\Icons\[AI]RcExportParts.ai" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Resources\Help\ExtendedHelp.xaml">
