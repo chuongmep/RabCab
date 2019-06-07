@@ -137,7 +137,6 @@ namespace RabCab.Settings
         public static double WeldBeadSize = 0;
         public static double LaminateThickness = 0;
         public static double EdgeBandThickness = 0;
-        public static double EdgeBandDepth = 0;
 
         //Page Number Options
         public static string PageNoOf = "PAGE";
