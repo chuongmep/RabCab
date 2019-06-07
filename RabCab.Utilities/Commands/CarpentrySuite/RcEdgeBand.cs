@@ -5,13 +5,11 @@ using Autodesk.AutoCAD.Runtime;
 using RabCab.Analysis;
 using RabCab.Extensions;
 using RabCab.Settings;
-using Exception = Autodesk.AutoCAD.Runtime.Exception;
 
 namespace RabCab.Commands.CarpentrySuite
 {
-    class RcEdgeBand
+    internal class RcEdgeBand
     {
-
         /// <summary>
         /// </summary>
         [CommandMethod(SettingsInternal.CommandGroup, "_EDGEBAND",

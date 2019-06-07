@@ -84,7 +84,7 @@ namespace RabCab.Extensions
 
             using (var acTrans = db.TransactionManager.StartTransaction())
             {
-                var bt = (BlockTable)acTrans.GetObject(db.BlockTableId, OpenMode.ForRead);
+                var bt = (BlockTable) acTrans.GetObject(db.BlockTableId, OpenMode.ForRead);
                 msId = bt[BlockTableRecord.ModelSpace];
                 psId = bt[BlockTableRecord.PaperSpace];
 
@@ -276,17 +276,15 @@ namespace RabCab.Extensions
         {
             var layName = "0";
 
-                SymbolTable st = (SymbolTable)acTrans.GetObject(acCurDb.LayerTableId, OpenMode.ForRead);
-                foreach (ObjectId curID in st)
+            var st = (SymbolTable) acTrans.GetObject(acCurDb.LayerTableId, OpenMode.ForRead);
+            foreach (var curID in st)
+                if (curID == acCurDb.Clayer)
                 {
-                    if (curID == acCurDb.Clayer)
-                    {
-                        LayerTableRecord str = (LayerTableRecord)acTrans.GetObject(curID, OpenMode.ForRead);
-                        layName = str.Name;
-                    }
-
+                    var str = (LayerTableRecord) acTrans.GetObject(curID, OpenMode.ForRead);
+                    layName = str.Name;
                 }
-                // Return the Layer Table
+
+            // Return the Layer Table
             return layName;
         }
 
@@ -1021,7 +1019,7 @@ namespace RabCab.Extensions
                     if (curLayerTbl.Has(layer.Name)) continue;
 
                     // If name didnt exist in current database, copy its contents to a layer that can be added to the current database
-                    var transitionlayer = (LayerTableRecord)layer.Clone();
+                    var transitionlayer = (LayerTableRecord) layer.Clone();
 
                     //Add the dimstyles to the current database
                     curLayerTbl.Add(transitionlayer);
@@ -1065,7 +1063,7 @@ namespace RabCab.Extensions
                     var currentStyle = acExtTrans.GetObject(id, OpenMode.ForWrite) as MLeaderStyle;
 
                     // If name didnt exist in current database, copy its contents to a new MLeaderStyle that can be added to the current database
-                    var newMlStyle = (MLeaderStyle)currentStyle?.Clone();
+                    var newMlStyle = (MLeaderStyle) currentStyle?.Clone();
 
                     //Get Current Working Block Table
                     var curBlkTbl = GetBlockTable(acCurDb, acTrans, 0);
@@ -1125,7 +1123,7 @@ namespace RabCab.Extensions
             {
                 foreach (ObjectId tableId in tableIds)
                 {
-                    var table = (SymbolTable)tr.GetObject(tableId, OpenMode.ForRead, false);
+                    var table = (SymbolTable) tr.GetObject(tableId, OpenMode.ForRead, false);
                     foreach (var recordId in table)
                         purgeableIds.Add(recordId);
                 }
@@ -1138,7 +1136,7 @@ namespace RabCab.Extensions
                 foreach (ObjectId id in purgeableIds)
                     try
                     {
-                        var record = (SymbolTableRecord)tr.GetObject(id, OpenMode.ForWrite);
+                        var record = (SymbolTableRecord) tr.GetObject(id, OpenMode.ForWrite);
                         var recordName = record.Name;
                         record.Erase();
                         if (!silent)
@@ -1148,7 +1146,7 @@ namespace RabCab.Extensions
                     catch (Exception e)
                     {
                         if (e.ErrorStatus == ErrorStatus.CannotBeErasedByCaller ||
-                            e.ErrorStatus == (ErrorStatus)20072)
+                            e.ErrorStatus == (ErrorStatus) 20072)
                             itemsPurged = false;
                         else
                             throw e;
@@ -1170,7 +1168,7 @@ namespace RabCab.Extensions
             {
                 foreach (ObjectId dictId in dictIds)
                 {
-                    var dict = (DBDictionary)tr.GetObject(dictId, OpenMode.ForRead, false);
+                    var dict = (DBDictionary) tr.GetObject(dictId, OpenMode.ForRead, false);
                     foreach (var entry in dict) purgeableIds.Add(entry.m_value);
                 }
 
@@ -1179,7 +1177,7 @@ namespace RabCab.Extensions
                 if (purgeableIds.Count == 0) return false;
                 itemsPurged = true;
 
-                var nod = (DBDictionary)tr.GetObject(db.NamedObjectsDictionaryId, OpenMode.ForRead);
+                var nod = (DBDictionary) tr.GetObject(db.NamedObjectsDictionaryId, OpenMode.ForRead);
                 foreach (ObjectId id in purgeableIds)
                     try
                     {
@@ -1188,7 +1186,7 @@ namespace RabCab.Extensions
                         if (!silent)
                             foreach (ObjectId dictId in dictIds)
                             {
-                                var dict = (DBDictionary)tr.GetObject(dictId, OpenMode.ForRead, false);
+                                var dict = (DBDictionary) tr.GetObject(dictId, OpenMode.ForRead, false);
                                 var dictName = nod.NameAt(dictId);
                                 if (dict.Contains(id))
                                 {
@@ -1200,7 +1198,7 @@ namespace RabCab.Extensions
                     catch (Exception e)
                     {
                         if (e.ErrorStatus == ErrorStatus.CannotBeErasedByCaller ||
-                            e.ErrorStatus == (ErrorStatus)20072)
+                            e.ErrorStatus == (ErrorStatus) 20072)
                             itemsPurged = false;
                         else
                             throw e;

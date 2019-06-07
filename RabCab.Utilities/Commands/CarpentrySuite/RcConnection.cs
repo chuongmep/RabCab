@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Autodesk.AutoCAD.ApplicationServices;
+﻿using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.Runtime;
 using RabCab.Settings;
 
 namespace RabCab.Commands.CarpentrySuite
 {
-    class RcConnection
+    internal class RcConnection
     {
-
         /// <summary>
         /// </summary>
         [CommandMethod(SettingsInternal.CommandGroup, "_CMDDEFAULT",

@@ -366,7 +366,7 @@ namespace RabCab.Analysis
         public double GetLargestMeasurement()
         {
             var db = new List<double>
-                { Length, Width, Thickness};
+                {Length, Width, Thickness};
 
             db.Sort();
 

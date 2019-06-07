@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Autodesk.AutoCAD.ApplicationServices.Core;
+﻿using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.Runtime;
 using RabCab.Settings;
 
 namespace RabCab.Commands.StructuralSuite
 {
-    class RcUnfold
+    internal class RcUnfold
     {
-
         /// <summary>
         /// </summary>
         [CommandMethod(SettingsInternal.CommandGroup, "_CMDDEFAULT",

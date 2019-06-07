@@ -149,7 +149,6 @@ namespace RabCab.Commands.AnnotationSuite
                 if (iPorts.Count > 0)
                     foreach (var iPort in iPorts)
                     {
-
                         var ht = CalcUnit.GetProportion(iPort.VHeight, importSize.Height, layOutSize.Height);
                         var wd = CalcUnit.GetProportion(iPort.VWidth, importSize.Width, layOutSize.Width);
 
@@ -176,7 +175,7 @@ namespace RabCab.Commands.AnnotationSuite
                         //TODO find closest scale to zoom
                         //TODO allow user to set these
                         if (vStyles != null) vPort.SetShadePlot(ShadePlotType.Hidden, vStyles.GetAt("Hidden"));
-                        
+
                         // Enable the viewport
                         vPort.Visible = true;
                         vPort.On = true;

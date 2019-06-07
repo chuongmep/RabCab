@@ -43,6 +43,7 @@ namespace RabCab.Settings
 
         //External Paths
         public static string ViewTemplatePath = "";
+
         public static string ExportTemplatePath =
             @"T:\Construction\Construction Standards\STAK Machining Standards\_Templates\MachineTemplate.dwt";
 
