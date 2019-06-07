@@ -171,6 +171,7 @@
     <Compile Include="Commands\AnnotationSuite\RcAlignViews.cs" />
     <Compile Include="Commands\AnnotationSuite\RcDimAlign.cs" />
     <Compile Include="Commands\AnnotationSuite\RcDimArrow.cs" />
+    <Compile Include="Commands\AnnotationSuite\RcDimEdit.cs" />
     <Compile Include="Commands\AnnotationSuite\RcDimLt.cs" />
     <Compile Include="Commands\AnnotationSuite\RcDimToggle.cs" />
     <Compile Include="Commands\AnnotationSuite\RcDimSelect.cs" />
@@ -181,12 +182,16 @@
     <Compile Include="Commands\AnnotationSuite\RcDimMove.cs" />
     <Compile Include="Commands\AnnotationSuite\RcDimPrec.cs" />
     <Compile Include="Commands\AnnotationSuite\RcDimDelete.cs" />
+    <Compile Include="Commands\AnnotationSuite\RcDimUpdate.cs" />
     <Compile Include="Commands\AnnotationSuite\RcGenDims.cs" />
     <Compile Include="Commands\AnnotationSuite\RcGenViews.cs" />
     <Compile Include="Commands\AnnotationSuite\RcMatchViews.cs" />
+    <Compile Include="Commands\AnnotationSuite\RcPartLeader.cs" />
+    <Compile Include="Commands\AnnotationSuite\RcShrinkWrap.cs" />
     <Compile Include="Commands\AnnotationSuite\RcUpdateLeaders.cs" />
     <Compile Include="Commands\AnnotationSuite\RcSpaceViews.cs" />
     <Compile Include="Commands\AnnotationSuite\RcVpConvert.cs" />
+    <Compile Include="Commands\AnnotationSuite\RcWeldMark.cs" />
     <Compile Include="Commands\AssemblySuite\RcBlockLegend.cs" />
     <Compile Include="Commands\AssemblySuite\RcBom.cs" />
     <Compile Include="Commands\AssemblySuite\RcDataExtract.cs" />
@@ -202,6 +207,12 @@
     <Compile Include="Commands\AutomationSuite\RcPageNumber.cs" />
     <Compile Include="Commands\AutomationSuite\RcTContents.cs" />
     <Compile Include="Commands\CarpentrySuite\RcChop.cs" />
+    <Compile Include="Commands\CarpentrySuite\RcConnection.cs" />
+    <Compile Include="Commands\CarpentrySuite\RcCrossJoint.cs" />
+    <Compile Include="Commands\CarpentrySuite\RcDoveTail.cs" />
+    <Compile Include="Commands\CarpentrySuite\RcEdgeBand.cs" />
+    <Compile Include="Commands\CarpentrySuite\RcMiter.cs" />
+    <Compile Include="Commands\CarpentrySuite\RcRoute.cs" />
     <Compile Include="Commands\CarpentrySuite\RcSolDivide.cs" />
     <Compile Include="Commands\CarpentrySuite\RcDrill.cs" />
     <Compile Include="Commands\CarpentrySuite\RcFlip.cs" />
@@ -210,6 +221,7 @@
     <Compile Include="Commands\CarpentrySuite\RcJoint.cs" />
     <Compile Include="Commands\CarpentrySuite\RcOffset.cs" />
     <Compile Include="Commands\CarpentrySuite\RcSlice.cs" />
+    <Compile Include="Commands\CarpentrySuite\RcLaminate.cs" />
     <Compile Include="Commands\CNCSuite\RcAutoPrep.cs" />
     <Compile Include="Commands\CNCSuite\RcBreakPoints.cs" />
     <Compile Include="Commands\CNCSuite\RcCheckWork.cs" />
@@ -229,6 +241,8 @@
     <Compile Include="Commands\ReferenceSuite\BlockKit\RcAutoBlock.cs" />
     <Compile Include="Commands\ReferenceSuite\BlockKit\RcQuickRename.cs" />
     <Compile Include="Commands\StructuralSuite\RcGenFastener.cs" />
+    <Compile Include="Commands\StructuralSuite\RcGenFrame.cs" />
+    <Compile Include="Commands\StructuralSuite\RcUnfold.cs" />
     <Compile Include="Commands\TidySuite\RcBurstAll.cs" />
     <Compile Include="Engine\Enumerators\IEnumerables.cs" />
     <Compile Include="Entities\Annotation\RcLeader.cs" />
