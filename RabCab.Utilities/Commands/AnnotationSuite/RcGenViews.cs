@@ -149,11 +149,17 @@ namespace RabCab.Commands.AnnotationSuite
                 if (iPorts.Count > 0)
                     foreach (var iPort in iPorts)
                     {
+
+                        var ht = CalcUnit.GetProportion(iPort.VHeight, importSize.Height, layOutSize.Height);
+                        var wd = CalcUnit.GetProportion(iPort.VWidth, importSize.Width, layOutSize.Width);
+
+                        if (ht > layOutSize.Height || wd > layOutSize.Width)
+                            continue;
+
                         var vPort = new Viewport
                         {
-                            Height = CalcUnit.GetProportion(iPort.VHeight, importSize.Height, layOutSize.Height),
-                            Width = CalcUnit.GetProportion(iPort.VWidth, importSize.Width, layOutSize.Width),
-                            ViewDirection = iPort.ViewDirection
+                            Height = ht,
+                            Width = wd
                         };
 
                         var importPt = iPort.InsertPoint;
@@ -164,15 +170,18 @@ namespace RabCab.Commands.AnnotationSuite
 
                         acCurDb.AppendEntity(vPort, acTrans);
 
+                        vPort.ViewDirection = iPort.ViewDirection;
+
                         ZoomViewport(acCurDb, vPort, boundBox);
                         //TODO find closest scale to zoom
                         //TODO allow user to set these
                         if (vStyles != null) vPort.SetShadePlot(ShadePlotType.Hidden, vStyles.GetAt("Hidden"));
-                        vPort.UpdateDisplay();
-
+                        
                         // Enable the viewport
                         vPort.Visible = true;
                         vPort.On = true;
+
+                        vPort.UpdateDisplay();
                     }
 
                 boundBox.Dispose();
@@ -307,7 +316,7 @@ namespace RabCab.Commands.AnnotationSuite
                                     if (objId == exDb.PaperSpaceVportId) continue;
 
                                     var exView = exTrans.GetObject(objId, OpenMode.ForRead) as Viewport;
-                                    if (exView != null && !exView.IsErased)
+                                    if (exView != null && !exView.IsErased && exView.Visible)
                                     {
                                         var vHeight = exView.Height;
                                         var vWidth = exView.Width;

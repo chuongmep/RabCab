@@ -43,7 +43,6 @@ namespace RabCab.Settings
 
         //External Paths
         public static string ViewTemplatePath = "";
-
         public static string ExportTemplatePath =
             @"T:\Construction\Construction Standards\STAK Machining Standards\_Templates\MachineTemplate.dwt";
 
@@ -122,7 +121,6 @@ namespace RabCab.Settings
         public static string RcHiddenLT = "HIDDEN";
         public static string RcAnnoLt = "CONTINUOUS";
         public static string RcDimLt = "CENTER";
-        public static string RcHolesLt = "HIDDEN";
         public static string RcWeldsLt = "HIDDEN";
 
         //Carpentry

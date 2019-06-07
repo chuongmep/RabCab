@@ -45,11 +45,11 @@ namespace RabCab.Commands.AnnotationSuite
             //| CommandFlags.DocExclusiveLock
             //| CommandFlags.Session
             //| CommandFlags.Interruptible
-            | CommandFlags.NoHistory
-            | CommandFlags.NoUndoMarker
+            //| CommandFlags.NoHistory
+            //| CommandFlags.NoUndoMarker
             | CommandFlags.NoBlockEditor
-            | CommandFlags.NoActionRecording
-            | CommandFlags.ActionMacro
+            //| CommandFlags.NoActionRecording
+            //| CommandFlags.ActionMacro
             //| CommandFlags.NoInferConstraint 
         )]
         public void Cmd_VpToVb()
