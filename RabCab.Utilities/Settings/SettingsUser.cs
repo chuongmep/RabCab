@@ -161,7 +161,8 @@ namespace RabCab.Settings
             "DIMCONTINUE",
             "DIMBASELINE",
             "TABLE",
-            "GENDIMS"
+            "GENDIMS",
+            "PARTLEADER"
         };
 
         //Rounding Options

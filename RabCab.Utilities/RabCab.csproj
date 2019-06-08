@@ -245,6 +245,7 @@
     <Compile Include="Commands\StructuralSuite\RcUnfold.cs" />
     <Compile Include="Commands\TidySuite\RcBurstAll.cs" />
     <Compile Include="Engine\Enumerators\IEnumerables.cs" />
+    <Compile Include="Entities\Annotation\MLeaderJig.cs" />
     <Compile Include="Entities\Annotation\RcLeader.cs" />
     <Compile Include="Entities\Annotation\SysPoint.cs" />
     <Compile Include="Entities\Annotation\DimSystem.cs" />
@@ -291,7 +292,6 @@
     <Compile Include="External\InventorAgent\InventorAgent.cs" />
     <Compile Include="External\XmlAgent\XmlDocumentExtensions.cs" />
     <Compile Include="Initialization\Debugging.cs" />
-    <Compile Include="Initialization\Manifest.cs" />
     <Compile Include="Initialization\Sandbox.cs" />
     <Compile Include="Resources\Dialect\Dialect_CUI.Designer.cs">
       <AutoGen>True</AutoGen>

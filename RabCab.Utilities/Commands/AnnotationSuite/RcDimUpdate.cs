@@ -1,5 +1,8 @@
 ﻿using Autodesk.AutoCAD.ApplicationServices.Core;
+using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Runtime;
+using RabCab.Engine.Enumerators;
+using RabCab.Extensions;
 using RabCab.Settings;
 
 namespace RabCab.Commands.AnnotationSuite
@@ -8,7 +11,7 @@ namespace RabCab.Commands.AnnotationSuite
     {
         /// <summary>
         /// </summary>
-        [CommandMethod(SettingsInternal.CommandGroup, "_CMDDEFAULT",
+        [CommandMethod(SettingsInternal.CommandGroup, "_DIMUPDATE",
             CommandFlags.Modal
             //| CommandFlags.Transparent
             //| CommandFlags.UsePickSet
@@ -34,12 +37,31 @@ namespace RabCab.Commands.AnnotationSuite
             //| CommandFlags.ActionMacro
             //| CommandFlags.NoInferConstraint 
         )]
-        public void Cmd_Default()
+        public void Cmd_DimUpdate()
         {
             //Get the current document utilities
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;
             var acCurDb = acCurDoc.Database;
             var acCurEd = acCurDoc.Editor;
+
+            var dimIds = acCurEd.GetFilteredSelection(Enums.DxfNameEnum.Dimension, false, null,
+                "\nSelect dimensions to update to current dimension style: ");
+            if (dimIds.Length <= 0) return;
+
+            using (var acTrans = acCurDb.TransactionManager.StartTransaction())
+            {
+                foreach (var obj in dimIds)
+                {
+                    var acDim = acTrans.GetObject(obj, OpenMode.ForRead) as Dimension;
+                    if (acDim == null) return;
+
+                    acDim.Upgrade();
+                    acDim.DimensionStyle = acCurDb.Dimstyle;
+                    acDim.Downgrade();
+                }
+
+                acTrans.Commit();
+            }
         }
     }
 }

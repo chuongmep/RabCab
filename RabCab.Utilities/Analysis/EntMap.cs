@@ -6,6 +6,7 @@ namespace RabCab.Analysis
     {
         private EntMap()
         {
+            //TODO allow user to set these
             Map(m => m.FilePath).Index(0).Name("Filepath");
             Map(m => m.RcName).Index(1).Name("Name");
             Map(m => m.RcQtyTotal).Index(2).Name("Qty");

@@ -1,14 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
-using Autodesk.AutoCAD.Runtime;
 using RabCab.Agents;
 using RabCab.Engine.Enumerators;
 using RabCab.Extensions;
 using RabCab.Settings;
 using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
+using Exception = Autodesk.AutoCAD.Runtime.Exception;
 
 namespace RabCab.Entities.Annotation
 {
@@ -141,6 +142,56 @@ namespace RabCab.Entities.Annotation
 
                 acTrans.Commit();
             }
+        }
+
+        /// <summary>
+        ///     Method to update mleaders with substitution text
+        /// </summary>
+        /// <param name="acCurDoc"></param>
+        public static void UpdateLeader(MLeader mLeader, Document acCurDoc, Editor acCurEd, Transaction acTrans)
+        {
+            
+                    if (mLeader == null)
+                    {
+                        return;
+                    }
+
+                    var obj = mLeader.GetObjectUnderArrow();
+
+                    if (obj == ObjectId.Null) return;
+                    
+                    var ent = acTrans.GetObject(obj, OpenMode.ForWrite) as Entity;
+
+                    switch (mLeader.ContentType)
+                    {
+                        case ContentType.MTextContent:
+                        {
+                            var mt = new MText();
+                            mt.SetDatabaseDefaults();
+
+                            //TODO let user set the type of contents
+                            mt.Contents = ent.GetPartName();
+
+                            mLeader.MText = mt;
+
+                            mt.Dispose();
+                            break;
+                        }
+                        case ContentType.BlockContent:
+                        {
+                            var blkTblRef =
+                                acTrans.GetObject(mLeader.BlockContentId, OpenMode.ForWrite) as BlockTableRecord;
+
+                            blkTblRef?.UpdateMleaderBlockSubst(mLeader, ent, acCurDoc, acCurEd);
+                            break;
+                        }
+                        case ContentType.NoneContent:
+                            break;
+                        case ContentType.ToleranceContent:
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
         }
 
         /// <summary>
