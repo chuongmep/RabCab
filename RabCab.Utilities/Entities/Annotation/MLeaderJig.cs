@@ -12,23 +12,13 @@ namespace RabCab.Entities.Annotation
 {
     public class MLeaderJigger : EntityJig
     {
-        #region Fields
-
-        public int mCurJigFactorIndex = 1; // Jig Factor Index
-
-        public Point3d mArrowLocation; // Jig Factor #1
-        public Point3d mTextLocation; // Jig Factor #2
-        public string mMText; // Jig Factor #3
-
-        #endregion
-
         #region Constructors
 
         public MLeaderJigger(MLeader ent)
             : base(ent)
         {
-           // Entity.SetDatabaseDefaults();
-           Entity.MLeaderStyle = Application.DocumentManager.MdiActiveDocument.Database.MLeaderstyle;
+            // Entity.SetDatabaseDefaults();
+            Entity.MLeaderStyle = Application.DocumentManager.MdiActiveDocument.Database.MLeaderstyle;
             Entity.ContentType = ContentType.MTextContent;
             var mText = new MText();
             mText.TextStyleId = Application.DocumentManager.MdiActiveDocument.Database.Textstyle;
@@ -36,7 +26,7 @@ namespace RabCab.Entities.Annotation
             Entity.EnableDogleg = false;
             Entity.EnableLanding = false;
             Entity.LandingGap = 0;
-            
+
             Entity.TextAttachmentType = TextAttachmentType.AttachmentMiddle;
             Entity.SetTextAttachmentType(TextAttachmentType.AttachmentMiddleOfBottom, LeaderDirectionType.BottomLeader);
             Entity.SetTextAttachmentType(TextAttachmentType.AttachmentMiddle, LeaderDirectionType.LeftLeader);
@@ -59,6 +49,64 @@ namespace RabCab.Entities.Annotation
 
             Entity.TransformBy(UCS);
         }
+
+        #endregion
+
+        #region Methods to Call
+
+        public static MLeader Jig()
+        {
+            MLeaderJigger jigger = null;
+            try
+            {
+                jigger = new MLeaderJigger(new MLeader());
+                PromptResult pr;
+                do
+                {
+                    pr = Application.DocumentManager.MdiActiveDocument.Editor.Drag(jigger);
+                    if (pr.Status == PromptStatus.Keyword)
+                    {
+                        // Keyword handling code
+                    }
+                    else
+                    {
+                        jigger.mCurJigFactorIndex++;
+                    }
+                } while (pr.Status != PromptStatus.Cancel && pr.Status != PromptStatus.Error &&
+                         jigger.mCurJigFactorIndex <= 3);
+
+                if (pr.Status == PromptStatus.Cancel || pr.Status == PromptStatus.Error)
+                {
+                    if (jigger != null && jigger.Entity != null)
+                        jigger.Entity.Dispose();
+
+                    return null;
+                }
+
+                var text = new MText();
+                text.Contents = jigger.mMText;
+                text.TransformBy(jigger.UCS);
+                jigger.Entity.MText = text;
+                return jigger.Entity;
+            }
+            catch
+            {
+                if (jigger != null && jigger.Entity != null)
+                    jigger.Entity.Dispose();
+
+                return null;
+            }
+        }
+
+        #endregion
+
+        #region Fields
+
+        public int mCurJigFactorIndex = 1; // Jig Factor Index
+
+        public Point3d mArrowLocation; // Jig Factor #1
+        public Point3d mTextLocation; // Jig Factor #2
+        public string mMText; // Jig Factor #3
 
         #endregion
 
@@ -128,20 +176,16 @@ namespace RabCab.Entities.Annotation
 
                 case 2:
 
-                    double xDiff = mTextLocation.X - mArrowLocation.X;
-                    double yDiff = mTextLocation.Y - mArrowLocation.Y;
+                    var xDiff = mTextLocation.X - mArrowLocation.X;
+                    var yDiff = mTextLocation.Y - mArrowLocation.Y;
                     var angle = Math.Atan2(yDiff, xDiff) * 180.0 / Math.PI;
 
-                    if ((angle > 45 && angle < 135) || (angle < -45 && angle > -135))
-                    {
+                    if (angle > 45 && angle < 135 || angle < -45 && angle > -135)
                         Entity.TextAttachmentDirection = TextAttachmentDirection.AttachmentVertical;
-                    }
                     else
-                    {
                         Entity.TextAttachmentDirection = TextAttachmentDirection.AttachmentHorizontal;
-                    }
 
-                    Application.DocumentManager.MdiActiveDocument.Editor.WriteMessage("\n" + angle.ToString());
+                    Application.DocumentManager.MdiActiveDocument.Editor.WriteMessage("\n" + angle);
                     var prOptions2 = new JigPromptPointOptions("\nLanding Location:");
                     // Set properties such as UseBasePoint and BasePoint of the prompt options object if necessary here.
                     prOptions2.UseBasePoint = true;
@@ -184,54 +228,6 @@ namespace RabCab.Entities.Annotation
             }
 
             return SamplerStatus.OK;
-        }
-
-        #endregion
-
-        #region Methods to Call
-
-        public static MLeader Jig()
-        {
-            MLeaderJigger jigger = null;
-            try
-            {
-                jigger = new MLeaderJigger(new MLeader());
-                PromptResult pr;
-                do
-                {
-                    pr = Application.DocumentManager.MdiActiveDocument.Editor.Drag(jigger);
-                    if (pr.Status == PromptStatus.Keyword)
-                    {
-                        // Keyword handling code
-                    }
-                    else
-                    {
-                        jigger.mCurJigFactorIndex++;
-                    }
-                } while (pr.Status != PromptStatus.Cancel && pr.Status != PromptStatus.Error &&
-                         jigger.mCurJigFactorIndex <= 3);
-
-                if (pr.Status == PromptStatus.Cancel || pr.Status == PromptStatus.Error)
-                {
-                    if (jigger != null && jigger.Entity != null)
-                        jigger.Entity.Dispose();
-
-                    return null;
-                }
-
-                var text = new MText();
-                text.Contents = jigger.mMText;
-                text.TransformBy(jigger.UCS);
-                jigger.Entity.MText = text;
-                return jigger.Entity;
-            }
-            catch
-            {
-                if (jigger != null && jigger.Entity != null)
-                    jigger.Entity.Dispose();
-
-                return null;
-            }
         }
 
         #endregion

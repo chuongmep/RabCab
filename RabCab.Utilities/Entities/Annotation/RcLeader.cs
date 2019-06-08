@@ -150,48 +150,46 @@ namespace RabCab.Entities.Annotation
         /// <param name="acCurDoc"></param>
         public static void UpdateLeader(MLeader mLeader, Document acCurDoc, Editor acCurEd, Transaction acTrans)
         {
-            
-                    if (mLeader == null)
-                    {
-                        return;
-                    }
+            if (mLeader == null) return;
 
-                    var obj = mLeader.GetObjectUnderArrow();
+            var obj = mLeader.GetObjectUnderArrow();
 
-                    if (obj == ObjectId.Null) return;
-                    
-                    var ent = acTrans.GetObject(obj, OpenMode.ForWrite) as Entity;
+            if (obj == ObjectId.Null) return;
 
-                    switch (mLeader.ContentType)
-                    {
-                        case ContentType.MTextContent:
-                        {
-                            var mt = new MText();
-                            mt.SetDatabaseDefaults();
+            var ent = acTrans.GetObject(obj, OpenMode.ForWrite) as Entity;
 
-                            //TODO let user set the type of contents
-                            mt.Contents = ent.GetPartName();
+            switch (mLeader.ContentType)
+            {
+                case ContentType.MTextContent:
+                {
+                    var mt = new MText();
+                    mt.SetDatabaseDefaults();
 
-                            mLeader.MText = mt;
+                    //TODO let user set the type of contents
+                    mt.Contents = ent.GetPartName();
 
-                            mt.Dispose();
-                            break;
-                        }
-                        case ContentType.BlockContent:
-                        {
-                            var blkTblRef =
-                                acTrans.GetObject(mLeader.BlockContentId, OpenMode.ForWrite) as BlockTableRecord;
+                    mLeader.MText = mt;
 
-                            blkTblRef?.UpdateMleaderBlockSubst(mLeader, ent, acCurDoc, acCurEd);
-                            break;
-                        }
-                        case ContentType.NoneContent:
-                            break;
-                        case ContentType.ToleranceContent:
-                            break;
-                        default:
-                            throw new ArgumentOutOfRangeException();
-                    }
+                    mt.Dispose();
+                    break;
+                }
+
+                case ContentType.BlockContent:
+                {
+                    var blkTblRef =
+                        acTrans.GetObject(mLeader.BlockContentId, OpenMode.ForWrite) as BlockTableRecord;
+
+                    blkTblRef?.UpdateMleaderBlockSubst(mLeader, ent, acCurDoc, acCurEd);
+                    break;
+                }
+
+                case ContentType.NoneContent:
+                    break;
+                case ContentType.ToleranceContent:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         /// <summary>

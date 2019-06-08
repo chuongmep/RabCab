@@ -1,10 +1,9 @@
 ﻿using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.DatabaseServices;
-using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Runtime;
 using RabCab.Entities.Annotation;
-using RabCab.Extensions;
 using RabCab.Settings;
+using Exception = System.Exception;
 
 namespace RabCab.Commands.AnnotationSuite
 {
@@ -49,27 +48,21 @@ namespace RabCab.Commands.AnnotationSuite
             {
                 Entity jigEnt = MLeaderJigger.Jig();
                 if (jigEnt != null)
-                {
-                    using (Transaction acTrans = acCurDb.TransactionManager.StartTransaction())
+                    using (var acTrans = acCurDb.TransactionManager.StartTransaction())
                     {
-                        BlockTableRecord btr = (BlockTableRecord)acTrans.GetObject(acCurDb.CurrentSpaceId, OpenMode.ForWrite);
+                        var btr = (BlockTableRecord) acTrans.GetObject(acCurDb.CurrentSpaceId, OpenMode.ForWrite);
                         btr.AppendEntity(jigEnt);
                         acTrans.AddNewlyCreatedDBObject(jigEnt, true);
 
                         var mL = jigEnt as MLeader;
-                        if (mL != null)
-                        {
-                            RcLeader.UpdateLeader(mL, acCurDoc, acCurEd, acTrans);
-                        }
+                        if (mL != null) RcLeader.UpdateLeader(mL, acCurDoc, acCurEd, acTrans);
                         acTrans.Commit();
                     }
-                }
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 Application.DocumentManager.MdiActiveDocument.Editor.WriteMessage(ex.ToString());
             }
         }
     }
-    
 }
