@@ -9,13 +9,17 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
+using System;
 using System.Globalization;
+using System.Runtime.InteropServices;
+using Autodesk.AutoCAD.DatabaseServices;
 using static System.String;
 
 namespace RabCab.Extensions
 {
     internal static class StringExtensions
     {
+
         /// <summary>
         ///     Method to convert upper and lowercase input to Title Case
         /// </summary>
