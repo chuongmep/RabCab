@@ -3,6 +3,7 @@ using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
+using RabCab.Settings;
 using MgdAcApplication = Autodesk.AutoCAD.ApplicationServices.Application;
 using MgdAcDocument = Autodesk.AutoCAD.ApplicationServices.Document;
 using AcWindowsNS = Autodesk.AutoCAD.Windows;
@@ -48,6 +49,7 @@ namespace RabCab.Entities.Annotation
             mText.Attachment = AttachmentPoint.MiddleCenter;
             mText.BackgroundFill = true;
             mText.UseBackgroundColor = true;
+            mText.TextHeight = SettingsUser.LeaderTextHeight;
 
             Entity.MText = mText;
             Entity.EnableFrameText = true;

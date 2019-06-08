@@ -59,26 +59,13 @@ namespace RabCab.Commands.AnnotationSuite
                     if (mText == null) continue;
 
                     mText.Upgrade();
-                    var width = mText.ActualWidth;
-                    var height = mText.ActualHeight;
 
-                    switch (mText.ColumnType)
+                    if (mText.ColumnCount == 1)
                     {
-                        case ColumnType.DynamicColumns:
-                            mText.ColumnWidth = width / mText.ColumnCount;
-                            break;
-                        case ColumnType.NoColumns:
-                            mText.Width = width;
-                            break;
-                        case ColumnType.StaticColumns:
-                            mText.ColumnWidth = width / mText.ColumnCount;
-                            break;
-                        default:
-                            throw new ArgumentOutOfRangeException();
+                        mText.ColumnType = ColumnType.NoColumns;
+                        mText.Width = mText.ActualWidth; 
+                        mText.Height = mText.ActualHeight;
                     }
-
-                    mText.Height = height;
-
                     mText.Downgrade();
                 }
                 

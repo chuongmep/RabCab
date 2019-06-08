@@ -55,6 +55,8 @@ namespace RabCab.Settings
 
         //Palette Enablers
         public static bool EnableSelectionParse = true;
+        public static double LeaderTextHeight = 0.09;
+        
         public static string NetHomePage = "www.google.com";
 
         //BOM options
