@@ -11,6 +11,7 @@
 
 using System;
 using System.Windows.Forms;
+using RabCab.Engine.GUI;
 using RabCab.Settings;
 
 namespace DebugConsole
@@ -23,13 +24,15 @@ namespace DebugConsole
         /// <param name="args"></param>
         private static void Main()
         {
-            var form = new Form();
+            //var form = new Form();
+            //var settingsGui = new SettingsGui();
+            //form.Controls.Add(settingsGui);
 
-            var settingsGui = new SettingsGui();
-            form.Controls.Add(settingsGui);
+            //Application.EnableVisualStyles();
+            //Application.Run(form);
 
-            Application.EnableVisualStyles();
-            Application.Run(form);
+            var wSym = new WeldGui();
+            Application.Run(wSym);
 
             //Console.WriteLine("-------- RabCab Debugger --------\n");
             //Console.WriteLine("Please enter commands to test...");
