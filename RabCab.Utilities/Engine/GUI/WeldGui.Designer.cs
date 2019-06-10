@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WeldGui));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
@@ -67,6 +68,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.imageCombo1 = new UCImageCombo.ImageCombo();
+            this.WSymbolList = new System.Windows.Forms.ImageList(this.components);
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.checkBox5 = new System.Windows.Forms.CheckBox();
@@ -475,11 +477,27 @@
             this.imageCombo1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.imageCombo1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.imageCombo1.FormattingEnabled = true;
+            this.imageCombo1.ImageList = this.WSymbolList;
             this.imageCombo1.ItemHeight = 25;
             this.imageCombo1.Location = new System.Drawing.Point(317, 86);
             this.imageCombo1.Name = "imageCombo1";
             this.imageCombo1.Size = new System.Drawing.Size(48, 31);
             this.imageCombo1.TabIndex = 11;
+            // 
+            // WSymbolList
+            // 
+            this.WSymbolList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("WSymbolList.ImageStream")));
+            this.WSymbolList.TransparentColor = System.Drawing.Color.Transparent;
+            this.WSymbolList.Images.SetKeyName(0, "Weld_Backing.png");
+            this.WSymbolList.Images.SetKeyName(1, "Weld_Fillet.png");
+            this.WSymbolList.Images.SetKeyName(2, "Weld_FlangeCorner.png");
+            this.WSymbolList.Images.SetKeyName(3, "Weld_FlangeEdge.png");
+            this.WSymbolList.Images.SetKeyName(4, "Weld_Melt.png");
+            this.WSymbolList.Images.SetKeyName(5, "Weld_Plug.png");
+            this.WSymbolList.Images.SetKeyName(6, "Weld_Seam.png");
+            this.WSymbolList.Images.SetKeyName(7, "Weld_Spot.png");
+            this.WSymbolList.Images.SetKeyName(8, "Weld_SquareGroove.png");
+            this.WSymbolList.Images.SetKeyName(9, "Weld_VGroove.png");
             // 
             // textBox3
             // 
@@ -652,5 +670,6 @@
         private System.Windows.Forms.TextBox textBox4;
         private UCImageCombo.ImageCombo imageCombo1;
         private System.Windows.Forms.CheckBox checkBox6;
+        private System.Windows.Forms.ImageList WSymbolList;
     }
 }
