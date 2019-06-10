@@ -15,7 +15,7 @@ using RabCab.Engine.Enumerators;
 
 // ReSharper disable StringLiteralTypo
 
-namespace RabCab.Engine.System
+namespace RabCab.Engine.AcSystem
 {
     internal static class AcVars
     {

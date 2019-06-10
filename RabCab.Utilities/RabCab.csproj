@@ -119,6 +119,7 @@
       <HintPath>..\packages\CsvHelper.12.1.2\lib\net45\CsvHelper.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.VisualBasic.PowerPacks, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <!--ACA References Begin-->
     <!--ACA Refences End-->
     <!--AME Referebces Begin-->
@@ -245,6 +246,12 @@
     <Compile Include="Commands\StructuralSuite\RcUnfold.cs" />
     <Compile Include="Commands\TidySuite\RcBurstAll.cs" />
     <Compile Include="Engine\Enumerators\IEnumerables.cs" />
+    <Compile Include="Engine\GUI\WeldGui.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Engine\GUI\WeldGui.Designer.cs">
+      <DependentUpon>WeldGui.cs</DependentUpon>
+    </Compile>
     <Compile Include="Entities\Annotation\MLeaderJig.cs" />
     <Compile Include="Entities\Annotation\RcLeader.cs" />
     <Compile Include="Entities\Annotation\SysPoint.cs" />
@@ -334,9 +341,9 @@
       <DependentUpon>Dialect_Progress.resx</DependentUpon>
     </Compile>
     <Compile Include="Agents\LanguageAgent.cs" />
-    <Compile Include="Engine\System\AcVars.cs" />
+    <Compile Include="Engine\AcSystem\AcVars.cs" />
     <Compile Include="Engine\Enumerators\Enums.cs" />
-    <Compile Include="Engine\System\RegEditor.cs" />
+    <Compile Include="Engine\AcSystem\RegEditor.cs" />
     <Compile Include="Entities\Linework\PolylineSegment.cs" />
     <Compile Include="Entities\Linework\PolylineSegmentCollection.cs" />
     <Compile Include="Entities\Shapes\Triangle.cs" />
@@ -368,7 +375,7 @@
     <Compile Include="Extensions\XRefExtensions.cs" />
     <Compile Include="External\Importer.cs" />
     <Compile Include="External\PathFinder.cs" />
-    <Compile Include="Engine\System\DocumentHandlers.cs" />
+    <Compile Include="Engine\AcSystem\DocumentHandlers.cs" />
     <Compile Include="Initialization\InitPlugin.cs" />
     <Compile Include="External\DsdAgent\DsdReader.cs" />
     <Compile Include="External\DsdAgent\DsdWriter.cs" />
@@ -395,6 +402,9 @@
     <Compile Include="Settings\SettingsUser.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Engine\GUI\WeldGui.resx">
+      <DependentUpon>WeldGui.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Dialect\Dialect_CUI.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Dialect_CUI.Designer.cs</LastGenOutput>
