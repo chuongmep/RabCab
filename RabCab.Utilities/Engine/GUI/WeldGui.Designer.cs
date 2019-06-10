@@ -97,7 +97,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(584, 361);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(580, 357);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // tableLayoutPanel2
@@ -114,7 +114,7 @@
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(578, 29);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(574, 29);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // comboBox1
@@ -124,13 +124,13 @@
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(3, 3);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(492, 21);
+            this.comboBox1.Size = new System.Drawing.Size(488, 21);
             this.comboBox1.TabIndex = 0;
             // 
             // button3
             // 
             this.button3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button3.Location = new System.Drawing.Point(501, 3);
+            this.button3.Location = new System.Drawing.Point(497, 3);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(34, 23);
             this.button3.TabIndex = 1;
@@ -140,7 +140,7 @@
             // button4
             // 
             this.button4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button4.Location = new System.Drawing.Point(541, 3);
+            this.button4.Location = new System.Drawing.Point(537, 3);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(34, 23);
             this.button4.TabIndex = 2;
@@ -156,17 +156,17 @@
             this.tableLayoutPanel3.Controls.Add(this.button1, 1, 0);
             this.tableLayoutPanel3.Controls.Add(this.button2, 2, 0);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 329);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 325);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(578, 29);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(574, 29);
             this.tableLayoutPanel3.TabIndex = 1;
             // 
             // button1
             // 
             this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button1.Location = new System.Drawing.Point(381, 3);
+            this.button1.Location = new System.Drawing.Point(377, 3);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(94, 23);
             this.button1.TabIndex = 0;
@@ -176,7 +176,7 @@
             // button2
             // 
             this.button2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button2.Location = new System.Drawing.Point(481, 3);
+            this.button2.Location = new System.Drawing.Point(477, 3);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(94, 23);
             this.button2.TabIndex = 1;
@@ -225,7 +225,7 @@
             this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBox1.Location = new System.Drawing.Point(3, 38);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(578, 285);
+            this.groupBox1.Size = new System.Drawing.Size(574, 281);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             // 
@@ -247,7 +247,7 @@
             // 
             this.checkBox5.Appearance = System.Windows.Forms.Appearance.Button;
             this.checkBox5.AutoSize = true;
-            this.checkBox5.Location = new System.Drawing.Point(9, 239);
+            this.checkBox5.Location = new System.Drawing.Point(6, 235);
             this.checkBox5.MaximumSize = new System.Drawing.Size(40, 40);
             this.checkBox5.MinimumSize = new System.Drawing.Size(40, 40);
             this.checkBox5.Name = "checkBox5";
@@ -297,7 +297,7 @@
             this.lineShape3,
             this.lineShape2,
             this.lineShape1});
-            this.shapeContainer1.Size = new System.Drawing.Size(572, 266);
+            this.shapeContainer1.Size = new System.Drawing.Size(568, 262);
             this.shapeContainer1.TabIndex = 1;
             this.shapeContainer1.TabStop = false;
             // 
@@ -583,12 +583,16 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(584, 361);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(600, 400);
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(600, 400);
             this.Name = "WeldGui";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Welding Symbol";
+            this.TopMost = true;
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
