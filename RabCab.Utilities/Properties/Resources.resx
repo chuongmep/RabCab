@@ -118,11 +118,23 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Weld_AllAround" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GUIImgs\Weld_AllAround.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Weld_Backing" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\GUIImgs\Weld_Backing.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Weld_Concave" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GUIImgs\Weld_Concave.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Weld_Convex" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GUIImgs\Weld_Convex.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Weld_Fillet" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\GUIImgs\Weld_Fillet.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Weld_Flag" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GUIImgs\Weld_Flag.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Weld_FlangeCorner" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\GUIImgs\Weld_FlangeCorner.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -130,8 +142,44 @@
   <data name="Weld_FlangeEdge" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\GUIImgs\Weld_FlangeEdge.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Weld_FlipSyms" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GUIImgs\Weld_FlipSyms.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Weld_Flush" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GUIImgs\Weld_Flush.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Weld_IdAbove" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GUIImgs\Weld_IdAbove.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Weld_IdBelow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GUIImgs\Weld_IdBelow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Weld_LetterC" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GUIImgs\Weld_LetterC.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Weld_LetterG" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GUIImgs\Weld_LetterG.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Weld_LetterH" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GUIImgs\Weld_LetterH.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Weld_LetterM" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GUIImgs\Weld_LetterM.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Weld_LetterR" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GUIImgs\Weld_LetterR.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Weld_Melt" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\GUIImgs\Weld_Melt.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Weld_NoFlag" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GUIImgs\Weld_NoFlag.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Weld_NoId" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GUIImgs\Weld_NoId.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Weld_NoStagger" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GUIImgs\Weld_NoStagger.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Weld_Plug" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\GUIImgs\Weld_Plug.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -139,11 +187,20 @@
   <data name="Weld_Seam" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\GUIImgs\Weld_Seam.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Weld_Single" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GUIImgs\Weld_Single.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Weld_Spot" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\GUIImgs\Weld_Spot.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Weld_SquareGroove" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\GUIImgs\Weld_SquareGroove.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Weld_StaggerMirror" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GUIImgs\Weld_StaggerMirror.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Weld_StaggerMove" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GUIImgs\Weld_StaggerMove.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Weld_VGroove" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\GUIImgs\Weld_VGroove.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

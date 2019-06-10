@@ -43,6 +43,43 @@ namespace RabCab.Engine.GUI
             imageCombo5.Items.Add(new ImageComboItem("Flange Corner", 8));
             imageCombo5.Items.Add(new ImageComboItem("Square Groove", 9));
             imageCombo5.Items.Add(new ImageComboItem("V Groove", 10));
+
+            imageCombo6.Items.Add(new ImageComboItem("None", 0));
+            imageCombo6.Items.Add(new ImageComboItem("Concave", 1));
+            imageCombo6.Items.Add(new ImageComboItem("Flush", 2));
+            imageCombo6.Items.Add(new ImageComboItem("Convex", 3));
+
+            imageCombo2.Items.Add(new ImageComboItem("None", 0));
+            imageCombo2.Items.Add(new ImageComboItem("Concave", 1));
+            imageCombo2.Items.Add(new ImageComboItem("Flush", 2));
+            imageCombo2.Items.Add(new ImageComboItem("Convex", 3));
+
+            imageCombo4.Items.Add(new ImageComboItem("No ID", 0));
+            imageCombo4.Items.Add(new ImageComboItem("ID on Top", 1));
+            imageCombo4.Items.Add(new ImageComboItem("ID on Bottom", 2));
+
+            imageCombo3.Items.Add(new ImageComboItem("No Stagger", 0));
+            imageCombo3.Items.Add(new ImageComboItem("Move", 1));
+            imageCombo3.Items.Add(new ImageComboItem("Mirror", 2));
+
+            imageCombo8.Items.Add(new ImageComboItem("None", 0));
+            imageCombo8.Items.Add(new ImageComboItem("Chipping", 1));
+            imageCombo8.Items.Add(new ImageComboItem("Grinding", 2));
+            imageCombo8.Items.Add(new ImageComboItem("Hammering", 3));
+            imageCombo8.Items.Add(new ImageComboItem("Machining", 4));
+            imageCombo8.Items.Add(new ImageComboItem("Rolling", 5));
+
+            imageCombo7.Items.Add(new ImageComboItem("None", 0));
+            imageCombo7.Items.Add(new ImageComboItem("Chipping", 1));
+            imageCombo7.Items.Add(new ImageComboItem("Grinding", 2));
+            imageCombo7.Items.Add(new ImageComboItem("Hammering", 3));
+            imageCombo7.Items.Add(new ImageComboItem("Machining", 4));
+            imageCombo7.Items.Add(new ImageComboItem("Rolling", 5));
+        }
+
+        private void CheckBox4_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

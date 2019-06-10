@@ -724,6 +724,63 @@
   <ItemGroup>
     <None Include="Resources\GUIImgs\Weld_VGroove.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GUIImgs\Weld_AllAround.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GUIImgs\Weld_Concave.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GUIImgs\Weld_Convex.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GUIImgs\Weld_Flag.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GUIImgs\Weld_FlipSyms.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GUIImgs\Weld_Flush.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GUIImgs\Weld_IdAbove.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GUIImgs\Weld_IdBelow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GUIImgs\Weld_NoFlag.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GUIImgs\Weld_NoId.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GUIImgs\Weld_NoStagger.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GUIImgs\Weld_Single.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GUIImgs\Weld_StaggerMirror.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GUIImgs\Weld_StaggerMove.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GUIImgs\Weld_LetterC.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GUIImgs\Weld_LetterG.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GUIImgs\Weld_LetterH.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GUIImgs\Weld_LetterM.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GUIImgs\Weld_LetterR.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

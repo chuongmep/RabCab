@@ -63,6 +63,16 @@ namespace RabCab.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Weld_AllAround {
+            get {
+                object obj = ResourceManager.GetObject("Weld_AllAround", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Weld_Backing {
             get {
                 object obj = ResourceManager.GetObject("Weld_Backing", resourceCulture);
@@ -73,9 +83,39 @@ namespace RabCab.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Weld_Concave {
+            get {
+                object obj = ResourceManager.GetObject("Weld_Concave", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Weld_Convex {
+            get {
+                object obj = ResourceManager.GetObject("Weld_Convex", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Weld_Fillet {
             get {
                 object obj = ResourceManager.GetObject("Weld_Fillet", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Weld_Flag {
+            get {
+                object obj = ResourceManager.GetObject("Weld_Flag", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -103,9 +143,129 @@ namespace RabCab.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Weld_FlipSyms {
+            get {
+                object obj = ResourceManager.GetObject("Weld_FlipSyms", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Weld_Flush {
+            get {
+                object obj = ResourceManager.GetObject("Weld_Flush", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Weld_IdAbove {
+            get {
+                object obj = ResourceManager.GetObject("Weld_IdAbove", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Weld_IdBelow {
+            get {
+                object obj = ResourceManager.GetObject("Weld_IdBelow", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Weld_LetterC {
+            get {
+                object obj = ResourceManager.GetObject("Weld_LetterC", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Weld_LetterG {
+            get {
+                object obj = ResourceManager.GetObject("Weld_LetterG", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Weld_LetterH {
+            get {
+                object obj = ResourceManager.GetObject("Weld_LetterH", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Weld_LetterM {
+            get {
+                object obj = ResourceManager.GetObject("Weld_LetterM", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Weld_LetterR {
+            get {
+                object obj = ResourceManager.GetObject("Weld_LetterR", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Weld_Melt {
             get {
                 object obj = ResourceManager.GetObject("Weld_Melt", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Weld_NoFlag {
+            get {
+                object obj = ResourceManager.GetObject("Weld_NoFlag", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Weld_NoId {
+            get {
+                object obj = ResourceManager.GetObject("Weld_NoId", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Weld_NoStagger {
+            get {
+                object obj = ResourceManager.GetObject("Weld_NoStagger", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -133,6 +293,16 @@ namespace RabCab.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Weld_Single {
+            get {
+                object obj = ResourceManager.GetObject("Weld_Single", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Weld_Spot {
             get {
                 object obj = ResourceManager.GetObject("Weld_Spot", resourceCulture);
@@ -146,6 +316,26 @@ namespace RabCab.Properties {
         internal static System.Drawing.Bitmap Weld_SquareGroove {
             get {
                 object obj = ResourceManager.GetObject("Weld_SquareGroove", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Weld_StaggerMirror {
+            get {
+                object obj = ResourceManager.GetObject("Weld_StaggerMirror", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Weld_StaggerMove {
+            get {
+                object obj = ResourceManager.GetObject("Weld_StaggerMove", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -40,8 +40,6 @@
             this.button2 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.checkBox6 = new System.Windows.Forms.CheckBox();
-            this.checkBox4 = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.textBox17 = new System.Windows.Forms.TextBox();
             this.textBox15 = new System.Windows.Forms.TextBox();
             this.textBox16 = new System.Windows.Forms.TextBox();
@@ -63,9 +61,6 @@
             this.WSymbolList = new System.Windows.Forms.ImageList(this.components);
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
-            this.checkBox5 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.shapeContainer1 = new Microsoft.VisualBasic.PowerPacks.ShapeContainer();
             this.lineShape3 = new Microsoft.VisualBasic.PowerPacks.LineShape();
@@ -79,6 +74,13 @@
             this.imageCombo3 = new UCImageCombo.ImageCombo();
             this.imageCombo2 = new UCImageCombo.ImageCombo();
             this.imageCombo1 = new UCImageCombo.ImageCombo();
+            this.WTypeList = new System.Windows.Forms.ImageList(this.components);
+            this.WIDList = new System.Windows.Forms.ImageList(this.components);
+            this.WStaggerList = new System.Windows.Forms.ImageList(this.components);
+            this.WLetList = new System.Windows.Forms.ImageList(this.components);
+            this.button5 = new System.Windows.Forms.Button();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -123,6 +125,7 @@
             // 
             this.comboBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(3, 3);
             this.comboBox1.Name = "comboBox1";
@@ -132,6 +135,7 @@
             // button3
             // 
             this.button3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button3.Location = new System.Drawing.Point(501, 3);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(34, 23);
@@ -142,6 +146,7 @@
             // button4
             // 
             this.button4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button4.Location = new System.Drawing.Point(541, 3);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(34, 23);
@@ -168,6 +173,7 @@
             // button1
             // 
             this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Location = new System.Drawing.Point(381, 3);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(94, 23);
@@ -178,6 +184,7 @@
             // button2
             // 
             this.button2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.Location = new System.Drawing.Point(481, 3);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(94, 23);
@@ -187,11 +194,10 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.button5);
             this.groupBox1.Controls.Add(this.checkBox6);
             this.groupBox1.Controls.Add(this.imageCombo8);
             this.groupBox1.Controls.Add(this.imageCombo7);
-            this.groupBox1.Controls.Add(this.checkBox4);
-            this.groupBox1.Controls.Add(this.checkBox3);
             this.groupBox1.Controls.Add(this.imageCombo6);
             this.groupBox1.Controls.Add(this.textBox17);
             this.groupBox1.Controls.Add(this.textBox15);
@@ -218,7 +224,6 @@
             this.groupBox1.Controls.Add(this.imageCombo1);
             this.groupBox1.Controls.Add(this.textBox3);
             this.groupBox1.Controls.Add(this.textBox2);
-            this.groupBox1.Controls.Add(this.checkBox5);
             this.groupBox1.Controls.Add(this.checkBox2);
             this.groupBox1.Controls.Add(this.checkBox1);
             this.groupBox1.Controls.Add(this.textBox1);
@@ -240,26 +245,6 @@
             this.checkBox6.TabIndex = 43;
             this.checkBox6.Text = "Frame Text";
             this.checkBox6.UseVisualStyleBackColor = true;
-            // 
-            // checkBox4
-            // 
-            this.checkBox4.AutoSize = true;
-            this.checkBox4.Location = new System.Drawing.Point(435, 211);
-            this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(61, 17);
-            this.checkBox4.TabIndex = 40;
-            this.checkBox4.Text = "Brazing";
-            this.checkBox4.UseVisualStyleBackColor = true;
-            // 
-            // checkBox3
-            // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(435, 26);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(61, 17);
-            this.checkBox3.TabIndex = 39;
-            this.checkBox3.Text = "Brazing";
-            this.checkBox3.UseVisualStyleBackColor = true;
             // 
             // textBox17
             // 
@@ -425,42 +410,6 @@
             this.textBox2.Size = new System.Drawing.Size(41, 20);
             this.textBox2.TabIndex = 7;
             // 
-            // checkBox5
-            // 
-            this.checkBox5.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkBox5.AutoSize = true;
-            this.checkBox5.Location = new System.Drawing.Point(6, 235);
-            this.checkBox5.MaximumSize = new System.Drawing.Size(40, 40);
-            this.checkBox5.MinimumSize = new System.Drawing.Size(40, 40);
-            this.checkBox5.Name = "checkBox5";
-            this.checkBox5.Size = new System.Drawing.Size(40, 40);
-            this.checkBox5.TabIndex = 6;
-            this.checkBox5.UseVisualStyleBackColor = true;
-            // 
-            // checkBox2
-            // 
-            this.checkBox2.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(520, 60);
-            this.checkBox2.MaximumSize = new System.Drawing.Size(40, 40);
-            this.checkBox2.MinimumSize = new System.Drawing.Size(40, 40);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(40, 40);
-            this.checkBox2.TabIndex = 3;
-            this.checkBox2.UseVisualStyleBackColor = true;
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(520, 106);
-            this.checkBox1.MaximumSize = new System.Drawing.Size(40, 40);
-            this.checkBox1.MinimumSize = new System.Drawing.Size(40, 40);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(40, 40);
-            this.checkBox1.TabIndex = 2;
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(6, 96);
@@ -485,6 +434,7 @@
             // 
             // lineShape3
             // 
+            this.lineShape3.BorderWidth = 2;
             this.lineShape3.Name = "lineShape3";
             this.lineShape3.X1 = 150;
             this.lineShape3.X2 = 550;
@@ -493,6 +443,7 @@
             // 
             // lineShape2
             // 
+            this.lineShape2.BorderWidth = 2;
             this.lineShape2.Name = "lineShape2";
             this.lineShape2.X1 = 100;
             this.lineShape2.X2 = 150;
@@ -501,6 +452,7 @@
             // 
             // lineShape1
             // 
+            this.lineShape1.BorderWidth = 2;
             this.lineShape1.Name = "lineShape1";
             this.lineShape1.X1 = 100;
             this.lineShape1.X2 = 150;
@@ -510,34 +462,46 @@
             // imageCombo8
             // 
             this.imageCombo8.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.imageCombo8.DropDownHeight = 200;
             this.imageCombo8.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.imageCombo8.FormattingEnabled = true;
+            this.imageCombo8.DropDownWidth = 75;
+            this.imageCombo8.ImageList = this.WLetList;
+            this.imageCombo8.IntegralHeight = false;
             this.imageCombo8.ItemHeight = 25;
-            this.imageCombo8.Location = new System.Drawing.Point(371, 173);
+            this.imageCombo8.Location = new System.Drawing.Point(435, 205);
+            this.imageCombo8.MaxDropDownItems = 10;
             this.imageCombo8.Name = "imageCombo8";
-            this.imageCombo8.Size = new System.Drawing.Size(58, 31);
+            this.imageCombo8.Size = new System.Drawing.Size(47, 31);
             this.imageCombo8.TabIndex = 42;
             // 
             // imageCombo7
             // 
             this.imageCombo7.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.imageCombo7.DropDownHeight = 200;
             this.imageCombo7.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.imageCombo7.FormattingEnabled = true;
+            this.imageCombo7.DropDownWidth = 75;
+            this.imageCombo7.ImageList = this.WLetList;
+            this.imageCombo7.IntegralHeight = false;
             this.imageCombo7.ItemHeight = 25;
-            this.imageCombo7.Location = new System.Drawing.Point(371, 49);
+            this.imageCombo7.Location = new System.Drawing.Point(435, 17);
+            this.imageCombo7.MaxDropDownItems = 10;
             this.imageCombo7.Name = "imageCombo7";
-            this.imageCombo7.Size = new System.Drawing.Size(58, 31);
+            this.imageCombo7.Size = new System.Drawing.Size(47, 31);
             this.imageCombo7.TabIndex = 41;
             // 
             // imageCombo6
             // 
             this.imageCombo6.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.imageCombo6.DropDownHeight = 125;
             this.imageCombo6.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.imageCombo6.FormattingEnabled = true;
+            this.imageCombo6.DropDownWidth = 250;
+            this.imageCombo6.ImageList = this.WTypeList;
+            this.imageCombo6.IntegralHeight = false;
             this.imageCombo6.ItemHeight = 25;
-            this.imageCombo6.Location = new System.Drawing.Point(435, 173);
+            this.imageCombo6.Location = new System.Drawing.Point(435, 168);
+            this.imageCombo6.MaxDropDownItems = 4;
             this.imageCombo6.Name = "imageCombo6";
-            this.imageCombo6.Size = new System.Drawing.Size(79, 31);
+            this.imageCombo6.Size = new System.Drawing.Size(47, 31);
             this.imageCombo6.TabIndex = 38;
             // 
             // imageCombo5
@@ -558,10 +522,14 @@
             // imageCombo4
             // 
             this.imageCombo4.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.imageCombo4.DropDownHeight = 200;
             this.imageCombo4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.imageCombo4.FormattingEnabled = true;
+            this.imageCombo4.DropDownWidth = 100;
+            this.imageCombo4.ImageList = this.WIDList;
+            this.imageCombo4.IntegralHeight = false;
             this.imageCombo4.ItemHeight = 35;
             this.imageCombo4.Location = new System.Drawing.Point(6, 49);
+            this.imageCombo4.MaxDropDownItems = 3;
             this.imageCombo4.Name = "imageCombo4";
             this.imageCombo4.Size = new System.Drawing.Size(60, 41);
             this.imageCombo4.TabIndex = 25;
@@ -569,8 +537,11 @@
             // imageCombo3
             // 
             this.imageCombo3.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.imageCombo3.DropDownHeight = 200;
             this.imageCombo3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.imageCombo3.FormattingEnabled = true;
+            this.imageCombo3.DropDownWidth = 100;
+            this.imageCombo3.ImageList = this.WStaggerList;
+            this.imageCombo3.IntegralHeight = false;
             this.imageCombo3.ItemHeight = 35;
             this.imageCombo3.Location = new System.Drawing.Point(6, 162);
             this.imageCombo3.Name = "imageCombo3";
@@ -580,12 +551,16 @@
             // imageCombo2
             // 
             this.imageCombo2.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.imageCombo2.DropDownHeight = 125;
             this.imageCombo2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.imageCombo2.FormattingEnabled = true;
+            this.imageCombo2.DropDownWidth = 250;
+            this.imageCombo2.ImageList = this.WTypeList;
+            this.imageCombo2.IntegralHeight = false;
             this.imageCombo2.ItemHeight = 25;
-            this.imageCombo2.Location = new System.Drawing.Point(435, 49);
+            this.imageCombo2.Location = new System.Drawing.Point(435, 54);
+            this.imageCombo2.MaxDropDownItems = 4;
             this.imageCombo2.Name = "imageCombo2";
-            this.imageCombo2.Size = new System.Drawing.Size(79, 31);
+            this.imageCombo2.Size = new System.Drawing.Size(47, 31);
             this.imageCombo2.TabIndex = 17;
             // 
             // imageCombo1
@@ -602,6 +577,82 @@
             this.imageCombo1.Name = "imageCombo1";
             this.imageCombo1.Size = new System.Drawing.Size(48, 30);
             this.imageCombo1.TabIndex = 11;
+            // 
+            // WTypeList
+            // 
+            this.WTypeList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("WTypeList.ImageStream")));
+            this.WTypeList.TransparentColor = System.Drawing.Color.Transparent;
+            this.WTypeList.Images.SetKeyName(0, "Weld_Blank.png");
+            this.WTypeList.Images.SetKeyName(1, "Weld_Concave.png");
+            this.WTypeList.Images.SetKeyName(2, "Weld_Flush.png");
+            this.WTypeList.Images.SetKeyName(3, "Weld_Convex.png");
+            // 
+            // WIDList
+            // 
+            this.WIDList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("WIDList.ImageStream")));
+            this.WIDList.TransparentColor = System.Drawing.Color.Transparent;
+            this.WIDList.Images.SetKeyName(0, "Weld_NoId.png");
+            this.WIDList.Images.SetKeyName(1, "Weld_IdAbove.png");
+            this.WIDList.Images.SetKeyName(2, "Weld_IdBelow.png");
+            // 
+            // WStaggerList
+            // 
+            this.WStaggerList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("WStaggerList.ImageStream")));
+            this.WStaggerList.TransparentColor = System.Drawing.Color.Transparent;
+            this.WStaggerList.Images.SetKeyName(0, "Weld_NoStagger.png");
+            this.WStaggerList.Images.SetKeyName(1, "Weld_StaggerMove.png");
+            this.WStaggerList.Images.SetKeyName(2, "Weld_StaggerMirror.png");
+            // 
+            // WLetList
+            // 
+            this.WLetList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("WLetList.ImageStream")));
+            this.WLetList.TransparentColor = System.Drawing.Color.Transparent;
+            this.WLetList.Images.SetKeyName(0, "Weld_Blank.png");
+            this.WLetList.Images.SetKeyName(1, "Weld_LetterC.png");
+            this.WLetList.Images.SetKeyName(2, "Weld_LetterG.png");
+            this.WLetList.Images.SetKeyName(3, "Weld_LetterH.png");
+            this.WLetList.Images.SetKeyName(4, "Weld_LetterM.png");
+            this.WLetList.Images.SetKeyName(5, "Weld_LetterR.png");
+            // 
+            // button5
+            // 
+            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button5.Image = global::RabCab.Properties.Resources.Weld_FlipSyms;
+            this.button5.Location = new System.Drawing.Point(520, 158);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(40, 40);
+            this.button5.TabIndex = 2;
+            this.button5.UseVisualStyleBackColor = true;
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.Appearance = System.Windows.Forms.Appearance.Button;
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.checkBox2.Image = global::RabCab.Properties.Resources.Weld_NoFlag;
+            this.checkBox2.ImageAlign = System.Drawing.ContentAlignment.TopRight;
+            this.checkBox2.Location = new System.Drawing.Point(520, 66);
+            this.checkBox2.MaximumSize = new System.Drawing.Size(40, 40);
+            this.checkBox2.MinimumSize = new System.Drawing.Size(40, 40);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(40, 40);
+            this.checkBox2.TabIndex = 3;
+            this.checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.Appearance = System.Windows.Forms.Appearance.Button;
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.checkBox1.Image = global::RabCab.Properties.Resources.Weld_Single;
+            this.checkBox1.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.checkBox1.Location = new System.Drawing.Point(520, 112);
+            this.checkBox1.MaximumSize = new System.Drawing.Size(40, 40);
+            this.checkBox1.MinimumSize = new System.Drawing.Size(40, 40);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(40, 40);
+            this.checkBox1.TabIndex = 2;
+            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // WeldGui
             // 
@@ -643,7 +694,6 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.CheckBox checkBox5;
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.CheckBox checkBox1;
         private Microsoft.VisualBasic.PowerPacks.ShapeContainer shapeContainer1;
@@ -652,8 +702,6 @@
         private Microsoft.VisualBasic.PowerPacks.LineShape lineShape1;
         private UCImageCombo.ImageCombo imageCombo8;
         private UCImageCombo.ImageCombo imageCombo7;
-        private System.Windows.Forms.CheckBox checkBox4;
-        private System.Windows.Forms.CheckBox checkBox3;
         private UCImageCombo.ImageCombo imageCombo6;
         private System.Windows.Forms.TextBox textBox17;
         private System.Windows.Forms.TextBox textBox15;
@@ -680,5 +728,10 @@
         private UCImageCombo.ImageCombo imageCombo1;
         private System.Windows.Forms.CheckBox checkBox6;
         private System.Windows.Forms.ImageList WSymbolList;
+        private System.Windows.Forms.ImageList WTypeList;
+        private System.Windows.Forms.ImageList WIDList;
+        private System.Windows.Forms.ImageList WStaggerList;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.ImageList WLetList;
     }
 }
