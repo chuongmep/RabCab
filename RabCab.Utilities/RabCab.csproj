@@ -303,6 +303,11 @@
     <Compile Include="External\XmlAgent\XmlDocumentExtensions.cs" />
     <Compile Include="Initialization\Debugging.cs" />
     <Compile Include="Initialization\Sandbox.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\Dialect\Dialect_CUI.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -407,6 +412,10 @@
   <ItemGroup>
     <EmbeddedResource Include="Engine\GUI\WeldGui.resx">
       <DependentUpon>WeldGui.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Dialect\Dialect_CUI.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -684,6 +693,36 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GUIImgs\Weld_Backing.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GUIImgs\Weld_Fillet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GUIImgs\Weld_FlangeCorner.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GUIImgs\Weld_FlangeEdge.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GUIImgs\Weld_Melt.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GUIImgs\Weld_Plug.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GUIImgs\Weld_Seam.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GUIImgs\Weld_Spot.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GUIImgs\Weld_SquareGroove.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GUIImgs\Weld_VGroove.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
