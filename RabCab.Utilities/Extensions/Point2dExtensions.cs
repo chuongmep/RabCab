@@ -20,6 +20,14 @@ namespace RabCab.Extensions
     /// </summary>
     public static class Point2DExtensions
     {
+        public static double AngleBetween(this Point2d pt1, Point2d pt2)
+        {
+            var xDiff = pt2.X - pt1.X;
+            var yDiff = pt2.Y - pt1.Y;
+            var angle = Math.Atan2(yDiff, xDiff) * 180.0 / Math.PI;
+            return angle;
+        }
+
         /// <summary>
         ///     Reverses the order of the X and Y properties of a Point2d.
         /// </summary>

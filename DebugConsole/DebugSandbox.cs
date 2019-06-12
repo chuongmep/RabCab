@@ -9,11 +9,6 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
-using System;
-using System.Windows.Forms;
-using RabCab.Engine.GUI;
-using RabCab.Settings;
-
 namespace DebugConsole
 {
     internal static class DebugSandbox
@@ -31,47 +26,9 @@ namespace DebugConsole
             //Application.EnableVisualStyles();
             //Application.Run(form);
 
-            var wSym = new WeldGui();
-            Application.Run(wSym);
-
             //Console.WriteLine("-------- RabCab Debugger --------\n");
             //Console.WriteLine("Please enter commands to test...");
             //ListenForInput();
-        }
-
-        /// <summary>
-        ///     Method for recursively listening for input from debugger
-        /// </summary>
-        private static void ListenForInput()
-        {
-            //Set listening variable
-            var listening = true;
-
-            //While user does not choose to exit, keep asking for input
-            while (listening)
-            {
-                //Write an empty line to space out commands
-                Console.WriteLine("");
-
-                //Read input from the user
-                var input = Console.ReadLine();
-
-                switch (input?.ToUpper())
-                {
-                    case "REPOFASTENERS":
-                        //Debugging.Cmd_TestXml();
-                        break;
-                    case "REPOMATERIALS":
-                        //Debugging.Cmd_TestMats();
-                        break;
-                    case "EXIT":
-                        listening = false;
-                        break;
-                    default:
-                        Console.Write("No command exists with that name.");
-                        break;
-                }
-            }
         }
     }
 }

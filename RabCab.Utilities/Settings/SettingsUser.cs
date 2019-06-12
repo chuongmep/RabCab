@@ -143,6 +143,10 @@ namespace RabCab.Settings
         public static string PageNoOf = "PAGE";
         public static string PageNoTotal = "PAGECOUNT";
 
+
+        //Weld Symbol Settings
+        public static double WeldSymbolLength = 1;
+
         //AutoLayer Options
         public static List<string> LayerCommandList { get; set; } = new List<string>
         {

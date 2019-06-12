@@ -1,21 +1,44 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Autodesk.AutoCAD.DatabaseServices;
+using Autodesk.AutoCAD.Geometry;
+using RabCab.Agents;
+using RabCab.Calculators;
+using RabCab.Extensions;
+using RabCab.Settings;
 using UCImageCombo;
+using static Autodesk.AutoCAD.ApplicationServices.Core.Application;
 
 namespace RabCab.Engine.GUI
 {
     public partial class WeldGui : Form
     {
-        public WeldGui()
+        public List<Entity> drawnEnts = new List<Entity>();
+        public Point3d SymStart;
+        public Point3d SymEnd;
+        public bool Success;
+
+        public WeldGui(Point3d sStart, Point3d sEnd)
         {
             InitializeComponent();
+
+            SymStart = sStart;
+            SymEnd = sEnd;
+
+            foreach (Control c in groupBox1.Controls)
+                switch (c)
+                {
+                    case CheckBox box:
+                        box.CheckedChanged += c_ControlChanged;
+                        break;
+                    case ComboBox combo:
+                        combo.SelectedIndexChanged += c_ControlChanged;
+                        break;
+                    default:
+                        c.TextChanged += c_ControlChanged;
+                        break;
+                }
         }
 
         private void WeldGui_Load(object sender, EventArgs e)
@@ -77,42 +100,273 @@ namespace RabCab.Engine.GUI
             Method_T.Items.Add(new ImageComboItem("Rolling", 5));
 
             WeldType_T.SelectedIndex = 0;
-            WeldType_B.SelectedIndex = 1;
+            WeldType_B.SelectedIndex = 0;
+            IdCombo.SelectedIndex = 0;
+            StaggerCombo.SelectedIndex = 0;
+            PresetCombo.SelectedIndex = 0;
+            Focus();
         }
+
+        #region Draw Transients
+
+        private void c_ControlChanged(object sender, EventArgs e)
+        {
+            TransientAgent.Clear();
+
+            foreach (var ent in drawnEnts)
+            {
+                ent.Dispose();
+            }
+
+            drawnEnts.Clear();
+            
+            //TODO add all drawbles here
+            
+            //Draw weld symbol
+
+            #region TopWeldSymbol
+
+            var index = WeldType_T.SelectedIndex;
+            var cIndex = Contour_T.SelectedIndex;
+
+            switch (index)
+            {
+                case 1: //Fillet
+
+                    //Draw Symbol
+                    var mPoint = SymStart.GetMidPoint(SymEnd);
+                    var fLineLength = CalcUnit.GetProportion(.2, 1, SettingsUser.WeldSymbolLength);
+                    var fLinePt1 = new Point2d(mPoint.X, mPoint.Y);
+                    var fLinePt2 = new Point2d(fLinePt1.X, fLinePt1.Y + fLineLength);
+                    var fLinePt3 = new Point2d(fLinePt1.X + fLineLength, fLinePt1.Y);
+
+                    var fLine = new Polyline(3);
+                    fLine.AddVertexAt(0, fLinePt1, 0, 0, 0);
+                    fLine.AddVertexAt(0, fLinePt2, 0, 0, 0);
+                    fLine.AddVertexAt(0, fLinePt3, 0, 0, 0);
+                    fLine.Closed = false;
+
+                    drawnEnts.Add(fLine);
+
+                    if (Contour_T.SelectedIndex > 0)
+                    {
+                        switch (cIndex)
+                        {
+                            case 1: //Concave
+                                break;
+                            case 2: //Flush
+                                break;
+                            case 3: //Convex
+                                break;
+                        }
+                    }
+
+                    break;
+                case 2: //Plug
+
+                    //Draw Symbol
+
+                    if (Contour_T.SelectedIndex > 0)
+                    {
+                        switch (cIndex)
+                        {
+                            case 1: //Concave
+                                break;
+                            case 2: //Flush
+                                break;
+                            case 3: //Convex
+                                break;
+                        }
+                    }
+
+                    break;
+                case 3: //Spot
+
+                    //Draw Symbol
+
+                    if (Contour_T.SelectedIndex > 0)
+                    {
+                        switch (cIndex)
+                        {
+                            case 1: //Concave
+                                break;
+                            case 2: //Flush
+                                break;
+                            case 3: //Convex
+                                break;
+                        }
+                    }
+
+                    break;
+                case 4: //Seam
+
+                    //Draw Symbol
+
+                    if (Contour_T.SelectedIndex > 0)
+                    {
+                        switch (cIndex)
+                        {
+                            case 1: //Concave
+                                break;
+                            case 2: //Flush
+                                break;
+                            case 3: //Convex
+                                break;
+                        }
+                    }
+
+                    break;
+                case 5: //Backing
+
+                    //Draw Symbol
+
+                    if (Contour_T.SelectedIndex > 0)
+                    {
+                        switch (cIndex)
+                        {
+                            case 1: //Concave
+                                break;
+                            case 2: //Flush
+                                break;
+                            case 3: //Convex
+                                break;
+                        }
+                    }
+
+                    break;
+                case 6: //Melt
+
+                    //Draw Symbol
+
+                    if (Contour_T.SelectedIndex > 0)
+                    {
+                        switch (cIndex)
+                        {
+                            case 1: //Concave
+                                break;
+                            case 2: //Flush
+                                break;
+                            case 3: //Convex
+                                break;
+                        }
+                    }
+
+                    break;
+                case 7: //Flange Edge
+
+                    //Draw Symbol
+
+                    if (Contour_T.SelectedIndex > 0)
+                    {
+                        switch (cIndex)
+                        {
+                            case 1: //Concave
+                                break;
+                            case 2: //Flush
+                                break;
+                            case 3: //Convex
+                                break;
+                        }
+                    }
+
+                    break;
+                case 8: //Flange Corner
+
+                    //Draw Symbol
+
+                    if (Contour_T.SelectedIndex > 0)
+                    {
+                        switch (cIndex)
+                        {
+                            case 1: //Concave
+                                break;
+                            case 2: //Flush
+                                break;
+                            case 3: //Convex
+                                break;
+                        }
+                    }
+
+                    break;
+                case 9: //Square Groove
+
+                    //Draw Symbol
+
+                    if (Contour_T.SelectedIndex > 0)
+                    {
+                        switch (cIndex)
+                        {
+                            case 1: //Concave
+                                break;
+                            case 2: //Flush
+                                break;
+                            case 3: //Convex
+                                break;
+                        }
+                    }
+
+                    break;
+                case 10: //V Groove
+
+                    //Draw Symbol
+
+                    if (Contour_T.SelectedIndex > 0)
+                    {
+                        switch (cIndex)
+                        {
+                            case 1: //Concave
+                                break;
+                            case 2: //Flush
+                                break;
+                            case 3: //Convex
+                                break;
+                        }
+                    }
+                    break;
+            }
+            #endregion
+
+            #region BottomWeldSymbol
+
+            index = WeldType_B.SelectedIndex;
+
+            #endregion
+
+            TransientAgent.Add(drawnEnts.ToArray());
+            TransientAgent.Draw();
+            DocumentManager.MdiActiveDocument.Editor.Regen();
+        }
+
+        #endregion
+
+        #region Visibility Handlers
 
         private void WeldFlag_CheckedChanged(object sender, EventArgs e)
         {
             if (WeldFlag.Checked)
-            {
-                WeldFlag.Image = global::RabCab.Properties.Resources.Weld_Flag;
-            }
+                WeldFlag.Image = Properties.Resources.Weld_Flag;
             else
-            {
-                WeldFlag.Image = global::RabCab.Properties.Resources.Weld_NoFlag;
-            }
+                WeldFlag.Image = Properties.Resources.Weld_NoFlag;
         }
 
         private void WeldAllAround_CheckedChanged(object sender, EventArgs e)
         {
             if (WeldAllAround.Checked)
-            {
-                WeldAllAround.Image = global::RabCab.Properties.Resources.Weld_AllAround;
-            }
+                WeldAllAround.Image = Properties.Resources.Weld_AllAround;
             else
-            {
-                WeldAllAround.Image = global::RabCab.Properties.Resources.Weld_Single;
-            }
+                WeldAllAround.Image = Properties.Resources.Weld_Single;
         }
 
         private void FlipSyms_Click(object sender, EventArgs e)
         {
-
+            //TODO
+            //Implement method for swapping
         }
 
         private void WeldType_T_SelectedIndexChanged(object sender, EventArgs e)
         {
-            this.SuspendLayout();
-            
+            SuspendLayout();
+
             var index = WeldType_T.SelectedIndex;
 
             Prefix_T.Visible = false;
@@ -144,10 +398,7 @@ namespace RabCab.Engine.GUI
 
                     Minus_T.Visible = true;
 
-                    if (Contour_T.SelectedIndex > 0)
-                    {
-                        Method_T.Visible = true;
-                    }
+                    if (Contour_T.SelectedIndex > 0) Method_T.Visible = true;
 
                     break;
                 case 2: //Plug
@@ -162,10 +413,7 @@ namespace RabCab.Engine.GUI
 
                     Minus_T.Visible = true;
 
-                    if (Contour_T.SelectedIndex > 0)
-                    {
-                        Method_T.Visible = true;
-                    }
+                    if (Contour_T.SelectedIndex > 0) Method_T.Visible = true;
 
                     break;
                 case 3: //Spot
@@ -177,10 +425,7 @@ namespace RabCab.Engine.GUI
 
                     Contour_T.Visible = true;
 
-                    if (Contour_T.SelectedIndex > 0)
-                    {
-                        Method_T.Visible = true;
-                    }
+                    if (Contour_T.SelectedIndex > 0) Method_T.Visible = true;
 
                     break;
                 case 4: //Seam
@@ -194,10 +439,7 @@ namespace RabCab.Engine.GUI
 
                     Minus_T.Visible = true;
 
-                    if (Contour_T.SelectedIndex > 0)
-                    {
-                        Method_T.Visible = true;
-                    }
+                    if (Contour_T.SelectedIndex > 0) Method_T.Visible = true;
 
                     break;
                 case 5: //Backing
@@ -210,10 +452,7 @@ namespace RabCab.Engine.GUI
 
                     Minus_T.Visible = true;
 
-                    if (Contour_T.SelectedIndex > 0)
-                    {
-                        Method_T.Visible = true;
-                    }
+                    if (Contour_T.SelectedIndex > 0) Method_T.Visible = true;
 
                     break;
                 case 6: //Melt
@@ -223,10 +462,7 @@ namespace RabCab.Engine.GUI
                     Contour_T.Visible = true;
                     Angle_T.Visible = true;
 
-                    if (Contour_T.SelectedIndex > 0)
-                    {
-                        Method_T.Visible = true;
-                    }
+                    if (Contour_T.SelectedIndex > 0) Method_T.Visible = true;
 
                     break;
                 case 7: //Flange Edge
@@ -242,10 +478,7 @@ namespace RabCab.Engine.GUI
                     Plus_T.Visible = true;
                     Minus_T.Visible = true;
 
-                    if (Contour_T.SelectedIndex > 0)
-                    {
-                        Method_T.Visible = true;
-                    }
+                    if (Contour_T.SelectedIndex > 0) Method_T.Visible = true;
 
                     break;
                 case 8: //Flange Corner
@@ -261,10 +494,7 @@ namespace RabCab.Engine.GUI
                     Plus_T.Visible = true;
                     Minus_T.Visible = true;
 
-                    if (Contour_T.SelectedIndex > 0)
-                    {
-                        Method_T.Visible = true;
-                    }
+                    if (Contour_T.SelectedIndex > 0) Method_T.Visible = true;
 
                     break;
                 case 9: //Square Groove
@@ -278,10 +508,7 @@ namespace RabCab.Engine.GUI
 
                     Minus_T.Visible = true;
 
-                    if (Contour_T.SelectedIndex > 0)
-                    {
-                        Method_T.Visible = true;
-                    }
+                    if (Contour_T.SelectedIndex > 0) Method_T.Visible = true;
 
                     break;
                 case 10: //V Groove
@@ -296,21 +523,17 @@ namespace RabCab.Engine.GUI
 
                     Minus_T.Visible = true;
 
-                    if (Contour_T.SelectedIndex > 0)
-                    {
-                        Method_T.Visible = true;
-                    }
+                    if (Contour_T.SelectedIndex > 0) Method_T.Visible = true;
 
                     break;
-
             }
 
-            this.ResumeLayout();
+            ResumeLayout();
         }
 
         private void WeldType_B_SelectedIndexChanged(object sender, EventArgs e)
         {
-            this.SuspendLayout();
+            SuspendLayout();
 
             var index = WeldType_B.SelectedIndex;
 
@@ -342,10 +565,7 @@ namespace RabCab.Engine.GUI
 
                     Minus_B.Visible = true;
 
-                    if (Contour_B.SelectedIndex > 0)
-                    {
-                        Method_B.Visible = true;
-                    }
+                    if (Contour_B.SelectedIndex > 0) Method_B.Visible = true;
 
                     break;
                 case 2: //Plug
@@ -360,10 +580,7 @@ namespace RabCab.Engine.GUI
 
                     Minus_B.Visible = true;
 
-                    if (Contour_B.SelectedIndex > 0)
-                    {
-                        Method_B.Visible = true;
-                    }
+                    if (Contour_B.SelectedIndex > 0) Method_B.Visible = true;
 
                     break;
                 case 3: //Spot
@@ -375,10 +592,7 @@ namespace RabCab.Engine.GUI
 
                     Contour_B.Visible = true;
 
-                    if (Contour_B.SelectedIndex > 0)
-                    {
-                        Method_B.Visible = true;
-                    }
+                    if (Contour_B.SelectedIndex > 0) Method_B.Visible = true;
 
                     break;
                 case 4: //Seam
@@ -392,10 +606,7 @@ namespace RabCab.Engine.GUI
 
                     Minus_B.Visible = true;
 
-                    if (Contour_B.SelectedIndex > 0)
-                    {
-                        Method_B.Visible = true;
-                    }
+                    if (Contour_B.SelectedIndex > 0) Method_B.Visible = true;
 
                     break;
                 case 5: //Backing
@@ -408,10 +619,7 @@ namespace RabCab.Engine.GUI
 
                     Minus_B.Visible = true;
 
-                    if (Contour_B.SelectedIndex > 0)
-                    {
-                        Method_B.Visible = true;
-                    }
+                    if (Contour_B.SelectedIndex > 0) Method_B.Visible = true;
 
                     break;
                 case 6: //Melt
@@ -421,10 +629,7 @@ namespace RabCab.Engine.GUI
                     Contour_B.Visible = true;
                     Angle_B.Visible = true;
 
-                    if (Contour_B.SelectedIndex > 0)
-                    {
-                        Method_B.Visible = true;
-                    }
+                    if (Contour_B.SelectedIndex > 0) Method_B.Visible = true;
 
                     break;
                 case 7: //Flange Edge
@@ -440,10 +645,7 @@ namespace RabCab.Engine.GUI
                     Plus_B.Visible = true;
                     Minus_B.Visible = true;
 
-                    if (Contour_B.SelectedIndex > 0)
-                    {
-                        Method_B.Visible = true;
-                    }
+                    if (Contour_B.SelectedIndex > 0) Method_B.Visible = true;
 
                     break;
                 case 8: //Flange Corner
@@ -459,10 +661,7 @@ namespace RabCab.Engine.GUI
                     Plus_B.Visible = true;
                     Minus_B.Visible = true;
 
-                    if (Contour_B.SelectedIndex > 0)
-                    {
-                        Method_B.Visible = true;
-                    }
+                    if (Contour_B.SelectedIndex > 0) Method_B.Visible = true;
 
                     break;
                 case 9: //Square Groove
@@ -476,10 +675,7 @@ namespace RabCab.Engine.GUI
 
                     Minus_B.Visible = true;
 
-                    if (Contour_B.SelectedIndex > 0)
-                    {
-                        Method_B.Visible = true;
-                    }
+                    if (Contour_B.SelectedIndex > 0) Method_B.Visible = true;
 
                     break;
                 case 10: //V Groove
@@ -494,40 +690,39 @@ namespace RabCab.Engine.GUI
 
                     Minus_B.Visible = true;
 
-                    if (Contour_B.SelectedIndex > 0)
-                    {
-                        Method_B.Visible = true;
-                    }
+                    if (Contour_B.SelectedIndex > 0) Method_B.Visible = true;
 
                     break;
-
             }
 
-            this.ResumeLayout();
+            ResumeLayout();
         }
 
         private void Contour_T_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (Contour_T.SelectedIndex > 0)
-            {
-                Method_T.Visible = true;
-            }
-            else
-            {
-                Method_T.Visible = false;
-            }
+            Method_T.Visible = Contour_T.SelectedIndex > 0;
         }
 
         private void Contour_B_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (Contour_B.SelectedIndex > 0)
-            {
-                Method_B.Visible = true;
-            }
-            else
-            {
-                Method_B.Visible = false;
-            }
+            Method_B.Visible = Contour_B.SelectedIndex > 0;
         }
+
+        private void OkButton_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.OK;
+            Visible = false;
+
+        }
+
+        private void CancelButton_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.Cancel;
+            Visible = false;
+        }
+
+        #endregion
+
+
     }
 }

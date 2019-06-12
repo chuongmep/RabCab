@@ -1,47 +1,29 @@
-﻿using System;
-using Autodesk.AutoCAD.ApplicationServices.Core;
+﻿using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
-using RabCab.Settings;
 
 namespace RabCab.Entities.Annotation
 {
-    public class MLeaderJigger : EntityJig
+    public class WeldJig : EntityJig
     {
         #region Constructors
 
-        public MLeaderJigger(MLeader ent)
+        public WeldJig(MLeader ent)
             : base(ent)
         {
-            // Entity.SetDatabaseDefaults();
-            Entity.MLeaderStyle = Application.DocumentManager.MdiActiveDocument.Database.MLeaderstyle;
+            Entity.SetDatabaseDefaults();
+
             Entity.ContentType = ContentType.MTextContent;
-            var mText = new MText();
-            mText.TextStyleId = Application.DocumentManager.MdiActiveDocument.Database.Textstyle;
+            Entity.MText = new MText();
+            Entity.MText.SetDatabaseDefaults();
 
             Entity.EnableDogleg = false;
             Entity.EnableLanding = false;
+            Entity.EnableFrameText = false;
             Entity.LandingGap = 0;
 
-            Entity.TextAttachmentType = TextAttachmentType.AttachmentMiddle;
-            Entity.SetTextAttachmentType(TextAttachmentType.AttachmentMiddleOfBottom, LeaderDirectionType.BottomLeader);
-            Entity.SetTextAttachmentType(TextAttachmentType.AttachmentMiddle, LeaderDirectionType.LeftLeader);
-            Entity.SetTextAttachmentType(TextAttachmentType.AttachmentMiddle, LeaderDirectionType.RightLeader);
-            Entity.SetTextAttachmentType(TextAttachmentType.AttachmentMiddleOfTop, LeaderDirectionType.TopLeader);
-
-            Entity.TextAttachmentDirection = TextAttachmentDirection.AttachmentHorizontal;
-            Entity.TextAlignmentType = TextAlignmentType.CenterAlignment;
-
-            mText.Attachment = AttachmentPoint.MiddleCenter;
-            mText.BackgroundFill = true;
-            mText.UseBackgroundColor = true;
-            mText.TextHeight = SettingsUser.LeaderTextHeight;
-
-            Entity.MText = mText;
-            Entity.EnableFrameText = true;
-
-            Entity.AddLeaderLine(mTextLocation);
+            Entity.AddLeaderLine(symLocationStart);
             Entity.SetFirstVertex(0, mArrowLocation);
 
             Entity.TransformBy(UCS);
@@ -57,12 +39,12 @@ namespace RabCab.Entities.Annotation
 
         #region Methods to Call
 
-        public static MLeader Jig()
+        public static MLeader Jig(out Point3d arrowStart, out Point3d symPoint)
         {
-            MLeaderJigger jigger = null;
+            WeldJig jigger = null;
             try
             {
-                jigger = new MLeaderJigger(new MLeader());
+                jigger = new WeldJig(new MLeader());
                 PromptResult pr;
                 do
                 {
@@ -83,13 +65,13 @@ namespace RabCab.Entities.Annotation
                     if (jigger != null && jigger.Entity != null)
                         jigger.Entity.Dispose();
 
+                    arrowStart = new Point3d();
+                    symPoint = new Point3d();
                     return null;
                 }
 
-                var text = new MText();
-                text.Contents = jigger.mMText;
-                text.TransformBy(jigger.UCS);
-                jigger.Entity.MText = text;
+                arrowStart = mArrowLocation;
+                symPoint = symLocationStart;
                 return jigger.Entity;
             }
             catch
@@ -97,6 +79,8 @@ namespace RabCab.Entities.Annotation
                 if (jigger != null && jigger.Entity != null)
                     jigger.Entity.Dispose();
 
+                arrowStart = new Point3d();
+                symPoint = new Point3d();
                 return null;
             }
         }
@@ -107,17 +91,15 @@ namespace RabCab.Entities.Annotation
 
         public int mCurJigFactorIndex = 1; // Jig Factor Index
 
-        public Point3d mArrowLocation; // Jig Factor #1
-        public Point3d mTextLocation; // Jig Factor #2
-        public string mMText; // Jig Factor #3
+        public static Point3d mArrowLocation; // Jig Factor #1
+        public static Point3d symLocationStart; // Jig Factor #2
 
         #endregion
 
         #region Overrides
 
         public new MLeader Entity // Overload the Entity property for convenience.
-            =>
-                base.Entity as MLeader;
+            => base.Entity as MLeader;
 
         protected override bool Update()
         {
@@ -129,12 +111,10 @@ namespace RabCab.Entities.Annotation
 
                     break;
                 case 2:
-                    Entity.SetLastVertex(0, mTextLocation);
-
+                    Entity.SetLastVertex(0, symLocationStart);
                     break;
                 case 3:
-                    Entity.MText.Contents = mMText;
-
+                    Entity.MText.Contents = "";
                     break;
 
                 default:
@@ -170,17 +150,6 @@ namespace RabCab.Entities.Annotation
                     }
 
                 case 2:
-
-                    var xDiff = mTextLocation.X - mArrowLocation.X;
-                    var yDiff = mTextLocation.Y - mArrowLocation.Y;
-                    var angle = Math.Atan2(yDiff, xDiff) * 180.0 / Math.PI;
-
-                    if (angle > 45 && angle < 135 || angle < -45 && angle > -135)
-                        Entity.TextAttachmentDirection = TextAttachmentDirection.AttachmentVertical;
-                    else
-                        Entity.TextAttachmentDirection = TextAttachmentDirection.AttachmentHorizontal;
-
-                    Application.DocumentManager.MdiActiveDocument.Editor.WriteMessage("\n" + angle);
                     var prOptions2 = new JigPromptPointOptions("\nLanding Location:");
                     // Set properties such as UseBasePoint and BasePoint of the prompt options object if necessary here.
                     prOptions2.UseBasePoint = true;
@@ -193,31 +162,13 @@ namespace RabCab.Entities.Annotation
                     if (prResult2.Status == PromptStatus.Cancel && prResult2.Status == PromptStatus.Error)
                         return SamplerStatus.Cancel;
 
-                    if (prResult2.Value.Equals(mTextLocation)) //Use better comparison method if necessary.
+                    if (prResult2.Value.Equals(symLocationStart)) //Use better comparison method if necessary.
                     {
                         return SamplerStatus.NoChange;
                     }
                     else
                     {
-                        mTextLocation = prResult2.Value;
-                        return SamplerStatus.OK;
-                    }
-
-                case 3:
-                    var prOptions3 = new JigPromptStringOptions("\nText Content:");
-                    // Set properties such as UseBasePoint and BasePoint of the prompt options object if necessary here.
-                    prOptions3.UserInputControls = UserInputControls.AcceptOtherInputString;
-                    var prResult3 = prompts.AcquireString(prOptions3);
-                    if (prResult3.Status == PromptStatus.Cancel && prResult3.Status == PromptStatus.Error)
-                        return SamplerStatus.Cancel;
-
-                    if (prResult3.StringResult.Equals(mMText)) //Use better comparison method if necessary.
-                    {
-                        return SamplerStatus.NoChange;
-                    }
-                    else
-                    {
-                        mMText = prResult3.StringResult;
+                        symLocationStart = prResult2.Value;
                         return SamplerStatus.OK;
                     }
             }
