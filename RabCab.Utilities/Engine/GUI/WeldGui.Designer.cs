@@ -39,6 +39,8 @@
             this.OkButton = new System.Windows.Forms.Button();
             this.CancelButton = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.Size_B = new System.Windows.Forms.TextBox();
+            this.Size_T = new System.Windows.Forms.TextBox();
             this.FlipSyms = new System.Windows.Forms.Button();
             this.FrameText = new System.Windows.Forms.CheckBox();
             this.Method_B = new UCImageCombo.ImageCombo();
@@ -79,8 +81,6 @@
             this.lineShape3 = new Microsoft.VisualBasic.PowerPacks.LineShape();
             this.lineShape2 = new Microsoft.VisualBasic.PowerPacks.LineShape();
             this.lineShape1 = new Microsoft.VisualBasic.PowerPacks.LineShape();
-            this.Size_T = new System.Windows.Forms.TextBox();
-            this.Size_B = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -240,6 +240,20 @@
             this.groupBox1.Size = new System.Drawing.Size(578, 285);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
+            // 
+            // Size_B
+            // 
+            this.Size_B.Location = new System.Drawing.Point(264, 142);
+            this.Size_B.Name = "Size_B";
+            this.Size_B.Size = new System.Drawing.Size(47, 20);
+            this.Size_B.TabIndex = 45;
+            // 
+            // Size_T
+            // 
+            this.Size_T.Location = new System.Drawing.Point(264, 91);
+            this.Size_T.Name = "Size_T";
+            this.Size_T.Size = new System.Drawing.Size(47, 20);
+            this.Size_T.TabIndex = 44;
             // 
             // FlipSyms
             // 
@@ -660,26 +674,11 @@
             this.lineShape1.Y1 = 70;
             this.lineShape1.Y2 = 110;
             // 
-            // Size_T
-            // 
-            this.Size_T.Location = new System.Drawing.Point(264, 91);
-            this.Size_T.Name = "Size_T";
-            this.Size_T.Size = new System.Drawing.Size(47, 20);
-            this.Size_T.TabIndex = 44;
-            // 
-            // Size_B
-            // 
-            this.Size_B.Location = new System.Drawing.Point(264, 142);
-            this.Size_B.Name = "Size_B";
-            this.Size_B.Size = new System.Drawing.Size(47, 20);
-            this.Size_B.TabIndex = 45;
-            // 
             // WeldGui
             // 
             this.AcceptButton = this.OkButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.CancelButton = this.CancelButton;
             this.ClientSize = new System.Drawing.Size(584, 361);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;

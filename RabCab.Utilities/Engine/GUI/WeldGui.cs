@@ -150,13 +150,32 @@ namespace RabCab.Engine.GUI
 
                     if (Contour_T.SelectedIndex > 0)
                     {
+                        var lVector = fLinePt2.GetVectorTo(fLinePt3);
+                        var pVector = lVector.GetPerpendicularVector();
+                        var arcRad = CalcUnit.GetProportion(.2, 1, SettingsUser.WeldSymbolLength);
+                        var cenPt = fLinePt2.GetMidPoint(fLinePt3);
+                        var cenArc = cenPt.GetAlong(pVector, arcRad);
+
+                        var acArc = new Arc(cenArc.Convert3D(), arcRad * .9, CalcUnit.ConvertToRadians(185), CalcUnit.ConvertToRadians(270));
+                        var flLine = new Line(acArc.StartPoint, acArc.EndPoint);
+                        
                         switch (cIndex)
                         {
                             case 1: //Concave
+                                flLine.Dispose();
+                                drawnEnts.Add(acArc);
                                 break;
                             case 2: //Flush
+                                acArc.Dispose();
+                                drawnEnts.Add(flLine);
                                 break;
                             case 3: //Convex
+                                flLine.Dispose();
+                                var mirLine = new Line3d(acArc.StartPoint, acArc.EndPoint);
+                                var mirMat = Matrix3d.Mirroring(mirLine);
+                                acArc.TransformBy(mirMat);
+                                mirLine.Dispose();
+                                drawnEnts.Add(acArc);
                                 break;
                         }
                     }

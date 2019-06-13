@@ -73,6 +73,16 @@ namespace RabCab.Extensions
             return pt1 + direction.GetNormal() * distance;
         }
 
+        public static Point3d GetAlong(this Point3d pt1, Vector3d direction, double distance)
+        {
+            return pt1 + direction.GetNormal() * distance;
+        }
+
+        public static Point2d GetAlong(this Point2d pt1, Vector2d direction, double distance)
+        {
+            return pt1 + direction.GetNormal() * distance;
+        }
+
         /// <summary>
         ///     Converts a 3d point into a 2d point (projection on XY plane).
         /// </summary>
