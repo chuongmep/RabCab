@@ -51,10 +51,10 @@ namespace RabCab.Commands.AssemblySuite
             //| CommandFlags.DocExclusiveLock
             // | CommandFlags.Session
             //| CommandFlags.Interruptible
-            | CommandFlags.NoHistory
-            | CommandFlags.NoUndoMarker
+            //| CommandFlags.NoHistory
+            //| CommandFlags.NoUndoMarker
             | CommandFlags.NoBlockEditor
-            | CommandFlags.NoActionRecording
+            //| CommandFlags.NoActionRecording
             //| CommandFlags.ActionMacro
             //| CommandFlags.NoInferConstraint 
         )]
