@@ -128,14 +128,17 @@ namespace RabCab.Engine.GUI
 
             var index = WeldType_T.SelectedIndex;
             var cIndex = Contour_T.SelectedIndex;
+            
+            //Draw Symbol
+            var mPoint = SymStart.GetMidPoint(SymEnd);
+            var fLineLength = CalcUnit.GetProportion(.2, 1, SettingsUser.WeldSymbolLength);
+            var fLineHalf = fLineLength / 2;
+            var fLineThird = fLineLength / 3;
+            var arcRad = CalcUnit.GetProportion(.2, 1, SettingsUser.WeldSymbolLength);
 
             switch (index)
             {
                 case 1: //Fillet
-
-                    //Draw Symbol
-                    var mPoint = SymStart.GetMidPoint(SymEnd);
-                    var fLineLength = CalcUnit.GetProportion(.2, 1, SettingsUser.WeldSymbolLength);
                     var fLinePt1 = new Point2d(mPoint.X, mPoint.Y);
                     var fLinePt2 = new Point2d(fLinePt1.X, fLinePt1.Y + fLineLength);
                     var fLinePt3 = new Point2d(fLinePt1.X + fLineLength, fLinePt1.Y);
@@ -152,10 +155,9 @@ namespace RabCab.Engine.GUI
                     {
                         var lVector = fLinePt2.GetVectorTo(fLinePt3);
                         var pVector = lVector.GetPerpendicularVector();
-                        var arcRad = CalcUnit.GetProportion(.2, 1, SettingsUser.WeldSymbolLength);
+                        
                         var cenPt = fLinePt2.GetMidPoint(fLinePt3);
                         var cenArc = cenPt.GetAlong(pVector, arcRad);
-
                         var acArc = new Arc(cenArc.Convert3D(), arcRad * .9, CalcUnit.ConvertToRadians(185), CalcUnit.ConvertToRadians(270));
                         var flLine = new Line(acArc.StartPoint, acArc.EndPoint);
                         
@@ -184,16 +186,46 @@ namespace RabCab.Engine.GUI
                 case 2: //Plug
 
                     //Draw Symbol
+                    var pLinePt1 = new Point2d(mPoint.X - fLineLength, mPoint.Y);
+                    var pLinePt2 = new Point2d(pLinePt1.X, pLinePt1.Y + fLineLength);
+                    var pLinePt3 = new Point2d(mPoint.X + fLineLength, pLinePt2.Y);
+                    var pLinePt4 = new Point2d(pLinePt3.X, mPoint.Y);
 
+                    var pLine = new Polyline(4);
+                    pLine.AddVertexAt(0, pLinePt1, 0, 0, 0);
+                    pLine.AddVertexAt(1, pLinePt2, 0, 0, 0);
+                    pLine.AddVertexAt(2, pLinePt3, 0, 0, 0);
+                    pLine.AddVertexAt(3, pLinePt4, 0, 0, 0);
+                    pLine.Closed = false;
+
+                    drawnEnts.Add(pLine);
                     if (Contour_T.SelectedIndex > 0)
                     {
+
+                        var lVector = pLinePt2.GetVectorTo(pLinePt3);
+                        var pVector = lVector.GetPerpendicularVector();
+                        var cenPt = pLinePt2.GetMidPoint(pLinePt3);
+                        var cenArc = cenPt.GetAlong(pVector, arcRad);
+                        var acArc = new Arc(cenArc.Convert3D(), arcRad * .85, CalcUnit.ConvertToRadians(210), CalcUnit.ConvertToRadians(330));
+                        var flLine = new Line(acArc.StartPoint, acArc.EndPoint);
+
                         switch (cIndex)
                         {
                             case 1: //Concave
+                                flLine.Dispose();
+                                drawnEnts.Add(acArc);
                                 break;
                             case 2: //Flush
+                                acArc.Dispose();
+                                drawnEnts.Add(flLine);
                                 break;
                             case 3: //Convex
+                                flLine.Dispose();
+                                var mirLine = new Line3d(acArc.StartPoint, acArc.EndPoint);
+                                var mirMat = Matrix3d.Mirroring(mirLine);
+                                acArc.TransformBy(mirMat);
+                                mirLine.Dispose();
+                                drawnEnts.Add(acArc);
                                 break;
                         }
                     }
@@ -202,16 +234,37 @@ namespace RabCab.Engine.GUI
                 case 3: //Spot
 
                     //Draw Symbol
+                    var sVec = SymStart.GetVectorTo(SymEnd);
+                    var pVec = sVec.GetPerpendicularVector();
+                    var sCen = mPoint.GetAlong(pVec, fLineHalf);
+
+                    var acCirc = new Circle(sCen, Vector3d.ZAxis, fLineHalf);
+
+                    drawnEnts.Add(acCirc);
 
                     if (Contour_T.SelectedIndex > 0)
                     {
+                        var cenArc = mPoint.GetAlong(pVec, fLineLength + arcRad);
+                        var acArc = new Arc(cenArc, arcRad * .85, CalcUnit.ConvertToRadians(210), CalcUnit.ConvertToRadians(330));
+                        var flLine = new Line(acArc.StartPoint, acArc.EndPoint);
+
                         switch (cIndex)
                         {
                             case 1: //Concave
+                                flLine.Dispose();
+                                drawnEnts.Add(acArc);
                                 break;
                             case 2: //Flush
+                                acArc.Dispose();
+                                drawnEnts.Add(flLine);
                                 break;
                             case 3: //Convex
+                                flLine.Dispose();
+                                var mirLine = new Line3d(acArc.StartPoint, acArc.EndPoint);
+                                var mirMat = Matrix3d.Mirroring(mirLine);
+                                acArc.TransformBy(mirMat);
+                                mirLine.Dispose();
+                                drawnEnts.Add(acArc);
                                 break;
                         }
                     }
@@ -220,16 +273,50 @@ namespace RabCab.Engine.GUI
                 case 4: //Seam
 
                     //Draw Symbol
+                    var mVec = SymStart.GetVectorTo(SymEnd);
+                    var mpVec = mVec.GetPerpendicularVector();
+                    var mCen = mPoint.GetAlong(mpVec, fLineHalf);
+
+                    var mCirc = new Circle(mCen, Vector3d.ZAxis, fLineHalf);
+
+                    drawnEnts.Add(mCirc);
+
+                    var oSet = CalcUnit.GetProportion( .025, 1, SettingsUser.WeldSymbolLength);
+
+                    var mLine1Pt = mCen.GetAlong(mpVec, oSet);
+                    var mLine2Pt = mCen.GetAlong(mpVec, -oSet);
+
+                    var mLine1 = new Line(new Point3d(mLine1Pt.X - fLineLength, mLine1Pt.Y, mLine1Pt.Z),
+                        new Point3d(mLine1Pt.X + fLineLength, mLine1Pt.Y, mLine1Pt.Z));
+                    var mLine2 = new Line(new Point3d(mLine2Pt.X - fLineLength, mLine2Pt.Y, mLine2Pt.Z),
+                        new Point3d(mLine2Pt.X + fLineLength, mLine2Pt.Y, mLine2Pt.Z));
+
+                    drawnEnts.Add(mLine1);
+                    drawnEnts.Add(mLine2);
 
                     if (Contour_T.SelectedIndex > 0)
                     {
+                        var cenArc = mPoint.GetAlong(mpVec, fLineLength + arcRad);
+                        var acArc = new Arc(cenArc, arcRad * .85, CalcUnit.ConvertToRadians(210), CalcUnit.ConvertToRadians(330));
+                        var flLine = new Line(acArc.StartPoint, acArc.EndPoint);
+
                         switch (cIndex)
                         {
                             case 1: //Concave
+                                flLine.Dispose();
+                                drawnEnts.Add(acArc);
                                 break;
                             case 2: //Flush
+                                acArc.Dispose();
+                                drawnEnts.Add(flLine);
                                 break;
                             case 3: //Convex
+                                flLine.Dispose();
+                                var mirLine = new Line3d(acArc.StartPoint, acArc.EndPoint);
+                                var mirMat = Matrix3d.Mirroring(mirLine);
+                                acArc.TransformBy(mirMat);
+                                mirLine.Dispose();
+                                drawnEnts.Add(acArc);
                                 break;
                         }
                     }
