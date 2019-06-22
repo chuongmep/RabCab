@@ -97,7 +97,7 @@ using RabCab.Initialization;
 [assembly: CommandClass(typeof(RcFilter))]
 [assembly: CommandClass(typeof(RcShowBounds))]
 [assembly: CommandClass(typeof(RcTraverse))]
-[assembly: CommandClass(typeof(RcWeight))]
+//[assembly: CommandClass(typeof(RcWeight))]
 
 //Annotation Suite
 [assembly: CommandClass(typeof(RcAlignViews))]
@@ -165,14 +165,14 @@ using RabCab.Initialization;
 
 
 //CNC Suite
-[assembly: CommandClass(typeof(RcAutoPrep))]
-[assembly: CommandClass(typeof(RcBreakPoints))]
-[assembly: CommandClass(typeof(RcCheckWork))]
-[assembly: CommandClass(typeof(RcExportPaths))]
+//[assembly: CommandClass(typeof(RcAutoPrep))]
+//[assembly: CommandClass(typeof(RcBreakPoints))]
+//[assembly: CommandClass(typeof(RcCheckWork))]
+//[assembly: CommandClass(typeof(RcExportPaths))]
 [assembly: CommandClass(typeof(RcFlatten))]
-[assembly: CommandClass(typeof(RcLoopBit))]
-[assembly: CommandClass(typeof(RcLoopInner))]
-[assembly: CommandClass(typeof(RcLoopOuter))]
+//[assembly: CommandClass(typeof(RcLoopBit))]
+//[assembly: CommandClass(typeof(RcLoopInner))]
+//[assembly: CommandClass(typeof(RcLoopOuter))]
 
 
 //Combine Suite
@@ -198,11 +198,11 @@ using RabCab.Initialization;
 //Structural Suite
 [assembly: CommandClass(typeof(RcAlign))]
 [assembly: CommandClass(typeof(RcFloor))]
-[assembly: CommandClass(typeof(RcGenFastener))]
-[assembly: CommandClass(typeof(RcGenMember))]
-[assembly: CommandClass(typeof(RcWeldBead))]
-[assembly: CommandClass(typeof(RcGenFrame))]
-[assembly: CommandClass(typeof(RcUnfold))]
+//[assembly: CommandClass(typeof(RcGenFastener))]
+//[assembly: CommandClass(typeof(RcGenMember))]
+//[assembly: CommandClass(typeof(RcWeldBead))]
+//[assembly: CommandClass(typeof(RcGenFrame))]
+//[assembly: CommandClass(typeof(RcUnfold))]
 
 //Tidy Suite
 [assembly: CommandClass(typeof(RcBurstAll))]
