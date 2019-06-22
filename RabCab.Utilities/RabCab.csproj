@@ -144,7 +144,6 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Commands\AddInKit\" />
     <Folder Include="Engine\Builder\" />
   </ItemGroup>
   <ItemGroup>
@@ -213,9 +212,7 @@
     <Compile Include="Commands\CarpentrySuite\RcChop.cs" />
     <Compile Include="Commands\CarpentrySuite\RcConnection.cs" />
     <Compile Include="Commands\CarpentrySuite\RcCrossJoint.cs" />
-    <Compile Include="Commands\CarpentrySuite\RcDoveTail.cs" />
     <Compile Include="Commands\CarpentrySuite\RcEdgeBand.cs" />
-    <Compile Include="Commands\CarpentrySuite\RcMiter.cs" />
     <Compile Include="Commands\CarpentrySuite\RcRoute.cs" />
     <Compile Include="Commands\CarpentrySuite\RcSolDivide.cs" />
     <Compile Include="Commands\CarpentrySuite\RcDrill.cs" />
