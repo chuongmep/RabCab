@@ -21,7 +21,7 @@ namespace RabCab.Commands.AnalysisSuite
     {
         /// <summary>
         /// </summary>
-        [CommandMethod(SettingsInternal.CommandGroup, "_QuickFilter",
+        [CommandMethod(SettingsInternal.CommandGroup, "_QUICKFILTER",
             CommandFlags.Modal
             //| CommandFlags.Transparent
             //| CommandFlags.UsePickSet

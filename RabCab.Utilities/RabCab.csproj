@@ -595,14 +595,11 @@
     <None Include="Resources\Icons\[AI]RcAutoAtt.ai" />
     <None Include="Resources\Icons\[AI]RcAutoBlock.ai" />
     <None Include="Resources\Icons\[AI]RcAutoLayer.ai" />
-    <None Include="Resources\Icons\[AI]RcAutoPrep.ai" />
     <None Include="Resources\Icons\[AI]RcBlockLegend.ai" />
     <None Include="Resources\Icons\[AI]RcBlockReplace.ai" />
     <None Include="Resources\Icons\[AI]RcBlockToX.ai" />
     <None Include="Resources\Icons\[AI]RcBOM.ai" />
-    <None Include="Resources\Icons\[AI]RcBreakPoints.ai" />
     <None Include="Resources\Icons\[AI]RcBurstAll.ai" />
-    <None Include="Resources\Icons\[AI]RcCheckWork.ai" />
     <None Include="Resources\Icons\[AI]RcChop.ai" />
     <None Include="Resources\Icons\[AI]RcCleanDirectory.ai" />
     <None Include="Resources\Icons\[AI]RcCleanSols.ai" />
@@ -625,7 +622,6 @@
     <None Include="Resources\Icons\[AI]RcDump.ai" />
     <None Include="Resources\Icons\[AI]RcEmptyDwg.ai" />
     <None Include="Resources\Icons\[AI]RcExplode.ai" />
-    <None Include="Resources\Icons\[AI]RcExportPaths.ai" />
     <None Include="Resources\Icons\[AI]RcFilter.ai" />
     <None Include="Resources\Icons\[AI]RcFlatten.ai" />
     <None Include="Resources\Icons\[AI]RcFlip.ai" />
@@ -633,15 +629,10 @@
     <None Include="Resources\Icons\[AI]RcFuse.ai" />
     <None Include="Resources\Icons\[AI]RcGap.ai" />
     <None Include="Resources\Icons\[AI]RcGenDims.ai" />
-    <None Include="Resources\Icons\[AI]RcGenFastener.ai" />
-    <None Include="Resources\Icons\[AI]RcGenMember.ai" />
     <None Include="Resources\Icons\[AI]RcICut.ai" />
     <None Include="Resources\Icons\[AI]RcJoint.ai" />
     <None Include="Resources\Icons\[AI]RcLayerPal.ai" />
     <None Include="Resources\Icons\[AI]RcLayParts.ai" />
-    <None Include="Resources\Icons\[AI]RcLoopBit.ai" />
-    <None Include="Resources\Icons\[AI]RcLoopInner.ai" />
-    <None Include="Resources\Icons\[AI]RcLoopOuter.ai" />
     <None Include="Resources\Icons\[AI]RcMatchViews.ai" />
     <None Include="Resources\Icons\[AI]RcMetricPal.ai" />
     <None Include="Resources\Icons\[AI]RcNameParts.ai" />
@@ -669,18 +660,12 @@
     <None Include="Resources\Icons\[AI]RcLaminate.ai" />
     <None Include="Resources\Icons\[AI]RcEdgeband.ai" />
     <None Include="Resources\Icons\[AI]RcCrossJoint.ai" />
-    <None Include="Resources\Icons\[AI]RcMiter.ai" />
-    <None Include="Resources\Icons\[AI]RcDovetail.ai" />
-    <None Include="Resources\Icons\[AI]RcRoute.ai" />
     <None Include="Resources\Icons\[AI]RcPartLeader.ai" />
-    <None Include="Resources\Icons\[AI]RcUnfold.ai" />
     <None Include="Resources\Icons\[AI]RcWeldMark.ai" />
     <None Include="Resources\Icons\[AI]RcShrinkwrap.ai" />
     <None Include="Resources\Icons\[AI]RcDimEdit.ai" />
     <None Include="Resources\Icons\[AI]RcDimUpdate.ai" />
     <None Include="Resources\Icons\[AI]RcConnection.ai" />
-    <None Include="Resources\Icons\[AI]RcGenFrame.ai" />
-    <None Include="Resources\Icons\[AI]RcWeldBead.ai" />
     <None Include="Resources\Icons\[AI]RcExportParts.ai" />
   </ItemGroup>
   <ItemGroup>

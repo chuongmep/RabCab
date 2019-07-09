@@ -21,7 +21,7 @@ namespace RabCab.Commands.ReferenceSuite.BlockKit
         {
             /// <summary>
             /// </summary>
-            [CommandMethod(SettingsInternal.CommandGroup, "_CMDDEFAULT",
+            [CommandMethod(SettingsInternal.CommandGroup, "_BTOX",
                 CommandFlags.Modal
                 //| CommandFlags.Transparent
                 //| CommandFlags.UsePickSet
