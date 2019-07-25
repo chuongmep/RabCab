@@ -23,7 +23,7 @@ namespace RabCab.Commands.CarpentrySuite
     {
         /// <summary>
         /// </summary>
-        [CommandMethod(SettingsInternal.CommandGroup, "_RCDrill",
+        [CommandMethod(SettingsInternal.CommandGroup, "_RCDRILL",
             CommandFlags.Modal
             //| CommandFlags.Transparent
             //| CommandFlags.UsePickSet

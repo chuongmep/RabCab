@@ -21,7 +21,7 @@ namespace RabCab.Commands.ReferenceSuite.BlockKit
         {
             /// <summary>
             /// </summary>
-            [CommandMethod(SettingsInternal.CommandGroup, "_BLOCKREPLACE",
+            [CommandMethod(SettingsInternal.CommandGroup, "_RCBLOCKREPLACE",
                 CommandFlags.Modal
                 //| CommandFlags.Transparent
                 //| CommandFlags.UsePickSet
