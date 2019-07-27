@@ -26,6 +26,8 @@ namespace RabCab.Initialization
     // then you should remove this class.
     public class InitPlugin : IExtensionApplication
     {
+        public static bool Activated = false;
+
         void IExtensionApplication.Initialize()
         {
             // Add one time initialization here
@@ -45,6 +47,7 @@ namespace RabCab.Initialization
             // http://msdn2.microsoft.com/en-US/library/7esfatk4.aspx
             // as well as some of the existing AutoCAD managed apps.
 
+
             // Initialize your plug-in application here
             Application.DisplayingOptionDialog += Application_DisplayingOptionDialog;
             DocumentHandlers.AddDocEvents();
@@ -52,8 +55,11 @@ namespace RabCab.Initialization
 
         void IExtensionApplication.Terminate()
         {
-            Application.DisplayingOptionDialog -= Application_DisplayingOptionDialog;
-            DocumentHandlers.RemoveDocEvents();
+            if (Activated)
+            {
+                Application.DisplayingOptionDialog -= Application_DisplayingOptionDialog;
+                DocumentHandlers.RemoveDocEvents();
+            }
         }
 
         #region Options Panel Addition

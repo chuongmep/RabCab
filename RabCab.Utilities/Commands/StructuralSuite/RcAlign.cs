@@ -57,7 +57,7 @@ namespace RabCab.Commands.StructuralSuite
 
             var objIds = acCurEd.GetAllSelection(false);
             if (objIds.Length <= 0) return;
-            
+
             var alId = acCurEd.GetPoint("\nSelect point to align objects to: ");
             var alignPt = alId.Value;
             var alignX = alignPt.X;

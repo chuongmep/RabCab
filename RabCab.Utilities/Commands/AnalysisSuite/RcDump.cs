@@ -6,7 +6,9 @@ using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Runtime;
+using RabCab.Entities.Controls;
 using RabCab.Extensions;
+using RabCab.Initialization;
 using RabCab.Settings;
 using AcAp = Autodesk.AutoCAD.ApplicationServices.Application;
 using Exception = System.Exception;
@@ -45,6 +47,16 @@ namespace RabCab.Commands.AnalysisSuite
         )]
         public void Dump()
         {
+            var actDia = new Form1();
+
+            if (!InitPlugin.Activated)
+            {
+                actDia.ShowDialog(new AcadMainWindow());
+
+                if (!InitPlugin.Activated)
+                    return;
+            }
+
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;
             var acCurDb = acCurDoc.Database;
             var acCurEd = acCurDoc.Editor;
