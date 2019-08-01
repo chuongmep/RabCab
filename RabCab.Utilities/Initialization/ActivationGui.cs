@@ -8,7 +8,7 @@ using AcAp = Autodesk.AutoCAD.ApplicationServices.Application;
 
 namespace RabCab.Initialization
 {
-    public partial class Form1 : Form
+    public partial class ActivationGui : Form
     {
         // Don't use 0 for either of these values.
         // We recommend 90, 14. But if you want to lower the values
@@ -24,7 +24,7 @@ namespace RabCab.Initialization
         private readonly TA_Flags trialFlags = TA_Flags.TA_SYSTEM | TA_Flags.TA_VERIFIED_TRIAL;
         private bool isGenuine;
 
-        public Form1()
+        public ActivationGui()
         {
             InitializeComponent();
 
@@ -70,7 +70,6 @@ namespace RabCab.Initialization
                     }
                     else if (!frmReverify.noLongerActivated) // the user clicked cancel and the user is still activated
                     {
-                        // Just bail out of your app
                         InitPlugin.Activated = false;
                         return;
                     }
@@ -86,7 +85,6 @@ namespace RabCab.Initialization
             }
 
             ShowTrial(!isGenuine);
-
             InitPlugin.Activated = ta.IsActivated() && isGenuine;
         }
 
@@ -205,7 +203,12 @@ namespace RabCab.Initialization
                 if (trialDaysRemaining == 0)
                     DisableAppFeatures();
                 else
+                {
+                    InitPlugin.HasTime = true;
+                    AcAp.DocumentManager.MdiActiveDocument.Editor.WriteMessage("\nRabCab is in trial mode! Your trial expires in " + trialDaysRemaining + " days.");
                     lblTrialMessage.Text = "Your trial expires in " + trialDaysRemaining + " days.";
+                }
+                    
             }
         }
 

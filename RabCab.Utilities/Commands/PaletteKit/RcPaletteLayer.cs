@@ -139,6 +139,7 @@ namespace RabCab.Commands.PaletteKit
         /// </summary>
         private void CreatePal()
         {
+            if (!Agents.LicensingAgent.Check()) return;
             if (_rcPal == null)
             {
                 _rcPal = new PaletteSet(_palName, new Guid())
@@ -476,7 +477,7 @@ namespace RabCab.Commands.PaletteKit
         {
             try
             {
-                //Get the current document utilities
+                if (!Agents.LicensingAgent.Check()) return;
                 var acCurDoc = Application.DocumentManager.MdiActiveDocument;
                 if (acCurDoc == null) return;
 
@@ -514,7 +515,7 @@ namespace RabCab.Commands.PaletteKit
         {
             try
             {
-                //Get the current document utilities
+                if (!Agents.LicensingAgent.Check()) return;
                 var acCurDoc = Application.DocumentManager.MdiActiveDocument;
                 if (acCurDoc == null) return;
 

@@ -59,7 +59,7 @@ namespace RabCab.Commands.AssemblySuite
         )]
         public void Cmd_SelectSame()
         {
-            //Get the current document utilities
+            if (!Agents.LicensingAgent.Check()) return;
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;
             var acCurDb = acCurDoc.Database;
             var acCurEd = acCurDoc.Editor;
@@ -396,7 +396,7 @@ namespace RabCab.Commands.AssemblySuite
         )]
         public void Cmd_SelectUnNamed()
         {
-            //Get the current document utilities
+            if (!Agents.LicensingAgent.Check()) return;
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;
             var acCurDb = acCurDoc.Database;
             var acCurEd = acCurDoc.Editor;

@@ -655,6 +655,7 @@ namespace wyDay.TurboActivate
                 default:
                     throw taHresultToExcep(ret, "IsActivated");
             }
+
         }
 
         /// <summary>

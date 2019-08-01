@@ -1,6 +1,6 @@
 ﻿namespace RabCab.Initialization
 {
-    partial class Form1
+    partial class ActivationGui
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ActivationGui));
             this.mainMenu1 = new System.Windows.Forms.MainMenu(this.components);
             this.menuItem1 = new System.Windows.Forms.MenuItem();
             this.menuItem2 = new System.Windows.Forms.MenuItem();
@@ -98,7 +98,7 @@
             this.lblTrialMessage.Text = "Your trial expires in";
             this.lblTrialMessage.Visible = false;
             // 
-            // Form1
+            // ActivationGui
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -108,7 +108,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Menu = this.mainMenu1;
-            this.Name = "Form1";
+            this.Name = "ActivationGui";
             this.Text = "Text Editor Plus";
             this.ResumeLayout(false);
             this.PerformLayout();

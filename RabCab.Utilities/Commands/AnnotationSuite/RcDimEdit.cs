@@ -40,7 +40,7 @@ namespace RabCab.Commands.AnnotationSuite
         )]
         public void Cmd_DimValue()
         {
-            //Get the current document utilities
+            if (!Agents.LicensingAgent.Check()) return;
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;
             var acCurEd = acCurDoc.Editor;
             var acCurDb = acCurDoc.Database;

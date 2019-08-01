@@ -27,6 +27,7 @@ namespace RabCab.Initialization
     public class InitPlugin : IExtensionApplication
     {
         public static bool Activated = false;
+        public static bool HasTime = false;
 
         void IExtensionApplication.Initialize()
         {

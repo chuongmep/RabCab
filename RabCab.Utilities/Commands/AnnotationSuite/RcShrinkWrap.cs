@@ -38,7 +38,7 @@ namespace RabCab.Commands.AnnotationSuite
         )]
         public void Cmd_ShrinkWrap()
         {
-            //Get the current document utilities
+            if (!Agents.LicensingAgent.Check()) return;
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;
             var acCurDb = acCurDoc.Database;
             var acCurEd = acCurDoc.Editor;

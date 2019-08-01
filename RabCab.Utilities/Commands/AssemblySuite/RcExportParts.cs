@@ -60,7 +60,7 @@ namespace RabCab.Commands.AssemblySuite
         )]
         public void Cmd_OutputParts()
         {
-            //Get the current document utilities
+            if (!Agents.LicensingAgent.Check()) return;
             // Get the current document
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;
 

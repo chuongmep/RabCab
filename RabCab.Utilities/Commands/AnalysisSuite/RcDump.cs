@@ -47,15 +47,7 @@ namespace RabCab.Commands.AnalysisSuite
         )]
         public void Dump()
         {
-            var actDia = new Form1();
-
-            if (!InitPlugin.Activated)
-            {
-                actDia.ShowDialog(new AcadMainWindow());
-
-                if (!InitPlugin.Activated)
-                    return;
-            }
+            if (!Agents.LicensingAgent.Check()) return;
 
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;
             var acCurDb = acCurDoc.Database;
@@ -99,6 +91,8 @@ namespace RabCab.Commands.AnalysisSuite
         )]
         public static void ListComProps()
         {
+            if (!Agents.LicensingAgent.Check()) return;
+
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;
             var acCurEd = acCurDoc.Editor;
 

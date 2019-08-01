@@ -269,6 +269,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Entities\Linework\Axis.cs" />
+    <Compile Include="Exceptions\NotActiveException.cs" />
     <Compile Include="Exceptions\NullException.cs" />
     <Compile Include="Extensions\BoundsExtensions.cs" />
     <Compile Include="Extensions\BrepExtensions.cs" />
@@ -297,11 +298,11 @@
     <Compile Include="External\InventorAgent\InventorAgent.cs" />
     <Compile Include="External\XmlAgent\XmlDocumentExtensions.cs" />
     <Compile Include="Initialization\Debugging.cs" />
-    <Compile Include="Initialization\Form1.cs">
+    <Compile Include="Initialization\ActivationGui.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Initialization\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Initialization\ActivationGui.Designer.cs">
+      <DependentUpon>ActivationGui.cs</DependentUpon>
     </Compile>
     <Compile Include="Initialization\ReVerifyNow.cs">
       <SubType>Form</SubType>
@@ -421,8 +422,8 @@
     <EmbeddedResource Include="Engine\GUI\WeldGui.resx">
       <DependentUpon>WeldGui.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Initialization\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="Initialization\ActivationGui.resx">
+      <DependentUpon>ActivationGui.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Initialization\ReVerifyNow.resx">
       <DependentUpon>ReVerifyNow.cs</DependentUpon>
