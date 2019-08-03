@@ -241,7 +241,6 @@
     <Compile Include="Commands\StructuralSuite\RcGenFastener.cs" />
     <Compile Include="Commands\StructuralSuite\RcGenFrame.cs" />
     <Compile Include="Commands\StructuralSuite\RcUnfold.cs" />
-    <Compile Include="Commands\TidySuite\RcBurstAll.cs" />
     <Compile Include="Engine\Enumerators\IEnumerables.cs" />
     <Compile Include="Engine\GUI\WeldGui.cs">
       <SubType>Form</SubType>
@@ -282,8 +281,6 @@
     <Compile Include="Commands\PaletteKit\RcPaletteMetric.cs" />
     <Compile Include="Commands\PaletteKit\RcPaletteNet.cs" />
     <Compile Include="Commands\PaletteKit\RcPaletteNotebook.cs" />
-    <Compile Include="Commands\ReferenceSuite\BlockKit\RcBlockReplace.cs" />
-    <Compile Include="Commands\ReferenceSuite\BlockKit\RcBlockToXref.cs" />
     <Compile Include="Commands\StructuralSuite\RcAlign.cs" />
     <Compile Include="Commands\StructuralSuite\RcFloor.cs" />
     <Compile Include="Commands\StructuralSuite\RcGenMember.cs" />

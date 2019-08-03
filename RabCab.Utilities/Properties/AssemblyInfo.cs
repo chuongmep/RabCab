@@ -191,8 +191,6 @@ using RabCab.Initialization;
 //Reference Suite
 [assembly: CommandClass(typeof(RcAutoAtt))]
 [assembly: CommandClass(typeof(RcAutoBlock))]
-[assembly: CommandClass(typeof(RcBlockReplace))]
-[assembly: CommandClass(typeof(RcBlockToXref))]
 [assembly: CommandClass(typeof(RcQuickRename))]
 
 //Structural Suite
@@ -205,7 +203,6 @@ using RabCab.Initialization;
 //[assembly: CommandClass(typeof(RcUnfold))]
 
 //Tidy Suite
-[assembly: CommandClass(typeof(RcBurstAll))]
 [assembly: CommandClass(typeof(RcCleanDirectory))]
 [assembly: CommandClass(typeof(RcCleanSols))]
 [assembly: CommandClass(typeof(RcEmptyDwg))]
