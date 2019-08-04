@@ -29,87 +29,45 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ActivationGui));
             this.mainMenu1 = new System.Windows.Forms.MainMenu(this.components);
-            this.menuItem1 = new System.Windows.Forms.MenuItem();
-            this.menuItem2 = new System.Windows.Forms.MenuItem();
-            this.mnuHelp = new System.Windows.Forms.MenuItem();
-            this.mnuHelpContents = new System.Windows.Forms.MenuItem();
-            this.mnuActDeact = new System.Windows.Forms.MenuItem();
-            this.txtMain = new System.Windows.Forms.TextBox();
             this.lblTrialMessage = new System.Windows.Forms.Label();
+            this.ActDtBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // mainMenu1
-            // 
-            this.mainMenu1.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-            this.menuItem1,
-            this.mnuHelp});
-            // 
-            // menuItem1
-            // 
-            this.menuItem1.Index = 0;
-            this.menuItem1.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-            this.menuItem2});
-            this.menuItem1.Text = "&File";
-            // 
-            // menuItem2
-            // 
-            this.menuItem2.Index = 0;
-            this.menuItem2.Text = "New";
-            // 
-            // mnuHelp
-            // 
-            this.mnuHelp.Index = 1;
-            this.mnuHelp.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-            this.mnuHelpContents,
-            this.mnuActDeact});
-            this.mnuHelp.Text = "&Help";
-            // 
-            // mnuHelpContents
-            // 
-            this.mnuHelpContents.Index = 0;
-            this.mnuHelpContents.Text = "Help contents";
-            // 
-            // mnuActDeact
-            // 
-            this.mnuActDeact.Index = 1;
-            this.mnuActDeact.Text = "Deactivate...";
-            this.mnuActDeact.Click += new System.EventHandler(this.mnuActDeact_Click);
-            // 
-            // txtMain
-            // 
-            this.txtMain.Location = new System.Drawing.Point(12, 12);
-            this.txtMain.Multiline = true;
-            this.txtMain.Name = "txtMain";
-            this.txtMain.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtMain.Size = new System.Drawing.Size(384, 140);
-            this.txtMain.TabIndex = 0;
-            this.txtMain.Text = resources.GetString("txtMain.Text");
             // 
             // lblTrialMessage
             // 
             this.lblTrialMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblTrialMessage.AutoSize = true;
-            this.lblTrialMessage.Location = new System.Drawing.Point(9, 169);
+            this.lblTrialMessage.Location = new System.Drawing.Point(9, 253);
             this.lblTrialMessage.Name = "lblTrialMessage";
             this.lblTrialMessage.Size = new System.Drawing.Size(95, 13);
             this.lblTrialMessage.TabIndex = 1;
             this.lblTrialMessage.Text = "Your trial expires in";
             this.lblTrialMessage.Visible = false;
             // 
+            // ActDtBtn
+            // 
+            this.ActDtBtn.Location = new System.Drawing.Point(12, 200);
+            this.ActDtBtn.Name = "ActDtBtn";
+            this.ActDtBtn.Size = new System.Drawing.Size(310, 44);
+            this.ActDtBtn.TabIndex = 2;
+            this.ActDtBtn.Text = "Deactivate...";
+            this.ActDtBtn.UseVisualStyleBackColor = true;
+            this.ActDtBtn.Click += new System.EventHandler(this.Button1_Click);
+            // 
             // ActivationGui
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(408, 199);
+            this.ClientSize = new System.Drawing.Size(334, 283);
+            this.Controls.Add(this.ActDtBtn);
             this.Controls.Add(this.lblTrialMessage);
-            this.Controls.Add(this.txtMain);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
             this.Menu = this.mainMenu1;
             this.Name = "ActivationGui";
-            this.Text = "Text Editor Plus";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "RabCab Activation";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -118,13 +76,8 @@
         #endregion
 
         private System.Windows.Forms.MainMenu mainMenu1;
-        private System.Windows.Forms.MenuItem menuItem1;
-        private System.Windows.Forms.MenuItem menuItem2;
-        private System.Windows.Forms.MenuItem mnuHelp;
-        private System.Windows.Forms.MenuItem mnuHelpContents;
-        private System.Windows.Forms.MenuItem mnuActDeact;
-        private System.Windows.Forms.TextBox txtMain;
         private System.Windows.Forms.Label lblTrialMessage;
+        private System.Windows.Forms.Button ActDtBtn;
     }
 }
 

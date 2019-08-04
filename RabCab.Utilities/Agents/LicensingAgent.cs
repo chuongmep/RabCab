@@ -9,6 +9,7 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
+using Autodesk.AutoCAD.ApplicationServices.Core;
 using RabCab.Entities.Controls;
 using RabCab.Initialization;
 using AcAp = Autodesk.AutoCAD.ApplicationServices.Application;
@@ -22,29 +23,27 @@ namespace RabCab.Agents
         {
             var actDia = new ActivationGui();
 
-            if (!InitPlugin.Activated)
+            if (InitPlugin.Activated) return InitPlugin.Activated;
+
+            if (InitPlugin.FirstRun)
             {
                 actDia.ShowDialog(new AcadMainWindow());
-
-                if (InitPlugin.Activated)
-                {
-                    return true;
-                }
-                else
-                {
-                    if (InitPlugin.HasTime)
-                    {                 
-                        return true;
-                    }
-                    else
-                    {
-                        AcAp.DocumentManager.MdiActiveDocument.Editor.WriteMessage("\nRabCab is not activated! Please enter an activation key to continue using the plugin!");
-                        return false;
-                    }        
-                }
+                InitPlugin.FirstRun = false;
             }
 
-            return InitPlugin.Activated;
+            if (InitPlugin.Activated)
+            {
+                return true;
+            }
+
+            if (InitPlugin.HasTime)
+            {                 
+                return true;
+            }
+
+            Application.DocumentManager.MdiActiveDocument.Editor.WriteMessage("\nRabCab is not activated! Please enter an activation key to continue using the plugin!");
+            return false;
+
         }
        
     }

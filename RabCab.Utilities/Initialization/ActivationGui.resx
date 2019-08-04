@@ -120,9 +120,7 @@
   <metadata name="mainMenu1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <data name="txtMain.Text" xml:space="preserve">
-    <value>This is a simple Text Editor app that demonstrates how to use TurboActivate in your application.
-
-The one "feature" of this app is this text editor. This will be disabled when the user is not activated and the trial is expired. All other times this text box will be enabled.</value>
-  </data>
+  <metadata name="$this.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
 </root>

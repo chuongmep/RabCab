@@ -86,50 +86,7 @@ namespace RabCab.Initialization
 
             ShowTrial(!isGenuine);
             InitPlugin.Activated = ta.IsActivated() && isGenuine;
-        }
-
-        private void mnuActDeact_Click(object sender, EventArgs e)
-        {
-            if (isGenuine)
-            {
-                // deactivate product without deleting the product key
-                // allows the user to easily reactivate
-                try
-                {
-                    InitPlugin.Activated = false;
-                    ta.Deactivate(true);
-                }
-                catch (TurboActivateException ex)
-                {
-                    MessageBox.Show("Failed to deactivate: " + ex.Message);
-                    return;
-                }
-
-                isGenuine = false;
-                ShowTrial(true);
-            }
-            else
-            {
-                // Note: you can launch the TurboActivate wizard
-                //       or you can create you own interface
-
-                // launch TurboActivate.exe to get the product key from
-                // the user, and activate.
-                var TAProcess = new Process
-                {
-                    StartInfo =
-                    {
-                        FileName = Path.Combine(
-                            Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
-                            "TurboActivate.exe"
-                        )
-                    },
-                    EnableRaisingEvents = true
-                };
-
-                TAProcess.Exited += p_Exited;
-                TAProcess.Start();
-            }
+            
         }
 
         /// <summary>This event handler is called when TurboActivate.exe closes.</summary>
@@ -177,7 +134,7 @@ namespace RabCab.Initialization
         {
             lblTrialMessage.Visible = show;
 
-            mnuActDeact.Text = show ? "Activate..." : "Deactivate";
+            ActDtBtn.Text = show ? "Activate..." : "Deactivate";
 
             if (show)
             {
@@ -217,7 +174,6 @@ namespace RabCab.Initialization
         private void DisableAppFeatures(bool timeFraudFlag = false)
         {
             //TODO: disable all the features of the program
-            txtMain.Enabled = false;
             InitPlugin.Activated = false;
 
             if (!timeFraudFlag)
@@ -230,8 +186,6 @@ namespace RabCab.Initialization
         private void ReEnableAppFeatures()
         {
             InitPlugin.Activated = true;
-            //TODO: re-enable all the features of the program
-            txtMain.Enabled = true;
         }
 
         // Recheck to see if the trial has been extended. If so, re-enable app features.
@@ -257,10 +211,6 @@ namespace RabCab.Initialization
             }
         }
 
-        private void btnExtendTrial_Click(object sender, EventArgs e)
-        {
-        }
-
         /// <summary>
         ///     This function is called only if ta.UseTrial() has been called once in this process lifetime and if the trial has
         ///     expired since that call.
@@ -274,5 +224,49 @@ namespace RabCab.Initialization
         }
 
         private delegate void IsActivatedDelegate();
+
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            if (isGenuine)
+            {
+                // deactivate product without deleting the product key
+                // allows the user to easily reactivate
+                try
+                {
+                    InitPlugin.Activated = false;
+                    ta.Deactivate(true);
+                }
+                catch (TurboActivateException ex)
+                {
+                    MessageBox.Show("Failed to deactivate: " + ex.Message);
+                    return;
+                }
+
+                isGenuine = false;
+                ShowTrial(true);
+            }
+            else
+            {
+                // Note: you can launch the TurboActivate wizard
+                //       or you can create you own interface
+
+                // launch TurboActivate.exe to get the product key from
+                // the user, and activate.
+                var TAProcess = new Process
+                {
+                    StartInfo =
+                    {
+                        FileName = Path.Combine(
+                            Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
+                            "TurboActivate.exe"
+                        )
+                    },
+                    EnableRaisingEvents = true
+                };
+
+                TAProcess.Exited += p_Exited;
+                TAProcess.Start();
+            }
+        }
     }
 }
