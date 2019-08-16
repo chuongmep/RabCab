@@ -2063,17 +2063,63 @@ namespace RabCab.Extensions
             return acSSet != null ? acSSet.GetObjectIds() : new ObjectId[0];
         }
 
-        #endregion
+        public static ObjectId SelectClosedPolyline(this Editor ed)
 
-        #region Coordinate Conversion
+        {
+            var selectedId = ObjectId.Null;
 
-        /// <summary>
-        ///     Gets the transformation matrix from the current User Coordinate System (UCS)
-        ///     to the World Coordinate System (WCS).
-        /// </summary>
-        /// <param name="ed">The instance to which this method applies.</param>
-        /// <returns>The UCS to WCS transformation matrix.</returns>
-        public static Matrix3d Ucs2Wcs(this Editor ed)
+            while (true)
+
+            {
+                var opt = new PromptEntityOptions("\nSelect a closed polyline");
+
+                opt.SetRejectMessage("\nNot a polyline!");
+
+                opt.AddAllowedClass(typeof(Polyline), true);
+
+                var res = ed.GetEntity(opt);
+
+                if (res.Status == PromptStatus.OK)
+
+                {
+                    using (var tran = res.ObjectId.Database.TransactionManager.StartOpenCloseTransaction())
+
+                    {
+                        var poly = (Polyline) tran.GetObject(res.ObjectId, OpenMode.ForRead);
+
+                        if (poly.Closed)
+                            selectedId = res.ObjectId;
+
+                        else
+                            ed.WriteMessage("\nSelected polyline is not CLOSED!");
+
+                        tran.Commit();
+                    }
+
+                    if (!selectedId.IsNull) break;
+                }
+
+                else
+
+                {
+                    break;
+                }
+            }
+
+            return selectedId;
+        }
+
+                #endregion
+
+                #region Coordinate Conversion
+
+                /// <summary>
+                ///     Gets the transformation matrix from the current User Coordinate System (UCS)
+                ///     to the World Coordinate System (WCS).
+                /// </summary>
+                /// <param name="ed">The instance to which this method applies.</param>
+                /// <returns>The UCS to WCS transformation matrix.</returns>
+                public static Matrix3d Ucs2Wcs(this Editor ed)
         {
             return ed.CurrentUserCoordinateSystem;
         }

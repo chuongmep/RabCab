@@ -170,6 +170,7 @@ using RabCab.Initialization;
 //[assembly: CommandClass(typeof(RcCheckWork))]
 //[assembly: CommandClass(typeof(RcExportPaths))]
 [assembly: CommandClass(typeof(RcFlatten))]
+[assembly: CommandClass(typeof(RcNest))]
 //[assembly: CommandClass(typeof(RcLoopBit))]
 //[assembly: CommandClass(typeof(RcLoopInner))]
 //[assembly: CommandClass(typeof(RcLoopOuter))]
