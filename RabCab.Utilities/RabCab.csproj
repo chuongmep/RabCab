@@ -230,6 +230,7 @@
     <Compile Include="Commands\CNCSuite\RcLoopBit.cs" />
     <Compile Include="Commands\CNCSuite\RcLoopOuter.cs" />
     <Compile Include="Commands\CarpentrySuite\RcDogEar.cs" />
+    <Compile Include="Commands\CNCSuite\RcNest.cs" />
     <Compile Include="Commands\CombineSuite\RcConverge.cs" />
     <Compile Include="Commands\CombineSuite\RcFuse.cs" />
     <Compile Include="Commands\CombineSuite\RcSeparate.cs" />
