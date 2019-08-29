@@ -182,75 +182,82 @@ namespace RabCab.Agents
             var acRegAppTbl = acTrans.GetObject(acCurDb.RegAppTableId, OpenMode.ForRead) as RegAppTable;
 
             // Check to see if the Registered Applications table record for the custom app exists
-            if (acRegAppTbl != null && acRegAppTbl.Has(SettingsInternal.CommandGroup) == false)
+            if (acRegAppTbl != null)
             {
-                using (var acRegAppTblRec = new RegAppTableRecord())
+                if (acRegAppTbl.Has(SettingsInternal.CommandGroup) == false)
                 {
-                    acRegAppTblRec.Name = SettingsInternal.CommandGroup;
+                    using (var acRegAppTblRec = new RegAppTableRecord())
+                    {
+                        acRegAppTblRec.Name = SettingsInternal.CommandGroup;
 
-                    acRegAppTbl.UpgradeOpen();
-                    acRegAppTbl.Add(acRegAppTblRec);
-                    acTrans.AddNewlyCreatedDBObject(acRegAppTblRec, true);
+                        acRegAppTbl.UpgradeOpen();
+                        acRegAppTbl.Add(acRegAppTblRec);
+                        acTrans.AddNewlyCreatedDBObject(acRegAppTblRec, true);
+                    }
                 }
 
-                // Define the Xdata to add to each selected object
-                using (var rBuffer = new ResultBuffer())
+                if (!acEnt.HasXData())
                 {
-                    rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataRegAppName, SettingsInternal.CommandGroup));
-                    rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataAsciiString, ""));
-                    rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataAsciiString, ""));
-                    rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataReal, 0));
-                    rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataReal, 0));
-                    rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataReal, 0));
-                    rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataReal, 0));
-                    rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataReal, 0));
-                    rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataReal, 0));
-                    rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataReal, 0));
-                    rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataAsciiString, ""));
-                    rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataInteger32, 0));
-                    rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataInteger32, 0));
-                    rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataInteger32, 0));
-                    rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataInteger32, 0));
-                    rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataInteger32, 0));
-                    rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataInteger32, 0));
-                    rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataInteger32, -1));
-                    rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataInteger32, -1));
-                    rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataHandle, 0));
-                    rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataAsciiString, ""));
-                    // Append the extended data to the object
+                    // Define the Xdata to add to each selected object
+                    using (var rBuffer = new ResultBuffer())
+                    {
+                        rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataRegAppName,
+                            SettingsInternal.CommandGroup));
+                        rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataAsciiString, ""));
+                        rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataAsciiString, ""));
+                        rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataReal, 0));
+                        rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataReal, 0));
+                        rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataReal, 0));
+                        rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataReal, 0));
+                        rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataReal, 0));
+                        rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataReal, 0));
+                        rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataReal, 0));
+                        rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataAsciiString, ""));
+                        rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataInteger32, 0));
+                        rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataInteger32, 0));
+                        rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataInteger32, 0));
+                        rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataInteger32, 0));
+                        rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataInteger32, 0));
+                        rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataInteger32, 0));
+                        rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataInteger32, -1));
+                        rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataInteger32, -1));
+                        rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataHandle, 0));
+                        rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataAsciiString, ""));
+                        // Append the extended data to the object
+                        acEnt.XData = rBuffer;
+                    }
+                }
+
+                try
+                {
+                    //Update the specified Value
+                    var rBuffer = acEnt.GetXDataForApplication(SettingsInternal.CommandGroup);
+
+                    var rcData = rBuffer.AsArray();
+                    var xDataIndex = (int) xCode;
+
+                    if (value.GetType() == typeof(List<Handle>))
+                    {
+                        var childList = value as List<Handle>;
+                        var childString = "";
+
+                        if (childList != null && childList.Count > 0) childString = string.Join(",", childList);
+
+                        rcData[xDataIndex] = new TypedValue((int) (DxfCode) rcData[xDataIndex].TypeCode, childString);
+                    }
+                    else
+                    {
+                        rcData[xDataIndex] = new TypedValue((int) (DxfCode) rcData[xDataIndex].TypeCode, value);
+                    }
+
+                    //Reassign the XData
+                    rBuffer = new ResultBuffer(rcData);
                     acEnt.XData = rBuffer;
                 }
-            }
-
-            try
-            {
-                //Update the specified Value
-                var rBuffer = acEnt.GetXDataForApplication(SettingsInternal.CommandGroup);
-
-                var rcData = rBuffer.AsArray();
-                var xDataIndex = (int) xCode;
-
-                if (value.GetType() == typeof(List<Handle>))
+                catch
                 {
-                    var childList = value as List<Handle>;
-                    var childString = "";
-
-                    if (childList != null && childList.Count > 0) childString = string.Join(",", childList);
-
-                    rcData[xDataIndex] = new TypedValue((int) (DxfCode) rcData[xDataIndex].TypeCode, childString);
+                    // ignored
                 }
-                else
-                {
-                    rcData[xDataIndex] = new TypedValue((int) (DxfCode) rcData[xDataIndex].TypeCode, value);
-                }
-
-                //Reassign the XData
-                rBuffer = new ResultBuffer(rcData);
-                acEnt.XData = rBuffer;
-            }
-            catch
-            {
-                // ignored
             }
         }
 
