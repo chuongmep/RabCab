@@ -10,7 +10,9 @@
 // -----------------------------------------------------------------------------------
 
 using System;
+using System.Windows.Forms;
 using RabCab.Agents;
+using RabCab.Settings;
 
 namespace DebugConsole
 {
@@ -32,6 +34,13 @@ namespace DebugConsole
         /// <param name="args"></param>
         private static void Main()
         {
+            var settingsGui = new SettingsGui();
+            settingsGui.Dock = DockStyle.Fill;
+            var form = new Form();
+            form.Controls.Add(settingsGui);
+            
+            Application.EnableVisualStyles();
+            Application.Run(form); 
         }
 
         private static void GenerateAuthKey()

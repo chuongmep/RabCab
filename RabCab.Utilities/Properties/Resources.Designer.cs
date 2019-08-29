@@ -63,6 +63,3796 @@ namespace RabCab.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap RcAlignViews_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcAlignViews_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcAlignViews16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcAlignViews16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcAlignViews16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcAlignViews16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcAlignViews32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcAlignViews32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcAlignViews32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcAlignViews32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcAutoLayer_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcAutoLayer_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcAutoLayer16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcAutoLayer16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcAutoLayer16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcAutoLayer16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcAutoLayer32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcAutoLayer32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcAutoLayer32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcAutoLayer32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcBlockLegend_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcBlockLegend_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcBlockLegend16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcBlockLegend16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcBlockLegend16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcBlockLegend16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcBlockLegend32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcBlockLegend32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcBlockLegend32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcBlockLegend32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcBlockReplace_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcBlockReplace_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcBlockReplace16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcBlockReplace16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcBlockReplace16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcBlockReplace16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcBlockReplace32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcBlockReplace32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcBlockReplace32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcBlockReplace32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcBom_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcBom_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcBom16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcBom16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcBom16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcBom16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcBom32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcBom32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcBom32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcBom32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcBToX_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcBToX_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcBToX16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcBToX16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcBToX16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcBToX16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcBToX32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcBToX32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcBToX32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcBToX32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcBurstAll_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcBurstAll_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcBurstAll16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcBurstAll16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcBurstAll16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcBurstAll16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcBurstAll32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcBurstAll32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcBurstAll32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcBurstAll32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcChop_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcChop_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcChop16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcChop16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcChop16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcChop16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcChop32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcChop32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcChop32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcChop32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcClean_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcClean_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcClean16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcClean16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcClean16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcClean16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcClean32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcClean32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcClean32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcClean32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcCleanDir_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcCleanDir_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcCleanDir16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcCleanDir16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcCleanDir16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcCleanDir16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcCleanDir32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcCleanDir32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcCleanDir32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcCleanDir32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcConnect_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcConnect_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcConnect16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcConnect16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcConnect16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcConnect16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcConnect32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcConnect32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcConnect32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcConnect32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcConverge_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcConverge_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcConverge16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcConverge16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcConverge16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcConverge16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcConverge32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcConverge32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcConverge32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcConverge32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcCrossJoint_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcCrossJoint_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcCrossJoint16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcCrossJoint16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcCrossJoint16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcCrossJoint16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcCrossJoint32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcCrossJoint32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcCrossJoint32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcCrossJoint32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDataExtract_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDataExtract_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDataExtract16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDataExtract16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDataExtract16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDataExtract16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDataExtract32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDataExtract32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDataExtract32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDataExtract32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimAdd_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimAdd_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimAdd16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimAdd16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimAdd16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimAdd16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimAdd32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimAdd32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimAdd32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimAdd32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimAlign_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimAlign_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimAlign16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimAlign16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimAlign16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimAlign16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimAlign32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimAlign32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimAlign32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimAlign32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimArrow_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimArrow_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimArrow16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimArrow16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimArrow16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimArrow16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimArrow32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimArrow32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimArrow32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimArrow32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimBreak_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimBreak_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimBreak16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimBreak16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimBreak16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimBreak16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimBreak32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimBreak32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimBreak32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimBreak32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimDelete_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimDelete_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimDelete16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimDelete16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimDelete16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimDelete16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimDelete32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimDelete32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimDelete32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimDelete32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimEdit_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimEdit_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimEdit16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimEdit16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimEdit16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimEdit16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimEdit32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimEdit32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimEdit32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimEdit32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimExtend_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimExtend_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimExtend16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimExtend16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimExtend16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimExtend16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimExtend32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimExtend32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimExtend32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimExtend32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimLt_ExtHelp_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimLt_ExtHelp_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimLt_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimLt_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimLt16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimLt16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimLt16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimLt16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimLt32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimLt32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimLt32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimLt32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimMove_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimMove_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimMove16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimMove16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimMove16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimMove16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimMove32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimMove32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimMove32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimMove32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimPrec_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimPrec_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimPrec16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimPrec16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimPrec16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimPrec16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimPrec32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimPrec32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimPrec32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimPrec32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimSelect_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimSelect_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimSelect16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimSelect16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimSelect16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimSelect16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimSelect32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimSelect32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimSelect32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimSelect32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimSpace_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimSpace_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimSpace16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimSpace16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimSpace16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimSpace16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimSpace32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimSpace32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimSpace32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimSpace32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimToggle_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimToggle_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimToggle16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimToggle16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimToggle16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimToggle16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimToggle32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimToggle32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimToggle32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimToggle32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimUpdate_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimUpdate_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimUpdate16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimUpdate16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimUpdate16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimUpdate16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimUpdate32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimUpdate32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDimUpdate32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDimUpdate32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDogEar_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDogEar_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDogEar16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDogEar16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDogEar16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDogEar16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDogEar32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDogEar32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDogEar32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDogEar32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDrill_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDrill_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDrill16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDrill16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDrill16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDrill16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDrill32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDrill32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDrill32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDrill32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDump_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDump_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDump16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDump16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDump16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDump16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDump32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDump32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcDump32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcDump32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcEdgeBand_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcEdgeBand_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcEdgeBand16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcEdgeBand16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcEdgeBand16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcEdgeBand16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcEdgeBand32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcEdgeBand32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcEdgeBand32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcEdgeBand32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcEmptyDwg_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcEmptyDwg_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcEmptyDwg16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcEmptyDwg16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcEmptyDwg16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcEmptyDwg16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcEmptyDwg32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcEmptyDwg32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcEmptyDwg32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcEmptyDwg32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcExplode_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcExplode_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcExplode16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcExplode16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcExplode16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcExplode16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcExplode32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcExplode32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcExplode32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcExplode32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcExportParts_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcExportParts_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcExportParts16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcExportParts16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcExportParts16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcExportParts16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcExportParts32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcExportParts32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcExportParts32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcExportParts32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcFilter_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcFilter_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcFilter16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcFilter16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcFilter16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcFilter16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcFilter32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcFilter32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcFilter32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcFilter32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcFlatten_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcFlatten_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcFlatten16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcFlatten16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcFlatten16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcFlatten16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcFlatten32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcFlatten32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcFlatten32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcFlatten32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcFlip_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcFlip_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcFlip16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcFlip16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcFlip16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcFlip16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcFlip216X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcFlip216X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcFlip232x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcFlip232x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcFlip32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcFlip32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcFlip32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcFlip32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcFlipArtboard_1 {
+            get {
+                object obj = ResourceManager.GetObject("RcFlipArtboard_1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcFloor_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcFloor_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcFloor16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcFloor16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcFloor16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcFloor16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcFloor32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcFloor32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcFloor32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcFloor32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcFuse_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcFuse_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcFuse16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcFuse16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcFuse16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcFuse16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcFuse32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcFuse32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcFuse32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcFuse32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcGap_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcGap_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcGap16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcGap16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcGap16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcGap16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcGap32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcGap32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcGap32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcGap32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcGenViews_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcGenViews_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcGenViews16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcGenViews16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcGenViews16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcGenViews16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcGenViews32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcGenViews32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcGenViews32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcGenViews32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcICut_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcICut_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcICut16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcICut16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcICut16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcICut16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcICut32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcICut32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcICut32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcICut32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcJoint_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcJoint_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcJoint16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcJoint16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcJoint16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcJoint16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcJoint32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcJoint32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcJoint32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcJoint32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcLaminate_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcLaminate_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcLaminate16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcLaminate16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcLaminate16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcLaminate16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcLaminate32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcLaminate32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcLaminate32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcLaminate32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcLayPal_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcLayPal_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcLayPal16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcLayPal16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcLayPal16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcLayPal16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcLayPal32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcLayPal32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcLayPal32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcLayPal32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcLayParts_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcLayParts_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcLayParts16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcLayParts16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcLayParts16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcLayParts16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcLayParts32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcLayParts32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcLayParts32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcLayParts32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcMatchViews_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcMatchViews_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcMatchViews16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcMatchViews16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcMatchViews16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcMatchViews16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcMatchViews32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcMatchViews32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcMatchViews32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcMatchViews32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcMetPal_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcMetPal_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcMetPal16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcMetPal16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcMetPal16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcMetPal16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcMetPal32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcMetPal32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcMetPal32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcMetPal32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcNameParts_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcNameParts_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcNameParts16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcNameParts16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcNameParts16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcNameParts16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcNameParts32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcNameParts32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcNameParts32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcNameParts32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcNetPal_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcNetPal_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcNetPal16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcNetPal16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcNetPal16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcNetPal16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcNetPal32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcNetPal32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcNetPal32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcNetPal32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcNotePal_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcNotePal_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcNotePal16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcNotePal16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcNotePal16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcNotePal16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcNotePal32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcNotePal32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcNotePal32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcNotePal32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcOffset_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcOffset_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcOffset16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcOffset16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcOffset16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcOffset16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcOffset32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcOffset32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcOffset32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcOffset32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcPageNum_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcPageNum_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcPageNum16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcPageNum16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcPageNum16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcPageNum16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcPageNum32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcPageNum32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcPageNum32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcPageNum32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcPartLeader_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcPartLeader_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcPartLeader16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcPartLeader16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcPartLeader16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcPartLeader16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcPartLeader32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcPartLeader32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcPartLeader32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcPartLeader32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcPartMark_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcPartMark_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcPartMark16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcPartMark16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcPartMark16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcPartMark16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcPartMark32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcPartMark32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcPartMark32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcPartMark32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcQuickRename_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcQuickRename_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcQuickRename16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcQuickRename16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcQuickRename16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcQuickRename16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcQuickRename32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcQuickRename32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcQuickRename32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcQuickRename32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcScatter_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcScatter_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcScatter16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcScatter16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcScatter16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcScatter16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcScatter32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcScatter32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcScatter32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcScatter32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcSelection_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcSelection_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcSelection16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcSelection16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcSelection16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcSelection16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcSelection32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcSelection32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcSelection32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcSelection32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcSeparate_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcSeparate_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcSeparate16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcSeparate16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcSeparate16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcSeparate16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcSeparate32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcSeparate32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcSeparate32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcSeparate32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcShowBounds_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcShowBounds_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcShowBounds16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcShowBounds16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcShowBounds16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcShowBounds16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcShowBounds32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcShowBounds32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcShowBounds32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcShowBounds32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcShrinkWrap_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcShrinkWrap_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcShrinkWrap16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcShrinkWrap16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcShrinkWrap16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcShrinkWrap16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcShrinkWrap32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcShrinkWrap32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcShrinkWrap32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcShrinkWrap32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcSlice_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcSlice_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcSlice16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcSlice16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcSlice16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcSlice16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcSlice32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcSlice32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcSlice32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcSlice32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcSolDivide_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcSolDivide_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcSolDivide16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcSolDivide16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcSolDivide16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcSolDivide16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcSolDivide32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcSolDivide32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcSolDivide32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcSolDivide32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcSpaceViews_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcSpaceViews_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcSpaceViews16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcSpaceViews16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcSpaceViews16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcSpaceViews16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcSpaceViews32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcSpaceViews32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcSpaceViews32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcSpaceViews32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcSubtrahend_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcSubtrahend_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcSubtrahend16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcSubtrahend16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcSubtrahend16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcSubtrahend16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcSubtrahend32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcSubtrahend32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcSubtrahend32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcSubtrahend32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcTContent_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcTContent_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcTContent16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcTContent16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcTContent16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcTContent16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcTContent32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcTContent32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcTContent32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcTContent32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcTraverse_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcTraverse_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcTraverse16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcTraverse16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcTraverse16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcTraverse16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcTraverse32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcTraverse32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcTraverse32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcTraverse32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcUnnamed_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcUnnamed_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcUnnamed16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcUnnamed16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcUnnamed16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcUnnamed16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcUnnamed32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcUnnamed32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcUnnamed32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcUnnamed32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcUpdate_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcUpdate_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcUpdate16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcUpdate16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcUpdate16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcUpdate16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcUpdate32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcUpdate32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcUpdate32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcUpdate32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcUpdateChildren_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcUpdateChildren_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcUpdateChildren16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcUpdateChildren16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcUpdateChildren16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcUpdateChildren16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcUpdateChildren32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcUpdateChildren32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcUpdateChildren32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcUpdateChildren32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcUpdateLeaders_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcUpdateLeaders_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcUpdateLeaders16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcUpdateLeaders16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcUpdateLeaders16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcUpdateLeaders16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcUpdateLeaders32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcUpdateLeaders32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcUpdateLeaders32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcUpdateLeaders32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcVpToVb_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcVpToVb_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcVpToVb16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcVpToVb16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcVpToVb16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcVpToVb16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcVpToVb32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcVpToVb32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcVpToVb32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcVpToVb32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcWeight_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcWeight_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcWeight16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcWeight16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcWeight16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcWeight16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcWeight32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcWeight32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcWeight32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcWeight32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcWeldMark_Mkt_ {
+            get {
+                object obj = ResourceManager.GetObject("RcWeldMark_Mkt_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcWeldMark16x16__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcWeldMark16x16__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcWeldMark16X16__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcWeldMark16X16__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcWeldMark32x32__G_ {
+            get {
+                object obj = ResourceManager.GetObject("RcWeldMark32x32__G_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RcWeldMark32x32__I_ {
+            get {
+                object obj = ResourceManager.GetObject("RcWeldMark32x32__I_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Weld_AllAround {
             get {
                 object obj = ResourceManager.GetObject("Weld_AllAround", resourceCulture);

@@ -151,7 +151,7 @@ namespace RabCab.Commands.PaletteKit
 
                 _palPanel = new UserControl();
                 PopulatePal();
-                _palPanel.UpdateTheme();
+                //_palPanel.UpdateTheme();
                 _rcPal.Add(_palName, _palPanel);
             }
 

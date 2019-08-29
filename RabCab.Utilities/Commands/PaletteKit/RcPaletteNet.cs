@@ -147,7 +147,7 @@ namespace RabCab.Commands.PaletteKit
                 _palPanel = new UserControl();
 
                 PopulatePal();
-                _palPanel.UpdateTheme();
+                //_palPanel.UpdateTheme();
                 _rcPal.Add(PalName, _palPanel);
 
                 // The following events are not visible in the designer, so 

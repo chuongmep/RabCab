@@ -157,7 +157,7 @@ using RabCab.Initialization;
 [assembly: CommandClass(typeof(RcICut))]
 [assembly: CommandClass(typeof(RcDogEar))]
 [assembly: CommandClass(typeof(RcConnection))]
-[assembly: CommandClass(typeof(RcRoute))]
+//[assembly: CommandClass(typeof(RcRoute))]
 [assembly: CommandClass(typeof(RcCrossJoint))]
 [assembly: CommandClass(typeof(RcEdgeBand))]
 [assembly: CommandClass(typeof(RcLaminate))]

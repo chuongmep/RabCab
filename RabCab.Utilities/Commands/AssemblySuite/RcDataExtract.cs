@@ -62,7 +62,7 @@ namespace RabCab.Commands.AssemblySuite
             if (SelectTemplateFileAndLoad(ref extractionSettings, out var templatePath))
             {
                 var xmlName = Path.GetFileNameWithoutExtension(templatePath);
-                var xmlPath = dwgFolder + "\\" + xmlName + ".csv";
+                _ = dwgFolder + "\\" + xmlName + ".csv";
 
                 var destPath = dwgFolder + "\\" + Path.GetFileName(templatePath);
                 File.Copy(templatePath, destPath, true);
@@ -110,7 +110,7 @@ namespace RabCab.Commands.AssemblySuite
                 if (pr.Status == PromptStatus.OK)
                 {
                     // Create a table
-                    var tableId = ObjectId.Null;
+                    _ = ObjectId.Null;
                     using (var acTrans = acCurDb.TransactionManager.StartTransaction())
                     {
                         var acTable = new Table();
@@ -121,7 +121,7 @@ namespace RabCab.Commands.AssemblySuite
                         acTable.SetColumnWidth(colWidth);
 
                         var header = acTable.Cells[0, 0];
-                        header.Value = "";
+                        header.Value = string.Empty;
                         header.Alignment = CellAlignment.MiddleCenter;
                         header.TextHeight = textHeight;
 
@@ -144,7 +144,7 @@ namespace RabCab.Commands.AssemblySuite
             // set no urls or ftp sites
             var flags = OpenFileDialog.OpenFileDialogFlags.NoUrls | OpenFileDialog.OpenFileDialogFlags.NoFtpSites;
             // create a new select dialog
-            var ofd = new OpenFileDialog("Select Template file", "", "dxe", "BrowseTemplateFile", flags);
+            var ofd = new OpenFileDialog("Select Template file", string.Empty, "dxe", "BrowseTemplateFile", flags);
 
             var bCheckFile = true;
             while (bCheckFile)

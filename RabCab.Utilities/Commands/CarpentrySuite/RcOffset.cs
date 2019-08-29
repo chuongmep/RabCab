@@ -53,7 +53,7 @@ namespace RabCab.Commands.CarpentrySuite
             //| CommandFlags.ActionMacro
             //| CommandFlags.NoInferConstraint 
         )]
-        public void Cmd_RcOFfset()
+        public void Cmd_RcOffset()
         {
             if (!LicensingAgent.Check()) return;
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;

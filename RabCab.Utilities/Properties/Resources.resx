@@ -118,6 +118,1143 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="RcAlignViews16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcAlignViews16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcAlignViews16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcAlignViews16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcAlignViews32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcAlignViews32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcAlignViews32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcAlignViews32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcAlignViews_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcAlignViews[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcAutoLayer16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcAutoLayer16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcAutoLayer16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcAutoLayer16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcAutoLayer32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcAutoLayer32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcAutoLayer32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcAutoLayer32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcAutoLayer_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcAutoLayer[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcBlockLegend16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcBlockLegend16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcBlockLegend16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcBlockLegend16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcBlockLegend32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcBlockLegend32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcBlockLegend32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcBlockLegend32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcBlockLegend_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcBlockLegend[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcBlockReplace16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcBlockReplace16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcBlockReplace16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcBlockReplace16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcBlockReplace32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcBlockReplace32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcBlockReplace32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcBlockReplace32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcBlockReplace_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcBlockReplace[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcBom16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcBom16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcBom16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcBom16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcBom32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcBom32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcBom32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcBom32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcBom_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcBom[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcBToX16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcBToX16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcBToX16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcBToX16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcBToX32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcBToX32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcBToX32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcBToX32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcBToX_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcBToX[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcBurstAll16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcBurstAll16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcBurstAll16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcBurstAll16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcBurstAll32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcBurstAll32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcBurstAll32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcBurstAll32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcBurstAll_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcBurstAll[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcChop16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcChop16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcChop16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcChop16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcChop32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcChop32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcChop32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcChop32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcChop_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcChop[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcClean16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcClean16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcClean16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcClean16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcClean32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcClean32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcClean32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcClean32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcCleanDir16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcCleanDir16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcCleanDir16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcCleanDir16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcCleanDir32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcCleanDir32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcCleanDir32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcCleanDir32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcCleanDir_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcCleanDir[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcClean_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcClean[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcConnect16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcConnect16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcConnect16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcConnect16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcConnect32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcConnect32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcConnect32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcConnect32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcConnect_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcConnect[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcConverge16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcConverge16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcConverge16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcConverge16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcConverge32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcConverge32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcConverge32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcConverge32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcConverge_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcConverge[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcCrossJoint16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcCrossJoint16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcCrossJoint16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcCrossJoint16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcCrossJoint32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcCrossJoint32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcCrossJoint32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcCrossJoint32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcCrossJoint_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcCrossJoint[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDataExtract16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDataExtract16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDataExtract16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDataExtract16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDataExtract32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDataExtract32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDataExtract32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDataExtract32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDataExtract_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDataExtract[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimAdd16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimAdd16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimAdd16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimAdd16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimAdd32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimAdd32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimAdd32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimAdd32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimAdd_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimAdd[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimAlign16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimAlign16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimAlign16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimAlign16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimAlign32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimAlign32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimAlign32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimAlign32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimAlign_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimAlign[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimArrow16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimArrow16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimArrow16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimArrow16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimArrow32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimArrow32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimArrow32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimArrow32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimArrow_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimArrow[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimBreak16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimBreak16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimBreak16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimBreak16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimBreak32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimBreak32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimBreak32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimBreak32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimBreak_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimBreak[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimDelete16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimDelete16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimDelete16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimDelete16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimDelete32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimDelete32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimDelete32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimDelete32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimDelete_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimDelete[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimEdit16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimEdit16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimEdit16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimEdit16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimEdit32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimEdit32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimEdit32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimEdit32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimEdit_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimEdit[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimExtend16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimExtend16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimExtend16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimExtend16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimExtend32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimExtend32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimExtend32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimExtend32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimExtend_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimExtend[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimLt16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimLt16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimLt16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimLt16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimLt32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimLt32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimLt32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimLt32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimLt_ExtHelp_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimLt[ExtHelp].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimLt_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimLt[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimMove16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimMove16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimMove16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimMove16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimMove32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimMove32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimMove32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimMove32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimMove_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimMove[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimPrec16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimPrec16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimPrec16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimPrec16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimPrec32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimPrec32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimPrec32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimPrec32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimPrec_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimPrec[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimSelect16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimSelect16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimSelect16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimSelect16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimSelect32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimSelect32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimSelect32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimSelect32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimSelect_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimSelect[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimSpace16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimSpace16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimSpace16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimSpace16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimSpace32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimSpace32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimSpace32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimSpace32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimSpace_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimSpace[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimToggle16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimToggle16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimToggle16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimToggle16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimToggle32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimToggle32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimToggle32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimToggle32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimToggle_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimToggle[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimUpdate16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimUpdate16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimUpdate16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimUpdate16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimUpdate32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimUpdate32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimUpdate32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimUpdate32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDimUpdate_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDimUpdate[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDogEar16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDogEar16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDogEar16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDogEar16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDogEar32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDogEar32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDogEar32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDogEar32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDogEar_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDogEar[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDrill16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDrill16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDrill16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDrill16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDrill32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDrill32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDrill32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDrill32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDrill_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDrill[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDump16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDump16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDump16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDump16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDump32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDump32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDump32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDump32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcDump_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcDump[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcEdgeBand16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcEdgeBand16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcEdgeBand16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcEdgeBand16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcEdgeBand32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcEdgeBand32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcEdgeBand32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcEdgeBand32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcEdgeBand_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcEdgeBand[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcEmptyDwg16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcEmptyDwg16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcEmptyDwg16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcEmptyDwg16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcEmptyDwg32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcEmptyDwg32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcEmptyDwg32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcEmptyDwg32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcEmptyDwg_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcEmptyDwg[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcExplode16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcExplode16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcExplode16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcExplode16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcExplode32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcExplode32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcExplode32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcExplode32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcExplode_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcExplode[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcExportParts16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcExportParts16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcExportParts16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcExportParts16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcExportParts32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcExportParts32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcExportParts32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcExportParts32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcExportParts_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcExportParts[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcFilter16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcFilter16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcFilter16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcFilter16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcFilter32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcFilter32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcFilter32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcFilter32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcFilter_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcFilter[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcFlatten16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcFlatten16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcFlatten16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcFlatten16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcFlatten32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcFlatten32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcFlatten32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcFlatten32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcFlatten_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcFlatten[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcFlip16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcFlip16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcFlip16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcFlip16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcFlip216X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcFlip216X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcFlip232x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcFlip232x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcFlip32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcFlip32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcFlip32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcFlip32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcFlipArtboard_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcFlipArtboard 1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcFlip_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcFlip[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcFloor16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcFloor16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcFloor16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcFloor16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcFloor32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcFloor32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcFloor32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcFloor32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcFloor_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcFloor[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcFuse16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcFuse16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcFuse16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcFuse16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcFuse32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcFuse32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcFuse32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcFuse32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcFuse_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcFuse[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcGap16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcGap16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcGap16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcGap16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcGap32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcGap32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcGap32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcGap32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcGap_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcGap[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcGenViews16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcGenViews16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcGenViews16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcGenViews16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcGenViews32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcGenViews32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcGenViews32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcGenViews32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcGenViews_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcGenViews[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcICut16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcICut16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcICut16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcICut16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcICut32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcICut32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcICut32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcICut32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcICut_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcICut[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcJoint16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcJoint16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcJoint16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcJoint16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcJoint32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcJoint32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcJoint32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcJoint32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcJoint_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcJoint[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcLaminate16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcLaminate16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcLaminate16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcLaminate16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcLaminate32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcLaminate32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcLaminate32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcLaminate32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcLaminate_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcLaminate[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcLayPal16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcLayPal16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcLayPal16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcLayPal16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcLayPal32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcLayPal32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcLayPal32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcLayPal32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcLayPal_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcLayPal[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcLayParts16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcLayParts16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcLayParts16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcLayParts16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcLayParts32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcLayParts32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcLayParts32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcLayParts32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcLayParts_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcLayParts[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcMatchViews16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcMatchViews16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcMatchViews16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcMatchViews16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcMatchViews32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcMatchViews32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcMatchViews32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcMatchViews32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcMatchViews_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcMatchViews[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcMetPal16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcMetPal16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcMetPal16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcMetPal16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcMetPal32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcMetPal32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcMetPal32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcMetPal32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcMetPal_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcMetPal[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcNameParts16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcNameParts16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcNameParts16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcNameParts16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcNameParts32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcNameParts32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcNameParts32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcNameParts32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcNameParts_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcNameParts[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcNetPal16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcNetPal16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcNetPal16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcNetPal16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcNetPal32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcNetPal32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcNetPal32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcNetPal32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcNetPal_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcNetPal[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcNotePal16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcNotePal16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcNotePal16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcNotePal16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcNotePal32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcNotePal32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcNotePal32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcNotePal32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcNotePal_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcNotePal[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcOffset16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcOffset16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcOffset16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcOffset16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcOffset32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcOffset32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcOffset32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcOffset32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcOffset_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcOffset[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcPageNum16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcPageNum16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcPageNum16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcPageNum16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcPageNum32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcPageNum32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcPageNum32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcPageNum32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcPageNum_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcPageNum[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcPartLeader16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcPartLeader16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcPartLeader16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcPartLeader16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcPartLeader32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcPartLeader32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcPartLeader32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcPartLeader32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcPartLeader_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcPartLeader[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcPartMark16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcPartMark16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcPartMark16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcPartMark16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcPartMark32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcPartMark32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcPartMark32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcPartMark32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcPartMark_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcPartMark[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcQuickRename16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcQuickRename16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcQuickRename16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcQuickRename16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcQuickRename32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcQuickRename32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcQuickRename32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcQuickRename32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcQuickRename_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcQuickRename[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcScatter16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcScatter16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcScatter16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcScatter16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcScatter32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcScatter32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcScatter32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcScatter32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcScatter_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcScatter[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcSelection16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcSelection16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcSelection16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcSelection16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcSelection32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcSelection32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcSelection32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcSelection32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcSelection_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcSelection[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcSeparate16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcSeparate16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcSeparate16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcSeparate16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcSeparate32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcSeparate32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcSeparate32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcSeparate32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcSeparate_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcSeparate[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcShowBounds16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcShowBounds16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcShowBounds16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcShowBounds16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcShowBounds32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcShowBounds32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcShowBounds32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcShowBounds32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcShowBounds_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcShowBounds[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcShrinkWrap16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcShrinkWrap16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcShrinkWrap16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcShrinkWrap16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcShrinkWrap32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcShrinkWrap32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcShrinkWrap32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcShrinkWrap32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcShrinkWrap_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcShrinkWrap[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcSlice16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcSlice16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcSlice16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcSlice16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcSlice32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcSlice32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcSlice32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcSlice32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcSlice_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcSlice[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcSolDivide16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcSolDivide16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcSolDivide16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcSolDivide16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcSolDivide32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcSolDivide32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcSolDivide32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcSolDivide32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcSolDivide_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcSolDivide[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcSpaceViews16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcSpaceViews16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcSpaceViews16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcSpaceViews16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcSpaceViews32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcSpaceViews32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcSpaceViews32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcSpaceViews32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcSpaceViews_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcSpaceViews[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcSubtrahend16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcSubtrahend16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcSubtrahend16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcSubtrahend16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcSubtrahend32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcSubtrahend32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcSubtrahend32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcSubtrahend32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcSubtrahend_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcSubtrahend[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcTContent16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcTContent16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcTContent16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcTContent16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcTContent32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcTContent32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcTContent32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcTContent32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcTContent_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcTContent[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcTraverse16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcTraverse16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcTraverse16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcTraverse16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcTraverse32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcTraverse32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcTraverse32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcTraverse32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcTraverse_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcTraverse[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcUnnamed16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcUnnamed16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcUnnamed16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcUnnamed16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcUnnamed32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcUnnamed32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcUnnamed32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcUnnamed32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcUnnamed_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcUnnamed[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcUpdate16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcUpdate16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcUpdate16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcUpdate16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcUpdate32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcUpdate32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcUpdate32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcUpdate32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcUpdateChildren16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcUpdateChildren16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcUpdateChildren16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcUpdateChildren16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcUpdateChildren32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcUpdateChildren32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcUpdateChildren32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcUpdateChildren32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcUpdateChildren_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcUpdateChildren[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcUpdateLeaders16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcUpdateLeaders16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcUpdateLeaders16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcUpdateLeaders16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcUpdateLeaders32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcUpdateLeaders32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcUpdateLeaders32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcUpdateLeaders32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcUpdateLeaders_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcUpdateLeaders[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcUpdate_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcUpdate[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcVpToVb16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcVpToVb16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcVpToVb16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcVpToVb16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcVpToVb32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcVpToVb32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcVpToVb32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcVpToVb32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcVpToVb_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcVpToVb[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcWeight16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcWeight16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcWeight16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcWeight16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcWeight32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcWeight32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcWeight32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcWeight32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcWeight_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcWeight[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcWeldMark16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcWeldMark16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcWeldMark16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcWeldMark16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcWeldMark32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcWeldMark32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcWeldMark32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcWeldMark32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcWeldMark_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcWeldMark[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Weld_AllAround" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\GUIImgs\Weld_AllAround.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
