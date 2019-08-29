@@ -58,7 +58,7 @@ namespace RabCab.Commands.CarpentrySuite
         )]
         public void Cmd_RcJoint()
         {
-            if (!Agents.LicensingAgent.Check()) return;
+            if (!LicensingAgent.Check()) return;
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;
             var acCurDb = acCurDoc.Database;
             var acCurEd = acCurDoc.Editor;
@@ -179,7 +179,8 @@ namespace RabCab.Commands.CarpentrySuite
                     }
                     catch (Exception e)
                     {
-                        acCurEd.WriteMessage("\n" + e.Message);
+                        acCurEd.WriteMessage(e.Message);
+                        MailAgent.Report(e.Message);
                         acTrans.Abort();
                     }
 
@@ -200,7 +201,8 @@ namespace RabCab.Commands.CarpentrySuite
                             }
                             catch (Exception e)
                             {
-                                acCurEd.WriteMessage("\n" + e.Message);
+                                acCurEd.WriteMessage(e.Message);
+                                MailAgent.Report(e.Message);
                             }
                         }
 
@@ -211,7 +213,8 @@ namespace RabCab.Commands.CarpentrySuite
                     }
                     catch (Exception e)
                     {
-                        acCurEd.WriteMessage("\n" + e.Message);
+                        acCurEd.WriteMessage(e.Message);
+                        MailAgent.Report(e.Message);
                         acTrans.Abort();
                     }
 
@@ -221,7 +224,8 @@ namespace RabCab.Commands.CarpentrySuite
             }
             catch (Exception e)
             {
-                acCurEd.WriteMessage("\n" + e.Message);
+                acCurEd.WriteMessage(e.Message);
+                MailAgent.Report(e.Message);
             }
         }
     }

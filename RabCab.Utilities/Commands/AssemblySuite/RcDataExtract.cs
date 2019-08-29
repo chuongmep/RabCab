@@ -4,6 +4,7 @@ using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.DataExtraction;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Runtime;
+using RabCab.Agents;
 using RabCab.Extensions;
 using RabCab.Settings;
 using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
@@ -48,7 +49,7 @@ namespace RabCab.Commands.AssemblySuite
             var colWidth = SettingsUser.TableColumnWidth;
             var textHeight = SettingsUser.TableTextHeight;
 
-            if (!Agents.LicensingAgent.Check()) return;
+            if (!LicensingAgent.Check()) return;
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;
             var acCurDb = acCurDoc.Database;
             var acCurEd = acCurDoc.Editor;

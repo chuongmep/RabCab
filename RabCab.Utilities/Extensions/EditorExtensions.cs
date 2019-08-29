@@ -2109,17 +2109,17 @@ namespace RabCab.Extensions
             return selectedId;
         }
 
-                #endregion
+        #endregion
 
-                #region Coordinate Conversion
+        #region Coordinate Conversion
 
-                /// <summary>
-                ///     Gets the transformation matrix from the current User Coordinate System (UCS)
-                ///     to the World Coordinate System (WCS).
-                /// </summary>
-                /// <param name="ed">The instance to which this method applies.</param>
-                /// <returns>The UCS to WCS transformation matrix.</returns>
-                public static Matrix3d Ucs2Wcs(this Editor ed)
+        /// <summary>
+        ///     Gets the transformation matrix from the current User Coordinate System (UCS)
+        ///     to the World Coordinate System (WCS).
+        /// </summary>
+        /// <param name="ed">The instance to which this method applies.</param>
+        /// <returns>The UCS to WCS transformation matrix.</returns>
+        public static Matrix3d Ucs2Wcs(this Editor ed)
         {
             return ed.CurrentUserCoordinateSystem;
         }
@@ -2249,6 +2249,7 @@ namespace RabCab.Extensions
             catch (Exception e)
             {
                 Console.WriteLine(e);
+                MailAgent.Report(e.Message);
                 return ObjectId.Null;
             }
         }
@@ -2282,6 +2283,7 @@ namespace RabCab.Extensions
             catch (Exception e)
             {
                 Console.WriteLine(e);
+                MailAgent.Report(e.Message);
             }
         }
 
@@ -2302,6 +2304,7 @@ namespace RabCab.Extensions
             catch (Exception e)
             {
                 Console.WriteLine(e);
+                MailAgent.Report(e.Message);
             }
         }
 
@@ -2331,6 +2334,7 @@ namespace RabCab.Extensions
             catch (Exception e)
             {
                 Console.WriteLine(e);
+                MailAgent.Report(e.Message);
             }
         }
 

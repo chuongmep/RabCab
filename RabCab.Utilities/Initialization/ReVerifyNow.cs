@@ -8,9 +8,9 @@ namespace RabCab.Initialization
     {
         public readonly uint GenuineDaysLeft;
         private readonly bool inGrace;
+        private readonly TurboActivate ta;
 
         public bool noLongerActivated;
-        private readonly TurboActivate ta;
 
         public ReVerifyNow(TurboActivate ta, uint DaysBetweenChecks, uint GracePeriodLength)
         {

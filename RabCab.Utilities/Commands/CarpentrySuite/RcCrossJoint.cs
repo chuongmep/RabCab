@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Windows.Forms;
+using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.DatabaseServices;
-using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.Runtime;
-using RabCab.Analysis;
+using RabCab.Agents;
 using RabCab.Engine.Enumerators;
-using RabCab.Entities.Linework;
 using RabCab.Extensions;
 using RabCab.Settings;
-using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
 using Exception = Autodesk.AutoCAD.Runtime.Exception;
 
 namespace RabCab.Commands.CarpentrySuite
@@ -46,15 +43,17 @@ namespace RabCab.Commands.CarpentrySuite
         )]
         public void Cmd_CrossJoint()
         {
-            if (!Agents.LicensingAgent.Check()) return;
+            if (!LicensingAgent.Check()) return;
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;
             var acCurDb = acCurDoc.Database;
             var acCurEd = acCurDoc.Editor;
 
-            var cutId = acCurEd.GetFilteredSelection(Enums.DxfNameEnum._3Dsolid, true, null, "\nSelect 3D Solid to cut: ");
+            var cutId = acCurEd.GetFilteredSelection(Enums.DxfNameEnum._3Dsolid, true, null,
+                "\nSelect 3D Solid to cut: ");
             if (cutId.Length <= 0) return;
-            
-            var cutterId = acCurEd.GetFilteredSelection(Enums.DxfNameEnum._3Dsolid, true, null, "\nSelect 3D Solid use as cutter: ");
+
+            var cutterId = acCurEd.GetFilteredSelection(Enums.DxfNameEnum._3Dsolid, true, null,
+                "\nSelect 3D Solid use as cutter: ");
             if (cutterId.Length <= 0) return;
 
             using (var acTrans = acCurDb.TransactionManager.StartTransaction())
@@ -88,6 +87,7 @@ namespace RabCab.Commands.CarpentrySuite
                         catch (Exception e)
                         {
                             Console.WriteLine(e);
+                            MailAgent.Report(e.Message);
                             throw;
                         }
                     }
@@ -95,7 +95,6 @@ namespace RabCab.Commands.CarpentrySuite
 
                 acTrans.Commit();
             }
-
         }
     }
 }

@@ -2,6 +2,7 @@
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.Runtime;
+using RabCab.Agents;
 using RabCab.Engine.AcSystem;
 using RabCab.Engine.Enumerators;
 using RabCab.Extensions;
@@ -41,7 +42,7 @@ namespace RabCab.Commands.StructuralSuite
         )]
         public void Cmd_Floor()
         {
-            if (!Agents.LicensingAgent.Check()) return;
+            if (!LicensingAgent.Check()) return;
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;
             var acCurDb = acCurDoc.Database;
             var acCurEd = acCurDoc.Editor;
@@ -107,6 +108,7 @@ namespace RabCab.Commands.StructuralSuite
             catch (Exception e)
             {
                 acCurEd.WriteMessage(e.Message);
+                MailAgent.Report(e.Message);
             }
         }
     }

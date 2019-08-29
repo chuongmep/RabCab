@@ -2,6 +2,7 @@
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Runtime;
+using RabCab.Agents;
 using RabCab.Analysis;
 using RabCab.Extensions;
 using RabCab.Settings;
@@ -40,7 +41,7 @@ namespace RabCab.Commands.CarpentrySuite
         )]
         public void Cmd_EdgeBand()
         {
-            if (!Agents.LicensingAgent.Check()) return;
+            if (!LicensingAgent.Check()) return;
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;
             var acCurDb = acCurDoc.Database;
             var acCurEd = acCurDoc.Editor;
@@ -130,6 +131,7 @@ namespace RabCab.Commands.CarpentrySuite
             catch (Exception e)
             {
                 acCurEd.WriteMessage(e.Message);
+                MailAgent.Report(e.Message);
             }
             finally
             {

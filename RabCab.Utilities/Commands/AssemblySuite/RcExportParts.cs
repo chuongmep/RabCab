@@ -60,7 +60,7 @@ namespace RabCab.Commands.AssemblySuite
         )]
         public void Cmd_OutputParts()
         {
-            if (!Agents.LicensingAgent.Check()) return;
+            if (!LicensingAgent.Check()) return;
             // Get the current document
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;
 
@@ -144,6 +144,7 @@ namespace RabCab.Commands.AssemblySuite
                                     catch (Exception e)
                                     {
                                         Console.WriteLine(e);
+                                        MailAgent.Report(e.Message);
                                     }
 
                                 foreach (var folder in folders)
@@ -155,6 +156,7 @@ namespace RabCab.Commands.AssemblySuite
                                     catch (Exception e)
                                     {
                                         Console.WriteLine(e);
+                                        MailAgent.Report(e.Message);
                                     }
                             }
                     }

@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Windows.Forms;
 using wyDay.TurboActivate;
 using AcAp = Autodesk.AutoCAD.ApplicationServices.Application;
+using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
 
 namespace RabCab.Initialization
 {
@@ -86,7 +87,6 @@ namespace RabCab.Initialization
 
             ShowTrial(!isGenuine);
             InitPlugin.Activated = ta.IsActivated() && isGenuine;
-            
         }
 
         /// <summary>This event handler is called when TurboActivate.exe closes.</summary>
@@ -158,14 +158,16 @@ namespace RabCab.Initialization
 
                 // if no more trial days then disable all app features
                 if (trialDaysRemaining == 0)
+                {
                     DisableAppFeatures();
+                }
                 else
                 {
                     InitPlugin.HasTime = true;
-                    AcAp.DocumentManager.MdiActiveDocument.Editor.WriteMessage("\nRabCab is in trial mode! Your trial expires in " + trialDaysRemaining + " days.");
+                    Application.DocumentManager.MdiActiveDocument.Editor.WriteMessage(
+                        "\nRabCab is in trial mode! Your trial expires in " + trialDaysRemaining + " days.");
                     lblTrialMessage.Text = "Your trial expires in " + trialDaysRemaining + " days.";
                 }
-                    
             }
         }
 
@@ -223,8 +225,6 @@ namespace RabCab.Initialization
             DisableAppFeatures(e.Status == TA_TrialStatus.TA_CB_EXPIRED_FRAUD);
         }
 
-        private delegate void IsActivatedDelegate();
-
         private void Button1_Click(object sender, EventArgs e)
         {
             if (isGenuine)
@@ -268,5 +268,7 @@ namespace RabCab.Initialization
                 TAProcess.Start();
             }
         }
+
+        private delegate void IsActivatedDelegate();
     }
 }

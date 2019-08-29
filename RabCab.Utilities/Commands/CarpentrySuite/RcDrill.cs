@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Runtime;
+using RabCab.Agents;
 using RabCab.Extensions;
 using RabCab.Settings;
 using static RabCab.Engine.Enumerators.Enums;
@@ -51,7 +52,7 @@ namespace RabCab.Commands.CarpentrySuite
         )]
         public void Cmd_Default()
         {
-            if (!Agents.LicensingAgent.Check()) return;
+            if (!LicensingAgent.Check()) return;
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;
             var acCurDb = acCurDoc.Database;
             var acCurEd = acCurDoc.Editor;

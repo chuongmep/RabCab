@@ -3,6 +3,7 @@ using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Runtime;
+using RabCab.Agents;
 using RabCab.Calculators;
 using RabCab.Entities.Annotation;
 using RabCab.Settings;
@@ -41,7 +42,7 @@ namespace RabCab.Commands.AnnotationSuite
         )]
         public void Cmd_DimSelect()
         {
-            if (!Agents.LicensingAgent.Check()) return;
+            if (!LicensingAgent.Check()) return;
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;
             var acCurDb = acCurDoc.Database;
             var acCurEd = acCurDoc.Editor;

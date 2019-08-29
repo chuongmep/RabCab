@@ -4,6 +4,7 @@ using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.Runtime;
+using RabCab.Agents;
 using RabCab.Engine.Enumerators;
 using RabCab.Entities.Annotation;
 using RabCab.Settings;
@@ -43,7 +44,7 @@ namespace RabCab.Commands.AnnotationSuite
         )]
         public void Cmd_DimArrow()
         {
-            if (!Agents.LicensingAgent.Check()) return;
+            if (!LicensingAgent.Check()) return;
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;
             var acCurDb = acCurDoc.Database;
             var acCurEd = acCurDoc.Editor;
@@ -123,6 +124,7 @@ namespace RabCab.Commands.AnnotationSuite
                     catch (Exception e)
                     {
                         Console.WriteLine(e);
+                        MailAgent.Report(e.Message);
                     }
 
                 acTrans.Commit();

@@ -254,6 +254,7 @@ namespace RabCab.Agents
                     catch (Exception e)
                     {
                         Console.WriteLine(e);
+                        MailAgent.Report(e.Message);
                     }
                 }
                 else
@@ -265,6 +266,7 @@ namespace RabCab.Agents
                     catch (Exception e)
                     {
                         Console.WriteLine(e);
+                        MailAgent.Report(e.Message);
                     }
                 }
             }
@@ -449,6 +451,7 @@ namespace RabCab.Agents
                 catch (Autodesk.AutoCAD.Runtime.Exception e)
                 {
                     Console.WriteLine(e);
+                    MailAgent.Report(e.Message);
                     throw;
                 }
         }
@@ -540,6 +543,7 @@ namespace RabCab.Agents
                 catch (Autodesk.AutoCAD.Runtime.Exception e)
                 {
                     Console.WriteLine(e);
+                    MailAgent.Report(e.Message);
                     throw;
                 }
         }
@@ -653,6 +657,7 @@ namespace RabCab.Agents
                 catch (Autodesk.AutoCAD.Runtime.Exception e)
                 {
                     Console.WriteLine(e);
+                    MailAgent.Report(e.Message);
                 }
         }
 
@@ -758,6 +763,7 @@ namespace RabCab.Agents
                 catch (Autodesk.AutoCAD.Runtime.Exception e)
                 {
                     Console.WriteLine(e);
+                    MailAgent.Report(e.Message);
                     throw;
                 }
             }

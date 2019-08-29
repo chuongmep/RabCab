@@ -13,6 +13,7 @@ using System;
 using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Runtime;
+using RabCab.Agents;
 using RabCab.Extensions;
 using RabCab.Settings;
 using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
@@ -54,7 +55,7 @@ namespace RabCab.Commands.AutomationSuite
         )]
         public void Cmd_AutoLayer()
         {
-            if (!Agents.LicensingAgent.Check()) return;
+            if (!LicensingAgent.Check()) return;
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;
             var acCurDb = acCurDoc.Database;
             var acCurEd = acCurDoc.Editor;
@@ -69,6 +70,7 @@ namespace RabCab.Commands.AutomationSuite
             catch (Exception e)
             {
                 Console.WriteLine(e);
+                MailAgent.Report(e.Message);
             }
         }
 

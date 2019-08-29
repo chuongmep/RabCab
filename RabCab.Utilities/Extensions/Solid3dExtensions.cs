@@ -1324,6 +1324,7 @@ namespace RabCab.Extensions
                         catch (AcBr.Exception e)
                         {
                             Console.WriteLine(e);
+                            MailAgent.Report(e.Message);
                         }
 
                     interferes = bounds1.CheckInterference(bounds2);

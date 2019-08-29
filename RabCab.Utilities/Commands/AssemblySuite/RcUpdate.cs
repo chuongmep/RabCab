@@ -40,7 +40,7 @@ namespace RabCab.Commands.AssemblySuite
         )]
         public void Cmd_RcUpdate()
         {
-            if (!Agents.LicensingAgent.Check()) return;
+            if (!LicensingAgent.Check()) return;
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;
             var acCurDb = acCurDoc.Database;
             var acCurEd = acCurDoc.Editor;

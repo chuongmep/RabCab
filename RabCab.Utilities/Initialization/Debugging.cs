@@ -14,6 +14,7 @@ using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.Runtime;
+using RabCab.Agents;
 using RabCab.Extensions;
 using RabCab.External.XmlAgent;
 using RabCab.Settings;
@@ -90,7 +91,7 @@ namespace RabCab.Initialization
         )]
         public void Cmd_DEBUGBOXES()
         {
-            if (!Agents.LicensingAgent.Check()) return;
+            if (!LicensingAgent.Check()) return;
 
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;
             var acCurDb = acCurDoc.Database;

@@ -2,6 +2,7 @@
 using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Runtime;
+using RabCab.Agents;
 using RabCab.Extensions;
 using RabCab.Settings;
 using Exception = Autodesk.AutoCAD.Runtime.Exception;
@@ -40,7 +41,7 @@ namespace RabCab.Commands.TidySuite
         )]
         public void Cmd_EmptyDwg()
         {
-            if (!Agents.LicensingAgent.Check()) return;
+            if (!LicensingAgent.Check()) return;
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;
             var acCurDb = acCurDoc.Database;
             var newLayoutName = "BlankLayout";
@@ -55,6 +56,7 @@ namespace RabCab.Commands.TidySuite
                 catch (Exception e)
                 {
                     Console.WriteLine(e);
+                    MailAgent.Report(e.Message);
                 }
 
                 var layoutDict =

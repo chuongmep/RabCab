@@ -11,6 +11,7 @@
 
 using System;
 using System.Diagnostics;
+using RabCab.Agents;
 
 namespace RabCab.External
 {
@@ -34,6 +35,7 @@ namespace RabCab.External
             catch (Exception e)
             {
                 Console.WriteLine(e);
+                MailAgent.Report(e.Message);
                 return false;
             }
         }

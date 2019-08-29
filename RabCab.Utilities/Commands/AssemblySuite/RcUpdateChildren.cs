@@ -3,6 +3,7 @@ using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.Runtime;
+using RabCab.Agents;
 using RabCab.Analysis;
 using RabCab.Engine.Enumerators;
 using RabCab.Extensions;
@@ -42,7 +43,7 @@ namespace RabCab.Commands.AssemblySuite
         )]
         public void Cmd_RcUdateChildren()
         {
-            if (!Agents.LicensingAgent.Check()) return;
+            if (!LicensingAgent.Check()) return;
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;
             var acCurDb = acCurDoc.Database;
             var acCurEd = acCurDoc.Editor;

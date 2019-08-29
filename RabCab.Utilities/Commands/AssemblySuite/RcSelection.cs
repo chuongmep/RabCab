@@ -59,7 +59,7 @@ namespace RabCab.Commands.AssemblySuite
         )]
         public void Cmd_SelectSame()
         {
-            if (!Agents.LicensingAgent.Check()) return;
+            if (!LicensingAgent.Check()) return;
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;
             var acCurDb = acCurDoc.Database;
             var acCurEd = acCurDoc.Editor;
@@ -396,7 +396,7 @@ namespace RabCab.Commands.AssemblySuite
         )]
         public void Cmd_SelectUnNamed()
         {
-            if (!Agents.LicensingAgent.Check()) return;
+            if (!LicensingAgent.Check()) return;
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;
             var acCurDb = acCurDoc.Database;
             var acCurEd = acCurDoc.Editor;

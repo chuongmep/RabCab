@@ -136,6 +136,7 @@ namespace RabCab.Entities.Annotation
                 catch (Exception ex)
                 {
                     acCurEd.WriteMessage("\n" + ex.Message);
+                    MailAgent.Report(ex.Message);
                     acTrans.Abort();
                     return;
                 }

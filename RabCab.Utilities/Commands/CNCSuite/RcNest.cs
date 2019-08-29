@@ -1,23 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Collections.Generic;
 using System.Windows.Forms;
 using Autodesk.AutoCAD.DatabaseServices;
-using Autodesk.AutoCAD.Internal.PreviousInput;
 using Autodesk.AutoCAD.Runtime;
+using RabCab.Agents;
 using RabCab.Analysis;
 using RabCab.Engine.Enumerators;
 using RabCab.Extensions;
 using RabCab.Settings;
 using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
-using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace RabCab.Commands.CNCSuite
 {
-    class RcNest
+    internal class RcNest
     {
         /// <summary>
         /// </summary>
@@ -47,9 +41,9 @@ namespace RabCab.Commands.CNCSuite
             //| CommandFlags.ActionMacro
             //| CommandFlags.NoInferConstraint 
         )]
-        public void Cmd_Default()
+        public void Cmd_Nest()
         {
-            if (!Agents.LicensingAgent.Check()) return;
+            if (!LicensingAgent.Check()) return;
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;
             var acCurDb = acCurDoc.Database;
             var acCurEd = acCurDoc.Editor;
@@ -69,8 +63,8 @@ namespace RabCab.Commands.CNCSuite
                     var solList = new List<Solid3d>();
                     var tooLargeList = new List<Solid3d>();
                     var pArea = poly.Area;
-                    
-                    
+
+
                     var layParts = true;
                     var rotateParts = false;
 
@@ -88,11 +82,8 @@ namespace RabCab.Commands.CNCSuite
 
                         if (solClone == null) continue;
 
-                        if (layParts)
-                        {
-                            solClone.TransformBy(eInfo.LayMatrix);
-                        }
-                      
+                        if (layParts) solClone.TransformBy(eInfo.LayMatrix);
+
                         acCurDb.AppendEntity(solClone);
                         solClone.TopLeftToOrigin();
 
@@ -110,12 +101,10 @@ namespace RabCab.Commands.CNCSuite
 
 
                     MessageBox.Show(tooLargeList.Count + " Solids are too large!");
-
                 }
-                
+
                 acTrans.Commit();
             }
-
         }
     }
 }

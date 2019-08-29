@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Autodesk.AutoCAD.BoundaryRepresentation;
 using Autodesk.AutoCAD.Geometry;
+using RabCab.Agents;
 using RabCab.Calculators;
 using RabCab.Engine.Enumerators;
 using RabCab.Settings;
@@ -213,6 +214,7 @@ namespace RabCab.Extensions
             catch (Exception e)
             {
                 Console.WriteLine(e);
+                MailAgent.Report(e.Message);
                 vectorTo = new Vector3d();
             }
 
@@ -246,6 +248,7 @@ namespace RabCab.Extensions
             catch (Exception e)
             {
                 Console.WriteLine(e);
+                MailAgent.Report(e.Message);
                 return false;
             }
         }
@@ -268,6 +271,7 @@ namespace RabCab.Extensions
             catch (Exception e)
             {
                 Console.WriteLine(e);
+                MailAgent.Report(e.Message);
                 return 0;
             }
         }
@@ -292,6 +296,7 @@ namespace RabCab.Extensions
             catch (Exception e)
             {
                 Console.WriteLine(e);
+                MailAgent.Report(e.Message);
                 return 0;
             }
         }

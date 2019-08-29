@@ -54,7 +54,7 @@ namespace RabCab.Commands.CarpentrySuite
         )]
         public void Cmd_SolDivide()
         {
-            if (!Agents.LicensingAgent.Check()) return;
+            if (!LicensingAgent.Check()) return;
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;
             var acCurDb = acCurDoc.Database;
             var acCurEd = acCurDoc.Editor;

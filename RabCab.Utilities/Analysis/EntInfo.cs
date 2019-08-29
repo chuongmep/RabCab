@@ -498,6 +498,7 @@ namespace RabCab.Analysis
             catch (Exception e)
             {
                 Console.WriteLine(e);
+                MailAgent.Report(e.Message);
             }
         }
 
@@ -553,6 +554,7 @@ namespace RabCab.Analysis
                 catch (Exception e)
                 {
                     Console.WriteLine(e);
+                    MailAgent.Report(e.Message);
                     return bestMatrix;
                 }
             }
@@ -682,6 +684,7 @@ namespace RabCab.Analysis
                                         catch (Exception e)
                                         {
                                             Console.WriteLine(e);
+                                            MailAgent.Report(e.Message);
                                         }
                                     }
                                 }
@@ -689,12 +692,14 @@ namespace RabCab.Analysis
                             catch (Exception e)
                             {
                                 Console.WriteLine(e);
+                                MailAgent.Report(e.Message);
                             }
                         }
                     }
                     catch (Exception e)
                     {
                         Console.WriteLine(e);
+                        MailAgent.Report(e.Message);
                     }
                 }
                 else
@@ -715,6 +720,7 @@ namespace RabCab.Analysis
                         catch (Exception e)
                         {
                             Console.WriteLine(e);
+                            MailAgent.Report(e.Message);
                         }
                 }
 

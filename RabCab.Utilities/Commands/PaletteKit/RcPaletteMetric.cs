@@ -568,7 +568,7 @@ namespace RabCab.Commands.PaletteKit
         /// </summary>
         private void CreatePal()
         {
-            if (!Agents.LicensingAgent.Check()) return;
+            if (!LicensingAgent.Check()) return;
             if (RcPal == null)
             {
                 RcPal = new PaletteSet(_palName, new Guid())
@@ -1456,7 +1456,7 @@ namespace RabCab.Commands.PaletteKit
         /// <param name="e"></param>
         private void traverse_Click(object sender, EventArgs e)
         {
-            if (!Agents.LicensingAgent.Check()) return;
+            if (!LicensingAgent.Check()) return;
             var acCurDoc = DocumentManager.MdiActiveDocument;
 
             using (acCurDoc.LockDocument())

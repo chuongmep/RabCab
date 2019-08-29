@@ -6,9 +6,8 @@ using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Runtime;
-using RabCab.Entities.Controls;
+using RabCab.Agents;
 using RabCab.Extensions;
-using RabCab.Initialization;
 using RabCab.Settings;
 using AcAp = Autodesk.AutoCAD.ApplicationServices.Application;
 using Exception = System.Exception;
@@ -47,7 +46,7 @@ namespace RabCab.Commands.AnalysisSuite
         )]
         public void Dump()
         {
-            if (!Agents.LicensingAgent.Check()) return;
+            if (!LicensingAgent.Check()) return;
 
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;
             var acCurDb = acCurDoc.Database;
@@ -91,7 +90,7 @@ namespace RabCab.Commands.AnalysisSuite
         )]
         public static void ListComProps()
         {
-            if (!Agents.LicensingAgent.Check()) return;
+            if (!LicensingAgent.Check()) return;
 
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;
             var acCurEd = acCurDoc.Editor;

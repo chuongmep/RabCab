@@ -1,5 +1,6 @@
 ﻿using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.Runtime;
+using RabCab.Agents;
 using RabCab.Settings;
 
 namespace RabCab.Commands.CNCSuite
@@ -36,7 +37,7 @@ namespace RabCab.Commands.CNCSuite
         )]
         public void Cmd_Default()
         {
-            if (!Agents.LicensingAgent.Check()) return;
+            if (!LicensingAgent.Check()) return;
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;
             var acCurDb = acCurDoc.Database;
             var acCurEd = acCurDoc.Editor;

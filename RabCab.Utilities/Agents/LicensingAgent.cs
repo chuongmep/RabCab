@@ -18,7 +18,6 @@ namespace RabCab.Agents
 {
     internal abstract class LicensingAgent
     {
-
         public static bool Check()
         {
             var actDia = new ActivationGui();
@@ -31,20 +30,13 @@ namespace RabCab.Agents
                 InitPlugin.FirstRun = false;
             }
 
-            if (InitPlugin.Activated)
-            {
-                return true;
-            }
+            if (InitPlugin.Activated) return true;
 
-            if (InitPlugin.HasTime)
-            {                 
-                return true;
-            }
+            if (InitPlugin.HasTime) return true;
 
-            Application.DocumentManager.MdiActiveDocument.Editor.WriteMessage("\nRabCab is not activated! Please enter an activation key to continue using the plugin!");
+            Application.DocumentManager.MdiActiveDocument.Editor.WriteMessage(
+                "\nRabCab is not activated! Please enter an activation key to continue using the plugin!");
             return false;
-
         }
-       
     }
 }
