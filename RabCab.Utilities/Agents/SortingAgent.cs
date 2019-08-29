@@ -63,7 +63,7 @@ namespace RabCab.Agents
 
             foreach (var ent in eInfoList)
             {
-                if (ent.RcName != "")
+                if (ent.RcName != string.Empty)
                 {
                     namedEnts.Add(ent);
                     continue;
@@ -778,7 +778,7 @@ namespace RabCab.Agents
             acTable.SetSize(rowCount, colCount);
 
             var rowHeight = SettingsUser.TableRowHeight;
-            var colWidth = SettingsUser.TableColumnWidth;
+            _ = SettingsUser.TableColumnWidth;
             var textHeight = SettingsUser.TableTextHeight;
 
             acTable.SetRowHeight(rowHeight);
@@ -807,7 +807,7 @@ namespace RabCab.Agents
                 for (var i = 0; i < headers.Count; i++)
                 {
                     var hText = headers[i];
-                    var tString = "";
+                    var tString = string.Empty;
 
                     switch (hText)
                     {
@@ -850,7 +850,7 @@ namespace RabCab.Agents
                     }
 
                     if (string.IsNullOrEmpty(tString))
-                        tString = "";
+                        tString = string.Empty;
 
                     acTable.Cells[counter, i].TextString = tString;
                 }
@@ -873,7 +873,7 @@ namespace RabCab.Agents
 
                 var ePath = saveDirectory + "\\" + e.RcName + ".dwg";
 
-                if (e.RcName == "" || string.IsNullOrEmpty(e.RcName)) ePath = ePath.Replace(".dwg", "#.dwg");
+                if (e.RcName == string.Empty || string.IsNullOrEmpty(e.RcName)) ePath = ePath.Replace(".dwg", "#.dwg");
 
                 var exists = true;
                 var count = 0;
@@ -1022,7 +1022,7 @@ namespace RabCab.Agents
 
                 acSol.UpdateXData(e.ChildHandles, Enums.XDataCode.ChildObjects, acCurDb, acTrans);
                 cloneSol.UpdateXData(acSol.Handle, Enums.XDataCode.ParentObject, acCurDb, acTrans);
-                cloneSol.UpdateXData("", Enums.XDataCode.ChildObjects, acCurDb, acTrans);
+                cloneSol.UpdateXData(string.Empty, Enums.XDataCode.ChildObjects, acCurDb, acTrans);
 
                 if (cloneSol.CheckRotation())
                     cloneSol.TopLeftTo(layPoint.Convert3D());

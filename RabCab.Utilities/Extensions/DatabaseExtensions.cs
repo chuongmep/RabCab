@@ -102,14 +102,14 @@ namespace RabCab.Extensions
                 "\nUpdated {0} instance{1} of " +
                 "attribute {2} in the modelspace.",
                 msCount,
-                msCount == 1 ? "" : "s",
+                msCount == 1 ? string.Empty : "s",
                 attbName);
 
             ed.WriteMessage(
                 "\nUpdated {0} instance{1} of " +
                 "attribute {2} in the default paperspace.",
                 psCount,
-                psCount == 1 ? "" : "s",
+                psCount == 1 ? string.Empty : "s",
                 attbName);
         }
 

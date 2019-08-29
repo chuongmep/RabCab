@@ -42,7 +42,7 @@ namespace RabCab.Settings
         public static Enums.AttachmentPoint TableAttach = Enums.AttachmentPoint.TopRight;
 
         //External Paths
-        public static string ViewTemplatePath = "";
+        public static string ViewTemplatePath = string.Empty;
 
         public static string ExportTemplatePath =
             @"T:\Construction\Construction Standards\STAK Machining Standards\_Templates\MachineTemplate.dwt";
@@ -74,7 +74,7 @@ namespace RabCab.Settings
 
         //SortingOptions
         public static bool ResetPartCount = true;
-        public static string NamingConvention = "";
+        public static string NamingConvention = string.Empty;
         public static bool SortByLayer = false;
         public static bool SortByColor = false;
         public static bool SortByThickness = true;

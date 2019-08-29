@@ -41,7 +41,7 @@ namespace RabCab.Agents
                 case TypeCode.Int32:
                 case TypeCode.Int64:
 
-                    var prIntOpts = new PromptIntegerOptions("")
+                    var prIntOpts = new PromptIntegerOptions(string.Empty)
                     {
                         Message = Prompt,
                         AllowNone = false,
@@ -73,7 +73,7 @@ namespace RabCab.Agents
                     break;
 
                 case TypeCode.Double:
-                    var prDobOpts = new PromptDoubleOptions("")
+                    var prDobOpts = new PromptDoubleOptions(string.Empty)
                     {
                         Message = Prompt,
                         AllowNone = false,
@@ -105,18 +105,18 @@ namespace RabCab.Agents
 
                 case TypeCode.String:
 
-                    var prStrOpts = new PromptStringOptions("")
+                    var prStrOpts = new PromptStringOptions(string.Empty)
                     {
                         Message = Prompt,
                         DefaultValue = DefValue,
-                        UseDefaultValue = DefValue != ""
+                        UseDefaultValue = DefValue != string.Empty
                     };
 
                     //Prompt the editor to receive the string from the user
                     var prStrRes = _acCurEd.GetString(prStrOpts);
 
                     //If bad input -> return ""
-                    if (prStrRes.Status != PromptStatus.OK) Output = "";
+                    if (prStrRes.Status != PromptStatus.OK) Output = string.Empty;
 
                     //Return the string entered into the editor
                     Output = prStrRes.StringResult;
@@ -127,7 +127,7 @@ namespace RabCab.Agents
                     var bFalse = "No";
                     var keys = new[] {bTrue, bFalse};
 
-                    var prKeyOpts = new PromptKeywordOptions("")
+                    var prKeyOpts = new PromptKeywordOptions(string.Empty)
                     {
                         Message = Prompt + " <" + DefValue + "> ",
                         AllowNone = false

@@ -100,7 +100,7 @@ namespace RabCab.Commands.ReferenceSuite.BlockKit
                         AlignmentPoint = btr.Origin,
                         Prompt = "CRATE:",
                         Tag = "CRATE",
-                        TextString = "",
+                        TextString = string.Empty,
                         Height = 1,
                         Invisible = true,
                         LockPositionInBlock = true

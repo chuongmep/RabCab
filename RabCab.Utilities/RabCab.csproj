@@ -1,5 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -62,80 +61,45 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AcCoreMgd">
-      <HintPath>..\..\..\..\..\..\..\Object ARX\ObjectARX_2020\inc\AcCoreMgd.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="AcCui">
-      <HintPath>..\..\..\..\..\..\..\Object ARX\ObjectARX_2020\inc\AcCui.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\ObjectARX\ObjectARX_2020\inc\AcCoreMgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="AcDbMgd">
-      <HintPath>..\..\..\..\..\..\..\Object ARX\ObjectARX_2020\inc\AcDbMgd.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\ObjectARX\ObjectARX_2020\inc\AcDbMgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="acdbmgdbrep">
-      <HintPath>..\..\..\..\..\..\..\Object ARX\ObjectARX_2020\inc\acdbmgdbrep.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\ObjectARX\ObjectARX_2020\inc\acdbmgdbrep.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="AcDx">
-      <HintPath>..\..\..\..\..\..\..\Object ARX\ObjectARX_2020\inc\AcDx.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\ObjectARX\ObjectARX_2020\inc\AcDx.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="AcMgd">
-      <HintPath>..\..\..\..\..\..\..\Object ARX\ObjectARX_2020\inc\AcMgd.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="AcMr">
-      <HintPath>..\..\..\..\..\..\..\Object ARX\ObjectARX_2020\inc\AcMr.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="AcSeamless">
-      <HintPath>..\..\..\..\..\..\..\Object ARX\ObjectARX_2020\inc\AcSeamless.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="AcTcMgd">
-      <HintPath>..\..\..\..\..\..\..\Object ARX\ObjectARX_2020\inc\AcTcMgd.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="AcWindows">
-      <HintPath>..\..\..\..\..\..\..\Object ARX\ObjectARX_2020\inc\AcWindows.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="AdUIMgd">
-      <HintPath>..\..\..\..\..\..\..\Object ARX\ObjectARX_2020\inc\AdUIMgd.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="AdUiPalettes">
-      <HintPath>..\..\..\..\..\..\..\Object ARX\ObjectARX_2020\inc\AdUiPalettes.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\ObjectARX\ObjectARX_2020\inc\AcMgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="AdWindows">
-      <HintPath>..\..\..\..\..\..\..\Object ARX\ObjectARX_2020\inc\AdWindows.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\ObjectARX\ObjectARX_2020\inc\AdWindows.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference
-      Include="CsvHelper, Version=12.0.0.0, Culture=neutral, PublicKeyToken=8c4959082be5c823, processorArchitecture=MSIL">
+    <Reference Include="CsvHelper, Version=12.0.0.0, Culture=neutral, PublicKeyToken=8c4959082be5c823, processorArchitecture=MSIL">
       <HintPath>..\packages\CsvHelper.12.1.2\lib\net45\CsvHelper.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference
-      Include="Microsoft.VisualBasic.PowerPacks, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualBasic.PowerPacks, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <!--ACA References Begin-->
     <!--ACA Refences End-->
     <!--AME Referebces Begin-->
     <!--AME Reference End-->
     <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
-    <Reference
-      Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="UCImageCombo">
       <HintPath>..\..\UCImageCombo\UCImageCombo\bin\Release\UCImageCombo.dll</HintPath>
     </Reference>

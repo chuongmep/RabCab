@@ -12,7 +12,6 @@
 using Autodesk.AutoCAD.ApplicationServices.Core;
 using RabCab.Entities.Controls;
 using RabCab.Initialization;
-using AcAp = Autodesk.AutoCAD.ApplicationServices.Application;
 
 namespace RabCab.Agents
 {

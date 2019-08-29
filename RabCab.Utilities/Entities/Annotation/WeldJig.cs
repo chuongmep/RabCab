@@ -114,7 +114,7 @@ namespace RabCab.Entities.Annotation
                     Entity.SetLastVertex(0, symLocationStart);
                     break;
                 case 3:
-                    Entity.MText.Contents = "";
+                    Entity.MText.Contents = string.Empty;
                     break;
 
                 default:

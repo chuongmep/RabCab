@@ -11,7 +11,6 @@ using System.Threading;
 using System.Windows;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Windows;
-using acApp = Autodesk.AutoCAD.ApplicationServices;
 using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
 using Image = System.Drawing.Image;
 using Window = Autodesk.AutoCAD.Windows.Window;
@@ -26,7 +25,7 @@ namespace RabCab.Agents
 
             if (acCurDoc == null) return;
 
-            var acCurDb = acCurDoc.Database;
+            _ = acCurDoc.Database;
             var acCurEd = acCurDoc.Editor;
 
             try
@@ -83,7 +82,7 @@ namespace RabCab.Agents
                         message.Attachments.Add(attachment);
                         File.Delete(tempPath);
                     }
-                    catch (Exception e)
+                    catch (Exception)
                     {
                         message.Body +=
                             "\n FILE WAS NOT SAVED BY USER BEFORE ERROR OCCURED - NO ATTACHMENT FILE CREATED!";

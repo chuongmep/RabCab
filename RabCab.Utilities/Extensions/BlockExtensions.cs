@@ -309,7 +309,7 @@ namespace RabCab.Extensions
                     if (ar != null)
                     {
                         ar.UpgradeOpen();
-                        ar.TextString = "";
+                        ar.TextString = string.Empty;
                         ar.DowngradeOpen();
                     }
                 }

@@ -128,11 +128,11 @@ namespace RabCab.Analysis
             EntColor = acSol.Color;
             EntMaterial = acSol.Material;
             TxDirection = TextureDirection.Unknown;
-            RcName = "";
+            RcName = string.Empty;
             IsSweep = false;
             IsMirror = false;
             IsChild = false;
-            RcInfo = "";
+            RcInfo = string.Empty;
             RcQtyOf = 0;
             RcQtyTotal = 0;
             LayMatrix = Matrix3d.Identity;
@@ -157,11 +157,11 @@ namespace RabCab.Analysis
             EntColor = acSol.Color;
             EntMaterial = acSol.Material;
             TxDirection = TextureDirection.Unknown;
-            RcName = "";
+            RcName = string.Empty;
             IsSweep = false;
             IsMirror = false;
             IsChild = false;
-            RcInfo = "";
+            RcInfo = string.Empty;
             RcQtyOf = 0;
             RcQtyTotal = 0;
             LayMatrix = Matrix3d.Identity;
@@ -273,11 +273,11 @@ namespace RabCab.Analysis
         {
             if (vect.IsLessThanTol())
             {
-                AsymString = "";
+                AsymString = string.Empty;
                 return AsymString;
             }
 
-            AsymString = "";
+            AsymString = string.Empty;
             AsymString = !vect.X.IsLessThanTol() ? vect.X <= 0.0 ? "-" : "+" : AsymString + "0";
             AsymString = !vect.Y.IsLessThanTol()
                 ? vect.Y <= 0.0 ? AsymString + "-" : AsymString + "+"
@@ -329,12 +329,12 @@ namespace RabCab.Analysis
             var asymStr = Asymmetry.RoundToTolerance();
 
             //Remove parenthesis from ObjIds
-            objIdStr = objIdStr.Replace("(", "");
-            objIdStr = objIdStr.Replace(")", "");
+            objIdStr = objIdStr.Replace("(", string.Empty);
+            objIdStr = objIdStr.Replace(")", string.Empty);
 
             if (count < 10) countStr = "0" + countStr;
 
-            var prntStr = "";
+            var prntStr = string.Empty;
 
             if (count > 0) prntStr += count + ":";
 

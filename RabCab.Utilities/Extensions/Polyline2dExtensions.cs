@@ -155,7 +155,7 @@ namespace RabCab.Extensions
             var last = vertices.Length - 1;
             var vertex = vertices[0];
             var p0 = vertex.Position.Convert2D();
-            var elev = pl.Elevation;
+            _ = pl.Elevation;
             var cen = new Point2d(0.0, 0.0);
             var area = 0.0;
             var bulge = vertex.Bulge;

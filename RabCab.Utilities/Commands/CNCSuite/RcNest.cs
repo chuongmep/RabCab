@@ -66,7 +66,6 @@ namespace RabCab.Commands.CNCSuite
 
 
                     var layParts = true;
-                    var rotateParts = false;
 
                     //TODO PackTo
                     //TODO OffsetFromEdge

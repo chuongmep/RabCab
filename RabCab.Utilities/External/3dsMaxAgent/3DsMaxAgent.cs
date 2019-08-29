@@ -29,7 +29,7 @@ namespace RabCab.External
 
             try
             {
-                var _3DsProc = Process.Start(startInfo);
+                _ = Process.Start(startInfo);
                 return true;
             }
             catch (Exception e)

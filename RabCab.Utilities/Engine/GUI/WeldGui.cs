@@ -188,7 +188,7 @@ namespace RabCab.Engine.GUI
                         if (Method_T.SelectedIndex > 0)
                         {
                             var insertionPoint = cenArc.GetAlong(pVector, fLineHalf / 2);
-                            var methodText = "";
+                            var methodText = string.Empty;
 
                             switch (mIndex_T)
                             {
@@ -270,7 +270,7 @@ namespace RabCab.Engine.GUI
                         if (Method_T.SelectedIndex > 0)
                         {
                             var insertionPoint = cenArc.GetAlong(pVector, fLineHalf / 2);
-                            var methodText = "";
+                            var methodText = string.Empty;
 
                             switch (mIndex_T)
                             {
@@ -344,7 +344,7 @@ namespace RabCab.Engine.GUI
                         if (Method_T.SelectedIndex > 0)
                         {
                             var insertionPoint = cenArc.GetAlong(pVec, fLineHalf / 2);
-                            var methodText = "";
+                            var methodText = string.Empty;
 
                             switch (mIndex_T)
                             {
@@ -431,7 +431,7 @@ namespace RabCab.Engine.GUI
                         if (Method_T.SelectedIndex > 0)
                         {
                             var insertionPoint = cenArc.GetAlong(mpVec, fLineHalf / 2);
-                            var methodText = "";
+                            var methodText = string.Empty;
 
                             switch (mIndex_T)
                             {
@@ -504,7 +504,7 @@ namespace RabCab.Engine.GUI
                         if (Method_T.SelectedIndex > 0)
                         {
                             var insertionPoint = cenArc.GetAlong(bpVec, fLineHalf / 2);
-                            var methodText = "";
+                            var methodText = string.Empty;
 
                             switch (mIndex_T)
                             {
@@ -600,7 +600,7 @@ namespace RabCab.Engine.GUI
                         {
                             var insertionPoint = cenArc.GetAlong(pVector, fLineHalf / 2);
                             insertionPoint = insertionPoint.Convert3D().TransformBy(mm).Convert2D();
-                            var methodText = "";
+                            var methodText = string.Empty;
 
                             switch (mIndex_B)
                             {
@@ -686,7 +686,7 @@ namespace RabCab.Engine.GUI
                         {
                             var insertionPoint = cenArc.GetAlong(pVector, fLineHalf / 2);
                             insertionPoint = insertionPoint.Convert3D().TransformBy(mm).Convert2D();
-                            var methodText = "";
+                            var methodText = string.Empty;
 
                             switch (mIndex_B)
                             {
@@ -764,7 +764,7 @@ namespace RabCab.Engine.GUI
                         {
                             var insertionPoint = cenArc.GetAlong(pVec, fLineHalf / 2);
                             insertionPoint = insertionPoint.TransformBy(mm);
-                            var methodText = "";
+                            var methodText = string.Empty;
 
                             switch (mIndex_B)
                             {
@@ -856,7 +856,7 @@ namespace RabCab.Engine.GUI
                         {
                             var insertionPoint = cenArc.GetAlong(mpVec, fLineHalf / 2);
                             insertionPoint = insertionPoint.TransformBy(mm);
-                            var methodText = "";
+                            var methodText = string.Empty;
 
                             switch (mIndex_B)
                             {
@@ -934,7 +934,7 @@ namespace RabCab.Engine.GUI
                         {
                             var insertionPoint = cenArc.GetAlong(bpVec, fLineHalf / 2);
                             insertionPoint = insertionPoint.TransformBy(mm);
-                            var methodText = "";
+                            var methodText = string.Empty;
 
                             switch (mIndex_B)
                             {
@@ -993,7 +993,7 @@ namespace RabCab.Engine.GUI
                 drawnEnts.Add(pLine);
             }
 
-            if (TailNote.Text != "" && !string.IsNullOrEmpty(TailNote.Text))
+            if (TailNote.Text != string.Empty && !string.IsNullOrEmpty(TailNote.Text))
             {
                 if (!LeftFacing)
                 {

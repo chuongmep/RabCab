@@ -47,7 +47,7 @@ namespace RabCab.Extensions
         /// <returns>Returns the ObjectID value of the selected nested entity.</returns>
         public static ObjectId GetNestedEntity(this Editor acCurEd, string prompt)
         {
-            var prNestOpts = new PromptNestedEntityOptions("")
+            var prNestOpts = new PromptNestedEntityOptions(string.Empty)
             {
                 AllowNone = false,
                 Message = prompt
@@ -80,11 +80,11 @@ namespace RabCab.Extensions
         /// <returns>Returns a string from the editor.</returns>
         public static string GetSimpleString(this Editor acCurEd, string prompt, string defaultValue = "")
         {
-            var prStrOpts = new PromptStringOptions("")
+            var prStrOpts = new PromptStringOptions(string.Empty)
             {
                 Message = prompt,
                 DefaultValue = defaultValue,
-                UseDefaultValue = defaultValue != "",
+                UseDefaultValue = defaultValue != string.Empty,
                 AllowSpaces = true
             };
 
@@ -93,7 +93,7 @@ namespace RabCab.Extensions
             var prStrRes = acCurEd.GetString(prStrOpts);
 
             //If bad input -> return ""
-            if (prStrRes.Status != PromptStatus.OK) return "";
+            if (prStrRes.Status != PromptStatus.OK) return string.Empty;
 
             //Return the string entered into the editor
             var strResult = prStrRes.StringResult;
@@ -315,7 +315,7 @@ namespace RabCab.Extensions
                 acCurEd.WriteMessage("\nParsing File: \"{0}\".", fileRes.StringResult);
 
                 //Read the import DWG file
-                importDb.ReadDwgFile(fileRes.StringResult, FileShare.Read, true, "");
+                importDb.ReadDwgFile(fileRes.StringResult, FileShare.Read, true, string.Empty);
             }
             else
             {
@@ -335,7 +335,8 @@ namespace RabCab.Extensions
             // Create Database Object
             var importDb = new Database(false, true);
 
-            if (string.IsNullOrEmpty(templatePointer) || templatePointer == "" || !File.Exists(templatePointer))
+            if (string.IsNullOrEmpty(templatePointer) || templatePointer == string.Empty ||
+                !File.Exists(templatePointer))
             {
                 var fileRes = acCurEd.GetFileResult();
 
@@ -348,7 +349,7 @@ namespace RabCab.Extensions
             acCurEd.WriteMessage("\nParsing File: \"{0}\".", templatePointer);
 
             //Read the import DWG file
-            importDb.ReadDwgFile(templatePointer, FileShare.Read, true, "");
+            importDb.ReadDwgFile(templatePointer, FileShare.Read, true, string.Empty);
 
 
             return importDb;
@@ -1041,7 +1042,7 @@ namespace RabCab.Extensions
         /// <returns>Returns a string result of the keyword the user has selected -> if error occurs, returns null</returns>
         public static string GetSimpleKeyword(this Editor acCurEd, string prompt, string[] keywords)
         {
-            var prKeyOpts = new PromptKeywordOptions("")
+            var prKeyOpts = new PromptKeywordOptions(string.Empty)
             {
                 Message = prompt,
                 AllowNone = false
@@ -1069,7 +1070,7 @@ namespace RabCab.Extensions
         /// <returns>Returns a string result of the keyword the user has selected -> if error occurs, returns null</returns>
         public static string GetComplexKeyword(this Editor acCurEd, string prompt, string[] keywords)
         {
-            var prKeyOpts = new PromptKeywordOptions("")
+            var prKeyOpts = new PromptKeywordOptions(string.Empty)
             {
                 Message = prompt,
                 AllowNone = false,
@@ -1097,7 +1098,7 @@ namespace RabCab.Extensions
             if (prKeyRes.Status != PromptStatus.OK) return null;
 
             var returnIterator = prKeyRes.StringResult;
-            var selectedKeyword = "";
+            var selectedKeyword = string.Empty;
 
             //Loop back through the keyword dictionary and find the matching iterator - once found, exit the for loop.
             foreach (var entry in keyDict)
@@ -1134,7 +1135,7 @@ namespace RabCab.Extensions
             string initialFile = "")
         {
             //Prompt User To Select A File
-            var fileOpts = new PromptOpenFileOptions("")
+            var fileOpts = new PromptOpenFileOptions(string.Empty)
             {
                 Message = prompt,
                 AllowUrls = false,
@@ -1147,16 +1148,16 @@ namespace RabCab.Extensions
             };
 
             //If an initial directory is specified -> set it
-            if (initialDir != "") fileOpts.InitialDirectory = initialDir;
+            if (initialDir != string.Empty) fileOpts.InitialDirectory = initialDir;
 
             //If an initial filename is specified -> set it
-            if (initialFile != "") fileOpts.InitialFileName = initialFile;
+            if (initialFile != string.Empty) fileOpts.InitialFileName = initialFile;
 
             //Get the selected file for open
             var fileRes = acCurEd.GetFileNameForOpen(fileOpts);
 
             //If file is not available for open (or bad input) -> return empty string
-            if (fileRes.Status != PromptStatus.OK) return "";
+            if (fileRes.Status != PromptStatus.OK) return string.Empty;
 
             //Return the selected filename & path
             return fileRes.StringResult;
@@ -1180,7 +1181,7 @@ namespace RabCab.Extensions
             string initialFile = "")
         {
             //Prompt User To Select A File
-            var fileOpts = new PromptOpenFileOptions("")
+            var fileOpts = new PromptOpenFileOptions(string.Empty)
             {
                 Message = prompt,
                 AllowUrls = false,
@@ -1190,16 +1191,16 @@ namespace RabCab.Extensions
             };
 
             //If an initial directory is specified -> set it
-            if (initialDir != "") fileOpts.InitialDirectory = initialDir;
+            if (initialDir != string.Empty) fileOpts.InitialDirectory = initialDir;
 
             //If an initial filename is specified -> set it
-            if (initialFile != "") fileOpts.InitialFileName = initialFile;
+            if (initialFile != string.Empty) fileOpts.InitialFileName = initialFile;
 
             //Get the selected file for open
             var fileRes = acCurEd.GetFileNameForOpen(fileOpts);
 
             //If file is not available for open (or bad input) -> return empty string
-            if (fileRes.Status != PromptStatus.OK) return "";
+            if (fileRes.Status != PromptStatus.OK) return string.Empty;
 
             //Return the selected filename & path
             return fileRes.StringResult;
@@ -1223,7 +1224,7 @@ namespace RabCab.Extensions
             string initialFile = "")
         {
             //Prompt User To Select A File
-            var fileOpts = new PromptOpenFileOptions("")
+            var fileOpts = new PromptOpenFileOptions(string.Empty)
             {
                 Message = prompt,
                 AllowUrls = false,
@@ -1233,16 +1234,16 @@ namespace RabCab.Extensions
             };
 
             //If an initial directory is specified -> set it
-            if (initialDir != "") fileOpts.InitialDirectory = initialDir;
+            if (initialDir != string.Empty) fileOpts.InitialDirectory = initialDir;
 
             //If an initial filename is specified -> set it
-            if (initialFile != "") fileOpts.InitialFileName = initialFile;
+            if (initialFile != string.Empty) fileOpts.InitialFileName = initialFile;
 
             //Get the selected file for open
             var fileRes = acCurEd.GetFileNameForOpen(fileOpts);
 
             //If file is not available for open (or bad input) -> return empty string
-            if (fileRes.Status != PromptStatus.OK) return "";
+            if (fileRes.Status != PromptStatus.OK) return string.Empty;
 
             //Return the selected filename & path
             return fileRes.StringResult;
@@ -1266,7 +1267,7 @@ namespace RabCab.Extensions
             string initialFile = "")
         {
             //Prompt User To Select A File
-            var fileOpts = new PromptOpenFileOptions("")
+            var fileOpts = new PromptOpenFileOptions(string.Empty)
             {
                 Message = prompt,
                 AllowUrls = false,
@@ -1276,16 +1277,16 @@ namespace RabCab.Extensions
             };
 
             //If an initial directory is specified -> set it
-            if (initialDir != "") fileOpts.InitialDirectory = initialDir;
+            if (initialDir != string.Empty) fileOpts.InitialDirectory = initialDir;
 
             //If an initial filename is specified -> set it
-            if (initialFile != "") fileOpts.InitialFileName = initialFile;
+            if (initialFile != string.Empty) fileOpts.InitialFileName = initialFile;
 
             //Get the selected file for open
             var fileRes = acCurEd.GetFileNameForOpen(fileOpts);
 
             //If file is not available for open (or bad input) -> return empty string
-            if (fileRes.Status != PromptStatus.OK) return "";
+            if (fileRes.Status != PromptStatus.OK) return string.Empty;
 
             //Return the selected filename & path
             return fileRes.StringResult;
@@ -1309,7 +1310,7 @@ namespace RabCab.Extensions
             string initialFile = "")
         {
             //Prompt User To Select A File
-            var fileOpts = new PromptOpenFileOptions("")
+            var fileOpts = new PromptOpenFileOptions(string.Empty)
             {
                 Message = prompt,
                 AllowUrls = false,
@@ -1319,16 +1320,16 @@ namespace RabCab.Extensions
             };
 
             //If an initial directory is specified -> set it
-            if (initialDir != "") fileOpts.InitialDirectory = initialDir;
+            if (initialDir != string.Empty) fileOpts.InitialDirectory = initialDir;
 
             //If an initial filename is specified -> set it
-            if (initialFile != "") fileOpts.InitialFileName = initialFile;
+            if (initialFile != string.Empty) fileOpts.InitialFileName = initialFile;
 
             //Get the selected file for open
             var fileRes = acCurEd.GetFileNameForOpen(fileOpts);
 
             //If file is not available for open (or bad input) -> return empty string
-            if (fileRes.Status != PromptStatus.OK) return "";
+            if (fileRes.Status != PromptStatus.OK) return string.Empty;
 
             //Return the selected filename & path
             return fileRes.StringResult;
@@ -1350,7 +1351,7 @@ namespace RabCab.Extensions
         /// <returns></returns>
         public static Point3d Get3DPoint(this Editor acCurEd, string prompt, Point3d basePt = default)
         {
-            var prPtOpts = new PromptPointOptions("")
+            var prPtOpts = new PromptPointOptions(string.Empty)
             {
                 Message = prompt,
                 AllowNone = false
@@ -1386,7 +1387,7 @@ namespace RabCab.Extensions
         /// <returns></returns>
         public static Point2d Get2DPoint(this Editor acCurEd, string prompt, Point2d basePt = default)
         {
-            var prPtOpts = new PromptPointOptions("")
+            var prPtOpts = new PromptPointOptions(string.Empty)
             {
                 Message = prompt,
                 AllowNone = false
@@ -1432,11 +1433,11 @@ namespace RabCab.Extensions
             string initialFile = "")
         {
             //Prompt User To Select A File
-            var fileOpts = new PromptSaveFileOptions("")
+            var fileOpts = new PromptSaveFileOptions(string.Empty)
             {
                 Message = prompt,
                 AllowUrls = false,
-                DialogCaption = "",
+                DialogCaption = string.Empty,
                 DialogName = "CAD File Save",
                 Filter = "Drawing (*.dwg)|*.dwg|" +
                          "Design Interchange Format (*.dxf)|*.dxf|" +
@@ -1445,16 +1446,16 @@ namespace RabCab.Extensions
             };
 
             //If an initial directory is specified -> set it
-            if (initialDir != "") fileOpts.InitialDirectory = initialDir;
+            if (initialDir != string.Empty) fileOpts.InitialDirectory = initialDir;
 
             //If an initial filename is specified -> set it
-            if (initialFile != "") fileOpts.InitialFileName = initialFile;
+            if (initialFile != string.Empty) fileOpts.InitialFileName = initialFile;
 
             //Get the selected file for open
             var fileRes = acCurEd.GetFileNameForSave(fileOpts);
 
             //If file is not available for open (or bad input) -> return empty string
-            if (fileRes.Status != PromptStatus.OK) return "";
+            if (fileRes.Status != PromptStatus.OK) return string.Empty;
 
             //Return the selected filename & path
             return fileRes.StringResult;
@@ -1478,26 +1479,26 @@ namespace RabCab.Extensions
             string initialFile = "")
         {
             //Prompt User To Select A File
-            var fileOpts = new PromptSaveFileOptions("")
+            var fileOpts = new PromptSaveFileOptions(string.Empty)
             {
                 Message = prompt,
                 AllowUrls = false,
-                DialogCaption = "",
+                DialogCaption = string.Empty,
                 DialogName = "DWG File Save",
                 Filter = "Drawing (*.dwg)|*.dwg|"
             };
 
             //If an initial directory is specified -> set it
-            if (initialDir != "") fileOpts.InitialDirectory = initialDir;
+            if (initialDir != string.Empty) fileOpts.InitialDirectory = initialDir;
 
             //If an initial filename is specified -> set it
-            if (initialFile != "") fileOpts.InitialFileName = initialFile;
+            if (initialFile != string.Empty) fileOpts.InitialFileName = initialFile;
 
             //Get the selected file for open
             var fileRes = acCurEd.GetFileNameForSave(fileOpts);
 
             //If file is not available for open (or bad input) -> return empty string
-            if (fileRes.Status != PromptStatus.OK) return "";
+            if (fileRes.Status != PromptStatus.OK) return string.Empty;
 
             //Return the selected filename & path
             return fileRes.StringResult;
@@ -1521,26 +1522,26 @@ namespace RabCab.Extensions
             string initialFile = "")
         {
             //Prompt User To Select A File
-            var fileOpts = new PromptSaveFileOptions("")
+            var fileOpts = new PromptSaveFileOptions(string.Empty)
             {
                 Message = prompt,
                 AllowUrls = false,
-                DialogCaption = "",
+                DialogCaption = string.Empty,
                 DialogName = "DXF File Save",
                 Filter = "Design Interchange Format (*.dxf)|*.dxf|"
             };
 
             //If an initial directory is specified -> set it
-            if (initialDir != "") fileOpts.InitialDirectory = initialDir;
+            if (initialDir != string.Empty) fileOpts.InitialDirectory = initialDir;
 
             //If an initial filename is specified -> set it
-            if (initialFile != "") fileOpts.InitialFileName = initialFile;
+            if (initialFile != string.Empty) fileOpts.InitialFileName = initialFile;
 
             //Get the selected file for open
             var fileRes = acCurEd.GetFileNameForSave(fileOpts);
 
             //If file is not available for open (or bad input) -> return empty string
-            if (fileRes.Status != PromptStatus.OK) return "";
+            if (fileRes.Status != PromptStatus.OK) return string.Empty;
 
             //Return the selected filename & path
             return fileRes.StringResult;
@@ -1564,26 +1565,26 @@ namespace RabCab.Extensions
             string initialFile = "")
         {
             //Prompt User To Select A File
-            var fileOpts = new PromptSaveFileOptions("")
+            var fileOpts = new PromptSaveFileOptions(string.Empty)
             {
                 Message = prompt,
                 AllowUrls = false,
-                DialogCaption = "",
+                DialogCaption = string.Empty,
                 DialogName = "DWT File Selection",
                 Filter = "Drawing Template (*.dwt)|*.dwt|"
             };
 
             //If an initial directory is specified -> set it
-            if (initialDir != "") fileOpts.InitialDirectory = initialDir;
+            if (initialDir != string.Empty) fileOpts.InitialDirectory = initialDir;
 
             //If an initial filename is specified -> set it
-            if (initialFile != "") fileOpts.InitialFileName = initialFile;
+            if (initialFile != string.Empty) fileOpts.InitialFileName = initialFile;
 
             //Get the selected file for open
             var fileRes = acCurEd.GetFileNameForSave(fileOpts);
 
             //If file is not available for open (or bad input) -> return empty string
-            if (fileRes.Status != PromptStatus.OK) return "";
+            if (fileRes.Status != PromptStatus.OK) return string.Empty;
 
             //Return the selected filename & path
             return fileRes.StringResult;
@@ -1607,7 +1608,7 @@ namespace RabCab.Extensions
             string initialFile = "")
         {
             //Prompt User To Select A File
-            var fileOpts = new PromptSaveFileOptions("")
+            var fileOpts = new PromptSaveFileOptions(string.Empty)
             {
                 Message = prompt,
                 AllowUrls = false,
@@ -1617,16 +1618,16 @@ namespace RabCab.Extensions
             };
 
             //If an initial directory is specified -> set it
-            if (initialDir != "") fileOpts.InitialDirectory = initialDir;
+            if (initialDir != string.Empty) fileOpts.InitialDirectory = initialDir;
 
             //If an initial filename is specified -> set it
-            if (initialFile != "") fileOpts.InitialFileName = initialFile;
+            if (initialFile != string.Empty) fileOpts.InitialFileName = initialFile;
 
             //Get the selected file for open
             var fileRes = acCurEd.GetFileNameForSave(fileOpts);
 
             //If file is not available for open (or bad input) -> return empty string
-            if (fileRes.Status != PromptStatus.OK) return "";
+            if (fileRes.Status != PromptStatus.OK) return string.Empty;
 
             //Return the selected filename & path
             return fileRes.StringResult;
@@ -1643,7 +1644,7 @@ namespace RabCab.Extensions
         /// <returns>Returns an objectID collection of the selected objects.</returns>
         public static ObjectId[] GetAllSelection(this Editor acCurEd, bool singleSelection)
         {
-            var prSelOpts = new PromptSelectionOptions
+            _ = new PromptSelectionOptions
             {
                 AllowDuplicates = false,
                 AllowSubSelections = false,
@@ -1682,7 +1683,7 @@ namespace RabCab.Extensions
             var dxfName = EnumAgent.GetNameOf(filterArg);
 
             //Remove underscores from the enum name
-            dxfName = dxfName.Replace("_", "");
+            dxfName = dxfName.Replace("_", string.Empty);
 
             //Convert to Upper Case
             dxfName = dxfName.ToUpper();
@@ -1748,7 +1749,7 @@ namespace RabCab.Extensions
             {
                 //Convert the DXFName enum value to its string value
                 var dxfName = EnumAgent.GetNameOf(fArg);
-                dxfName = dxfName.Replace("_", "");
+                dxfName = dxfName.Replace("_", string.Empty);
                 dxfName = dxfName.ToUpper();
                 dxfNames.Add(dxfName);
             }
@@ -2037,7 +2038,7 @@ namespace RabCab.Extensions
                 var dxfName = EnumAgent.GetNameOf(filterArg);
 
                 //Remove underscores from the enum name
-                dxfName = dxfName.Replace("_", "");
+                dxfName = dxfName.Replace("_", string.Empty);
 
                 //Convert to Upper Case
                 dxfName = dxfName.ToUpper();

@@ -50,8 +50,8 @@ namespace RabCab.Commands.StructuralSuite
         {
             if (!LicensingAgent.Check()) return;
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;
-            var acCurDb = acCurDoc.Database;
-            var acCurEd = acCurDoc.Editor;
+            _ = acCurDoc.Database;
+            _ = acCurDoc.Editor;
         }
     }
 }

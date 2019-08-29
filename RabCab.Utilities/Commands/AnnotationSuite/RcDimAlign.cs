@@ -53,7 +53,7 @@ namespace RabCab.Commands.AnnotationSuite
         {
             if (!LicensingAgent.Check()) return;
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;
-            var acCurDb = acCurDoc.Database;
+            _ = acCurDoc.Database;
             var acCurEd = acCurDoc.Editor;
 
             var objIds = acCurEd.GetFilteredSelection(Enums.DxfNameEnum.Dimension, false, null,
@@ -67,7 +67,7 @@ namespace RabCab.Commands.AnnotationSuite
             var pDim = SelectionSet.FromObjectIds(pId);
             var dims = SelectionSet.FromObjectIds(objIds);
 
-            acCurEd.Command("_.Dimspace", pDim, dims, "", 0);
+            acCurEd.Command("_.Dimspace", pDim, dims, string.Empty, 0);
         }
     }
 }

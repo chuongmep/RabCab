@@ -49,7 +49,7 @@ namespace RabCab.Extensions
                     ErrorStatus.NonCoplanarGeometry);
 
             var plane = new Plane(Point3d.Origin, normal);
-            var ocs2Wcs = Matrix3d.PlaneToWorld(plane);
+            _ = Matrix3d.PlaneToWorld(plane);
             var ca2D = new CircularArc2d(arc.Center.Convert2d(plane), arc.Radius);
             var lines2D = ca2D.GetTangentsTo(pt.Convert2d(plane));
 
@@ -136,7 +136,7 @@ namespace RabCab.Extensions
                     ErrorStatus.NonCoplanarGeometry);
 
             var plane = new Plane(Point3d.Origin, normal);
-            var ocs2Wcs = Matrix3d.PlaneToWorld(plane);
+            _ = Matrix3d.PlaneToWorld(plane);
             var ca2D1 = new CircularArc2d(arc.Center.Convert2d(plane), arc.Radius);
             var ca2D2 = new CircularArc2d(other.Center.Convert2d(plane), other.Radius);
             var lines2D = ca2D1.GetTangentsTo(ca2D2, flags);

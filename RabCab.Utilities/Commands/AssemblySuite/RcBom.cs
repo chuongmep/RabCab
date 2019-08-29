@@ -81,7 +81,7 @@ namespace RabCab.Commands.AssemblySuite
                         layoutList.Add(layout);
                 }
 
-                var pKeyOpts = new PromptKeywordOptions("")
+                var pKeyOpts = new PromptKeywordOptions(string.Empty)
                 {
                     Message = "\nWhich layout would you like to insert the parts list in?",
                     AllowArbitraryInput = true
@@ -105,7 +105,7 @@ namespace RabCab.Commands.AssemblySuite
                 var returnIterator = pKeyRes.StringResult;
 
                 ObjectId id;
-                var layoutName = "";
+                var layoutName = string.Empty;
 
                 foreach (var entry in keyDict)
                     if (entry.Value == returnIterator)

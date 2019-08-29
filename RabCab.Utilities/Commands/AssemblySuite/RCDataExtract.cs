@@ -4,6 +4,7 @@ using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.DataExtraction;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Runtime;
+using RabCab.Agents;
 using RabCab.Extensions;
 using RabCab.Settings;
 using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
@@ -48,7 +49,7 @@ namespace RabCab.Commands.AssemblySuite
             var colWidth = SettingsUser.TableColumnWidth;
             var textHeight = SettingsUser.TableTextHeight;
 
-            if (!Agents.LicensingAgent.Check()) return;
+            if (!LicensingAgent.Check()) return;
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;
             var acCurDb = acCurDoc.Database;
             var acCurEd = acCurDoc.Editor;
@@ -61,7 +62,7 @@ namespace RabCab.Commands.AssemblySuite
             if (SelectTemplateFileAndLoad(ref extractionSettings, out var templatePath))
             {
                 var xmlName = Path.GetFileNameWithoutExtension(templatePath);
-                var xmlPath = dwgFolder + "\\" + xmlName + ".csv";
+                _ = dwgFolder + "\\" + xmlName + ".csv";
 
                 var destPath = dwgFolder + "\\" + Path.GetFileName(templatePath);
                 File.Copy(templatePath, destPath, true);
@@ -109,7 +110,7 @@ namespace RabCab.Commands.AssemblySuite
                 if (pr.Status == PromptStatus.OK)
                 {
                     // Create a table
-                    var tableId = ObjectId.Null;
+                    _ = ObjectId.Null;
                     using (var acTrans = acCurDb.TransactionManager.StartTransaction())
                     {
                         var acTable = new Table();
@@ -120,7 +121,7 @@ namespace RabCab.Commands.AssemblySuite
                         acTable.SetColumnWidth(colWidth);
 
                         var header = acTable.Cells[0, 0];
-                        header.Value = "";
+                        header.Value = string.Empty;
                         header.Alignment = CellAlignment.MiddleCenter;
                         header.TextHeight = textHeight;
 
@@ -143,7 +144,7 @@ namespace RabCab.Commands.AssemblySuite
             // set no urls or ftp sites
             var flags = OpenFileDialog.OpenFileDialogFlags.NoUrls | OpenFileDialog.OpenFileDialogFlags.NoFtpSites;
             // create a new select dialog
-            var ofd = new OpenFileDialog("Select Template file", "", "dxe", "BrowseTemplateFile", flags);
+            var ofd = new OpenFileDialog("Select Template file", string.Empty, "dxe", "BrowseTemplateFile", flags);
 
             var bCheckFile = true;
             while (bCheckFile)

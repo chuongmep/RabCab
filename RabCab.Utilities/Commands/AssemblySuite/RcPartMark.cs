@@ -58,7 +58,7 @@ namespace RabCab.Commands.AssemblySuite
             var acCurDb = acCurDoc.Database;
             var acCurEd = acCurDoc.Editor;
 
-            var userCmdEcho = AcVars.CmdEcho;
+            _ = AcVars.CmdEcho;
             AcVars.CmdEcho = Enums.CmdEcho.Off;
 
             // Set up our selection to only select 3D solids

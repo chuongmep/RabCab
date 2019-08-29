@@ -46,7 +46,8 @@ namespace RabCab.Commands.AnnotationSuite
             var acCurEd = acCurDoc.Editor;
             var acCurDb = acCurDoc.Database;
 
-            var pKeyOpts = new PromptKeywordOptions("") {Message = "\nSelect value to append to dimension text: "};
+            var pKeyOpts = new PromptKeywordOptions(string.Empty)
+                {Message = "\nSelect value to append to dimension text: "};
             pKeyOpts.Keywords.Add("OD");
             pKeyOpts.Keywords.Add("ID");
             pKeyOpts.Keywords.Add("Typ");

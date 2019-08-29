@@ -49,7 +49,7 @@ namespace RabCab.Commands.ReferenceSuite.BlockKit
             if (objIds.Length <= 0) return;
 
             var bNameTaken = true;
-            var bName = "";
+            var bName = string.Empty;
 
             using (var acTrans = acCurDb.TransactionManager.StartTransaction())
             {

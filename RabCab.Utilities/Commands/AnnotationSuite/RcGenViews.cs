@@ -86,7 +86,7 @@ namespace RabCab.Commands.AnnotationSuite
                         layoutList.Add(layout);
                 }
 
-                var pKeyOpts = new PromptKeywordOptions("")
+                var pKeyOpts = new PromptKeywordOptions(string.Empty)
                 {
                     Message = "\nWhich layout would you like to create views in?",
                     AllowArbitraryInput = true
@@ -111,7 +111,7 @@ namespace RabCab.Commands.AnnotationSuite
                 var returnIterator = pKeyRes.StringResult;
 
                 ObjectId id;
-                var layoutName = "";
+                var layoutName = string.Empty;
 
                 foreach (var entry in keyDict)
                     if (entry.Value == returnIterator)
@@ -254,7 +254,7 @@ namespace RabCab.Commands.AnnotationSuite
                             exLayouts.Add(exLayout);
                         }
 
-                        var pKeyOpts = new PromptKeywordOptions("")
+                        var pKeyOpts = new PromptKeywordOptions(string.Empty)
                         {
                             Message = "\nSelect layout to copy viewports from: ",
                             AllowArbitraryInput = true
@@ -279,7 +279,7 @@ namespace RabCab.Commands.AnnotationSuite
                         var returnIterator = pKeyRes.StringResult;
 
                         ObjectId id;
-                        var layoutName = "";
+                        var layoutName = string.Empty;
 
                         foreach (var entry in keyDict)
                             if (entry.Value == returnIterator)

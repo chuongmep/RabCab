@@ -74,7 +74,7 @@ namespace RabCab.Extensions
                 return null;
             var result = new LineSegment2d[2];
             var v1 = inters[0] - center;
-            var v2 = inters[1] - center;
+            _ = inters[1] - center;
             var i = vec.X * v1.Y - vec.Y - v1.X > 0 ? 0 : 1;
             var j = i ^ 1;
             result[i] = new LineSegment2d(inters[0], pt);

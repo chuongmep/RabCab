@@ -75,7 +75,7 @@ namespace RabCab.Commands.CarpentrySuite
             if (userRes2.Length <= 0) return;
 
             //Get the Joint depth from the user
-            var userDistOpt = new PromptDistanceOptions("")
+            var userDistOpt = new PromptDistanceOptions(string.Empty)
             {
                 DefaultValue = SettingsUser.RcJointDepth,
                 Message = "\n Enter joint depth: ",

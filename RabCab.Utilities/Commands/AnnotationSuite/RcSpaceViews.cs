@@ -137,7 +137,10 @@ namespace RabCab.Commands.AnnotationSuite
                     //prompt for end point
                     var endPtOpts = new PromptPointOptions("\nSelect direction for spacing: ")
                     {
-                        UseBasePoint = true, UseDashedLine = true, BasePoint = startPoint, AllowNone = false
+                        UseBasePoint = true,
+                        UseDashedLine = true,
+                        BasePoint = startPoint,
+                        AllowNone = false
                     };
 
                     var endPtRes = acCurEd.GetPoint(endPtOpts);
@@ -148,7 +151,7 @@ namespace RabCab.Commands.AnnotationSuite
 
                         if (AcVars.OrthoMode == Enums.OrthoMode.On) endPt = endPt.GetOrthoPoint(startPoint);
 
-                        var lastPt = fCen;
+                        _ = fCen;
 
                         var lastBounds = fViewport.Bounds;
                         var lengthToTravel = lastBounds.GetLengthAcross(startPoint, endPt) / 2;

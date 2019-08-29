@@ -49,7 +49,7 @@ namespace RabCab.Commands.AnalysisSuite
             if (!LicensingAgent.Check()) return;
 
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;
-            var acCurDb = acCurDoc.Database;
+            _ = acCurDoc.Database;
             var acCurEd = acCurDoc.Editor;
 
             var entRes = acCurEd.GetEntity("\nSelect object: ");

@@ -74,7 +74,7 @@ namespace RabCab.Commands.AnalysisSuite
             var userKey = acCurEd.GetSimpleKeyword("Which objects would you like to select?", keys);
 
             // Determine the type of selection filter to use, base on user input
-            var dxfKey = "";
+            var dxfKey = string.Empty;
 
             if (userKey == objKey1) //2dObjects
                 dxfKey = "*LINE,CIRCLE,ARC,ELLIPSE,POINT,RAY";

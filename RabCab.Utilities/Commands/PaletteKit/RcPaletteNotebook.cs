@@ -146,7 +146,7 @@ namespace RabCab.Commands.PaletteKit
             }
             else
             {
-                _noteBox.Text = "";
+                _noteBox.Text = string.Empty;
             }
 
             _reWriteData = true;

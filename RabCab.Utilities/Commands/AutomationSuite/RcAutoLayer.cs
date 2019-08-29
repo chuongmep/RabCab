@@ -57,7 +57,7 @@ namespace RabCab.Commands.AutomationSuite
         {
             if (!LicensingAgent.Check()) return;
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;
-            var acCurDb = acCurDoc.Database;
+            _ = acCurDoc.Database;
             var acCurEd = acCurDoc.Editor;
 
             var enable = acCurEd.GetBool("\nSet AutoLayer variable: ", "On", "Off");

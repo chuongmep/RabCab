@@ -100,7 +100,7 @@ namespace RabCab.Agents
 
         public void Reset(string barMessage = "")
         {
-            if (barMessage != "")
+            if (barMessage != string.Empty)
                 _pmMsgBar = barMessage;
             Position = 0;
             if (_pm != null && !_pm.IsDisposed)

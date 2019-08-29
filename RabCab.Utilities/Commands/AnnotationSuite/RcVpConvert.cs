@@ -236,8 +236,9 @@ namespace RabCab.Commands.AnnotationSuite
 
             LayoutManager.Current.CurrentLayout = curLayout.LayoutName;
 
-            acCurEd.Command("_VIEWBASE", "M", "T", "B", "E", "R", "ALL", "A", ss, "", "O", "C", insertPoint, "H",
-                "V", "V", "I", "Y", "TA", "Y", "N", "X", "S", scaleString, "", "");
+            acCurEd.Command("_VIEWBASE", "M", "T", "B", "E", "R", "ALL", "A", ss, string.Empty, "O", "C", insertPoint,
+                "H",
+                "V", "V", "I", "Y", "TA", "Y", "N", "X", "S", scaleString, string.Empty, string.Empty);
         }
 
         /// <summary>

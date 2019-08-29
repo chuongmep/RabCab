@@ -72,10 +72,10 @@ namespace RabCab.Commands.AnnotationSuite
                 var mainBounds = mainViewport.Bounds;
                 if (mainBounds == null) return;
 
-                var topY = mainBounds.Value.MaxPoint.Y;
-                var botY = mainBounds.Value.MinPoint.Y;
-                var leftX = mainBounds.Value.MinPoint.X;
-                var rightX = mainBounds.Value.MaxPoint.X;
+                _ = mainBounds.Value.MaxPoint.Y;
+                _ = mainBounds.Value.MinPoint.Y;
+                _ = mainBounds.Value.MinPoint.X;
+                _ = mainBounds.Value.MaxPoint.X;
 
                 foreach (var objId in viewRes)
                 {

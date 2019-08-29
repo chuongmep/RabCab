@@ -185,7 +185,6 @@ namespace RabCab.Agents
             if (acRegAppTbl != null)
             {
                 if (acRegAppTbl.Has(SettingsInternal.CommandGroup) == false)
-                {
                     using (var acRegAppTblRec = new RegAppTableRecord())
                     {
                         acRegAppTblRec.Name = SettingsInternal.CommandGroup;
@@ -194,39 +193,36 @@ namespace RabCab.Agents
                         acRegAppTbl.Add(acRegAppTblRec);
                         acTrans.AddNewlyCreatedDBObject(acRegAppTblRec, true);
                     }
-                }
 
                 if (!acEnt.HasXData())
-                {
                     // Define the Xdata to add to each selected object
                     using (var rBuffer = new ResultBuffer())
                     {
-                        rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataRegAppName,
+                        rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataRegAppName,
                             SettingsInternal.CommandGroup));
-                        rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataAsciiString, ""));
-                        rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataAsciiString, ""));
-                        rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataReal, 0));
-                        rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataReal, 0));
-                        rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataReal, 0));
-                        rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataReal, 0));
-                        rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataReal, 0));
-                        rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataReal, 0));
-                        rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataReal, 0));
-                        rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataAsciiString, ""));
-                        rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataInteger32, 0));
-                        rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataInteger32, 0));
-                        rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataInteger32, 0));
-                        rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataInteger32, 0));
-                        rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataInteger32, 0));
-                        rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataInteger32, 0));
-                        rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataInteger32, -1));
-                        rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataInteger32, -1));
-                        rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataHandle, 0));
-                        rBuffer.Add(new TypedValue((int)DxfCode.ExtendedDataAsciiString, ""));
+                        rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataAsciiString, string.Empty));
+                        rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataAsciiString, string.Empty));
+                        rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataReal, 0));
+                        rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataReal, 0));
+                        rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataReal, 0));
+                        rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataReal, 0));
+                        rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataReal, 0));
+                        rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataReal, 0));
+                        rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataReal, 0));
+                        rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataAsciiString, string.Empty));
+                        rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataInteger32, 0));
+                        rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataInteger32, 0));
+                        rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataInteger32, 0));
+                        rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataInteger32, 0));
+                        rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataInteger32, 0));
+                        rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataInteger32, 0));
+                        rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataInteger32, -1));
+                        rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataInteger32, -1));
+                        rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataHandle, 0));
+                        rBuffer.Add(new TypedValue((int) DxfCode.ExtendedDataAsciiString, string.Empty));
                         // Append the extended data to the object
                         acEnt.XData = rBuffer;
                     }
-                }
 
                 try
                 {
@@ -239,7 +235,7 @@ namespace RabCab.Agents
                     if (value.GetType() == typeof(List<Handle>))
                     {
                         var childList = value as List<Handle>;
-                        var childString = "";
+                        var childString = string.Empty;
 
                         if (childList != null && childList.Count > 0) childString = string.Join(",", childList);
 

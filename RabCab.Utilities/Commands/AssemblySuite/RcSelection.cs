@@ -99,7 +99,7 @@ namespace RabCab.Commands.AssemblySuite
 
                 var divider = new Label
                 {
-                    Text = "",
+                    Text = string.Empty,
                     BorderStyle = BorderStyle.Fixed3D,
                     AutoSize = false,
                     Height = 1,
@@ -285,7 +285,7 @@ namespace RabCab.Commands.AssemblySuite
                 foreach (var cBox in checkedProps)
                 {
                     var contents = cBox.Text.Split('=');
-                    var propName = contents[0].Replace(" ", "");
+                    var propName = contents[0].Replace(" ", string.Empty);
 
                     propFilter.Add(propName);
                     _lastChecked.Add(propName);
@@ -316,7 +316,7 @@ namespace RabCab.Commands.AssemblySuite
             cBox.ForeColor = Colors.GetCadTextColor();
 
             var contents = text.Split('=');
-            var propName = contents[0].Replace(" ", "");
+            var propName = contents[0].Replace(" ", string.Empty);
 
             cBox.Checked = _lastChecked.Contains(propName);
 

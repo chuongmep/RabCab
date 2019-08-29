@@ -46,7 +46,7 @@ namespace RabCab.Commands.TidySuite
         {
             if (!LicensingAgent.Check()) return;
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;
-            var acCurDb = acCurDoc.Database;
+            _ = acCurDoc.Database;
             var acCurEd = acCurDoc.Editor;
 
             var extensions = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase)
@@ -58,7 +58,7 @@ namespace RabCab.Commands.TidySuite
             var dirSelected = false;
 
             // Get the directory to save to
-            var fDirectory = "";
+            var fDirectory = string.Empty;
 
             //While user has not chosen a directory, or until user cancels - show a dialog window for directory selection
             while (dirSelected == false)
@@ -109,7 +109,7 @@ namespace RabCab.Commands.TidySuite
                         File.Delete(file.FullName);
                         acCurEd.WriteMessage($"\nDeleting File: {file.Name}");
                     }
-                    catch (Exception e)
+                    catch (Exception)
                     {
                         acCurEd.WriteMessage($"\nFile: {file.Name} could not be deleted!");
                     }

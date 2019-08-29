@@ -39,8 +39,8 @@ namespace RabCab.Commands.AnnotationSuite
         {
             if (!LicensingAgent.Check()) return;
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;
-            var acCurDb = acCurDoc.Database;
-            var acCurEd = acCurDoc.Editor;
+            _ = acCurDoc.Database;
+            _ = acCurDoc.Editor;
         }
     }
 }

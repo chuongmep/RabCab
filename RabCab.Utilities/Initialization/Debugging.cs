@@ -37,7 +37,7 @@ namespace RabCab.Initialization
                     @"C:\Users\zayers\Documents\GitHub\RabCab.Utilities\RabCab.Utilities\Repository\RepoFasteners.xml",
                     "bolt");
 
-            Sandbox.WriteLine("");
+            Sandbox.WriteLine(string.Empty);
             Sandbox.WriteLine("Parsing Collection...");
 
             foreach (var attCol in cols)
@@ -53,7 +53,7 @@ namespace RabCab.Initialization
                     @"C:\Users\zayers\Documents\GitHub\RabCab.Utilities\RabCab.Utilities\Repository\RepoMaterials.xml",
                     "machMaterial");
 
-            Sandbox.WriteLine("");
+            Sandbox.WriteLine(string.Empty);
             Sandbox.WriteLine("Parsing Collection...");
 
             foreach (var attCol in cols)
@@ -95,7 +95,7 @@ namespace RabCab.Initialization
 
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;
             var acCurDb = acCurDoc.Database;
-            var acCurEd = acCurDoc.Editor;
+            _ = acCurDoc.Editor;
 
             var boxCount = 500;
             var maxSize = 40;

@@ -83,7 +83,7 @@ namespace RabCab.Commands.AssemblySuite
                 var dirSelected = false;
 
                 // Get the directory to save to
-                var fDirectory = "";
+                var fDirectory = string.Empty;
 
                 //While user has not chosen a directory, or until user cancels - show a dialog window for directory selection
                 while (dirSelected == false)
