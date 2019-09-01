@@ -19,23 +19,24 @@ namespace RabCab.Agents
     {
         public static bool Check()
         {
-            var actDia = new ActivationGui();
-
-            if (InitPlugin.Activated) return InitPlugin.Activated;
-
-            if (InitPlugin.FirstRun)
+            using (var actDia = new ActivationGui())
             {
-                actDia.ShowDialog(new AcadMainWindow());
-                InitPlugin.FirstRun = false;
+                if (InitPlugin.Activated) return InitPlugin.Activated;
+
+                if (InitPlugin.FirstRun)
+                {
+                    actDia.ShowDialog(new AcadMainWindow());
+                    InitPlugin.FirstRun = false;
+                }
+
+                if (InitPlugin.Activated) return true;
+
+                if (InitPlugin.HasTime) return true;
+
+                Application.DocumentManager.MdiActiveDocument.Editor.WriteMessage(
+                    "\nRabCab is not activated! Please enter an activation key to continue using the plugin!");
+                return false;
             }
-
-            if (InitPlugin.Activated) return true;
-
-            if (InitPlugin.HasTime) return true;
-
-            Application.DocumentManager.MdiActiveDocument.Editor.WriteMessage(
-                "\nRabCab is not activated! Please enter an activation key to continue using the plugin!");
-            return false;
         }
     }
 }

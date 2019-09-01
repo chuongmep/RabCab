@@ -5,6 +5,8 @@ namespace RabCab.Settings
 {
     public class SettingsGui : Panel
     {
+        public SettingsComponent SetComp;
+
         public SettingsGui()
         {
             //FlowDirection = FlowDirection.TopDown;
@@ -18,9 +20,8 @@ namespace RabCab.Settings
 
         private void InitializeComponent()
         {
-            var setComp = new SettingsComponent {Dock = DockStyle.Fill};
-            this.Controls.Add(setComp);
-
+            SetComp = new SettingsComponent {Dock = DockStyle.Fill};
+            this.Controls.Add(SetComp);
         }
     }
 }

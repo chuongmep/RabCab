@@ -9,6 +9,7 @@ using System.Net.Sockets;
 using System.Reflection;
 using System.Threading;
 using System.Windows;
+using System.Windows.Forms;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Windows;
 using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
@@ -21,6 +22,10 @@ namespace RabCab.Agents
     {
         public static void Report(string eStr)
         {
+            if (System.Windows.Forms.MessageBox.Show(
+                    "An error occurred of type \n" + eStr + " \nWould you like to report this to RabCab Support?",
+                    "Error Occurred", MessageBoxButtons.OKCancel) != DialogResult.OK) return;
+
             var acCurDoc = Application.DocumentManager.MdiActiveDocument;
 
             if (acCurDoc == null) return;
@@ -43,7 +48,7 @@ namespace RabCab.Agents
                 acCurEd.Command("COPYHIST");
 
                 Thread.Sleep(100);
-                var body = Clipboard.GetText();
+                var body = System.Windows.Clipboard.GetText();
 
                 var smtp = new SmtpClient
                 {
@@ -63,7 +68,8 @@ namespace RabCab.Agents
                            "\n OS Version: " + Environment.OSVersion +
                            "\n Is x64: " + Environment.Is64BitOperatingSystem +
                            "\n IP Address: " + GetLocalIPAddress() +
-                           "\n RabCab Directory: " + Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) +
+                           "\n RabCab Directory: " +
+                           Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) +
                            "\n\n\n ERROR" + eStr +
                            "\n\n\n COMMAND LINE ENTRIES: \n" +
                            body

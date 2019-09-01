@@ -16,6 +16,7 @@ using RabCab.Entities.Controls;
 using RabCab.Extensions;
 using RabCab.Settings;
 using static RabCab.Engine.Enumerators.Enums.SortBy;
+using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
 
 namespace RabCab.Agents
 {
@@ -543,8 +544,6 @@ namespace RabCab.Agents
                 catch (Autodesk.AutoCAD.Runtime.Exception e)
                 {
                     Console.WriteLine(e);
-                    MailAgent.Report(e.Message);
-                    throw;
                 }
         }
 
@@ -1027,6 +1026,30 @@ namespace RabCab.Agents
                 if (cloneSol.CheckRotation())
                     cloneSol.TopLeftTo(layPoint.Convert3D());
 
+                double longStep = yStep;
+
+                if (SettingsUser.LayFlatShot)
+                {
+                    var acCurEd = Application.DocumentManager.CurrentDocument.Editor;
+                    var userCoordSystem = acCurEd.CurrentUserCoordinateSystem;
+
+                   
+                    if (SettingsUser.LayAllSidesFlatShot)
+                    {
+                        longStep = cloneSol.FlattenAllSides(acCurDb, acCurEd, acTrans);
+                    }
+                    else
+                    {
+                        cloneSol.Flatten(acTrans, acCurDb, acCurEd, true, false, true, userCoordSystem);
+                        if (SettingsUser.RetainHiddenLines)
+                            acSol.Flatten(acTrans, acCurDb, acCurEd, false, true, true, userCoordSystem);
+
+                        cloneSol.Erase();
+                        cloneSol.Dispose();
+                    }
+                    
+                }
+
                 using (var acText = new MText())
                 {
                     acText.TextHeight = SettingsUser.LayTextHeight;
@@ -1060,6 +1083,11 @@ namespace RabCab.Agents
 
                     //Appent the text
                     acCurDb.AppendEntity(acText, acTrans);
+                }
+
+                if (SettingsUser.LayAllSidesFlatShot)
+                {
+                    yStep = longStep;
                 }
 
                 layPoint = new Point2d(layPoint.X, layPoint.Y - yStep - SettingsUser.LayStep);

@@ -25,7 +25,6 @@ namespace RabCab.Settings
         public static bool AllowSymbols = false;
         public static bool KeepSelection = false;
         public static bool PrioritizeRightAngles = false;
-        public static bool UseFields = false;
 
         //PartFinder
         public static bool PartLeaderEnabled = true;
@@ -79,14 +78,13 @@ namespace RabCab.Settings
         public static bool SortByColor = false;
         public static bool SortByThickness = true;
         public static bool SortByName = true;
-        public static bool GroupSame = true;
-        public static bool SplitByLayer = true;
         public static bool MixS4S = false;
 
         //Explode Options
         public static double ExplodePower = 2;
 
         //Mark Options
+        public static bool DeleteExistingMarks = true;
         public static double MarkTextHeight = 0.09;
 
         //Laying Options
@@ -96,8 +94,8 @@ namespace RabCab.Settings
         public static bool LayTextInside = false;
         public static bool LayTextLeft = true;
         public static bool LayTextCenter = false;
-        public static bool LayFlatShot = false;
-        public static bool LayAllSidesFlatShot = false;
+        public static bool LayFlatShot = true;
+        public static bool LayAllSidesFlatShot = true;
         public static bool PromptForMultiplication = true;
 
         //Annotation Options

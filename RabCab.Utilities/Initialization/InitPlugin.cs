@@ -51,6 +51,9 @@ namespace RabCab.Initialization
 
 
             // Initialize your plug-in application here
+            var actDia = new ActivationGui();
+            actDia.Dispose();
+
             Application.DisplayingOptionDialog += Application_DisplayingOptionDialog;
             DocumentHandlers.AddDocEvents();
         }
@@ -73,6 +76,8 @@ namespace RabCab.Initialization
             if (_gSettings == null)
                 _gSettings = new SettingsGui();
 
+            _gSettings.SetComp.UpdateGui();
+            
             var tde = new TabbedDialogExtension(_gSettings, OnOK, OnCancel, OnHelp, OnApply);
 
             e.AddTab(SettingsInternal.CommandGroup, tde);

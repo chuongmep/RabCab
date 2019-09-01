@@ -42,8 +42,6 @@
             this.WTypeList = new System.Windows.Forms.ImageList(this.components);
             this.WeldType_B = new UCImageCombo.ImageCombo();
             this.WSymbolList = new System.Windows.Forms.ImageList(this.components);
-            this.WIDList = new System.Windows.Forms.ImageList(this.components);
-            this.WStaggerList = new System.Windows.Forms.ImageList(this.components);
             this.Contour_T = new UCImageCombo.ImageCombo();
             this.WeldType_T = new UCImageCombo.ImageCombo();
             this.WeldFlag = new System.Windows.Forms.CheckBox();
@@ -53,6 +51,8 @@
             this.lineShape3 = new Microsoft.VisualBasic.PowerPacks.LineShape();
             this.lineShape2 = new Microsoft.VisualBasic.PowerPacks.LineShape();
             this.lineShape1 = new Microsoft.VisualBasic.PowerPacks.LineShape();
+            this.WIDList = new System.Windows.Forms.ImageList(this.components);
+            this.WStaggerList = new System.Windows.Forms.ImageList(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -237,22 +237,6 @@
             this.WSymbolList.Images.SetKeyName(9, "Weld_SquareGroove.png");
             this.WSymbolList.Images.SetKeyName(10, "Weld_VGroove.png");
             // 
-            // WIDList
-            // 
-            this.WIDList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("WIDList.ImageStream")));
-            this.WIDList.TransparentColor = System.Drawing.Color.Transparent;
-            this.WIDList.Images.SetKeyName(0, "Weld_NoId.png");
-            this.WIDList.Images.SetKeyName(1, "Weld_IdAbove.png");
-            this.WIDList.Images.SetKeyName(2, "Weld_IdBelow.png");
-            // 
-            // WStaggerList
-            // 
-            this.WStaggerList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("WStaggerList.ImageStream")));
-            this.WStaggerList.TransparentColor = System.Drawing.Color.Transparent;
-            this.WStaggerList.Images.SetKeyName(0, "Weld_NoStagger.png");
-            this.WStaggerList.Images.SetKeyName(1, "Weld_StaggerMove.png");
-            this.WStaggerList.Images.SetKeyName(2, "Weld_StaggerMirror.png");
-            // 
             // Contour_T
             // 
             this.Contour_T.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
@@ -367,6 +351,22 @@
             this.lineShape1.X2 = 151;
             this.lineShape1.Y1 = 36;
             this.lineShape1.Y2 = 76;
+            // 
+            // WIDList
+            // 
+            this.WIDList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("WIDList.ImageStream")));
+            this.WIDList.TransparentColor = System.Drawing.Color.Transparent;
+            this.WIDList.Images.SetKeyName(0, "Weld_NoId.png");
+            this.WIDList.Images.SetKeyName(1, "Weld_IdAbove.png");
+            this.WIDList.Images.SetKeyName(2, "Weld_IdBelow.png");
+            // 
+            // WStaggerList
+            // 
+            this.WStaggerList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("WStaggerList.ImageStream")));
+            this.WStaggerList.TransparentColor = System.Drawing.Color.Transparent;
+            this.WStaggerList.Images.SetKeyName(0, "Weld_NoStagger.png");
+            this.WStaggerList.Images.SetKeyName(1, "Weld_StaggerMove.png");
+            this.WStaggerList.Images.SetKeyName(2, "Weld_StaggerMirror.png");
             // 
             // WeldGui
             // 
