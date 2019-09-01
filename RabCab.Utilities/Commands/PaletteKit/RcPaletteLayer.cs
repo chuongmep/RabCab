@@ -358,7 +358,8 @@ namespace RabCab.Commands.PaletteKit
 
                     var updButton = new Button();
                     updButton.Click += Update_Click;
-                    updButton.Text = "Update";
+                    updButton.Image = Properties.Resources.RcUpdate16X16__I_;
+                    updButton.ImageAlign = MiddleCenter;
                     updButton.BackColor = foreColor;
                     updButton.ForeColor = textColor;
                     updButton.Dock = DockStyle.Fill;

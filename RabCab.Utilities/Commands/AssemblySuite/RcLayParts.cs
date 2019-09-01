@@ -9,6 +9,7 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
+using System;
 using System.Collections.Generic;
 using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.DatabaseServices;
@@ -61,8 +62,34 @@ namespace RabCab.Commands.AssemblySuite
             var acCurDb = acCurDoc.Database;
             var acCurEd = acCurDoc.Editor;
 
+            var keys = new List<KeywordAgent>();
+
+            var keyFlatAssembly = new KeywordAgent(acCurEd, "FLatshot", "Flatten part to 2D lines? ", TypeCode.Boolean,
+                SettingsUser.LayFlatShot.ToSpecified());
+
+            keys.Add(keyFlatAssembly);
+
+
             //Check for pick-first selection -> if none, get selection      
-            var acSet = SelectionSet.FromObjectIds(acCurEd.GetFilteredSelection(Enums.DxfNameEnum._3Dsolid, false));
+            var acSet = SelectionSet.FromObjectIds(acCurEd.GetFilteredSelection(Enums.DxfNameEnum._3Dsolid, false, keys));
+            if (acSet.Count <= 0) return;
+
+            keyFlatAssembly.Set(ref SettingsUser.LayFlatShot);
+
+            if (SettingsUser.LayFlatShot)
+            {
+                var layFlatShot = acCurEd.GetBool("\n Create flatshot for each side?");
+                if (layFlatShot != null)
+                SettingsUser.LayAllSidesFlatShot = layFlatShot.Value;
+              
+
+                var retainHidden = acCurEd.GetBool("\n Retain hidden lines?");
+                if (retainHidden != null) SettingsUser.RetainHiddenLines = retainHidden.Value;
+            }
+            else
+            {
+                SettingsUser.LayAllSidesFlatShot = false;
+            }
 
             //Set the UCS to World - save the user UCS
             var userCoordSystem = acCurEd.CurrentUserCoordinateSystem;

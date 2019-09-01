@@ -13,6 +13,7 @@ using System;
 using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.BoundaryRepresentation;
 using Autodesk.AutoCAD.DatabaseServices;
+using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Runtime;
 using RabCab.Agents;
 using RabCab.Extensions;
@@ -68,6 +69,24 @@ namespace RabCab.Commands.CarpentrySuite
             if (dirSel == null) return;
             if (dirSel.Item1 == ObjectId.Null) return;
             if (dirSel.Item2 == SubentityId.Null) return;
+
+            //Get the Joint depth from the user
+            var userDistOpt = new PromptDistanceOptions(string.Empty)
+            {
+                DefaultValue = SettingsUser.DogEarDiam,
+                UseDefaultValue = true,
+                Message = "\n Enter drill diameter: ",
+                AllowNone = false,
+                AllowNegative = false,
+                AllowZero = false
+            };
+
+            //Set the join depth
+            var distRes = acCurEd.GetDistance(userDistOpt);
+
+            if (distRes.Status != PromptStatus.OK) return;
+
+            SettingsUser.DogEarDiam = distRes.Value;
 
             //Open a transaction
             using (var acTrans = acCurDb.TransactionManager.StartTransaction())
