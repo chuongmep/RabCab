@@ -102,11 +102,9 @@ namespace RabCab.Commands.AssemblySuite
                                         if (txt != "RCMARK") continue;
                                         acEnt.Erase();
                                         acEnt.Dispose();
-
-
                                     }
 
-                                if (mObjs.Count > 0)
+                                if (mObjs.Count <= 0) continue;
                                 {
                                     //Finished finding objects, now create tags
                                     var xform = psVp.Ms2Ps();
@@ -116,49 +114,71 @@ namespace RabCab.Commands.AssemblySuite
                                         var dbObj = acTrans.GetObject(id, OpenMode.ForWrite);
                                         if (dbObj == null) continue;
 
-                                        if (dbObj is Solid3d acSol)
+                                        switch (dbObj)
                                         {
-                                            var solCen = acSol.MassProperties.Centroid;
-                                            var solName = acSol.GetPartName();
-                                            var insPt = solCen.TransformBy(xform).Flatten();
-
-                                            //TODO add marking block
-
-                                            using (var acText = new MText())
+                                            case Solid3d acSol:
                                             {
-                                                acText.TextHeight = SettingsUser.MarkTextHeight;
-                                                acText.Contents = solName;
-                                                acText.BackgroundFill = true;
-                                                acText.UseBackgroundColor = true;
-                                                acText.ShowBorders = true;
-                                                acText.Location = insPt;
-                                                acText.Attachment = AttachmentPoint.MiddleCenter;
-                                                //acText.Layer = ;
-                                                //acText.ColorIndex = ;                           
+                                                var solCen = acSol.MassProperties.Centroid;
+                                                var solName = acSol.GetPartName();
+                                                var insPt = solCen.TransformBy(xform).Flatten();
 
-                                                //Append the text
-                                                acCurDb.AppendEntity(acText, acTrans);
-                                                acText.UpdateXData("RCMARK", Enums.XDataCode.Info, acCurDb, acTrans);
+                                                using (var acText = new MText())
+                                                {
+                                                    acText.TextHeight = SettingsUser.MarkTextHeight;
+                                                    acText.Contents = solName;
+                                                    acText.BackgroundFill = true;
+                                                    acText.UseBackgroundColor = true;
+                                                    acText.ShowBorders = true;
+                                                    acText.Location = insPt;
+                                                    acText.Attachment = AttachmentPoint.MiddleCenter;
+                                                    //acText.Layer = ;
+                                                    //acText.ColorIndex = ;                           
+
+                                                    //Append the text
+                                                    acCurDb.AppendEntity(acText, acTrans);
+                                                    acText.UpdateXData("RCMARK", Enums.XDataCode.Info, acCurDb, acTrans);
+                                                }
+
+                                                break;
+                                            }
+
+                                            case BlockReference bRef:
+                                            {
+                                                var ext = acTrans.GetExtents(new ObjectId[] {bRef.ObjectId}, acCurDb);
+                                                var cen = ext.MinPoint.GetMidPoint(ext.MaxPoint);
+
+                                                var bName = bRef.Name;
+                                                var insPt = cen.TransformBy(xform).Flatten();
+
+                                                using (var acText = new MText())
+                                                {
+                                                    acText.TextHeight = SettingsUser.MarkTextHeight;
+                                                    acText.Contents = bName;
+                                                    acText.BackgroundFill = true;
+                                                    acText.UseBackgroundColor = true;
+                                                    acText.ShowBorders = true;
+                                                    acText.Location = insPt;
+                                                    acText.Attachment = AttachmentPoint.MiddleCenter;
+                                                    //acText.Layer = ;
+                                                    //acText.ColorIndex = ;                           
+
+                                                    //Append the text
+                                                    acCurDb.AppendEntity(acText, acTrans);
+                                                    acText.UpdateXData("RCMARK", Enums.XDataCode.Info, acCurDb, acTrans);
+                                                }
+
+                                                break;
                                             }
                                         }
-
-                                        //Todo add block and insert parse
-                                        //else if (dbObj is Circle)
-                                        //{
-
-                                        //}
-                                        //else if (dbObj is Arc)
-                                        //{
-
-                                        //}
                                     }
                                 }
                             }
                         }
-                    }
 
-                    acTrans.Commit();
+                        acTrans.Commit();
+                    }
                 }
         }
+
     }
 }

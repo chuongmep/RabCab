@@ -113,7 +113,7 @@ namespace RabCab.Commands.AssemblySuite
 
                 if (!new PathFinder().IsDirectoryEmpty(fDirectory))
                 {
-                    var subPath = "\\OldVersions" + DateTime.Now.ToString(" MM.dd [HH.mm.ss]");
+                    var subPath = "\\_OldVersions" + DateTime.Now.ToString(" MM.dd [HH.mm.ss]");
 
                     var exists = Directory.Exists(fDirectory + subPath);
 
@@ -143,8 +143,10 @@ namespace RabCab.Commands.AssemblySuite
                                     }
                                     catch (Exception e)
                                     {
+                                        MessageBox.Show("File " + file.Name +
+                                                        " is currently in use and cannot be moved.");
+
                                         Console.WriteLine(e);
-                                        MailAgent.Report(e.Message);
                                     }
 
                                 foreach (var folder in folders)
@@ -155,8 +157,9 @@ namespace RabCab.Commands.AssemblySuite
                                     }
                                     catch (Exception e)
                                     {
+                                        MessageBox.Show("Folder " + folder.Name +
+                                                        " is currently in use and cannot be moved.");
                                         Console.WriteLine(e);
-                                        MailAgent.Report(e.Message);
                                     }
                             }
                     }

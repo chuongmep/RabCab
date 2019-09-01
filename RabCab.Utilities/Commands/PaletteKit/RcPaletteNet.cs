@@ -48,7 +48,6 @@ using System;
 using System.Windows.Forms;
 using Autodesk.AutoCAD.Runtime;
 using Autodesk.AutoCAD.Windows;
-using RabCab.Agents;
 using RabCab.Settings;
 
 //using CefSharp;

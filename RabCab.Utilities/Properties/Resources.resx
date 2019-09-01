@@ -118,6 +118,36 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="None16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\None16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="None16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\None16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="None32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\None32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="None32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\None32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="None_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\None[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ProdMultSide16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\ProdMultSide16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ProdMultSide16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\ProdMultSide16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ProdMultSide32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\ProdMultSide32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ProdMultSide32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\ProdMultSide32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ProdMultSide_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\ProdMultSide[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="RcAlignViews16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Icons\RcAlignViews16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -679,7 +709,13 @@
   <data name="RcFlip16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Icons\RcFlip16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="RcFlip16x16__G_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcFlip16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="RcFlip16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcFlip16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcFlip16X16__I_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Icons\RcFlip16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="RcFlip216X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -691,10 +727,16 @@
   <data name="RcFlip32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Icons\RcFlip32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="RcFlip32x32__G_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcFlip32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="RcFlip32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Icons\RcFlip32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="RcFlipArtboard_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\RcFlipArtboard 1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RcFlipArtboard_11" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Icons\RcFlipArtboard 1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="RcFlip_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -1254,6 +1296,81 @@
   </data>
   <data name="RcWeldMark_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Icons\RcWeldMark[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="S4S16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\S4S16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="S4S16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\S4S16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="S4S32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\S4S32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="S4S32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\S4S32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="S4S_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\S4S[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TxAcross16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\TxAcross16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TxAcross16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\TxAcross16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TxAcross32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\TxAcross32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TxAcross32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\TxAcross32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TxAcross_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\TxAcross[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TxAlong16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\TxAlong16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TxAlong16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\TxAlong16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TxAlong32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\TxAlong32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TxAlong32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\TxAlong32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TxAlong_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\TxAlong[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TxUnknoen16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\TxUnknoen16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TxUnknoen16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\TxUnknoen16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TxUnknoen32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\TxUnknoen32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TxUnknoen32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\TxUnknoen32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TxUnknoen_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\TxUnknoen[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="UpParent16x16__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\UpParent16x16 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="UpParent16X16__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\UpParent16X16 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="UpParent32x32__G_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\UpParent32x32 [G].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="UpParent32x32__I_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\UpParent32x32 [I].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="UpParent_Mkt_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\UpParent[Mkt].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Weld_AllAround" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\GUIImgs\Weld_AllAround.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

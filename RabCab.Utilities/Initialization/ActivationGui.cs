@@ -228,7 +228,7 @@ namespace RabCab.Initialization
         {
             if (isGenuine)
             {
-                if (System.Windows.Forms.MessageBox.Show(
+                if (MessageBox.Show(
                         "Clicking 'OK' will deactivate this copy of RabCab!" +
                         "\nDoing so will free your activation key for install on other systems." +
                         "\n\nClick 'OK' to continue deactivation.",

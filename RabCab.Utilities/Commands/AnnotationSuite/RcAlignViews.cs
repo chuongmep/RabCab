@@ -65,7 +65,7 @@ namespace RabCab.Commands.AnnotationSuite
                 "\nSelect Viewport to align to: ");
             if (alignRes.Length <= 0) return;
 
-            var boolRes = acCurEd.GetBool("Align by which orientation? ", "Horizontal", "Vertical");
+            var boolRes = acCurEd.GetBool("Align by which orientation? ", "Along", "Across");
             if (boolRes == null) return;
 
             var horizontal = boolRes.Value;
@@ -86,9 +86,9 @@ namespace RabCab.Commands.AnnotationSuite
                     var alignX = alignView.CenterPoint.X;
                     var alignY = alignView.CenterPoint.Y;
 
-                    if (horizontal) //Horizontal
+                    if (horizontal) //Along
                         mainX = alignX;
-                    else //Vertical
+                    else //Across
                         mainY = alignY;
 
                     alignView.CenterPoint = new Point3d(mainX, mainY, 0);

@@ -9,7 +9,6 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
-using System;
 using System.Collections.Generic;
 using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.DatabaseServices;
@@ -20,7 +19,6 @@ using RabCab.Analysis;
 using RabCab.Engine.Enumerators;
 using RabCab.Extensions;
 using RabCab.Settings;
-using Exception = Autodesk.AutoCAD.Runtime.Exception;
 
 namespace RabCab.Commands.AssemblySuite
 {

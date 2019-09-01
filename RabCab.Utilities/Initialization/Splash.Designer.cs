@@ -39,14 +39,14 @@
             this.pBar.ForeColor = System.Drawing.SystemColors.MenuHighlight;
             this.pBar.Location = new System.Drawing.Point(0, 0);
             this.pBar.Name = "pBar";
-            this.pBar.Size = new System.Drawing.Size(359, 10);
+            this.pBar.Size = new System.Drawing.Size(254, 10);
             this.pBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.pBar.TabIndex = 0;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(158, 116);
+            this.label3.Location = new System.Drawing.Point(34, 123);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(188, 13);
             this.label3.TabIndex = 9;
@@ -55,7 +55,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(158, 95);
+            this.label1.Location = new System.Drawing.Point(105, 95);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(109, 13);
             this.label1.TabIndex = 7;
@@ -67,7 +67,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::RabCab.Properties.Resources.RcFlipArtboard_1;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ClientSize = new System.Drawing.Size(359, 141);
+            this.ClientSize = new System.Drawing.Size(254, 141);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pBar);

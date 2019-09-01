@@ -93,6 +93,7 @@ namespace RabCab.Entities.Annotation
             {
                 try
                 {
+                    if (_curLeaderId == ObjectId.Null) return;
                     var mLeader = acTrans.GetObject(_curLeaderId, OpenMode.ForWrite) as MLeader;
 
                     if (mLeader == null)

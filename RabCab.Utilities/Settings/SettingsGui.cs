@@ -21,7 +21,7 @@ namespace RabCab.Settings
         private void InitializeComponent()
         {
             SetComp = new SettingsComponent {Dock = DockStyle.Fill};
-            this.Controls.Add(SetComp);
+            Controls.Add(SetComp);
         }
     }
 }

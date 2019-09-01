@@ -460,7 +460,7 @@ namespace RabCab.Analysis
 
                 measures.Sort();
 
-                if (TxDirection == TextureDirection.Vertical)
+                if (TxDirection == TextureDirection.Across)
                 {
                     Width = measures[2].RoundToTolerance();
                     Length = measures[1].RoundToTolerance();

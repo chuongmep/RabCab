@@ -67,6 +67,8 @@ namespace RabCab.Commands.AssemblySuite
             {
                 foreach (var oId in objIds)
                 {
+                    if (oId.IsErased) continue;
+
                     var pSol = acTrans.GetObject(oId, OpenMode.ForRead) as Solid3d;
 
                     if (pSol != null)
@@ -78,7 +80,7 @@ namespace RabCab.Commands.AssemblySuite
                             {
                                 var objId = acCurDb.GetObjectId(false, cHandle, 0);
 
-                                if (objId == ObjectId.Null) continue;
+                                if (objId == ObjectId.Null || objId.IsErased) continue;
 
                                 Solid3d cSol = null;
 

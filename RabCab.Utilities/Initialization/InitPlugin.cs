@@ -9,15 +9,16 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
-using System;
-using System.ComponentModel;
+using System.Diagnostics;
 using System.Threading;
+using System.Windows.Forms;
 using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.Runtime;
 using RabCab.Engine.AcSystem;
 using RabCab.Entities.Controls;
 using RabCab.Initialization;
 using RabCab.Settings;
+using Application = Autodesk.AutoCAD.ApplicationServices.Application;
 
 // This line is not mandatory, but improves loading performances
 
@@ -33,6 +34,8 @@ namespace RabCab.Initialization
         public static bool Activated = false;
         public static bool HasTime = false;
         public static bool FirstRun = true;
+
+        private Splash _ss;
 
         void IExtensionApplication.Initialize()
         {
@@ -63,18 +66,25 @@ namespace RabCab.Initialization
             DocumentHandlers.AddDocEvents();
         }
 
-        Splash _ss;
+
+        void IExtensionApplication.Terminate()
+        {
+            if (Activated)
+            {
+                Application.DisplayingOptionDialog -= Application_DisplayingOptionDialog;
+                DocumentHandlers.RemoveDocEvents();
+            }
+        }
 
         private void ShowSplash()
         {
-            
             _ss = new Splash();
 
             // Rather than trusting these properties to be set
             // at design-time, let's set them here
 
-            _ss.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            _ss.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            _ss.StartPosition = FormStartPosition.CenterScreen;
+            _ss.FormBorderStyle = FormBorderStyle.None;
             _ss.Opacity = 0.8;
             _ss.TopMost = true;
             _ss.ShowInTaskbar = false;
@@ -114,16 +124,6 @@ namespace RabCab.Initialization
             _ss.Close();
         }
 
-
-        void IExtensionApplication.Terminate()
-        {
-            if (Activated)
-            {
-                Application.DisplayingOptionDialog -= Application_DisplayingOptionDialog;
-                DocumentHandlers.RemoveDocEvents();
-            }
-        }
-
         #region Options Panel Addition
 
         private static SettingsGui _gSettings;
@@ -134,7 +134,7 @@ namespace RabCab.Initialization
                 _gSettings = new SettingsGui();
 
             _gSettings.SetComp.UpdateGui();
-            
+
             var tde = new TabbedDialogExtension(_gSettings, OnOK, OnCancel, OnHelp, OnApply);
 
             e.AddTab(SettingsInternal.CommandGroup, tde);
@@ -152,7 +152,7 @@ namespace RabCab.Initialization
 
         private static void OnHelp()
         {
-            System.Diagnostics.Process.Start("http://www.rabcab.com/help");
+            Process.Start("http://www.rabcab.com/help");
         }
 
         private static void OnApply()

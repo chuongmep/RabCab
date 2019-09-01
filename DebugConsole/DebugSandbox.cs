@@ -38,9 +38,9 @@ namespace DebugConsole
             settingsGui.Dock = DockStyle.Fill;
             var form = new Form();
             form.Controls.Add(settingsGui);
-            
+
             Application.EnableVisualStyles();
-            Application.Run(form); 
+            Application.Run(form);
         }
 
         private static void GenerateAuthKey()

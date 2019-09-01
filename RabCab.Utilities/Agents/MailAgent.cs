@@ -8,13 +8,12 @@ using System.Net.Mime;
 using System.Net.Sockets;
 using System.Reflection;
 using System.Threading;
-using System.Windows;
 using System.Windows.Forms;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Windows;
 using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
+using Clipboard = System.Windows.Clipboard;
 using Image = System.Drawing.Image;
-using Window = Autodesk.AutoCAD.Windows.Window;
 
 namespace RabCab.Agents
 {
@@ -22,7 +21,7 @@ namespace RabCab.Agents
     {
         public static void Report(string eStr)
         {
-            if (System.Windows.Forms.MessageBox.Show(
+            if (MessageBox.Show(
                     "An error occurred of type \n" + eStr + " \nWould you like to report this to RabCab Support?",
                     "Error Occurred", MessageBoxButtons.OKCancel) != DialogResult.OK) return;
 
@@ -48,7 +47,7 @@ namespace RabCab.Agents
                 acCurEd.Command("COPYHIST");
 
                 Thread.Sleep(100);
-                var body = System.Windows.Clipboard.GetText();
+                var body = Clipboard.GetText();
 
                 var smtp = new SmtpClient
                 {

@@ -2274,7 +2274,7 @@ namespace RabCab.Extensions
                     var ln = Convert.ToInt64(hdlString, 16);
                     var hdl = new Handle(ln);
                     var objId = acCurDb.GetObjectId(false, hdl, 0);
-                    if (objId != ObjectId.Null)
+                    if (objId != ObjectId.Null && !objId.IsErased)
                         objIds.Add(objId);
                 }
 

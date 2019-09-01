@@ -1,15 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using RabCab.Commands.CarpentrySuite;
 using RabCab.Commands.PaletteKit;
 using RabCab.Engine.Enumerators;
 using RabCab.Entities.Controls;
@@ -48,32 +41,22 @@ namespace RabCab.Settings
             RetainHidden.Checked = RetainHiddenLines;
 
             NumLStep.Value = LayStep;
-            NumTextHeight.Value = (decimal)LayTextHeight;
+            NumTextHeight.Value = (decimal) LayTextHeight;
 
             check_PromptMult.Checked = PromptForMultiplication;
             check_CreateFlat.Checked = LayFlatShot;
             check_FlatAll.Checked = LayAllSidesFlatShot;
 
             if (LayTextAbove && LayTextLeft)
-            {
                 Loc_TL.Checked = true;
-            }
             else if (LayTextAbove && LayTextCenter)
-            {
                 Loc_TC.Checked = true;
-            }
             else if (LayTextInside && LayTextLeft)
-            {
                 Loc_CL.Checked = true;
-            }
             else if (LayTextInside && LayTextCenter)
-            {
                 Loc_MC.Checked = true;
-            }
             else
-            {
                 Loc_TL.Checked = true;
-            }
 
             Carp_JointDepth.Value = (decimal) RcJointDepth;
             Carp_OffDepth.Value = (decimal) RcOffsetDepth;
@@ -111,10 +94,10 @@ namespace RabCab.Settings
             BOM_Qty.Checked = BomQty;
 
             BOM_RowHeight.Value = (decimal) TableRowHeight;
-            BOM_ColWidth.Value = (decimal)TableColumnWidth;
-            BOM_TextHeight.Value = (decimal)TableTextHeight;
-            BOM_XOffset.Value = (decimal)TableXOffset;
-            BOM_YOffset.Value = (decimal)TableYOffset;
+            BOM_ColWidth.Value = (decimal) TableColumnWidth;
+            BOM_TextHeight.Value = (decimal) TableTextHeight;
+            BOM_XOffset.Value = (decimal) TableXOffset;
+            BOM_YOffset.Value = (decimal) TableYOffset;
 
             switch (TableAttach)
             {
@@ -171,13 +154,9 @@ namespace RabCab.Settings
             EnableSelectionParse = Check_MetPal.Checked;
 
             if (EnableSelectionParse == false)
-            {
                 RcPaletteMetric.DisablePal();
-            }
             else
-            {
                 RcPaletteMetric.EnablePal();
-            }
 
             NamingConvention = NameConv.Text;
             LayerDelimiter = Convert.ToChar(LayerDelim.Text);
@@ -185,98 +164,97 @@ namespace RabCab.Settings
 
             SortByLayer = SortLayer.Checked;
             SortByColor = SortColor.Checked;
-             SortThickness.Checked = SortByThickness;
-             SortByName = SortName.Checked;
-             MixS4S = SortMix.Checked;
+            SortThickness.Checked = SortByThickness;
+            SortByName = SortName.Checked;
+            MixS4S = SortMix.Checked;
 
-             FlattenAssembly = FlatAssembly.Checked;
-             FlattenAllSides = FlatAllSides.Checked;
-             RetainHiddenLines = RetainHidden.Checked;
+            FlattenAssembly = FlatAssembly.Checked;
+            FlattenAllSides = FlatAllSides.Checked;
+            RetainHiddenLines = RetainHidden.Checked;
 
-             LayStep = (int) NumLStep.Value;
-             LayTextHeight = (double) NumTextHeight.Value;
+            LayStep = (int) NumLStep.Value;
+            LayTextHeight = (double) NumTextHeight.Value;
 
-             PromptForMultiplication = check_PromptMult.Checked;
-             LayFlatShot = check_CreateFlat.Checked;
-             LayAllSidesFlatShot = check_FlatAll.Checked;
+            PromptForMultiplication = check_PromptMult.Checked;
+            LayFlatShot = check_CreateFlat.Checked;
+            LayAllSidesFlatShot = check_FlatAll.Checked;
 
 
-             PrioritizeRightAngles = Check_RightAnglePriority.Checked;
-             EnableSelectionParse = Check_MetPal.Checked;
+            PrioritizeRightAngles = Check_RightAnglePriority.Checked;
+            EnableSelectionParse = Check_MetPal.Checked;
 
-             NamingConvention = NameConv.Text;
-             LayerDelim.Text = LayerDelimiter.ToString();
-             ResetPartCount = Check_ResetPartCount.Checked;
+            NamingConvention = NameConv.Text;
+            LayerDelim.Text = LayerDelimiter.ToString();
+            ResetPartCount = Check_ResetPartCount.Checked;
 
-             SortByLayer = SortLayer.Checked;
-             SortByColor = SortColor.Checked;
-             SortByThickness = SortThickness.Checked;
-             SortByName = SortName.Checked;
-             MixS4S = SortMix.Checked;
+            SortByLayer = SortLayer.Checked;
+            SortByColor = SortColor.Checked;
+            SortByThickness = SortThickness.Checked;
+            SortByName = SortName.Checked;
+            MixS4S = SortMix.Checked;
 
-             FlattenAssembly = FlatAssembly.Checked;
-             FlattenAllSides = FlatAllSides.Checked;
-             RetainHiddenLines = RetainHidden.Checked;
+            FlattenAssembly = FlatAssembly.Checked;
+            FlattenAllSides = FlatAllSides.Checked;
+            RetainHiddenLines = RetainHidden.Checked;
 
-             LayStep = (int) NumLStep.Value;
-             LayTextHeight = (double) NumTextHeight.Value;
+            LayStep = (int) NumLStep.Value;
+            LayTextHeight = (double) NumTextHeight.Value;
 
-             PromptForMultiplication = check_PromptMult.Checked;
-             LayFlatShot = check_CreateFlat.Checked;
-             check_FlatAll.Checked = LayAllSidesFlatShot;
+            PromptForMultiplication = check_PromptMult.Checked;
+            LayFlatShot = check_CreateFlat.Checked;
+            check_FlatAll.Checked = LayAllSidesFlatShot;
 
-             if (Loc_TL.Checked)
-             {
-                 LayTextAbove = true;
-                 LayTextLeft = true;
+            if (Loc_TL.Checked)
+            {
+                LayTextAbove = true;
+                LayTextLeft = true;
+            }
+            else if (Loc_TC.Checked)
+            {
+                LayTextAbove = true;
+                LayTextCenter = true;
+            }
+            else if (Loc_CL.Checked)
+            {
+                LayTextInside = true;
+                LayTextLeft = true;
+            }
+            else if (Loc_MC.Checked)
+            {
+                LayTextInside = true;
+                LayTextCenter = true;
+            }
 
-             }
-             else if (Loc_TC.Checked)
-             {
-                 LayTextAbove = true;
-                 LayTextCenter = true;
-             }
-             else if (Loc_CL.Checked)
-             {
-                 LayTextInside = true;
-                 LayTextLeft = true;
-             }
-             else if (Loc_MC.Checked)
-             {
-                 LayTextInside = true;
-                 LayTextCenter = true;
-             }
+            RcJointDepth = (double) Carp_JointDepth.Value;
+            RcOffsetDepth = (double) Carp_OffDepth.Value;
+            RcSliceDepth = (double) Carp_SliceDepth.Value;
+            RcGapDepth = (double) Carp_GapDepth.Value;
+            DogEarDiam = (double) Carp_DogEar.Value;
+            RcChopDepth = (double) Carp_ChopDepth.Value;
+            RcICutDepth = (double) Carp_ICutDepth.Value;
+            RcICutInset = (double) Carp_ICutInset.Value;
+            LaminateThickness = (double) Carp_Lam.Value;
+            EdgeBandThickness = (double) Carp_EdgeBand.Value;
+            ExplodePower = (double) Carp_Explode.Value;
 
-             RcJointDepth = (double) Carp_JointDepth.Value;
-             RcOffsetDepth = (double) Carp_OffDepth.Value;
-             RcSliceDepth = (double) Carp_SliceDepth.Value;
-             RcGapDepth = (double) Carp_GapDepth.Value;
-             DogEarDiam = (double) Carp_DogEar.Value;
-             RcChopDepth = (double) Carp_ChopDepth.Value;
-             RcICutDepth = (double) Carp_ICutDepth.Value;
-             RcICutInset = (double) Carp_ICutInset.Value;
-             LaminateThickness = (double) Carp_Lam.Value;
-             EdgeBandThickness = (double) Carp_EdgeBand.Value;
-             ExplodePower = (double) Carp_Explode.Value;
+            RcVisible = Lay_Visible.Text;
+            RcHidden = Lay_Hidden.Text;
+            RcAnno = Lay_Anno.Text;
+            RcHoles = Lay_Holes.Text;
 
-             RcVisible = Lay_Visible.Text;
-             RcHidden = Lay_Hidden.Text;
-             RcAnno = Lay_Anno.Text;
-             RcHoles = Lay_Holes.Text;
+            AutoLayerEnabled = Check_AutoLayer.Checked;
 
-             AutoLayerEnabled = Check_AutoLayer.Checked;
+            try
+            {
+                var cmdList = AutoLay_Commands.Text.Split(',');
+                LayerCommandList.Clear();
+                LayerCommandList = cmdList.ToList();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
 
-             try
-             {
-                 var cmdList = AutoLay_Commands.Text.Split(',');
-                 LayerCommandList.Clear();
-                 LayerCommandList = cmdList.ToList();
-             }
-             catch (Exception e)
-             {
-                 Console.WriteLine(e);
-             }
-           
 
             BomTitle = BOM_Title.Text;
             BomLayer = Bom_Layer.Checked;
@@ -297,37 +275,20 @@ namespace RabCab.Settings
             TableYOffset = (double) BOM_YOffset.Value;
 
             if (A_TL.Checked)
-            {
                 TableAttach = Enums.AttachmentPoint.TopLeft;
-            }
             else if (A_TR.Checked)
-            {
                 TableAttach = Enums.AttachmentPoint.TopRight;
-            }
             else if (A_BL.Checked)
-            {
                 TableAttach = Enums.AttachmentPoint.BottomLeft;
-            }
             else if (A_BR.Checked)
-            {
                 TableAttach = Enums.AttachmentPoint.BottomRight;
-            }
             else if (A_TC.Checked)
-            {
                 TableAttach = Enums.AttachmentPoint.TopCenter;
-            }
             else if (A_BC.Checked)
-            {
                 TableAttach = Enums.AttachmentPoint.BottomCenter;
-            }
             else if (A_LC.Checked)
-            {
                 TableAttach = Enums.AttachmentPoint.LeftCenter;
-            }
-            else if (A_RC.Checked)
-            {
-                TableAttach = Enums.AttachmentPoint.RightCenter;
-            }
+            else if (A_RC.Checked) TableAttach = Enums.AttachmentPoint.RightCenter;
 
             PartLeaderEnabled = Check_PartLeader.Checked;
             LeaderTextHeight = (double) PartTextHeight.Value;
@@ -342,20 +303,19 @@ namespace RabCab.Settings
             AnnoSpacing = (double) DSpace.Value;
 
             ViewTemplatePath = ViewTemplateBox.Text;
-
         }
 
         //Website Link
         private void LinkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             // Navigate to a URL.
-            System.Diagnostics.Process.Start("http://www.rabcab.com");
+            Process.Start("http://www.rabcab.com");
         }
 
         //Email Link
         private void LinkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process proc = new System.Diagnostics.Process();
+            var proc = new Process();
             proc.StartInfo.FileName = "mailto:RabCabService@gmail.com";
             proc.Start();
         }
@@ -364,25 +324,22 @@ namespace RabCab.Settings
         {
             openFileDialog.Filter = "Drawing Template (*.dwt)|*.dwt";
 
-           
+
             if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
                 ViewTemplateBox.Text = string.Format("{0}/{1}",
                     Path.GetDirectoryName(openFileDialog.FileName), openFileDialog.FileName);
-            }
         }
 
         private void Check_FlatAll_CheckedChanged(object sender, EventArgs e)
         {
-            if (check_CreateFlat.Checked == false && check_FlatAll.Checked) 
+            if (check_CreateFlat.Checked == false && check_FlatAll.Checked)
                 check_CreateFlat.Checked = true;
-
         }
 
         private void Check_CreateFlat_CheckedChanged(object sender, EventArgs e)
         {
             if (check_FlatAll.Checked && check_CreateFlat.Checked == false)
-               check_FlatAll.Checked = false;
+                check_FlatAll.Checked = false;
         }
 
         private void LabelActivate_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

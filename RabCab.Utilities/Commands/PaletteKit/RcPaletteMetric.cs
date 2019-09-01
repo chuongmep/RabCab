@@ -100,9 +100,9 @@ namespace RabCab.Commands.PaletteKit
         private static Panel _btPanel;
 
         private static ToolStripLabel _stText, _reqUpdate;
-        private readonly string _palName = "Metrics";
         private static UserControl _palPanel;
-        private static bool _palDisabled = false;
+        private static bool _palDisabled;
+        private readonly string _palName = "Metrics";
 
         /// <summary>
         /// </summary>
@@ -268,107 +268,114 @@ namespace RabCab.Commands.PaletteKit
                     idStr = idStr.Replace(")", string.Empty);
                     _stText.Text = acEnt.Id.ObjectClass.DxfName + @" #" + idStr;
 
-                    if (acEnt.HasXData())
+                    if (acEnt is BlockReference acBref)
                     {
-                        //Check for changes
-                        var acSol = acEnt as Solid3d;
-                        if (acSol != null)
-                        {
-                            if (acSol.NumChanges != acEnt.GetNumChanges())
-                                ShowUpdateIcon();
-                            else
-                                ClearUpdateIcon();
-                        }
+                        AddText(_rcNameTxt, acBref.Name);
+                    }
+                    else if (acEnt.HasXData())
+                    {
+                        
+                            //Check for changes
+                            var acSol = acEnt as Solid3d;
+                            if (acSol != null)
+                            {
+                                if (acSol.NumChanges != acEnt.GetNumChanges())
+                                    ShowUpdateIcon();
+                                else
+                                    ClearUpdateIcon();
+                            }
 
-                        AddText(_rcNameTxt, acEnt.GetPartName());
-                        AddText(_rcInfoTxt, acEnt.GetPartInfo());
-                        AddText(_rcQtyOfTxt, acEnt.GetQtyOf().ToString());
-                        AddText(_rcQtyTotalTxt, acEnt.GetQtyTotal().ToString());
-                        AddText(_rcLengthTxt, acCurDb.ConvertToDwgUnits(acEnt.GetPartLength()));
-                        AddText(_rcWidthTxt, acCurDb.ConvertToDwgUnits(acEnt.GetPartWidth()));
-                        AddText(_rcThickTxt, acCurDb.ConvertToDwgUnits(acEnt.GetPartThickness()));
-                        AddText(_rcVolTxt, acEnt.GetPartVolume().ToString());
-                        AddText(_rcAreaTxt, acEnt.GetPartArea().ToString());
-                        AddText(_rcPerimTxt, acEnt.GetPartPerimeter().ToString());
-                        AddText(_rcAsymTxt, acEnt.GetPartAsymmetry().ToString());
-                        AddText(_rcAsymStrTxt, acEnt.GetAsymVector());
-                        AddText(_rcNumChangesTxt, acEnt.GetNumChanges().ToString());
-                        AddText(_rcParentTxt, acEnt.GetParent().ToString());
-                        _rcChildList.Items.Clear();
+                            AddText(_rcNameTxt, acEnt.GetPartName());
+                            AddText(_rcInfoTxt, acEnt.GetPartInfo());
+                            AddText(_rcQtyOfTxt, acEnt.GetQtyOf().ToString());
+                            AddText(_rcQtyTotalTxt, acEnt.GetQtyTotal().ToString());
+                            AddText(_rcLengthTxt, acCurDb.ConvertToDwgUnits(acEnt.GetPartLength()));
+                            AddText(_rcWidthTxt, acCurDb.ConvertToDwgUnits(acEnt.GetPartWidth()));
+                            AddText(_rcThickTxt, acCurDb.ConvertToDwgUnits(acEnt.GetPartThickness()));
+                            AddText(_rcVolTxt, acEnt.GetPartVolume().ToString());
+                            AddText(_rcAreaTxt, acEnt.GetPartArea().ToString());
+                            AddText(_rcPerimTxt, acEnt.GetPartPerimeter().ToString());
+                            AddText(_rcAsymTxt, acEnt.GetPartAsymmetry().ToString());
+                            AddText(_rcAsymStrTxt, acEnt.GetAsymVector());
+                            AddText(_rcNumChangesTxt, acEnt.GetNumChanges().ToString());
+                            AddText(_rcParentTxt, acEnt.GetParent().ToString());
+                            _rcChildList.Items.Clear();
 
-                        //Fill Child List Pane
-                        var cHandles = acEnt.GetChildren();
+                            //Fill Child List Pane
+                            var cHandles = acEnt.GetChildren();
 
-                        if (cHandles.Count > 0)
-                            foreach (var cH in cHandles)
-                                _rcChildList.Items.Add(new ListBoxItem(cH.ToString(), cH.ToString()));
+                            if (cHandles.Count > 0)
+                                foreach (var cH in cHandles)
+                                    _rcChildList.Items.Add(new ListBoxItem(cH.ToString(), cH.ToString()));
 
-                        var txDir = acEnt.GetTextureDirection();
+                            var txDir = acEnt.GetTextureDirection();
 
-                        _txDirUnknown.Checked = false;
-                        _txDirNone.Checked = false;
-                        _txDirHor.Checked = false;
-                        _txDirVer.Checked = false;
+                            _txDirUnknown.Checked = false;
+                            _txDirNone.Checked = false;
+                            _txDirHor.Checked = false;
+                            _txDirVer.Checked = false;
 
-                        switch (txDir)
-                        {
-                            case Enums.TextureDirection.Unknown:
-                                _txDirUnknown.Checked = true;
-                                break;
-                            case Enums.TextureDirection.None:
-                                _txDirNone.Checked = true;
-                                break;
-                            case Enums.TextureDirection.Horizontal:
-                                _txDirHor.Checked = true;
-                                break;
-                            case Enums.TextureDirection.Vertical:
-                                _txDirVer.Checked = true;
-                                break;
-                            default:
-                                _txDirUnknown.Checked = true;
-                                break;
-                        }
+                            switch (txDir)
+                            {
+                                case Enums.TextureDirection.Unknown:
+                                    _txDirUnknown.Checked = true;
+                                    break;
+                                case Enums.TextureDirection.None:
+                                    _txDirNone.Checked = true;
+                                    break;
+                                case Enums.TextureDirection.Along:
+                                    _txDirHor.Checked = true;
+                                    break;
+                                case Enums.TextureDirection.Across:
+                                    _txDirVer.Checked = true;
+                                    break;
+                                default:
+                                    _txDirUnknown.Checked = true;
+                                    break;
+                            }
 
-                        var prodType = acEnt.GetProductionType();
+                            var prodType = acEnt.GetProductionType();
 
-                        _prodUnkown.Checked = false;
-                        _prodS4S.Checked = false;
-                        _prodMOne.Checked = false;
-                        _prodMMany.Checked = false;
+                            _prodUnkown.Checked = false;
+                            _prodS4S.Checked = false;
+                            _prodMOne.Checked = false;
+                            _prodMMany.Checked = false;
 
-                        switch (prodType)
-                        {
-                            case Enums.ProductionType.Unknown:
-                                _prodUnkown.Checked = true;
-                                break;
-                            case Enums.ProductionType.S4S:
-                                _prodS4S.Checked = true;
-                                break;
-                            case Enums.ProductionType.MillingOneSide:
-                                _prodMOne.Checked = true;
-                                break;
-                            case Enums.ProductionType.MillingManySide:
-                                _prodMMany.Checked = true;
-                                break;
-                            case Enums.ProductionType.Box:
-                                _prodS4S.Checked = true;
-                                break;
-                            case Enums.ProductionType.Sweep:
-                                _prodUnkown.Checked = true;
-                                break;
-                            default:
-                                _prodUnkown.Checked = true;
-                                break;
-                        }
+                            switch (prodType)
+                            {
+                                case Enums.ProductionType.Unknown:
+                                    _prodUnkown.Checked = true;
+                                    break;
+                                case Enums.ProductionType.S4S:
+                                    _prodS4S.Checked = true;
+                                    break;
+                                case Enums.ProductionType.MillingOneSide:
+                                    _prodMOne.Checked = true;
+                                    break;
+                                case Enums.ProductionType.MillingManySide:
+                                    _prodMMany.Checked = true;
+                                    break;
+                                case Enums.ProductionType.Box:
+                                    _prodS4S.Checked = true;
+                                    break;
+                                case Enums.ProductionType.Sweep:
+                                    _prodUnkown.Checked = true;
+                                    break;
+                                default:
+                                    _prodUnkown.Checked = true;
+                                    break;
+                            }
 
-                        _rcIsSweepChk.Checked = acEnt.GetIsSweep();
-                        _rcIsiMirChk.Checked = acEnt.GetIsMirror();
-                        _rcHasHolesChk.Checked = acEnt.GetHasHoles();
+                            _rcIsSweepChk.Checked = acEnt.GetIsSweep();
+                            _rcIsiMirChk.Checked = acEnt.GetIsMirror();
+                            _rcHasHolesChk.Checked = acEnt.GetHasHoles();
+                        
                     }
                     else
-                    {
-                        ClearInformation(false);
-                    }
+                        {
+                            ClearInformation(false);
+                        }
+                    
                 }
 
                 acTrans.Abort();
@@ -488,10 +495,10 @@ namespace RabCab.Commands.PaletteKit
                             case Enums.TextureDirection.None:
                                 _txDirNone.Checked = true;
                                 break;
-                            case Enums.TextureDirection.Horizontal:
+                            case Enums.TextureDirection.Along:
                                 _txDirHor.Checked = true;
                                 break;
-                            case Enums.TextureDirection.Vertical:
+                            case Enums.TextureDirection.Across:
                                 _txDirVer.Checked = true;
                                 break;
                             default:
@@ -839,44 +846,49 @@ namespace RabCab.Commands.PaletteKit
 
             _txDirUnknown = new CheckBox
             {
-                Text = "UN",
                 Appearance = Appearance.Button,
                 Dock = DockStyle.Fill,
                 BackColor = entryColor,
-                ForeColor = textColor
+                ForeColor = textColor,
+                Image = Properties.Resources.TxUnknoen16X16__I_,
+                ImageAlign = ContentAlignment.MiddleCenter
             };
 
             _txDirUnknown.Click += texture_CheckClick;
 
             _txDirNone = new CheckBox
             {
-                Text = "NO",
                 Appearance = Appearance.Button,
                 Dock = DockStyle.Fill,
                 BackColor = entryColor,
-                ForeColor = textColor
+                ForeColor = textColor, 
+                Image = Properties.Resources.None16X16__I_,
+                ImageAlign = ContentAlignment.MiddleCenter
+
             };
 
             _txDirNone.Click += texture_CheckClick;
 
             _txDirHor = new CheckBox
             {
-                Text = "HZ",
                 Appearance = Appearance.Button,
                 Dock = DockStyle.Fill,
                 BackColor = entryColor,
-                ForeColor = textColor
+                ForeColor = textColor,
+                Image = Properties.Resources.TxAlong16X16__I_,
+                ImageAlign = ContentAlignment.MiddleCenter
             };
 
             _txDirHor.Click += texture_CheckClick;
 
             _txDirVer = new CheckBox
             {
-                Text = "VT",
                 Appearance = Appearance.Button,
                 Dock = DockStyle.Fill,
                 BackColor = entryColor,
-                ForeColor = textColor
+                ForeColor = textColor,
+                Image = Properties.Resources.TxAcross16X16__I_,
+                ImageAlign = ContentAlignment.MiddleCenter
             };
 
             _txDirVer.Click += texture_CheckClick;
@@ -922,44 +934,48 @@ namespace RabCab.Commands.PaletteKit
 
             _prodUnkown = new CheckBox
             {
-                Text = "UN",
                 Appearance = Appearance.Button,
                 Dock = DockStyle.Fill,
                 BackColor = entryColor,
-                ForeColor = textColor
+                ForeColor = textColor,
+                Image = Properties.Resources.TxUnknoen16X16__I_,
+                ImageAlign = ContentAlignment.MiddleCenter
             };
 
             _prodUnkown.Click += prod_CheckClick;
 
             _prodS4S = new CheckBox
             {
-                Text = "S4",
                 Dock = DockStyle.Fill,
                 Appearance = Appearance.Button,
                 BackColor = entryColor,
-                ForeColor = textColor
+                ForeColor = textColor,
+                Image = Properties.Resources.S4S16X16__I_,
+                ImageAlign = ContentAlignment.MiddleCenter
             };
 
             _prodS4S.Click += prod_CheckClick;
 
             _prodMOne = new CheckBox
             {
-                Text = "OS",
                 Appearance = Appearance.Button,
                 Dock = DockStyle.Fill,
                 BackColor = entryColor,
-                ForeColor = textColor
+                ForeColor = textColor,
+                Image = Properties.Resources.RcDogEar16X16__I_,
+                ImageAlign = ContentAlignment.MiddleCenter
             };
 
             _prodMOne.Click += prod_CheckClick;
 
             _prodMMany = new CheckBox
             {
-                Text = "MS",
                 Appearance = Appearance.Button,
                 Dock = DockStyle.Fill,
                 BackColor = entryColor,
-                ForeColor = textColor
+                ForeColor = textColor,
+                Image = Properties.Resources.ProdMultSide16X16__I_,
+                ImageAlign = ContentAlignment.MiddleCenter
             };
 
             _prodMMany.Click += prod_CheckClick;
@@ -1052,18 +1068,30 @@ namespace RabCab.Commands.PaletteKit
             _travButton.FlatStyle = FlatStyle.Flat;
             _travButton.FlatAppearance.BorderColor = Colors.GetCadBorderColor();
             _travButton.FlatAppearance.BorderSize = 1;
+            _travButton.Text = "";
+            _travButton.ImageAlign = ContentAlignment.MiddleCenter;
+            _travButton.Image = Properties.Resources.RcTraverse16X16__I_;
 
             _selParent.FlatStyle = FlatStyle.Flat;
             _selParent.FlatAppearance.BorderColor = Colors.GetCadBorderColor();
             _selParent.FlatAppearance.BorderSize = 1;
+            _selParent.Text = "";
+            _selParent.ImageAlign = ContentAlignment.MiddleCenter;
+            _selParent.Image = Properties.Resources.UpParent16X16__I_;
 
             _selChildren.FlatStyle = FlatStyle.Flat;
             _selChildren.FlatAppearance.BorderColor = Colors.GetCadBorderColor();
             _selChildren.FlatAppearance.BorderSize = 1;
+            _selChildren.Text = "";
+            _selChildren.ImageAlign = ContentAlignment.MiddleCenter;
+            _selChildren.Image = Properties.Resources.RcSelection16X16__I_;
 
             _updChildren.FlatStyle = FlatStyle.Flat;
             _updChildren.FlatAppearance.BorderColor = Colors.GetCadBorderColor();
             _updChildren.FlatAppearance.BorderSize = 1;
+            _updChildren.Text = "";
+            _updChildren.ImageAlign = ContentAlignment.MiddleCenter;
+            _updChildren.Image = Properties.Resources.RcUpdateChildren16X16__I_;
 
             _btPanel.Controls.Add(btLayout);
 
@@ -1111,11 +1139,9 @@ namespace RabCab.Commands.PaletteKit
             _stText.Text = "PANEL HAS BEEN DISABLED";
             _palDisabled = true;
 
-            foreach (Control ctr in _palPanel.Controls)
-            {
-                ctr.Enabled = false;
-            }
+            foreach (Control ctr in _palPanel.Controls) ctr.Enabled = false;
         }
+
         internal static void EnablePal()
         {
             if (_palDisabled != true) return;
@@ -1123,10 +1149,7 @@ namespace RabCab.Commands.PaletteKit
             _palDisabled = false;
             _stText.Text = "PANEL HAS BEEN ENABLED";
 
-            foreach (Control ctr in _palPanel.Controls)
-            {
-                ctr.Enabled = true;
-            }
+            foreach (Control ctr in _palPanel.Controls) ctr.Enabled = true;
         }
 
         /// <summary>
@@ -1195,13 +1218,13 @@ namespace RabCab.Commands.PaletteKit
                                         acTrans);
                                 else if (chk == _txDirHor)
                                     ent.UpdateXData(
-                                        Enums.TextureDirection.Horizontal,
+                                        Enums.TextureDirection.Along,
                                         Enums.XDataCode.TextureDirection,
                                         acCurDb,
                                         acTrans);
                                 else if (chk == _txDirVer)
                                     ent.UpdateXData(
-                                        Enums.TextureDirection.Vertical,
+                                        Enums.TextureDirection.Across,
                                         Enums.XDataCode.TextureDirection,
                                         acCurDb,
                                         acTrans);
@@ -1603,7 +1626,10 @@ namespace RabCab.Commands.PaletteKit
                 using (var acTrans = acCurDb.TransactionManager.StartTransaction())
                 {
                     var obj = acCurEd.SelectByHandle(hdlString, acCurDb, acTrans);
-                    acCurEd.SetImpliedSelection(new[] {obj});
+
+                    if (obj != ObjectId.Null && !obj.IsErased)
+                        acCurEd.SetImpliedSelection(new[] {obj});
+
                     acTrans.Commit();
                 }
             }
@@ -1634,6 +1660,7 @@ namespace RabCab.Commands.PaletteKit
 
                         if (string.IsNullOrEmpty(hdlString) || hdlString == "0" || hdlString == string.Empty ||
                             hdlString == "*VARIES*") return;
+
                         cList.Add(hdlString);
                     }
                 }
@@ -1690,9 +1717,10 @@ namespace RabCab.Commands.PaletteKit
                     using (var acTrans = acCurDb.TransactionManager.StartTransaction())
                     {
                         var hdlString = ((ListBoxItem) _rcChildList.Items[index]).Text;
+
                         var objId = acCurEd.SelectByHandle(hdlString, acCurDb, acTrans);
 
-                        if (objId != ObjectId.Null) acCurEd.SetImpliedSelection(new[] {objId});
+                        if (objId != ObjectId.Null && !objId.IsErased) acCurEd.SetImpliedSelection(new[] {objId});
 
                         acTrans.Commit();
                     }

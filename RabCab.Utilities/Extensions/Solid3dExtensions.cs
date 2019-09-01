@@ -1344,7 +1344,8 @@ namespace RabCab.Extensions
         /// <param name="acCurDb"></param>
         /// <param name="acCurEd"></param>
         /// <param name="acTrans"></param>
-        public static double FlattenAllSides(this Solid3d acSol, Database acCurDb, Editor acCurEd, Transaction acTrans)
+        public static double FlattenAllSides(this Solid3d acSol, Database acCurDb, Editor acCurEd, Transaction acTrans,
+            bool erase = true, bool dispose = true)
         {
             if (acSol == null) return 0;
 
@@ -1487,7 +1488,9 @@ namespace RabCab.Extensions
             rightView.Flatten(acTrans, acCurDb, acCurEd, true, false, false, Matrix3d.Identity);
             rightView.Flatten(acTrans, acCurDb, acCurEd, false, true, false, Matrix3d.Identity);
 
-            acSol.Erase();
+            if (erase)
+                acSol.Erase();
+
             topView?.Erase();
             frontView?.Erase();
             bottomView?.Erase();
@@ -1495,7 +1498,9 @@ namespace RabCab.Extensions
             leftView?.Erase();
             rightView?.Erase();
 
-            acSol.Dispose();
+            if (dispose)
+                acSol.Dispose();
+
             topView?.Dispose();
             frontView?.Dispose();
             bottomView?.Dispose();

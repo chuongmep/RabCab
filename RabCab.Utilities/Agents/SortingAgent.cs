@@ -543,6 +543,7 @@ namespace RabCab.Agents
                 }
                 catch (Autodesk.AutoCAD.Runtime.Exception e)
                 {
+                    throw;
                     Console.WriteLine(e);
                 }
         }
@@ -885,7 +886,7 @@ namespace RabCab.Agents
                         count++;
 
                         if (ePath.Contains(oldCount + ".dwg"))
-                            ePath = ePath.Replace(oldCount.ToString(), count.ToString());
+                            ePath = ePath.Replace(oldCount + ".dwg", count + ".dwg");
                         else
                             ePath = ePath.Replace(".dwg", "_" + count + ".dwg");
 
@@ -1016,6 +1017,62 @@ namespace RabCab.Agents
                 acCurDb.AppendEntity(cloneSol, acTrans);
                 var yStep = cloneSol.TopLeftTo(layPoint.Convert3D());
 
+                //Manipulate based on texture direction - width & length
+                //TODO
+
+                if (e.TxDirection == Enums.TextureDirection.Across)
+                {
+                    var cInfo = new EntInfo(cloneSol, acCurDb, acTrans);
+                    if (cloneSol != null) cloneSol.TransformBy(cInfo.Z90);
+
+                    yStep = cloneSol.TopLeftTo(layPoint.Convert3D());
+
+                    using (var acText = new MText())
+                    {
+                        acText.TextHeight = SettingsUser.LayTextHeight;
+                        acText.Contents = "<<TEXTURE>>";
+
+                        //ParseAndFill the insertion point and text alignment
+                        double zPt = 0;
+
+                        var yPt = layPoint.Y - acText.TextHeight - yStep / 2;
+                        zPt = e.Thickness + .01;
+
+                        var xPt = layPoint.X + cInfo.Length / 2;
+                        acText.Attachment = AttachmentPoint.MiddleCenter;
+
+                        acText.Location = new Point3d(xPt, yPt, zPt);
+                        acText.Width = cInfo.Length;
+
+                        //Append the text
+                        acCurDb.AppendEntity(acText, acTrans);
+                    }
+                }
+                else if (e.TxDirection == Enums.TextureDirection.Along)
+                {
+                    using (var acText = new MText())
+                    {
+                        acText.TextHeight = SettingsUser.LayTextHeight;
+                        acText.Contents = "<<TEXTURE>>";
+
+                        //ParseAndFill the insertion point and text alignment
+                        double zPt = 0;
+
+                        var yPt = layPoint.Y - acText.TextHeight - yStep / 2;
+                        zPt = e.Thickness + .01;
+
+                        //Default Lay Left
+                        var xPt = layPoint.X + e.Length / 2;
+                        acText.Attachment = AttachmentPoint.MiddleCenter;
+
+                        acText.Location = new Point3d(xPt, yPt, zPt);
+                        acText.Width = e.Length;
+
+                        //Append the text
+                        acCurDb.AppendEntity(acText, acTrans);
+                    }
+                }
+
                 var cloneHandle = cloneSol.Handle;
                 e.ChildHandles.Add(cloneHandle);
 
@@ -1026,28 +1083,25 @@ namespace RabCab.Agents
                 if (cloneSol.CheckRotation())
                     cloneSol.TopLeftTo(layPoint.Convert3D());
 
-                double longStep = yStep;
+                var longStep = yStep;
 
                 if (SettingsUser.LayFlatShot)
                 {
                     var acCurEd = Application.DocumentManager.CurrentDocument.Editor;
                     var userCoordSystem = acCurEd.CurrentUserCoordinateSystem;
 
-                   
+
                     if (SettingsUser.LayAllSidesFlatShot)
                     {
-                        longStep = cloneSol.FlattenAllSides(acCurDb, acCurEd, acTrans);
+                        longStep = cloneSol.FlattenAllSides(acCurDb, acCurEd, acTrans, false, false);
                     }
                     else
                     {
                         cloneSol.Flatten(acTrans, acCurDb, acCurEd, true, false, true, userCoordSystem);
-                        if (SettingsUser.RetainHiddenLines)
-                            acSol.Flatten(acTrans, acCurDb, acCurEd, false, true, true, userCoordSystem);
 
-                        cloneSol.Erase();
-                        cloneSol.Dispose();
+                        if (SettingsUser.RetainHiddenLines)
+                            cloneSol.Flatten(acTrans, acCurDb, acCurEd, false, true, true, userCoordSystem);
                     }
-                    
                 }
 
                 using (var acText = new MText())
@@ -1085,9 +1139,18 @@ namespace RabCab.Agents
                     acCurDb.AppendEntity(acText, acTrans);
                 }
 
-                if (SettingsUser.LayAllSidesFlatShot)
+                if (SettingsUser.LayFlatShot)
                 {
-                    yStep = longStep;
+                    var curChildren = acSol.GetChildren();
+                    var removableChild = cloneSol.Handle;
+                    curChildren.Remove(removableChild);
+
+                    acSol.UpdateXData(curChildren, Enums.XDataCode.ChildObjects, acCurDb, acTrans);
+
+                    cloneSol.Erase();
+                    cloneSol.Dispose();
+
+                    if (SettingsUser.LayAllSidesFlatShot) yStep = longStep;
                 }
 
                 layPoint = new Point2d(layPoint.X, layPoint.Y - yStep - SettingsUser.LayStep);

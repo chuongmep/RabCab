@@ -384,9 +384,10 @@ namespace RabCab.Agents
             {
                 try
                 {
-                    cHandles.Add(new Handle(Convert.ToInt64(sepStr, 16)));
+                    if (!string.IsNullOrEmpty(sepStr))
+                        cHandles.Add(new Handle(Convert.ToInt64(sepStr, 16)));
                 }
-                catch (Exception e)
+                catch (ArgumentOutOfRangeException e)
                 {
                     //ignored
                 }

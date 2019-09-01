@@ -110,7 +110,9 @@
     </Reference>
     <Reference Include="PresentationFramework" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\Icons\ProdMultSide[Mkt].png" />
+  </ItemGroup>
   <ItemGroup>
     <Compile Include="Agents\CryptoAgent.cs" />
     <Compile Include="Agents\LicensingAgent.cs" />
@@ -1140,6 +1142,108 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Icons\RcFlipArtboard 1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons\ProdMultSide16x16 [G].png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons\ProdMultSide16X16 [I].png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons\ProdMultSide32x32 [G].png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons\ProdMultSide32x32 [I].png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons\TxAcross[Mkt].png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons\TxAcross16x16 [G].png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons\TxAcross16X16 [I].png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons\TxAcross32x32 [G].png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons\TxAcross32x32 [I].png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons\TxAlong[Mkt].png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons\TxAlong16x16 [G].png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons\TxAlong16X16 [I].png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons\TxAlong32x32 [G].png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons\TxAlong32x32 [I].png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons\TxUnknoen[Mkt].png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons\TxUnknoen16x16 [G].png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons\TxUnknoen16X16 [I].png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons\TxUnknoen32x32 [G].png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons\TxUnknoen32x32 [I].png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons\None[Mkt].png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons\None16x16 [G].png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons\None16X16 [I].png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons\None32x32 [G].png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons\None32x32 [I].png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons\UpParent[Mkt].png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons\UpParent16x16 [G].png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons\UpParent16X16 [I].png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons\UpParent32x32 [G].png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons\UpParent32x32 [I].png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons\S4S[Mkt].png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons\S4S16x16 [G].png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons\S4S16X16 [I].png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons\S4S32x32 [G].png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons\S4S32x32 [I].png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

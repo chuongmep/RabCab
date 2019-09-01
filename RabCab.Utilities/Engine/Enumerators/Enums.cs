@@ -241,8 +241,8 @@ namespace RabCab.Engine.Enumerators
         {
             Unknown = -1,
             None = 0,
-            Horizontal = 1,
-            Vertical = 2
+            Along = 1,
+            Across = 2
         }
 
         /// <summary>
