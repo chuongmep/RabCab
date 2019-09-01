@@ -9,9 +9,13 @@
 //     References:          
 // -----------------------------------------------------------------------------------
 
+using System;
+using System.ComponentModel;
+using System.Threading;
 using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.Runtime;
 using RabCab.Engine.AcSystem;
+using RabCab.Entities.Controls;
 using RabCab.Initialization;
 using RabCab.Settings;
 
@@ -49,6 +53,7 @@ namespace RabCab.Initialization
             // http://msdn2.microsoft.com/en-US/library/7esfatk4.aspx
             // as well as some of the existing AutoCAD managed apps.
 
+            ShowSplash();
 
             // Initialize your plug-in application here
             var actDia = new ActivationGui();
@@ -57,6 +62,58 @@ namespace RabCab.Initialization
             Application.DisplayingOptionDialog += Application_DisplayingOptionDialog;
             DocumentHandlers.AddDocEvents();
         }
+
+        Splash _ss;
+
+        private void ShowSplash()
+        {
+            
+            _ss = new Splash();
+
+            // Rather than trusting these properties to be set
+            // at design-time, let's set them here
+
+            _ss.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            _ss.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            _ss.Opacity = 0.8;
+            _ss.TopMost = true;
+            _ss.ShowInTaskbar = false;
+
+            _ss.Opacity = 0;
+
+            // Now let's disply the splash-screen
+            Application.ShowModelessDialog(new AcadMainWindow(), _ss, false);
+            _ss.Update();
+
+            var opacityStep = 0.1;
+
+            while (_ss.Opacity < 1)
+            {
+                _ss.Opacity += opacityStep;
+                Thread.Sleep(10);
+            }
+
+
+            while (_ss.pBar.Value < _ss.pBar.Maximum)
+            {
+                _ss.pBar.Value += 1;
+                Thread.Sleep(20);
+            }
+
+            Thread.Sleep(500);
+
+            while (_ss.Opacity > 0)
+            {
+                _ss.Opacity -= opacityStep;
+                Thread.Sleep(10);
+            }
+
+            // This is where your application should initialise,
+            // but in our case let's take a 3-second nap
+
+            _ss.Close();
+        }
+
 
         void IExtensionApplication.Terminate()
         {
@@ -85,18 +142,22 @@ namespace RabCab.Initialization
 
         private static void OnOK()
         {
+            _gSettings.SetComp.UpdateSettings();
         }
 
         private static void OnCancel()
         {
+            //Do Nothing
         }
 
         private static void OnHelp()
         {
+            System.Diagnostics.Process.Start("http://www.rabcab.com/help");
         }
 
         private static void OnApply()
         {
+            _gSettings.SetComp.UpdateSettings();
         }
 
         #endregion

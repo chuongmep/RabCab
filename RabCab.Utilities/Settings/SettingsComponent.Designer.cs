@@ -186,7 +186,7 @@
             this.LayerDelim = new System.Windows.Forms.TextBox();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
-            this.LabelActivate = new System.Windows.Forms.Label();
+            this.LabelActivate = new System.Windows.Forms.LinkLabel();
             this.tableLayoutPanel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.Common.SuspendLayout();
@@ -1099,7 +1099,7 @@
             1,
             0,
             0,
-            131072});
+            0});
             this.NumLStep.Name = "NumLStep";
             this.NumLStep.Size = new System.Drawing.Size(71, 20);
             this.NumLStep.TabIndex = 36;
@@ -2239,14 +2239,14 @@
             // 
             // LabelActivate
             // 
-            this.LabelActivate.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.LabelActivate.AutoSize = true;
-            this.LabelActivate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LabelActivate.Location = new System.Drawing.Point(3, 19);
+            this.LabelActivate.Location = new System.Drawing.Point(3, 17);
             this.LabelActivate.Name = "LabelActivate";
             this.LabelActivate.Size = new System.Drawing.Size(65, 13);
             this.LabelActivate.TabIndex = 7;
+            this.LabelActivate.TabStop = true;
             this.LabelActivate.Text = "Trial Version";
+            this.LabelActivate.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LabelActivate_LinkClicked);
             // 
             // SettingsComponent
             // 
@@ -2487,6 +2487,6 @@
         private System.Windows.Forms.TextBox LayerDelim;
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.LinkLabel linkLabel2;
-        private System.Windows.Forms.Label LabelActivate;
+        private System.Windows.Forms.LinkLabel LabelActivate;
     }
 }

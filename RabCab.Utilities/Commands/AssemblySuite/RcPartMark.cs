@@ -90,16 +90,20 @@ namespace RabCab.Commands.AssemblySuite
                                 var pObjs = objId.GetPaperObjects();
                                 var mObjs = objId.GetModelObjects();
 
-                                if (pObjs.Count > 0)
+                                if (pObjs.Count > 0 && SettingsUser.DeleteExistingMarks)
                                     foreach (ObjectId id in pObjs)
                                     {
                                         var acEnt = acTrans.GetObject(id, OpenMode.ForWrite) as Entity;
                                         if (acEnt == null) continue;
 
-                                        //Todo only delete if is mark
+                                        if (!acEnt.HasXData()) continue;
+                                        var txt = acEnt.GetXData<string>(Enums.XDataCode.Info);
 
+                                        if (txt != "RCMARK") continue;
                                         acEnt.Erase();
                                         acEnt.Dispose();
+
+
                                     }
 
                                 if (mObjs.Count > 0)
@@ -134,6 +138,7 @@ namespace RabCab.Commands.AssemblySuite
 
                                                 //Append the text
                                                 acCurDb.AppendEntity(acText, acTrans);
+                                                acText.UpdateXData("RCMARK", Enums.XDataCode.Info, acCurDb, acTrans);
                                             }
                                         }
 

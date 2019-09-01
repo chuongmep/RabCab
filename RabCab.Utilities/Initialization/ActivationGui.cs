@@ -228,6 +228,11 @@ namespace RabCab.Initialization
         {
             if (isGenuine)
             {
+                if (System.Windows.Forms.MessageBox.Show(
+                        "Clicking 'OK' will deactivate this copy of RabCab!" +
+                        "\nDoing so will free your activation key for install on other systems." +
+                        "\n\nClick 'OK' to continue deactivation.",
+                        "Deactivate RabCab?", MessageBoxButtons.OKCancel) != DialogResult.OK) return;
                 // deactivate product without deleting the product key
                 // allows the user to easily reactivate
                 try

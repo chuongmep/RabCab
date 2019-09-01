@@ -39,6 +39,7 @@ namespace RabCab.Engine.AcSystem
             try
             {
                 if (SettingsInternal.EnMetPal == false) return;
+                if (SettingsUser.EnableSelectionParse == false) return;
 
                 if (RcPaletteMetric.RcPal == null) return;
 

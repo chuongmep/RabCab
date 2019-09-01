@@ -101,7 +101,8 @@ namespace RabCab.Commands.PaletteKit
 
         private static ToolStripLabel _stText, _reqUpdate;
         private readonly string _palName = "Metrics";
-        private UserControl _palPanel;
+        private static UserControl _palPanel;
+        private static bool _palDisabled = false;
 
         /// <summary>
         /// </summary>
@@ -593,6 +594,8 @@ namespace RabCab.Commands.PaletteKit
         /// </summary>
         private void PopulatePal()
         {
+            _palPanel.Controls.Clear();
+
             var rowCount = 0;
 
             _ = Colors.GetCadBackColor();
@@ -1101,6 +1104,29 @@ namespace RabCab.Commands.PaletteKit
             _palPanel.Controls.Add(_tbLayout);
             _palPanel.Controls.Add(_stStrip);
             _palPanel.Controls.Add(_btPanel);
+        }
+
+        internal static void DisablePal()
+        {
+            _stText.Text = "PANEL HAS BEEN DISABLED";
+            _palDisabled = true;
+
+            foreach (Control ctr in _palPanel.Controls)
+            {
+                ctr.Enabled = false;
+            }
+        }
+        internal static void EnablePal()
+        {
+            if (_palDisabled != true) return;
+
+            _palDisabled = false;
+            _stText.Text = "PANEL HAS BEEN ENABLED";
+
+            foreach (Control ctr in _palPanel.Controls)
+            {
+                ctr.Enabled = true;
+            }
         }
 
         /// <summary>

@@ -10,7 +10,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using RabCab.Commands.CarpentrySuite;
+using RabCab.Commands.PaletteKit;
 using RabCab.Engine.Enumerators;
+using RabCab.Entities.Controls;
 using RabCab.Initialization;
 using static RabCab.Settings.SettingsUser;
 
@@ -160,6 +162,189 @@ namespace RabCab.Settings
             ViewTemplateBox.Text = ViewTemplatePath;
         }
 
+        public void UpdateSettings()
+        {
+            //Common Tab
+            UserTol = (Enums.RoundTolerance) TCounter.Value;
+
+            PrioritizeRightAngles = Check_RightAnglePriority.Checked;
+            EnableSelectionParse = Check_MetPal.Checked;
+
+            if (EnableSelectionParse == false)
+            {
+                RcPaletteMetric.DisablePal();
+            }
+            else
+            {
+                RcPaletteMetric.EnablePal();
+            }
+
+            NamingConvention = NameConv.Text;
+            LayerDelimiter = Convert.ToChar(LayerDelim.Text);
+            ResetPartCount = Check_ResetPartCount.Checked;
+
+            SortByLayer = SortLayer.Checked;
+            SortByColor = SortColor.Checked;
+             SortThickness.Checked = SortByThickness;
+             SortByName = SortName.Checked;
+             MixS4S = SortMix.Checked;
+
+             FlattenAssembly = FlatAssembly.Checked;
+             FlattenAllSides = FlatAllSides.Checked;
+             RetainHiddenLines = RetainHidden.Checked;
+
+             LayStep = (int) NumLStep.Value;
+             LayTextHeight = (double) NumTextHeight.Value;
+
+             PromptForMultiplication = check_PromptMult.Checked;
+             LayFlatShot = check_CreateFlat.Checked;
+             LayAllSidesFlatShot = check_FlatAll.Checked;
+
+
+             PrioritizeRightAngles = Check_RightAnglePriority.Checked;
+             EnableSelectionParse = Check_MetPal.Checked;
+
+             NamingConvention = NameConv.Text;
+             LayerDelim.Text = LayerDelimiter.ToString();
+             ResetPartCount = Check_ResetPartCount.Checked;
+
+             SortByLayer = SortLayer.Checked;
+             SortByColor = SortColor.Checked;
+             SortByThickness = SortThickness.Checked;
+             SortByName = SortName.Checked;
+             MixS4S = SortMix.Checked;
+
+             FlattenAssembly = FlatAssembly.Checked;
+             FlattenAllSides = FlatAllSides.Checked;
+             RetainHiddenLines = RetainHidden.Checked;
+
+             LayStep = (int) NumLStep.Value;
+             LayTextHeight = (double) NumTextHeight.Value;
+
+             PromptForMultiplication = check_PromptMult.Checked;
+             LayFlatShot = check_CreateFlat.Checked;
+             check_FlatAll.Checked = LayAllSidesFlatShot;
+
+             if (Loc_TL.Checked)
+             {
+                 LayTextAbove = true;
+                 LayTextLeft = true;
+
+             }
+             else if (Loc_TC.Checked)
+             {
+                 LayTextAbove = true;
+                 LayTextCenter = true;
+             }
+             else if (Loc_CL.Checked)
+             {
+                 LayTextInside = true;
+                 LayTextLeft = true;
+             }
+             else if (Loc_MC.Checked)
+             {
+                 LayTextInside = true;
+                 LayTextCenter = true;
+             }
+
+             RcJointDepth = (double) Carp_JointDepth.Value;
+             RcOffsetDepth = (double) Carp_OffDepth.Value;
+             RcSliceDepth = (double) Carp_SliceDepth.Value;
+             RcGapDepth = (double) Carp_GapDepth.Value;
+             DogEarDiam = (double) Carp_DogEar.Value;
+             RcChopDepth = (double) Carp_ChopDepth.Value;
+             RcICutDepth = (double) Carp_ICutDepth.Value;
+             RcICutInset = (double) Carp_ICutInset.Value;
+             LaminateThickness = (double) Carp_Lam.Value;
+             EdgeBandThickness = (double) Carp_EdgeBand.Value;
+             ExplodePower = (double) Carp_Explode.Value;
+
+             RcVisible = Lay_Visible.Text;
+             RcHidden = Lay_Hidden.Text;
+             RcAnno = Lay_Anno.Text;
+             RcHoles = Lay_Holes.Text;
+
+             AutoLayerEnabled = Check_AutoLayer.Checked;
+
+             try
+             {
+                 var cmdList = AutoLay_Commands.Text.Split(',');
+                 LayerCommandList.Clear();
+                 LayerCommandList = cmdList.ToList();
+             }
+             catch (Exception e)
+             {
+                 Console.WriteLine(e);
+             }
+           
+
+            BomTitle = BOM_Title.Text;
+            BomLayer = Bom_Layer.Checked;
+            BomColor = BOM_Color.Checked;
+            BomName = BOM_Name.Checked;
+            BomWidth = BOM_Width.Checked;
+            BomLength = BOM_Length.Checked;
+            BomThickness = BOM_Thickness.Checked;
+            BomVolume = BOM_Volume.Checked;
+            BomTextureDirection = BOM_TextureDirection.Checked;
+            BomLayer = BOM_ProductionType.Checked;
+            BomQty = BOM_Qty.Checked;
+
+            TableRowHeight = (double) BOM_RowHeight.Value;
+            TableColumnWidth = (double) BOM_ColWidth.Value;
+            TableTextHeight = (double) BOM_TextHeight.Value;
+            TableXOffset = (double) BOM_XOffset.Value;
+            TableYOffset = (double) BOM_YOffset.Value;
+
+            if (A_TL.Checked)
+            {
+                TableAttach = Enums.AttachmentPoint.TopLeft;
+            }
+            else if (A_TR.Checked)
+            {
+                TableAttach = Enums.AttachmentPoint.TopRight;
+            }
+            else if (A_BL.Checked)
+            {
+                TableAttach = Enums.AttachmentPoint.BottomLeft;
+            }
+            else if (A_BR.Checked)
+            {
+                TableAttach = Enums.AttachmentPoint.BottomRight;
+            }
+            else if (A_TC.Checked)
+            {
+                TableAttach = Enums.AttachmentPoint.TopCenter;
+            }
+            else if (A_BC.Checked)
+            {
+                TableAttach = Enums.AttachmentPoint.BottomCenter;
+            }
+            else if (A_LC.Checked)
+            {
+                TableAttach = Enums.AttachmentPoint.LeftCenter;
+            }
+            else if (A_RC.Checked)
+            {
+                TableAttach = Enums.AttachmentPoint.RightCenter;
+            }
+
+            PartLeaderEnabled = Check_PartLeader.Checked;
+            LeaderTextHeight = (double) PartTextHeight.Value;
+
+            DeleteExistingMarks = Check_DeleteMark.Checked;
+            MarkTextHeight = (double) MarkHeight.Value;
+
+            PageNoOf = CPage.Text;
+            PageNoTotal = TPage.Text;
+
+            ViewSpacing = (double) VSpace.Value;
+            AnnoSpacing = (double) DSpace.Value;
+
+            ViewTemplatePath = ViewTemplateBox.Text;
+
+        }
+
         //Website Link
         private void LinkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
@@ -198,6 +383,12 @@ namespace RabCab.Settings
         {
             if (check_FlatAll.Checked && check_CreateFlat.Checked == false)
                check_FlatAll.Checked = false;
+        }
+
+        private void LabelActivate_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            var actDia = new ActivationGui();
+            actDia.ShowDialog(new AcadMainWindow());
         }
     }
 }
