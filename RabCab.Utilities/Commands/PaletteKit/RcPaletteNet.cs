@@ -136,7 +136,7 @@ namespace RabCab.Commands.PaletteKit
         {
             if (_rcPal == null)
             {
-                _rcPal = new PaletteSet(PalName, new Guid())
+                _rcPal = new PaletteSet(PalName, new Guid("9468AF5F-77F3-4540-A448-70D34247EAC4"))
                 {
                     Style = PaletteSetStyles.ShowPropertiesMenu
                             | PaletteSetStyles.ShowAutoHideButton

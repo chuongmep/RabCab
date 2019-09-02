@@ -142,7 +142,7 @@ namespace RabCab.Commands.PaletteKit
             if (!LicensingAgent.Check()) return;
             if (_rcPal == null)
             {
-                _rcPal = new PaletteSet(_palName, new Guid())
+                _rcPal = new PaletteSet(_palName, new Guid("395249C2-4C1A-4CD1-9422-B6BBA800ED32"))
                 {
                     Style = PaletteSetStyles.ShowPropertiesMenu
                             | PaletteSetStyles.ShowAutoHideButton
