@@ -10,6 +10,7 @@
 // -----------------------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using Autodesk.AutoCAD.ApplicationServices.Core;
 using Autodesk.AutoCAD.DatabaseServices;
@@ -17,6 +18,7 @@ using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.Runtime;
 using RabCab.Calculators;
+using Exception = Autodesk.AutoCAD.BoundaryRepresentation.Exception;
 
 namespace RabCab.Extensions
 {
@@ -73,6 +75,201 @@ namespace RabCab.Extensions
         public static Matrix3d Psdcs2Dcs(this Viewport vp)
         {
             return vp.Dcs2Psdcs().Inverse();
+        }
+
+        /// <summary>
+        ///     Finds the best scale for the chosen items
+        /// </summary>
+        /// <param name="acVp"></param>
+        /// <param name="extents"></param>
+        /// <param name="isoScale"></param>
+        /// <returns></returns>
+        public static StandardScaleType FindBestScale(this Viewport acVp, Extents3d extents)
+        {
+            //Set vp to top view
+            var curView = acVp.ViewDirection;
+
+            if (curView != ViewDirection.TopView)
+            {
+                acVp.ViewDirection = ViewDirection.TopView;
+                acVp.UpdateDisplay();
+            }
+
+            var scaleList = new List<StandardScaleType>
+            {
+                StandardScaleType.Scale100To1,
+                StandardScaleType.Scale10To1,
+                StandardScaleType.Scale8To1,
+                StandardScaleType.Scale4To1,
+                StandardScaleType.Scale2To1,
+                StandardScaleType.Scale1To1,
+                StandardScaleType.Scale1To2,
+                StandardScaleType.Scale1To4,
+                StandardScaleType.Scale1To5,
+                StandardScaleType.Scale1To8,
+                StandardScaleType.Scale1To10,
+                StandardScaleType.Scale1To16,
+                StandardScaleType.Scale1To20,
+                StandardScaleType.Scale1To30,
+                StandardScaleType.Scale1To40,
+                StandardScaleType.Scale1To50,
+                StandardScaleType.Scale1To100
+            };
+
+            for (var index = 0; index < scaleList.Count; index++)
+            {
+                try
+                {
+                    var scale = scaleList[index];
+                    acVp.StandardScale = scale;
+                    acVp.UpdateDisplay();
+
+                    if (IsInsideVpExtents(scale, acVp, extents))
+                    {
+                        AddScaleToDb(scaleList[index]);
+                        acVp.ViewDirection = curView;
+                        return scaleList[index];
+                    }
+                }
+                catch (Exception)
+                {
+                    acVp.ViewDirection = curView;
+                    return StandardScaleType.CustomScale;
+                }
+            }
+
+            acVp.ViewDirection = curView;
+            return StandardScaleType.CustomScale;
+        }
+
+        /// <summary>
+        ///     Adds a scale to the  DB based on the needed scale
+        /// </summary>
+        /// <param name="scale"></param>
+        private static void AddScaleToDb(StandardScaleType scale)
+        {
+            switch (scale)
+            {
+                case StandardScaleType.Scale100To1:
+                    AddScale("100:1", 100, 1);
+                    break;
+                case StandardScaleType.Scale10To1:
+                    AddScale("10:1", 10, 1);
+                    break;
+                case StandardScaleType.Scale8To1:
+                    AddScale("8:1", 8, 1);
+                    break;
+                case StandardScaleType.Scale4To1:
+                    AddScale("4:1", 4, 1);
+                    break;
+                case StandardScaleType.Scale2To1:
+                    AddScale("2:1", 2, 1);
+                    break;
+                case StandardScaleType.Scale1To1:
+                    AddScale("1:1", 1, 1);
+                    break;
+                case StandardScaleType.Scale1To2:
+                    AddScale("1:2", 1, 2);
+                    break;
+                case StandardScaleType.Scale1To4:
+                    AddScale("1:4", 1, 4);
+                    break;
+                case StandardScaleType.Scale1To5:
+                    AddScale("1:5", 1, 5);
+                    break;
+                case StandardScaleType.Scale1To8:
+                    AddScale("1:8", 1, 8);
+                    break;
+                case StandardScaleType.Scale1To10:
+                    AddScale("1:10", 1, 10);
+                    break;
+                case StandardScaleType.Scale1To16:
+                    AddScale("1:16", 1, 16);
+                    break;
+                case StandardScaleType.Scale1To20:
+                    AddScale("1:20", 1, 20);
+                    break;
+                case StandardScaleType.Scale1To30:
+                    AddScale("1:30", 1, 30);
+                    break;
+                case StandardScaleType.Scale1To40:
+                    AddScale("1:40", 1, 40);
+                    break;
+                case StandardScaleType.Scale1To50:
+                    AddScale("1:50", 1, 50);
+                    break;
+                case StandardScaleType.Scale1To100:
+                    AddScale("1:100", 1, 100);
+                    break;
+            }
+        }
+
+        /// <summary>
+        ///     Adds a scale to the scalelist if it doesnt exits
+        /// </summary>
+        /// <param name="scaleName"></param>
+        /// <param name="pUnits"></param>
+        /// <param name="dwgUnits"></param>
+        private static void AddScale(string scaleName, int pUnits, int dwgUnits)
+        {
+            try
+            {
+                var cm =
+                    Application.DocumentManager.CurrentDocument.Database.ObjectContextManager;
+                // Now get the Annotation Scaling context collection
+                // (named ACDB_ANNOTATIONSCALES_COLLECTION)
+                var occ =
+                    cm?.GetContextCollection("ACDB_ANNOTATIONSCALES");
+                if (occ != null)
+                {
+                    if (!occ.HasContext(scaleName))
+                    {
+                        // Create a brand new scale context
+                        var asc = new AnnotationScale
+                        {
+                            Name = scaleName,
+                            PaperUnits = pUnits,
+                            DrawingUnits = dwgUnits
+                        };
+                        // Add it to the drawing's context collection
+                        occ.AddContext(asc);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                //Ignored
+            }
+        }
+
+        /// <summary>
+        ///     Checks if objects shown are inside VP extents
+        /// </summary>
+        /// <param name="scaleType"></param>
+        /// <param name="acVp"></param>
+        /// <param name="extents"></param>
+        /// <returns></returns>
+        private static bool IsInsideVpExtents(StandardScaleType scaleType, Viewport acVp, Extents3d extents)
+        {
+            acVp.StandardScale = scaleType;
+
+            var vpExt = acVp.GeometricExtents;
+            var xform = acVp.Dcs2Wcs() * acVp.Psdcs2Dcs();
+            var vpMin = vpExt.MinPoint.TransformBy(xform);
+            var vpMax = vpExt.MaxPoint.TransformBy(xform);
+
+            var solMin = extents.MinPoint;
+            var solMax = extents.MaxPoint;
+
+            if (vpMin.X < solMin.X && vpMin.Y < solMin.Y)
+            {
+                if (vpMax.X > solMax.X && vpMax.Y > solMax.Y)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         internal static Matrix3d Ms2Ps(this Viewport vp)
@@ -161,6 +358,118 @@ namespace RabCab.Extensions
             }
 
             return ps2Dcs.Inverse() * perspMat * dcs2Wcs.Inverse();
+        }
+
+        /// <summary>
+        ///     Method to convert viewport to View base
+        /// </summary>
+        /// <param name="prRes"></param>
+        /// <param name="acVp"></param>
+        /// <param name="acCurEd"></param>
+        /// <param name="acCurDb"></param>
+        /// <param name="curLayout"></param>
+        /// <param name="insertPoint"></param>
+        public static void CreateBaseViewFromVp(this Viewport acVp, ObjectId id, Editor acCurEd, Database acCurDb,
+            Layout curLayout, Point3d insertPoint)
+        {
+            LayoutManager.Current.CurrentLayout = "Model";
+
+            var ss = SelectionSet.FromObjectIds(new[] { id });
+            var scaleString = GetScaleString(acVp.StandardScale);
+
+            if (scaleString == "Custom" || scaleString == "1:1")
+                // ReSharper disable once SpecifyACultureInStringConversionExplicitly
+                scaleString = acVp.CustomScale.ToString();
+
+            var extents = acCurDb.TileMode
+                ? new Extents3d(acCurDb.Extmin, acCurDb.Extmax)
+                : (int)Application.GetSystemVariable("CVPORT") == 1
+                    ? new Extents3d(acCurDb.Pextmin, acCurDb.Pextmax)
+                    : new Extents3d(acCurDb.Extmin, acCurDb.Extmax);
+
+            using (var view = acCurEd.GetCurrentView())
+            {
+                var viewTransform =
+                    Matrix3d.PlaneToWorld(acVp.ViewDirection)
+                        .PreMultiplyBy(Matrix3d.Displacement(view.Target - Point3d.Origin))
+                        .PreMultiplyBy(Matrix3d.Rotation(-view.ViewTwist, view.ViewDirection, view.Target))
+                        .Inverse();
+
+                extents.TransformBy(viewTransform);
+
+                view.ViewDirection = acVp.ViewDirection;
+                view.Width = (extents.MaxPoint.X - extents.MinPoint.X) * 1.2;
+                view.Height = (extents.MaxPoint.Y - extents.MinPoint.Y) * 1.2;
+                view.CenterPoint = new Point2d(
+                    (extents.MinPoint.X + extents.MaxPoint.X) / 2.0,
+                    (extents.MinPoint.Y + extents.MaxPoint.Y) / 2.0);
+                acCurEd.SetCurrentView(view);
+            }
+
+            LayoutManager.Current.CurrentLayout = curLayout.LayoutName;
+            System.Threading.Thread.Sleep(100);
+
+            try
+            {
+                acCurEd.Command("_VIEWBASE", "M", "T", "B", "E", "R", "ALL", "A", ss, string.Empty, "O", "C", insertPoint,
+                    "H",
+                    "V", "V", "I", "Y", "TA", "Y", "N", "X", "S", scaleString, string.Empty, string.Empty);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+          
+        }
+
+        /// <summary>
+        ///     Adds a scale to the  DB based on the needed scale
+        /// </summary>
+        /// <param name="scale"></param>
+        public static string GetScaleString(StandardScaleType scale)
+        {
+            //TODO add all scales
+
+            switch (scale)
+            {
+                case StandardScaleType.Scale100To1:
+                    return "100:1";
+                case StandardScaleType.Scale10To1:
+                    return "10:1";
+                case StandardScaleType.Scale8To1:
+                    return "8:1";
+                case StandardScaleType.Scale4To1:
+                    return "4:1";
+                case StandardScaleType.Scale2To1:
+                    return "2:1";
+                case StandardScaleType.Scale1To1:
+                    return "1:1";
+                case StandardScaleType.Scale1To2:
+                    return "1:2";
+                case StandardScaleType.Scale1To4:
+                    return "1:4";
+                case StandardScaleType.Scale1To5:
+                    return "1:5";
+                case StandardScaleType.Scale1To8:
+                    return "1:8";
+                case StandardScaleType.Scale1To10:
+                    return "1:10";
+                case StandardScaleType.Scale1To16:
+                    return "1:16";
+                case StandardScaleType.Scale1To20:
+                    return "1:20";
+                case StandardScaleType.Scale1To30:
+                    return "1:30";
+                case StandardScaleType.Scale1To40:
+                    return "1:40";
+                case StandardScaleType.Scale1To50:
+                    return "1:50";
+                case StandardScaleType.Scale1To100:
+                    return "1:100";
+                default:
+                    return "Custom";
+            }
         }
 
         internal static Vector3d NormalizeVector(Vector3d vec)

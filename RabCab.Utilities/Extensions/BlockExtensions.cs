@@ -48,7 +48,7 @@ namespace RabCab.Extensions
                         acBlkRef = new BlockReference(insertPt, blkRecId);
                         acBlkTableRec?.AppendEntity(acBlkRef);
                         acTrans.AddNewlyCreatedDBObject(acBlkRef, true);
-                        acBlkRef.AppendAttributes(acBlkTableRec, acTrans);
+                        acBlkRef.AppendAttributes(blkRecId, acTrans);
                     }
 
                     acTrans.Commit();
@@ -126,6 +126,44 @@ namespace RabCab.Extensions
                         }
                     }
                 }
+        }
+
+        /// <summary>
+        ///     Utility method to set block attributes
+        /// </summary>
+        /// <param name="acBlkRef"></param>
+        /// <param name="acBlkTblRec"></param>
+        /// <param name="acTrans"></param>
+        public static void AppendAttributes(this BlockReference acBlkRef, ObjectId blkRecId, Transaction acTrans)
+        {
+            BlockTableRecord acBlkTblRec;
+            acBlkTblRec = acTrans.GetObject(blkRecId, OpenMode.ForRead) as BlockTableRecord;
+
+            // Verify block table record has attribute definitions associated with it
+            if (acBlkTblRec.HasAttributeDefinitions)
+            {
+                // Add attributes from the block table record
+                foreach (var objID in acBlkTblRec)
+                {
+                    var dbObj = acTrans.GetObject(objID, OpenMode.ForRead);
+
+                    if (dbObj is AttributeDefinition)
+                    {
+                        var acAtt = dbObj as AttributeDefinition;
+
+                        if (!acAtt.Constant)
+                        {
+                            using (var acAttRef = new AttributeReference())
+                            {
+                                acAttRef.SetAttributeFromBlock(acAtt, acBlkRef.BlockTransform);
+                                acAttRef.TextString = acAtt.TextString;
+                                acBlkRef.AttributeCollection.AppendAttribute(acAttRef);
+                                acTrans.AddNewlyCreatedDBObject(acAttRef, true);
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         /// <summary>

@@ -240,6 +240,7 @@
     <Compile Include="Extensions\Curve3dExtensions.cs" />
     <Compile Include="Extensions\EdgeExt.cs" />
     <Compile Include="Agents\KeywordAgent.cs" />
+    <Compile Include="Extensions\LayoutExtensions.cs" />
     <Compile Include="Extensions\LinqExtensions.cs" />
     <Compile Include="Extensions\Vector2dExtensions.cs" />
     <Compile Include="Extensions\VertExt.cs" />

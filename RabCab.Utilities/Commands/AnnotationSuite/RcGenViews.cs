@@ -11,16 +11,19 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
-using Autodesk.AutoCAD.ApplicationServices.Core;
+using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.Runtime;
 using RabCab.Agents;
 using RabCab.Calculators;
+using RabCab.Engine.Enumerators;
 using RabCab.Extensions;
 using RabCab.Settings;
+using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
 using Exception = Autodesk.AutoCAD.BoundaryRepresentation.Exception;
 
 namespace RabCab.Commands.AnnotationSuite
@@ -208,6 +211,449 @@ namespace RabCab.Commands.AnnotationSuite
                 acTrans.Commit();
             }
         }
+
+        /// <summary>
+        /// </summary>
+        [CommandMethod(SettingsInternal.CommandGroup, "_GENPARTS",
+            CommandFlags.Modal
+            //| CommandFlags.Transparent
+            //| CommandFlags.UsePickSet
+            //| CommandFlags.Redraw
+            //| CommandFlags.NoPerspective
+            //| CommandFlags.NoMultiple
+            //| CommandFlags.NoTileMode
+            | CommandFlags.NoPaperSpace
+            //| CommandFlags.NoOem
+            //| CommandFlags.Undefined
+            //| CommandFlags.InProgress
+            //| CommandFlags.Defun
+            //| CommandFlags.NoNewStack
+            //| CommandFlags.NoInternalLock
+            //| CommandFlags.DocReadLock
+            //| CommandFlags.DocExclusiveLock
+            //| CommandFlags.Session
+            //| CommandFlags.Interruptible
+            //| CommandFlags.NoHistory
+            //| CommandFlags.NoUndoMarker
+            | CommandFlags.NoBlockEditor
+            //| CommandFlags.NoActionRecording
+            //| CommandFlags.ActionMacro
+            //| CommandFlags.NoInferConstraint 
+        )]
+        public void Cmd_PartsGen()
+        {
+            var acCurDoc = Application.DocumentManager.MdiActiveDocument;
+
+            if (acCurDoc == null) return;
+
+            var acCurDb = acCurDoc.Database;
+            var acCurEd = acCurDoc.Editor;
+            var modelView = acCurEd.GetCurrentView().Clone() as ViewTableRecord;
+
+            var objIds = acCurEd.GetFilteredSelection(Enums.DxfNameEnum._3Dsolid, false);
+            if (objIds.Length <= 0) return;
+
+            var splitNum = 8;
+            var colCount = splitNum / 2;
+            var rowCount = 2;
+
+            var partList = new List<Solid3d>();
+
+            using (var acTrans = acCurDb.TransactionManager.StartTransaction())
+            {
+                foreach (var ob in objIds)
+                {
+                    var acSol = acTrans.GetObject(ob, OpenMode.ForRead) as Solid3d;
+                    if (acSol == null) continue;
+                    partList.Add(acSol);
+                }
+
+                acTrans.Commit();
+            }
+
+            var sortedParts = partList.OrderBy(e => e.GetPartName()).ToList();
+
+            var objChunks = sortedParts.ChunkBy(splitNum);
+
+            var layName = "Model";
+
+            var vPorts = new List<Viewport>();
+
+            using (var pWorker = new ProgressAgent("Creating Part Views: ", sortedParts.Count))
+
+            using (var acTrans = acCurDb.TransactionManager.StartTransaction())
+            {
+                for (var i = 0; i < objChunks.Count; i++)
+                {
+                    var curLayout = "PrtGen";
+                    var id = LayoutManager.Current.CreateAndMakeLayoutCurrentByAddition(curLayout);
+                    // Open the created layout
+                    var lay = (Layout) acTrans.GetObject(id, OpenMode.ForWrite);
+
+                    // Open the Block table record Paper space for write
+                    var acBlkTableRec = acTrans.GetObject(lay.BlockTableRecordId,
+                        OpenMode.ForWrite) as BlockTableRecord;
+
+                    // Make some settings on the layout and get its extents
+                    lay.SetPlotSettings(
+                        //"ISO_full_bleed_2A0_(1189.00_x_1682.00_MM)", // Try this big boy!
+                        // "ANSI_B_(11.00_x_17.00_Inches)",
+                        "ARCH_D_(24.00_x_36.00_Inches)",
+                        "monochrome.ctb",
+                        "AutoCAD PDF (High Quality Print).pc3"
+                    );
+
+                    if (acBlkTableRec != null)
+                    {
+                        foreach (var vpId in acBlkTableRec)
+                        {
+                            if (vpId == acCurDb.PaperSpaceVportId) continue;
+                            var vp = acTrans.GetObject(vpId, OpenMode.ForRead) as Viewport;
+                            if (vp != null) vPorts.Add(vp);
+                        }
+
+                        var layOutSize = GetLayoutSize(lay);
+                        var paperLength = layOutSize.Width;
+                        var paperHeight = layOutSize.Height;
+
+                        var dSpacing = CalcUnit.GetProportion(1.5, 36, paperLength);
+                        var dBorder = CalcUnit.GetProportion(1.5, 36, paperLength);
+                        var availWidth = paperLength - dBorder * 2.5 - dSpacing * (colCount + 1);
+                        var availHeight = paperHeight - dBorder * 2.25 - dSpacing * (rowCount + 1);
+
+                        var dWidth = availWidth / colCount;
+                        var dWHalf = dWidth / 2;
+                        var dHeight = availHeight / rowCount;
+                        var dhHalf = dHeight / 2;
+
+                        var col1 = dBorder + dWHalf + dSpacing;
+                        var col2 = dBorder + dWHalf + dSpacing * 2 + dWidth;
+                        var col3 = dBorder + dWHalf + dSpacing * 3 + dWidth * 2;
+                        var col4 = dBorder + dWHalf + dSpacing * 4 + dWidth * 3;
+                        //var col5 = dBorder + dWHalf + dSpacing * 5 + dWidth * 4;
+
+                        var row1 = paperHeight - dhHalf - dBorder - dSpacing;
+                        var row2 = paperHeight - dhHalf - dBorder - dSpacing * 2 - dHeight;
+                        //row3 = paperHeight - dhHalf - dBorder - dSpacing * 3 - dHeight * 2;
+                        //row4 = paperHeight - dhHalf - dBorder - dSpacing * 4 - dHeight * 3;
+
+                        var positions = new[]
+                        {
+                            new Point2d(col1, row1),
+                            new Point2d(col2, row1),
+                            new Point2d(col3, row1),
+                            new Point2d(col4, row1),
+                            new Point2d(col1, row2),
+                            new Point2d(col2, row2),
+                            new Point2d(col3, row2),
+                            new Point2d(col4, row2)
+                        };
+
+                        for (var j = 0; j < objChunks[i].Count; j++)
+                        {
+                            //Progress progress bar or exit if ESC has been pressed
+                            if (!pWorker.Progress())
+                            {
+                                acTrans.Abort();
+                                return;
+                            }
+
+                            var acSol = acTrans.GetObject(objChunks[i][j].ObjectId, OpenMode.ForWrite) as Solid3d;
+                            if (acSol == null) continue;
+                            var acExt = acSol.GeometricExtents;
+                            var acVport = new Viewport
+                            {
+                                CenterPoint = positions[j].Convert3D(),
+                                Width = dWidth,
+                                Height = dHeight,
+                                ViewDirection = ViewDirection.TopView
+                            };
+
+                            acCurDb.AppendEntity(acVport, acTrans);
+
+                            acVport.FitContentToViewport(acExt);
+                            acVport.UpdateDisplay();
+
+                            // Enable the viewport
+                            acVport.Visible = true;
+                            acVport.On = true;
+
+                            acVport.CreateBaseViewFromVp(acSol.ObjectId, acCurEd, acCurDb, lay, acVport.CenterPoint);
+
+                            System.Threading.Thread.Sleep(300);
+
+                            vPorts.Add(acVport);
+
+                            //Insert Part Tags
+                            //Insert block to name the viewport
+                            var insertMin = acVport.GeometricExtents.MinPoint;
+                            var insertMax = acVport.GeometricExtents.MaxPoint;
+
+                            var mid = insertMin.GetMidPoint(insertMax);
+                            var midInsert = new Point3d(mid.X, insertMin.Y, 0);
+
+                            // Open the Block table for read
+                            var acBlkTbl = acTrans.GetObject(acCurDb.BlockTableId, OpenMode.ForWrite) as BlockTable;
+
+                            if (!acBlkTbl.Has(SettingsInternal.TagName))
+                            {
+                                MakeTag_Name(acBlkTbl, acTrans);
+                            }
+
+                            var blockName = SettingsInternal.TagName;
+
+                            var acBlkRef = acBlkTableRec.InsertBlock(blockName, midInsert, acCurDb);
+
+                            if (acBlkRef != null)
+                            {
+                                UpdatePartViewSubs(acBlkRef, acSol, acCurDoc);
+                            }
+                        }
+                    }
+
+                    layName = lay.LayoutName;
+                }
+
+                //Save the new objects to the database
+                LayoutManager.Current.CurrentLayout = "MODEL";
+                using (var view = acCurEd.GetCurrentView())
+                {
+                    view.CopyFrom(modelView);
+                    acCurEd.SetCurrentView(view);
+                }
+                try
+                {
+                    Thread.Sleep(300);
+                    LayoutManager.Current.CurrentLayout = layName;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+                if (modelView != null) modelView.Dispose();
+
+                // Zoom so that we can see our new layout, again with a little padding
+                acCurEd.Command("_.ZOOM", "_E");
+                acCurEd.Command("_.ZOOM", ".7X");
+                acCurEd.Regen();
+
+                // Commit the transaction
+                acTrans.Commit();
+            }
+
+            using (var acTrans = acCurDb.TransactionManager.StartTransaction())
+            {
+                foreach (var acVp in vPorts)
+                {
+                    if (acVp.ObjectId == acCurDb.PaperSpaceVportId) continue;
+
+                    var delVp = acTrans.GetObject(acVp.ObjectId, OpenMode.ForWrite) as Viewport;
+                    delVp.Erase();
+                    delVp.Dispose();
+                }
+
+                acTrans.Commit();
+            }
+
+        }
+
+        public void UpdatePartViewSubs(BlockReference acBlkRef, Entity acEnt, Document acCurDoc)
+        {
+            acBlkRef?.UpdateAttributeBySubstitution("LAYER", acEnt.Layer.ToUpper(), acCurDoc, acCurDoc.Editor);
+            acBlkRef?.UpdateAttributeBySubstitution("NAME", acEnt.GetPartName(), acCurDoc, acCurDoc.Editor);
+            acBlkRef?.UpdateAttributeBySubstitution("MATERIAL", acEnt.Material.ToUpper(), acCurDoc, acCurDoc.Editor);
+            acBlkRef?.UpdateAttributeBySubstitution("QTY", acEnt.GetQtyTotal().ToString(), acCurDoc, acCurDoc.Editor);
+        }
+
+
+        // Returns whether the provided DB extents - retrieved from
+        // Database.Extmin/max - are "valid" or whether they are the default
+        // invalid values (where the min's coordinates are positive and the
+        // max coordinates are negative)
+
+
+        /// <summary>
+        ///     Method to create a Name Tag
+        /// </summary>
+        /// <param name="acBlkTbl"></param>
+        /// <param name="acTrans"></param>
+        /// <param name="tailLength"></param>
+        /// <returns></returns>
+        public ObjectId MakeTag_Name(BlockTable acBlkTbl, Transaction acTrans, double tailLength = 4)
+        {
+            //Create rectangle with filleted edges to hold atts
+            //Create line to go under atts
+            //Create att for View, Part, Scale, Qty
+
+            var halfTail = tailLength / 2;
+            const double boxHeight = 0.3125;
+            const double halfBoxHeight = boxHeight / 2;
+            const double boxLength = 0.5625;
+            const double halfBoxLength = boxLength / 2;
+
+            //Create housing box
+            var boxPoly1 = new Point2d(-halfTail, -halfBoxHeight);
+            var boxPoly2 = new Point2d(-halfTail, halfBoxHeight);
+            var boxPoly3 = new Point2d(-halfTail + boxLength, halfBoxHeight);
+            var boxPoly4 = new Point2d(-halfTail + boxLength, -halfBoxHeight);
+
+            var boxPoly = new Polyline();
+
+            boxPoly.AddVertexAt(0, boxPoly1, 0, 0, 0);
+            boxPoly.AddVertexAt(1, boxPoly2, 0, 0, 0);
+            boxPoly.AddVertexAt(2, boxPoly3, 0, 0, 0);
+            boxPoly.AddVertexAt(3, boxPoly4, 0, 0, 0);
+            boxPoly.Closed = true;
+
+            boxPoly.FilletAll(0.03125);
+
+            //Create Divider Line
+            var divPoly1 = new Point2d(-halfTail, 0);
+            var divPoly2 = new Point2d(halfTail, 0);
+
+            var divPoly = new Polyline();
+
+            divPoly.AddVertexAt(0, divPoly1, 0, 0, 0);
+            divPoly.AddVertexAt(0, divPoly2, 0, 0, 0);
+            divPoly.Closed = false;
+
+            var textMount = halfBoxHeight / 2;
+            var textHeight = .06;
+
+            var attView = new AttributeDefinition
+            {
+                Justify = AttachmentPoint.BottomLeft,
+                AlignmentPoint = new Point3d(-halfTail + boxLength + 0.046875, textMount - textHeight / 2, 0),
+                Prompt = "LAYER:",
+                Tag = "Layer",
+                TextString = "[LAYER]",
+                Height = textHeight,
+                LockPositionInBlock = true
+            };
+
+            var attScale = new AttributeDefinition
+            {
+                Justify = AttachmentPoint.TopLeft,
+                AlignmentPoint = new Point3d(-halfTail + boxLength + 0.046875, -textMount + textHeight / 2, 0),
+                Prompt = "MATERIAL:",
+                Tag = "MATERIAL",
+                TextString = "FINISH: " + "[MATERIAL]",
+                Height = textHeight,
+                LockPositionInBlock = true
+            };
+
+            //Create Attributes
+            var attPart = new AttributeDefinition
+            {
+                Justify = AttachmentPoint.MiddleCenter,
+                AlignmentPoint = new Point3d(-halfTail + halfBoxLength, textMount, 0),
+                Prompt = "NAME:",
+                Tag =  "NAME",
+                TextString = "[NAME]",
+                Height = textHeight,
+                LockPositionInBlock = true
+            };
+
+            var attQty = new AttributeDefinition
+            {
+                Justify = AttachmentPoint.MiddleCenter,
+                AlignmentPoint = new Point3d(-halfTail + halfBoxLength, -textMount, 0),
+                Prompt = "QTY:",
+                Tag ="QTY",
+                TextString = "QTY: " + "[QTY]",
+                Height = textHeight,
+                LockPositionInBlock = true
+            };
+
+            var ents = new Entity[] { boxPoly, divPoly };
+            var atts = new[] { attView, attScale, attPart, attQty };
+
+            var acBlkTblRec = MakeBlock(SettingsInternal.TagName, ents, atts);
+
+            if (!acBlkTbl.IsWriteEnabled)
+                acBlkTblRec.UpgradeOpen();
+
+            acBlkTbl.Add(acBlkTblRec);
+            acTrans.AddNewlyCreatedDBObject(acBlkTblRec, true);
+
+            return acBlkTblRec.ObjectId;
+        }
+
+        private bool ValidDbExtents(Point3d min, Point3d max)
+
+        {
+            return
+                !(min.X > 0 && min.Y > 0 && min.Z > 0 &&
+                  max.X < 0 && max.Y < 0 && max.Z < 0);
+        }
+
+        /// <summary>
+        ///     Utility method to create a block
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="ents"></param>
+        /// <param name="atts"></param>
+        private static BlockTableRecord MakeBlock(string name, IEnumerable<Entity> ents,
+            AttributeDefinition[] atts = null)
+        {
+            var acBlkTblRec = new BlockTableRecord
+            {
+                Name = name,
+                Origin = Point3d.Origin
+            };
+
+            foreach (var ent in ents)
+            {
+                acBlkTblRec.AppendEntity(ent);
+            }
+
+            if (atts == null) return acBlkTblRec;
+
+            foreach (var acAttDef in atts)
+            {
+                acBlkTblRec.AppendEntity(acAttDef);
+            }
+
+            return acBlkTblRec;
+        }
+
+        private void CopyLayout(Database sourceDB,
+            string layoutName, Database thisDB, ObjectId thisLayoutID)
+        {
+            using (var tran = sourceDB.TransactionManager.StartTransaction())
+            {
+                var lay1Dic = (DBDictionary) tran.GetObject(sourceDB.LayoutDictionaryId, OpenMode.ForRead);
+                try
+                {
+                    //Get source layout object in the source database
+                    var lay1ID = lay1Dic.GetAt(layoutName);
+                    var lay1 = (Layout) tran.GetObject(lay1ID, OpenMode.ForRead);
+
+                    using (var t = thisDB.TransactionManager.StartTransaction())
+                    {
+                        //Get the destination layout in current database
+                        var lay2 = (Layout) t.GetObject(thisLayoutID, OpenMode.ForWrite);
+                        try
+                        {
+                            //Copy layout
+                            lay2.CopyFrom(lay1);
+                            t.Commit();
+                        }
+                        catch
+                        {
+                            t.Abort();
+                            throw;
+                        }
+                    }
+                }
+                catch
+                {
+                    tran.Abort();
+                    throw;
+                }
+            }
+        }
+
 
         private LayoutSize GetLayoutSize(Layout layout)
         {
@@ -399,54 +845,113 @@ namespace RabCab.Commands.AnnotationSuite
             // set the view center
             acCurVp.ViewCenter = mCentPt;
         }
-    }
 
-    internal class ImportedViewport
-    {
-        public Point3d InsertPoint;
-        public double VHeight;
-        public Vector3d ViewDirection;
-        public double VWidth;
 
-        public ImportedViewport(double height, double width, Point3d cen, Vector3d view)
+        /// <summary>
+        ///     Method to zoom a viewport to the extents of an input entity
+        /// </summary>
+        /// <param name="acCurDb"></param>
+        /// <param name="acCurVp"></param>
+        /// <param name="acEnt"></param>
+        private void ZoomViewport(Database acCurDb, Viewport acCurVp, Extents3d ext)
         {
-            VHeight = height;
-            VWidth = width;
-            InsertPoint = cen;
-            ViewDirection = view;
+            // get the screen aspect ratio to calculate
+            // the height and width
+            // width/height
+            var mScrRatio = acCurVp.Width / acCurVp.Height;
+            var mMaxExt = acCurDb.Extmax;
+            var mMinExt = acCurDb.Extmin;
+
+            if (ext != null)
+            {
+                mMaxExt = ext.MaxPoint;
+                mMinExt = ext.MinPoint;
+            }
+
+            var mExtents = new Extents3d();
+            mExtents.Set(mMinExt, mMaxExt);
+
+            // prepare Matrix for DCS to WCS transformation
+            var matWcs2Dcs = Matrix3d.PlaneToWorld(acCurVp.ViewDirection);
+            matWcs2Dcs = Matrix3d.Displacement(acCurVp.ViewTarget - Point3d.Origin) * matWcs2Dcs;
+            matWcs2Dcs = Matrix3d.Rotation(-acCurVp.TwistAngle, acCurVp.ViewDirection, acCurVp.ViewTarget) * matWcs2Dcs;
+            matWcs2Dcs = matWcs2Dcs.Inverse();
+
+            // tranform the extents to the DCS
+            // defined by the viewdir
+            mExtents.TransformBy(matWcs2Dcs);
+
+            // width of the extents in current view
+            var mWidth = mExtents.MaxPoint.X - mExtents.MinPoint.X;
+
+            // height of the extents in current view
+            var mHeight = mExtents.MaxPoint.Y - mExtents.MinPoint.Y;
+
+            // get the view center point
+            var mCentPt = new Point2d(
+                (mExtents.MaxPoint.X + mExtents.MinPoint.X) * 0.5,
+                (mExtents.MaxPoint.Y + mExtents.MinPoint.Y) * 0.5);
+
+            // check if the width 'fits' in current window,
+            // if not then get the new height as
+            // per the viewports aspect ratio
+            if (mWidth > mHeight * mScrRatio)
+                mHeight = mWidth / mScrRatio;
+
+            // set the view height - adjusted by view Identifier
+            acCurVp.ViewHeight = mHeight * 1.25;
+
+            // set the view center
+            acCurVp.ViewCenter = mCentPt;
         }
     }
+}
 
-    internal class LayoutSize
+internal class ImportedViewport
+{
+    public Point3d InsertPoint;
+    public double VHeight;
+    public Vector3d ViewDirection;
+    public double VWidth;
+
+    public ImportedViewport(double height, double width, Point3d cen, Vector3d view)
     {
-        public double Height;
-        public double Width;
-
-        public LayoutSize(double width, double height)
-        {
-            Width = width;
-            Height = height;
-        }
+        VHeight = height;
+        VWidth = width;
+        InsertPoint = cen;
+        ViewDirection = view;
     }
+}
 
-    /// <summary>
-    ///     Internal class to hold view direction vectors
-    /// </summary>
-    internal static class ViewDirection
+internal class LayoutSize
+{
+    public double Height;
+    public double Width;
+
+    public LayoutSize(double width, double height)
     {
-        internal static Vector3d TopView = new Vector3d(0, 0, 1);
-        internal static Vector3d BottomView = new Vector3d(0, 0, -1);
-        internal static Vector3d FrontView = new Vector3d(0, -1, 0);
-        internal static Vector3d BackView = new Vector3d(0, 1, 0);
-        internal static Vector3d LeftView = new Vector3d(-1, 0, 0);
-        internal static Vector3d RightView = new Vector3d(1, 0, 0);
-        internal static Vector3d TopIsoSw = new Vector3d(-1, -1, 1); //Front - Left
-        internal static Vector3d TopIsoSe = new Vector3d(1, -1, 1); //Front - Right
-        internal static Vector3d TopIsoNw = new Vector3d(-1, 1, 1); //Back - Left
-        internal static Vector3d TopIsoNe = new Vector3d(1, 1, 1); //Back - Right
-        internal static Vector3d BottomIsoSw = new Vector3d(-1, -1, -1);
-        internal static Vector3d BottomIsoSe = new Vector3d(1, -1, -1);
-        internal static Vector3d BottomIsoNw = new Vector3d(-1, 1, -1);
-        internal static Vector3d BottomIsoNe = new Vector3d(1, 1, -1);
+        Width = width;
+        Height = height;
     }
+}
+
+/// <summary>
+///     Internal class to hold view direction vectors
+/// </summary>
+internal static class ViewDirection
+{
+    internal static Vector3d TopView = new Vector3d(0, 0, 1);
+    internal static Vector3d BottomView = new Vector3d(0, 0, -1);
+    internal static Vector3d FrontView = new Vector3d(0, -1, 0);
+    internal static Vector3d BackView = new Vector3d(0, 1, 0);
+    internal static Vector3d LeftView = new Vector3d(-1, 0, 0);
+    internal static Vector3d RightView = new Vector3d(1, 0, 0);
+    internal static Vector3d TopIsoSw = new Vector3d(-1, -1, 1); //Front - Left
+    internal static Vector3d TopIsoSe = new Vector3d(1, -1, 1); //Front - Right
+    internal static Vector3d TopIsoNw = new Vector3d(-1, 1, 1); //Back - Left
+    internal static Vector3d TopIsoNe = new Vector3d(1, 1, 1); //Back - Right
+    internal static Vector3d BottomIsoSw = new Vector3d(-1, -1, -1);
+    internal static Vector3d BottomIsoSe = new Vector3d(1, -1, -1);
+    internal static Vector3d BottomIsoNw = new Vector3d(-1, 1, -1);
+    internal static Vector3d BottomIsoNe = new Vector3d(1, 1, -1);
 }

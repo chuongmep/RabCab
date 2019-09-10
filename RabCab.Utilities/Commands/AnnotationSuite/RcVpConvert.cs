@@ -203,7 +203,7 @@ namespace RabCab.Commands.AnnotationSuite
             LayoutManager.Current.CurrentLayout = "Model";
 
             var ss = SelectionSet.FromObjectIds(prRes.Value.GetObjectIds());
-            var scaleString = GetScaleString(acVp.StandardScale);
+            var scaleString = ViewportExtensions.GetScaleString(acVp.StandardScale);
 
             if (scaleString == "Custom" || scaleString == "1:1")
                 // ReSharper disable once SpecifyACultureInStringConversionExplicitly
@@ -241,53 +241,5 @@ namespace RabCab.Commands.AnnotationSuite
                 "V", "V", "I", "Y", "TA", "Y", "N", "X", "S", scaleString, string.Empty, string.Empty);
         }
 
-        /// <summary>
-        ///     Adds a scale to the  DB based on the needed scale
-        /// </summary>
-        /// <param name="scale"></param>
-        private string GetScaleString(StandardScaleType scale)
-        {
-            //TODO add all scales
-
-            switch (scale)
-            {
-                case StandardScaleType.Scale100To1:
-                    return "100:1";
-                case StandardScaleType.Scale10To1:
-                    return "10:1";
-                case StandardScaleType.Scale8To1:
-                    return "8:1";
-                case StandardScaleType.Scale4To1:
-                    return "4:1";
-                case StandardScaleType.Scale2To1:
-                    return "2:1";
-                case StandardScaleType.Scale1To1:
-                    return "1:1";
-                case StandardScaleType.Scale1To2:
-                    return "1:2";
-                case StandardScaleType.Scale1To4:
-                    return "1:4";
-                case StandardScaleType.Scale1To5:
-                    return "1:5";
-                case StandardScaleType.Scale1To8:
-                    return "1:8";
-                case StandardScaleType.Scale1To10:
-                    return "1:10";
-                case StandardScaleType.Scale1To16:
-                    return "1:16";
-                case StandardScaleType.Scale1To20:
-                    return "1:20";
-                case StandardScaleType.Scale1To30:
-                    return "1:30";
-                case StandardScaleType.Scale1To40:
-                    return "1:40";
-                case StandardScaleType.Scale1To50:
-                    return "1:50";
-                case StandardScaleType.Scale1To100:
-                    return "1:100";
-                default:
-                    return "Custom";
-            }
-        }
     }
 }
