@@ -43,28 +43,28 @@ namespace DebugConsole
             Application.Run(form);
         }
 
-        private static void GenerateAuthKey()
-        {
-            var key = CryptoAgent.NewKey();
+        //private static void GenerateAuthKey()
+        //{
+        //    var key = CryptoAgent.NewKey();
 
-            for (var i = 0; i < key.Length; i++) Console.Write(key.GetValue(i) + ",");
-        }
+        //    for (var i = 0; i < key.Length; i++) Console.Write(key.GetValue(i) + ",");
+        //}
 
-        private static void GenerateCryptKey()
-        {
-            var key = CryptoAgent.NewKey();
+        //private static void GenerateCryptKey()
+        //{
+        //    var key = CryptoAgent.NewKey();
 
-            for (var i = 0; i < key.Length; i++) Console.Write(key.GetValue(i) + ",");
-        }
+        //    for (var i = 0; i < key.Length; i++) Console.Write(key.GetValue(i) + ",");
+        //}
 
-        private static void RcEncrypt(string str)
-        {
-            Console.WriteLine(CryptoAgent.SimpleEncrypt(str));
-        }
+        //private static void RcEncrypt(string str)
+        //{
+        //    Console.WriteLine(CryptoAgent.SimpleEncrypt(str));
+        //}
 
-        private static void RcDecrypt(string str)
-        {
-            Console.WriteLine(CryptoAgent.SimpleDecrypt(str));
-        }
+        //private static void RcDecrypt(string str)
+        //{
+        //    Console.WriteLine(CryptoAgent.SimpleDecrypt(str));
+        //}
     }
 }

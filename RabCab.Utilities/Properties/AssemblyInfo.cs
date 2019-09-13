@@ -192,6 +192,7 @@ using RabCab.Initialization;
 [assembly: CommandClass(typeof(RcAutoAtt))]
 [assembly: CommandClass(typeof(RcAutoBlock))]
 [assembly: CommandClass(typeof(RcQuickRename))]
+[assembly: CommandClass(typeof(BlockToNamed))]
 
 //Structural Suite
 [assembly: CommandClass(typeof(RcAlign))]

@@ -39,7 +39,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="RabCab">
-      <HintPath>..\RabCab.Utilities\bin\Debug\RabCab.dll</HintPath>
+      <HintPath>..\..\..\..\OneDrive\Documents\GitHub\RabCab\RabCab.Utilities\bin\Debug\RabCab.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />

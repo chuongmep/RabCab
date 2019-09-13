@@ -61,31 +61,52 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AcCoreMgd">
-      <HintPath>..\..\..\..\..\..\ObjectARX\ObjectARX_2020\inc\AcCoreMgd.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Object ARX\ObjectARX_2020\inc\AcCoreMgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="AcCui">
+      <HintPath>..\..\..\..\..\..\Object ARX\ObjectARX_2020\inc\AcCui.dll</HintPath>
+    </Reference>
     <Reference Include="AcDbMgd">
-      <HintPath>..\..\..\..\..\..\ObjectARX\ObjectARX_2020\inc\AcDbMgd.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Object ARX\ObjectARX_2020\inc\AcDbMgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="acdbmgdbrep">
-      <HintPath>..\..\..\..\..\..\ObjectARX\ObjectARX_2020\inc\acdbmgdbrep.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Object ARX\ObjectARX_2020\inc\acdbmgdbrep.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="AcDx">
-      <HintPath>..\..\..\..\..\..\ObjectARX\ObjectARX_2020\inc\AcDx.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Object ARX\ObjectARX_2020\inc\AcDx.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="AcMgd">
-      <HintPath>..\..\..\..\..\..\ObjectARX\ObjectARX_2020\inc\AcMgd.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Object ARX\ObjectARX_2020\inc\AcMgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="AcMr">
+      <HintPath>..\..\..\..\..\..\Object ARX\ObjectARX_2020\inc\AcMr.dll</HintPath>
+    </Reference>
+    <Reference Include="AcSeamless">
+      <HintPath>..\..\..\..\..\..\Object ARX\ObjectARX_2020\inc\AcSeamless.dll</HintPath>
+    </Reference>
+    <Reference Include="AcTcMgd">
+      <HintPath>..\..\..\..\..\..\Object ARX\ObjectARX_2020\inc\AcTcMgd.dll</HintPath>
+    </Reference>
+    <Reference Include="AcWindows">
+      <HintPath>..\..\..\..\..\..\Object ARX\ObjectARX_2020\inc\AcWindows.dll</HintPath>
+    </Reference>
+    <Reference Include="AdUIMgd">
+      <HintPath>..\..\..\..\..\..\Object ARX\ObjectARX_2020\inc\AdUIMgd.dll</HintPath>
+    </Reference>
+    <Reference Include="AdUiPalettes">
+      <HintPath>..\..\..\..\..\..\Object ARX\ObjectARX_2020\inc\AdUiPalettes.dll</HintPath>
+    </Reference>
     <Reference Include="AdWindows">
-      <HintPath>..\..\..\..\..\..\ObjectARX\ObjectARX_2020\inc\AdWindows.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Object ARX\ObjectARX_2020\inc\AdWindows.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="CsvHelper, Version=12.0.0.0, Culture=neutral, PublicKeyToken=8c4959082be5c823, processorArchitecture=MSIL">
-      <HintPath>..\packages\CsvHelper.12.1.2\lib\net45\CsvHelper.dll</HintPath>
+      <HintPath>..\..\..\..\OneDrive\Documents\GitHub\RabCab\RabCab.Utilities\bin\Debug\CsvHelper.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualBasic.PowerPacks, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
@@ -97,12 +118,12 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+      <HintPath>..\..\..\..\OneDrive\Documents\GitHub\RabCab\RabCab.Utilities\bin\Debug\System.ValueTuple.dll</HintPath>
     </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="UCImageCombo">
-      <HintPath>..\..\UCImageCombo\UCImageCombo\bin\Release\UCImageCombo.dll</HintPath>
+      <HintPath>..\..\..\..\OneDrive\Documents\GitHub\UCImageCombo\UCImageCombo\bin\Release\UCImageCombo.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore">
@@ -200,6 +221,7 @@
     <Compile Include="Commands\CombineSuite\RcSeparate.cs" />
     <Compile Include="Commands\CombineSuite\RcSubtrahend.cs" />
     <Compile Include="Commands\PaletteKit\RcPaletteLayer.cs" />
+    <Compile Include="Commands\ReferenceSuite\BlockKit\BlockToNamed.cs" />
     <Compile Include="Commands\ReferenceSuite\BlockKit\RcAutoAtt.cs" />
     <Compile Include="Commands\ReferenceSuite\BlockKit\RcAutoBlock.cs" />
     <Compile Include="Commands\ReferenceSuite\BlockKit\RcQuickRename.cs" />
