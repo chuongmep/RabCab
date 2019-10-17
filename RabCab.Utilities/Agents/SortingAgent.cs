@@ -1107,8 +1107,11 @@ namespace RabCab.Agents
                 using (var acText = new MText())
                 {
                     acText.TextHeight = SettingsUser.LayTextHeight;
-                    acText.Contents = e.RcName + " - " + e.RcQtyTotal * multAmount + " Pieces";
-                    //acText.Layer = ;
+                    acText.Contents = e.RcName +
+                                      " | MAT: " + e.EntLayer +
+                                      " | TECH: " + EnumAgent.GetNameOf(e.ProdType) +
+                                      " | QTY PER ASM: " + e.RcQtyTotal;
+                    acText.Layer = "Defpoints";
                     //acText.ColorIndex = ;                           
 
                     //ParseAndFill the insertion point and text alignment

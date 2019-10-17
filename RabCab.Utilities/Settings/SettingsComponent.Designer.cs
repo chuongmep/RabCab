@@ -1148,7 +1148,7 @@
             this.SortMix.Name = "SortMix";
             this.SortMix.Size = new System.Drawing.Size(65, 17);
             this.SortMix.TabIndex = 31;
-            this.SortMix.Text = "Mix S4S";
+            this.SortMix.Text = "Mix Saw";
             this.SortMix.UseVisualStyleBackColor = true;
             // 
             // Check_ResetPartCount

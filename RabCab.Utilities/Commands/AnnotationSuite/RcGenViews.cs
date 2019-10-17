@@ -298,7 +298,7 @@ namespace RabCab.Commands.AnnotationSuite
                     lay.SetPlotSettings(
                         //"ISO_full_bleed_2A0_(1189.00_x_1682.00_MM)", // Try this big boy!
                         // "ANSI_B_(11.00_x_17.00_Inches)",
-                        "ARCH_D_(24.00_x_36.00_Inches)",
+                        "ARCH_full_bleed_D_(36.00_x_24.00_Inches)",
                         "monochrome.ctb",
                         "AutoCAD PDF (High Quality Print).pc3"
                     );
@@ -373,12 +373,12 @@ namespace RabCab.Commands.AnnotationSuite
 
                             acVport.FitContentToViewport(acExt);
                             acVport.UpdateDisplay();
-
+                            acVport.Layer = "Defpoints";
                             // Enable the viewport
                             acVport.Visible = true;
                             acVport.On = true;
 
-                            acVport.CreateBaseViewFromVp(acSol.ObjectId, acCurEd, acCurDb, lay, acVport.CenterPoint);
+                            //acVport.CreateBaseViewFromVp(acSol.ObjectId, acCurEd, acCurDb, lay, acVport.CenterPoint);
 
                             System.Threading.Thread.Sleep(300);
 
@@ -441,19 +441,19 @@ namespace RabCab.Commands.AnnotationSuite
                 acTrans.Commit();
             }
 
-            using (var acTrans = acCurDb.TransactionManager.StartTransaction())
-            {
-                foreach (var acVp in vPorts)
-                {
-                    if (acVp.ObjectId == acCurDb.PaperSpaceVportId) continue;
+            //using (var acTrans = acCurDb.TransactionManager.StartTransaction())
+            //{
+            //    foreach (var acVp in vPorts)
+            //    {
+            //        if (acVp.ObjectId == acCurDb.PaperSpaceVportId) continue;
 
-                    var delVp = acTrans.GetObject(acVp.ObjectId, OpenMode.ForWrite) as Viewport;
-                    delVp.Erase();
-                    delVp.Dispose();
-                }
+            //        var delVp = acTrans.GetObject(acVp.ObjectId, OpenMode.ForWrite) as Viewport;
+            //        delVp.Erase();
+            //        delVp.Dispose();
+            //    }
 
-                acTrans.Commit();
-            }
+            //    acTrans.Commit();
+            //}
 
         }
 

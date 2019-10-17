@@ -164,9 +164,9 @@ namespace RabCab.Engine.Enumerators
             Unknown = -1,
             Box = 0,
             Sweep = 1,
-            S4S = 2,
+            Saw = 2,
             MillingOneSide = 3,
-            MillingManySide = 4
+            MillingTwoSide = 4
         }
 
         /// <summary>

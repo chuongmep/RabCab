@@ -346,13 +346,13 @@ namespace RabCab.Commands.PaletteKit
                                 case Enums.ProductionType.Unknown:
                                     _prodUnkown.Checked = true;
                                     break;
-                                case Enums.ProductionType.S4S:
+                                case Enums.ProductionType.Saw:
                                     _prodS4S.Checked = true;
                                     break;
                                 case Enums.ProductionType.MillingOneSide:
                                     _prodMOne.Checked = true;
                                     break;
-                                case Enums.ProductionType.MillingManySide:
+                                case Enums.ProductionType.MillingTwoSide:
                                     _prodMMany.Checked = true;
                                     break;
                                 case Enums.ProductionType.Box:
@@ -517,13 +517,13 @@ namespace RabCab.Commands.PaletteKit
                             case Enums.ProductionType.Unknown:
                                 _prodUnkown.Checked = true;
                                 break;
-                            case Enums.ProductionType.S4S:
+                            case Enums.ProductionType.Saw:
                                 _prodS4S.Checked = true;
                                 break;
                             case Enums.ProductionType.MillingOneSide:
                                 _prodMOne.Checked = true;
                                 break;
-                            case Enums.ProductionType.MillingManySide:
+                            case Enums.ProductionType.MillingTwoSide:
                                 _prodMMany.Checked = true;
                                 break;
                             case Enums.ProductionType.Box:
@@ -1302,7 +1302,7 @@ namespace RabCab.Commands.PaletteKit
                                         acTrans);
                                 else if (chk == _prodS4S)
                                     ent.UpdateXData(
-                                        Enums.ProductionType.S4S,
+                                        Enums.ProductionType.Saw,
                                         Enums.XDataCode.ProductionType,
                                         acCurDb,
                                         acTrans);
@@ -1314,7 +1314,7 @@ namespace RabCab.Commands.PaletteKit
                                         acTrans);
                                 else if (chk == _prodMMany)
                                     ent.UpdateXData(
-                                        Enums.ProductionType.MillingManySide,
+                                        Enums.ProductionType.MillingTwoSide,
                                         Enums.XDataCode.ProductionType,
                                         acCurDb,
                                         acTrans);

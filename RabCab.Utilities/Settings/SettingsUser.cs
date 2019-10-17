@@ -27,10 +27,10 @@ namespace RabCab.Settings
         public static bool PrioritizeRightAngles = false;
 
         //PartFinder
-        public static bool PartLeaderEnabled = true;
+        public static bool PartLeaderEnabled = false;
 
         //Automation
-        public static bool AutoLayerEnabled = true;
+        public static bool AutoLayerEnabled = false;
 
         //TableOptions
         public static double TableRowHeight = .035;
@@ -61,12 +61,12 @@ namespace RabCab.Settings
         //BOM options
         public static string BomTitle = "Bill Of Materials";
         public static bool BomLayer = true;
-        public static bool BomColor = true;
+        public static bool BomColor = false;
         public static bool BomName = true;
         public static bool BomWidth = true;
         public static bool BomLength = true;
         public static bool BomThickness = true;
-        public static bool BomVolume = true;
+        public static bool BomVolume = false;
         public static bool BomTextureDirection = true;
         public static bool BomProductionType = true;
         public static bool BomQty = true;
@@ -88,14 +88,14 @@ namespace RabCab.Settings
         public static double MarkTextHeight = 0.09;
 
         //Laying Options
-        public static int LayStep = 10;
-        public static double LayTextHeight = 2;
+        public static int LayStep = 5;
+        public static double LayTextHeight = .75;
         public static bool LayTextAbove = true;
         public static bool LayTextInside = false;
         public static bool LayTextLeft = true;
         public static bool LayTextCenter = false;
-        public static bool LayFlatShot = true;
-        public static bool LayAllSidesFlatShot = true;
+        public static bool LayFlatShot = false;
+        public static bool LayAllSidesFlatShot = false;
         public static bool PromptForMultiplication = true;
 
         //Annotation Options

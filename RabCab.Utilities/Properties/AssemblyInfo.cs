@@ -17,6 +17,7 @@ using RabCab.Commands.AnnotationSuite;
 using RabCab.Commands.AssemblySuite;
 using RabCab.Commands.AutomationSuite;
 using RabCab.Commands.CarpentrySuite;
+using RabCab.Commands.CNCSuite;
 using RabCab.Commands.CombineSuite;
 using RabCab.Commands.PaletteKit;
 using RabCab.Commands.ReferenceSuite.BlockKit;
@@ -87,7 +88,7 @@ using RabCab.Initialization;
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 
-[assembly: Guid("12540a60-474b-4908-8781-f758acf78931")]
+[assembly: Guid("12540b60-474b-4908-8781-f758acf78931")]
 
 [assembly: CommandClass(typeof(Debugging))]
 
@@ -168,7 +169,7 @@ using RabCab.Initialization;
 //[assembly: CommandClass(typeof(RcBreakPoints))]
 //[assembly: CommandClass(typeof(RcCheckWork))]
 //[assembly: CommandClass(typeof(RcExportPaths))]
-//[assembly: CommandClass(typeof(RcFlatten))]
+[assembly: CommandClass(typeof(RcFlatten))]
 //[assembly: CommandClass(typeof(RcNest))]
 //[assembly: CommandClass(typeof(RcLoopBit))]
 //[assembly: CommandClass(typeof(RcLoopInner))]

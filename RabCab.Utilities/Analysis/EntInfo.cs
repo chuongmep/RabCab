@@ -106,10 +106,10 @@ namespace RabCab.Analysis
         {
             get
             {
-                if (IsBox) return ProductionType.S4S;
+                if (IsBox) return ProductionType.Saw;
                 if (IsSweep) return ProductionType.Sweep;
-                if (Has3DFaces) return ProductionType.MillingManySide;
-                if (!HasHoles && !HasNonFlatFaces && FaceCount <= 6) return ProductionType.S4S;
+                if (Has3DFaces) return ProductionType.MillingTwoSide;
+                if (!HasHoles && !HasNonFlatFaces && FaceCount <= 6) return ProductionType.Saw;
 
                 //TODO check for double side milling
                 return ProductionType.MillingOneSide;
