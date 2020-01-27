@@ -372,6 +372,8 @@ namespace RabCab.Commands.AnnotationSuite
                             acCurDb.AppendEntity(acVport, acTrans);
 
                             acVport.FitContentToViewport(acExt);
+                            acVport.FitViewportToContent(acExt);
+                            acVport.CenterPoint = positions[j].Convert3D();
                             acVport.UpdateDisplay();
                             acVport.Layer = "Defpoints";
                             // Enable the viewport
@@ -390,7 +392,7 @@ namespace RabCab.Commands.AnnotationSuite
                             var insertMax = acVport.GeometricExtents.MaxPoint;
 
                             var mid = insertMin.GetMidPoint(insertMax);
-                            var midInsert = new Point3d(mid.X, insertMin.Y, 0);
+                            var midInsert = new Point3d(mid.X, positions[j].Convert3D().Y - 1, 0);
 
                             // Open the Block table for read
                             var acBlkTbl = acTrans.GetObject(acCurDb.BlockTableId, OpenMode.ForWrite) as BlockTable;

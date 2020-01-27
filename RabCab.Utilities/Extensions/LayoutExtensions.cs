@@ -363,5 +363,30 @@ namespace RabCab.Extensions
 
             vp.CustomScale *= fac;
         }
+
+        /// <summary>
+        ///     Sets the view in a viewport to contain the specified model extents.
+        /// </summary>
+        /// <param name="ext">The extents of the content to fit the viewport.</param>
+        /// <param name="fac">Optional factor to provide padding.</param>
+        public static void FitViewportToContent(
+            this Viewport vp, Extents3d ext)
+        {
+
+            var scale = vp.CustomScale;
+
+            // Get the dimensions of our view from the database extents
+            var hgt = (ext.MaxPoint.Y - ext.MinPoint.Y) * vp.CustomScale;
+            var wid = (ext.MaxPoint.X - ext.MinPoint.X) * vp.CustomScale;
+
+            vp.Height = hgt;
+            vp.Width = wid;
+
+            vp.UpdateDisplay();
+
+            vp.FindBestScale(ext);
+
+            //vp.ViewHeight = 1.1;
+        }
     }
 }

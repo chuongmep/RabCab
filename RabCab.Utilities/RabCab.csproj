@@ -12,7 +12,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>RabCab</RootNamespace>
     <AssemblyName>RabCab</AssemblyName>
-    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <FileUpgradeFlags>
@@ -61,59 +61,60 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AcCoreMgd">
-      <HintPath>..\..\..\..\..\..\Object ARX\ObjectARX_2020\inc\AcCoreMgd.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\ObjectARX_2020\inc\AcCoreMgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="AcCui">
-      <HintPath>..\..\..\..\..\..\Object ARX\ObjectARX_2020\inc\AcCui.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\ObjectARX_2020\inc\AcCui.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="AcDbMgd">
-      <HintPath>..\..\..\..\..\..\Object ARX\ObjectARX_2020\inc\AcDbMgd.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\ObjectARX_2020\inc\AcDbMgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="acdbmgdbrep">
-      <HintPath>..\..\..\..\..\..\Object ARX\ObjectARX_2020\inc\acdbmgdbrep.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\ObjectARX_2020\inc\acdbmgdbrep.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="AcDx">
-      <HintPath>..\..\..\..\..\..\Object ARX\ObjectARX_2020\inc\AcDx.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\ObjectARX_2020\inc\AcDx.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="AcMgd">
-      <HintPath>..\..\..\..\..\..\Object ARX\ObjectARX_2020\inc\AcMgd.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\ObjectARX_2020\inc\AcMgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="AcMr">
-      <HintPath>..\..\..\..\..\..\Object ARX\ObjectARX_2020\inc\AcMr.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\ObjectARX_2020\inc\AcMr.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="AcSeamless">
-      <HintPath>..\..\..\..\..\..\Object ARX\ObjectARX_2020\inc\AcSeamless.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\ObjectARX_2020\inc\AcSeamless.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="AcTcMgd">
-      <HintPath>..\..\..\..\..\..\Object ARX\ObjectARX_2020\inc\AcTcMgd.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\ObjectARX_2020\inc\AcTcMgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="AcWindows">
-      <HintPath>..\..\..\..\..\..\Object ARX\ObjectARX_2020\inc\AcWindows.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\ObjectARX_2020\inc\AcWindows.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="AdUIMgd">
-      <HintPath>..\..\..\..\..\..\Object ARX\ObjectARX_2020\inc\AdUIMgd.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\ObjectARX_2020\inc\AdUIMgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="AdUiPalettes">
-      <HintPath>..\..\..\..\..\..\Object ARX\ObjectARX_2020\inc\AdUiPalettes.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\ObjectARX_2020\inc\AdUiPalettes.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="AdWindows">
-      <HintPath>..\..\..\..\..\..\Object ARX\ObjectARX_2020\inc\AdWindows.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\ObjectARX_2020\inc\AdWindows.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="CsvHelper, Version=12.0.0.0, Culture=neutral, PublicKeyToken=8c4959082be5c823, processorArchitecture=MSIL">
-      <HintPath>..\packages\CsvHelper.12.1.2\lib\net45\CsvHelper.dll</HintPath>
+      <HintPath>..\packages\CsvHelper.12.2.0\lib\net47\CsvHelper.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualBasic.PowerPacks, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
@@ -125,12 +126,14 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\OneDrive\Documents\GitHub\RabCab\RabCab.Utilities\bin\Debug\System.ValueTuple.dll</HintPath>
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+      <Private>True</Private>
     </Reference>
+    <Reference Include="System.Windows" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="UCImageCombo">
-      <HintPath>..\..\..\..\OneDrive\Documents\GitHub\UCImageCombo\UCImageCombo\bin\Release\UCImageCombo.dll</HintPath>
+      <HintPath>..\..\..\..\Desktop\References\UCImageCombo.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore">
@@ -139,6 +142,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <None Include="Resources\Icons\ProdMultSide[Mkt].png" />
   </ItemGroup>
   <ItemGroup>
@@ -526,7 +530,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="packages.config" />
     <None Include="Resources\CUI\RCSuite.cuix" />
     <None Include="Resources\DwgRepo\[DWG]RcAlign.dwg" />
     <None Include="Resources\DwgRepo\[DWG]RcAlignViews.dwg" />
